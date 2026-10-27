@@ -4,8 +4,8 @@ set -euo pipefail
 # Where to: GLASS_DEST (HA's config/www/glass-cards) and GLASS_BACKUPS, from the environment
 # or from scripts/.deploy.env (kept out of git).
 cd "$(dirname "$0")/.."
-[ -f scripts/.deploy.env ] && . scripts/.deploy.env
-DEST="${GLASS_DEST:?set GLASS_DEST to HA's config/www/glass-cards (or put it in scripts/.deploy.env)}"
+[ -z "${GLASS_DEST:-}" ] && [ -f scripts/.deploy.env ] && . scripts/.deploy.env
+DEST="${GLASS_DEST:?set GLASS_DEST to the config/www/glass-cards folder of Home Assistant, or put it in scripts/.deploy.env}"
 BACKUPS="${GLASS_BACKUPS:-}"
 if [ -n "$BACKUPS" ] && [ -d "$DEST" ]; then
   stamp=$(date +%Y%m%d-%H%M%S)
