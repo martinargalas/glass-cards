@@ -1,0 +1,8 @@
+{
+  "name": "Glass Cards",
+  "filename": "glass-cards.js",
+  "render_readme": true,
+  "content_in_root": false,
+  "zip_release": false,
+  "homeassistant": "2025.1.0"
+}

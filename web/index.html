@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Glass Cards – live demo</title>
+    <meta name="robots" content="noindex" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #1b2133;
+        font-family: Roboto, "Inter", system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      :root {
+        --primary-text-color: #1c1c1e;
+        --secondary-text-color: #6b6f7a;
+        --primary-color: #0a84ff;
+        --card-background-color: rgba(255, 255, 255, 0.7);
+      }
+      :root[dark] {
+        --primary-text-color: #f2f2f7;
+        --secondary-text-color: #a1a4ad;
+        --card-background-color: rgba(28, 28, 32, 0.7);
+      }
+      #root {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- the element HA paints the wallpaper with: the liquid glass refracts it -->
+    <hui-view-background style="display: block; position: fixed; inset: 0; z-index: 0; background: center / cover no-repeat"></hui-view-background>
+    <div id="root"></div>
+    <script type="module" src="./demo.ts"></script>
+  </body>
+</html>

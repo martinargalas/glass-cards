@@ -1,0 +1,88 @@
+# Glass Cards – messages for the glass-notifications card.
+#
+# Copy this file to config/packages/ and turn packages on in configuration.yaml:
+#   homeassistant:
+#     packages: !include_dir_named packages
+# then restart Home Assistant.
+#
+# Send a message from any automation or script:
+#   - action: script.glass_notify
+#     data: { id: washer_done, level: info, title: Washing is done, icon: mdi:washing-machine }
+# The same id replaces the message. Info messages expire after `ttl` seconds (15 min by
+# default), warnings and alerts stay until dismissed. Dismissing works on every screen.
+
+template:
+  - trigger:
+      - trigger: event
+        event_type: glass_notify
+      - trigger: event
+        event_type: glass_notify_dismiss
+      - trigger: time_pattern
+        minutes: /15
+    sensor:
+      - name: "glass_notifications"
+        unique_id: glass_notifications
+        icon: mdi:bell-outline
+        state: "{{ now().isoformat() }}"
+        attributes:
+          notes: >-
+            {% set t = as_timestamp(now()) %}
+            {% set old = this.attributes.notes if this is defined and this.attributes is defined and this.attributes.notes is defined else [] %}
+            {% set d = trigger.event.data if trigger.platform == 'event' else {} %}
+            {% set ns = namespace(out=[]) %}
+            {% for n in old if n.id != d.get('id') and (not n.expires or n.expires > t) %}
+              {% set ns.out = ns.out + [n] %}
+            {% endfor %}
+            {% if trigger.platform == 'event' and trigger.event.event_type == 'glass_notify' and d.get('id') %}
+              {% set level = d.get('level', 'info') %}
+              {% set ttl = d.get('ttl', 900 if level == 'info' else 3600 if level == 'snooze' else 0) | int(0) %}
+              {% set ns.out = ns.out + [{'id': d.id, 'level': level, 'title': d.get('title', ''),
+                  'message': d.get('message', ''), 'icon': d.get('icon', ''), 'time': t,
+                  'expires': (t + ttl) if ttl > 0 else 0}] %}
+            {% endif %}
+            {{ ns.out[-30:] }}
+
+script:
+  glass_notify:
+    alias: Glass – send a message
+    description: A message for the glass-notifications card (the same id replaces it).
+    mode: queued
+    fields:
+      id:
+        description: The message's id
+        required: true
+        selector: { text: {} }
+      level:
+        description: info / warning / alert / snooze
+        default: info
+        selector: { select: { options: [info, warning, alert, snooze] } }
+      title:
+        selector: { text: {} }
+      message:
+        selector: { text: {} }
+      icon:
+        selector: { icon: {} }
+      ttl:
+        description: Seconds until it expires (0 = until dismissed); default info 900, snooze 3600, otherwise 0
+        selector: { number: { min: 0, max: 604800, unit_of_measurement: s } }
+    sequence:
+      - event: glass_notify
+        event_data:
+          id: "{{ id }}"
+          level: "{{ level | default('info') }}"
+          title: "{{ title | default('') }}"
+          message: "{{ message | default('') }}"
+          icon: "{{ icon | default('') }}"
+          ttl: "{{ ttl if ttl is defined else (900 if (level | default('info')) == 'info' else 3600 if level == 'snooze' else 0) }}"
+
+  glass_notify_dismiss:
+    alias: Glass – dismiss a message
+    mode: queued
+    fields:
+      id:
+        required: true
+        selector: { text: {} }
+    sequence:
+      - event: glass_notify_dismiss
+        event_data:
+          id: "{{ id }}"

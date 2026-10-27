@@ -1,0 +1,26 @@
+{
+  "name": "glass-cards",
+  "version": "0.1.0",
+  "description": "Liquid / frosted glass cards for Home Assistant dashboards. Fast, themeable without card_mod.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "node scripts/demo-dashboard.mjs && tsc --noEmit && node scripts/check-i18n.mjs && vite build && node scripts/copy-wallpapers.mjs && node scripts/write-version.mjs",
+    "watch": "vite build --watch",
+    "typecheck": "tsc --noEmit",
+    "deploy": "npm run build && bash scripts/deploy.sh",
+    "dev": "vite --config dev/vite.config.ts",
+    "check-i18n": "node scripts/check-i18n.mjs",
+    "web": "node scripts/demo-dashboard.mjs && vite --config web/vite.config.ts",
+    "build:web": "node scripts/demo-dashboard.mjs && vite build --config web/vite.config.ts && mkdir -p dist-web/assets/wallpapers && cp wallpapers/hills-day.jpg wallpapers/hills-night-blue-soft.jpg dist-web/assets/wallpapers/"
+  },
+  "dependencies": {
+    "lit": "^3.3.3"
+  },
+  "devDependencies": {
+    "@mdi/js": "^7.4.47",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.4",
+    "yaml": "^2.9.1"
+  }
+}

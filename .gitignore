@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+# local dev assets (personal photos, wallpaper)
+dev/public/
+# personal example kept out of the public repo
+examples/home.yaml
+dist-web/
+dev/main.ts
+dev/mock.ts
+dev/index.html
+scripts/.deploy.env
+dev/
