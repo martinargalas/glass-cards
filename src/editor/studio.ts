@@ -1691,7 +1691,12 @@ export class GlassStudio extends LitElement {
       const head = document.createElement("div");
       head.className = "pop-head";
       head.style.cssText = "display:flex;align-items:center;gap:10px;font-size:20px;font-weight:600";
-      head.innerHTML = `<ha-icon icon="${info.icon ?? "mdi:window-maximize"}"></ha-icon><span>${(info.name ?? hash).replace(/</g, "&lt;")}</span>`;
+      // built from elements, not markup: the name and icon come from the dashboard's config
+      const icon = document.createElement("ha-icon") as HTMLElement & { icon?: string };
+      icon.icon = info.icon ?? "mdi:window-maximize";
+      const name = document.createElement("span");
+      name.textContent = info.name ?? hash;
+      head.append(icon, name);
       body.appendChild(head);
     }
     for (const el of els) body.appendChild(el);
