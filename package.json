@@ -12,7 +12,7 @@
     "dev": "vite --config dev/vite.config.ts",
     "check-i18n": "node scripts/check-i18n.mjs",
     "web": "node scripts/demo-dashboard.mjs && vite --config web/vite.config.ts",
-    "build:web": "node scripts/demo-dashboard.mjs && vite build --config web/vite.config.ts && mkdir -p dist-web/assets/wallpapers && cp wallpapers/hills-day.jpg wallpapers/hills-night-blue-soft.jpg dist-web/assets/wallpapers/"
+    "build:web": "node scripts/demo-dashboard.mjs && vite build --config web/vite.config.ts && mkdir -p dist-web/assets/wallpapers dist-web/assets/demo dist-web/assets/vendor && cp wallpapers/hills-day.jpg wallpapers/hills-night-blue-soft.jpg dist-web/assets/wallpapers/ && cp demo-assets/* dist-web/assets/demo/ && (cp web/vendor/*.js dist-web/assets/vendor/ 2>/dev/null || true)"
   },
   "dependencies": {
     "lit": "^3.3.3"

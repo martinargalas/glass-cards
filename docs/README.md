@@ -4,6 +4,8 @@ Glass Cards are cards for Home Assistant dashboards with a liquid glass look –
 Studio**, the editor you build the whole dashboard in, with a live preview on a phone, a
 tablet or a wall display.
 
+![A glass dashboard](images/tablet-day.webp)
+
 You don't need to know YAML. Everything on these pages can be done in Glass Studio; the
 YAML is there for when you want to copy, share or fine-tune.
 

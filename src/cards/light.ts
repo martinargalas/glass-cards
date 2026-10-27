@@ -1,5 +1,6 @@
 import { tr } from "../i18n";
 import { css, html, nothing } from "lit";
+import { assetUrl } from "../core/liquid-gl";
 import { GlassElement } from "../core/glass-element";
 import type { ActionConfig, BaseCardConfig, HassEntity, HomeAssistant } from "../core/types";
 import { registerCard } from "../core/registry";
@@ -502,7 +503,7 @@ class GlassLight extends GlassElement<LightConfig> {
           aria-label=${name}
           @click=${() => this._hass?.callService("scene", "turn_on", { entity_id: sc.entity })}
         >
-          ${sc.image ? html`<i class="simg" style="background-image:url('${sc.image}')"></i>` : html`<ha-icon .icon=${sc.icon ?? "mdi:palette"}></ha-icon>`}
+          ${sc.image ? html`<i class="simg" style="background-image:url('${assetUrl(sc.image)}')"></i>` : html`<ha-icon .icon=${sc.icon ?? "mdi:palette"}></ha-icon>`}
         </button>`;
       })}
     </div>`;

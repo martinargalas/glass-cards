@@ -1,4 +1,5 @@
 import type { HassEntity } from "../core/types";
+import { HOME } from "./home.generated";
 
 /**
  * The demo home: Alex and Sam, six rooms, a heat pump, solar panels with a battery, a
@@ -18,16 +19,11 @@ function avatar(initials: string, from: string, to: string) {
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
-const temp = (v: number, name: string): DemoState => [String(v), { unit_of_measurement: "°C", device_class: "temperature", state_class: "measurement", friendly_name: name }];
-const room = (current: number, target: number, action: "heating" | "idle", name: string): DemoState => [
-  "heat",
-  { current_temperature: current, temperature: target, hvac_action: action, hvac_modes: ["off", "heat"], min_temp: 5, max_temp: 30, target_temp_step: 0.5, friendly_name: name },
-];
-const pollutant = (v: number, name: string, device_class: string, unit = "µg/m³"): DemoState => [String(v), { unit_of_measurement: unit, device_class, state_class: "measurement", friendly_name: name }];
-const tilt = (v: number, name: string): DemoState => [String(v), { min: 0, max: 100, step: 5, mode: "box", unit_of_measurement: "%", friendly_name: name }];
-
-export const WORLD: Record<string, DemoState> = {
-  // people
+/**
+ * What's going on in the demo home right now – a lively evening rather than the quiet
+ * moment the snapshot happened to catch (examples/demo.yaml shows these first).
+ */
+const LIVE: Record<string, DemoState> = {
   "person.alex": ["home", { friendly_name: "Alex", entity_picture: avatar("A", "#7aa7ff", "#5161d6") }],
   "person.sam": ["Work", { friendly_name: "Sam", entity_picture: avatar("S", "#ffb37a", "#e0617d") }],
   "zone.work": ["0", { friendly_name: "Work", icon: "mdi:briefcase" }],
@@ -35,136 +31,80 @@ export const WORLD: Record<string, DemoState> = {
   "sensor.alex_phone_battery_state": "charging",
   "sensor.sam_phone_battery": ["46", { unit_of_measurement: "%", device_class: "battery" }],
   "sensor.sam_phone_battery_state": "discharging",
-
-  // weather and outside
-  "weather.home": [
-    "partlycloudy",
-    { friendly_name: "Home", temperature: 14.6, temperature_unit: "°C", humidity: 64, pressure: 1016, pressure_unit: "hPa", wind_speed: 14, wind_speed_unit: "km/h", wind_bearing: 240, apparent_temperature: 13.2, cloud_coverage: 45, supported_features: 3 },
-  ],
-  "sensor.outdoor_temperature": temp(14.8, "Outside"),
-  "sensor.outdoor_illuminance": ["23400", { unit_of_measurement: "lx", device_class: "illuminance", friendly_name: "Light outside" }],
-  "sensor.air_quality_index": ["38", { device_class: "aqi", state_class: "measurement", friendly_name: "Air quality" }],
-  "sensor.air_quality_pm2_5": pollutant(9, "PM2.5", "pm25"),
-  "sensor.air_quality_pm10": pollutant(17, "PM10", "pm10"),
-  "sensor.air_quality_ozone": pollutant(41, "Ozone", "ozone"),
-  "sensor.air_quality_nitrogen_dioxide": pollutant(12, "Nitrogen dioxide", "nitrogen_dioxide"),
-
-  // security and the house
-  "alarm_control_panel.home_alarm": ["armed_home", { friendly_name: "Home alarm" }],
-  "binary_sensor.bedroom_window": ["off", { device_class: "window", friendly_name: "Bedroom window" }],
-  "sensor.glass_notifications": ["0", { friendly_name: "Notifications", notes: [] }],
-
-  // energy
-  "sensor.grid_power": ["-1240", { unit_of_measurement: "W", device_class: "power", friendly_name: "Grid" }],
-  "sensor.home_battery": ["76", { unit_of_measurement: "%", device_class: "battery", friendly_name: "Home battery" }],
-
-  // heat pump and hot water
-  "climate.heat_pump": [
-    "heat",
-    { friendly_name: "Heating", hvac_modes: ["off", "heat"], hvac_action: "heating", preset_modes: ["comfort", "eco", "away"], preset_mode: "comfort", current_temperature: 21.6, temperature: 21.5 },
-  ],
-  "water_heater.hot_water": ["heat_pump", { friendly_name: "Hot water", temperature: 48, current_temperature: 47, min_temp: 10, max_temp: 60, operation_list: ["eco", "heat_pump", "performance", "off"], operation_mode: "heat_pump" }],
-  "binary_sensor.heat_pump_compressor": ["on", { friendly_name: "Compressor" }],
-  "binary_sensor.heat_pump_heating": ["on", { friendly_name: "Heating the house" }],
-  "binary_sensor.hot_water_heating": ["off", { friendly_name: "Heating the water" }],
-  "sensor.heat_pump_supply_temperature": temp(34.2, "Supply"),
-  "sensor.heat_pump_return_temperature": temp(29.8, "Return"),
-  "sensor.hot_water_temperature": temp(47, "Hot water"),
-  "number.heating_curve_shift": ["2", { min: -13, max: 40, step: 1, friendly_name: "Curve shift" }],
-  "number.heating_curve_slope": ["1.1", { min: 0.2, max: 3.5, step: 0.1, friendly_name: "Curve slope" }],
-
-  // rooms: climate
-  "climate.living_room": room(22.1, 22, "idle", "Living room"),
-  "climate.bedroom": room(19.4, 20, "heating", "Bedroom"),
-  "climate.kids_room": room(21.2, 21.5, "heating", "Kids' room"),
-  "sensor.living_room_temperature": temp(22.1, "Living room"),
-  "sensor.kitchen_temperature": temp(22.8, "Kitchen"),
-  "sensor.office_temperature": temp(21.4, "Office"),
-  "sensor.bedroom_temperature": temp(19.4, "Bedroom"),
-  "sensor.kids_room_temperature": temp(21.2, "Kids' room"),
-
-  // rooms: lights, media, blinds
-  "light.living_room": ["on", { friendly_name: "Living room ceiling", brightness: 178, color_mode: "color_temp", color_temp_kelvin: 2900, min_color_temp_kelvin: 2200, max_color_temp_kelvin: 6500, supported_color_modes: ["color_temp"] }],
-  "light.living_room_lamp": ["on", { friendly_name: "Floor lamp", brightness: 120, supported_color_modes: ["brightness"], color_mode: "brightness" }],
-  "light.living_room_strip": ["off", { friendly_name: "TV backlight", supported_color_modes: ["hs"], hs_color: [220, 80] }],
-  "scene.living_room_relax": ["2026-01-01T18:00:00+00:00", { friendly_name: "Relax" }],
-  "scene.living_room_read": ["2026-01-01T18:00:00+00:00", { friendly_name: "Read" }],
-  "scene.living_room_movie": ["2026-01-01T18:00:00+00:00", { friendly_name: "Movie" }],
-  "scene.living_room_night": ["2026-01-01T18:00:00+00:00", { friendly_name: "Night" }],
-  "media_player.living_room_tv": ["playing", { friendly_name: "Living room TV", media_title: "Nature documentary", app_name: "TV" }],
-  "cover.living_room_blind": ["open", { friendly_name: "Living room blind", current_position: 100, current_tilt_position: 50 }],
-  "light.kitchen_ceiling": ["off", { friendly_name: "Kitchen ceiling", supported_color_modes: ["brightness"] }],
-  "light.kitchen_counter": ["on", { friendly_name: "Counter LED", brightness: 210, supported_color_modes: ["brightness"], color_mode: "brightness" }],
-  "media_player.kitchen_speaker": ["playing", { friendly_name: "Kitchen speaker", media_title: "Morning jazz", media_artist: "Radio" }],
-  "switch.office_pc": ["on", { friendly_name: "Office PC" }],
-  "cover.office_blind": ["open", { friendly_name: "Office blind", current_position: 100, current_tilt_position: 40 }],
-  "switch.office_blind_pause": ["off", { friendly_name: "Pause the office blind" }],
-  "light.bedroom": ["off", { friendly_name: "Bedroom lamp", supported_color_modes: ["brightness"] }],
-  "cover.bedroom_blind": ["closed", { friendly_name: "Bedroom blind", current_position: 0, current_tilt_position: 20 }],
-  "light.kids_room": ["off", { friendly_name: "Kids' room light", supported_color_modes: ["brightness"] }],
-  "input_boolean.star_projector": ["off", { friendly_name: "Star projector" }],
-  "switch.bathroom_light": ["off", { friendly_name: "Bathroom light" }],
-  "media_player.bathroom_speaker": ["paused", { friendly_name: "Bathroom speaker" }],
-
-  // blinds automation
-  "automation.blinds_by_sun": ["on", { friendly_name: "Blinds follow the sun", last_triggered: iso(-38) }],
-  "sensor.blinds_shading_level": ["mid", { friendly_name: "Shading", options: ["open", "min", "mid", "max"] }],
-  "input_number.tilt_summer_low": tilt(35, "Summer, low sun"),
-  "input_number.tilt_summer_high": tilt(60, "Summer, high sun"),
-  "input_number.tilt_winter_low": tilt(15, "Winter, low sun"),
-  "input_number.tilt_winter_high": tilt(30, "Winter, high sun"),
-
-  // machines
+  "media_player.apple_tv_4k": ["playing", { friendly_name: "Living room TV", media_title: "A nature documentary", app_name: "TV" }],
+  "media_player.office": ["playing", { friendly_name: "Kitchen speaker", media_title: "Morning jazz", media_artist: "Radio" }],
   "sensor.washer_machine_state": ["run", { friendly_name: "Washer" }],
   "sensor.washer_job_state": ["rinse", { friendly_name: "Washer job" }],
   "sensor.washer_remaining_time": ["0:42", { friendly_name: "Washer time left" }],
   "sensor.washer_completion_time": [iso(42), { device_class: "timestamp", friendly_name: "Washer done at" }],
-  "vacuum.robot_vacuum": ["docked", { friendly_name: "Robot vacuum", battery_level: 100, fan_speed: "Automatic" }],
-  "sensor.robot_vacuum_battery": ["100", { unit_of_measurement: "%", device_class: "battery" }],
-  "lawn_mower.garden_mower": ["mowing", { friendly_name: "Lawn mower" }],
-  "sensor.garden_mower_battery": ["64", { unit_of_measurement: "%", device_class: "battery" }],
-  "sensor.garden_mower_progress": ["37", { unit_of_measurement: "%" }],
-
-  // calendars
-  "calendar.family": ["off", { friendly_name: "Family" }],
-  "calendar.waste_collection": ["off", { friendly_name: "Waste collection" }],
+  "binary_sensor.washer_power": ["on", { friendly_name: "Washer power" }],
+  "binary_sensor.heat_pump_compressor": ["on", { friendly_name: "Compressor" }],
+  "sensor.glass_notifications": ["0", { friendly_name: "Notifications", notes: [] }],
+  // the weather now: what the forecast (demoForecast) starts with, by day or night
+  "weather.home": [new Date().getHours() >= 7 && new Date().getHours() < 19 ? "partlycloudy" : "clear-night", { friendly_name: "Home", temperature: 14.6, temperature_unit: "°C", humidity: 64, pressure: 1016, pressure_unit: "hPa", wind_speed: 14, wind_speed_unit: "km/h", wind_bearing: 240, apparent_temperature: 13.2, cloud_coverage: 45, supported_features: 3 }],
+  "sensor.heat_pump_outside_temperature": ["14.8", { unit_of_measurement: "°C", device_class: "temperature", state_class: "measurement", friendly_name: "Outside" }],
 };
+
+export const WORLD: Record<string, DemoState> = { ...HOME, ...LIVE };
 
 type Ctx = { set: (id: string, s: DemoState) => void; get: (id: string) => HassEntity | undefined; data: Record<string, any> };
 
-const lights = (ctx: Ctx, list: [string, number | 0][]) => {
+const lights = (ctx: Ctx, list: [string, number][]) => {
   for (const [id, b] of list) ctx.set(id, b ? ["on", { brightness: b }] : ["off", { brightness: null }]);
+};
+const scene = (room: string, levels: Record<string, number>) => (ctx: Ctx) => lights(ctx, [[`light.${room}`, levels[room] ?? 0]]);
+const blind = (room: string, cover: string) => ({
+  [`script.open_blinds_${room}`]: (ctx: Ctx) => ctx.set(cover, ["open", { current_position: 100 }]),
+  [`script.close_blinds_${room}`]: (ctx: Ctx) => ctx.set(cover, ["closed", { current_position: 0 }]),
+  [`script.tilt_blinds_${room}_min`]: (ctx: Ctx) => ctx.set(cover, ["open", { current_tilt_position: 20 }]),
+  [`script.tilt_blinds_${room}_mid`]: (ctx: Ctx) => ctx.set(cover, ["open", { current_tilt_position: 50 }]),
+  [`script.tilt_blinds_${room}_max`]: (ctx: Ctx) => ctx.set(cover, ["open", { current_tilt_position: 90 }]),
+});
+const kitchenPreset = (upper: boolean, lower: boolean) => (ctx: Ctx) => {
+  ctx.set("binary_sensor.kitchen_lights_upper_on", upper ? "on" : "off");
+  ctx.set("binary_sensor.kitchen_lights_lower_on", lower ? "on" : "off");
+  ctx.set("binary_sensor.kitchen_lights_all_on", upper && lower ? "on" : "off");
+  ctx.set("binary_sensor.kitchen_lights_off_on", !upper && !lower ? "on" : "off");
+  ctx.set("binary_sensor.kitchen_lights_any_on", upper || lower ? "on" : "off");
+  ctx.set("light.kitchen_led", upper || lower ? ["on", { brightness: 200 }] : "off");
 };
 
 /** What scenes, scripts and helpers do in the demo home. */
 export const EFFECTS: Record<string, (ctx: Ctx) => void> = {
-  "scene.living_room_relax": (ctx) =>
-    lights(ctx, [
-      ["light.living_room", 110],
-      ["light.living_room_lamp", 140],
-      ["light.living_room_strip", 0],
+  ...Object.fromEntries(
+    (["living_room", "kitchen", "hallway"] as const).flatMap((room) => [
+      [`scene.${room}_relax`, scene(room, { [room]: 110 })],
+      [`scene.${room}_read`, scene(room, { [room]: 230 })],
+      [`scene.${room}_concentrate`, scene(room, { [room]: 255 })],
+      [`scene.${room}_natural_light`, scene(room, { [room]: 190 })],
+      [`scene.${room}_nightlight`, scene(room, { [room]: 18 })],
     ]),
-  "scene.living_room_read": (ctx) =>
-    lights(ctx, [
-      ["light.living_room", 255],
-      ["light.living_room_lamp", 200],
-      ["light.living_room_strip", 0],
-    ]),
-  "scene.living_room_movie": (ctx) => {
-    lights(ctx, [
-      ["light.living_room", 0],
-      ["light.living_room_lamp", 40],
-      ["light.living_room_strip", 160],
-    ]);
-    ctx.set("cover.living_room_blind", ["closed", { current_position: 0 }]);
-    ctx.set("media_player.living_room_tv", "playing");
+  ),
+  ...blind("office", "cover.office"),
+  ...blind("kids", "cover.kids_room"),
+  ...blind("bedroom", "cover.balcony"),
+  "select.kitchen_led_preset=Lights off": kitchenPreset(false, false),
+  "select.kitchen_led_preset=Upper light": kitchenPreset(true, false),
+  "select.kitchen_led_preset=Lower light": kitchenPreset(false, true),
+  "select.kitchen_led_preset=All lights": kitchenPreset(true, true),
+  "script.kids_radio_button_toggle": (ctx) => ctx.set("input_boolean.kids_radio", ctx.get("input_boolean.kids_radio")?.state === "on" ? "off" : "on"),
+  "script.kids_bedtime": (ctx) => {
+    const v = ctx.data.volba ?? ctx.data.choice;
+    const on = v === "both" ? true : v === "off" ? false : !(ctx.get("input_boolean.kids_radio")?.state === "on" || ctx.get("input_boolean.star_projector")?.state === "on");
+    ctx.set("input_boolean.kids_radio", on ? "on" : "off");
+    ctx.set("input_boolean.star_projector", on ? "on" : "off");
   },
-  "scene.living_room_night": (ctx) =>
-    lights(ctx, [
-      ["light.living_room", 0],
-      ["light.living_room_lamp", 20],
-      ["light.living_room_strip", 0],
-    ]),
+  "script.bathroom_lights_toggle": (ctx) => {
+    const ids = ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"];
+    const on = !ids.some((id) => ctx.get(id)?.state === "on");
+    for (const id of ids) ctx.set(id, on ? "on" : "off");
+  },
+  "script.vacuum_and_mop": (ctx) => {
+    ctx.set("vacuum.vacuum", "cleaning");
+    ctx.set("vacuum.mop", "cleaning");
+  },
+  "script.mower_pause": (ctx) => ctx.set("lawn_mower.mower", "paused"),
+  "script.mower_unpause": (ctx) => ctx.set("lawn_mower.mower", "mowing"),
 };
 
 /* ── Made-up history, forecast and calendar ─────────────────────────────── */
@@ -185,7 +125,14 @@ export function demoHistory(id: string, now: HassEntity, start: number, end: num
   const step = 10 * 60000;
   const value = parseFloat(now.state);
   const numeric = Number.isFinite(value);
-  const outside = id === "sensor.outdoor_temperature";
+  const outside = /outdoor|outside/.test(id);
+  // a meter (kWh since ever) only grows: back in time it was lower, by a day's worth
+  if (numeric && now.attributes.state_class === "total_increasing") {
+    const perStep = (Math.max(value, 1) / 2000) * (step / 3600000);
+    for (let t = start, i = 0; t < end; t += step, i++) out.push({ s: (value - ((end - t) / step) * perStep * (0.6 + noise(id, i) * 0.8)).toFixed(2), lu: t / 1000 });
+    out.push({ s: now.state, lu: end / 1000 });
+    return out;
+  }
   for (let t = start, i = 0; t < end; t += step, i++) {
     const hour = new Date(t).getHours() + new Date(t).getMinutes() / 60;
     let s: string;
@@ -198,6 +145,25 @@ export function demoHistory(id: string, now: HassEntity, start: number, end: num
     out.push({ s, lu: t / 1000 });
   }
   out.push({ s: now.state, lu: end / 1000 });
+  return out;
+}
+
+/**
+ * Long-term statistics (what apexcharts-card asks for energy charts): per period a mean,
+ * min, max and a growing sum, like HA's recorder keeps them.
+ */
+export function demoStatistics(id: string, now: HassEntity, start: number, end: number, period: string) {
+  const step = { "5minute": 300000, hour: 3600000, day: 86400000, week: 7 * 86400000, month: 30 * 86400000 }[period] ?? 3600000;
+  const value = Math.abs(parseFloat(now.state)) || 1;
+  const out: { start: number; end: number; mean: number; min: number; max: number; sum: number; state: number; change: number }[] = [];
+  let sum = 0;
+  for (let t = start, i = 0; t < end; t += step, i++) {
+    const hour = new Date(t).getHours();
+    const day = step < 86400000 ? Math.max(0, Math.sin(((hour - 6) / 24) * Math.PI * 2)) : 1;
+    const change = (value / (step < 86400000 ? 24 : 1)) * (0.4 + noise(id, i) * 0.9) * (id.includes("pv") || id.includes("generation") ? day : 1);
+    sum += change;
+    out.push({ start: t, end: t + step, mean: change, min: change * 0.7, max: change * 1.3, sum, state: sum, change });
+  }
   return out;
 }
 
@@ -246,12 +212,14 @@ export function demoCalendar(id: string, from: number, to: number) {
     return { dateTime: t.toISOString() };
   };
   const events =
-    id === "calendar.waste_collection"
+    id === "calendar.utilities"
       ? [
           { summary: "Paper and plastic", start: day(1), end: day(2) },
           { summary: "General waste", start: day(4), end: day(5) },
         ]
-      : [
+      : id === "calendar.holidays"
+        ? [{ summary: "Holiday", start: day(5), end: day(6) }]
+        : [
           { summary: "Swimming lesson", start: day(0, 17, 30), end: day(0, 18, 30), location: "City pool" },
           { summary: "Dinner with Jamie", start: day(0, 19, 30), end: day(0, 22, 0) },
           { summary: "Dentist", start: day(1, 9, 0), end: day(1, 9, 45), location: "Main Street 12" },

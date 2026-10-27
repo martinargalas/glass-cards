@@ -10,3 +10,5 @@ dev/mock.ts
 dev/index.html
 scripts/.deploy.env
 dev/
+private/
+web/vendor/

@@ -1,0 +1,3578 @@
+# Glass Cards – the demo dashboard's pop-ups (Bubble Card), one section each.
+# The demo dashboard loads them with overlay_source.
+title: Glass demo – pop-ups
+views:
+  - title: Tablet
+    path: tablet
+    type: sections
+    max_columns: 4
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Navigation
+          - type: custom:bubble-card
+            card_type: horizontal-buttons-stack
+            width_desktop: 620px
+            auto_order: false
+            is_sidebar_hidden: true
+            highlight_current_view: true
+            hide_gradient: true
+            1_link: "#lights"
+            1_name: ""
+            1_icon: mdi:lightbulb-group
+            2_link: "#blinds"
+            2_name: ""
+            2_icon: mdi:blinds-horizontal
+            3_link: "#movies"
+            3_name: ""
+            3_icon: mdi:movie-play-outline
+            4_link: "#media"
+            4_name: ""
+            4_icon: mdi:music
+            5_link: "#weather"
+            5_name: ""
+            5_icon: mdi:weather-partly-cloudy
+            6_link: "#energy"
+            6_name: ""
+            6_icon: mdi:solar-power-variant
+            7_link: "#heating"
+            7_name: ""
+            7_icon: mdi:radiator
+            8_link: "#security"
+            8_name: ""
+            8_icon: mdi:cctv
+            9_link: "#cleaning"
+            9_name: ""
+            9_icon: mdi:broom
+            styles: |2-
+              
+               .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color {
+                background: var(--button-card-background) !important;
+                border: 1px solid var(--button-card-border) !important;
+                box-shadow:
+                  0 10px 25px var(--button-card-shadow) !important,
+                  inset 0 1px 1px var(--button-card-inset-shadow) !important;
+                backdrop-filter: blur(35px) saturate(100%) !important;
+                -webkit-backdrop-filter: blur(35px) saturate(100%) !important;
+              }
+               .lights > .bubble-background, .blinds > .bubble-background, .media > .bubble-background, .movies > .bubble-background, .weather > .bubble-background, .energy > .bubble-background, .heating > .bubble-background, .security > .bubble-background, .cleaning > .bubble-background {
+                background: rgba(0,0,0,0) !important;
+              }
+              /* ikony */ .lights > .bubble-icon, .blinds > .bubble-icon, .media > .bubble-icon, .movies > .bubble-icon, .weather > .bubble-icon, .energy > .bubble-icon, .heating > .bubble-icon, .security > .bubble-icon, .cleaning > .bubble-icon {
+                color: var(--button-card-icon) !important;
+                filter: drop-shadow(0 2px 6px var(--button-card-icon-shadow)) !important;
+                transition: color 0.3s ease !important;
+              }
+               .lights > .bubble-name, .blinds > .bubble-name, .media > .bubble-name, .movies > .bubble-name, .weather > .bubble-name, .energy > .bubble-name, .heating > .bubble-name, .security > .bubble-name, .cleaning > .bubble-name {
+                color: var(--button-card-name) !important;
+              }
+               .bubble-button.highlight > .bubble-icon {
+                color: var(--button-card-icon-active) !important;
+                filter: drop-shadow(0 4px 4px var(--button-card-icon-shadow)) !important;
+                animation: pulse 1.4s infinite alternate !important;
+              }
+               .bubble-button.highlight > .bubble-background-color {
+                background: linear-gradient(
+                  120deg,
+                  var(--button-card-before-gradient-start),
+                  var(--button-card-before-gradient-mid) 30%,
+                  var(--button-card-before-gradient-end) 60%
+                ) !important;
+                box-shadow:
+                  0 10px 25px var(--button-card-shadow) !important,
+                  inset 0 1px 1px var(--button-card-inset-shadow) !important;
+              }
+            grid_options:
+              columns: full
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#heating"
+            margin_top_desktop: -7%
+            width_desktop: 1280px
+            bg_blur: 90
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            icon: mdi:radiator
+            name: Room heating
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-popup-header
+                name: Room heating
+                icon: mdi:radiator
+              - type: custom:glass-panel
+                glass: none
+                layout: row
+                gap: 22
+                padding: 0 6px
+                align: stretch
+                height: 624px
+                cards:
+                  - type: custom:glass-panel
+                    role: sidebar
+                    gap: 26
+                    padding: 22
+                    view_layout:
+                      grow: 0
+                      shrink: 0
+                      basis: max(340px, calc((100% - 22px) * 0.36 / 1.36))
+                    cards:
+                      - type: custom:glass-heat-pump
+                        view_layout:
+                          shrink: 0
+                        entities:
+                          climate: climate.heat_pump_heating
+                          water_heater: water_heater.heat_pump_domestic_hot_water
+                          compressor: binary_sensor.heat_pump_compressor
+                          pump: binary_sensor.heat_pump_circulation_pump
+                          frost: binary_sensor.heat_pump_frost_protection
+                          phase: sensor.heat_pump_compressor_phase
+                          outside: sensor.heat_pump_outside_temperature
+                          supply: sensor.heat_pump_secondary_circuit_supply_temperature
+                          return: sensor.heat_pump_return_temperature
+                          dhw: sensor.hot_water_temperature
+                          dhw_mode: select.heat_pump_dhw_operating_mode
+                          curve_shift: number.heat_pump_heating_curve_shift
+                          curve_slope: number.heat_pump_heating_curve_slope
+                          compressor_starts: sensor.heat_pump_compressor_starts
+                          compressor_hours: sensor.heat_pump_compressor_hours
+                          rod_starts: sensor.heat_pump_heating_rod_starts
+                          rod_hours: sensor.heat_pump_heating_rod_hours
+                          pressure: sensor.heat_pump_supply_pressure
+                          flow: sensor.heat_pump_volumetric_flow
+                          dhw_active: sensor.water_heating_on
+                          rod: binary_sensor.heat_pump_heating_rod
+                        show_dhw_setpoint: false
+                      - type: custom:glass-thermostat
+                        entity: sensor.heat_pump_supply_temperature
+                        name: Heating water
+                        icon: mdi:radiator
+                        hours: 12
+                        graph_entities:
+                          - sensor.heating_on
+                        active:
+                          entity: sensor.heating_on
+                          state: on
+                        view_layout:
+                          grow: 1
+                          basis: 80px
+                        smoothing: 4
+                        active_color: orange
+                        inline_value: true
+                      - type: custom:glass-thermostat
+                        entity: sensor.current_water_temperature
+                        name: Water temperature
+                        icon: mdi:water-boiler
+                        hours: 12
+                        graph_entities:
+                          - sensor.water_temperature
+                        active:
+                          entity: sensor.water_heating_on
+                          state: on
+                        view_layout:
+                          grow: 1
+                          basis: 80px
+                        smoothing: 4
+                        active_color: orange
+                        inline_value: true
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: grid
+                    columns: 3
+                    rows: 3
+                    gap: 16
+                    padding: 0
+                    view_layout:
+                      grow: 1
+                      basis: 0px
+                    cards:
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_6
+                        temperature_entity: sensor.room_temperature_4
+                        name: Living room
+                        icon: mdi:sofa
+                        hours: 24
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_5
+                        temperature_entity: sensor.room_temperature_4
+                        name: Kitchen
+                        icon: mdi:silverware-fork-knife
+                        hours: 24
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator
+                        temperature_entity: sensor.room_temperature
+                        name: Office
+                        icon: mdi:chair-rolling
+                        hours: 24
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_7
+                        temperature_entity: sensor.room_temperature_3
+                        name: Bedroom
+                        icon: mdi:bed-queen
+                        hours: 24
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_4
+                        name: Kids' room
+                        icon: mdi:teddy-bear
+                        hours: 24
+                        temperature_entity: sensor.radiator_current_temperature_4
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_3
+                        temperature_entity: sensor.room_temperature_2
+                        name: Hallway
+                        icon: mdi:hanger
+                        hours: 24
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_2
+                        name: Toilet
+                        icon: mdi:toilet
+                        hours: 24
+                        temperature_entity: sensor.radiator_current_temperature_2
+                      - type: custom:glass-thermostat
+                        entity: sensor.heat_pump_outside_temperature
+                        name: Outside
+                        icon: mdi:bench-back
+                        hours: 48
+                        view_layout:
+                          span: 2
+                        min_max: 24
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#lights"
+            margin_top_desktop: -7%
+            width_desktop: 1280px
+            bg_blur: 90
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            icon: mdi:lightbulb-group
+            name: Lights
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-popup-header
+                name: Lights
+                icon: mdi:lightbulb-group
+                buttons:
+                  - name: All on
+                    icon: mdi:lightbulb-group
+                    tap_action:
+                      action: perform-action
+                      perform_action: homeassistant.turn_on
+                      target:
+                        entity_id:
+                          - light.living_room
+                          - light.kitchen
+                          - light.kitchen_led
+                          - light.hallway
+                          - switch.wall_switch
+                          - switch.wall_switch_2
+                          - switch.switch
+                          - switch.switch_switch1
+                          - switch.switch_switch2
+                          - light.hub_light
+                  - name: All off
+                    icon: mdi:lightbulb-group-off
+                    tap_action:
+                      action: perform-action
+                      perform_action: homeassistant.turn_off
+                      target:
+                        entity_id:
+                          - light.living_room
+                          - light.kitchen
+                          - light.kitchen_led
+                          - light.hallway
+                          - switch.wall_switch
+                          - switch.wall_switch_2
+                          - switch.switch
+                          - switch.switch_switch1
+                          - switch.switch_switch2
+                          - light.hub_light
+              - type: custom:glass-panel
+                glass: none
+                layout: row
+                gap: 22
+                padding: 0 6px
+                align: stretch
+                height: 624px
+                cards:
+                  - type: custom:glass-panel
+                    role: sidebar
+                    layout: column
+                    gap: 18
+                    padding: 22
+                    justify: space-between
+                    view_layout:
+                      grow: 0
+                      shrink: 0
+                      basis: max(340px, calc((100% - 22px) * 0.36 / 1.36))
+                    cards:
+                      - type: custom:glass-status-bar
+                        layout: pills
+                        columns: 1
+                        items:
+                          - entity: automation.living_room_lights_by_daylight
+                            icon: mdi:brightness-auto
+                            name: Living room by daylight
+                            text: Off
+                            tap_action:
+                              action: perform-action
+                              perform_action: automation.toggle
+                              target:
+                                entity_id:
+                                  - automation.living_room_lights_by_daylight
+                                  - automation.living_room_ligts_luminance_day_on_bright
+                                  - automation.living_room_ligts_luminance_dusk_on
+                                  - automation.living_room_ligts_luminance_day_off
+                                  - automation.living_room_ligts_luminance_night_nightlight
+                                  - automation.living_room_ligts_luminance_night_off
+                                  - automation.living_room_lights_off_by_sensor
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.living_room_circadian
+                            icon: mdi:sun-clock-outline
+                            name: Living room – circadian
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.netflix_playing_living_room
+                            icon: mdi:television-play
+                            name: Living room during TV
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.turn_wled_kitchen_presence_on
+                            icon: mdi:account-arrow-right
+                            name: Counter by presence
+                            text: Off
+                            tap_action:
+                              action: perform-action
+                              perform_action: automation.toggle
+                              target:
+                                entity_id:
+                                  - automation.turn_wled_kitchen_presence_on
+                                  - automation.turn_wled_kitchen_presence_off
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.lights_kitchen_wled_water_temperature
+                            icon: mdi:water-thermometer-outline
+                            name: Counter – water temperature
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.hallway_night_light
+                            icon: mdi:weather-night
+                            name: Hallway – night light
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.toilet_light_by_motion
+                            icon: mdi:motion-sensor
+                            name: Toilet by motion
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.lights_bathroom
+                            icon: mdi:motion-sensor
+                            name: Bathroom by motion
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.kids_star_projector
+                            icon: mdi:clock-star-four-points-outline
+                            name: Projector on a timer
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.garden_lights_at_the_entrance
+                            icon: mdi:walk
+                            name: Garden by the entrance
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                        view_layout:
+                          grow: 1
+                        gap: 6
+                        styles:
+                          pill_height: 44px
+                        detail: last_triggered
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: column
+                    gap: 16
+                    padding: 0
+                    view_layout:
+                      grow: 1
+                      basis: 0px
+                    cards:
+                      - type: custom:glass-panel
+                        glass: none
+                        layout: grid
+                        columns: 3
+                        gap: 16
+                        padding: 0
+                        view_layout:
+                          shrink: 0
+                          height: auto
+                        cards:
+                          - type: custom:glass-light
+                            name: Living room
+                            lights:
+                              - entity: light.living_room
+                                name: Sofa
+                                levels:
+                                  - 25
+                                  - 50
+                                  - 75
+                                  - 100
+                                scenes:
+                                  - entity: scene.living_room_relax
+                                    name: Relax
+                                    image: glass:demo/scene-relax.png
+                                  - entity: scene.living_room_concentrate
+                                    name: Focus
+                                    image: glass:demo/scene-concentrate.png
+                                  - entity: scene.living_room_read
+                                    name: Read
+                                    image: glass:demo/scene-read.png
+                                  - entity: scene.living_room_nightlight
+                                    name: Night
+                                    image: glass:demo/scene-night.png
+                                  - entity: scene.living_room_natural_light
+                                    name: Natural
+                                    image: glass:demo/scene-natural.png
+                          - type: custom:glass-light
+                            name: Kitchen
+                            lights:
+                              - entity: light.kitchen
+                                name: Bar
+                                levels:
+                                  - 25
+                                  - 50
+                                  - 75
+                                  - 100
+                                scenes:
+                                  - entity: scene.kitchen_relax
+                                    name: Relax
+                                    image: glass:demo/scene-relax.png
+                                  - entity: scene.kitchen_concentrate
+                                    name: Focus
+                                    image: glass:demo/scene-concentrate.png
+                                  - entity: scene.kitchen_read
+                                    name: Read
+                                    image: glass:demo/scene-read.png
+                                  - entity: scene.kitchen_nightlight
+                                    name: Night
+                                    image: glass:demo/scene-night.png
+                                  - entity: scene.kitchen_natural_light
+                                    name: Natural
+                                    image: glass:demo/scene-natural.png
+                              - entity: light.kitchen_led
+                                name: Counter LED
+                                presets: select.kitchen_led_preset
+                                preset_options:
+                                  - option: Upper light
+                                    name: Upper
+                                    icon: mdi:light-flood-up
+                                  - option: Lower light
+                                    name: Lower
+                                    icon: mdi:light-flood-down
+                                  - option: All lights
+                                    name: All
+                                    icon: mdi:led-strip-variant
+                          - type: custom:glass-light
+                            name: Hallway
+                            lights:
+                              - entity: light.hallway
+                                name: Ceiling
+                                levels:
+                                  - 25
+                                  - 50
+                                  - 75
+                                  - 100
+                                scenes:
+                                  - entity: scene.hallway_relax
+                                    name: Relax
+                                    image: glass:demo/scene-relax.png
+                                  - entity: scene.hallway_concentrate
+                                    name: Focus
+                                    image: glass:demo/scene-concentrate.png
+                                  - entity: scene.hallway_read
+                                    name: Read
+                                    image: glass:demo/scene-read.png
+                                  - entity: scene.hallway_nightlight
+                                    name: Night
+                                    image: glass:demo/scene-night.png
+                                  - entity: scene.hallway_natural_light
+                                    name: Natural
+                                    image: glass:demo/scene-natural.png
+                              - entity: light.hub_light
+                                name: Hub
+                                icon: mdi:lightbulb-night-outline
+                          - type: custom:glass-light
+                            name: Kids' room
+                            lights:
+                              - entity: input_boolean.star_projector
+                                name: Star projector
+                                icon: mdi:star-shooting-outline
+                          - type: custom:glass-light
+                            name: Bathroom
+                            lights:
+                              - entity: switch.switch
+                                entities:
+                                  - switch.switch
+                                  - switch.switch_switch1
+                                  - switch.switch_switch2
+                                name: Lights
+                                icon: mdi:ceiling-light
+                          - type: custom:glass-light
+                            name: Toilet
+                            lights:
+                              - entity: switch.wall_switch
+                                name: Ceiling
+                                icon: mdi:ceiling-light
+                          - type: custom:glass-light
+                            name: Laundry
+                            lights:
+                              - entity: switch.wall_switch_2
+                                name: Ceiling
+                                icon: mdi:ceiling-light
+                          - type: custom:glass-light
+                            name: Garden
+                            lights:
+                              - entity: light.garden_front
+                                name: Path lights
+                        equal_rows: false
+                        masonry: true
+                    justify: start
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#blinds"
+            margin_top_desktop: -7%
+            width_desktop: 1120px
+            bg_blur: 90
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            hide_backdrop: true
+            icon: mdi:blinds-horizontal
+            name: Blinds
+            cards:
+              - type: custom:glass-popup-header
+                name: Blinds
+                icon: mdi:blinds-horizontal
+                buttons:
+                  - name: All up
+                    icon: mdi:arrow-collapse-up
+                    confirm: true
+                    tap_action:
+                      action: perform-action
+                      perform_action: cover.open_cover
+                      target:
+                        entity_id:
+                          - cover.office
+                          - cover.kids_room
+                          - cover.balcony
+                  - name: All down
+                    icon: mdi:arrow-collapse-down
+                    confirm: true
+                    tap_action:
+                      action: perform-action
+                      perform_action: cover.close_cover
+                      target:
+                        entity_id:
+                          - cover.office
+                          - cover.kids_room
+                          - cover.balcony
+              - type: custom:glass-panel
+                glass: none
+                layout: row
+                gap: 22
+                padding: 0 6px
+                align: stretch
+                cards:
+                  - type: custom:glass-panel
+                    role: sidebar
+                    gap: 20
+                    padding: 22
+                    view_layout:
+                      grow: 0
+                      shrink: 0
+                      basis: max(340px, calc((100% - 22px) * 0.36 / 1.36))
+                    cards:
+                      - type: custom:glass-automation
+                        entity: automation.blinds_auto
+                        title: Blinds automation
+                        pause_for: input_select.blinds_auto_pause
+                        resume_at: input_datetime.blinds_auto_resume
+                        pause_until: input_datetime.blinds_auto_until
+                      - type: custom:glass-sun-shading
+                        sun: sun.sun
+                        light: sensor.sun_sensor_luminance
+                        shading: sensor.blinds_shading_level
+                        target_tilt: sensor.blinds_target_tilt
+                        horizon: 4
+                        azimuth_from: 195
+                        azimuth_to: 305
+                        azimuth_high_from: 215
+                        azimuth_high_to: 305
+                        azimuth_high_above: 20
+                      - type: custom:glass-value-grid
+                        title: Slat tilt
+                        columns:
+                          - name: Strong sun
+                            icon: mdi:white-balance-sunny
+                            months_from: input_number.blinds_summer_from
+                            months_to: input_number.blinds_summer_to
+                          - name: Weak sun
+                            icon: mdi:weather-sunny-off
+                        rows:
+                          - name: Min
+                            entities:
+                              - input_number.blinds_summer_min
+                              - input_number.blinds_winter_min
+                          - name: Mid
+                            entities:
+                              - input_number.blinds_summer_medium
+                              - input_number.blinds_winter_medium
+                          - name: Max
+                            entities:
+                              - input_number.blinds_summer_max
+                              - input_number.blinds_winter_max
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: grid
+                    columns: 3
+                    gap: 16
+                    padding: 0
+                    equal_rows: false
+                    view_layout:
+                      grow: 1
+                      basis: 0px
+                    cards:
+                      - type: custom:glass-blind
+                        entity: cover.office
+                        name: Office
+                        icon: mdi:desk
+                        pause: switch.office_blinds_user_switch
+                        pause_duration: 3600
+                        positions:
+                          - name: Up
+                            icon: mdi:chevron-up
+                            script: script.open_blinds_office
+                          - name: Down
+                            icon: mdi:chevron-down
+                            script: script.close_blinds_office
+                        tilts:
+                          - name: Min
+                            script: script.tilt_blinds_office_min
+                          - name: Mid
+                            script: script.tilt_blinds_office_mid
+                          - name: Max
+                            script: script.tilt_blinds_office_max
+                        view_layout:
+                          align: start
+                      - type: custom:glass-blind
+                        entity: cover.kids_room
+                        name: Kids' room
+                        icon: mdi:teddy-bear
+                        pause: switch.kids_blinds_user_switch
+                        pause_duration: 3600
+                        positions:
+                          - name: Up
+                            icon: mdi:chevron-up
+                            script: script.open_blinds_kids
+                          - name: Down
+                            icon: mdi:chevron-down
+                            script: script.close_blinds_kids
+                        tilts:
+                          - name: Min
+                            script: script.tilt_blinds_kids_min
+                          - name: Mid
+                            script: script.tilt_blinds_kids_mid
+                          - name: Max
+                            script: script.tilt_blinds_kids_max
+                        view_layout:
+                          align: start
+                      - type: custom:glass-blind
+                        entity: cover.balcony
+                        name: Bedroom
+                        icon: mdi:bed
+                        pause: switch.bedroom_blinds_user_switch
+                        pause_duration: 3600
+                        positions:
+                          - name: Up
+                            icon: mdi:chevron-up
+                            script: script.open_blinds_bedroom
+                          - name: Down
+                            icon: mdi:chevron-down
+                            script: script.close_blinds_bedroom
+                        tilts:
+                          - name: Min
+                            script: script.tilt_blinds_bedroom_min
+                          - name: Mid
+                            script: script.tilt_blinds_bedroom_mid
+                          - name: Max
+                            script: script.tilt_blinds_bedroom_max
+                        view_layout:
+                          align: start
+                    align: start
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#cleaning"
+            margin_top_desktop: -7%
+            width_desktop: 1280px
+            bg_blur: 90
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            icon: mdi:broom
+            name: Cleaning
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-popup-header
+                name: Cleaning
+                icon: mdi:broom
+                buttons:
+                  - name: Vacuum everywhere
+                    icon: mdi:robot-vacuum-variant
+                    tap_action:
+                      action: perform-action
+                      perform_action: vacuum.start
+                      target:
+                        entity_id: vacuum.vacuum
+                    confirm: true
+                  - name: Mop everywhere
+                    icon: mdi:water-outline
+                    tap_action:
+                      action: perform-action
+                      perform_action: vacuum.start
+                      target:
+                        entity_id: vacuum.mop
+                    confirm: true
+                  - name: Vacuum and mop
+                    icon: mdi:broom
+                    tap_action:
+                      action: perform-action
+                      perform_action: script.turn_on
+                      target:
+                        entity_id: script.vacuum_and_mop
+                    confirm: true
+              - type: custom:glass-panel
+                glass: none
+                layout: row
+                gap: 22
+                padding: 0 6px
+                align: stretch
+                height: 628px
+                cards:
+                  - type: custom:glass-panel
+                    role: sidebar
+                    layout: column
+                    gap: 18
+                    padding: 22
+                    view_layout:
+                      grow: 0
+                      shrink: 0
+                      basis: max(340px, calc((100% - 22px) * 0.36 / 1.36))
+                    cards:
+                      - type: custom:glass-appliance
+                        select_group: cleaning
+                        entity: vacuum.vacuum
+                        name: Vacuum
+                        icon: mdi:robot-vacuum-variant
+                        battery: sensor.vacuum_battery
+                        select: roomba
+                        progress: sensor.vacuum_mission_progress
+                        charging: sensor.vacuum_phase
+                        room_names:
+                          Hallway: Hallway
+                          Living Room: Living room
+                          Kitchen: Kitchen
+                      - type: custom:glass-appliance
+                        select_group: cleaning
+                        entity: vacuum.mop
+                        name: Mop
+                        icon: mdi:robot-vacuum
+                        battery: sensor.mop_battery
+                        select: braava
+                        progress: sensor.mop_mission_progress
+                        charging: sensor.mop_phase
+                        room_names:
+                          Hallway: Hallway
+                          Living Room: Living room
+                          Kitchen: Kitchen
+                      - type: custom:glass-appliance
+                        select_group: cleaning
+                        entity: lawn_mower.mower
+                        name: Mower
+                        icon: mdi:robot-mower
+                        progress: sensor.mower_progress
+                        battery: sensor.mower_battery
+                        charging: binary_sensor.mower_charging
+                        pause:
+                          action: perform-action
+                          perform_action: script.mower_pause
+                        resume:
+                          action: perform-action
+                          perform_action: script.mower_unpause
+                        nudge:
+                          up: button.mower_emergency_nudge_forward
+                          left: button.mower_emergency_nudge_left
+                          right: button.mower_emergency_nudge_right
+                          down: button.mower_emergency_nudge_back
+                        select: mower
+                        picked_first: true
+                      - type: custom:glass-appliance
+                        select_group: cleaning
+                        entity: sensor.washer_job_state
+                        name: Washing machine
+                        icon: mdi:washing-machine
+                        machine: sensor.washer_machine_state
+                        remaining: sensor.washer_remaining_time
+                        kind: washer
+                  - type: custom:glass-panel
+                    bar: true
+                    layout: column
+                    gap: 12
+                    padding: 14
+                    view_layout:
+                      grow: 1
+                      basis: 0px
+                    cards:
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
+                        view_layout:
+                          grow: 1
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: roomba
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
+                        view_layout:
+                          grow: 1
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: braava
+                      - type: custom:glass-tabs
+                        group: cleaning_mower
+                        default: front
+                        tabs:
+                          - id: front
+                            name: Camera
+                            icon: mdi:cctv
+                          - id: zones
+                            name: Zones
+                            icon: mdi:map-marker-radius-outline
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: mower
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                        view_layout:
+                          grow: 1
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: mower
+                          - condition: select
+                            group: cleaning_mower
+                            id: front
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
+                        view_layout:
+                          grow: 1
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: mower
+                          - condition: select
+                            group: cleaning_mower
+                            id: zones
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#media"
+            margin_top_desktop: -7%
+            width_desktop: 1280px
+            bg_blur: 90
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 1200000
+            icon: mdi:multimedia
+            name: Media
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-popup-header
+                name: Media
+                icon: mdi:multimedia
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr 1fr
+                  grid-template-rows: min-content
+                  grid-template-areas: |
+                    "media_hub_title media_hub_title" "media_hub media_hub_playlist2"
+                cards:
+                  - view_layout:
+                      grid-area: media_hub_title
+                    type: custom:bubble-card
+                    card_type: separator
+                    name: Playback
+                    icon: mdi:music
+                  - view_layout:
+                      grid-area: media_hub
+                    type: custom:vertical-stack-in-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          border-radius: 34px;
+                          padding: 10px !important;
+                          background: var(--mod-card-background);
+                          backdrop-filter: blur(35px) saturate(100%);
+                          -webkit-backdrop-filter: blur(35px) saturate(200%);
+                          border: 1px solid var(--mod-card-border);
+                          box-shadow: 
+                            0 15px 25px var(--mod-card-shadow), 
+                            inset 0 2px 3px var(--mod-card-inset-shadow);
+                        }
+
+                        ha-card::before {
+                          content: "";
+                          position: absolute;
+                          inset: 0;
+                          border-radius: 34px;
+                          background: linear-gradient(
+                            120deg,
+                            var(--mod-card-gradient-start),
+                            var(--mod-card-gradient-mid) 25%,
+                            var(--mod-card-gradient-end) 50%,
+                            transparent 70%
+                          );
+                          opacity: 0.35;
+                          pointer-events: none;
+                        }
+                    cards:
+                      - type: media-control
+                        entity: media_player.office
+                  - view_layout:
+                      grid-area: media_hub_playlist2
+                    type: custom:vertical-stack-in-card
+                    card_mod:
+                      style: |
+                        ha-card {
+                          border-radius: 34px;
+                          padding: 10px !important;
+                          background: var(--mod-card-background);
+                          backdrop-filter: blur(35px) saturate(100%);
+                          -webkit-backdrop-filter: blur(35px) saturate(200%);
+                          border: 1px solid var(--mod-card-border);
+                          box-shadow: 
+                            0 15px 25px var(--mod-card-shadow), 
+                            inset 0 2px 3px var(--mod-card-inset-shadow);
+                        }
+
+                        ha-card::before {
+                          content: "";
+                          position: absolute;
+                          inset: 0;
+                          border-radius: 34px;
+                          background: linear-gradient(
+                            120deg,
+                            var(--mod-card-gradient-start),
+                            var(--mod-card-gradient-mid) 25%,
+                            var(--mod-card-gradient-end) 50%,
+                            transparent 70%
+                          );
+                          opacity: 0.35;
+                          pointer-events: none;
+                        }
+                    cards:
+                      - type: media-control
+                        entity: media_player.office
+                      - type: media-control
+                        entity: media_player.office
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#movies"
+            margin_top_desktop: -7%
+            width_desktop: 1280px
+            bg_blur: 90
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 1200000
+            icon: mdi:movie-play-outline
+            name: Films
+            hide_backdrop: true
+            cards:
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr
+                  grid-template-rows: min-content
+                  grid-template-areas: |
+                    "movies_arr"
+                cards:
+                  - type: picture
+                    image: https://arrcard.argalas.org/arrcard/light/card-desktop.webp
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#weather"
+            margin_top_desktop: -7%
+            width_desktop: 1080px
+            bg_blur: 90
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            icon: mdi:weather-partly-cloudy
+            name: Weather
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-popup-header
+                name: Weather
+                icon: mdi:weather-partly-cloudy
+              - type: custom:glass-panel
+                glass: none
+                layout: row
+                gap: 16
+                padding: 0
+                align: stretch
+                height: 624px
+                cards:
+                  - type: custom:glass-panel
+                    role: sidebar
+                    view_layout:
+                      grow: 0
+                      shrink: 0
+                      basis: max(340px, calc((100% - 22px) * 0.36 / 1.36))
+                    padding: 22
+                    cards:
+                      - type: custom:glass-clock-weather
+                        weather: weather.home
+                        show_clock: false
+                        show_date: false
+                        show_condition: true
+                        daily_forecast: 5
+                        hourly_forecast: 5
+                        details:
+                          - humidity
+                          - pressure
+                          - wind
+                          - apparent_temperature
+                          - cloud_coverage
+                          - precipitation
+                          - sunrise
+                          - sunset
+                        details_columns: 2
+                        tap_action:
+                          action: none
+                        dividers: true
+                        temperature_entity: sensor.heat_pump_outside_temperature
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: column
+                    gap: 16
+                    padding: 0
+                    view_layout:
+                      grow: 1
+                    cards:
+                      - type: custom:glass-radar
+                        zoom: 7
+                        frames: 7
+                        height: fill
+                        style: rain
+                        styles:
+                          - rain
+                          - clouds
+                        view_layout:
+                          grow: 1
+                          basis: 0px
+                        forecast: 3
+                      - type: custom:glass-air-quality
+                        entity: sensor.air_quality_index_air_quality_index
+                        view_layout:
+                          shrink: 0
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#energy"
+            margin_top_desktop: -7%
+            width_desktop: 1280px
+            bg_blur: 50
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            icon: mdi:solar-power-variant
+            name: Energy
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-panel
+                glass: none
+                layout: column
+                gap: 8
+                padding: 0 6px
+                height: 700px
+                cards:
+                  - type: custom:glass-popup-header
+                    name: Energy
+                    icon: mdi:solar-power-variant
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: custom:glass-period-bar
+                        offset_entity: input_number.counter_graph
+                        select_entity: input_select.graph_day_month_year
+                        current_entity: input_boolean.switch_current
+                        now_label: Now
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: row
+                    gap: 22
+                    padding: 0
+                    align: stretch
+                    cards:
+                      - type: custom:glass-panel
+                        role: sidebar
+                        gap: 30
+                        padding: 18
+                        view_layout:
+                          grow: 0
+                          shrink: 0
+                          basis: max(340px, calc((100% - 22px) * 0.36 / 1.36))
+                        styles:
+                          --mod-card-background: transparent
+                          --mod-card-border: transparent
+                          --mod-card-shadow: transparent
+                          --mod-card-inset-shadow: transparent
+                          --mod-card-gradient-start: transparent
+                          --mod-card-gradient-mid: transparent
+                          --mod-card-gradient-end: transparent
+                          --text-color: "var(--glass-text, #fff)"
+                        cards:
+                          - type: custom:solar-arc-card
+                            arc:
+                              solar_production: sensor.pv_power
+                              house_consumption: sensor.house_consumption
+                              grid_power: sensor.active_power
+                              arc_title_show: false
+                              flow_style: laser
+                              flow_count_slow: 4
+                              flow_count_fast: 2
+                              style:
+                                arc_pill_bg_color: var(--glass-energy-pill, rgba(255,255,255,0.14))
+                                arc_pill_text_color: "var(--glass-energy-text, var(--glass-text, #fff))"
+                                arc_text_color: "var(--glass-energy-text, var(--glass-text, #fff))"
+                                arc_home_color: "#ff9f0a"
+                                arc_sun_flow_color: "#febc2e"
+                                arc_flow_line_color: "color-mix(in srgb, var(--glass-energy-text, var(--glass-text, #fff)) 12%, transparent)"
+                            sankey:
+                              sankey_show: true
+                              sankey_title_show: false
+                              layout: horizontal
+                              sections:
+                                - entities:
+                                    - entity_id: sensor.grid_consumption
+                                      name: Grid
+                                      color: "#0084FF"
+                                      children:
+                                        - sensor.house_consumption
+                                    - entity_id: sensor.pv_power
+                                      name: Sun
+                                      color: "#febc2e"
+                                      children:
+                                        - sensor.house_consumption
+                                        - sensor.power_sell
+                                - entities:
+                                    - entity_id: sensor.house_consumption
+                                      name: House
+                                      color: "#ff9f0a"
+                                      children:
+                                        - sensor.house_consumption_1floor
+                                        - sensor.house_consumption_0floor
+                                        - sensor.house_consumption_rest
+                                        - sensor.consumption_inverter
+                                    - entity_id: sensor.power_sell
+                                      type: remaining_parent_state
+                                      name: Export
+                                      color: "#32D74B"
+                                - entities:
+                                    - entity_id: sensor.house_consumption_1floor
+                                      name: Phase 1
+                                      color: "#5AC8FA"
+                                    - entity_id: sensor.house_consumption_0floor
+                                      name: Phase 2
+                                      color: "#5AC8FA"
+                                    - entity_id: sensor.house_consumption_rest
+                                      name: Phase 3
+                                      color: "#5AC8FA"
+                                    - entity_id: sensor.consumption_inverter
+                                      name: Inverter
+                                      color: "#5AC8FA"
+                              style:
+                                sankey_text_color_primary: "var(--glass-energy-text, var(--glass-text, #fff))"
+                                sankey_text_color_secondary: var(--glass-energy-text-2, var(--glass-text-secondary, rgba(235,235,245,0.85)))
+                              sankey_title_icon_show: false
+                            view_layout:
+                              shadow_css: ".card { background: none !important; border: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; padding: 0 !important; } .card::before, .card::after { display: none !important; } #sun-pill foreignObject { transform-box: fill-box; transform-origin: center; transform: scale(1.18); }"
+                          - type: custom:glass-status-bar
+                            layout: figures
+                            columns: 3
+                            items:
+                              - name: Total
+                                entity: sensor.virtual_battery_contract
+                                unit: kWh
+                                secondary:
+                                  entity: sensor.electricity_cost_year
+                                  unit: CZK
+                                tap_action:
+                                  action: none
+                              - name: Month
+                                entity: sensor.virtual_battery_month
+                                unit: kWh
+                                secondary:
+                                  entity: sensor.electricity_cost_month
+                                  unit: CZK
+                                tap_action:
+                                  action: none
+                              - name: Today
+                                entity: sensor.energy_virtual_batery_day
+                                unit: kWh
+                                secondary:
+                                  entity: sensor.electricity_cost_day
+                                  unit: CZK
+                                tap_action:
+                                  action: none
+                            graph:
+                              entity: sensor.energy_virtual_batery_day
+                              hours: 24
+                            styles:
+                              --glass-graph-height: 44px
+                        justify: start
+                      - type: custom:glass-panel
+                        layout: column
+                        gap: 10
+                        padding: 16
+                        cards:
+                          - type: custom:glass-status-bar
+                            layout: pills
+                            columns: 4
+                            items:
+                              - name: Export
+                                icon: mdi:transmission-tower-import
+                                icon_color: orange
+                                entity: sensor.electricity_statistics
+                                attribute: data.Production
+                                unit: kWh
+                                tap_action:
+                                  action: none
+                                hold_action:
+                                  action: none
+                                rules:
+                                  - when:
+                                      - entity: input_select.graph_day_month_year
+                                        state: Day
+                                      - entity: input_number.counter_graph
+                                        above: -1
+                                    entity: sensor.energy_buy_daily
+                                    attribute: null
+                              - name: Use
+                                icon: mdi:home-import-outline
+                                icon_color: orange
+                                entity: sensor.electricity_statistics
+                                attribute: data.Consumption
+                                unit: kWh
+                                tap_action:
+                                  action: none
+                                hold_action:
+                                  action: none
+                                rules:
+                                  - when:
+                                      - entity: input_select.graph_day_month_year
+                                        state: Day
+                                      - entity: input_number.counter_graph
+                                        above: -1
+                                    entity: sensor.energy_consumption_daily
+                                    attribute: null
+                              - name: Bought
+                                icon: mdi:transmission-tower-export
+                                icon_color: orange
+                                entity: sensor.electricity_statistics
+                                attribute: data.GridBuy
+                                unit: kWh
+                                tap_action:
+                                  action: none
+                                hold_action:
+                                  action: none
+                                rules:
+                                  - when:
+                                      - entity: input_select.graph_day_month_year
+                                        state: Day
+                                      - entity: input_number.counter_graph
+                                        above: -1
+                                    entity: sensor.energy_sell_daily
+                                    attribute: null
+                              - name: Solar
+                                icon: mdi:solar-power-variant-outline
+                                icon_color: orange
+                                entity: sensor.energy_generation_daily
+                                tap_action:
+                                  action: none
+                                hold_action:
+                                  action: none
+                                rules:
+                                  - when:
+                                      entity: input_select.graph_day_month_year
+                                      state: Month
+                                    entity: sensor.energy_generation_monthly
+                                  - when:
+                                      entity: input_select.graph_day_month_year
+                                      state: Year
+                                    entity: sensor.energy_generation_yearly
+                          - type: custom:glass-divider
+                            name: Solar and use
+                            icon: mdi:home-lightning-bolt-outline
+                            margin: 0
+                            line: false
+                          - type: custom:glass-chart
+                            offset_entity: input_number.counter_graph
+                            select_entity: input_select.graph_day_month_year
+                            card:
+                              type: custom:apexcharts-card
+                              stacked: true
+                              apex_config:
+                                chart:
+                                  type: area
+                            day:
+                              update_interval: 15m
+                              series:
+                                - entity: sensor.total_load
+                                  name: Use
+                                  unit: kW
+                                  transform: return -x
+                                  type: column
+                                  group_by:
+                                    func: diff
+                                    start_with_last: true
+                                  opacity: 0.5
+                                - entity: sensor.today_s_pv_generation
+                                  name: Solar
+                                  unit: kW
+                                  type: column
+                                  group_by:
+                                    func: diff
+                                    start_with_last: true
+                            month:
+                              update_interval: 1h
+                              series:
+                                - entity: sensor.pnd_data
+                                  name: Use
+                                  unit: kW
+                                  type: column
+                                  attribute: consumption
+                                  data_generator: |
+                                    return entity.attributes.pnddate.map((pnd, index) => {
+                                      return [new Date(pnd).getTime(), Number(entity.attributes.consumption[index])];
+                                    });
+                                  invert: true
+                                  group_by:
+                                    func: sum
+                                  opacity: 0.5
+                                - entity: sensor.pnd_data
+                                  name: Export
+                                  unit: kW
+                                  type: column
+                                  attribute: production
+                                  data_generator: |
+                                    return entity.attributes.pnddate.map((pnd, index) => {
+                                      return [new Date(pnd).getTime(), Number(entity.attributes.production[index])];
+                                    });
+                                  group_by:
+                                    func: sum
+                            year:
+                              update_interval: 1h
+                              series:
+                                - entity: sensor.pnd_data
+                                  name: Use
+                                  unit: kW
+                                  type: column
+                                  attribute: consumption
+                                  data_generator: |
+                                    return entity.attributes.pnddate.map((pnd, index) => {
+                                      return [new Date(pnd).getTime(), Number(entity.attributes.consumption[index])];
+                                    });
+                                  invert: true
+                                  group_by:
+                                    func: sum
+                                  opacity: 0.5
+                                - entity: sensor.pnd_data
+                                  name: Export
+                                  unit: kW
+                                  type: column
+                                  attribute: production
+                                  data_generator: |
+                                    return entity.attributes.pnddate.map((pnd, index) => {
+                                      return [new Date(pnd).getTime(), Number(entity.attributes.production[index])];
+                                    });
+                                  group_by:
+                                    func: sum
+                              apex_config:
+                                yaxis:
+                                  - labels:
+                                      show: false
+                                    axisBorder:
+                                      show: false
+                                    axisTicks:
+                                      show: false
+                            height: 214
+                          - type: custom:glass-divider
+                            name: Export to the grid
+                            icon: mdi:transmission-tower-import
+                            margin: 0
+                            line: false
+                          - type: custom:glass-chart
+                            offset_entity: input_number.counter_graph
+                            select_entity: input_select.graph_day_month_year
+                            card:
+                              type: custom:apexcharts-card
+                              apex_config:
+                                chart:
+                                  type: area
+                              yaxis:
+                                - decimals: 0
+                            day:
+                              series:
+                                - entity: sensor.active_power
+                                  transform: return x/1000
+                                  unit: kW
+                                  type: column
+                                  group_by:
+                                    duration: 15m
+                                    func: max
+                                  name: Export
+                              update_interval: 15m
+                            month:
+                              series:
+                                - entity: sensor.pnd_data
+                                  unit: kW
+                                  type: column
+                                  attribute: production
+                                  data_generator: |
+                                    return entity.attributes.pnddate.map((pnd, index) => {
+                                      return [new Date(pnd).getTime(), Number(entity.attributes.production[index])];
+                                    });
+                                  group_by:
+                                    func: sum
+                                  name: Export
+                            year:
+                              series:
+                                - entity: sensor.total_energy_buy
+                                  unit: kWh
+                                  type: column
+                                  group_by:
+                                    func: diff
+                                    start_with_last: true
+                                  name: Export
+                              update_interval: 1h
+                            height: 174
+                        bar: true
+                        glass_tint:
+                          color:
+                            - 255
+                            - 255
+                            - 255
+                          strength: 30
+                        view_layout:
+                          grow: 1
+                          basis: 0px
+                    view_layout:
+                      height: auto
+                    height: 628px
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#security"
+            margin_top_desktop: -7%
+            width_desktop: 1280px
+            bg_blur: 50
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            icon: mdi:cctv
+            name: Security
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-popup-header
+                name: Security
+                icon: mdi:cctv
+                buttons:
+                  - name: Home
+                    icon: mdi:shield-home-outline
+                    tap_action:
+                      action: perform-action
+                      perform_action: alarm_control_panel.alarm_arm_home
+                      target:
+                        entity_id: alarm_control_panel.hub_security
+                    active:
+                      entity: alarm_control_panel.hub_security
+                      state: armed_home
+                    align: start
+                  - name: Away
+                    icon: mdi:shield-lock-outline
+                    tap_action:
+                      action: perform-action
+                      perform_action: alarm_control_panel.alarm_arm_away
+                      target:
+                        entity_id: alarm_control_panel.hub_security
+                    active:
+                      entity: alarm_control_panel.hub_security
+                      state: armed_away
+                    align: start
+                  - name: Night
+                    icon: mdi:shield-moon-outline
+                    tap_action:
+                      action: perform-action
+                      perform_action: alarm_control_panel.alarm_arm_night
+                      target:
+                        entity_id: alarm_control_panel.hub_security
+                    active:
+                      entity: alarm_control_panel.hub_security
+                      state: armed_night
+                    align: start
+                  - name: Off
+                    icon: mdi:shield-off-outline
+                    tap_action:
+                      action: perform-action
+                      perform_action: alarm_control_panel.alarm_disarm
+                      target:
+                        entity_id: alarm_control_panel.hub_security
+                    active:
+                      entity: alarm_control_panel.hub_security
+                      state: disarmed
+                    align: start
+                  - name: Entrance
+                    icon: mdi:door
+                    tap_action:
+                      action: perform-action
+                      perform_action: script.multi_tap_action
+                      data:
+                        actions:
+                          - service: input_boolean.turn_off
+                            entity_id: input_boolean.switch_security_camera_2
+                          - service: input_boolean.turn_on
+                            entity_id: input_boolean.switch_security_camera_1
+                    active:
+                      entity: input_boolean.switch_security_camera_1
+                      state: on
+                  - name: Garden
+                    icon: mdi:tree-outline
+                    tap_action:
+                      action: perform-action
+                      perform_action: script.multi_tap_action
+                      data:
+                        actions:
+                          - service: input_boolean.turn_off
+                            entity_id: input_boolean.switch_security_camera_1
+                          - service: input_boolean.turn_on
+                            entity_id: input_boolean.switch_security_camera_2
+                    active:
+                      entity: input_boolean.switch_security_camera_2
+                      state: on
+              - type: custom:glass-panel
+                glass: none
+                layout: row
+                gap: 22
+                padding: 0 6px
+                align: stretch
+                height: 628px
+                cards:
+                  - type: custom:glass-panel
+                    role: sidebar
+                    layout: column
+                    gap: 0
+                    padding: 22
+                    view_layout:
+                      grow: 0
+                      shrink: 0
+                      basis: max(340px, calc((100% - 22px) * 0.36 / 1.36))
+                    cards:
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_1
+                            state: on
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_2
+                            state: on
+                  - type: custom:glass-panel
+                    bar: true
+                    layout: column
+                    justify: start
+                    gap: 10
+                    padding: 12
+                    view_layout:
+                      grow: 1
+                      basis: 0px
+                    cards:
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_1
+                            state: on
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_2
+                            state: on
+                      - type: custom:glass-status-bar
+                        layout: pills
+                        columns: 4
+                        items:
+                          - entity: binary_sensor.frontdoor_person_occupancy
+                            name: Person
+                            icon: mdi:account-outline
+                            text: "{changed}"
+                            tap_action:
+                              action: none
+                            rules:
+                              - state: on
+                                text: In view
+                                icon_color: orange
+                                animation: pulse
+                          - entity: binary_sensor.frontdoor_dog_occupancy
+                            name: Dog
+                            icon: mdi:dog
+                            text: "{changed}"
+                            tap_action:
+                              action: none
+                            rules:
+                              - state: on
+                                text: In view
+                                icon_color: orange
+                                animation: pulse
+                          - entity: binary_sensor.frontdoor_cat_occupancy
+                            name: Cat
+                            icon: mdi:cat
+                            text: "{changed}"
+                            tap_action:
+                              action: none
+                            rules:
+                              - state: on
+                                text: In view
+                                icon_color: orange
+                                animation: pulse
+                          - entity: binary_sensor.frontdoor_car_occupancy
+                            name: Auto
+                            icon: mdi:car-outline
+                            text: "{changed}"
+                            tap_action:
+                              action: none
+                            rules:
+                              - state: on
+                                text: In view
+                                icon_color: orange
+                                animation: pulse
+                        pill_height: 46
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_1
+                            state: on
+                      - type: custom:glass-status-bar
+                        layout: pills
+                        columns: 2
+                        items:
+                          - entity: switch.front_door_light
+                            name: Light
+                            icon: mdi:lightbulb-outline
+                            text: Off
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: select.front_door_nightvision
+                            name: Night vision
+                            icon: mdi:weather-night
+                            rules:
+                              - state_not: Off
+                                icon_color: orange
+                            dropdown: true
+                            option_names:
+                              Off: Off
+                              B&W Night Vision: Black and white
+                              Color Night Vision: Colour
+                        pill_height: 46
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_1
+                            state: on
+                      - type: custom:glass-status-bar
+                        layout: pills
+                        columns: 4
+                        items:
+                          - entity: binary_sensor.garden_person_occupancy
+                            name: Person
+                            icon: mdi:account-outline
+                            text: "{changed}"
+                            tap_action:
+                              action: none
+                            rules:
+                              - state: on
+                                text: In view
+                                icon_color: orange
+                                animation: pulse
+                          - entity: binary_sensor.garden_dog_occupancy
+                            name: Dog
+                            icon: mdi:dog
+                            text: "{changed}"
+                            tap_action:
+                              action: none
+                            rules:
+                              - state: on
+                                text: In view
+                                icon_color: orange
+                                animation: pulse
+                          - entity: binary_sensor.garden_cat_occupancy
+                            name: Cat
+                            icon: mdi:cat
+                            text: "{changed}"
+                            tap_action:
+                              action: none
+                            rules:
+                              - state: on
+                                text: In view
+                                icon_color: orange
+                                animation: pulse
+                          - entity: binary_sensor.garden_car_occupancy
+                            name: Auto
+                            icon: mdi:car-outline
+                            text: "{changed}"
+                            tap_action:
+                              action: none
+                            rules:
+                              - state: on
+                                text: In view
+                                icon_color: orange
+                                animation: pulse
+                        pill_height: 46
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_2
+                            state: on
+                      - type: custom:glass-status-bar
+                        layout: pills
+                        columns: 2
+                        items:
+                          - entity: switch.garden_light
+                            name: Light
+                            icon: mdi:lightbulb-outline
+                            text: Off
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: select.garden_nightvision
+                            name: Night vision
+                            icon: mdi:weather-night
+                            rules:
+                              - state_not: Off
+                                icon_color: orange
+                            dropdown: true
+                            option_names:
+                              Off: Off
+                              B&W Night Vision: Black and white
+                              Color Night Vision: Colour
+                        pill_height: 46
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_2
+                            state: on
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#security_front"
+            margin_top_desktop: -7%
+            width_desktop: 1280px
+            bg_blur: 90
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            icon: mdi:cctv
+            name: Security
+            hide_backdrop: true
+            trigger:
+              - condition: state
+                entity: input_boolean.bubble_stream_front
+                state: on
+            cards:
+              - type: custom:glass-popup-header
+                name: Security
+                icon: mdi:cctv
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr
+                  grid-template-rows: min-content
+                  grid-template-areas: |
+                    "security_stream_front"
+                cards:
+                  - type: picture
+                    image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                    view_layout:
+                      grid-area: security_stream_front
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#security_garden"
+            margin_top_desktop: -7%
+            width_desktop: 1280px
+            bg_blur: 90
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            icon: mdi:cctv
+            name: Security
+            hide_backdrop: true
+            trigger:
+              - condition: state
+                entity: input_boolean.bubble_stream_garden
+                state: on
+            cards:
+              - type: custom:glass-popup-header
+                name: Security
+                icon: mdi:cctv
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr
+                  grid-template-rows: min-content
+                  grid-template-areas: |
+                    "security_stream_garden"
+                cards:
+                  - type: picture
+                    image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                    view_layout:
+                      grid-area: security_stream_garden
+            show_header: false
+  - title: Mobile
+    path: mobile
+    type: sections
+    max_columns: 4
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Navigation
+          - type: custom:bubble-card
+            card_type: horizontal-buttons-stack
+            width_desktop: 620px
+            auto_order: false
+            is_sidebar_hidden: true
+            highlight_current_view: true
+            hide_gradient: true
+            1_link: "#lights"
+            1_name: ""
+            1_icon: mdi:lightbulb-group
+            2_link: "#blinds"
+            2_name: ""
+            2_icon: mdi:blinds-horizontal
+            3_link: "#movies"
+            3_name: ""
+            3_icon: mdi:movie-play-outline
+            4_link: "#media"
+            4_name: ""
+            4_icon: mdi:music
+            5_link: "#weather"
+            5_name: ""
+            5_icon: mdi:weather-partly-cloudy
+            6_link: "#energy"
+            6_name: ""
+            6_icon: mdi:solar-power-variant
+            7_link: "#heating"
+            7_name: ""
+            7_icon: mdi:radiator
+            8_link: "#security"
+            8_name: ""
+            8_icon: mdi:cctv
+            9_link: "#cleaning"
+            9_name: ""
+            9_icon: mdi:broom
+            styles: |2-
+              
+               .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color {
+                background: var(--button-card-background) !important;
+                border: 1px solid var(--button-card-border) !important;
+                box-shadow:
+                  0 10px 25px var(--button-card-shadow) !important,
+                  inset 0 1px 1px var(--button-card-inset-shadow) !important;
+                backdrop-filter: blur(35px) saturate(100%) !important;
+                -webkit-backdrop-filter: blur(35px) saturate(100%) !important;
+              }
+               .lights > .bubble-background, .blinds > .bubble-background, .media > .bubble-background, .movies > .bubble-background, .weather > .bubble-background, .energy > .bubble-background, .heating > .bubble-background, .security > .bubble-background, .cleaning > .bubble-background {
+                background: rgba(0,0,0,0) !important;
+              }
+              /* ikony */ .lights > .bubble-icon, .blinds > .bubble-icon, .media > .bubble-icon, .movies > .bubble-icon, .weather > .bubble-icon, .energy > .bubble-icon, .heating > .bubble-icon, .security > .bubble-icon, .cleaning > .bubble-icon {
+                color: var(--button-card-icon) !important;
+                filter: drop-shadow(0 2px 6px var(--button-card-icon-shadow)) !important;
+                transition: color 0.3s ease !important;
+              }
+               .lights > .bubble-name, .blinds > .bubble-name, .media > .bubble-name, .movies > .bubble-name, .weather > .bubble-name, .energy > .bubble-name, .heating > .bubble-name, .security > .bubble-name, .cleaning > .bubble-name {
+                color: var(--button-card-name) !important;
+              }
+               .bubble-button.highlight > .bubble-icon {
+                color: var(--button-card-icon-active) !important;
+                filter: drop-shadow(0 4px 4px var(--button-card-icon-shadow)) !important;
+                animation: pulse 1.4s infinite alternate !important;
+              }
+               .bubble-button.highlight > .bubble-background-color {
+                background: linear-gradient(
+                  120deg,
+                  var(--button-card-before-gradient-start),
+                  var(--button-card-before-gradient-mid) 30%,
+                  var(--button-card-before-gradient-end) 60%
+                ) !important;
+                box-shadow:
+                  0 10px 25px var(--button-card-shadow) !important,
+                  inset 0 1px 1px var(--button-card-inset-shadow) !important;
+              }
+            grid_options:
+              columns: full
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#heating"
+            width_desktop: 340px
+            margin: 8px
+            margin_top_mobile: -56px
+            bg_blur: 50
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            icon: mdi:radiator
+            name: Room heating
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-panel
+                glass: none
+                layout: column
+                gap: 14
+                padding: 0
+                cards:
+                  - type: custom:glass-popup-header
+                    name: Room heating
+                    icon: mdi:radiator
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-panel
+                    role: sidebar
+                    gap: 26
+                    padding: 22
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: custom:glass-heat-pump
+                        view_layout:
+                          shrink: 0
+                        entities:
+                          climate: climate.heat_pump_heating
+                          water_heater: water_heater.heat_pump_domestic_hot_water
+                          compressor: binary_sensor.heat_pump_compressor
+                          pump: binary_sensor.heat_pump_circulation_pump
+                          frost: binary_sensor.heat_pump_frost_protection
+                          phase: sensor.heat_pump_compressor_phase
+                          outside: sensor.heat_pump_outside_temperature
+                          supply: sensor.heat_pump_secondary_circuit_supply_temperature
+                          return: sensor.heat_pump_return_temperature
+                          dhw: sensor.hot_water_temperature
+                          dhw_mode: select.heat_pump_dhw_operating_mode
+                          curve_shift: number.heat_pump_heating_curve_shift
+                          curve_slope: number.heat_pump_heating_curve_slope
+                          compressor_starts: sensor.heat_pump_compressor_starts
+                          compressor_hours: sensor.heat_pump_compressor_hours
+                          rod_starts: sensor.heat_pump_heating_rod_starts
+                          rod_hours: sensor.heat_pump_heating_rod_hours
+                          pressure: sensor.heat_pump_supply_pressure
+                          flow: sensor.heat_pump_volumetric_flow
+                          dhw_active: sensor.water_heating_on
+                          rod: binary_sensor.heat_pump_heating_rod
+                        show_dhw_setpoint: false
+                      - type: custom:glass-thermostat
+                        entity: sensor.heat_pump_supply_temperature
+                        name: Heating water
+                        icon: mdi:radiator
+                        hours: 12
+                        graph_entities:
+                          - sensor.heating_on
+                        active:
+                          entity: sensor.heating_on
+                          state: on
+                        view_layout:
+                          grow: 1
+                          basis: 80px
+                        smoothing: 4
+                        active_color: orange
+                        inline_value: true
+                      - type: custom:glass-thermostat
+                        entity: sensor.current_water_temperature
+                        name: Water temperature
+                        icon: mdi:water-boiler
+                        hours: 12
+                        graph_entities:
+                          - sensor.water_temperature
+                        active:
+                          entity: sensor.water_heating_on
+                          state: on
+                        view_layout:
+                          grow: 1
+                          basis: 80px
+                        smoothing: 4
+                        active_color: orange
+                        inline_value: true
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: grid
+                    columns: 1
+                    rows: 3
+                    gap: 16
+                    padding: 0
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_6
+                        temperature_entity: sensor.room_temperature_4
+                        name: Living room
+                        icon: mdi:sofa
+                        hours: 24
+                        compact: true
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_5
+                        temperature_entity: sensor.room_temperature_4
+                        name: Kitchen
+                        icon: mdi:silverware-fork-knife
+                        hours: 24
+                        compact: true
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator
+                        temperature_entity: sensor.room_temperature
+                        name: Office
+                        icon: mdi:chair-rolling
+                        hours: 24
+                        compact: true
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_7
+                        temperature_entity: sensor.room_temperature_3
+                        name: Bedroom
+                        icon: mdi:bed-queen
+                        hours: 24
+                        compact: true
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_4
+                        name: Kids' room
+                        icon: mdi:teddy-bear
+                        hours: 24
+                        temperature_entity: sensor.radiator_current_temperature_4
+                        compact: true
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_3
+                        temperature_entity: sensor.room_temperature_2
+                        name: Hallway
+                        icon: mdi:hanger
+                        hours: 24
+                        compact: true
+                      - type: custom:glass-thermostat
+                        entity: climate.radiator_2
+                        name: Toilet
+                        icon: mdi:toilet
+                        hours: 24
+                        temperature_entity: sensor.radiator_current_temperature_2
+                        compact: true
+                      - type: custom:glass-thermostat
+                        entity: sensor.heat_pump_outside_temperature
+                        name: Outside
+                        icon: mdi:bench-back
+                        hours: 48
+                        view_layout: {}
+                        min_max: 24
+                        compact: true
+                    min_column_width: 180
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#lights"
+            width_desktop: 340px
+            margin: 8px
+            margin_top_mobile: -56px
+            bg_color: rgba(var(--color-background-black),1)
+            bg_blur: 50
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            icon: mdi:lightbulb-group
+            margin_top_desktop: -35px
+            name: Lights
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-panel
+                glass: none
+                layout: column
+                gap: 14
+                padding: 0
+                cards:
+                  - type: custom:glass-popup-header
+                    name: Lights
+                    icon: mdi:lightbulb-group
+                    view_layout:
+                      height: auto
+                    buttons:
+                      - icon: mdi:lightbulb-group
+                        tap_action:
+                          action: perform-action
+                          perform_action: homeassistant.turn_on
+                          target:
+                            entity_id:
+                              - light.living_room
+                              - light.kitchen
+                              - light.kitchen_led
+                              - light.hallway
+                              - switch.wall_switch
+                              - switch.wall_switch_2
+                              - switch.switch
+                              - switch.switch_switch1
+                              - switch.switch_switch2
+                              - light.hub_light
+                      - icon: mdi:lightbulb-group-off
+                        tap_action:
+                          action: perform-action
+                          perform_action: homeassistant.turn_off
+                          target:
+                            entity_id:
+                              - light.living_room
+                              - light.kitchen
+                              - light.kitchen_led
+                              - light.hallway
+                              - switch.wall_switch
+                              - switch.wall_switch_2
+                              - switch.switch
+                              - switch.switch_switch1
+                              - switch.switch_switch2
+                              - light.hub_light
+                  - type: custom:glass-panel
+                    role: sidebar
+                    layout: column
+                    gap: 18
+                    padding: 22
+                    justify: start
+                    view_layout:
+                      height: auto
+                      order: 1
+                    cards:
+                      - type: custom:glass-status-bar
+                        layout: pills
+                        columns: 1
+                        items:
+                          - entity: automation.living_room_lights_by_daylight
+                            icon: mdi:brightness-auto
+                            name: Living room by daylight
+                            text: Off
+                            tap_action:
+                              action: perform-action
+                              perform_action: automation.toggle
+                              target:
+                                entity_id:
+                                  - automation.living_room_lights_by_daylight
+                                  - automation.living_room_ligts_luminance_day_on_bright
+                                  - automation.living_room_ligts_luminance_dusk_on
+                                  - automation.living_room_ligts_luminance_day_off
+                                  - automation.living_room_ligts_luminance_night_nightlight
+                                  - automation.living_room_ligts_luminance_night_off
+                                  - automation.living_room_lights_off_by_sensor
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.living_room_circadian
+                            icon: mdi:sun-clock-outline
+                            name: Living room – circadian
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.netflix_playing_living_room
+                            icon: mdi:television-play
+                            name: Living room during TV
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.turn_wled_kitchen_presence_on
+                            icon: mdi:account-arrow-right
+                            name: Counter by presence
+                            text: Off
+                            tap_action:
+                              action: perform-action
+                              perform_action: automation.toggle
+                              target:
+                                entity_id:
+                                  - automation.turn_wled_kitchen_presence_on
+                                  - automation.turn_wled_kitchen_presence_off
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.lights_kitchen_wled_water_temperature
+                            icon: mdi:water-thermometer-outline
+                            name: Counter – water temperature
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.hallway_night_light
+                            icon: mdi:weather-night
+                            name: Hallway – night light
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.toilet_light_by_motion
+                            icon: mdi:motion-sensor
+                            name: Toilet by motion
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.lights_bathroom
+                            icon: mdi:motion-sensor
+                            name: Bathroom by motion
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.kids_star_projector
+                            icon: mdi:clock-star-four-points-outline
+                            name: Projector on a timer
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: automation.garden_lights_at_the_entrance
+                            icon: mdi:walk
+                            name: Garden by the entrance
+                            text: Off
+                            tap_action:
+                              action: toggle
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                        view_layout: {}
+                        gap: 6
+                        styles:
+                          pill_height: 44px
+                        detail: last_triggered
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: column
+                    gap: 16
+                    padding: 0
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: custom:glass-panel
+                        glass: none
+                        layout: grid
+                        columns: 1
+                        gap: 16
+                        padding: 0
+                        view_layout:
+                          height: auto
+                        cards:
+                          - type: custom:glass-light
+                            name: Living room
+                            lights:
+                              - entity: light.living_room
+                                name: Sofa
+                                levels:
+                                  - 25
+                                  - 50
+                                  - 75
+                                  - 100
+                                scenes:
+                                  - entity: scene.living_room_relax
+                                    name: Relax
+                                    image: glass:demo/scene-relax.png
+                                  - entity: scene.living_room_concentrate
+                                    name: Focus
+                                    image: glass:demo/scene-concentrate.png
+                                  - entity: scene.living_room_read
+                                    name: Read
+                                    image: glass:demo/scene-read.png
+                                  - entity: scene.living_room_nightlight
+                                    name: Night
+                                    image: glass:demo/scene-night.png
+                                  - entity: scene.living_room_natural_light
+                                    name: Natural
+                                    image: glass:demo/scene-natural.png
+                            icon: mdi:sofa
+                          - type: custom:glass-light
+                            name: Kitchen
+                            lights:
+                              - entity: light.kitchen
+                                name: Bar
+                                levels:
+                                  - 25
+                                  - 50
+                                  - 75
+                                  - 100
+                                scenes:
+                                  - entity: scene.kitchen_relax
+                                    name: Relax
+                                    image: glass:demo/scene-relax.png
+                                  - entity: scene.kitchen_concentrate
+                                    name: Focus
+                                    image: glass:demo/scene-concentrate.png
+                                  - entity: scene.kitchen_read
+                                    name: Read
+                                    image: glass:demo/scene-read.png
+                                  - entity: scene.kitchen_nightlight
+                                    name: Night
+                                    image: glass:demo/scene-night.png
+                                  - entity: scene.kitchen_natural_light
+                                    name: Natural
+                                    image: glass:demo/scene-natural.png
+                              - entity: light.kitchen_led
+                                name: Counter LED
+                                presets: select.kitchen_led_preset
+                                preset_options:
+                                  - option: Upper light
+                                    name: Upper
+                                    icon: mdi:light-flood-up
+                                  - option: Lower light
+                                    name: Lower
+                                    icon: mdi:light-flood-down
+                                  - option: All lights
+                                    name: All
+                                    icon: mdi:led-strip-variant
+                            icon: mdi:silverware-fork-knife
+                          - type: custom:glass-light
+                            name: Hallway
+                            lights:
+                              - entity: light.hallway
+                                name: Ceiling
+                                levels:
+                                  - 25
+                                  - 50
+                                  - 75
+                                  - 100
+                                scenes:
+                                  - entity: scene.hallway_relax
+                                    name: Relax
+                                    image: glass:demo/scene-relax.png
+                                  - entity: scene.hallway_concentrate
+                                    name: Focus
+                                    image: glass:demo/scene-concentrate.png
+                                  - entity: scene.hallway_read
+                                    name: Read
+                                    image: glass:demo/scene-read.png
+                                  - entity: scene.hallway_nightlight
+                                    name: Night
+                                    image: glass:demo/scene-night.png
+                                  - entity: scene.hallway_natural_light
+                                    name: Natural
+                                    image: glass:demo/scene-natural.png
+                              - entity: light.hub_light
+                                name: Hub
+                                icon: mdi:lightbulb-night-outline
+                            icon: mdi:hanger
+                          - type: custom:glass-light
+                            name: Kids' room
+                            lights:
+                              - entity: input_boolean.star_projector
+                                name: Star projector
+                                icon: mdi:star-shooting-outline
+                            icon: mdi:teddy-bear
+                          - type: custom:glass-light
+                            name: Bathroom
+                            lights:
+                              - entity: switch.switch
+                                entities:
+                                  - switch.switch
+                                  - switch.switch_switch1
+                                  - switch.switch_switch2
+                                name: Lights
+                                icon: mdi:ceiling-light
+                            icon: mdi:shower
+                          - type: custom:glass-light
+                            name: Toilet
+                            lights:
+                              - entity: switch.wall_switch
+                                name: Ceiling
+                                icon: mdi:ceiling-light
+                            icon: mdi:toilet
+                          - type: custom:glass-light
+                            name: Laundry
+                            lights:
+                              - entity: switch.wall_switch_2
+                                name: Ceiling
+                                icon: mdi:ceiling-light
+                            icon: mdi:washing-machine
+                          - type: custom:glass-light
+                            name: Garden
+                            lights:
+                              - entity: light.garden_front
+                                name: Path lights
+                            icon: mdi:tree-outline
+                        equal_rows: false
+                        masonry: true
+                        min_column_width: 180
+                    justify: start
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#blinds"
+            width_desktop: 340px
+            margin: 8px
+            margin_top_mobile: -56px
+            bg_blur: 50
+            bg_opacity: 0
+            hide_backdrop: true
+            is_sidebar_hidden: true
+            icon: mdi:blinds-horizontal
+            margin_top_desktop: -35px
+            name: Blinds
+            cards:
+              - type: custom:glass-panel
+                glass: none
+                layout: column
+                gap: 14
+                padding: 0
+                cards:
+                  - type: custom:glass-popup-header
+                    name: Blinds
+                    icon: mdi:blinds-horizontal
+                    buttons:
+                      - icon: mdi:arrow-collapse-up
+                        confirm: true
+                        tap_action:
+                          action: perform-action
+                          perform_action: cover.open_cover
+                          target:
+                            entity_id:
+                              - cover.office
+                              - cover.kids_room
+                              - cover.balcony
+                        title: All up
+                      - icon: mdi:arrow-collapse-down
+                        confirm: true
+                        tap_action:
+                          action: perform-action
+                          perform_action: cover.close_cover
+                          target:
+                            entity_id:
+                              - cover.office
+                              - cover.kids_room
+                              - cover.balcony
+                        title: All down
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-panel
+                    role: sidebar
+                    gap: 16
+                    padding: 18
+                    view_layout:
+                      height: auto
+                      order: 1
+                    cards:
+                      - type: custom:glass-automation
+                        entity: automation.blinds_auto
+                        title: Blinds automation
+                        pause_for: input_select.blinds_auto_pause
+                        resume_at: input_datetime.blinds_auto_resume
+                        pause_until: input_datetime.blinds_auto_until
+                      - type: custom:glass-sun-shading
+                        sun: sun.sun
+                        light: sensor.sun_sensor_luminance
+                        shading: sensor.blinds_shading_level
+                        target_tilt: sensor.blinds_target_tilt
+                        horizon: 4
+                        azimuth_from: 195
+                        azimuth_to: 305
+                        azimuth_high_from: 215
+                        azimuth_high_to: 305
+                        azimuth_high_above: 20
+                      - type: custom:glass-value-grid
+                        title: Slat tilt
+                        columns:
+                          - name: Strong sun
+                            icon: mdi:white-balance-sunny
+                            months_from: input_number.blinds_summer_from
+                            months_to: input_number.blinds_summer_to
+                          - name: Weak sun
+                            icon: mdi:weather-sunny-off
+                        rows:
+                          - name: Min
+                            entities:
+                              - input_number.blinds_summer_min
+                              - input_number.blinds_winter_min
+                          - name: Mid
+                            entities:
+                              - input_number.blinds_summer_medium
+                              - input_number.blinds_winter_medium
+                          - name: Max
+                            entities:
+                              - input_number.blinds_summer_max
+                              - input_number.blinds_winter_max
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: grid
+                    gap: 12
+                    padding: 0
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: custom:glass-blind
+                        entity: cover.office
+                        name: Office
+                        icon: mdi:desk
+                        pause: switch.office_blinds_user_switch
+                        pause_duration: 3600
+                        positions:
+                          - name: Up
+                            icon: mdi:chevron-up
+                            script: script.open_blinds_office
+                          - name: Down
+                            icon: mdi:chevron-down
+                            script: script.close_blinds_office
+                        tilts:
+                          - name: Min
+                            script: script.tilt_blinds_office_min
+                          - name: Mid
+                            script: script.tilt_blinds_office_mid
+                          - name: Max
+                            script: script.tilt_blinds_office_max
+                        view_layout:
+                          align: start
+                      - type: custom:glass-blind
+                        entity: cover.kids_room
+                        name: Kids' room
+                        icon: mdi:teddy-bear
+                        pause: switch.kids_blinds_user_switch
+                        pause_duration: 3600
+                        positions:
+                          - name: Up
+                            icon: mdi:chevron-up
+                            script: script.open_blinds_kids
+                          - name: Down
+                            icon: mdi:chevron-down
+                            script: script.close_blinds_kids
+                        tilts:
+                          - name: Min
+                            script: script.tilt_blinds_kids_min
+                          - name: Mid
+                            script: script.tilt_blinds_kids_mid
+                          - name: Max
+                            script: script.tilt_blinds_kids_max
+                        view_layout:
+                          align: start
+                      - type: custom:glass-blind
+                        entity: cover.balcony
+                        name: Bedroom
+                        icon: mdi:bed
+                        pause: switch.bedroom_blinds_user_switch
+                        pause_duration: 3600
+                        positions:
+                          - name: Up
+                            icon: mdi:chevron-up
+                            script: script.open_blinds_bedroom
+                          - name: Down
+                            icon: mdi:chevron-down
+                            script: script.close_blinds_bedroom
+                        tilts:
+                          - name: Min
+                            script: script.tilt_blinds_bedroom_min
+                          - name: Mid
+                            script: script.tilt_blinds_bedroom_mid
+                          - name: Max
+                            script: script.tilt_blinds_bedroom_max
+                        view_layout:
+                          align: start
+                    columns: 2
+                    equal_rows: true
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#cleaning"
+            width_desktop: 340px
+            margin_top_mobile: -56px
+            bg_blur: 50
+            bg_opacity: 0
+            hide_backdrop: true
+            icon: mdi:broom
+            margin_top_desktop: -35px
+            name: Cleaning
+            cards:
+              - type: custom:glass-panel
+                glass: none
+                layout: column
+                gap: 14
+                padding: 0
+                cards:
+                  - type: custom:glass-popup-header
+                    name: Cleaning
+                    icon: mdi:broom
+                    buttons:
+                      - icon: mdi:robot-vacuum-variant
+                        tap_action:
+                          action: perform-action
+                          perform_action: vacuum.start
+                          target:
+                            entity_id: vacuum.vacuum
+                        confirm: true
+                      - icon: mdi:water-outline
+                        tap_action:
+                          action: perform-action
+                          perform_action: vacuum.start
+                          target:
+                            entity_id: vacuum.mop
+                        confirm: true
+                      - icon: mdi:broom
+                        tap_action:
+                          action: perform-action
+                          perform_action: script.turn_on
+                          target:
+                            entity_id: script.vacuum_and_mop
+                        confirm: true
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-panel
+                    role: sidebar
+                    layout: column
+                    gap: 18
+                    padding: 22
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: custom:glass-appliance
+                        select_group: cleaning
+                        entity: vacuum.vacuum
+                        name: Vacuum
+                        icon: mdi:robot-vacuum-variant
+                        battery: sensor.vacuum_battery
+                        select: roomba
+                        progress: sensor.vacuum_mission_progress
+                        charging: sensor.vacuum_phase
+                        room_names:
+                          Hallway: Hallway
+                          Living Room: Living room
+                          Kitchen: Kitchen
+                      - type: custom:glass-appliance
+                        select_group: cleaning
+                        entity: vacuum.mop
+                        name: Mop
+                        icon: mdi:robot-vacuum
+                        battery: sensor.mop_battery
+                        select: braava
+                        progress: sensor.mop_mission_progress
+                        charging: sensor.mop_phase
+                        room_names:
+                          Hallway: Hallway
+                          Living Room: Living room
+                          Kitchen: Kitchen
+                      - type: custom:glass-appliance
+                        select_group: cleaning
+                        entity: lawn_mower.mower
+                        name: Mower
+                        icon: mdi:robot-mower
+                        progress: sensor.mower_progress
+                        battery: sensor.mower_battery
+                        charging: binary_sensor.mower_charging
+                        pause:
+                          action: perform-action
+                          perform_action: script.mower_pause
+                        resume:
+                          action: perform-action
+                          perform_action: script.mower_unpause
+                        nudge:
+                          up: button.mower_emergency_nudge_forward
+                          left: button.mower_emergency_nudge_left
+                          right: button.mower_emergency_nudge_right
+                          down: button.mower_emergency_nudge_back
+                        select: mower
+                        picked_first: true
+                      - type: custom:glass-appliance
+                        select_group: cleaning
+                        entity: sensor.washer_job_state
+                        name: Washing machine
+                        icon: mdi:washing-machine
+                        machine: sensor.washer_machine_state
+                        remaining: sensor.washer_remaining_time
+                        kind: washer
+                  - type: custom:glass-panel
+                    bar: true
+                    layout: column
+                    gap: 12
+                    padding: 14
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
+                        view_layout:
+                          grow: 1
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: roomba
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
+                        view_layout:
+                          grow: 1
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: braava
+                      - type: custom:glass-tabs
+                        group: cleaning_mower
+                        default: front
+                        tabs:
+                          - id: front
+                            name: Camera
+                            icon: mdi:cctv
+                          - id: zones
+                            name: Zones
+                            icon: mdi:map-marker-radius-outline
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: mower
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                        view_layout:
+                          grow: 1
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: mower
+                          - condition: select
+                            group: cleaning_mower
+                            id: front
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
+                        view_layout:
+                          grow: 1
+                        visibility:
+                          - condition: select
+                            group: cleaning
+                            id: mower
+                          - condition: select
+                            group: cleaning_mower
+                            id: zones
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#media"
+            width_desktop: 340px
+            margin: 8px
+            margin_top_mobile: -56px
+            bg_blur: 50
+            bg_opacity: 0
+            hide_backdrop: true
+            icon: mdi:multimedia
+            margin_top_desktop: -35px
+            name: Media
+            cards:
+              - type: custom:glass-popup-header
+                name: Media
+                icon: mdi:multimedia
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr
+                  grid-template-rows: min-content
+                  grid-template-areas: |
+                    "media_hub_mobile"
+                cards:
+                  - view_layout:
+                      grid-area: media_hub_mobile
+                    type: vertical-stack
+                    cards:
+                      - type: media-control
+                        entity: media_player.office
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#movies"
+            width_desktop: 340px
+            margin: 8px
+            margin_top_mobile: -56px
+            bg_blur: 50
+            bg_opacity: 0
+            hide_backdrop: true
+            icon: mdi:movie-play-outline
+            margin_top_desktop: -35px
+            name: Films
+            cards:
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 1fr
+                  grid-template-rows: min-content
+                  grid-template-areas: |
+                    "movies_arr"
+                cards:
+                  - type: picture
+                    image: https://arrcard.argalas.org/arrcard/light/card-desktop.webp
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#weather"
+            margin: 8px
+            width_desktop: 340px
+            margin_top_mobile: -56px
+            bg_blur: 50
+            bg_opacity: 0
+            hide_backdrop: true
+            icon: mdi:weather-partly-cloudy
+            margin_top_desktop: -35px
+            name: Weather
+            cards:
+              - type: custom:glass-panel
+                glass: none
+                layout: column
+                gap: 14
+                padding: 0
+                cards:
+                  - type: custom:glass-popup-header
+                    name: Weather
+                    icon: mdi:weather-partly-cloudy
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-panel
+                    role: sidebar
+                    view_layout:
+                      height: auto
+                    padding: 22
+                    cards:
+                      - type: custom:glass-clock-weather
+                        weather: weather.home
+                        show_clock: false
+                        show_date: false
+                        show_condition: true
+                        daily_forecast: 5
+                        hourly_forecast: 5
+                        details:
+                          - humidity
+                          - pressure
+                          - wind
+                          - apparent_temperature
+                          - cloud_coverage
+                          - precipitation
+                          - sunrise
+                          - sunset
+                        details_columns: 2
+                        tap_action:
+                          action: none
+                        dividers: true
+                        temperature_entity: sensor.heat_pump_outside_temperature
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: column
+                    gap: 16
+                    padding: 0
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: custom:glass-radar
+                        zoom: 7
+                        frames: 7
+                        height: 320
+                        style: rain
+                        styles:
+                          - rain
+                          - clouds
+                        view_layout: {}
+                        forecast: 3
+                      - type: custom:glass-air-quality
+                        entity: sensor.air_quality_index_air_quality_index
+                        view_layout: {}
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#energy"
+            margin: 8px
+            width_desktop: 340px
+            margin_top_mobile: -56px
+            bg_blur: 50
+            bg_opacity: 0
+            hide_backdrop: true
+            icon: mdi:solar-power-variant
+            margin_top_desktop: -35px
+            name: Energy
+            cards:
+              - type: custom:glass-panel
+                glass: none
+                layout: column
+                gap: 14
+                padding: 0
+                cards:
+                  - type: custom:glass-popup-header
+                    name: Energy
+                    icon: mdi:solar-power-variant
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-panel
+                    role: sidebar
+                    gap: 24
+                    padding: 18
+                    styles:
+                      --mod-card-background: transparent
+                      --mod-card-border: transparent
+                      --mod-card-shadow: transparent
+                      --mod-card-inset-shadow: transparent
+                      --mod-card-gradient-start: transparent
+                      --mod-card-gradient-mid: transparent
+                      --mod-card-gradient-end: transparent
+                      --text-color: "var(--glass-text, #fff)"
+                    cards:
+                      - type: custom:solar-arc-card
+                        arc:
+                          solar_production: sensor.pv_power
+                          house_consumption: sensor.house_consumption
+                          grid_power: sensor.active_power
+                          arc_title_show: false
+                          flow_style: laser
+                          flow_count_slow: 4
+                          flow_count_fast: 2
+                          style:
+                            arc_pill_bg_color: var(--glass-energy-pill, rgba(255,255,255,0.14))
+                            arc_pill_text_color: "var(--glass-energy-text, var(--glass-text, #fff))"
+                            arc_text_color: "var(--glass-energy-text, var(--glass-text, #fff))"
+                            arc_home_color: "#ff9f0a"
+                            arc_sun_flow_color: "#febc2e"
+                            arc_flow_line_color: "color-mix(in srgb, var(--glass-energy-text, var(--glass-text, #fff)) 12%, transparent)"
+                        sankey:
+                          sankey_show: true
+                          sankey_title_show: false
+                          layout: horizontal
+                          sections:
+                            - entities:
+                                - entity_id: sensor.grid_consumption
+                                  name: Grid
+                                  color: "#0084FF"
+                                  children:
+                                    - sensor.house_consumption
+                                - entity_id: sensor.pv_power
+                                  name: Sun
+                                  color: "#febc2e"
+                                  children:
+                                    - sensor.house_consumption
+                                    - sensor.power_sell
+                            - entities:
+                                - entity_id: sensor.house_consumption
+                                  name: House
+                                  color: "#ff9f0a"
+                                  children:
+                                    - sensor.house_consumption_1floor
+                                    - sensor.house_consumption_0floor
+                                    - sensor.house_consumption_rest
+                                    - sensor.consumption_inverter
+                                - entity_id: sensor.power_sell
+                                  type: remaining_parent_state
+                                  name: Export
+                                  color: "#32D74B"
+                            - entities:
+                                - entity_id: sensor.house_consumption_1floor
+                                  name: Phase 1
+                                  color: "#5AC8FA"
+                                - entity_id: sensor.house_consumption_0floor
+                                  name: Phase 2
+                                  color: "#5AC8FA"
+                                - entity_id: sensor.house_consumption_rest
+                                  name: Phase 3
+                                  color: "#5AC8FA"
+                                - entity_id: sensor.consumption_inverter
+                                  name: Inverter
+                                  color: "#5AC8FA"
+                          style:
+                            sankey_text_color_primary: "var(--glass-energy-text, var(--glass-text, #fff))"
+                            sankey_text_color_secondary: var(--glass-energy-text-2, var(--glass-text-secondary, rgba(235,235,245,0.85)))
+                          sankey_title_icon_show: false
+                        view_layout:
+                          shadow_css: ".card { background: none !important; border: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; padding: 0 !important; } .card::before, .card::after { display: none !important; } #sun-pill foreignObject { transform-box: fill-box; transform-origin: center; transform: scale(1.18); }"
+                      - type: custom:glass-status-bar
+                        layout: figures
+                        columns: 3
+                        items:
+                          - name: Total
+                            entity: sensor.virtual_battery_contract
+                            unit: kWh
+                            secondary:
+                              entity: sensor.electricity_cost_year
+                              unit: CZK
+                            tap_action:
+                              action: none
+                          - name: Month
+                            entity: sensor.virtual_battery_month
+                            unit: kWh
+                            secondary:
+                              entity: sensor.electricity_cost_month
+                              unit: CZK
+                            tap_action:
+                              action: none
+                          - name: Today
+                            entity: sensor.energy_virtual_batery_day
+                            unit: kWh
+                            secondary:
+                              entity: sensor.electricity_cost_day
+                              unit: CZK
+                            tap_action:
+                              action: none
+                        graph:
+                          entity: sensor.energy_virtual_batery_day
+                          hours: 24
+                        styles:
+                          --glass-graph-height: 44px
+                    justify: start
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-period-bar
+                    offset_entity: input_number.counter_graph
+                    select_entity: input_select.graph_day_month_year
+                    current_entity: input_boolean.switch_current
+                    now_label: Today
+                    compact: true
+                    view_layout:
+                      height: auto
+                      z_index: 5
+                    spread: true
+                  - type: custom:glass-panel
+                    layout: column
+                    gap: 10
+                    padding: 14
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: custom:glass-status-bar
+                        layout: pills
+                        columns: 2
+                        items:
+                          - name: Export
+                            icon: mdi:transmission-tower-import
+                            icon_color: orange
+                            entity: sensor.electricity_statistics
+                            attribute: data.Production
+                            unit: kWh
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            rules:
+                              - when:
+                                  - entity: input_select.graph_day_month_year
+                                    state: Day
+                                  - entity: input_number.counter_graph
+                                    above: -1
+                                entity: sensor.energy_buy_daily
+                                attribute: null
+                          - name: Use
+                            icon: mdi:home-import-outline
+                            icon_color: orange
+                            entity: sensor.electricity_statistics
+                            attribute: data.Consumption
+                            unit: kWh
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            rules:
+                              - when:
+                                  - entity: input_select.graph_day_month_year
+                                    state: Day
+                                  - entity: input_number.counter_graph
+                                    above: -1
+                                entity: sensor.energy_consumption_daily
+                                attribute: null
+                          - name: Bought
+                            icon: mdi:transmission-tower-export
+                            icon_color: orange
+                            entity: sensor.electricity_statistics
+                            attribute: data.GridBuy
+                            unit: kWh
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            rules:
+                              - when:
+                                  - entity: input_select.graph_day_month_year
+                                    state: Day
+                                  - entity: input_number.counter_graph
+                                    above: -1
+                                entity: sensor.energy_sell_daily
+                                attribute: null
+                          - name: Solar
+                            icon: mdi:solar-power-variant-outline
+                            icon_color: orange
+                            entity: sensor.energy_generation_daily
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            rules:
+                              - when:
+                                  entity: input_select.graph_day_month_year
+                                  state: Month
+                                entity: sensor.energy_generation_monthly
+                              - when:
+                                  entity: input_select.graph_day_month_year
+                                  state: Year
+                                entity: sensor.energy_generation_yearly
+                      - type: custom:glass-divider
+                        name: Solar and use
+                        icon: mdi:home-lightning-bolt-outline
+                        margin: 0
+                        line: false
+                      - type: custom:glass-chart
+                        offset_entity: input_number.counter_graph
+                        select_entity: input_select.graph_day_month_year
+                        card:
+                          type: custom:apexcharts-card
+                          stacked: true
+                          apex_config:
+                            chart:
+                              type: area
+                        day:
+                          update_interval: 15m
+                          series:
+                            - entity: sensor.total_load
+                              name: Use
+                              unit: kW
+                              transform: return -x
+                              type: column
+                              group_by:
+                                func: diff
+                                start_with_last: true
+                              opacity: 0.5
+                            - entity: sensor.today_s_pv_generation
+                              name: Solar
+                              unit: kW
+                              type: column
+                              group_by:
+                                func: diff
+                                start_with_last: true
+                        month:
+                          update_interval: 1h
+                          series:
+                            - entity: sensor.pnd_data
+                              name: Use
+                              unit: kW
+                              type: column
+                              attribute: consumption
+                              data_generator: |
+                                return entity.attributes.pnddate.map((pnd, index) => {
+                                  return [new Date(pnd).getTime(), Number(entity.attributes.consumption[index])];
+                                });
+                              invert: true
+                              group_by:
+                                func: sum
+                              opacity: 0.5
+                            - entity: sensor.pnd_data
+                              name: Export
+                              unit: kW
+                              type: column
+                              attribute: production
+                              data_generator: |
+                                return entity.attributes.pnddate.map((pnd, index) => {
+                                  return [new Date(pnd).getTime(), Number(entity.attributes.production[index])];
+                                });
+                              group_by:
+                                func: sum
+                        year:
+                          update_interval: 1h
+                          series:
+                            - entity: sensor.pnd_data
+                              name: Use
+                              unit: kW
+                              type: column
+                              attribute: consumption
+                              data_generator: |
+                                return entity.attributes.pnddate.map((pnd, index) => {
+                                  return [new Date(pnd).getTime(), Number(entity.attributes.consumption[index])];
+                                });
+                              invert: true
+                              group_by:
+                                func: sum
+                              opacity: 0.5
+                            - entity: sensor.pnd_data
+                              name: Export
+                              unit: kW
+                              type: column
+                              attribute: production
+                              data_generator: |
+                                return entity.attributes.pnddate.map((pnd, index) => {
+                                  return [new Date(pnd).getTime(), Number(entity.attributes.production[index])];
+                                });
+                              group_by:
+                                func: sum
+                          apex_config:
+                            yaxis:
+                              - labels:
+                                  show: false
+                                axisBorder:
+                                  show: false
+                                axisTicks:
+                                  show: false
+                        height: 200
+                      - type: custom:glass-divider
+                        name: Export to the grid
+                        icon: mdi:transmission-tower-import
+                        margin: 0
+                        line: false
+                      - type: custom:glass-chart
+                        offset_entity: input_number.counter_graph
+                        select_entity: input_select.graph_day_month_year
+                        card:
+                          type: custom:apexcharts-card
+                          apex_config:
+                            chart:
+                              type: area
+                          yaxis:
+                            - decimals: 0
+                        day:
+                          series:
+                            - entity: sensor.active_power
+                              transform: return x/1000
+                              unit: kW
+                              type: column
+                              group_by:
+                                duration: 15m
+                                func: max
+                              name: Export
+                          update_interval: 15m
+                        month:
+                          series:
+                            - entity: sensor.pnd_data
+                              unit: kW
+                              type: column
+                              attribute: production
+                              data_generator: |
+                                return entity.attributes.pnddate.map((pnd, index) => {
+                                  return [new Date(pnd).getTime(), Number(entity.attributes.production[index])];
+                                });
+                              group_by:
+                                func: sum
+                              name: Export
+                        year:
+                          series:
+                            - entity: sensor.total_energy_buy
+                              unit: kWh
+                              type: column
+                              group_by:
+                                func: diff
+                                start_with_last: true
+                              name: Export
+                          update_interval: 1h
+                        height: 170
+                    bar: true
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#security"
+            width_desktop: 340px
+            margin_top_mobile: -56px
+            bg_blur: 50
+            bg_opacity: 0
+            hide_backdrop: true
+            icon: mdi:cctv
+            margin_top_desktop: -35px
+            name: Security
+            cards:
+              - type: custom:glass-panel
+                glass: none
+                layout: column
+                gap: 14
+                padding: 0
+                cards:
+                  - type: custom:glass-popup-header
+                    name: Security
+                    icon: mdi:cctv
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-popup-header
+                    close: false
+                    view_layout:
+                      height: auto
+                    buttons:
+                      - icon: mdi:shield-home-outline
+                        tap_action:
+                          action: perform-action
+                          perform_action: alarm_control_panel.alarm_arm_home
+                          target:
+                            entity_id: alarm_control_panel.hub_security
+                        active:
+                          entity: alarm_control_panel.hub_security
+                          state: armed_home
+                      - icon: mdi:shield-lock-outline
+                        tap_action:
+                          action: perform-action
+                          perform_action: alarm_control_panel.alarm_arm_away
+                          target:
+                            entity_id: alarm_control_panel.hub_security
+                        active:
+                          entity: alarm_control_panel.hub_security
+                          state: armed_away
+                      - icon: mdi:shield-moon-outline
+                        tap_action:
+                          action: perform-action
+                          perform_action: alarm_control_panel.alarm_arm_night
+                          target:
+                            entity_id: alarm_control_panel.hub_security
+                        active:
+                          entity: alarm_control_panel.hub_security
+                          state: armed_night
+                      - icon: mdi:shield-off-outline
+                        tap_action:
+                          action: perform-action
+                          perform_action: alarm_control_panel.alarm_disarm
+                          target:
+                            entity_id: alarm_control_panel.hub_security
+                        active:
+                          entity: alarm_control_panel.hub_security
+                          state: disarmed
+                  - type: custom:glass-panel
+                    bar: true
+                    layout: column
+                    justify: start
+                    gap: 10
+                    padding: 12
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: custom:glass-popup-header
+                        close: false
+                        view_layout:
+                          height: auto
+                        buttons:
+                          - name: Entrance
+                            icon: mdi:door
+                            tap_action:
+                              action: perform-action
+                              perform_action: script.multi_tap_action
+                              data:
+                                actions:
+                                  - service: input_boolean.turn_off
+                                    entity_id: input_boolean.switch_security_camera_2
+                                  - service: input_boolean.turn_on
+                                    entity_id: input_boolean.switch_security_camera_1
+                            active:
+                              entity: input_boolean.switch_security_camera_1
+                              state: on
+                          - name: Garden
+                            icon: mdi:tree-outline
+                            tap_action:
+                              action: perform-action
+                              perform_action: script.multi_tap_action
+                              data:
+                                actions:
+                                  - service: input_boolean.turn_off
+                                    entity_id: input_boolean.switch_security_camera_1
+                                  - service: input_boolean.turn_on
+                                    entity_id: input_boolean.switch_security_camera_2
+                            active:
+                              entity: input_boolean.switch_security_camera_2
+                              state: on
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_1
+                            state: on
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_2
+                            state: on
+                      - type: custom:glass-status-bar
+                        layout: pills
+                        columns: 2
+                        items:
+                          - entity: switch.front_door_light
+                            name: Light
+                            icon: mdi:lightbulb-outline
+                            text: Off
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: select.front_door_nightvision
+                            name: Night vision
+                            icon: mdi:weather-night
+                            rules:
+                              - state_not: Off
+                                icon_color: orange
+                            dropdown: true
+                            option_names:
+                              Off: Off
+                              B&W Night Vision: Black and white
+                              Color Night Vision: Colour
+                        pill_height: 46
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_1
+                            state: on
+                      - type: custom:glass-status-bar
+                        layout: pills
+                        columns: 2
+                        items:
+                          - entity: switch.garden_light
+                            name: Light
+                            icon: mdi:lightbulb-outline
+                            text: Off
+                            rules:
+                              - state: on
+                                text: On
+                                icon_color: orange
+                          - entity: select.garden_nightvision
+                            name: Night vision
+                            icon: mdi:weather-night
+                            rules:
+                              - state_not: Off
+                                icon_color: orange
+                            dropdown: true
+                            option_names:
+                              Off: Off
+                              B&W Night Vision: Black and white
+                              Color Night Vision: Colour
+                        pill_height: 46
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_2
+                            state: on
+                  - type: custom:glass-panel
+                    role: sidebar
+                    layout: column
+                    gap: 0
+                    padding: 22
+                    view_layout:
+                      height: auto
+                    cards:
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_1
+                            state: on
+                      - type: picture
+                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                        visibility:
+                          - condition: state
+                            entity: input_boolean.switch_security_camera_2
+                            state: on
+            show_header: false

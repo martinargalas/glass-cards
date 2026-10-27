@@ -1,7 +1,10 @@
 # Glass Studio
 
 Glass Studio is the editor for glass dashboards: a full-screen window laid out like Home
-Assistant's automation editor.
+Assistant's automation editor. [Try it live on the website](https://glass.argalas.org/#studio) –
+it runs there on the demo home.
+
+![Glass Studio](images/studio.webp)
 
 ```
 ┌───────────────┬──────────────────────────────┬────────────────────┐
@@ -42,6 +45,8 @@ and saves straight to Home Assistant.
 | **Save** | Saves. The clock-arrow button next to it undoes the last save. |
 
 ## The preview
+
+![Glass Studio editing the phone layout](images/studio-mobile.webp)
 
 Above the preview:
 

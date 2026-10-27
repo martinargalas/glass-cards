@@ -1,5 +1,6 @@
 import type { ActionConfig, HassEntity, HomeAssistant } from "../core/types";
-import { EFFECTS, WORLD, demoCalendar, demoForecast, demoHistory, type DemoState } from "./world";
+import { EFFECTS, WORLD, demoCalendar, demoForecast, demoHistory, demoStatistics, type DemoState } from "./world";
+import { DEMO_POPUPS, DEMO_POPUPS_URL } from "./dashboard";
 
 /**
  * Demo mode: a made-up home the cards run on, inside any Home Assistant (`demo: true`
@@ -271,7 +272,11 @@ const fmtNumber = (v: string, lang: string) => {
 /** HA's own formatting where there is one (in HA), else a plain one (web page). */
 function formatter(base: Partial<HomeAssistant> | undefined, lang: string) {
   if (base?.formatEntityState) return base.formatEntityState.bind(base);
-  const words: Record<string, string> = { on: "On", off: "Off", home: "Home", not_home: "Away", open: "Open", closed: "Closed", playing: "Playing", paused: "Paused", idle: "Idle", docked: "Docked" };
+  const words: Record<string, string> = {
+    on: "On", off: "Off", home: "Home", not_home: "Away", open: "Open", closed: "Closed", playing: "Playing", paused: "Paused", idle: "Idle", docked: "Docked",
+    "clear-night": "Clear", cloudy: "Cloudy", fog: "Fog", hail: "Hail", lightning: "Lightning", "lightning-rainy": "Thunderstorm", partlycloudy: "Partly cloudy",
+    pouring: "Pouring", rainy: "Rainy", snowy: "Snowy", "snowy-rainy": "Sleet", sunny: "Sunny", windy: "Windy", "windy-variant": "Windy",
+  };
   return (s: HassEntity, state = s.state) => {
     const unit = s.attributes.unit_of_measurement;
     const v = unit ? fmtNumber(state, lang) : (words[state] ?? state.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase()));
@@ -324,12 +329,35 @@ export function demoHass(base?: Partial<HomeAssistant>): HomeAssistant & { demo:
         if (rest.length && base?.callWS) Object.assign(out, await base.callWS<typeof out>({ ...msg, entity_ids: rest }).catch(() => ({})));
         return out as T;
       }
+      if (msg.type === "recorder/statistics_during_period") {
+        const list = ((msg.statistic_ids as string[]) ?? []).filter((id) => all[id]);
+        return Object.fromEntries(list.map((id) => [id, demoStatistics(id, all[id], Date.parse(String(msg.start_time)), msg.end_time ? Date.parse(String(msg.end_time)) : Date.now(), String(msg.period ?? "hour"))])) as T;
+      }
+      // the demo's pop-ups: HA's own copy when it has one (edited in Glass Studio), else the bundled one
+      if (msg.type === "lovelace/config" && msg.url_path === DEMO_POPUPS_URL) {
+        const own = base?.callWS ? await base.callWS<T>(msg).catch(() => undefined) : undefined;
+        return own ?? (structuredClone(DEMO_POPUPS) as T);
+      }
       if (!base?.callWS) throw Object.assign(new Error("Not available in the demo"), { code: "not_found" });
       return base.callWS<T>(msg);
     },
     callApi: async <T>(method: "GET" | "POST", path: string, data?: Record<string, unknown>): Promise<T> => {
       const m = /^calendars\/([^?]+)\?start=([^&]+)&end=(.+)$/.exec(path);
       if (m && states[decodeURIComponent(m[1])]) return demoCalendar(decodeURIComponent(m[1]), Date.parse(decodeURIComponent(m[2])), Date.parse(decodeURIComponent(m[3]))) as T;
+      // HA's REST history (apexcharts-card): one list of full states per entity
+      const h = /^history\/period(?:\/([^?]+))?\?(.*)$/.exec(path);
+      if (h) {
+        const q = new URLSearchParams(h[2]);
+        const ids = (q.get("filter_entity_id") ?? "").split(",").filter((id) => all[id]);
+        const start = h[1] ? Date.parse(decodeURIComponent(h[1])) : Date.now() - 86400000;
+        const end = q.get("end_time") ? Date.parse(q.get("end_time")!) : Date.now();
+        return ids.map((id) =>
+          demoHistory(id, all[id], start, end).map((p) => {
+            const at = new Date(p.lu * 1000).toISOString();
+            return { entity_id: id, state: p.s, attributes: all[id].attributes, last_changed: at, last_updated: at };
+          }),
+        ) as T;
+      }
       if (!base?.callApi) return [] as T;
       return base.callApi<T>(method, path, data);
     },

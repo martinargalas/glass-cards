@@ -1,8 +1,10 @@
 # The demo dashboard
 
-The fastest way to see what Glass Cards and Glass Studio can do: a complete dashboard of a
-made-up home – Alex and Sam, six rooms, a heat pump, solar panels, a washing machine, a robot
-vacuum and a lawn mower.
+The fastest way to see what Glass Cards and Glass Studio can do: the author's own dashboard –
+the same layout, photos and pop-ups – running on a made-up home. Alex and Sam, nine rooms, a heat
+pump, solar panels with a battery, a washing machine, a robot vacuum, a mop and a lawn mower.
+
+![The demo dashboard on a tablet](images/tablet-day.webp)
 
 **It doesn't touch your home.** Every card on it runs on invented devices. Switch the lights,
 close the blinds, start the vacuum – it all happens in the demo only. Nothing is sent to your
@@ -19,16 +21,40 @@ button again later just opens it – your changes are kept.
 
 > You need to be an administrator to add a dashboard.
 
+It adds two dashboards: **Glass demo** and, hidden from the sidebar, **Glass demo – pop-ups**
+(the pop-up windows live there, as Glass Cards keeps them – see [Layout → Pop-ups](layout.md#pop-ups)).
+
+### Cards the demo uses besides the glass ones
+
+The dashboard itself needs only Glass Cards. Its pop-ups use what the author's do – install them
+from HACS for the full demo; without them those parts show an error card:
+
+| Card | In the demo |
+| --- | --- |
+| [Bubble Card](https://github.com/Clooos/Bubble-Card) | Every pop-up |
+| [card-mod](https://github.com/thomasloven/lovelace-card-mod) | The pop-ups' finishing touches |
+| [layout-card](https://github.com/thomasloven/lovelace-layout-card), [vertical-stack-in-card](https://github.com/ofekashery/vertical-stack-in-card) | Arranging some pop-ups |
+| [apexcharts-card](https://github.com/RomRider/apexcharts-card) | The energy charts |
+| solar-arc-card | The sun and solar production in the energy pop-up |
+
+![The lights pop-up over the dashboard](images/popup-lights.webp)
+
 ## What to try
 
 **On the dashboard**
 
-- The **dock** at the bottom switches pages: rooms, lights and blinds, climate, weather, devices.
+- The **dock** at the bottom opens the pop-ups: lights, blinds, films, music, weather, energy,
+  heating, security, cleaning. They slide over the dashboard; ✕ or the back button closes them.
 - Tap the light bulbs on the room cards. The photos turn from grey to colour when something is on.
-- On **Lights and blinds**, pick the **Movie** scene – the lights dim and the blind closes.
+- In **Lights**, pick a scene – the room's lights follow.
 - Drag a blind's bar, or the brightness bar of a light.
-- **Running now** in the side column lists everything that is on. Switch one off from there.
-- Open it on your phone: the same dashboard rearranges itself for the small screen.
+- **Running now** lists everything that is on (on a phone, under the rooms). Switch one off from there.
+- Open it on your phone: the same dashboard rearranges itself for the small screen, and the
+  pop-ups have a phone layout of their own.
+
+| Phone | Phone, a pop-up |
+| --- | --- |
+| ![](images/phone-day.webp) | ![](images/phone-lights.webp) |
 
 **In Glass Studio**
 
@@ -53,4 +79,4 @@ replace the entities card by card.
 
 ## Remove it
 
-**Settings → Dashboards → Glass demo → Delete**. That's all there is to it.
+**Settings → Dashboards**: delete **Glass demo** and **Glass demo – pop-ups**. That's all there is to it.

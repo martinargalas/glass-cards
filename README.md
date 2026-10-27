@@ -11,6 +11,12 @@
 
 **[Website and live demo](https://glass.argalas.org) · [Documentation](docs/README.md)**
 
+![Glass Cards on a tablet](docs/images/tablet-day.webp)
+
+| Pop-ups over the dashboard | Glass Studio |
+| --- | --- |
+| ![](docs/images/popup-energy.webp) | ![](docs/images/studio.webp) |
+
 Glass Cards is a set of 27 cards and a full-screen dashboard for Home Assistant, in a liquid
 glass look: panels that really refract the wallpaper, soft tiles, a dark sidebar like the Home
 app – or, for older tablets, the same look at almost no cost.
@@ -50,7 +56,7 @@ Details: [Install](docs/install.md).
 ## Quick start
 
 1. Open any Home Assistant page with `?glass-studio` at the end of the address.
-2. Click **Demo dashboard** – a complete dashboard of a made-up home appears in the sidebar.
+2. Click **Demo dashboard** – the author's own dashboard, pop-ups and all, on a made-up home, appears in the sidebar.
 3. Look around, then [build your own](docs/first-dashboard.md).
 
 ```yaml
@@ -85,7 +91,8 @@ main:
 ```bash
 npm install
 npm run build        # dist/glass-cards.js + dist/wallpapers
-npm run web          # the live demo on http://localhost:5174 (no Home Assistant needed)
+npm run web          # the live demo on http://localhost:5174 (no Home Assistant needed;
+                     # Bubble Card and the demo's other HACS cards go in web/vendor/)
 npm run build:web    # the live demo for the web site → dist-web/
 ```
 

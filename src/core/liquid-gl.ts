@@ -250,15 +250,18 @@ interface Backdrop {
  * whose day / night follows the sun can switch it too; undefined = the theme's.
  */
 /**
- * A wallpaper's address: `glass:<name>` is one of the wallpapers that come with the
- * cards (next to the bundle, in wallpapers/<name>.jpg), anything else as it is.
+ * An address of a picture that may come with the cards: `glass:<name>` is one of the bundled
+ * wallpapers (wallpapers/<name>.jpg next to the bundle), `glass:<folder>/<file>` any other
+ * bundled file (the demo home's photos: glass:demo/laundry.jpg); anything else as it is.
  */
 export function wallpaperUrl(url: string | undefined): string | undefined {
-  const m = url?.match(/^glass:([\w-]+)$/);
+  const m = url?.match(/^glass:([\w-]+(?:\/[\w.-]+)?)$/);
+  if (!m) return url;
   // the bundle's own address in a variable: Vite would turn `new URL(…, import.meta.url)` into a lookup of files beside the source
   const bundle = import.meta.url;
-  return m ? new URL(`./wallpapers/${m[1]}.jpg`, bundle).href : url;
+  return new URL(m[1].includes("/") ? `./${m[1]}` : `./wallpapers/${m[1]}.jpg`, bundle).href;
 }
+export const assetUrl = wallpaperUrl;
 
 export function setWallpaper(url: string | undefined) {
   url = wallpaperUrl(url);

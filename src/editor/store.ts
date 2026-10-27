@@ -5,7 +5,7 @@
  * version in the browser (IndexedDB), to put back with "Undo the last save".
  */
 
-import { DEMO_DASHBOARD } from "../demo/dashboard";
+import { DEMO_DASHBOARD, DEMO_POPUPS, DEMO_POPUPS_URL } from "../demo/dashboard";
 
 type WS = { callWS<T>(m: Record<string, unknown>): Promise<T> };
 type Cfg = Record<string, any>;
@@ -52,6 +52,11 @@ export const DEMO_URL = "glass-demo";
  */
 export async function addDemoDashboard(hass: WS): Promise<string> {
   const list = await hass.callWS<any[]>({ type: "lovelace/dashboards/list" });
+  // the pop-ups first (a hidden dashboard of their own, as Glass Cards keeps them), then the dashboard
+  if (!list.some((d) => d.url_path === DEMO_POPUPS_URL)) {
+    await hass.callWS({ type: "lovelace/dashboards/create", url_path: DEMO_POPUPS_URL, title: "Glass demo – pop-ups", icon: "mdi:window-restore", show_in_sidebar: false, require_admin: false, mode: "storage" });
+    await saveConfig(hass, DEMO_POPUPS_URL, structuredClone(DEMO_POPUPS));
+  }
   if (list.some((d) => d.url_path === DEMO_URL)) return DEMO_URL;
   await hass.callWS({ type: "lovelace/dashboards/create", url_path: DEMO_URL, title: "Glass demo", icon: "mdi:creation-outline", show_in_sidebar: true, require_admin: false, mode: "storage" });
   await saveConfig(hass, DEMO_URL, structuredClone(DEMO_DASHBOARD));

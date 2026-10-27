@@ -1,13 +1,8 @@
-# Glass Cards – demo dashboard
+# Glass Cards – the demo dashboard
 #
-# A made-up home (`demo: true`): every card runs on invented entities, so the dashboard
-# works in any Home Assistant without touching a real device. Open it in Glass Studio
-# to see how it is built, then copy what you like into your own dashboard and swap the
-# entity ids for yours.
-#
-# One configuration for phones, tablets and computers: the dock at the bottom switches
-# pages (`group: page`), cards show for their page with `visibility: condition: select`.
-
+# A made-up home (`demo: true`): every card runs on invented entities, so it works in any
+# Home Assistant without touching a real device. Its pop-ups (Bubble Card) are in
+# examples/demo-popups.yaml – Glass Studio's "Demo dashboard" button adds both.
 title: Glass demo
 views:
   - title: Home
@@ -15,607 +10,832 @@ views:
     type: panel
     cards:
       - type: custom:glass-dashboard
-        demo: true
-        look: apple-home
-        preset: sidebar
-        appearance: sun
-        wallpaper: glass:hills-day
-        dark:
-          wallpaper: glass:hills-night-blue-soft
-        left_width: minmax(340px, 0.34fr)
-        breakpoints:
-          mobile: 700
-          desktop: 1500
-        styles:
-          radius: 32px
-          room_button_size: 46px
-
-        # ── The side column (tablets and computers) ──────────────────────────────
+        left_width: minmax(340px, 0.36fr)
         left:
           - type: custom:glass-panel
-            padding: 26px 26px 18px
-            gap: 14
+            padding: 26px 28px
             cards:
-              - type: custom:glass-date-header
-                greeting: true
+              - type: custom:glass-panel
+                layout: row
                 align: start
+                gap: 8
+                padding: 0
+                cards:
+                  - type: custom:glass-date-header
+                    align: start
+                    styles:
+                      date_size: 15px
+                      date_line_size: 13px
+                    view_layout:
+                      grow: 1
+                    nameday: sensor.nameday
+                    holidays: calendar.holidays
+                  - type: custom:glass-notifications
+                    entity: sensor.glass_notifications
+                    size: 28
+                    alerts:
+                      - id: mower_error
+                        level: alert
+                        icon: mdi:robot-mower-outline
+                        title: The mower reports an error
+                        message: Probably stuck
+                        condition:
+                          entity: lawn_mower.mower
+                          state: error
+                      - id: mower_low
+                        level: warning
+                        icon: mdi:battery-alert-variant-outline
+                        title: The mower's battery is low
+                        message: Under 10 % and not charging
+                        condition:
+                          entity: sensor.mower_battery
+                          below: 10
+                          and:
+                            entity: binary_sensor.mower_charging
+                            state: off
+                      - id: braava_error
+                        level: warning
+                        icon: mdi:robot-vacuum-alert
+                        title: The mop reports an error
+                        message: "{state}"
+                        condition:
+                          entity: sensor.mop_error
+                          state_not:
+                            - unknown
+                            - unavailable
+                            - none
+                            - ""
+                    visible_on:
+                      - tablet
+                      - desktop
+                  - type: custom:glass-people
+                    people:
+                      - entity: person.alex
+                        battery: sensor.alex_phone_battery
+                        battery_state: sensor.alex_phone_battery_state
+                      - entity: person.sam
+                        battery: sensor.sam_phone_battery
+                        battery_state: sensor.sam_phone_battery_state
+                    responsive:
+                      mobile:
+                        size: 36
+                        gap: 8
+                        battery_style: ring
+                        show_location: never
+                        view_layout:
+                          shrink: 0
+                          align: start
+                    view_layout:
+                      shrink: 0
+                    visible_on:
+                      - tablet
+                      - desktop
+                    size: 30
+                view_layout:
+                  height: auto
+                  grow: 0
+                glass: none
               - type: custom:glass-clock-weather
                 weather: weather.home
-                temperature_entity: sensor.outdoor_temperature
+                forecast_type: hourly
+                forecast_rows: 5
+                show_weather: false
+                clock_align: center
+                temperature_entity: sensor.heat_pump_outside_temperature
+              - type: custom:glass-clock-weather
+                weather: weather.home
                 show_clock: false
                 hourly_forecast: 5
+                rain_nowcast: true
                 daily_forecast: 0
-                details: [humidity, wind]
-                tap_action:
-                  action: none
+                show_condition: true
+                dividers: true
+                now_style: line
+                icon_style: mdi
+                forecast_style: columns
+                rain_bars: false
+                now_align: center
+                temperature_entity: sensor.heat_pump_outside_temperature
+                icons:
+                  weather:
+                    color: rgba(255,255,255,0.92)
               - type: custom:glass-divider
-              - type: custom:glass-now
-                title: Running now
-                lights: &now_lights
-                  - name: Living room
-                    icon: mdi:sofa
-                    entities: [light.living_room, light.living_room_lamp, light.living_room_strip]
-                  - name: Kitchen
-                    icon: mdi:silverware-fork-knife
-                    entities: [light.kitchen_ceiling, light.kitchen_counter]
-                  - name: Bedroom
-                    icon: mdi:bed
-                    entities: [light.bedroom]
-                  - name: Kids' room
-                    icon: mdi:teddy-bear
-                    entities: [light.kids_room]
-                  - name: Bathroom
-                    icon: mdi:bathtub-outline
-                    entities: [switch.bathroom_light]
-                items: &now_items
-                  - entity: media_player.living_room_tv
-                    name: TV
-                    room: Living room
-                    icon: mdi:television
-                  - entity: media_player.kitchen_speaker
-                    name: Music
-                    room: Kitchen
-                    icon: mdi:music-note
-                  - entity: media_player.bathroom_speaker
-                    name: Music
-                    room: Bathroom
-                    icon: mdi:music-note
-                  - entity: switch.office_pc
-                    name: PC
-                    room: Office
-                    icon: mdi:laptop
-                  - entity: input_boolean.star_projector
-                    name: Stars
-                    room: Kids' room
-                    icon: mdi:projector
-                  - type: washer
-                    entity: sensor.washer_job_state
-                    name: Washing machine
-                    room: Laundry
-                    completion: sensor.washer_completion_time
-                  - type: mower
-                    entity: lawn_mower.garden_mower
-                    name: Mowing
-                    room: Garden
-                    progress: sensor.garden_mower_progress
-                  - type: vacuum
-                    entity: vacuum.robot_vacuum
-                    name: Vacuuming
-                    room: Living room
+              - type: custom:glass-status-bar
+                items:
+                  - entity: alarm_control_panel.home_alarm
+                    icon: mdi:shield-check-outline
+                    text: Secured
+                    visible:
+                      state_not:
+                        - disarmed
+                        - unavailable
+                        - unknown
+                  - entity: alarm_control_panel.home_alarm
+                    icon: mdi:shield-off-outline
+                    text: Not secured
+                    visible:
+                      state: disarmed
+                  - entity: sensor.hot_water_temperature
+                    icon: dot
+                    text: Hot water {value}°
+                    precision: 0
+                    color: blue
+                    rules:
+                      - above: 43
+                        color: yellow
+                      - above: 45
+                        color: red
+                      - entity: sensor.water_heating_on
+                        state: on
+                        animation: glow
+                  - entity: sensor.active_power
+                    format: power
+                    abs: true
+                    icon: mdi:arrow-up-bold
+                    rules:
+                      - below: 0
+                        icon: mdi:arrow-down-bold
+                      - state:
+                          - "0"
+                          - "0.0"
+                        icon: mdi:minus
+                        color: gray
+                  - entity: sensor.energy_virtual_batery_day
+                    icon: mdi:battery-outline
+                    unit: kWh
+                    rules:
+                      - above: 0
+                        icon: mdi:battery-charging
+                    precision: 0
+                  - entity: sensor.router_download_speed
+                    format: data_rate
+                    icon: mdi:swap-vertical-bold
+                    visible:
+                      above: 0
+                  - entities:
+                      - sensor.sabnzbd_speed
+                      - sensor.qbittorrent_download_speed
+                    aggregate: sum
+                    format: data_rate
+                    icon: mdi:download
+                    visible:
+                      or:
+                        - entity: sensor.sabnzbd_status
+                          state: Downloading
+                        - entity: sensor.qbittorrent_status
+                          state:
+                            - downloading
+                            - up_down
+                  - entity: sensor.washer_remaining_time
+                    icon: mdi:washing-machine
+                    visible:
+                      entity: sensor.washer_machine_state
+                      state: run
+                      and:
+                        entity: sensor.washer_job_state
+                        state_not:
+                          - finish
+                          - none
+                          - unknown
+                          - unavailable
+                  - entity: binary_sensor.heat_pump_compressor
+                    icon: mdi:heat-pump-outline
+                    text: Heat pump
+                    animation: pulse
+                    visible:
+                      state: on
+                  - entity: lawn_mower.mower
+                    icon: mdi:robot-mower
+                    format: none
+                    animation: bounce
+                    visible:
+                      state: mowing
+                    text: Mowing
+                  - entity: input_boolean.alarmed_toggle
+                    icon: mdi:alarm-note
+                    format: none
+                    visible:
+                      state: on
+                    text: Alarm
+                  - entity: sensor.media_server_streams
+                    icon: mdi:plex
+                    text: "Plex: {value}"
+                    precision: 0
+                    visible:
+                      above: 0
+                size: 26
+                gap: 5
+                wrap: true
+                view_layout:
+                  margin: 0 11px
+                pack: true
+                styles:
+                  chip_padding: 0 12px 0 10px
               - type: custom:glass-calendar
-                days: 4
-                max_events: 4
+                days: 14
+                max_events: 6
                 calendars:
                   - entity: calendar.family
                     color: blue
-                  - entity: calendar.waste_collection
-                    color: green
-                view_layout:
-                  grow: 1
-              - type: custom:glass-people
-                people:
-                  - entity: person.alex
-                    battery: sensor.alex_phone_battery
-                    battery_state: sensor.alex_phone_battery_state
-                  - entity: person.sam
-                    battery: sensor.sam_phone_battery
-                    battery_state: sensor.sam_phone_battery_state
-                show_location: away
-
-        # ── The main area: a status line, then the page picked in the dock ──────
+                  - entity: calendar.utilities
+                    color: orange
+                hide_empty: true
+                fit: true
+            visible_on:
+              - tablet
+              - desktop
+            justify: start
+            styles:
+              home_side_a: 0.35
+              liquid_edge_intensity: 0.18
+              liquid_edge_distance: 0.12
+            gap: 22
         main:
-          - &pages
-            type: custom:glass-panel
-            glass: none
-            padding: 0
+          - type: custom:glass-panel
+            layout: column
             gap: 14
+            padding: 20
             cards:
               - type: custom:glass-panel
-                glass: none
-                layout: row
-                align: center
-                padding: 0
-                cards:
-                  - type: custom:glass-status-bar
-                    view_layout:
-                      grow: 1
-                    items:
-                      - entity: alarm_control_panel.home_alarm
-                        icon: mdi:shield-check-outline
-                        text: Secured
-                        visible:
-                          state_not: [disarmed]
-                      - entity: alarm_control_panel.home_alarm
-                        icon: mdi:shield-off-outline
-                        text: Not secured
-                        color: orange
-                        visible:
-                          state: disarmed
-                      - entity: sensor.hot_water_temperature
-                        icon: dot
-                        text: Hot water {value}°
-                        precision: 0
-                        color: blue
-                        rules:
-                          - above: 45
-                            color: orange
-                          - entity: binary_sensor.hot_water_heating
-                            state: "on"
-                            animation: glow
-                      - entity: sensor.grid_power
-                        format: power
-                        abs: true
-                        icon: mdi:arrow-up-bold
-                        rules:
-                          - below: 0
-                            icon: mdi:arrow-down-bold
-                            color: green
-                      - entity: sensor.home_battery
-                        icon: mdi:battery-high
-                        unit: "%"
-                        precision: 0
-                      - entity: sensor.washer_remaining_time
-                        icon: mdi:washing-machine
-                        animation: shake
-                        visible:
-                          entity: sensor.washer_job_state
-                          state_not: [none, finish]
-                      - entity: lawn_mower.garden_mower
-                        icon: mdi:robot-mower
-                        text: Mowing
-                        format: none
-                        animation: bounce
-                        visible:
-                          state: mowing
-                  - type: custom:glass-notifications
-                    entity: sensor.glass_notifications
-                    alerts:
-                      - id: window_open
-                        level: warning
-                        icon: mdi:window-open-variant
-                        title: Bedroom window is open
-                        message: It's raining in an hour
-                        condition:
-                          entity: binary_sensor.bedroom_window
-                          state: "on"
-                    visible_on: [tablet, desktop]
-
-              # Home: the rooms
-              - type: custom:glass-panel
-                glass: none
                 layout: grid
                 columns: 3
                 rows: 3
                 gap: 14
                 padding: 0
-                visibility:
-                  - condition: select
-                    group: page
-                    id: home
-                responsive:
-                  mobile:
-                    layout: row
-                    scroll: true
-                    rows: null
-                    item_width: max(150px, calc((100vw - 48px) / 2.25))
-                    height: clamp(200px, 34dvh, 320px)
-                    gap: 12
+                view_layout:
+                  grow: 1
+                  basis: "0"
                 cards:
                   - type: custom:glass-room-card
                     name: Living room
                     icon: mdi:sofa
+                    entities:
+                      - entity: light.living_room
+                        icon: mdi:lightbulb-outline
+                      - entity: media_player.apple_tv_4k
+                        icon: mdi:television
+                        name: TV
+                      - entity: media_player.playstation_5
+                        icon: mdi:sony-playstation
+                        active_states:
+                          - on
+                        name: PS5
+                        active:
+                          state_not:
+                            - off
+                            - standby
+                            - unavailable
+                            - unknown
                     layout: image-full
                     image: https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop
                     image_position: center 92%
                     image_color: active
-                    bar: full
-                    buttons: top-center
-                    status_below: true
+                    show_name: true
+                    info:
+                      - entity: sensor.room_temperature_4
+                        precision: 1
                     view_layout:
                       span: 2
-                    info:
-                      - entity: sensor.living_room_temperature
-                        precision: 1
-                    entities:
-                      - entity: light.living_room
-                        icon: mdi:lightbulb-outline
-                      - entity: media_player.living_room_tv
-                        icon: mdi:television
-                        name: TV
-                      - entity: cover.living_room_blind
-                        icon: mdi:blinds-horizontal
-                        active_states: [closed]
-                        state_icons:
-                          closed: mdi:blinds-horizontal-closed
+                    image_entities:
+                      - light.living_room
+                      - media_player.apple_tv_4k
+                      - media_player.playstation_5
+                    max_entities: 2
+                    bar: split
+                    contextual:
+                      - entity: media_player.playstation_5
+                        name: PS5
+                        icon: mdi:sony-playstation
+                        visible:
+                          state_not:
+                            - off
+                            - standby
+                            - unavailable
+                            - unknown
+                        active:
+                          state_not:
+                            - off
+                            - standby
+                            - unavailable
+                            - unknown
+                        artwork: false
                   - type: custom:glass-room-card
                     name: Office
                     icon: mdi:desk
-                    layout: image-full
-                    image: https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop
-                    image_position: center 55%
-                    image_color: active
-                    bar: full
-                    buttons: top-center
-                    status_below: true
-                    info:
-                      - entity: sensor.office_temperature
-                        precision: 1
                     entities:
-                      - entity: switch.office_pc
-                        icon: mdi:laptop
-                        name: PC
-                      - entity: cover.office_blind
+                      - entity: sensor.portainer_containers_status
+                        icon: mdi:server-outline
+                        tap_action:
+                          action: more-info
+                        rules:
+                          - state: running
+                            color: blue
+                          - state: unhealthy
+                            color: orange
+                            animation: pulse
+                            badge: "!"
+                          - state: stopped
+                            color: red
+                            badge: "!"
+                      - entity: cover.office
                         icon: mdi:blinds-horizontal
-                        active_states: [closed]
+                        active_states:
+                          - closed
                         state_icons:
                           closed: mdi:blinds-horizontal-closed
                         tap_action:
                           action: menu
                           items:
+                            - icon: mdi:numeric-1-box
+                              perform_action: script.tilt_blinds_office_min
+                            - icon: mdi:numeric-2-box
+                              perform_action: script.tilt_blinds_office_mid
+                            - icon: mdi:numeric-3-box
+                              perform_action: script.tilt_blinds_office_max
                             - icon: mdi:window-shutter-open
-                              perform_action: cover.open_cover
-                              target:
-                                entity_id: cover.office_blind
+                              perform_action: script.open_blinds_office
                               active:
                                 state: open
                             - icon: mdi:window-shutter
-                              perform_action: cover.close_cover
-                              target:
-                                entity_id: cover.office_blind
+                              perform_action: script.close_blinds_office
                               active:
                                 state: closed
+                            - icon: mdi:timer-pause-outline
+                              name: Pause the automation for an hour
+                              perform_action: switch.toggle
+                              target:
+                                entity_id: switch.office_blinds_user_switch
+                              active:
+                                entity: switch.office_blinds_user_switch
+                                state: on
+                              color: orange
+                              countdown:
+                                entity: switch.office_blinds_user_switch
+                                duration: 3600
+                      - entity: sensor.office_pc_cpu_load
+                        icon: mdi:laptop
+                        name: PC
+                        active:
+                          state_not:
+                            - unavailable
+                            - unknown
+                    image: https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.room_temperature
+                        precision: 1
+                    max_entities: 2
+                    image_position: center 55%
+                    image_on:
+                      entity: sensor.office_pc_cpu_load
+                      state_not:
+                        - unavailable
+                        - unknown
+                    contextual:
+                      - entity: sensor.office_pc_cpu_load
+                        name: PC
+                        icon: mdi:laptop
+                        visible:
+                          state_not:
+                            - unavailable
+                            - unknown
+                        active:
+                          state_not:
+                            - unavailable
+                            - unknown
                   - type: custom:glass-room-card
                     name: Kitchen
                     icon: mdi:silverware-fork-knife
-                    layout: image-full
-                    image: https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop
-                    image_position: center 60%
-                    image_color: active
-                    bar: full
-                    buttons: top-center
-                    status_below: true
-                    view_layout:
-                      span: 2
-                    info:
-                      - entity: sensor.kitchen_temperature
-                        precision: 1
                     entities:
-                      - entity: light.kitchen_ceiling
-                        icon: mdi:ceiling-light-outline
-                      - entity: light.kitchen_counter
-                        icon: mdi:led-strip-variant
-                      - entity: media_player.kitchen_speaker
+                      - entity: binary_sensor.kitchen_lights_any_on
+                        icon: mdi:lightbulb-outline
+                        active_color: yellow
+                        tap_action:
+                          action: menu
+                          items:
+                            - icon: mdi:power
+                              active:
+                                entity: binary_sensor.kitchen_lights_off_on
+                                state: on
+                              perform_action: select.select_option
+                              data:
+                                entity_id: select.kitchen_led_preset
+                                option: Lights off
+                            - icon: mdi:arrow-up-bold-circle
+                              active:
+                                entity: binary_sensor.kitchen_lights_upper_on
+                                state: on
+                              perform_action: select.select_option
+                              data:
+                                entity_id: select.kitchen_led_preset
+                                option: Upper light
+                            - icon: mdi:arrow-down-bold-circle
+                              active:
+                                entity: binary_sensor.kitchen_lights_lower_on
+                                state: on
+                              perform_action: select.select_option
+                              data:
+                                entity_id: select.kitchen_led_preset
+                                option: Lower light
+                            - icon: mdi:lightbulb-group
+                              active:
+                                entity: binary_sensor.kitchen_lights_all_on
+                                state: on
+                              perform_action: select.select_option
+                              data:
+                                entity_id: select.kitchen_led_preset
+                                option: All lights
+                            - icon: mdi:ceiling-light
+                              name: Bar
+                              perform_action: light.toggle
+                              target:
+                                entity_id: light.kitchen_bar
+                              active:
+                                entity: light.kitchen_bar
+                                state: on
+                        active:
+                          or:
+                            - entity: binary_sensor.kitchen_lights_any_on
+                              state: on
+                            - entity: light.kitchen_bar
+                              state: on
+                        count:
+                          - binary_sensor.kitchen_lights_any_on
+                          - light.kitchen_bar
+                      - entity: media_player.office
                         icon: mdi:speaker
-                        name: Music
-                        active_states: [playing]
+                        active_states:
+                          - playing
                         tap_action:
                           action: toggle
-                  - type: custom:glass-room-card
-                    name: Bedroom
-                    icon: mdi:bed
+                        name: music
+                        active:
+                          state: playing
+                    image: https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop
                     layout: image-full
-                    image: https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop
-                    image_position: center 85%
                     image_color: active
-                    bar: full
-                    buttons: top-center
-                    status_below: true
+                    show_name: true
                     info:
-                      - entity: sensor.bedroom_temperature
+                      - entity: sensor.room_temperature_4
                         precision: 1
-                    entities:
-                      - entity: light.bedroom
-                        icon: mdi:lamp-outline
-                      - entity: binary_sensor.bedroom_window
-                        icon: mdi:window-closed-variant
-                        state_icons:
-                          "on": mdi:window-open-variant
-                        active_color: orange
-                        tap_action:
-                          action: none
-                      - entity: cover.bedroom_blind
-                        icon: mdi:blinds-horizontal
-                        active_states: [closed]
-                        state_icons:
-                          closed: mdi:blinds-horizontal-closed
+                    view_layout:
+                      span: 2
+                    max_entities: 1
+                    bar: split
+                    contextual:
+                      - entity: media_player.office
+                        name: music
+                        visible:
+                          state: playing
+                        active:
+                          state: playing
+                        icon: mdi:music-note
+                        artwork: false
+                    image_position: center 60%
                   - type: custom:glass-room-card
                     name: Kids' room
                     icon: mdi:teddy-bear
-                    layout: image-full
-                    image: https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop
-                    image_color: active
-                    bar: full
-                    buttons: top-center
-                    status_below: true
                     entities:
-                      - entity: light.kids_room
-                        icon: mdi:lightbulb-outline
-                      - entity: input_boolean.star_projector
-                        icon: mdi:projector
-                        name: Stars
+                      - entity: input_boolean.kids_radio
+                        icon: mdi:weather-night
+                        name: bedtime
                         active_color: blue
+                        active:
+                          or:
+                            - entity: input_boolean.kids_radio
+                              state: on
+                            - entity: input_boolean.star_projector
+                              state: on
+                        tap_action:
+                          action: menu
+                          labels: true
+                          items:
+                            - icon: mdi:music-note
+                              name: Stories
+                              tap_action:
+                                action: perform-action
+                                perform_action: script.kids_radio_button_toggle
+                              active:
+                                entity: input_boolean.kids_radio
+                                state: on
+                            - icon: mdi:projector
+                              name: Projector
+                              tap_action:
+                                action: perform-action
+                                perform_action: input_boolean.toggle
+                                target:
+                                  entity_id: input_boolean.star_projector
+                              active:
+                                entity: input_boolean.star_projector
+                                state: on
+                            - icon: mdi:power
+                              name: Both off
+                              tap_action:
+                                action: perform-action
+                                perform_action: script.kids_bedtime
+                                data:
+                                  volba: off
+                              visible:
+                                or:
+                                  - entity: input_boolean.kids_radio
+                                    state: on
+                                  - entity: input_boolean.star_projector
+                                    state: on
+                            - icon: mdi:weather-night
+                              name: Both on
+                              tap_action:
+                                action: perform-action
+                                perform_action: script.kids_bedtime
+                                data:
+                                  volba: both
+                              visible:
+                                not:
+                                  or:
+                                    - entity: input_boolean.kids_radio
+                                      state: on
+                                    - entity: input_boolean.star_projector
+                                      state: on
+                        hold_action:
+                          action: perform-action
+                          perform_action: script.kids_bedtime
+                      - entity: cover.kids_room
+                        icon: mdi:blinds-horizontal
+                        active_states:
+                          - closed
+                        state_icons:
+                          closed: mdi:blinds-horizontal-closed
+                        tap_action:
+                          action: menu
+                          items:
+                            - icon: mdi:numeric-1-box
+                              perform_action: script.tilt_blinds_kids_min
+                            - icon: mdi:numeric-2-box
+                              perform_action: script.tilt_blinds_kids_mid
+                            - icon: mdi:numeric-3-box
+                              perform_action: script.tilt_blinds_kids_max
+                            - icon: mdi:window-shutter-open
+                              perform_action: script.open_blinds_kids
+                              active:
+                                state: open
+                            - icon: mdi:window-shutter
+                              perform_action: script.close_blinds_kids
+                              active:
+                                state: closed
+                            - icon: mdi:timer-pause-outline
+                              name: Pause the automation for an hour
+                              perform_action: switch.toggle
+                              target:
+                                entity_id: switch.kids_blinds_user_switch
+                              active:
+                                entity: switch.kids_blinds_user_switch
+                                state: on
+                              color: orange
+                              countdown:
+                                entity: switch.kids_blinds_user_switch
+                                duration: 3600
+                    image: https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.radiator_current_temperature_4
+                        precision: 1
+                        visible:
+                          entity: input_boolean.kids_radio
+                          state_not: on
+                    image_entities:
+                      - input_boolean.star_projector
+                      - input_boolean.kids_radio
+                    max_entities: 2
+                  - type: custom:glass-room-card
+                    name: Bedroom
+                    icon: mdi:bed
+                    entities:
+                      - entity: media_player.bedroom_speaker
+                        icon: mdi:speaker
+                        active_states:
+                          - playing
+                        tap_action:
+                          action: toggle
+                        name: music
+                      - entity: cover.balcony
+                        icon: mdi:blinds-horizontal
+                        active_states:
+                          - closed
+                        state_icons:
+                          closed: mdi:blinds-horizontal-closed
+                        tap_action:
+                          action: menu
+                          items:
+                            - icon: mdi:numeric-1-box
+                              perform_action: script.tilt_blinds_bedroom_min
+                            - icon: mdi:numeric-2-box
+                              perform_action: script.tilt_blinds_bedroom_mid
+                            - icon: mdi:numeric-3-box
+                              perform_action: script.tilt_blinds_bedroom_max
+                            - icon: mdi:window-shutter-open
+                              perform_action: script.open_blinds_bedroom
+                              active:
+                                state: open
+                            - icon: mdi:window-shutter
+                              perform_action: script.close_blinds_bedroom
+                              active:
+                                state: closed
+                            - icon: mdi:timer-pause-outline
+                              name: Pause the automation for an hour
+                              perform_action: switch.toggle
+                              target:
+                                entity_id: switch.bedroom_blinds_user_switch
+                              active:
+                                entity: switch.bedroom_blinds_user_switch
+                                state: on
+                              color: orange
+                              countdown:
+                                entity: switch.bedroom_blinds_user_switch
+                                duration: 3600
+                    image: https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.room_temperature_3
+                        precision: 1
+                    image_entities:
+                      - media_player.bedroom_speaker
+                    max_entities: 2
+                    image_position: center 85%
+                  - type: custom:glass-room-card
+                    name: Laundry
+                    icon: mdi:tshirt-crew-outline
+                    entities:
+                      - entity: switch.wall_switch_2
+                        icon: mdi:lightbulb-outline
+                        active_color: yellow
+                      - entity: sensor.washer_job_state
+                        icon: mdi:washing-machine
+                        active_color: blue
+                        tap_action:
+                          action: more-info
+                    image: glass:demo/laundry.jpg
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.washer_remaining_time
+                        visible:
+                          entity: sensor.washer_machine_state
+                          state: run
+                          and:
+                            entity: sensor.washer_job_state
+                            state_not:
+                              - finish
+                              - none
+                              - unknown
+                              - unavailable
+                    max_entities: 2
+                    image_position: center 74%
                   - type: custom:glass-room-card
                     name: Bathroom
                     icon: mdi:bathtub-outline
-                    layout: image-full
-                    image: https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop
-                    image_position: center 100%
-                    image_color: active
-                    bar: full
-                    buttons: top-center
-                    status_below: true
                     entities:
-                      - entity: switch.bathroom_light
+                      - entity: switch.switch_switch2
                         icon: mdi:lightbulb-outline
                         active_color: yellow
-                      - entity: media_player.bathroom_speaker
-                        icon: mdi:speaker
-                        name: Music
-                        active_states: [playing]
+                        active:
+                          or:
+                            - entity: switch.switch
+                              state: on
+                            - entity: switch.switch_switch1
+                              state: on
+                            - entity: switch.switch_switch2
+                              state: on
                         tap_action:
-                          action: toggle
-
-              # Lights and blinds
-              - type: custom:glass-panel
-                glass: none
-                layout: row
-                gap: 14
-                padding: 0
-                visibility:
-                  - condition: select
-                    group: page
-                    id: lights
-                responsive:
-                  mobile:
-                    layout: column
-                cards:
-                  - type: custom:glass-light
-                    name: Living room
-                    icon: mdi:sofa
-                    view_layout:
-                      grow: 1
-                      basis: 0px
-                    scenes:
-                      - entity: scene.living_room_relax
-                        name: Relax
-                        icon: mdi:sofa-outline
-                      - entity: scene.living_room_read
-                        name: Read
-                        icon: mdi:book-open-variant
-                      - entity: scene.living_room_movie
-                        name: Movie
-                        icon: mdi:movie-open-outline
-                      - entity: scene.living_room_night
-                        name: Night
-                        icon: mdi:weather-night
-                    lights:
-                      - entity: light.living_room
-                        name: Ceiling
-                        levels: [25, 50, 75, 100]
-                      - entity: light.living_room_lamp
-                        name: Floor lamp
-                      - entity: light.living_room_strip
-                        name: TV backlight
-                  - type: custom:glass-panel
-                    glass: none
-                    padding: 0
-                    gap: 14
-                    view_layout:
-                      grow: 1
-                      basis: 0px
-                    cards:
-                      - type: custom:glass-light
-                        name: Kitchen
-                        icon: mdi:silverware-fork-knife
-                        lights:
-                          - entity: light.kitchen_ceiling
-                            name: Ceiling
-                          - entity: light.kitchen_counter
-                            name: Counter LED
-                            levels: [25, 50, 100]
-                      - type: custom:glass-blind
-                        entity: cover.office_blind
-                        name: Office
-                        icon: mdi:desk
-                        pause: switch.office_blind_pause
-                        pause_duration: 3600
-                      - type: custom:glass-blind
-                        entity: cover.bedroom_blind
-                        name: Bedroom
-                        icon: mdi:bed
-
-              # Climate: the heat pump, rooms and the air
-              - type: custom:glass-panel
-                glass: none
-                layout: grid
-                columns: 3
-                gap: 14
-                padding: 0
-                visibility:
-                  - condition: select
-                    group: page
-                    id: climate
-                responsive:
-                  mobile:
-                    layout: column
-                cards:
-                  - type: custom:glass-heat-pump
-                    view_layout:
-                      span: 2
-                    entities:
-                      climate: climate.heat_pump
-                      water_heater: water_heater.hot_water
-                      compressor: binary_sensor.heat_pump_compressor
-                      outside: sensor.outdoor_temperature
-                      supply: sensor.heat_pump_supply_temperature
-                      return: sensor.heat_pump_return_temperature
-                      dhw: sensor.hot_water_temperature
-                      curve_shift: number.heating_curve_shift
-                      curve_slope: number.heating_curve_slope
-                      heating_active: binary_sensor.heat_pump_heating
-                      dhw_active: binary_sensor.hot_water_heating
-                  - type: custom:glass-air-quality
-                    entity: sensor.air_quality_index
-                    pollutants:
-                      - sensor.air_quality_pm2_5
-                      - sensor.air_quality_pm10
-                      - sensor.air_quality_ozone
-                      - sensor.air_quality_nitrogen_dioxide
-                  - type: custom:glass-thermostat
-                    entity: climate.living_room
-                    temperature_entity: sensor.living_room_temperature
-                    name: Living room
-                    icon: mdi:sofa
-                    hours: 12
-                  - type: custom:glass-thermostat
-                    entity: climate.bedroom
-                    temperature_entity: sensor.bedroom_temperature
-                    name: Bedroom
-                    icon: mdi:bed
-                    hours: 12
-                  - type: custom:glass-thermostat
-                    entity: climate.kids_room
-                    temperature_entity: sensor.kids_room_temperature
-                    name: Kids' room
-                    icon: mdi:teddy-bear
-                    hours: 12
-
-              # Weather: the radar beside the full forecast
-              - type: custom:glass-panel
-                glass: none
-                layout: row
-                gap: 14
-                padding: 0
-                visibility:
-                  - condition: select
-                    group: page
-                    id: weather
-                responsive:
-                  mobile:
-                    layout: column
-                cards:
-                  - type: custom:glass-radar
-                    zoom: 6
-                    frames: 7
-                    style: rain
-                    styles: [rain, clouds, satellite]
-                    height: fill
-                    view_layout:
-                      grow: 2
-                      basis: 0px
-                  - type: custom:glass-panel
-                    view_layout:
-                      grow: 1
-                      basis: 0px
-                    cards:
-                      - type: custom:glass-clock-weather
-                        weather: weather.home
-                        temperature_entity: sensor.outdoor_temperature
-                        show_clock: false
-                        show_date: false
-                        show_condition: true
-                        hourly_forecast: 5
-                        daily_forecast: 5
-                        details: [humidity, pressure, wind, apparent_temperature, sunrise, sunset]
-                        details_columns: 2
-                        dividers: true
+                          action: perform-action
+                          perform_action: script.bathroom_lights_toggle
+                        count:
+                          - switch.switch
+                          - switch.switch_switch1
+                          - switch.switch_switch2
+                      - entity: binary_sensor.motion_sensor
+                        icon: mdi:minus-circle
                         tap_action:
                           action: none
-
-              # Devices: the machines that work on their own
-              - type: custom:glass-panel
+                        active:
+                          or:
+                            - state: on
+                            - entity: media_player.bathroom
+                              state: playing
+                      - entity: media_player.bathroom
+                        icon: mdi:speaker
+                        active_states:
+                          - playing
+                        tap_action:
+                          action: toggle
+                        name: music
+                        active:
+                          state: playing
+                    image: https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop
+                    layout: image-full
+                    show_name: true
+                    info: []
+                    max_entities: 2
+                    image_position: center 100%
+                    contextual:
+                      - entity: media_player.bathroom
+                        name: music
+                        visible:
+                          state: playing
+                        active:
+                          state: playing
+                        icon: mdi:music-note
+                        artwork: false
+                    image_on:
+                      or:
+                        - entity: switch.switch
+                          state: on
+                        - entity: switch.switch_switch1
+                          state: on
+                        - entity: switch.switch_switch2
+                          state: on
                 glass: none
-                layout: row
+              - type: custom:glass-panel
+                layout: grid
+                columns: 2
                 gap: 14
                 padding: 0
-                visibility:
-                  - condition: select
-                    group: page
-                    id: devices
-                responsive:
-                  mobile:
-                    layout: column
                 cards:
-                  - type: custom:glass-panel
-                    view_layout:
-                      grow: 1
-                      basis: 0px
-                    gap: 10
-                    cards:
-                      - type: custom:glass-appliance
-                        kind: washer
-                        entity: sensor.washer_job_state
-                        machine: sensor.washer_machine_state
-                        remaining: sensor.washer_remaining_time
-                        completion: sensor.washer_completion_time
-                        name: Washing machine
-                      - type: custom:glass-appliance
-                        entity: vacuum.robot_vacuum
-                        name: Robot vacuum
-                        battery: sensor.robot_vacuum_battery
-                        select_group: devices
-                        select: vacuum
-                        picked_first: true
-                      - type: custom:glass-appliance
-                        entity: lawn_mower.garden_mower
-                        name: Lawn mower
-                        battery: sensor.garden_mower_battery
-                        progress: sensor.garden_mower_progress
-                        select_group: devices
-                        select: mower
-                  - type: custom:glass-panel
-                    view_layout:
-                      grow: 1
-                      basis: 0px
-                    cards:
-                      - type: custom:glass-automation
-                        entity: automation.blinds_by_sun
-                        title: Blinds follow the sun
-                      - type: custom:glass-sun-shading
-                        sun: sun.sun
-                        light: sensor.outdoor_illuminance
-                        shading: sensor.blinds_shading_level
-                        horizon: 4
-                        azimuth_from: 195
-                        azimuth_to: 305
-                      - type: custom:glass-value-grid
-                        title: Slat tilt
-                        columns:
-                          - name: Summer
-                            icon: mdi:white-balance-sunny
-                          - name: Winter
-                            icon: mdi:snowflake
-                        rows:
-                          - name: Low sun
-                            entities: [input_number.tilt_summer_low, input_number.tilt_winter_low]
-                          - name: High sun
-                            entities: [input_number.tilt_summer_high, input_number.tilt_winter_high]
-
-        # ── Phones: the side column's best bits move to the top ──────────────────
+                  - type: custom:glass-room-card
+                    name: Hallway
+                    icon: mdi:coat-rack
+                    entities:
+                      - entity: light.hallway
+                        icon: mdi:lightbulb-outline
+                    image: https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.room_temperature_2
+                        precision: 1
+                    max_entities: 2
+                    bar: split
+                  - type: custom:glass-room-card
+                    name: Toilet
+                    icon: mdi:toilet
+                    entities:
+                      - entity: switch.wall_switch
+                        icon: mdi:lightbulb-outline
+                        active_color: yellow
+                      - entity: binary_sensor.toilet_occupied
+                        icon: mdi:minus-circle
+                        tap_action:
+                          action: none
+                        name: occupied
+                    image: https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.radiator_current_temperature_2
+                        precision: 1
+                    max_entities: 2
+                    bar: split
+                    image_position: 35% 80%
+                view_layout:
+                  height: auto
+                  shrink: 0
+                glass: none
+            responsive:
+              mobile:
+                columns: 2
+                rows: null
+                gap: 8
+                padding: 6
+            control_tint:
+              strength: 0
+              color:
+                - 0
+                - 0
+                - 0
+            styles:
+              home_border: rgba(255, 255, 255, 0.12)
+              home_surface: transparent
+        breakpoints:
+          mobile: 700
+          desktop: 1500
         responsive:
           mobile:
             gap: 12
             padding: 10px 12px 12px
+            overlay_source:
+              dashboard: glass-demo-popups
+              view: mobile
+              nav: false
+            styles:
+              room_button_size: 46px
+              room_icon_size: 40px
             left: null
             main:
               - type: custom:glass-panel
@@ -627,15 +847,24 @@ views:
                 cards:
                   - type: custom:glass-clock-weather
                     weather: weather.home
-                    temperature_entity: sensor.outdoor_temperature
                     show_clock: false
                     hourly_forecast: 0
+                    rain_nowcast: true
                     daily_forecast: 0
                     show_condition: true
+                    dividers: false
                     now_style: line
-                    glass: none
+                    icon_style: mdi
+                    forecast_style: columns
+                    rain_bars: false
+                    now_align: start
+                    temperature_entity: sensor.heat_pump_outside_temperature
                     view_layout:
                       grow: 1
+                    icons:
+                      weather:
+                        color: rgba(255,255,255,0.92)
+                    glass: none
                   - type: custom:glass-people
                     people:
                       - entity: person.alex
@@ -644,38 +873,869 @@ views:
                       - entity: person.sam
                         battery: sensor.sam_phone_battery
                         battery_state: sensor.sam_phone_battery_state
+                    view_layout:
+                      shrink: 0
                     size: 34
+                    gap: 6
                     battery_style: ring
                     show_location: never
               - type: custom:glass-date-header
                 greeting: true
                 align: start
+                styles:
+                  date_size: 26px
+                  date_line_size: 14px
+              - type: custom:glass-status-bar
+                items:
+                  - entity: alarm_control_panel.home_alarm
+                    icon: mdi:shield-check-outline
+                    text: Secured
+                    visible:
+                      state_not:
+                        - disarmed
+                        - unavailable
+                        - unknown
+                  - entity: alarm_control_panel.home_alarm
+                    icon: mdi:shield-off-outline
+                    text: Not secured
+                    visible:
+                      state: disarmed
+                  - entity: sensor.hot_water_temperature
+                    icon: dot
+                    text: Hot water {value}°
+                    precision: 0
+                    color: blue
+                    rules:
+                      - above: 43
+                        color: yellow
+                      - above: 45
+                        color: red
+                      - entity: sensor.water_heating_on
+                        state: on
+                        animation: glow
+                  - entity: sensor.active_power
+                    format: power
+                    abs: true
+                    icon: mdi:arrow-up-bold
+                    rules:
+                      - below: 0
+                        icon: mdi:arrow-down-bold
+                      - state:
+                          - "0"
+                          - "0.0"
+                        icon: mdi:minus
+                        color: gray
+                  - entity: sensor.energy_virtual_batery_day
+                    icon: mdi:battery-outline
+                    unit: kWh
+                    rules:
+                      - above: 0
+                        icon: mdi:battery-charging
+                    precision: 0
+                  - entity: sensor.router_download_speed
+                    format: data_rate
+                    icon: mdi:swap-vertical-bold
+                    visible:
+                      above: 0
+                  - entities:
+                      - sensor.sabnzbd_speed
+                      - sensor.qbittorrent_download_speed
+                    aggregate: sum
+                    format: data_rate
+                    icon: mdi:download
+                    visible:
+                      or:
+                        - entity: sensor.sabnzbd_status
+                          state: Downloading
+                        - entity: sensor.qbittorrent_status
+                          state:
+                            - downloading
+                            - up_down
+                  - entity: sensor.washer_remaining_time
+                    icon: mdi:washing-machine
+                    visible:
+                      entity: sensor.washer_machine_state
+                      state: run
+                      and:
+                        entity: sensor.washer_job_state
+                        state_not:
+                          - finish
+                          - none
+                          - unknown
+                          - unavailable
+                  - entity: binary_sensor.heat_pump_compressor
+                    icon: mdi:heat-pump-outline
+                    text: Heat pump
+                    animation: pulse
+                    visible:
+                      state: on
+                  - entity: lawn_mower.mower
+                    icon: mdi:robot-mower
+                    format: none
+                    animation: bounce
+                    visible:
+                      state: mowing
+                    text: Mowing
+                  - entity: input_boolean.alarmed_toggle
+                    icon: mdi:alarm-note
+                    format: none
+                    visible:
+                      state: on
+                    text: Alarm
+                  - entity: sensor.media_server_streams
+                    icon: mdi:plex
+                    text: "Plex: {value}"
+                    precision: 0
+                    visible:
+                      above: 0
+                size: 26
+                gap: 5
+                wrap: false
+              - type: custom:glass-divider
+                name: Rooms
+                line: false
+              - type: custom:glass-panel
+                glass: none
+                layout: row
+                scroll: true
+                item_width: max(150px, calc((100vw - 48px) / 2.25))
+                height: clamp(200px, 34dvh, 320px)
+                gap: 12
+                padding: 0
+                cards:
+                  - type: custom:glass-room-card
+                    name: Living room
+                    icon: mdi:sofa
+                    entities:
+                      - entity: light.living_room
+                        icon: mdi:lightbulb-outline
+                      - entity: media_player.apple_tv_4k
+                        icon: mdi:television
+                        name: TV
+                      - entity: media_player.playstation_5
+                        icon: mdi:sony-playstation
+                        active_states:
+                          - on
+                        name: PS5
+                        active:
+                          state_not:
+                            - off
+                            - standby
+                            - unavailable
+                            - unknown
+                    layout: image-full
+                    image: https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop
+                    image_position: center 92%
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.room_temperature_4
+                        precision: 1
+                    view_layout:
+                      span: 2
+                    image_entities:
+                      - light.living_room
+                      - media_player.apple_tv_4k
+                      - media_player.playstation_5
+                    max_entities: 2
+                    bar: full
+                    contextual:
+                      - entity: media_player.playstation_5
+                        name: PS5
+                        icon: mdi:sony-playstation
+                        visible:
+                          state_not:
+                            - off
+                            - standby
+                            - unavailable
+                            - unknown
+                        active:
+                          state_not:
+                            - off
+                            - standby
+                            - unavailable
+                            - unknown
+                        artwork: false
+                    status_below: true
+                    buttons: top-center
+                  - type: custom:glass-room-card
+                    name: Office
+                    icon: mdi:desk
+                    entities:
+                      - entity: sensor.portainer_containers_status
+                        icon: mdi:server-outline
+                        tap_action:
+                          action: more-info
+                        rules:
+                          - state: running
+                            color: blue
+                          - state: unhealthy
+                            color: orange
+                            animation: pulse
+                            badge: "!"
+                          - state: stopped
+                            color: red
+                            badge: "!"
+                      - entity: cover.office
+                        icon: mdi:blinds-horizontal
+                        active_states:
+                          - closed
+                        state_icons:
+                          closed: mdi:blinds-horizontal-closed
+                        tap_action:
+                          action: menu
+                          items:
+                            - icon: mdi:numeric-1-box
+                              perform_action: script.tilt_blinds_office_min
+                            - icon: mdi:numeric-2-box
+                              perform_action: script.tilt_blinds_office_mid
+                            - icon: mdi:numeric-3-box
+                              perform_action: script.tilt_blinds_office_max
+                            - icon: mdi:window-shutter-open
+                              perform_action: script.open_blinds_office
+                              active:
+                                state: open
+                            - icon: mdi:window-shutter
+                              perform_action: script.close_blinds_office
+                              active:
+                                state: closed
+                            - icon: mdi:timer-pause-outline
+                              name: Pause the automation for an hour
+                              perform_action: switch.toggle
+                              target:
+                                entity_id: switch.office_blinds_user_switch
+                              active:
+                                entity: switch.office_blinds_user_switch
+                                state: on
+                              color: orange
+                              countdown:
+                                entity: switch.office_blinds_user_switch
+                                duration: 3600
+                      - entity: sensor.office_pc_cpu_load
+                        icon: mdi:laptop
+                        name: PC
+                        active:
+                          state_not:
+                            - unavailable
+                            - unknown
+                    image: https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.room_temperature
+                        precision: 1
+                    max_entities: 2
+                    image_position: center 55%
+                    image_on:
+                      entity: sensor.office_pc_cpu_load
+                      state_not:
+                        - unavailable
+                        - unknown
+                    contextual:
+                      - entity: sensor.office_pc_cpu_load
+                        name: PC
+                        icon: mdi:laptop
+                        visible:
+                          state_not:
+                            - unavailable
+                            - unknown
+                        active:
+                          state_not:
+                            - unavailable
+                            - unknown
+                    status_below: true
+                    bar: full
+                    buttons: top-center
+                  - type: custom:glass-room-card
+                    name: Kitchen
+                    icon: mdi:silverware-fork-knife
+                    entities:
+                      - entity: binary_sensor.kitchen_lights_any_on
+                        icon: mdi:lightbulb-outline
+                        active_color: yellow
+                        tap_action:
+                          action: menu
+                          items:
+                            - icon: mdi:power
+                              active:
+                                entity: binary_sensor.kitchen_lights_off_on
+                                state: on
+                              perform_action: select.select_option
+                              data:
+                                entity_id: select.kitchen_led_preset
+                                option: Lights off
+                            - icon: mdi:arrow-up-bold-circle
+                              active:
+                                entity: binary_sensor.kitchen_lights_upper_on
+                                state: on
+                              perform_action: select.select_option
+                              data:
+                                entity_id: select.kitchen_led_preset
+                                option: Upper light
+                            - icon: mdi:arrow-down-bold-circle
+                              active:
+                                entity: binary_sensor.kitchen_lights_lower_on
+                                state: on
+                              perform_action: select.select_option
+                              data:
+                                entity_id: select.kitchen_led_preset
+                                option: Lower light
+                            - icon: mdi:lightbulb-group
+                              active:
+                                entity: binary_sensor.kitchen_lights_all_on
+                                state: on
+                              perform_action: select.select_option
+                              data:
+                                entity_id: select.kitchen_led_preset
+                                option: All lights
+                            - icon: mdi:ceiling-light
+                              name: Bar
+                              perform_action: light.toggle
+                              target:
+                                entity_id: light.kitchen_bar
+                              active:
+                                entity: light.kitchen_bar
+                                state: on
+                        active:
+                          or:
+                            - entity: binary_sensor.kitchen_lights_any_on
+                              state: on
+                            - entity: light.kitchen_bar
+                              state: on
+                        count:
+                          - binary_sensor.kitchen_lights_any_on
+                          - light.kitchen_bar
+                      - entity: media_player.office
+                        icon: mdi:speaker
+                        active_states:
+                          - playing
+                        tap_action:
+                          action: toggle
+                        name: music
+                        active:
+                          state: playing
+                    image: https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.room_temperature_4
+                        precision: 1
+                    view_layout:
+                      span: 2
+                    max_entities: 2
+                    bar: full
+                    contextual:
+                      - entity: media_player.office
+                        name: music
+                        visible:
+                          state: playing
+                        active:
+                          state: playing
+                        icon: mdi:music-note
+                        artwork: false
+                    image_position: center 60%
+                    status_below: true
+                    buttons: top-center
+                  - type: custom:glass-room-card
+                    name: Kids' room
+                    icon: mdi:teddy-bear
+                    entities:
+                      - entity: input_boolean.kids_radio
+                        icon: mdi:weather-night
+                        name: bedtime
+                        active_color: blue
+                        active:
+                          or:
+                            - entity: input_boolean.kids_radio
+                              state: on
+                            - entity: input_boolean.star_projector
+                              state: on
+                        tap_action:
+                          action: menu
+                          labels: true
+                          items:
+                            - icon: mdi:music-note
+                              name: Stories
+                              tap_action:
+                                action: perform-action
+                                perform_action: script.kids_radio_button_toggle
+                              active:
+                                entity: input_boolean.kids_radio
+                                state: on
+                            - icon: mdi:projector
+                              name: Projector
+                              tap_action:
+                                action: perform-action
+                                perform_action: input_boolean.toggle
+                                target:
+                                  entity_id: input_boolean.star_projector
+                              active:
+                                entity: input_boolean.star_projector
+                                state: on
+                            - icon: mdi:power
+                              name: Both off
+                              tap_action:
+                                action: perform-action
+                                perform_action: script.kids_bedtime
+                                data:
+                                  volba: off
+                              visible:
+                                or:
+                                  - entity: input_boolean.kids_radio
+                                    state: on
+                                  - entity: input_boolean.star_projector
+                                    state: on
+                            - icon: mdi:weather-night
+                              name: Both on
+                              tap_action:
+                                action: perform-action
+                                perform_action: script.kids_bedtime
+                                data:
+                                  volba: both
+                              visible:
+                                not:
+                                  or:
+                                    - entity: input_boolean.kids_radio
+                                      state: on
+                                    - entity: input_boolean.star_projector
+                                      state: on
+                        hold_action:
+                          action: perform-action
+                          perform_action: script.kids_bedtime
+                      - entity: cover.kids_room
+                        icon: mdi:blinds-horizontal
+                        active_states:
+                          - closed
+                        state_icons:
+                          closed: mdi:blinds-horizontal-closed
+                        tap_action:
+                          action: menu
+                          items:
+                            - icon: mdi:numeric-1-box
+                              perform_action: script.tilt_blinds_kids_min
+                            - icon: mdi:numeric-2-box
+                              perform_action: script.tilt_blinds_kids_mid
+                            - icon: mdi:numeric-3-box
+                              perform_action: script.tilt_blinds_kids_max
+                            - icon: mdi:window-shutter-open
+                              perform_action: script.open_blinds_kids
+                              active:
+                                state: open
+                            - icon: mdi:window-shutter
+                              perform_action: script.close_blinds_kids
+                              active:
+                                state: closed
+                            - icon: mdi:timer-pause-outline
+                              name: Pause the automation for an hour
+                              perform_action: switch.toggle
+                              target:
+                                entity_id: switch.kids_blinds_user_switch
+                              active:
+                                entity: switch.kids_blinds_user_switch
+                                state: on
+                              color: orange
+                              countdown:
+                                entity: switch.kids_blinds_user_switch
+                                duration: 3600
+                    image: https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.radiator_current_temperature_4
+                        precision: 1
+                        visible:
+                          entity: input_boolean.kids_radio
+                          state_not: on
+                    image_entities:
+                      - input_boolean.star_projector
+                      - input_boolean.kids_radio
+                    max_entities: 2
+                    status_below: true
+                    bar: full
+                    buttons: top-center
+                  - type: custom:glass-room-card
+                    name: Bedroom
+                    icon: mdi:bed
+                    entities:
+                      - entity: media_player.bedroom_speaker
+                        icon: mdi:speaker
+                        active_states:
+                          - playing
+                        tap_action:
+                          action: toggle
+                        name: music
+                      - entity: cover.balcony
+                        icon: mdi:blinds-horizontal
+                        active_states:
+                          - closed
+                        state_icons:
+                          closed: mdi:blinds-horizontal-closed
+                        tap_action:
+                          action: menu
+                          items:
+                            - icon: mdi:numeric-1-box
+                              perform_action: script.tilt_blinds_bedroom_min
+                            - icon: mdi:numeric-2-box
+                              perform_action: script.tilt_blinds_bedroom_mid
+                            - icon: mdi:numeric-3-box
+                              perform_action: script.tilt_blinds_bedroom_max
+                            - icon: mdi:window-shutter-open
+                              perform_action: script.open_blinds_bedroom
+                              active:
+                                state: open
+                            - icon: mdi:window-shutter
+                              perform_action: script.close_blinds_bedroom
+                              active:
+                                state: closed
+                            - icon: mdi:timer-pause-outline
+                              name: Pause the automation for an hour
+                              perform_action: switch.toggle
+                              target:
+                                entity_id: switch.bedroom_blinds_user_switch
+                              active:
+                                entity: switch.bedroom_blinds_user_switch
+                                state: on
+                              color: orange
+                              countdown:
+                                entity: switch.bedroom_blinds_user_switch
+                                duration: 3600
+                    image: https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.room_temperature_3
+                        precision: 1
+                    image_entities:
+                      - media_player.bedroom_speaker
+                    max_entities: 2
+                    image_position: center 85%
+                    status_below: true
+                    bar: full
+                    buttons: top-center
+                  - type: custom:glass-room-card
+                    name: Laundry
+                    icon: mdi:tshirt-crew-outline
+                    entities:
+                      - entity: switch.wall_switch_2
+                        icon: mdi:lightbulb-outline
+                        active_color: yellow
+                      - entity: sensor.washer_job_state
+                        icon: mdi:washing-machine
+                        active_color: blue
+                        tap_action:
+                          action: more-info
+                    image: glass:demo/laundry.jpg
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.washer_remaining_time
+                        visible:
+                          entity: sensor.washer_machine_state
+                          state: run
+                          and:
+                            entity: sensor.washer_job_state
+                            state_not:
+                              - finish
+                              - none
+                              - unknown
+                              - unavailable
+                    max_entities: 2
+                    image_position: center 74%
+                    status_below: true
+                    bar: full
+                    buttons: top-center
+                  - type: custom:glass-room-card
+                    name: Bathroom
+                    icon: mdi:bathtub-outline
+                    entities:
+                      - entity: switch.switch_switch2
+                        icon: mdi:lightbulb-outline
+                        active_color: yellow
+                        active:
+                          or:
+                            - entity: switch.switch
+                              state: on
+                            - entity: switch.switch_switch1
+                              state: on
+                            - entity: switch.switch_switch2
+                              state: on
+                        tap_action:
+                          action: perform-action
+                          perform_action: script.bathroom_lights_toggle
+                        count:
+                          - switch.switch
+                          - switch.switch_switch1
+                          - switch.switch_switch2
+                      - entity: binary_sensor.motion_sensor
+                        icon: mdi:minus-circle
+                        tap_action:
+                          action: none
+                        active:
+                          or:
+                            - state: on
+                            - entity: media_player.bathroom
+                              state: playing
+                      - entity: media_player.bathroom
+                        icon: mdi:speaker
+                        active_states:
+                          - playing
+                        tap_action:
+                          action: toggle
+                        name: music
+                        active:
+                          state: playing
+                    image: https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop
+                    layout: image-full
+                    show_name: true
+                    info: []
+                    max_entities: 2
+                    image_position: center 100%
+                    contextual:
+                      - entity: media_player.bathroom
+                        name: music
+                        visible:
+                          state: playing
+                        active:
+                          state: playing
+                        icon: mdi:music-note
+                        artwork: false
+                    image_on:
+                      or:
+                        - entity: switch.switch
+                          state: on
+                        - entity: switch.switch_switch1
+                          state: on
+                        - entity: switch.switch_switch2
+                          state: on
+                    status_below: true
+                    bar: full
+                    buttons: top-center
+                  - type: custom:glass-room-card
+                    name: Hallway
+                    icon: mdi:coat-rack
+                    entities:
+                      - entity: light.hallway
+                        icon: mdi:lightbulb-outline
+                    image: https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.room_temperature_2
+                        precision: 1
+                    max_entities: 2
+                    bar: full
+                    status_below: true
+                    buttons: top-center
+                  - type: custom:glass-room-card
+                    name: Toilet
+                    icon: mdi:toilet
+                    entities:
+                      - entity: switch.wall_switch
+                        icon: mdi:lightbulb-outline
+                        active_color: yellow
+                      - entity: binary_sensor.toilet_occupied
+                        icon: mdi:minus-circle
+                        tap_action:
+                          action: none
+                        name: occupied
+                    image: https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop
+                    layout: image-full
+                    image_color: active
+                    show_name: true
+                    info:
+                      - entity: sensor.radiator_current_temperature_2
+                        precision: 1
+                    max_entities: 2
+                    bar: full
+                    image_position: 35% 80%
+                    status_below: true
+                    buttons: top-center
+              - type: custom:glass-divider
+                name: Running now
+                line: false
               - type: custom:glass-now
-                title: Running now
-                lights: *now_lights
-                items: *now_items
-              - *pages
-
-        # ── Floating over everything: the dock that switches the pages ──────────
+                lights:
+                  - name: Living room
+                    entities:
+                      - light.living_room
+                    icon: mdi:sofa
+                  - name: Kitchen
+                    entities:
+                      - light.wled_segment_1
+                      - light.wled_segment_2
+                      - light.kitchen_bar
+                    icon: mdi:silverware-fork-knife
+                  - name: Laundry
+                    entities:
+                      - switch.wall_switch_2
+                    icon: mdi:tshirt-crew-outline
+                  - name: Bathroom
+                    entities:
+                      - switch.switch
+                      - switch.switch_switch1
+                      - switch.switch_switch2
+                    icon: mdi:bathtub-outline
+                  - name: Hallway
+                    entities:
+                      - light.hallway
+                    icon: mdi:coat-rack
+                  - name: Toilet
+                    entities:
+                      - switch.wall_switch
+                    icon: mdi:toilet
+                items:
+                  - entity: media_player.apple_tv_4k
+                    name: TV
+                    room: Living room
+                    icon: mdi:television
+                  - entity: media_player.playstation_5
+                    name: PS5
+                    room: Living room
+                    icon: mdi:sony-playstation
+                    active:
+                      state_not:
+                        - off
+                        - standby
+                        - unavailable
+                        - unknown
+                  - entity: sensor.office_pc_cpu_load
+                    name: PC
+                    room: Office
+                    icon: mdi:laptop
+                    detail: sensor.office_pc_cpu_load
+                  - entity: media_player.office
+                    name: Music
+                    room: Kitchen
+                    icon: mdi:music-note
+                  - entity: media_player.bedroom_speaker
+                    name: Music
+                    room: Bedroom
+                    icon: mdi:music-note
+                  - entity: media_player.bathroom
+                    name: Music
+                    room: Bathroom
+                    icon: mdi:music-note
+                  - entity: input_boolean.kids_radio
+                    name: Stories
+                    room: Kids' room
+                    icon: mdi:music-note
+                    off_action:
+                      action: perform-action
+                      perform_action: script.kids_radio_button_toggle
+                  - entity: input_boolean.star_projector
+                    name: Projector
+                    room: Kids' room
+                    icon: mdi:projector
+                  - type: washer
+                    entity: sensor.washer_job_state
+                    name: Washing machine
+                    room: Laundry
+                  - type: mower
+                    entity: lawn_mower.mower
+                    name: Mower
+                    progress: sensor.mower_progress
+                    time_left: sensor.mower_time_left
+                    area: sensor.mower_work_area
+                  - type: vacuum
+                    entity: vacuum.vacuum
+                    name: Vacuuming
+                    room: device_tracker.vacuum
+                    progress: sensor.vacuum_mission_progress
+                  - type: vacuum
+                    entity: vacuum.mop
+                    name: Mopping
+                    icon: mdi:robot-mop
+                    room: device_tracker.mop
+                    progress: sensor.mop_mission_progress
+              - type: custom:glass-divider
+                name: Soon
+                line: false
+              - type: custom:glass-calendar
+                days: 14
+                max_events: 2
+                calendars:
+                  - entity: calendar.family
+                    color: blue
+                  - entity: calendar.utilities
+                    color: orange
+                hide_empty: true
+            overlay:
+              - type: custom:glass-dock
+                items:
+                  - icon: mdi:lightbulb-group
+                    link: "#lights"
+                  - icon: mdi:blinds-horizontal
+                    link: "#blinds"
+                  - icon: mdi:movie-play-outline
+                    link: "#movies"
+                  - icon: mdi:music
+                    link: "#media"
+                  - icon: mdi:weather-partly-cloudy
+                    link: "#weather"
+                  - icon: mdi:solar-power-variant
+                    link: "#energy"
+                  - icon: mdi:radiator
+                    link: "#heating"
+                  - icon: mdi:cctv
+                    link: "#security"
+                  - icon: mdi:broom
+                    link: "#cleaning"
+                indicator: dot
+                bare: true
+                scroll: true
+                fade: true
+        liquid:
+          rim_width: 1.25
+        appearance: sun
+        time_tint: false
+        overlay_source:
+          dashboard: glass-demo-popups
+          view: tablet
+          nav: false
+        styles:
+          room_button_size: 46px
+          corner_shape: round
+          liquid_squircle: 0
+          radius: 32px
+          room_strip_radius: 999px
+          liquid_edge_intensity: 0.09
+          liquid_edge_distance: 0.08
+          liquid_specular: 0.55
+          liquid_rim_light: 0.6
+          liquid_tint: 0.2
+        wallpaper: glass:hills-day
+        look: apple-home
         overlay:
           - type: custom:glass-dock
-            group: page
-            indicator: dot
-            scroll: true
-            fade: true
             items:
-              - icon: mdi:home-outline
-                name: Rooms
-                id: home
-              - icon: mdi:lightbulb-group-outline
-                name: Lights and blinds
-                id: lights
-              - icon: mdi:thermometer
-                name: Climate
-                id: climate
+              - icon: mdi:lightbulb-group
+                link: "#lights"
+              - icon: mdi:blinds-horizontal
+                link: "#blinds"
+              - icon: mdi:movie-play-outline
+                link: "#movies"
+              - icon: mdi:music
+                link: "#media"
               - icon: mdi:weather-partly-cloudy
-                name: Weather
-                id: weather
-              - icon: mdi:robot-vacuum-variant
-                name: Devices
-                id: devices
+                link: "#weather"
+              - icon: mdi:solar-power-variant
+                link: "#energy"
+              - icon: mdi:radiator
+                link: "#heating"
+              - icon: mdi:cctv
+                link: "#security"
+              - icon: mdi:broom
+                link: "#cleaning"
+            indicator: dot
+            bare: true
+            fade: true
+        preset: sidebar
+        dark:
+          wallpaper: glass:hills-night-blue-soft
+        demo: true

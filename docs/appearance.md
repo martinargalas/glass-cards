@@ -20,6 +20,10 @@ Dashboard settings → **Appearance → Look**.
 | **Light** | Looks frosted, but the wallpaper is blurred once in advance – nearly free. Shows the wallpaper, not what moves behind it. | Fast – older tablets |
 | **Solid** | Opaque slate panels, no blur or transparency. | Fastest – the weakest devices |
 
+| Liquid | Frosted | Light | Solid |
+| --- | --- | --- | --- |
+| ![](images/look-liquid.webp) | ![](images/look-frosted.webp) | ![](images/look-light.webp) | ![](images/look-solid.webp) |
+
 > **A wall tablet with a weak GPU** (Galaxy Tab A, Fire HD…): start with **Light**. It looks almost
 > the same as Frosted and costs nearly nothing.
 
@@ -85,6 +89,8 @@ image_color: active
 dark:
   image_color: never      # a calm, grey photo at night
 ```
+
+![The same dashboard at night](images/tablet-night.webp)
 
 **Time tint** (`time_tint: true`) gives every glass surface a faint warm tint at sunrise and
 sunset, like macOS wallpapers.

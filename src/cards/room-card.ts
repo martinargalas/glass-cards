@@ -11,7 +11,7 @@ import { cssColor, tint } from "../core/colors";
 import { animations, animationOf, control, surface } from "../core/styles";
 import { pressHandlers, runAction, withDefaults, type ActionKind, type ActionTarget } from "../core/actions";
 import { LiquidController } from "../core/liquid";
-import { wallpaperElement } from "../core/liquid-gl";
+import { assetUrl, wallpaperElement } from "../core/liquid-gl";
 import { previewNight, settings } from "../core/settings";
 import { isSmartThingsJob, washerEntities, washerPhase, type WasherSource } from "../core/washer";
 import { ROOM_PARTS } from "../core/card-parts";
@@ -565,7 +565,7 @@ class GlassRoomCard extends GlassElement<RoomConfig> {
   private _imageUrl(src?: string): string | undefined {
     if (!src) return undefined;
     if (/^(image|camera)\./.test(src)) return this._hass?.states[src]?.attributes.entity_picture as string | undefined;
-    return src;
+    return assetUrl(src);
   }
 
   /** image-full / compact: "22,1 °C · 2 světla · TV" – the info values, then what is on. */

@@ -159,6 +159,8 @@ export class GlassStudio extends LitElement {
   haDialog?: HTMLElement & Record<string, any>;
   /** Opened on its own (not from HA's card dialog): picks a dashboard and saves straight to HA. */
   standalone = false;
+  /** The note at the bottom (opened from a card editor); "" hides it – the web demo saves nothing. */
+  footer?: string;
   /** Standalone: the dashboard being edited and where its glass-dashboard card sits. */
   declare _host?: {
     url: string | null;
@@ -3110,7 +3112,7 @@ export class GlassStudio extends LitElement {
             <ha-icon .icon=${"mdi:drag"}></ha-icon>${this._tdrag.label}${this._drop ? nothing : html` – ${t("no change")}`}
           </div>`
         : nothing}
-      ${this.haDialog || this.standalone ? nothing : html`<div class="foot">${t("Changes go to the card editor behind this window – save them there with Save.")}</div>`}`;
+      ${this.haDialog || this.standalone || this.footer === "" ? nothing : html`<div class="foot">${this.footer ?? t("Changes go to the card editor behind this window – save them there with Save.")}</div>`}`;
   }
 
   static override styles = css`
@@ -4315,7 +4317,8 @@ if (!customElements.get("glass-studio")) customElements.define("glass-studio", G
  * Opens the studio over everything (a modal <dialog> is in the top layer, above
  * HA's own card-editor dialog) on a copy of `config`.
  */
-export function openStudio(opts: { config: Cfg; hass?: HomeAssistant; lovelace?: unknown; onChange: (c: Cfg) => void; dialog?: HTMLElement & Record<string, any>; standalone?: boolean }) {
+export function openStudio(opts: { config: Cfg; hass?: HomeAssistant; lovelace?: unknown; onChange: (c: Cfg) => void; dialog?: HTMLElement & Record<string, any>; standalone?: boolean; footer?: string; mode?: "mobile" | "tablet" }) {
+  if (opts.mode) preview.mode = opts.mode;
   // the desktop is edited as the tablet
   if (preview.mode === "desktop") preview.mode = "tablet";
   // the size last picked for this mode
@@ -4340,6 +4343,7 @@ export function openStudio(opts: { config: Cfg; hass?: HomeAssistant; lovelace?:
   st.onClose = close;
   st.haDialog = opts.dialog;
   st.standalone = !!opts.standalone;
+  st.footer = opts.footer;
   dlg.addEventListener("cancel", (e) => {
     e.preventDefault();
     close();
