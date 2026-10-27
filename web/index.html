@@ -10,6 +10,9 @@
       body {
         margin: 0;
         height: 100%;
+        /* an app, not a page: it scrolls (a phone's dashboard is taller than the screen),
+           but shows no scrollbar – nor flashes one while a pop-up slides in */
+        scrollbar-width: none;
         background: #1b2133;
         font-family: Roboto, "Inter", system-ui, -apple-system, sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -19,15 +22,34 @@
         --secondary-text-color: #6b6f7a;
         --primary-color: #0a84ff;
         --card-background-color: rgba(255, 255, 255, 0.7);
+        --primary-background-color: #fafafa;
+        --secondary-background-color: #e5e5e5;
+        --divider-color: rgba(0, 0, 0, 0.12);
       }
       :root[dark] {
         --primary-text-color: #f2f2f7;
         --secondary-text-color: #a1a4ad;
         --card-background-color: rgba(28, 28, 32, 0.7);
+        /* HA's dark theme, for Dashboard Studio */
+        --primary-background-color: #111111;
+        --secondary-background-color: #282828;
+        --divider-color: rgba(225, 225, 225, 0.12);
+        --input-fill-color: rgba(255, 255, 255, 0.05);
+        --mdc-theme-surface: #1c1c1c;
+        color-scheme: dark;
       }
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar {
+        display: none;
+      }
+      /* Bubble Card's scroll lock reserves the scrollbar's room: there is none here */
+      html:root.bubble-body-scroll-locked.bubble-scroll-lock-gutter {
+        scrollbar-gutter: auto !important;
+      }
+      /* no z-index: its own stacking context would keep the pop-ups under the layer
+         Bubble Card puts on <body> while one is open, and nothing in them could be tapped */
       #root {
         position: relative;
-        z-index: 1;
         height: 100%;
       }
     </style>

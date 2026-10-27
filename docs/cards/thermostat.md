@@ -4,6 +4,8 @@
 
 A room's temperature as a tile: the last hours as a soft graph that fades out at the sides, over a glass bar with the room's icon (switches the heating), the temperature and the set point with − / +. With a plain sensor it shows the value and the graph only.
 
+![Thermostat](../images/cards/thermostat.webp)
+
 **Good for:** a climate page with a tile per room.
 
 ## Quick start

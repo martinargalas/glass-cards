@@ -4,6 +4,8 @@
 
 One bar of liquid glass for moving through time in charts: ‹ › step back and forth, “now” jumps to the current period, and a drop-down picks day, week, month or year. Charts follow it.
 
+![Period bar](../images/cards/period-bar.webp)
+
 **Good for:** an energy page with [charts](chart.md).
 
 ## Quick start

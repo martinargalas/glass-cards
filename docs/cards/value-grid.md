@@ -4,6 +4,8 @@
 
 Numbers in a table, each with − and +, a column per mode – summer and winter, or anything else. The current column is highlighted, by the months or by a state.
 
+![Value grid](../images/cards/value-grid.webp)
+
 **Good for:** settings your automations read: slat tilts by season, temperatures by mode.
 
 ## Quick start

@@ -4,6 +4,8 @@
 
 A robot's map: the rooms of a robot vacuum or the zones of a robotic lawn mower. Pick them on the map or in the list and clean or mow just those – with the robot's own options (suction power, passes) as drop-downs.
 
+![Room map](../images/cards/room-map.webp)
+
 **Good for:** next to the robot's [appliance](appliance.md) bar, shown with a select condition.
 
 ## Quick start

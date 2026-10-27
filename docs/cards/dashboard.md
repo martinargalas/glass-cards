@@ -2,7 +2,9 @@
 
 `custom:glass-dashboard`
 
-The full-screen layout every other glass card lives in. It divides the screen into areas (a side column, a header, the main area…), picks the look, the wallpaper and day or night, and rearranges itself for phones, tablets and computers. Glass Studio opens when you edit it.
+The full-screen layout every other glass card lives in. It divides the screen into areas (a side column, a header, the main area…), picks the look, the wallpaper and day or night, and rearranges itself for phones, tablets and computers. Dashboard Studio opens when you edit it.
+
+![Dashboard](../images/tablet-day.webp)
 
 **Good for:** the one card of a full-screen dashboard view.
 
@@ -41,7 +43,7 @@ Put it in a view of type **Panel (single card)** – it needs the whole screen. 
 ## Tips
 
 - `overlay:` holds what floats over everything – the dock, notifications, Bubble Card pop-ups.
-- `left_width` sets the side column's width, e.g. `minmax(340px, 0.34fr)`; or drag the line in Glass Studio's Schematic.
+- `left_width` sets the side column's width, e.g. `minmax(340px, 0.34fr)`; or drag the line in Dashboard Studio's Schematic.
 - `dock_space: auto` keeps room at the bottom for a floating dock.
 
 ## Options

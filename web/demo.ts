@@ -1,7 +1,7 @@
 // The live demo for the web site: the real cards on the made-up demo home, no Home
 // Assistant needed. The page around it steers it with the address or postMessage:
 //   ?look=liquid|frosted|apple-home|light|solid  &night=1  &open=lights (a pop-up)
-//   ?studio=1  Glass Studio over it, editing this very dashboard
+//   ?studio=1  Dashboard Studio over it, editing this very dashboard
 //   postMessage({ glass: { look, night, open } })
 // Phone or tablet is the frame's width, as on a real screen (under 700 px: phone).
 import "./icons";
@@ -29,7 +29,7 @@ for (const name of VENDOR) {
 const q = new URLSearchParams(location.search);
 const base = DEMO_DASHBOARD.views[0].cards[0];
 const state = { look: q.get("look") ?? base.look, night: q.get("night") === "1" };
-// what Glass Studio changed: the dashboard keeps it while the page is open
+// what Dashboard Studio changed: the dashboard keeps it while the page is open
 let edited: Record<string, any> | undefined;
 
 const root = document.getElementById("root")!;
@@ -64,7 +64,7 @@ window.addEventListener("location-changed", () => parent.postMessage({ glassDemo
 apply();
 root.appendChild(dash);
 
-/** Glass Studio on this dashboard: changes show on it, nothing is saved anywhere. */
+/** Dashboard Studio on this dashboard: changes show on it, nothing is saved anywhere. */
 function studio() {
   if (document.querySelector("dialog.glass-studio-dialog")) return;
   openStudio({

@@ -4,6 +4,8 @@
 
 A row of small chips with values and icons: the hot water's temperature, the power from the grid, a running washer with its time left. Chips show only when they matter (`visible`), change colour by rules and can glow, pulse or shake.
 
+![Status bar](../images/cards/status-bar.webp)
+
 **Good for:** the top bar: the home's state at a glance.
 
 ## Quick start

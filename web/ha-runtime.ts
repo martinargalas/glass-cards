@@ -111,7 +111,7 @@ class Simple extends HTMLElement {
 class Picture extends Simple {
   render() {
     const src = this.cfg.image ?? "";
-    this.shadowRoot!.innerHTML = `<style>:host{display:block}img{display:block;width:100%;height:100%;object-fit:cover;border-radius:var(--ha-card-border-radius,16px)}</style><img alt="" loading="lazy">`;
+    this.shadowRoot!.innerHTML = `<style>:host{display:block}img{display:block;width:100%;height:auto;border-radius:var(--ha-card-border-radius,16px)}</style><img alt="" loading="lazy">`;
     this.shadowRoot!.querySelector("img")!.src = src;
   }
 }

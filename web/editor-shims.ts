@@ -1,4 +1,4 @@
-// Home Assistant's editor elements, as far as Glass Studio needs them, for the web demo:
+// Home Assistant's editor elements, as far as Dashboard Studio needs them, for the web demo:
 // <ha-form> with the selectors the glass cards' settings use, <ha-expansion-panel>,
 // <ha-switch>, <ha-yaml-editor> – and a YAML editor where HA would give another card's
 // own editor. Plain and light: the studio is real, its form fields are stand-ins.
@@ -221,17 +221,68 @@ class HaYamlEditor extends LitElement {
 }
 customElements.define("ha-yaml-editor", HaYamlEditor);
 
-/** Another card's own editor (HA's) – in the web demo its YAML. */
+/**
+ * Another card's own editor, as HA's: the card's visual editor (`getConfigElement()`) when it
+ * has one – every glass card does – else its YAML; toggleMode() switches, GUImode-changed tells.
+ */
+type EditorEl = HTMLElement & { setConfig(c: Data): void; hass?: unknown; lovelace?: unknown };
 class CardElementEditor extends LitElement {
-  static properties = { value: { attribute: false }, hass: { attribute: false }, lovelace: { attribute: false } };
+  static properties = { value: { attribute: false }, hass: { attribute: false }, lovelace: { attribute: false }, _gui: { state: true }, _el: { state: true } };
   declare value: Data;
+  declare hass: unknown;
+  declare lovelace: unknown;
+  declare _gui: boolean;
+  declare _el?: EditorEl;
+  private _tag = "";
+  private _own?: Data; // the config the editor itself just reported: not set back into it
   static styles = field;
-  toggleMode() {}
+  constructor() {
+    super();
+    this._gui = true;
+  }
+  toggleMode() {
+    this._gui = !this._gui;
+    if (this._gui) this._el?.setConfig(this.value);
+    this._mode();
+  }
+  private _mode() {
+    this.dispatchEvent(new CustomEvent("GUImode-changed", { detail: { guiMode: this._gui && !!this._el, guiModeAvailable: !!this._el }, bubbles: true, composed: true }));
+  }
+  private _changed(config: Data) {
+    this._own = config;
+    this.dispatchEvent(new CustomEvent("config-changed", { detail: { config }, bubbles: true, composed: true }));
+  }
+  protected willUpdate(changed: Map<string, unknown>) {
+    const type = String((this.value as { type?: string })?.type ?? "");
+    const tag = type.startsWith("custom:") ? type.slice(7) : "";
+    if (tag !== this._tag) {
+      this._tag = tag;
+      this._el = undefined;
+      const cls = customElements.get(tag) as unknown as { getConfigElement?: () => EditorEl | Promise<EditorEl> } | undefined;
+      if (cls?.getConfigElement)
+        void Promise.resolve(cls.getConfigElement()).then((el) => {
+          if (this._tag !== tag) return;
+          el.addEventListener("config-changed", (e) => {
+            e.stopPropagation();
+            this._changed((e as CustomEvent).detail.config);
+          });
+          el.hass = this.hass;
+          el.lovelace = this.lovelace;
+          el.setConfig(this.value);
+          this._el = el;
+          this._mode();
+        });
+      else this._mode();
+    } else if (this._el) {
+      if (changed.has("hass")) this._el.hass = this.hass;
+      if (changed.has("value") && this.value !== this._own) this._el.setConfig(this.value);
+    }
+  }
   render() {
-    return html`<span class="lbl">This card's settings (YAML) – in Home Assistant its own editor shows here.</span>
-      <ha-yaml-editor .defaultValue=${this.value} @value-changed=${(e: CustomEvent) => {
+    if (this._gui && this._el) return html`${this._el}`;
+    return html`<ha-yaml-editor .defaultValue=${this.value} @value-changed=${(e: CustomEvent) => {
         e.stopPropagation();
-        if (e.detail.isValid !== false) this.dispatchEvent(new CustomEvent("config-changed", { detail: { config: e.detail.value }, bubbles: true, composed: true }));
+        if (e.detail.isValid !== false) this._changed(e.detail.value);
       }}></ha-yaml-editor>`;
   }
 }

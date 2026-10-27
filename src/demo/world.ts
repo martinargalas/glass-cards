@@ -1,5 +1,5 @@
 import type { HassEntity } from "../core/types";
-import { HOME } from "./home.generated";
+import { HISTORY, HOME } from "./home.generated";
 
 /**
  * The demo home: Alex and Sam, six rooms, a heat pump, solar panels with a battery, a
@@ -39,7 +39,15 @@ const LIVE: Record<string, DemoState> = {
   "sensor.washer_completion_time": [iso(42), { device_class: "timestamp", friendly_name: "Washer done at" }],
   "binary_sensor.washer_power": ["on", { friendly_name: "Washer power" }],
   "binary_sensor.heat_pump_compressor": ["on", { friendly_name: "Compressor" }],
-  "sensor.glass_notifications": ["0", { friendly_name: "Notifications", notes: [] }],
+  "sensor.glass_notifications": [
+    "1",
+    {
+      friendly_name: "Notifications",
+      notes: [
+        { id: "window_open", level: "warning", title: "Window open", icon: "mdi:window-open-variant", time: Date.now() / 1000 - 1500 },
+      ],
+    },
+  ],
   // the weather now: what the forecast (demoForecast) starts with, by day or night
   "weather.home": [new Date().getHours() >= 7 && new Date().getHours() < 19 ? "partlycloudy" : "clear-night", { friendly_name: "Home", temperature: 14.6, temperature_unit: "°C", humidity: 64, pressure: 1016, pressure_unit: "hPa", wind_speed: 14, wind_speed_unit: "km/h", wind_bearing: 240, apparent_temperature: 13.2, cloud_coverage: 45, supported_features: 3 }],
   "sensor.heat_pump_outside_temperature": ["14.8", { unit_of_measurement: "°C", device_class: "temperature", state_class: "measurement", friendly_name: "Outside" }],
@@ -122,6 +130,14 @@ function noise(seed: string, i: number) {
  */
 export function demoHistory(id: string, now: HassEntity, start: number, end: number): { s: string; lu: number }[] {
   const out: { s: string; lu: number }[] = [];
+  // a few sensors have their real past (the heating pop-up's graphs): it ends now
+  const real = HISTORY[id];
+  if (real) {
+    const first = real.findIndex(([ago]) => end - ago * 1000 >= start);
+    for (const [ago, s] of real.slice(first < 0 ? -1 : Math.max(0, first - 1))) out.push({ s, lu: Math.max(start, end - ago * 1000) / 1000 });
+    out.push({ s: now.state, lu: end / 1000 });
+    return out;
+  }
   const step = 10 * 60000;
   const value = parseFloat(now.state);
   const numeric = Number.isFinite(value);

@@ -136,4 +136,4 @@ liquid:
   rim_width: 1.25              # the bright edge of liquid glass
 ```
 
-Glass Studio shows the liquid glass knobs among the dashboard's **Appearance** settings, with a live preview.
+Dashboard Studio shows the liquid glass knobs among the dashboard's **Appearance** settings, with a live preview.

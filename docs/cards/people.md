@@ -4,6 +4,8 @@
 
 The people of the household as round avatars: a badge for home or away, where they are (the zone's name and icon), and their phone's battery as a ring.
 
+![People](../images/cards/people.webp)
+
 **Good for:** the side column or the top bar.
 
 ## Quick start

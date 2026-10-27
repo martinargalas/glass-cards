@@ -4,6 +4,8 @@
 
 A big clock, the weather now with an animated icon, and a forecast with temperature bars – hourly, daily or both. Details like humidity, wind or sunset fill a small grid under it.
 
+![Clock and weather](../images/cards/clock-weather.webp)
+
 **Good for:** the side column of a wall tablet; a one-line version for a phone's header.
 
 ## Quick start

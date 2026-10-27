@@ -4,6 +4,8 @@
 
 One pill with the most important message – the others counted (+2); a tap opens the list. A new message drops in from the top. Two kinds: messages your automations send, and alerts defined in the card that show while their condition holds.
 
+![Notifications](../images/cards/notifications.webp)
+
 **Good for:** the top bar of a wall tablet.
 
 ## Quick start

@@ -4,6 +4,8 @@
 
 Today's date – or a greeting (“Good afternoon”) – with one-line facts under it: today's holiday, name day, the power use, anything a sensor knows. Date format and language follow your profile.
 
+![Date header](../images/cards/date-header.webp)
+
 **Good for:** the top of the side column or the header.
 
 ## Quick start

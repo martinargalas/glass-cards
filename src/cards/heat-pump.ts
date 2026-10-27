@@ -397,7 +397,7 @@ class GlassHeatPump extends GlassElement<HeatPumpConfig> {
     const mode = climate && c.show_modes !== false
       ? html`<div class="row">
           <div class=${`seg wide ${track.cls}`} style=${track.style}>
-            ${(climate.attributes.hvac_modes as string[]).includes("off")
+            ${((climate.attributes.hvac_modes as string[] | undefined) ?? []).includes("off")
               ? html`<button
                   class="segb power ${on ? "" : `cur ${act.cls}`}"
                   style=${on ? "" : act.style}

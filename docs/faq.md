@@ -15,7 +15,7 @@ Cards don't use card_mod and don't need it installed.
 ## Can I put other cards inside?
 
 Yes – any card: Home Assistant's own, HACS cards, cameras. Panels and the dashboard hold them
-like glass cards. In Glass Studio, pick **Home Assistant cards** or **Custom cards (HACS)** in the
+like glass cards. In Dashboard Studio, pick **Home Assistant cards** or **Custom cards (HACS)** in the
 card picker, or **Other card (YAML)**. They keep their own look; a panel's glass behind them
 ties them in.
 
@@ -56,7 +56,7 @@ browser. See [The demo dashboard](demo.md).
 ## Where are my settings stored?
 
 In the dashboard's configuration in Home Assistant, like any card's. The only things kept in
-the browser are Glass Studio's own preferences (panel widths, the preview device), the last
+the browser are Dashboard Studio's own preferences (panel widths, the preview device), the last
 wallpaper (so a reload doesn't flash) and the version before your last save.
 
 ## Something is wrong / I have an idea

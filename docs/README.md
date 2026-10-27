@@ -6,20 +6,20 @@ tablet or a wall display.
 
 ![A glass dashboard](images/tablet-day.webp)
 
-You don't need to know YAML. Everything on these pages can be done in Glass Studio; the
+You don't need to know YAML. Everything on these pages can be done in Dashboard Studio; the
 YAML is there for when you want to copy, share or fine-tune.
 
 ## Start here
 
-1. [Install Glass Cards](install.md) – from HACS, in a minute.
+1. [Install Glass Cards](install.md) – as a HACS custom repository or by hand, in a minute.
 2. [Try the demo dashboard](demo.md) – a made-up home with every card on it. Nothing it does reaches your devices.
-3. [Build your first dashboard](first-dashboard.md) – in Glass Studio, step by step.
+3. [Build your first dashboard](first-dashboard.md) – in Dashboard Studio, step by step.
 
 ## Learn the parts
 
 | | |
 | --- | --- |
-| [Glass Studio](studio.md) | The editor: structure, live preview, drag and drop, pop-ups, saving |
+| [Dashboard Studio](studio.md) | The editor: structure, live preview, drag and drop, pop-ups, saving |
 | [Look and feel](appearance.md) | Looks (liquid, frosted, Apple Home…), materials, colours, fonts, day and night, wallpapers |
 | [Layout](layout.md) | Areas, phones vs. tablets, panels, pages, showing cards only sometimes |
 | [Actions and conditions](actions-and-conditions.md) | What a tap does, menus, and the rules that colour, animate or hide things |

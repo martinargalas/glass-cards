@@ -1,5 +1,5 @@
 // examples/demo.yaml + demo-popups.yaml → src/demo/dashboard.ts: the demo dashboard (and its
-// pop-ups) Glass Studio adds to HA with one click and the web demo shows. The YAML is the
+// pop-ups) Dashboard Studio adds to HA with one click and the web demo shows. The YAML is the
 // source; never edit the .ts.
 import { readFileSync, writeFileSync } from "node:fs";
 import { parse } from "yaml";

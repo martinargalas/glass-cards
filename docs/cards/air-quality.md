@@ -4,6 +4,8 @@
 
 The air quality index as a big tile with a picture of the level – clear sky and birds, haze, smog and chimneys – that stays grey while the air is fine, and a small tile for every pollutant on the same scale.
 
+![Air quality](../images/cards/air-quality.webp)
+
 **Good for:** a weather or climate page.
 
 ## Quick start

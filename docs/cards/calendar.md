@@ -4,6 +4,8 @@
 
 Upcoming events from one or more calendars, grouped by day – Today, Tomorrow, then the dates. Each calendar has its colour.
 
+![Calendar](../images/cards/calendar.webp)
+
 **Good for:** the side column.
 
 ## Quick start

@@ -4,6 +4,8 @@
 
 A heat pump drawn like Home Assistant's energy card: glowing nodes and beams of light along the pipes – outside air → the pump → the heating and / or the hot water tank. Under it the heating mode, the hot water's set point and a settings drawer with the heating curve and the service counters.
 
+![Heat pump](../images/cards/heat-pump.webp)
+
 **Good for:** a climate or energy page.
 
 ## Quick start

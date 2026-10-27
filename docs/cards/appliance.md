@@ -4,6 +4,8 @@
 
 Machines that work on their own – a washing machine, a robot vacuum, a lawn mower – as a bar of liquid glass: the name, what it's doing, its progress or battery. Under it a drawer with its controls (start, pause, dock, nudge arrows) – or, for a washer, the stages of its cycle.
 
+![Appliance](../images/cards/appliance.webp)
+
 **Good for:** a devices page; one card per machine, a panel of them is the list.
 
 ## Quick start

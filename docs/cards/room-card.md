@@ -4,6 +4,8 @@
 
 A room as a tile: its icon or a photo, its name, a small status (“22.1 ° · 2 lights · TV”) and round buttons for its devices. The photo can stay grey while everything in the room is off and turn to colour as soon as something is on.
 
+![Room](../images/cards/room-card.webp)
+
 **Good for:** the main grid of rooms; a swipeable strip of rooms on a phone.
 
 ## Quick start

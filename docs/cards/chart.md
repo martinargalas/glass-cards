@@ -4,6 +4,8 @@
 
 A chart in the dashboard's glass look – no card background, the glass font, columns with a soft gradient and glow, a glass tooltip – drawn by apexcharts-card. It follows the [period bar](period-bar.md): the span, the grouping and the date format change with day, week, month or year.
 
+![Chart](../images/cards/chart.webp)
+
 **Good for:** energy, temperatures, anything with history.
 
 ## Quick start

@@ -4,6 +4,8 @@
 
 A room's blind: its position and its slats' tilt as two bars – tap anywhere on a bar or drag it – with quick choices under each, a stop button while it moves and the pause of the room's automation, its time left drawn as a ring.
 
+![Blind](../images/cards/blind.webp)
+
 **Good for:** blinds and shutters with tilting slats; any cover.
 
 ## Quick start

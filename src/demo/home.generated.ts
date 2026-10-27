@@ -7,6 +7,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "code_format": null,
    "code_arm_required": false,
+   "supported_features": 7,
    "friendly_name": "Hub security"
   }
  ],
@@ -15,114 +16,133 @@ export const HOME: Record<string, DemoState> = {
   {
    "code_format": null,
    "code_arm_required": false,
+   "supported_features": 63,
    "friendly_name": "Home alarm"
   }
  ],
  "automation.living_room_circadian": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Living room circadian"
   }
  ],
  "automation.blinds_auto": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Blinds auto"
   }
  ],
  "automation.kids_star_projector": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Kids star projector"
   }
  ],
  "automation.lights_bathroom": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Lights bathroom"
   }
  ],
  "automation.lights_kitchen_wled_water_temperature": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Lights kitchen wled water temperature"
   }
  ],
  "automation.living_room_lights_off_by_sensor": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Living room lights off by sensor"
   }
  ],
  "automation.living_room_ligts_luminance_day_off": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Living room ligts luminance day off"
   }
  ],
  "automation.living_room_ligts_luminance_day_on_bright": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Living room ligts luminance day on bright"
   }
  ],
  "automation.living_room_lights_by_daylight": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Living room lights by daylight"
   }
  ],
  "automation.living_room_ligts_luminance_dusk_on": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Living room ligts luminance dusk on"
   }
  ],
  "automation.living_room_ligts_luminance_night_nightlight": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Living room ligts luminance night nightlight"
   }
  ],
  "automation.living_room_ligts_luminance_night_off": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Living room ligts luminance night off"
   }
  ],
  "automation.netflix_playing_living_room": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Netflix playing living room"
   }
  ],
  "automation.hallway_night_light": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Hallway night light"
   }
  ],
  "automation.turn_wled_kitchen_presence_off": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Turn wled kitchen presence off"
   }
  ],
  "automation.turn_wled_kitchen_presence_on": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Turn wled kitchen presence on"
   }
  ],
  "automation.toilet_light_by_motion": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Toilet light by motion"
   }
  ],
  "automation.garden_lights_at_the_entrance": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Garden lights at the entrance"
   }
  ],
@@ -130,6 +150,7 @@ export const HOME: Record<string, DemoState> = {
   "on",
   {
    "device_class": "running",
+   "supported_features": 0,
    "friendly_name": "Heat pump circulation pump"
   }
  ],
@@ -137,12 +158,14 @@ export const HOME: Record<string, DemoState> = {
   "on",
   {
    "device_class": "running",
+   "supported_features": 0,
    "friendly_name": "Heat pump compressor"
   }
  ],
  "binary_sensor.heat_pump_frost_protection": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Heat pump frost protection"
   }
  ],
@@ -151,6 +174,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "occupancy",
    "icon": "mdi:car-off",
+   "supported_features": 0,
    "friendly_name": "Frontdoor car occupancy"
   }
  ],
@@ -159,6 +183,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "occupancy",
    "icon": "mdi:home-outline",
+   "supported_features": 0,
    "friendly_name": "Frontdoor cat occupancy"
   }
  ],
@@ -167,6 +192,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "occupancy",
    "icon": "mdi:dog-side-off",
+   "supported_features": 0,
    "friendly_name": "Frontdoor dog occupancy"
   }
  ],
@@ -175,6 +201,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "occupancy",
    "icon": "mdi:home-outline",
+   "supported_features": 0,
    "friendly_name": "Frontdoor person occupancy"
   }
  ],
@@ -183,6 +210,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "occupancy",
    "icon": "mdi:car-off",
+   "supported_features": 0,
    "friendly_name": "Garden car occupancy"
   }
  ],
@@ -191,6 +219,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "occupancy",
    "icon": "mdi:home-outline",
+   "supported_features": 0,
    "friendly_name": "Garden cat occupancy"
   }
  ],
@@ -199,6 +228,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "occupancy",
    "icon": "mdi:dog-side-off",
+   "supported_features": 0,
    "friendly_name": "Garden dog occupancy"
   }
  ],
@@ -207,6 +237,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "occupancy",
    "icon": "mdi:home-outline",
+   "supported_features": 0,
    "friendly_name": "Garden person occupancy"
   }
  ],
@@ -252,6 +283,7 @@ export const HOME: Record<string, DemoState> = {
   "on",
   {
    "device_class": "battery_charging",
+   "supported_features": 0,
    "friendly_name": "Mower charging"
   }
  ],
@@ -259,6 +291,7 @@ export const HOME: Record<string, DemoState> = {
   "off",
   {
    "device_class": "motion",
+   "supported_features": 0,
    "friendly_name": "Motion sensor"
   }
  ],
@@ -271,42 +304,49 @@ export const HOME: Record<string, DemoState> = {
  "button.mower_emergency_nudge_back": [
   "unknown",
   {
+   "supported_features": 0,
    "friendly_name": "Mower emergency nudge back"
   }
  ],
  "button.mower_emergency_nudge_forward": [
   "unknown",
   {
+   "supported_features": 0,
    "friendly_name": "Mower emergency nudge forward"
   }
  ],
  "button.mower_emergency_nudge_left": [
   "unknown",
   {
+   "supported_features": 0,
    "friendly_name": "Mower emergency nudge left"
   }
  ],
  "button.mower_emergency_nudge_right": [
   "2026-10-13T13:55:03.574841+00:00",
   {
+   "supported_features": 0,
    "friendly_name": "Mower emergency nudge right"
   }
  ],
  "calendar.holidays": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Holidays"
   }
  ],
  "calendar.family": [
   "off",
   {
+   "supported_features": 3,
    "friendly_name": "Family"
   }
  ],
  "calendar.utilities": [
   "off",
   {
+   "supported_features": 3,
    "friendly_name": "Utilities"
   }
  ],
@@ -317,6 +357,19 @@ export const HOME: Record<string, DemoState> = {
    "temperature": 23,
    "hvac_action": "heating",
    "preset_mode": "home",
+   "hvac_modes": [
+    "off",
+    "auto"
+   ],
+   "min_temp": 3,
+   "max_temp": 60,
+   "target_temp_step": 1,
+   "preset_modes": [
+    "comfort",
+    "home",
+    "sleep"
+   ],
+   "supported_features": 401,
    "friendly_name": "Heat pump heating"
   }
  ],
@@ -326,6 +379,14 @@ export const HOME: Record<string, DemoState> = {
    "current_temperature": 22.2,
    "temperature": 26,
    "hvac_action": "heating",
+   "hvac_modes": [
+    "heat",
+    "off"
+   ],
+   "min_temp": 5,
+   "max_temp": 30,
+   "target_temp_step": 0.5,
+   "supported_features": 385,
    "friendly_name": "Radiator"
   }
  ],
@@ -335,6 +396,14 @@ export const HOME: Record<string, DemoState> = {
    "current_temperature": 23.8,
    "temperature": 26,
    "hvac_action": "heating",
+   "hvac_modes": [
+    "heat",
+    "off"
+   ],
+   "min_temp": 5,
+   "max_temp": 30,
+   "target_temp_step": 0.5,
+   "supported_features": 385,
    "friendly_name": "Radiator 2"
   }
  ],
@@ -344,6 +413,14 @@ export const HOME: Record<string, DemoState> = {
    "current_temperature": 24.2,
    "temperature": 24,
    "hvac_action": "heating",
+   "hvac_modes": [
+    "heat",
+    "off"
+   ],
+   "min_temp": 5,
+   "max_temp": 30,
+   "target_temp_step": 0.5,
+   "supported_features": 385,
    "friendly_name": "Radiator 3"
   }
  ],
@@ -353,6 +430,14 @@ export const HOME: Record<string, DemoState> = {
    "current_temperature": 22.7,
    "temperature": 23.5,
    "hvac_action": "heating",
+   "hvac_modes": [
+    "heat",
+    "off"
+   ],
+   "min_temp": 5,
+   "max_temp": 30,
+   "target_temp_step": 0.5,
+   "supported_features": 385,
    "friendly_name": "Radiator 4"
   }
  ],
@@ -362,6 +447,14 @@ export const HOME: Record<string, DemoState> = {
    "current_temperature": 25,
    "temperature": 25.5,
    "hvac_action": "heating",
+   "hvac_modes": [
+    "heat",
+    "off"
+   ],
+   "min_temp": 5,
+   "max_temp": 30,
+   "target_temp_step": 0.5,
+   "supported_features": 385,
    "friendly_name": "Radiator 5"
   }
  ],
@@ -371,6 +464,14 @@ export const HOME: Record<string, DemoState> = {
    "current_temperature": 25.7,
    "temperature": 26,
    "hvac_action": "heating",
+   "hvac_modes": [
+    "heat",
+    "off"
+   ],
+   "min_temp": 5,
+   "max_temp": 30,
+   "target_temp_step": 0.5,
+   "supported_features": 385,
    "friendly_name": "Radiator 6"
   }
  ],
@@ -380,6 +481,14 @@ export const HOME: Record<string, DemoState> = {
    "current_temperature": 21.1,
    "temperature": 21,
    "hvac_action": "heating",
+   "hvac_modes": [
+    "heat",
+    "off"
+   ],
+   "min_temp": 5,
+   "max_temp": 30,
+   "target_temp_step": 0.5,
+   "supported_features": 385,
    "friendly_name": "Radiator 7"
   }
  ],
@@ -389,6 +498,7 @@ export const HOME: Record<string, DemoState> = {
    "current_position": 100,
    "current_tilt_position": 100,
    "device_class": "blind",
+   "supported_features": 255,
    "friendly_name": "Balcony"
   }
  ],
@@ -398,6 +508,7 @@ export const HOME: Record<string, DemoState> = {
    "current_position": 100,
    "current_tilt_position": 100,
    "device_class": "blind",
+   "supported_features": 255,
    "friendly_name": "Kids room"
   }
  ],
@@ -407,78 +518,741 @@ export const HOME: Record<string, DemoState> = {
    "current_position": 100,
    "current_tilt_position": 100,
    "device_class": "blind",
+   "supported_features": 255,
    "friendly_name": "Office"
   }
  ],
  "device_tracker.mop": [
   "Docked",
   {
+   "supported_features": 0,
    "friendly_name": "Mop"
+  }
+ ],
+ "device_tracker.mower": [
+  "home",
+  {
+   "supported_features": 0,
+   "friendly_name": "Mower",
+   "latitude": 49.9999513,
+   "longitude": 13.9999386,
+   "source_type": "gps"
   }
  ],
  "device_tracker.vacuum": [
   "Docked",
   {
+   "supported_features": 0,
    "friendly_name": "Vacuum"
+  }
+ ],
+ "image.mop_rooms_map": [
+  "2026-10-26T19:45:23.544141+00:00",
+  {
+   "friendly_name": "Mop rooms map",
+   "rooms": {
+    "Living room": {
+     "outline": [
+      [
+       -464.1,
+       974.5
+      ],
+      [
+       38.6,
+       974.5
+      ],
+      [
+       38.6,
+       618.9
+      ],
+      [
+       -154.6,
+       618.9
+      ],
+      [
+       -154.6,
+       154.6
+      ],
+      [
+       -1547.3,
+       154.6
+      ],
+      [
+       -1547.3,
+       -160.70000000000002
+      ],
+      [
+       -92.3,
+       -160.70000000000002
+      ],
+      [
+       -92.3,
+       -3121.5
+      ],
+      [
+       2481.3999999999996,
+       -3121.5
+      ],
+      [
+       2481.3999999999996,
+       -2849.7
+      ],
+      [
+       3148.8999999999996,
+       -2849.7
+      ],
+      [
+       3148.8999999999996,
+       -2468.7000000000003
+      ],
+      [
+       2398.4,
+       -2468.7000000000003
+      ],
+      [
+       2398.4,
+       -2235.3
+      ],
+      [
+       886.9,
+       -2235.3
+      ],
+      [
+       886.9,
+       -770.1
+      ],
+      [
+       1547.3,
+       -770.1
+      ],
+      [
+       1547.3,
+       -431.0
+      ],
+      [
+       1934.1999999999998,
+       -431.0
+      ],
+      [
+       1934.1999999999998,
+       -41.4
+      ],
+      [
+       1087.6999999999998,
+       -41.4
+      ],
+      [
+       1087.6999999999998,
+       1018.6999999999999
+      ],
+      [
+       1237.9,
+       1018.6999999999999
+      ],
+      [
+       1160.5,
+       1864.5
+      ],
+      [
+       -386.79999999999995,
+       1864.5
+      ],
+      [
+       -464.1,
+       974.5
+      ]
+     ],
+     "name": "Living room",
+     "room_id": "obyvaci_pokoj",
+     "region_id": "4",
+     "icon": "mdi:map-marker",
+     "x": 908.9555555555555,
+     "y": -515.5518518518519
+    },
+    "Kitchen": {
+     "outline": [
+      [
+       1237.9,
+       1018.6999999999999
+      ],
+      [
+       3429.3,
+       1018.6999999999999
+      ],
+      [
+       3429.3,
+       5557.299999999999
+      ],
+      [
+       1431.2,
+       5557.299999999999
+      ],
+      [
+       1431.2,
+       4918.700000000001
+      ],
+      [
+       236.4,
+       4918.700000000001
+      ],
+      [
+       236.4,
+       2675.6000000000004
+      ],
+      [
+       1005.8000000000001,
+       2675.6000000000004
+      ],
+      [
+       1005.8000000000001,
+       2843.2
+      ],
+      [
+       2196.7,
+       2843.2
+      ],
+      [
+       2196.7,
+       1864.5
+      ],
+      [
+       1160.5,
+       1864.5
+      ],
+      [
+       1237.9,
+       1018.6999999999999
+      ]
+     ],
+     "name": "Kitchen",
+     "room_id": "kuchyn",
+     "region_id": "1",
+     "icon": "mdi:map-marker",
+     "x": 1556.546153846154,
+     "y": 2982.6692307692306
+    },
+    "Hallway": {
+     "outline": [
+      [
+       -386.79999999999995,
+       1864.5
+      ],
+      [
+       -581.6,
+       1864.5
+      ],
+      [
+       -581.6,
+       2940.0
+      ],
+      [
+       -1237.9,
+       2940.0
+      ],
+      [
+       -1237.9,
+       3210.7999999999997
+      ],
+      [
+       -1705.8999999999999,
+       3210.7999999999997
+      ],
+      [
+       -1705.8999999999999,
+       2725.4
+      ],
+      [
+       -2572.5,
+       2725.4
+      ],
+      [
+       -2572.5,
+       3094.7
+      ],
+      [
+       -2893.5,
+       3094.7
+      ],
+      [
+       -2893.5,
+       3326.9
+      ],
+      [
+       -3282.6,
+       3326.9
+      ],
+      [
+       -3282.6,
+       2881.9
+      ],
+      [
+       -3738.3,
+       2881.9
+      ],
+      [
+       -3738.3,
+       2332.7
+      ],
+      [
+       -3336.5,
+       2332.7
+      ],
+      [
+       -3336.5,
+       2088.9
+      ],
+      [
+       -3789.2000000000003,
+       2088.9
+      ],
+      [
+       -3789.2000000000003,
+       974.5
+      ],
+      [
+       -464.1,
+       974.5
+      ],
+      [
+       -386.79999999999995,
+       1864.5
+      ]
+     ],
+     "name": "Hallway",
+     "room_id": "zone_2",
+     "region_id": "2",
+     "icon": "mdi:map-marker",
+     "x": -2262.557142857143,
+     "y": 2511.6714285714284
+    }
+   },
+   "calibration_points": [
+    {
+     "vacuum": {
+      "x": -3789.2000000000003,
+      "y": -3121.5
+     },
+     "map": {
+      "x": 3,
+      "y": 596
+     }
+    },
+    {
+     "vacuum": {
+      "x": 3429.3,
+      "y": -3121.5
+     },
+     "map": {
+      "x": 496,
+      "y": 596
+     }
+    },
+    {
+     "vacuum": {
+      "x": -3789.2000000000003,
+      "y": 5557.299999999999
+     },
+     "map": {
+      "x": 3,
+      "y": 3
+     }
+    }
+   ]
+  }
+ ],
+ "image.vacuum_rooms_map": [
+  "2026-10-26T19:45:24.519248+00:00",
+  {
+   "friendly_name": "Vacuum rooms map",
+   "rooms": {
+    "Hallway": {
+     "outline": [
+      [
+       -1749.3000000000002,
+       1139.2
+      ],
+      [
+       -1580.8999999999999,
+       1139.2
+      ],
+      [
+       -1580.8999999999999,
+       709.0999999999999
+      ],
+      [
+       -1859.9,
+       709.0999999999999
+      ],
+      [
+       -1859.9,
+       92.89999999999999
+      ],
+      [
+       -1208.9,
+       92.89999999999999
+      ],
+      [
+       -1208.9,
+       -190.20000000000002
+      ],
+      [
+       1446.6000000000001,
+       -190.20000000000002
+      ],
+      [
+       1446.6000000000001,
+       604.4000000000001
+      ],
+      [
+       1115.8999999999999,
+       604.4000000000001
+      ],
+      [
+       1115.8999999999999,
+       743.9
+      ],
+      [
+       1354.5,
+       743.9
+      ],
+      [
+       1354.5,
+       2247.3999999999996
+      ],
+      [
+       464.9,
+       2247.3999999999996
+      ],
+      [
+       464.9,
+       1946.9
+      ],
+      [
+       -1817.3,
+       1946.9
+      ],
+      [
+       -1749.3000000000002,
+       1139.2
+      ]
+     ],
+     "name": "Hallway",
+     "room_id": "hallway",
+     "region_id": "5",
+     "icon": "mdi:shoe-print",
+     "x": -344.20588235294116,
+     "y": 925.0823529411764
+    },
+    "Living Room": {
+     "outline": [
+      [
+       -4506.5,
+       371.3
+      ],
+      [
+       -4506.5,
+       1139.1
+      ],
+      [
+       -1749.3000000000002,
+       1139.2
+      ],
+      [
+       -1817.3,
+       1946.9
+      ],
+      [
+       -2138.9,
+       1946.9
+      ],
+      [
+       -2138.9,
+       2510.9
+      ],
+      [
+       -2417.9,
+       2510.9
+      ],
+      [
+       -2417.9,
+       3161.9
+      ],
+      [
+       -2215.8,
+       3161.9
+      ],
+      [
+       -2215.8,
+       5765.900000000001
+      ],
+      [
+       -2491.0,
+       5765.900000000001
+      ],
+      [
+       -2491.0,
+       6165.8
+      ],
+      [
+       -2922.8,
+       6165.8
+      ],
+      [
+       -2922.8,
+       5765.900000000001
+      ],
+      [
+       -3208.4,
+       5765.900000000001
+      ],
+      [
+       -3208.4,
+       5958.0
+      ],
+      [
+       -5511.599999999999,
+       5958.0
+      ],
+      [
+       -5511.599999999999,
+       5180.0
+      ],
+      [
+       -4613.5,
+       5180.0
+      ],
+      [
+       -4613.5,
+       3108.1
+      ],
+      [
+       -3440.9,
+       3108.1
+      ],
+      [
+       -3440.9,
+       2053.2
+      ],
+      [
+       -5114.9,
+       2053.2
+      ],
+      [
+       -5114.9,
+       1679.1000000000001
+      ],
+      [
+       -5713.599999999999,
+       1679.1000000000001
+      ],
+      [
+       -5713.599999999999,
+       1115.8999999999999
+      ],
+      [
+       -5466.3,
+       1115.8999999999999
+      ],
+      [
+       -5466.3,
+       650.9000000000001
+      ],
+      [
+       -5720.900000000001,
+       650.9000000000001
+      ],
+      [
+       -5720.900000000001,
+       330.5
+      ],
+      [
+       -4506.5,
+       371.3
+      ]
+     ],
+     "name": "Living Room",
+     "room_id": "living_room",
+     "region_id": "6",
+     "icon": "mdi:sofa",
+     "x": -3839.9709677419355,
+     "y": 3015.367741935484
+    },
+    "Kitchen": {
+     "outline": [
+      [
+       -5720.900000000001,
+       330.5
+      ],
+      [
+       -5720.900000000001,
+       -1301.9
+      ],
+      [
+       -6045.0,
+       -1301.9
+      ],
+      [
+       -6045.0,
+       -1391.3
+      ],
+      [
+       -5394.0,
+       -2042.3
+      ],
+      [
+       -5394.0,
+       -2045.9999999999998
+      ],
+      [
+       -5893.799999999999,
+       -2045.9999999999998
+      ],
+      [
+       -5893.799999999999,
+       -2452.1000000000004
+      ],
+      [
+       -3812.9,
+       -2452.1000000000004
+      ],
+      [
+       -3812.9,
+       -1884.7
+      ],
+      [
+       -2622.5,
+       -1884.7
+      ],
+      [
+       -2622.5,
+       219.70000000000002
+      ],
+      [
+       -4506.5,
+       219.70000000000002
+      ],
+      [
+       -4506.5,
+       371.3
+      ],
+      [
+       -5720.900000000001,
+       330.5
+      ]
+     ],
+     "name": "Kitchen",
+     "room_id": "kitchen",
+     "region_id": "7",
+     "icon": "mdi:fridge",
+     "x": -4914.14,
+     "y": -1155.4199999999998
+    }
+   },
+   "calibration_points": [
+    {
+     "vacuum": {
+      "x": -6045.0,
+      "y": -2452.1000000000004
+     },
+     "map": {
+      "x": 3,
+      "y": 596
+     }
+    },
+    {
+     "vacuum": {
+      "x": 1446.6000000000001,
+      "y": -2452.1000000000004
+     },
+     "map": {
+      "x": 519,
+      "y": 596
+     }
+    },
+    {
+     "vacuum": {
+      "x": -6045.0,
+      "y": 6165.8
+     },
+     "map": {
+      "x": 3,
+      "y": 3
+     }
+    }
+   ]
   }
  ],
  "input_boolean.alarmed_toggle": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Alarmed toggle"
   }
  ],
  "input_boolean.bubble_stream_front": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Bubble stream front"
   }
  ],
  "input_boolean.bubble_stream_garden": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Bubble stream garden"
   }
  ],
  "input_boolean.kids_radio": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Kids radio"
   }
  ],
  "input_boolean.star_projector": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Star projector"
   }
  ],
  "input_boolean.switch_current": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Switch current"
   }
  ],
  "input_boolean.switch_security_camera_1": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Switch security camera 1"
   }
  ],
  "input_boolean.switch_security_camera_2": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Switch security camera 2"
   }
  ],
  "input_datetime.blinds_auto_resume": [
   "2026-10-16 00:00:00",
   {
+   "has_date": true,
+   "has_time": true,
+   "supported_features": 0,
    "friendly_name": "Blinds auto resume"
   }
  ],
  "input_datetime.blinds_auto_until": [
   "18:00:00",
   {
+   "has_date": false,
+   "has_time": true,
+   "supported_features": 0,
    "friendly_name": "Blinds auto until"
   }
  ],
@@ -486,24 +1260,44 @@ export const HOME: Record<string, DemoState> = {
   "6.0",
   {
    "icon": "mdi:calendar-month",
+   "min": 1.0,
+   "max": 12.0,
+   "step": 1.0,
+   "mode": "box",
+   "supported_features": 0,
    "friendly_name": "Blinds summer from"
   }
  ],
  "input_number.blinds_summer_max": [
   "30.0",
   {
+   "min": 0.0,
+   "max": 100.0,
+   "step": 1.0,
+   "mode": "slider",
+   "supported_features": 0,
    "friendly_name": "Blinds summer max"
   }
  ],
  "input_number.blinds_summer_medium": [
   "60.0",
   {
+   "min": 0.0,
+   "max": 100.0,
+   "step": 1.0,
+   "mode": "slider",
+   "supported_features": 0,
    "friendly_name": "Blinds summer medium"
   }
  ],
  "input_number.blinds_summer_min": [
   "80.0",
   {
+   "min": 0.0,
+   "max": 100.0,
+   "step": 1.0,
+   "mode": "slider",
+   "supported_features": 0,
    "friendly_name": "Blinds summer min"
   }
  ],
@@ -511,30 +1305,55 @@ export const HOME: Record<string, DemoState> = {
   "10.0",
   {
    "icon": "mdi:calendar-month",
+   "min": 1.0,
+   "max": 12.0,
+   "step": 1.0,
+   "mode": "box",
+   "supported_features": 0,
    "friendly_name": "Blinds summer to"
   }
  ],
  "input_number.blinds_winter_max": [
   "50.0",
   {
+   "min": 0.0,
+   "max": 100.0,
+   "step": 1.0,
+   "mode": "slider",
+   "supported_features": 0,
    "friendly_name": "Blinds winter max"
   }
  ],
  "input_number.blinds_winter_medium": [
   "70.0",
   {
+   "min": 0.0,
+   "max": 100.0,
+   "step": 1.0,
+   "mode": "slider",
+   "supported_features": 0,
    "friendly_name": "Blinds winter medium"
   }
  ],
  "input_number.blinds_winter_min": [
   "100.0",
   {
+   "min": 0.0,
+   "max": 100.0,
+   "step": 1.0,
+   "mode": "slider",
+   "supported_features": 0,
    "friendly_name": "Blinds winter min"
   }
  ],
  "input_number.counter_graph": [
   "0.0",
   {
+   "min": -31.0,
+   "max": 0.0,
+   "step": 1.0,
+   "mode": "slider",
+   "supported_features": 0,
    "friendly_name": "Counter graph"
   }
  ],
@@ -549,6 +1368,7 @@ export const HOME: Record<string, DemoState> = {
     "Forever"
    ],
    "icon": "mdi:timer-pause-outline",
+   "supported_features": 0,
    "friendly_name": "Blinds auto pause"
   }
  ],
@@ -560,24 +1380,39 @@ export const HOME: Record<string, DemoState> = {
     "Month",
     "Year"
    ],
+   "supported_features": 0,
    "friendly_name": "Graph day month year"
   }
  ],
  "lawn_mower.mower": [
   "docked",
   {
+   "supported_features": 15,
    "friendly_name": "Mower"
   }
  ],
  "light.hub_light": [
   "on",
   {
+   "min_color_temp_kelvin": 2000,
+   "max_color_temp_kelvin": 6535,
+   "supported_color_modes": [
+    "color_temp",
+    "hs"
+   ],
+   "supported_features": 0,
    "friendly_name": "Hub light"
   }
  ],
  "light.garden_front": [
   "on",
   {
+   "supported_color_modes": [
+    "brightness"
+   ],
+   "supported_features": 40,
+   "min_color_temp_kelvin": 2000,
+   "max_color_temp_kelvin": 6535,
    "friendly_name": "Garden front"
   }
  ],
@@ -585,6 +1420,12 @@ export const HOME: Record<string, DemoState> = {
   "off",
   {
    "icon": "mdi:ceiling-light-outline",
+   "supported_color_modes": [
+    "brightness"
+   ],
+   "supported_features": 40,
+   "min_color_temp_kelvin": 2000,
+   "max_color_temp_kelvin": 6535,
    "friendly_name": "Hallway"
   }
  ],
@@ -592,6 +1433,13 @@ export const HOME: Record<string, DemoState> = {
   "off",
   {
    "icon": "mdi:ceiling-light-outline",
+   "min_color_temp_kelvin": 2000,
+   "max_color_temp_kelvin": 6535,
+   "supported_color_modes": [
+    "color_temp",
+    "xy"
+   ],
+   "supported_features": 40,
    "friendly_name": "Kitchen"
   }
  ],
@@ -599,6 +1447,28 @@ export const HOME: Record<string, DemoState> = {
   "off",
   {
    "mode": "normal",
+   "min_color_temp_kelvin": 2000,
+   "max_color_temp_kelvin": 6535,
+   "effect_list": [
+    "off",
+    "candle",
+    "fire",
+    "prism",
+    "sparkle",
+    "opal",
+    "glisten",
+    "underwater",
+    "cosmos",
+    "sunbeam",
+    "enchant",
+    "sunrise",
+    "sunset"
+   ],
+   "supported_color_modes": [
+    "color_temp",
+    "xy"
+   ],
+   "supported_features": 44,
    "friendly_name": "Kitchen bar"
   }
  ],
@@ -606,24 +1476,485 @@ export const HOME: Record<string, DemoState> = {
   "on",
   {
    "icon": "mdi:lamp-outline",
+   "min_color_temp_kelvin": 2000,
+   "max_color_temp_kelvin": 6535,
+   "supported_color_modes": [
+    "color_temp",
+    "xy"
+   ],
+   "supported_features": 40,
    "friendly_name": "Living room"
   }
  ],
  "light.kitchen_led": [
   "on",
   {
+   "supported_color_modes": [
+    "brightness"
+   ],
+   "supported_features": 32,
+   "min_color_temp_kelvin": 2000,
+   "max_color_temp_kelvin": 6535,
    "friendly_name": "Kitchen led"
   }
  ],
  "light.wled_segment_1": [
   "on",
   {
+   "effect_list": [
+    "Solid",
+    "Blink",
+    "Breathe",
+    "Wipe",
+    "Wipe Random",
+    "Random Colors",
+    "Sweep",
+    "Dynamic",
+    "Colorloop",
+    "Rainbow",
+    "Scan",
+    "Scan Dual",
+    "Fade",
+    "Theater",
+    "Theater Rainbow",
+    "Running",
+    "Saw",
+    "Twinkle",
+    "Dissolve",
+    "Dissolve Rnd",
+    "Sparkle",
+    "Sparkle Dark",
+    "Sparkle+",
+    "Strobe",
+    "Strobe Rainbow",
+    "Strobe Mega",
+    "Blink Rainbow",
+    "Android",
+    "Chase",
+    "Chase Random",
+    "Chase Rainbow",
+    "Chase Flash",
+    "Chase Flash Rnd",
+    "Rainbow Runner",
+    "Colorful",
+    "Traffic Light",
+    "Sweep Random",
+    "Chase 2",
+    "Aurora",
+    "Stream",
+    "Scanner",
+    "Lighthouse",
+    "Fireworks",
+    "Rain",
+    "Tetrix",
+    "Fire Flicker",
+    "Gradient",
+    "Loading",
+    "Rolling Balls",
+    "Fairy",
+    "Two Dots",
+    "Fairytwinkle",
+    "Running Dual",
+    "Image",
+    "Chase 3",
+    "Tri Wipe",
+    "Tri Fade",
+    "Lightning",
+    "ICU",
+    "Multi Comet",
+    "Scanner Dual",
+    "Stream 2",
+    "Oscillate",
+    "Pride 2015",
+    "Juggle",
+    "Palette",
+    "Fire 2012",
+    "Colorwaves",
+    "Bpm",
+    "Fill Noise",
+    "Noise 1",
+    "Noise 2",
+    "Noise 3",
+    "Noise 4",
+    "Colortwinkles",
+    "Lake",
+    "Meteor",
+    "Copy Segment",
+    "Railway",
+    "Ripple",
+    "Twinklefox",
+    "Twinklecat",
+    "Halloween Eyes",
+    "Solid Pattern",
+    "Solid Pattern Tri",
+    "Spots",
+    "Spots Fade",
+    "Glitter",
+    "Candle",
+    "Fireworks Starburst",
+    "Fireworks 1D",
+    "Bouncing Balls",
+    "Sinelon",
+    "Sinelon Dual",
+    "Sinelon Rainbow",
+    "Popcorn",
+    "Drip",
+    "Plasma",
+    "Percent",
+    "Ripple Rainbow",
+    "Heartbeat",
+    "Pacifica",
+    "Candle Multi",
+    "Solid Glitter",
+    "Sunrise",
+    "Phased",
+    "Twinkleup",
+    "Noise Pal",
+    "Sine",
+    "Phased Noise",
+    "Flow",
+    "Chunchun",
+    "Dancing Shadows",
+    "Washing Machine",
+    "Rotozoomer",
+    "Blends",
+    "TV Simulator",
+    "Dynamic Smooth",
+    "Spaceships",
+    "Crazy Bees",
+    "Ghost Rider",
+    "Blobs",
+    "Scrolling Text",
+    "Drift Rose",
+    "Distortion Waves",
+    "Soap",
+    "Octopus",
+    "Waving Cell",
+    "Pixels",
+    "Pixelwave",
+    "Juggles",
+    "Matripix",
+    "Gravimeter",
+    "Plasmoid",
+    "Puddles",
+    "Midnoise",
+    "Noisemeter",
+    "Freqwave",
+    "Freqmatrix",
+    "GEQ",
+    "Waterfall",
+    "Freqpixels",
+    "Noisefire",
+    "Puddlepeak",
+    "Noisemove",
+    "Noise2D",
+    "Perlin Move",
+    "Ripple Peak",
+    "Firenoise",
+    "Squared Swirl",
+    "PacMan",
+    "DNA",
+    "Matrix",
+    "Metaballs",
+    "Freqmap",
+    "Gravcenter",
+    "Gravcentric",
+    "Gravfreq",
+    "DJ Light",
+    "Funky Plank",
+    "Shimmer",
+    "Pulser",
+    "Blurz",
+    "Drift",
+    "Waverly",
+    "Sun Radiation",
+    "Colored Bursts",
+    "Julia",
+    "Game Of Life",
+    "Tartan",
+    "Polar Lights",
+    "Swirl",
+    "Lissajous",
+    "Frizzles",
+    "Plasma Ball",
+    "Flow Stripe",
+    "Hiphotic",
+    "Sindots",
+    "DNA Spiral",
+    "Black Hole",
+    "Wavesins",
+    "Rocktaves",
+    "Akemi",
+    "PS Volcano",
+    "PS Fire",
+    "PS Fireworks",
+    "PS Vortex",
+    "PS Fuzzy Noise",
+    "PS Ballpit",
+    "PS Box",
+    "PS Attractor",
+    "PS Impact",
+    "PS Waterfall",
+    "PS Spray",
+    "PS GEQ 2D",
+    "PS GEQ Nova",
+    "PS Ghost Rider",
+    "PS Blobs",
+    "PS DripDrop",
+    "PS Pinball",
+    "PS Dancing Shadows",
+    "PS Fireworks 1D",
+    "PS Sparkler",
+    "PS Hourglass",
+    "PS Spray 1D",
+    "PS 1D Balance",
+    "PS Chase",
+    "PS Starburst",
+    "PS GEQ 1D",
+    "PS Fire 1D",
+    "PS Sonic Stream",
+    "PS Sonic Boom",
+    "PS Springy",
+    "PS Galaxy",
+    "Color Clouds",
+    "Slow Transition"
+   ],
+   "supported_color_modes": [
+    "rgbw"
+   ],
+   "supported_features": 36,
+   "min_color_temp_kelvin": 2000,
+   "max_color_temp_kelvin": 6535,
    "friendly_name": "Wled segment 1"
   }
  ],
  "light.wled_segment_2": [
   "off",
   {
+   "effect_list": [
+    "Solid",
+    "Blink",
+    "Breathe",
+    "Wipe",
+    "Wipe Random",
+    "Random Colors",
+    "Sweep",
+    "Dynamic",
+    "Colorloop",
+    "Rainbow",
+    "Scan",
+    "Scan Dual",
+    "Fade",
+    "Theater",
+    "Theater Rainbow",
+    "Running",
+    "Saw",
+    "Twinkle",
+    "Dissolve",
+    "Dissolve Rnd",
+    "Sparkle",
+    "Sparkle Dark",
+    "Sparkle+",
+    "Strobe",
+    "Strobe Rainbow",
+    "Strobe Mega",
+    "Blink Rainbow",
+    "Android",
+    "Chase",
+    "Chase Random",
+    "Chase Rainbow",
+    "Chase Flash",
+    "Chase Flash Rnd",
+    "Rainbow Runner",
+    "Colorful",
+    "Traffic Light",
+    "Sweep Random",
+    "Chase 2",
+    "Aurora",
+    "Stream",
+    "Scanner",
+    "Lighthouse",
+    "Fireworks",
+    "Rain",
+    "Tetrix",
+    "Fire Flicker",
+    "Gradient",
+    "Loading",
+    "Rolling Balls",
+    "Fairy",
+    "Two Dots",
+    "Fairytwinkle",
+    "Running Dual",
+    "Image",
+    "Chase 3",
+    "Tri Wipe",
+    "Tri Fade",
+    "Lightning",
+    "ICU",
+    "Multi Comet",
+    "Scanner Dual",
+    "Stream 2",
+    "Oscillate",
+    "Pride 2015",
+    "Juggle",
+    "Palette",
+    "Fire 2012",
+    "Colorwaves",
+    "Bpm",
+    "Fill Noise",
+    "Noise 1",
+    "Noise 2",
+    "Noise 3",
+    "Noise 4",
+    "Colortwinkles",
+    "Lake",
+    "Meteor",
+    "Copy Segment",
+    "Railway",
+    "Ripple",
+    "Twinklefox",
+    "Twinklecat",
+    "Halloween Eyes",
+    "Solid Pattern",
+    "Solid Pattern Tri",
+    "Spots",
+    "Spots Fade",
+    "Glitter",
+    "Candle",
+    "Fireworks Starburst",
+    "Fireworks 1D",
+    "Bouncing Balls",
+    "Sinelon",
+    "Sinelon Dual",
+    "Sinelon Rainbow",
+    "Popcorn",
+    "Drip",
+    "Plasma",
+    "Percent",
+    "Ripple Rainbow",
+    "Heartbeat",
+    "Pacifica",
+    "Candle Multi",
+    "Solid Glitter",
+    "Sunrise",
+    "Phased",
+    "Twinkleup",
+    "Noise Pal",
+    "Sine",
+    "Phased Noise",
+    "Flow",
+    "Chunchun",
+    "Dancing Shadows",
+    "Washing Machine",
+    "Rotozoomer",
+    "Blends",
+    "TV Simulator",
+    "Dynamic Smooth",
+    "Spaceships",
+    "Crazy Bees",
+    "Ghost Rider",
+    "Blobs",
+    "Scrolling Text",
+    "Drift Rose",
+    "Distortion Waves",
+    "Soap",
+    "Octopus",
+    "Waving Cell",
+    "Pixels",
+    "Pixelwave",
+    "Juggles",
+    "Matripix",
+    "Gravimeter",
+    "Plasmoid",
+    "Puddles",
+    "Midnoise",
+    "Noisemeter",
+    "Freqwave",
+    "Freqmatrix",
+    "GEQ",
+    "Waterfall",
+    "Freqpixels",
+    "Noisefire",
+    "Puddlepeak",
+    "Noisemove",
+    "Noise2D",
+    "Perlin Move",
+    "Ripple Peak",
+    "Firenoise",
+    "Squared Swirl",
+    "PacMan",
+    "DNA",
+    "Matrix",
+    "Metaballs",
+    "Freqmap",
+    "Gravcenter",
+    "Gravcentric",
+    "Gravfreq",
+    "DJ Light",
+    "Funky Plank",
+    "Shimmer",
+    "Pulser",
+    "Blurz",
+    "Drift",
+    "Waverly",
+    "Sun Radiation",
+    "Colored Bursts",
+    "Julia",
+    "Game Of Life",
+    "Tartan",
+    "Polar Lights",
+    "Swirl",
+    "Lissajous",
+    "Frizzles",
+    "Plasma Ball",
+    "Flow Stripe",
+    "Hiphotic",
+    "Sindots",
+    "DNA Spiral",
+    "Black Hole",
+    "Wavesins",
+    "Rocktaves",
+    "Akemi",
+    "PS Volcano",
+    "PS Fire",
+    "PS Fireworks",
+    "PS Vortex",
+    "PS Fuzzy Noise",
+    "PS Ballpit",
+    "PS Box",
+    "PS Attractor",
+    "PS Impact",
+    "PS Waterfall",
+    "PS Spray",
+    "PS GEQ 2D",
+    "PS GEQ Nova",
+    "PS Ghost Rider",
+    "PS Blobs",
+    "PS DripDrop",
+    "PS Pinball",
+    "PS Dancing Shadows",
+    "PS Fireworks 1D",
+    "PS Sparkler",
+    "PS Hourglass",
+    "PS Spray 1D",
+    "PS 1D Balance",
+    "PS Chase",
+    "PS Starburst",
+    "PS GEQ 1D",
+    "PS Fire 1D",
+    "PS Sonic Stream",
+    "PS Sonic Boom",
+    "PS Springy",
+    "PS Galaxy",
+    "Color Clouds",
+    "Slow Transition"
+   ],
+   "supported_color_modes": [
+    "rgbw"
+   ],
+   "supported_features": 36,
+   "min_color_temp_kelvin": 2000,
+   "max_color_temp_kelvin": 6535,
    "friendly_name": "Wled segment 2"
   }
  ],
@@ -633,6 +1964,7 @@ export const HOME: Record<string, DemoState> = {
    "media_content_type": "video",
    "media_duration": 1366,
    "app_name": "Plex",
+   "supported_features": 450487,
    "friendly_name": "Apple tv 4k",
    "media_title": "A nature documentary"
   }
@@ -641,6 +1973,7 @@ export const HOME: Record<string, DemoState> = {
   "idle",
   {
    "device_class": "speaker",
+   "supported_features": 8321599,
    "friendly_name": "Bathroom",
    "media_title": "Podcast"
   }
@@ -649,6 +1982,7 @@ export const HOME: Record<string, DemoState> = {
   "idle",
   {
    "device_class": "speaker",
+   "supported_features": 131968,
    "friendly_name": "Bedroom speaker",
    "media_title": "Rain sounds"
   }
@@ -661,6 +1995,7 @@ export const HOME: Record<string, DemoState> = {
    "media_content_type": "music",
    "media_duration": 7,
    "device_class": "speaker",
+   "supported_features": 8321599,
    "friendly_name": "Kitchen",
    "media_title": "Morning jazz",
    "media_artist": "Radio"
@@ -670,6 +2005,7 @@ export const HOME: Record<string, DemoState> = {
   "off",
   {
    "device_class": "receiver",
+   "supported_features": 0,
    "friendly_name": "Playstation 5"
   }
  ],
@@ -678,19 +2014,81 @@ export const HOME: Record<string, DemoState> = {
   {
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "min": -13,
+   "max": 40,
+   "step": 1,
+   "mode": "box",
+   "supported_features": 0,
    "friendly_name": "Heat pump heating curve shift"
   }
  ],
  "number.heat_pump_heating_curve_slope": [
   "0.7",
   {
+   "min": 0.2,
+   "max": 3.5,
+   "step": 0.1,
+   "mode": "box",
+   "supported_features": 0,
    "friendly_name": "Heat pump heating curve slope"
+  }
+ ],
+ "number.mower_blade_height": [
+  "30",
+  {
+   "unit_of_measurement": "mm",
+   "device_class": "distance",
+   "min": 25,
+   "max": 70,
+   "step": 1,
+   "mode": "slider",
+   "supported_features": 0,
+   "friendly_name": "Mower blade height"
+  }
+ ],
+ "number.mower_cutting_path_angle": [
+  "78.0",
+  {
+   "unit_of_measurement": "°",
+   "min": -180,
+   "max": 180,
+   "step": 1,
+   "mode": "auto",
+   "supported_features": 0,
+   "friendly_name": "Mower cutting path angle"
+  }
+ ],
+ "number.mower_path_spacing": [
+  "25.0",
+  {
+   "unit_of_measurement": "cm",
+   "device_class": "distance",
+   "min": 20,
+   "max": 35,
+   "step": 1,
+   "mode": "auto",
+   "supported_features": 0,
+   "friendly_name": "Mower path spacing"
+  }
+ ],
+ "number.mower_working_speed": [
+  "0.4",
+  {
+   "unit_of_measurement": "m/s",
+   "device_class": "speed",
+   "min": 0.2,
+   "max": 1.2,
+   "step": 0.1,
+   "mode": "auto",
+   "supported_features": 0,
+   "friendly_name": "Mower working speed"
   }
  ],
  "person.alex": [
   "home",
   {
    "editable": true,
+   "supported_features": 0,
    "friendly_name": "Alex"
   }
  ],
@@ -698,6 +2096,7 @@ export const HOME: Record<string, DemoState> = {
   "Work",
   {
    "editable": true,
+   "supported_features": 0,
    "friendly_name": "Sam"
   }
  ],
@@ -705,12 +2104,14 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "brightness": 255,
+   "supported_features": 0,
    "friendly_name": "Hallway concentrate"
   }
  ],
  "scene.hallway_natural_light": [
   "unknown",
   {
+   "supported_features": 0,
    "friendly_name": "Hallway natural light"
   }
  ],
@@ -718,6 +2119,7 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "brightness": 0,
+   "supported_features": 0,
    "friendly_name": "Hallway nightlight"
   }
  ],
@@ -725,6 +2127,7 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "brightness": 255,
+   "supported_features": 0,
    "friendly_name": "Hallway read"
   }
  ],
@@ -732,6 +2135,7 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "brightness": 143,
+   "supported_features": 0,
    "friendly_name": "Hallway relax"
   }
  ],
@@ -739,12 +2143,14 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "brightness": 255,
+   "supported_features": 0,
    "friendly_name": "Kitchen concentrate"
   }
  ],
  "scene.kitchen_natural_light": [
   "unknown",
   {
+   "supported_features": 0,
    "friendly_name": "Kitchen natural light"
   }
  ],
@@ -752,6 +2158,7 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "brightness": 26,
+   "supported_features": 0,
    "friendly_name": "Kitchen nightlight"
   }
  ],
@@ -759,6 +2166,7 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "brightness": 255,
+   "supported_features": 0,
    "friendly_name": "Kitchen read"
   }
  ],
@@ -766,6 +2174,7 @@ export const HOME: Record<string, DemoState> = {
   "2026-10-27T16:29:38.506257+00:00",
   {
    "brightness": 143,
+   "supported_features": 0,
    "friendly_name": "Kitchen relax"
   }
  ],
@@ -773,12 +2182,14 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "brightness": 255,
+   "supported_features": 0,
    "friendly_name": "Living room concentrate"
   }
  ],
  "scene.living_room_natural_light": [
   "unknown",
   {
+   "supported_features": 0,
    "friendly_name": "Living room natural light"
   }
  ],
@@ -786,6 +2197,7 @@ export const HOME: Record<string, DemoState> = {
   "2026-10-26T22:00:00.485562+00:00",
   {
    "brightness": 26,
+   "supported_features": 0,
    "friendly_name": "Living room nightlight"
   }
  ],
@@ -793,6 +2205,7 @@ export const HOME: Record<string, DemoState> = {
   "2026-10-12T17:39:20.571451+00:00",
   {
    "brightness": 255,
+   "supported_features": 0,
    "friendly_name": "Living room read"
   }
  ],
@@ -800,132 +2213,154 @@ export const HOME: Record<string, DemoState> = {
   "2026-09-16T18:21:05.060775+00:00",
   {
    "brightness": 143,
+   "supported_features": 0,
    "friendly_name": "Living room relax"
   }
  ],
  "script.close_blinds_bedroom": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Close blinds bedroom"
   }
  ],
  "script.close_blinds_kids": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Close blinds kids"
   }
  ],
  "script.close_blinds_office": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Close blinds office"
   }
  ],
  "script.kids_bedtime": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Kids bedtime"
   }
  ],
  "script.kids_radio_button_toggle": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Kids radio button toggle"
   }
  ],
  "script.bathroom_lights_toggle": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Bathroom lights toggle"
   }
  ],
  "script.mower_pause": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Mower pause"
   }
  ],
  "script.mower_unpause": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Mower unpause"
   }
  ],
  "script.multi_tap_action": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Multi tap action"
   }
  ],
  "script.open_blinds_bedroom": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Open blinds bedroom"
   }
  ],
  "script.open_blinds_kids": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Open blinds kids"
   }
  ],
  "script.open_blinds_office": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Open blinds office"
   }
  ],
  "script.tilt_blinds_bedroom_max": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Tilt blinds bedroom max"
   }
  ],
  "script.tilt_blinds_bedroom_mid": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Tilt blinds bedroom mid"
   }
  ],
  "script.tilt_blinds_bedroom_min": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Tilt blinds bedroom min"
   }
  ],
  "script.tilt_blinds_kids_max": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Tilt blinds kids max"
   }
  ],
  "script.tilt_blinds_kids_mid": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Tilt blinds kids mid"
   }
  ],
  "script.tilt_blinds_kids_min": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Tilt blinds kids min"
   }
  ],
  "script.tilt_blinds_office_max": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Tilt blinds office max"
   }
  ],
  "script.tilt_blinds_office_mid": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Tilt blinds office mid"
   }
  ],
  "script.tilt_blinds_office_min": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Tilt blinds office min"
   }
  ],
@@ -933,12 +2368,31 @@ export const HOME: Record<string, DemoState> = {
   "off",
   {
    "icon": "mdi:broom",
+   "supported_features": 0,
    "friendly_name": "Vacuum and mop"
+  }
+ ],
+ "select.mop_reusable_pad_wetness": [
+  "3",
+  {
+   "options": [
+    "1",
+    "2",
+    "3"
+   ],
+   "supported_features": 0,
+   "friendly_name": "Mop reusable pad wetness"
   }
  ],
  "select.heat_pump_dhw_operating_mode": [
   "efficient",
   {
+   "options": [
+    "efficient_with_min_comfort",
+    "efficient",
+    "off"
+   ],
+   "supported_features": 0,
    "friendly_name": "Heat pump dhw operating mode"
   }
  ],
@@ -946,6 +2400,12 @@ export const HOME: Record<string, DemoState> = {
   "Off",
   {
    "icon": "mdi:shield-moon",
+   "options": [
+    "Off",
+    "B&W Night Vision",
+    "Color Night Vision"
+   ],
+   "supported_features": 0,
    "friendly_name": "Front door nightvision"
   }
  ],
@@ -953,7 +2413,37 @@ export const HOME: Record<string, DemoState> = {
   "B&W Night Vision",
   {
    "icon": "mdi:shield-moon",
+   "options": [
+    "Off",
+    "B&W Night Vision",
+    "Color Night Vision"
+   ],
+   "supported_features": 0,
    "friendly_name": "Garden nightvision"
+  }
+ ],
+ "select.vacuum_carpet_boost_select": [
+  "automatic",
+  {
+   "options": [
+    "automatic",
+    "eco",
+    "performance"
+   ],
+   "supported_features": 0,
+   "friendly_name": "Vacuum carpet boost select"
+  }
+ ],
+ "select.vacuum_cleaning_passes": [
+  "Auto",
+  {
+   "options": [
+    "Auto",
+    "One pass",
+    "Two passes"
+   ],
+   "supported_features": 0,
+   "friendly_name": "Vacuum cleaning passes"
   }
  ],
  "select.kitchen_led_preset": [
@@ -965,6 +2455,7 @@ export const HOME: Record<string, DemoState> = {
     "Lower light",
     "All lights"
    ],
+   "supported_features": 0,
    "friendly_name": "Kitchen led preset"
   }
  ],
@@ -975,6 +2466,7 @@ export const HOME: Record<string, DemoState> = {
    "unit_of_measurement": "W",
    "device_class": "power",
    "icon": "mdi:transmission-tower",
+   "supported_features": 0,
    "friendly_name": "Active power"
   }
  ],
@@ -983,7 +2475,48 @@ export const HOME: Record<string, DemoState> = {
   {
    "state_class": "measurement",
    "device_class": "aqi",
+   "supported_features": 0,
    "friendly_name": "Air quality index air quality index"
+  }
+ ],
+ "sensor.air_quality_index_nitrogen_dioxide": [
+  "4.3",
+  {
+   "state_class": "measurement",
+   "supported_features": 0,
+   "friendly_name": "Air quality index nitrogen dioxide"
+  }
+ ],
+ "sensor.air_quality_index_ozone": [
+  "17.6",
+  {
+   "state_class": "measurement",
+   "supported_features": 0,
+   "friendly_name": "Air quality index ozone"
+  }
+ ],
+ "sensor.air_quality_index_pm10": [
+  "11",
+  {
+   "state_class": "measurement",
+   "supported_features": 0,
+   "friendly_name": "Air quality index pm10"
+  }
+ ],
+ "sensor.air_quality_index_pm2_5": [
+  "21",
+  {
+   "state_class": "measurement",
+   "supported_features": 0,
+   "friendly_name": "Air quality index pm2 5"
+  }
+ ],
+ "sensor.air_quality_index_sulphur_dioxide": [
+  "3.4",
+  {
+   "state_class": "measurement",
+   "supported_features": 0,
+   "friendly_name": "Air quality index sulphur dioxide"
   }
  ],
  "sensor.blinds_shading_level": [
@@ -1005,12 +2538,14 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "%",
    "device_class": "battery",
+   "supported_features": 0,
    "friendly_name": "Mop battery"
   }
  ],
  "sensor.mop_error": [
   "unknown",
   {
+   "supported_features": 0,
    "friendly_name": "Mop error"
   }
  ],
@@ -1019,12 +2554,14 @@ export const HOME: Record<string, DemoState> = {
   {
    "state_class": "measurement",
    "unit_of_measurement": "%",
+   "supported_features": 0,
    "friendly_name": "Mop mission progress"
   }
  ],
  "sensor.mop_phase": [
   "idle",
   {
+   "supported_features": 0,
    "friendly_name": "Mop phase"
   }
  ],
@@ -1047,12 +2584,14 @@ export const HOME: Record<string, DemoState> = {
   {
    "state_class": "total_increasing",
    "unit_of_measurement": "h",
+   "supported_features": 0,
    "friendly_name": "Heat pump compressor hours"
   }
  ],
  "sensor.heat_pump_compressor_phase": [
   "ready",
   {
+   "supported_features": 0,
    "friendly_name": "Heat pump compressor phase"
   }
  ],
@@ -1060,6 +2599,7 @@ export const HOME: Record<string, DemoState> = {
   "4031",
   {
    "state_class": "total_increasing",
+   "supported_features": 0,
    "friendly_name": "Heat pump compressor starts"
   }
  ],
@@ -1069,6 +2609,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Heat pump outside temperature"
   }
  ],
@@ -1078,6 +2619,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Heat pump return temperature"
   }
  ],
@@ -1087,6 +2629,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Heat pump secondary circuit supply temperature"
   }
  ],
@@ -1096,6 +2639,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Heat pump supply temperature"
   }
  ],
@@ -1104,6 +2648,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "state_class": "measurement",
    "unit_of_measurement": "m³/h",
+   "supported_features": 0,
    "friendly_name": "Heat pump volumetric flow"
   }
  ],
@@ -1113,6 +2658,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Hot water temperature"
   }
  ],
@@ -1121,6 +2667,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "state_class": "total_increasing",
    "unit_of_measurement": "h",
+   "supported_features": 0,
    "friendly_name": "Heat pump heating rod hours"
   }
  ],
@@ -1128,6 +2675,7 @@ export const HOME: Record<string, DemoState> = {
   "1504",
   {
    "state_class": "total_increasing",
+   "supported_features": 0,
    "friendly_name": "Heat pump heating rod starts"
   }
  ],
@@ -1137,6 +2685,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "bar",
    "device_class": "pressure",
+   "supported_features": 0,
    "friendly_name": "Heat pump supply pressure"
   }
  ],
@@ -1174,6 +2723,7 @@ export const HOME: Record<string, DemoState> = {
    "status": "collecting",
    "unit_of_measurement": "kWh",
    "device_class": "energy",
+   "supported_features": 0,
    "friendly_name": "Energy buy daily"
   }
  ],
@@ -1184,6 +2734,7 @@ export const HOME: Record<string, DemoState> = {
    "status": "collecting",
    "unit_of_measurement": "kWh",
    "device_class": "energy",
+   "supported_features": 0,
    "friendly_name": "Energy consumption daily"
   }
  ],
@@ -1194,6 +2745,7 @@ export const HOME: Record<string, DemoState> = {
    "status": "collecting",
    "unit_of_measurement": "kWh",
    "device_class": "energy",
+   "supported_features": 0,
    "friendly_name": "Energy generation daily"
   }
  ],
@@ -1204,6 +2756,7 @@ export const HOME: Record<string, DemoState> = {
    "status": "collecting",
    "unit_of_measurement": "kWh",
    "device_class": "energy",
+   "supported_features": 0,
    "friendly_name": "Energy generation monthly"
   }
  ],
@@ -1214,6 +2767,7 @@ export const HOME: Record<string, DemoState> = {
    "status": "collecting",
    "unit_of_measurement": "kWh",
    "device_class": "energy",
+   "supported_features": 0,
    "friendly_name": "Energy generation yearly"
   }
  ],
@@ -1224,6 +2778,7 @@ export const HOME: Record<string, DemoState> = {
    "status": "collecting",
    "unit_of_measurement": "kWh",
    "device_class": "energy",
+   "supported_features": 0,
    "friendly_name": "Energy sell daily"
   }
  ],
@@ -1239,6 +2794,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "notes": [],
    "icon": "mdi:bell-outline",
+   "supported_features": 0,
    "friendly_name": "Glass notifications"
   }
  ],
@@ -1262,6 +2818,7 @@ export const HOME: Record<string, DemoState> = {
    "unit_of_measurement": "W",
    "device_class": "power",
    "icon": "mdi:power-plug-outline",
+   "supported_features": 0,
    "friendly_name": "House consumption"
   }
  ],
@@ -1292,6 +2849,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "%",
    "device_class": "battery",
+   "supported_features": 0,
    "friendly_name": "Mower battery"
   }
  ],
@@ -1300,6 +2858,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "state_class": "measurement",
    "unit_of_measurement": "%",
+   "supported_features": 0,
    "friendly_name": "Mower progress"
   }
  ],
@@ -1309,6 +2868,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "min",
    "device_class": "duration",
+   "supported_features": 0,
    "friendly_name": "Mower time left"
   }
  ],
@@ -1316,6 +2876,7 @@ export const HOME: Record<string, DemoState> = {
   "Not working",
   {
    "device_class": "enum",
+   "supported_features": 0,
    "friendly_name": "Mower work area"
   }
  ],
@@ -1323,6 +2884,7 @@ export const HOME: Record<string, DemoState> = {
   "1",
   {
    "unit_of_measurement": "watching",
+   "supported_features": 0,
    "friendly_name": "Media server streams"
   }
  ],
@@ -1331,6 +2893,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "unit_of_measurement": "%",
    "icon": "mdi:chart-areaspline",
+   "supported_features": 0,
    "friendly_name": "Office pc cpu load"
   }
  ],
@@ -2462,6 +4025,25 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "device_class": "enum",
+   "options": [
+    "air_wash",
+    "ai_rinse",
+    "ai_spin",
+    "ai_wash",
+    "cooling",
+    "delay_wash",
+    "drying",
+    "finish",
+    "none",
+    "pre_wash",
+    "rinse",
+    "spin",
+    "wash",
+    "weight_sensing",
+    "wrinkle_prevent",
+    "freeze_protection"
+   ],
+   "supported_features": 0,
    "friendly_name": "Washer job state"
   }
  ],
@@ -2469,6 +4051,12 @@ export const HOME: Record<string, DemoState> = {
   "unknown",
   {
    "device_class": "enum",
+   "options": [
+    "pause",
+    "run",
+    "stop"
+   ],
+   "supported_features": 0,
    "friendly_name": "Washer machine state"
   }
  ],
@@ -2479,6 +4067,7 @@ export const HOME: Record<string, DemoState> = {
    "unit_of_measurement": "W",
    "device_class": "power",
    "icon": "mdi:solar-power",
+   "supported_features": 0,
    "friendly_name": "Pv power"
   }
  ],
@@ -2500,6 +4089,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "%",
    "device_class": "battery",
+   "supported_features": 0,
    "friendly_name": "Vacuum battery"
   }
  ],
@@ -2508,12 +4098,14 @@ export const HOME: Record<string, DemoState> = {
   {
    "state_class": "measurement",
    "unit_of_measurement": "%",
+   "supported_features": 0,
    "friendly_name": "Vacuum mission progress"
   }
  ],
  "sensor.vacuum_phase": [
   "idle",
   {
+   "supported_features": 0,
    "friendly_name": "Vacuum phase"
   }
  ],
@@ -2535,6 +4127,7 @@ export const HOME: Record<string, DemoState> = {
    "unit_of_measurement": "%",
    "device_class": "battery",
    "icon": "mdi:battery-60",
+   "supported_features": 0,
    "friendly_name": "Sam phone battery"
   }
  ],
@@ -2543,6 +4136,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "enum",
    "icon": "mdi:battery-minus",
+   "supported_features": 0,
    "friendly_name": "Sam phone battery state"
   }
  ],
@@ -2553,6 +4147,7 @@ export const HOME: Record<string, DemoState> = {
    "unit_of_measurement": "%",
    "device_class": "battery",
    "icon": "mdi:battery-70",
+   "supported_features": 0,
    "friendly_name": "Alex phone battery"
   }
  ],
@@ -2561,6 +4156,7 @@ export const HOME: Record<string, DemoState> = {
   {
    "device_class": "enum",
    "icon": "mdi:battery",
+   "supported_features": 0,
    "friendly_name": "Alex phone battery state"
   }
  ],
@@ -2570,6 +4166,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Radiator current temperature 2"
   }
  ],
@@ -2579,6 +4176,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Radiator current temperature 4"
   }
  ],
@@ -2588,6 +4186,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "lx",
    "device_class": "illuminance",
+   "supported_features": 0,
    "friendly_name": "Sun sensor luminance"
   }
  ],
@@ -2597,6 +4196,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Room temperature"
   }
  ],
@@ -2606,6 +4206,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Room temperature 2"
   }
  ],
@@ -2615,6 +4216,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Room temperature 3"
   }
  ],
@@ -2624,6 +4226,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "measurement",
    "unit_of_measurement": "°C",
    "device_class": "temperature",
+   "supported_features": 0,
    "friendly_name": "Room temperature 4"
   }
  ],
@@ -2634,6 +4237,7 @@ export const HOME: Record<string, DemoState> = {
    "unit_of_measurement": "kWh",
    "device_class": "energy",
    "icon": "mdi:solar-power",
+   "supported_features": 0,
    "friendly_name": "Today s pv generation"
   }
  ],
@@ -2643,6 +4247,7 @@ export const HOME: Record<string, DemoState> = {
    "state_class": "total",
    "unit_of_measurement": "kWh",
    "device_class": "energy",
+   "supported_features": 0,
    "friendly_name": "Total energy buy"
   }
  ],
@@ -2653,6 +4258,7 @@ export const HOME: Record<string, DemoState> = {
    "unit_of_measurement": "kWh",
    "device_class": "energy",
    "icon": "mdi:power-plug-outline",
+   "supported_features": 0,
    "friendly_name": "Total load"
   }
  ],
@@ -2702,6 +4308,7 @@ export const HOME: Record<string, DemoState> = {
   "off",
   {
    "icon": "mdi:car-light-high",
+   "supported_features": 0,
    "friendly_name": "Front door light"
   }
  ],
@@ -2709,6 +4316,7 @@ export const HOME: Record<string, DemoState> = {
   "off",
   {
    "icon": "mdi:car-light-high",
+   "supported_features": 0,
    "friendly_name": "Garden light"
   }
  ],
@@ -2727,30 +4335,35 @@ export const HOME: Record<string, DemoState> = {
  "switch.switch": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Switch"
   }
  ],
  "switch.switch_switch1": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Switch switch1"
   }
  ],
  "switch.switch_switch2": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Switch switch2"
   }
  ],
  "switch.wall_switch": [
   "on",
   {
+   "supported_features": 0,
    "friendly_name": "Wall switch"
   }
  ],
  "switch.wall_switch_2": [
   "off",
   {
+   "supported_features": 0,
    "friendly_name": "Wall switch 2"
   }
  ],
@@ -2759,6 +4372,12 @@ export const HOME: Record<string, DemoState> = {
   {
    "fan_speed": "Standard-3",
    "status": "Charging",
+   "fan_speed_list": [
+    "automatic",
+    "eco",
+    "performance"
+   ],
+   "supported_features": 13116,
    "friendly_name": "Mop"
   }
  ],
@@ -2767,6 +4386,12 @@ export const HOME: Record<string, DemoState> = {
   {
    "fan_speed": "automatic",
    "status": "Charging",
+   "fan_speed_list": [
+    "automatic",
+    "eco",
+    "performance"
+   ],
+   "supported_features": 29500,
    "friendly_name": "Vacuum"
   }
  ],
@@ -2777,6 +4402,14 @@ export const HOME: Record<string, DemoState> = {
    "temperature": 47,
    "target_temp_high": null,
    "target_temp_low": null,
+   "min_temp": 10,
+   "max_temp": 60,
+   "supported_features": 1,
+   "operation_list": [
+    "off",
+    "eco",
+    "performance"
+   ],
    "friendly_name": "Heat pump domestic hot water"
   }
  ],
@@ -2796,6 +4429,7 @@ export const HOME: Record<string, DemoState> = {
    "wind_speed_unit": "km/h",
    "visibility_unit": "km",
    "precipitation_unit": "mm",
+   "supported_features": 2,
    "friendly_name": "Home"
   }
  ],
@@ -2805,5 +4439,81 @@ export const HOME: Record<string, DemoState> = {
    "friendly_name": "Work",
    "icon": "mdi:briefcase"
   }
+ ],
+ "switch.mower_zone_middle": [
+  "off",
+  {
+   "hash": 1,
+   "friendly_name": "Mower zone Middle"
+  }
+ ],
+ "switch.mower_zone_meadow": [
+  "off",
+  {
+   "hash": 2,
+   "friendly_name": "Mower zone Meadow"
+  }
+ ],
+ "switch.mower_zone_area_3": [
+  "off",
+  {
+   "hash": 3,
+   "friendly_name": "Mower zone Area 3"
+  }
+ ],
+ "switch.mower_zone_rockery": [
+  "off",
+  {
+   "hash": 4,
+   "friendly_name": "Mower zone Rockery"
+  }
+ ],
+ "switch.mower_zone_area_5": [
+  "off",
+  {
+   "hash": 5,
+   "friendly_name": "Mower zone Area 5"
+  }
+ ],
+ "switch.mower_zone_front_garden": [
+  "off",
+  {
+   "hash": 6,
+   "friendly_name": "Mower zone Front garden"
+  }
+ ],
+ "switch.mower_zone_upper": [
+  "off",
+  {
+   "hash": 7,
+   "friendly_name": "Mower zone Upper"
+  }
+ ],
+ "switch.mower_zone_lower": [
+  "off",
+  {
+   "hash": 8,
+   "friendly_name": "Mower zone Lower"
+  }
+ ],
+ "switch.mower_zone_by_the_path_1": [
+  "off",
+  {
+   "hash": 9,
+   "friendly_name": "Mower zone By the path 1"
+  }
+ ],
+ "switch.mower_zone_by_the_path_2": [
+  "off",
+  {
+   "hash": 10,
+   "friendly_name": "Mower zone By the path 2"
+  }
  ]
 };
+
+/** The mower's lawn: its zones, obstacles and paths (made-up coordinates). */
+export const MOWER_GEO = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [13.9999386, 49.9999513]}, "properties": {"hash": 0, "title": "Dock", "type_name": "station", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.000143, 50.0001273], [14.000134, 50.000132], [14.0001311, 50.0001324], [14.0001141, 50.0001303], [14.0001132, 50.0001301], [14.0001039, 50.0001273], [14.0000972, 50.0001266], [14.0000949, 50.0001256], [14.0000948, 50.0001253], [14.0000887, 50.0001243], [14.0000771, 50.0001252], [14.0000763, 50.0001252], [14.0000666, 50.0001246], [14.0000658, 50.0001245], [14.0000559, 50.0001222], [14.0000549, 50.0001218], [14.0000514, 50.0001201], [14.00005, 50.0001178], [14.0000512, 50.0001134], [14.0000515, 50.0001128], [14.0000576, 50.0001047], [14.000057, 50.000101], [14.0000541, 50.0000983], [14.0000459, 50.000095], [14.0000376, 50.0000952], [14.0000328, 50.0000969], [14.0000301, 50.0000993], [14.0000284, 50.0001022], [14.0000282, 50.0001052], [14.000029, 50.0001071], [14.0000347, 50.0001118], [14.0000353, 50.0001139], [14.0000335, 50.0001181], [14.0000324, 50.0001192], [14.0000299, 50.0001208], [14.0000272, 50.0001214], [13.9999909, 50.0001194], [13.999988, 50.0001193], [13.9999861, 50.0001189], [13.99998, 50.000116], [13.9999787, 50.0001148], [13.999977, 50.000111], [13.9999775, 50.000109], [13.9999812, 50.0001055], [13.9999831, 50.0001046], [13.9999932, 50.0001025], [13.9999943, 50.0001014], [13.9999943, 50.0001008], [13.9999934, 50.0000996], [13.9999858, 50.0000963], [13.9999847, 50.0000955], [13.9999787, 50.0000893], [13.9999783, 50.0000875], [13.99998, 50.0000835], [13.9999793, 50.0000797], [13.9999795, 50.0000787], [13.9999826, 50.0000726], [13.9999825, 50.0000725], [13.9999743, 50.0000708], [13.9999707, 50.0000716], [13.9999666, 50.000074], [13.9999634, 50.0000745], [13.9999508, 50.0000728], [13.9999499, 50.0000726], [13.9999414, 50.0000698], [13.9999397, 50.0000686], [13.999937, 50.0000645], [13.9999367, 50.0000634], [13.9999411, 50.0000321], [13.9999411, 50.000032], [13.999946, 50.0000067], [13.999946, 50.0000065], [13.9999537, 49.999983], [13.9999537, 49.9999828], [13.999961, 49.9999663], [13.9999628, 49.9999648], [13.9999649, 49.9999641], [13.9999673, 49.9999639], [14.000081, 49.9999789], [14.0000973, 49.9999742], [14.0000977, 49.9999718], [14.000097, 49.999968], [14.0000973, 49.9999667], [14.0001004, 49.9999628], [14.000102, 49.9999618], [14.0001042, 49.9999616], [14.0001245, 49.9999639], [14.0001268, 49.9999634], [14.0001293, 49.9999478], [14.0001307, 49.9999466], [14.0001267, 49.9999427], [14.0001261, 49.9999414], [14.0001261, 49.9999392], [14.0001269, 49.9999377], [14.0001328, 49.999933], [14.0001359, 49.9999322], [14.0001435, 49.9999327], [14.0001455, 49.9999332], [14.0001708, 49.9999473], [14.0001719, 49.9999485], [14.0001752, 49.9999568], [14.0001798, 49.9999635], [14.0001882, 49.99997], [14.0001981, 49.9999753], [14.0002056, 49.9999775], [14.0002197, 49.9999787], [14.0002212, 49.9999791], [14.0002255, 49.9999808], [14.0002264, 49.9999813], [14.0002333, 49.999987], [14.000234, 49.9999883], [14.0002343, 49.9999925], [14.0002342, 49.999993], [14.0002325, 50.0000001], [14.0002322, 50.0000008], [14.0002289, 50.0000048], [14.0002281, 50.0000055], [14.0002242, 50.0000077], [14.0002234, 50.0000081], [14.0002137, 50.0000113], [14.0002123, 50.0000116], [14.000203, 50.000012], [14.000198, 50.0000129], [14.0001961, 50.0000137], [14.0001935, 50.0000164], [14.0001903, 50.0000275], [14.0001901, 50.000028], [14.0001873, 50.0000321], [14.0001872, 50.0000345], [14.0001878, 50.0000352], [14.0001974, 50.0000384], [14.000198, 50.0000387], [14.0002029, 50.0000414], [14.0002042, 50.0000428], [14.0002057, 50.0000493], [14.0002187, 50.0000685], [14.0002236, 50.0000738], [14.0002281, 50.0000754], [14.0002494, 50.0000744], [14.0002501, 50.0000744], [14.0002699, 50.0000759], [14.0002924, 50.0000759], [14.000293, 50.000076], [14.0003106, 50.0000776], [14.0003107, 50.0000776], [14.0003338, 50.0000802], [14.0003345, 50.0000803], [14.0003417, 50.0000821], [14.0003429, 50.0000826], [14.0003489, 50.0000863], [14.00035, 50.0000877], [14.0003494, 50.0000892], [14.0003454, 50.0000934], [14.0003414, 50.0001092], [14.0003397, 50.0001109], [14.0003374, 50.0001117], [14.0003363, 50.000112], [14.0003233, 50.0001137], [14.0003229, 50.0001141], [14.0003207, 50.0001146], [14.0002952, 50.0001144], [14.0002948, 50.0001144], [14.0002857, 50.0001136], [14.0002843, 50.0001141], [14.0002754, 50.0001212], [14.0002743, 50.0001245], [14.0002757, 50.000127], [14.0002804, 50.0001306], [14.0002811, 50.0001329], [14.000274, 50.0001458], [14.0002724, 50.00015], [14.0002722, 50.0001503], [14.0002708, 50.0001526], [14.0002698, 50.0001535], [14.0002661, 50.0001555], [14.0002646, 50.000156], [14.0002612, 50.0001565], [14.0002576, 50.0001586], [14.0002541, 50.0001592], [14.0002488, 50.0001581], [14.0002467, 50.000157], [14.0002432, 50.0001529], [14.0002345, 50.0001499], [14.0002331, 50.000149], [14.0002312, 50.000147], [14.0002307, 50.0001463], [14.0002293, 50.0001426], [14.0002213, 50.000143], [14.0002108, 50.0001465], [14.0002071, 50.0001463], [14.0002051, 50.0001454], [14.0002036, 50.000143], [14.0002171, 50.0001043], [14.0002118, 50.0001029], [14.0001976, 50.0001012], [14.0001974, 50.0001012], [14.0001759, 50.0000974], [14.0001721, 50.0001015], [14.0001633, 50.0001227], [14.0001624, 50.0001237], [14.0001608, 50.0001248], [14.0001594, 50.0001253], [14.0001528, 50.0001269], [14.0001517, 50.0001271], [14.000143, 50.0001273]]]}, "properties": {"hash": 1, "title": "Middle", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9993357, 50.0002443], [13.9993523, 50.0001759], [13.9993523, 50.0001758], [13.9993691, 50.000125], [13.9993692, 50.0001247], [13.9993759, 50.0001123], [13.9993816, 50.0000964], [13.9993922, 50.0000602], [13.9993927, 50.0000593], [13.9993948, 50.0000573], [13.9993965, 50.0000564], [13.999403, 50.0000548], [13.9994057, 50.0000548], [13.9994116, 50.0000564], [13.999422, 50.0000552], [13.9994231, 50.0000552], [13.9994469, 50.0000574], [13.9994547, 50.0000575], [13.9994753, 50.0000532], [13.9994761, 50.0000531], [13.9994844, 50.0000527], [13.9994856, 50.0000527], [13.9994907, 50.0000536], [13.9994929, 50.0000535], [13.9994962, 50.0000521], [13.9995007, 50.0000487], [13.9995016, 50.0000482], [13.9995068, 50.0000463], [13.9995089, 50.000046], [13.9995188, 50.0000466], [13.9995251, 50.0000448], [13.9995265, 50.0000446], [13.9995421, 50.0000443], [13.9995436, 50.0000445], [13.9995492, 50.0000462], [13.9995502, 50.0000466], [13.9995566, 50.0000505], [13.9995598, 50.0000506], [13.9995734, 50.0000474], [13.9995798, 50.0000445], [13.9995813, 50.0000441], [13.9995916, 50.000043], [13.9995918, 50.0000424], [13.9995942, 50.0000414], [13.9996019, 50.0000407], [13.9996031, 50.0000407], [13.9996111, 50.0000417], [13.999613, 50.0000424], [13.9996131, 50.000043], [13.9996138, 50.0000433], [13.9996157, 50.0000476], [13.9996159, 50.0000479], [13.999619, 50.0000625], [13.999619, 50.0000627], [13.9996195, 50.0000675], [13.9996203, 50.0000706], [13.9996221, 50.0000746], [13.9996222, 50.0000749], [13.9996265, 50.0000902], [13.9996265, 50.000091], [13.9996229, 50.0001052], [13.9996246, 50.0001114], [13.9996332, 50.000132], [13.9996333, 50.0001322], [13.9996382, 50.0001515], [13.9996422, 50.0001597], [13.9996423, 50.00016], [13.9996435, 50.0001654], [13.999644, 50.0001656], [13.9996454, 50.0001666], [13.9996475, 50.0001695], [13.9996478, 50.0001704], [13.9996487, 50.0001795], [13.9996486, 50.0001803], [13.9996465, 50.0001846], [13.9996464, 50.0001868], [13.9996513, 50.0001974], [13.9996514, 50.000198], [13.9996526, 50.0002117], [13.999654, 50.0002168], [13.9996592, 50.0002258], [13.999671, 50.000242], [13.9996713, 50.0002428], [13.9996715, 50.0002444], [13.999672, 50.0002472], [13.9996719, 50.0002481], [13.9996699, 50.0002528], [13.9996682, 50.0002542], [13.9996667, 50.0002543], [13.9996637, 50.000255], [13.9996638, 50.0002556], [13.9996634, 50.0002568], [13.9996612, 50.0002596], [13.9996586, 50.0002672], [13.9996583, 50.0002677], [13.999656, 50.000271], [13.9996553, 50.0002748], [13.9996615, 50.0003012], [13.9996629, 50.0003038], [13.9996696, 50.0003095], [13.9996701, 50.0003101], [13.9996732, 50.0003159], [13.9996723, 50.0003184], [13.9996654, 50.0003226], [13.9996628, 50.0003232], [13.999635, 50.0003225], [13.9996334, 50.0003223], [13.9996314, 50.0003216], [13.9996298, 50.0003203], [13.9996277, 50.0003165], [13.9996275, 50.0003155], [13.9996287, 50.000308], [13.9996238, 50.000302], [13.9996126, 50.000299], [13.9996019, 50.0002988], [13.9995915, 50.0003001], [13.9995799, 50.0003057], [13.9995774, 50.0003061], [13.999575, 50.0003053], [13.9995707, 50.000302], [13.9995688, 50.0003022], [13.999561, 50.0003045], [13.9995591, 50.0003047], [13.9995465, 50.0003039], [13.9995459, 50.0003038], [13.9994647, 50.0002896], [13.9994644, 50.0002895], [13.9994478, 50.0002856], [13.9994198, 50.0002815], [13.9993998, 50.0002795], [13.9993995, 50.0002795], [13.9993321, 50.0002687], [13.9993297, 50.0002675], [13.9993288, 50.0002663], [13.9993285, 50.0002648], [13.9993357, 50.0002443]]]}, "properties": {"hash": 2, "title": "Meadow", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0001265, 49.9998736], [14.0001342, 49.9998578], [14.0001413, 49.9998351], [14.000143, 49.9998335], [14.0001469, 49.999832], [14.0001482, 49.9998318], [14.0001541, 49.9998312], [14.0001552, 49.9998312], [14.0001743, 49.9998332], [14.0001748, 49.9998333], [14.0001833, 49.9998351], [14.0001852, 49.999836], [14.0001878, 49.9998385], [14.0001883, 49.9998391], [14.0001925, 49.9998475], [14.0001927, 49.9998483], [14.0001923, 49.9998619], [14.0001922, 49.9998623], [14.0001878, 49.9998781], [14.0001877, 49.9998783], [14.0001814, 49.9998938], [14.0001757, 49.9999125], [14.0001755, 49.9999128], [14.0001706, 49.999921], [14.0001693, 49.999922], [14.0001648, 49.9999241], [14.0001633, 49.9999245], [14.0001517, 49.9999257], [14.0001488, 49.9999252], [14.0001336, 49.9999168], [14.0001308, 49.9999163], [14.0001271, 49.9999168], [14.0001252, 49.9999168], [14.000123, 49.9999163], [14.000122, 49.999916], [14.0001146, 49.9999125], [14.0001098, 49.9999107], [14.0001092, 49.9999105], [14.0001083, 49.99991], [14.0001073, 49.9999091], [14.0001065, 49.9999078], [14.0001063, 49.9999073], [14.0001052, 49.9999031], [14.0001053, 49.9999026], [14.0001051, 49.9999025], [14.0001063, 49.9998939], [14.0001064, 49.9998937], [14.0001095, 49.9998827], [14.0001104, 49.9998816], [14.0001136, 49.9998792], [14.0001143, 49.9998788], [14.0001265, 49.9998736]]]}, "properties": {"hash": 3, "title": "Area 3", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9999226, 49.9998488], [13.9999312, 49.999833], [13.9999338, 49.9998231], [13.9999309, 49.9998087], [13.9999309, 49.9998081], [13.9999317, 49.9998026], [13.9999329, 49.999801], [13.9999354, 49.9997997], [13.9999374, 49.9997992], [13.9999481, 49.9997986], [13.9999515, 49.9997997], [13.9999531, 49.9998015], [13.9999536, 49.9998029], [13.9999531, 49.9998065], [13.9999528, 49.9998072], [13.9999465, 49.9998165], [13.9999464, 49.9998206], [13.9999462, 49.9998212], [13.9999387, 49.9998375], [13.9999386, 49.9998377], [13.9999283, 49.9998536], [13.9999185, 49.9998868], [13.9999176, 49.9998879], [13.9999122, 49.9998918], [13.9999115, 49.9998922], [13.9999004, 49.9998967], [13.9998998, 49.9998969], [13.9998968, 49.9998977], [13.9998964, 49.9998977], [13.999893, 49.9998984], [13.9998926, 49.9998984], [13.9998891, 49.9998987], [13.9998884, 49.9998988], [13.999885, 49.9998986], [13.9998828, 49.999898], [13.9998817, 49.9998966], [13.9998813, 49.9998949], [13.9998797, 49.9998906], [13.9998798, 49.9998892], [13.9998799, 49.9998891], [13.9998799, 49.9998891], [13.9998821, 49.9998859], [13.9998847, 49.9998846], [13.99989, 49.9998839], [13.9998907, 49.9998838], [13.9999024, 49.9998838], [13.999907, 49.9998813], [13.9999093, 49.9998759], [13.9999107, 49.9998654], [13.9999109, 49.999865], [13.9999135, 49.9998588], [13.9999139, 49.9998583], [13.9999226, 49.9998488]]]}, "properties": {"hash": 4, "title": "Rockery", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9996513, 49.9997271], [13.9996898, 49.9997318], [13.9996904, 49.9997319], [13.9997068, 49.9997358], [13.9997078, 49.9997363], [13.9997081, 49.9997363], [13.9997129, 49.9997395], [13.9997131, 49.9997396], [13.9997166, 49.9997423], [13.9997174, 49.9997444], [13.9997164, 49.9997471], [13.9997143, 49.9997488], [13.999707, 49.9997507], [13.9997043, 49.9997507], [13.9996921, 49.9997474], [13.9996701, 49.9997473], [13.9996698, 49.9997473], [13.9996528, 49.9997462], [13.9996388, 49.9997471], [13.9996372, 49.9997469], [13.9996217, 49.9997432], [13.9996001, 49.9997407], [13.9995999, 49.9997406], [13.9995647, 49.9997349], [13.9995641, 49.9997348], [13.9995576, 49.9997329], [13.9995327, 49.9997307], [13.9995323, 49.9997307], [13.9995079, 49.9997265], [13.9995063, 49.9997258], [13.9995034, 49.9997239], [13.9995024, 49.9997221], [13.9995039, 49.9997104], [13.9995051, 49.9997088], [13.999508, 49.9997072], [13.9995097, 49.9997067], [13.9995135, 49.9997062], [13.9995149, 49.9997062], [13.9996082, 49.9997195], [13.9996083, 49.9997196], [13.9996513, 49.9997271]]]}, "properties": {"hash": 5, "title": "Area 5", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0000416, 49.9998131], [14.0000417, 49.9998131], [14.0000751, 49.9998186], [14.000077, 49.9998193], [14.0000828, 49.9998239], [14.0000936, 49.9998262], [14.0000963, 49.999826], [14.0001019, 49.9998234], [14.0001038, 49.999823], [14.0001114, 49.9998227], [14.0001142, 49.9998234], [14.0001152, 49.9998251], [14.0001151, 49.9998278], [14.000115, 49.9998281], [14.0001073, 49.9998554], [14.0001073, 49.9998555], [14.0001053, 49.9998612], [14.0001047, 49.999862], [14.0001019, 49.9998645], [14.000101, 49.999865], [14.0000961, 49.999867], [14.0000941, 49.9998674], [14.0000827, 49.9998672], [14.0000821, 49.9998671], [14.0000549, 49.9998634], [14.0000434, 49.9998625], [14.0000403, 49.9998606], [14.0000377, 49.9998526], [14.0000335, 49.9998495], [14.0000309, 49.9998488], [14.0000267, 49.9998488], [14.0000227, 49.9998504], [14.0000201, 49.9998544], [14.000019, 49.9998553], [14.0000172, 49.9998562], [14.0000154, 49.9998567], [14.0000056, 49.9998572], [14.0000049, 49.9998572], [13.9999745, 49.9998553], [13.9999716, 49.9998538], [13.9999699, 49.9998512], [13.9999696, 49.9998502], [13.9999699, 49.9998472], [13.9999701, 49.9998466], [13.9999776, 49.9998313], [13.9999782, 49.9998306], [13.9999812, 49.999828], [13.9999834, 49.9998226], [13.9999835, 49.9998224], [13.9999836, 49.9998223], [13.9999839, 49.9998218], [13.9999855, 49.9998202], [13.999987, 49.9998169], [13.9999872, 49.9998166], [13.9999899, 49.9998129], [13.9999905, 49.9998115], [13.9999931, 49.9998098], [13.9999984, 49.999809], [13.9999992, 49.9998089], [14.0000048, 49.9998088], [14.0000052, 49.9998088], [14.0000107, 49.9998091], [14.0000111, 49.9998092], [14.0000415, 49.9998131], [14.0000416, 49.9998131]]]}, "properties": {"hash": 6, "title": "Front garden", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9996035, 49.9999805], [13.9995973, 49.9999618], [13.9995972, 49.9999613], [13.9995973, 49.9999587], [13.999598, 49.9999573], [13.9996059, 49.9999508], [13.9996072, 49.9999473], [13.9995946, 49.9999006], [13.9995902, 49.9998886], [13.9995874, 49.9998857], [13.9995869, 49.9998848], [13.999586, 49.999881], [13.9995861, 49.99988], [13.9995882, 49.9998756], [13.9995904, 49.9998741], [13.9995959, 49.9998728], [13.9995972, 49.9998727], [13.9996021, 49.9998727], [13.9996028, 49.9998728], [13.999663, 49.9998815], [13.999664, 49.9998818], [13.999674, 49.9998854], [13.9996755, 49.9998864], [13.9996758, 49.9998879], [13.9996751, 49.9998898], [13.9996757, 49.9998928], [13.9996764, 49.9998935], [13.9996994, 49.9998975], [13.9997019, 49.9998974], [13.999705, 49.9998962], [13.9997124, 49.9998913], [13.9997146, 49.9998883], [13.9997145, 49.9998839], [13.9997152, 49.9998825], [13.9997172, 49.9998807], [13.9997196, 49.9998798], [13.9997261, 49.9998791], [13.999727, 49.9998791], [13.9997394, 49.99988], [13.9997398, 49.9998801], [13.9998752, 49.999898], [13.9998759, 49.9998982], [13.9998809, 49.9998995], [13.9998826, 49.9999004], [13.9998831, 49.9999019], [13.9998827, 49.9999048], [13.9998824, 49.9999056], [13.9998779, 49.9999121], [13.9998797, 49.999915], [13.9998811, 49.9999161], [13.9998857, 49.9999178], [13.9998979, 49.9999172], [13.9998995, 49.9999173], [13.9999095, 49.9999198], [13.9999276, 49.9999204], [13.99993, 49.9999211], [13.9999322, 49.9999225], [13.9999332, 49.9999245], [13.9999259, 49.9999529], [13.9999267, 49.9999552], [13.9999378, 49.9999559], [13.9999392, 49.9999562], [13.9999423, 49.9999574], [13.9999435, 49.9999581], [13.9999466, 49.9999609], [13.9999483, 49.9999617], [13.9999684, 49.9999642], [13.9999696, 49.9999645], [13.9999734, 49.9999659], [13.9999751, 49.9999678], [13.9999753, 49.9999716], [13.9999752, 49.9999721], [13.9999592, 50.0000245], [13.9999517, 50.0000602], [13.9999515, 50.0000606], [13.9999489, 50.0000655], [13.9999476, 50.0000666], [13.9999446, 50.0000681], [13.9999425, 50.0000685], [13.9999392, 50.0000686], [13.9999381, 50.0000685], [13.9999241, 50.0000659], [13.9998301, 50.0000551], [13.9998299, 50.0000551], [13.9998205, 50.0000536], [13.9998197, 50.0000548], [13.9998194, 50.0000621], [13.9998194, 50.0000625], [13.9998168, 50.0000712], [13.9998158, 50.0000835], [13.9998154, 50.0000845], [13.9998144, 50.0000858], [13.9998107, 50.000087], [13.9997942, 50.0000856], [13.9997937, 50.0000855], [13.9997697, 50.0000812], [13.9997677, 50.0000803], [13.9997664, 50.0000791], [13.9997657, 50.0000782], [13.9997645, 50.0000738], [13.9997645, 50.000073], [13.9997664, 50.000064], [13.9997655, 50.0000621], [13.9997637, 50.0000617], [13.9997427, 50.0000602], [13.9997424, 50.0000604], [13.9997411, 50.0000657], [13.9997401, 50.0000669], [13.9997328, 50.0000718], [13.9997316, 50.000075], [13.9997316, 50.0000768], [13.9997318, 50.0000781], [13.9997303, 50.0000802], [13.9997286, 50.000081], [13.9997274, 50.0000814], [13.9997244, 50.0000819], [13.9997226, 50.0000819], [13.999716, 50.0000809], [13.999634, 50.0000697], [13.9996321, 50.000069], [13.999628, 50.0000662], [13.9996272, 50.0000653], [13.9996243, 50.000059], [13.9996242, 50.0000587], [13.9996212, 50.0000473], [13.9996213, 50.0000463], [13.9996235, 50.0000412], [13.9996236, 50.000038], [13.9996211, 50.0000318], [13.9996201, 50.0000307], [13.9996198, 50.0000302], [13.999615, 50.0000209], [13.9996149, 50.0000203], [13.9996144, 50.000016], [13.9996145, 50.0000153], [13.9996159, 50.0000118], [13.9996167, 50.0000108], [13.9996224, 50.0000068], [13.9996258, 50.0000003], [13.9996232, 49.9999991], [13.9996118, 49.9999957], [13.9996107, 49.9999952], [13.9996073, 49.999993], [13.9996066, 49.9999922], [13.9996052, 49.9999901], [13.999605, 49.9999895], [13.9996035, 49.9999805]]]}, "properties": {"hash": 7, "title": "Upper", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0004296, 50.0000534], [14.0004387, 50.0000558], [14.0004447, 50.0000562], [14.0004557, 50.000054], [14.0004587, 50.0000527], [14.0004646, 50.000043], [14.0004656, 50.0000421], [14.0004702, 50.0000394], [14.0004725, 50.0000368], [14.000473, 50.0000331], [14.0004707, 50.0000208], [14.0004701, 50.0000203], [14.0004622, 50.0000171], [14.000461, 50.0000162], [14.0004593, 50.0000143], [14.0004589, 50.0000132], [14.0004589, 50.0000109], [14.0004593, 50.0000097], [14.0004611, 50.0000077], [14.0004623, 50.0000069], [14.0004655, 50.0000055], [14.0004674, 50.0000051], [14.0004781, 50.000005], [14.0004798, 50.0000053], [14.000484, 50.0000068], [14.0004858, 50.0000083], [14.0004871, 50.000012], [14.0004877, 50.0000124], [14.0004882, 50.0000125], [14.0004887, 50.0000127], [14.00049, 50.0000132], [14.0005127, 50.0000151], [14.0005132, 50.0000151], [14.0005151, 50.0000071], [14.0005154, 50.0000065], [14.0005186, 50.0000019], [14.00052, 50.0000009], [14.0005229, 49.9999997], [14.0005258, 49.9999995], [14.0005352, 50.0000012], [14.0005361, 50.0000014], [14.0005448, 50.0000049], [14.0005464, 50.0000073], [14.000544, 50.0000161], [14.0005448, 50.0000174], [14.0005468, 50.0000173], [14.0005601, 50.0000193], [14.0005809, 50.000021], [14.0005812, 50.000021], [14.0006019, 50.0000239], [14.0006033, 50.0000243], [14.000608, 50.0000267], [14.0006093, 50.0000288], [14.0006076, 50.0000398], [14.0006067, 50.0000607], [14.0006067, 50.000061], [14.0006036, 50.0000742], [14.0006043, 50.0000766], [14.000605, 50.0000779], [14.0006052, 50.0000787], [14.0006041, 50.0000993], [14.000604, 50.0000999], [14.0006004, 50.0001079], [14.0005993, 50.000109], [14.0005882, 50.0001153], [14.0005874, 50.0001229], [14.000591, 50.0001263], [14.0005978, 50.0001288], [14.0005995, 50.0001303], [14.0006009, 50.0001341], [14.000601, 50.0001348], [14.0005977, 50.0001696], [14.0005977, 50.0001698], [14.0005952, 50.0001789], [14.0005948, 50.0001796], [14.0005915, 50.0001835], [14.0005924, 50.0001846], [14.0005911, 50.0001968], [14.0005904, 50.0001979], [14.0005865, 50.0002017], [14.0005827, 50.0002027], [14.0005791, 50.0002022], [14.0005781, 50.0002019], [14.0005732, 50.0002], [14.0005517, 50.0001956], [14.0005425, 50.0001944], [14.0005419, 50.0001943], [14.00052, 50.0001887], [14.0005152, 50.0001885], [14.000502, 50.0001901], [14.0005004, 50.0001901], [14.0004945, 50.0001891], [14.0004934, 50.0001888], [14.0004877, 50.0001862], [14.000481, 50.0001871], [14.0004774, 50.0001863], [14.000473, 50.0001828], [14.0004621, 50.0001846], [14.0004573, 50.000187], [14.0004556, 50.0001875], [14.0004532, 50.0001877], [14.0004518, 50.0001877], [14.0004405, 50.0001858], [14.0004395, 50.0001855], [14.0004302, 50.000182], [14.0004288, 50.0001811], [14.0004258, 50.0001775], [14.0004221, 50.0001754], [14.0004185, 50.0001745], [14.000412, 50.000174], [14.0004101, 50.0001736], [14.0003905, 50.0001636], [14.0003833, 50.0001606], [14.0003742, 50.0001589], [14.0003512, 50.0001568], [14.0003494, 50.0001563], [14.0003353, 50.0001485], [14.0003273, 50.0001515], [14.0003183, 50.0001566], [14.0003172, 50.000157], [14.0003072, 50.0001595], [14.0003006, 50.0001645], [14.0002983, 50.0001654], [14.0002957, 50.0001649], [14.0002887, 50.0001615], [14.0002876, 50.0001608], [14.0002857, 50.0001583], [14.0002733, 50.0001558], [14.0002722, 50.0001555], [14.0002656, 50.0001524], [14.0002641, 50.0001508], [14.000263, 50.0001455], [14.000263, 50.0001446], [14.0002668, 50.0001358], [14.0002671, 50.0001353], [14.0002699, 50.0001321], [14.0002712, 50.0001312], [14.0002777, 50.0001287], [14.0002789, 50.0001285], [14.0002885, 50.0001273], [14.0002916, 50.0001279], [14.0003121, 50.00014], [14.0003244, 50.0001308], [14.0003229, 50.000129], [14.0003226, 50.0001285], [14.0003207, 50.000124], [14.0003207, 50.0001226], [14.0003218, 50.0001207], [14.0003223, 50.0001175], [14.0003224, 50.000117], [14.0003402, 50.0000793], [14.0003397, 50.0000788], [14.0003394, 50.000077], [14.0003411, 50.0000756], [14.0003519, 50.0000715], [14.0003542, 50.00007], [14.0003604, 50.0000488], [14.000361, 50.0000479], [14.0003641, 50.0000451], [14.0003655, 50.0000443], [14.0003743, 50.0000416], [14.0003756, 50.0000413], [14.000384, 50.000041], [14.0003852, 50.000041], [14.000413, 50.0000457], [14.0004137, 50.0000458], [14.0004182, 50.0000473], [14.0004188, 50.0000476], [14.0004296, 50.0000534]]]}, "properties": {"hash": 8, "title": "Lower", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9999244, 49.9997925], [13.9999243, 49.9997925], [13.9998962, 49.999788], [13.999894, 49.999787], [13.9998915, 49.9997845], [13.9998909, 49.9997828], [13.9998919, 49.9997793], [13.9998923, 49.9997786], [13.9998967, 49.9997731], [13.9998976, 49.9997724], [13.999903, 49.9997696], [13.9999042, 49.9997692], [13.9999081, 49.9997684], [13.9999097, 49.9997683], [13.9999393, 49.9997713], [13.9999397, 49.9997713], [13.9999596, 49.9997749], [13.9999602, 49.9997751], [13.9999615, 49.9997755], [13.9999623, 49.9997759], [13.9999644, 49.9997771], [13.9999651, 49.9997777], [13.9999669, 49.99978], [13.9999672, 49.9997805], [13.9999679, 49.9997822], [13.999968, 49.999783], [13.9999671, 49.9997892], [13.999967, 49.9997895], [13.9999657, 49.9997929], [13.9999636, 49.9997945], [13.9999585, 49.9997959], [13.9999572, 49.9997961], [13.9999517, 49.9997961], [13.9999511, 49.9997961], [13.9999456, 49.9997956], [13.9999453, 49.9997956], [13.9999244, 49.9997925], [13.9999244, 49.9997925]]]}, "properties": {"hash": 9, "title": "By the path 1", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0000003, 49.9997807], [14.0000017, 49.9997802], [14.000006, 49.9997805], [14.0000064, 49.9997806], [14.0000776, 49.9997907], [14.0000778, 49.9997907], [14.0001306, 49.9997999], [14.0001314, 49.9998002], [14.0001533, 49.999808], [14.0001547, 49.9998089], [14.000157, 49.9998117], [14.0001573, 49.9998122], [14.0001594, 49.9998179], [14.000162, 49.9998203], [14.0001644, 49.9998213], [14.000166, 49.9998226], [14.0001665, 49.9998239], [14.0001664, 49.9998255], [14.0001647, 49.9998266], [14.0001607, 49.9998279], [14.0001591, 49.9998281], [14.0001537, 49.9998281], [14.0001528, 49.9998281], [14.0000033, 49.9998049], [14.0000018, 49.9998044], [13.9999971, 49.999802], [13.9999958, 49.9998004], [13.9999948, 49.9997953], [13.9999945, 49.9997946], [13.9999944, 49.999794], [13.9999943, 49.9997905], [13.9999944, 49.9997902], [13.9999948, 49.9997876], [13.9999951, 49.9997869], [13.9999963, 49.9997852], [13.9999969, 49.9997845], [13.9999974, 49.9997842], [13.9999974, 49.9997841], [13.9999977, 49.9997822], [13.9999981, 49.9997817], [13.999998, 49.9997815], [13.9999983, 49.9997814], [13.9999987, 49.9997809], [14.0000003, 49.9997807]]]}, "properties": {"hash": 10, "title": "By the path 2", "type_name": "area", "parent_hash_a": 0, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[13.9996111, 50.0000457], [13.9996258, 50.0000444]]}, "properties": {"hash": 11, "title": "Path 1", "type_name": "path", "parent_hash_a": 7, "parent_hash_b": 2}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[13.9998843, 49.999893], [13.9998825, 49.9998989], [13.9998785, 49.9999014]]}, "properties": {"hash": 12, "title": "Path 2", "type_name": "path", "parent_hash_a": 7, "parent_hash_b": 4}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[14.0000027, 49.9998112], [13.9999754, 49.999807], [13.9999623, 49.9998073], [13.9999475, 49.9998093]]}, "properties": {"hash": 13, "title": "Path 4", "type_name": "path", "parent_hash_a": 4, "parent_hash_b": 6}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[13.999926, 49.9999381], [13.9999418, 49.9999398]]}, "properties": {"hash": 14, "title": "Path 5", "type_name": "path", "parent_hash_a": 0, "parent_hash_b": 7}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[13.9997126, 49.9997429], [13.9997507, 49.9997464], [13.9997941, 49.999754], [13.9998382, 49.9997574], [13.9998707, 49.9997613], [13.9999008, 49.9997662], [13.9999048, 49.9997682], [13.9999074, 49.9997709]]}, "properties": {"hash": 15, "title": "Path 6", "type_name": "path", "parent_hash_a": 9, "parent_hash_b": 5}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[13.9999639, 49.9997865], [13.9999695, 49.9997903], [13.9999714, 49.9997937], [13.9999665, 49.9998095], [13.9999633, 49.9998125], [13.9999592, 49.999814], [13.9999441, 49.9998144]]}, "properties": {"hash": 16, "title": "Path 7", "type_name": "path", "parent_hash_a": 4, "parent_hash_b": 9}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[13.9999999, 49.9997859], [13.9999849, 49.9997826], [13.9999628, 49.99978]]}, "properties": {"hash": 17, "title": "Path 9", "type_name": "path", "parent_hash_a": 9, "parent_hash_b": 10}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0004199, 50.0000686], [14.0004178, 50.0000688], [14.0004168, 50.0000706], [14.0004164, 50.0000712], [14.0004142, 50.0000731], [14.0004142, 50.0000734], [14.0004159, 50.0000745], [14.000431, 50.0000762], [14.0004337, 50.0000776], [14.000436, 50.0000813], [14.0004404, 50.0000822], [14.0004446, 50.0000811], [14.0004446, 50.0000797], [14.0004412, 50.0000749], [14.0004344, 50.0000707], [14.0004309, 50.0000705], [14.0004301, 50.0000705], [14.0004199, 50.0000686]]]}, "properties": {"hash": 18, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 8, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0002795, 50.0001467], [14.0002807, 50.0001468], [14.0002813, 50.0001464], [14.0002821, 50.0001439], [14.0002818, 50.0001434], [14.0002795, 50.0001416], [14.0002772, 50.0001416], [14.0002762, 50.0001445], [14.0002773, 50.000146], [14.0002795, 50.0001467]]]}, "properties": {"hash": 19, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 8, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0003435, 50.0001347], [14.0003446, 50.0001341], [14.0003451, 50.000134], [14.0003451, 50.0001338], [14.0003442, 50.0001327], [14.0003429, 50.0001324], [14.0003414, 50.0001329], [14.0003411, 50.000133], [14.000342, 50.0001339], [14.0003424, 50.0001346], [14.0003435, 50.0001347]]]}, "properties": {"hash": 20, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 8, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0002957, 50.0001491], [14.0002992, 50.0001487], [14.0002991, 50.0001485], [14.0002989, 50.0001472], [14.0002997, 50.0001442], [14.0002981, 50.0001437], [14.0002972, 50.0001429], [14.0002963, 50.0001428], [14.000293, 50.0001437], [14.0002919, 50.0001463], [14.0002922, 50.0001477], [14.0002939, 50.0001488], [14.0002957, 50.0001491]]]}, "properties": {"hash": 21, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 8, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9999844, 49.9998433], [13.9999855, 49.9998433], [13.9999862, 49.9998421], [13.999986, 49.9998415], [13.9999854, 49.999841], [13.9999827, 49.9998412], [13.9999817, 49.9998423], [13.9999817, 49.9998425], [13.9999844, 49.9998433]]]}, "properties": {"hash": 22, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 6, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0000739, 49.9998309], [14.0000711, 49.9998307], [14.0000709, 49.9998312], [14.0000727, 49.9998326], [14.0000746, 49.9998329], [14.0000756, 49.9998325], [14.0000756, 49.999832], [14.0000739, 49.9998309]]]}, "properties": {"hash": 23, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 6, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0003634, 50.0001358], [14.0003626, 50.0001353], [14.0003624, 50.0001357], [14.0003628, 50.0001364], [14.0003631, 50.0001366], [14.0003639, 50.0001364], [14.0003634, 50.0001358]]]}, "properties": {"hash": 24, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 8, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0000183, 49.9998359], [14.0000251, 49.9998336], [14.0000269, 49.9998324], [14.0000319, 49.9998259], [14.0000334, 49.9998216], [14.000034, 49.9998207], [14.0000355, 49.9998195], [14.0000321, 49.9998187], [14.0000026, 49.9998217], [13.9999989, 49.9998232], [13.9999981, 49.9998248], [13.9999984, 49.9998271], [14.0000071, 49.9998351], [14.0000183, 49.9998359]]]}, "properties": {"hash": 25, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 6, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9997037, 50.0000559], [13.9997025, 50.0000561], [13.9997022, 50.0000563], [13.9997024, 50.0000588], [13.9997024, 50.0000592], [13.9997002, 50.0000695], [13.9997044, 50.0000696], [13.9997051, 50.0000696], [13.9997218, 50.0000719], [13.9997227, 50.0000718], [13.9997265, 50.0000606], [13.9997264, 50.0000586], [13.9997261, 50.0000585], [13.9997181, 50.0000581], [13.9997176, 50.000058], [13.9997037, 50.0000559]]]}, "properties": {"hash": 26, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 7, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.999854, 50.0], [13.9998592, 49.9999965], [13.9998587, 49.9999949], [13.9998556, 49.9999904], [13.9998513, 49.9999899], [13.9998486, 49.9999909], [13.9998476, 49.9999921], [13.9998469, 49.9999952], [13.9998485, 49.9999981], [13.9998508, 49.9999997], [13.999854, 50.0]]]}, "properties": {"hash": 27, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 7, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9999828, 50.0000065], [13.9999786, 50.0000101], [13.9999751, 50.0000184], [13.9999746, 50.0000217], [13.9999772, 50.0000238], [13.9999832, 50.0000245], [13.9999869, 50.0000244], [13.9999883, 50.0000232], [13.9999929, 50.0000116], [13.9999928, 50.0000113], [13.9999887, 50.0000069], [13.9999864, 50.0000058], [13.9999828, 50.0000065]]]}, "properties": {"hash": 28, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 1, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9996089, 49.9998909], [13.999614, 49.9998893], [13.9996173, 49.9998874], [13.9996177, 49.9998867], [13.9996177, 49.9998832], [13.9996165, 49.9998824], [13.9996101, 49.9998801], [13.9996063, 49.9998801], [13.9996031, 49.9998812], [13.9996017, 49.9998824], [13.9996006, 49.9998855], [13.9996008, 49.9998878], [13.9996033, 49.9998914], [13.9996035, 49.9998913], [13.9996089, 49.9998909]]]}, "properties": {"hash": 29, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 7, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0000917, 50.0000282], [14.0001014, 50.000026], [14.0001019, 50.0000259], [14.0001119, 50.0000246], [14.0001178, 50.0000189], [14.0001192, 50.0000181], [14.000122, 50.0000172], [14.0001215, 50.0000163], [14.0001124, 50.0000113], [14.0001112, 50.0000101], [14.0001104, 50.0000078], [14.0001078, 50.0000055], [14.0001072, 50.0000041], [14.0001072, 50.0000041], [14.0001072, 50.0000026], [14.0001024, 50.0000004], [14.0001009, 49.9999991], [14.0001002, 49.9999975], [14.0000995, 49.9999971], [14.000092, 49.9999984], [14.0000912, 49.9999987], [14.0000899, 50.0000009], [14.0000871, 50.0000023], [14.0000848, 50.0000026], [14.0000823, 50.0000022], [14.0000786, 50.0000007], [14.000076, 50.0000013], [14.0000739, 50.000001], [14.0000712, 49.9999994], [14.0000704, 49.9999979], [14.0000685, 49.9999985], [14.0000672, 49.9999995], [14.0000662, 50.000003], [14.0000658, 50.0000037], [14.0000638, 50.000006], [14.000062, 50.0000071], [14.0000595, 50.0000071], [14.0000591, 50.000007], [14.0000549, 50.0000078], [14.000047, 50.0000148], [14.0000453, 50.000018], [14.0000465, 50.0000189], [14.0000504, 50.0000199], [14.0000619, 50.0000204], [14.0000627, 50.0000205], [14.0000725, 50.0000223], [14.0000731, 50.0000224], [14.0000917, 50.0000282]]]}, "properties": {"hash": 30, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 1, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9998745, 49.9999647], [13.9998744, 49.9999648], [13.9998716, 49.9999746], [13.9998721, 49.9999757], [13.9998867, 49.9999779], [13.9998881, 49.9999776], [13.9998908, 49.9999661], [13.9998893, 49.9999658], [13.9998745, 49.9999647]]]}, "properties": {"hash": 31, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 7, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.999749, 49.9999215], [13.9997401, 49.9999227], [13.9997385, 49.9999227], [13.9997278, 49.9999211], [13.9997181, 49.9999212], [13.9997176, 49.9999212], [13.9996967, 49.9999195], [13.9996894, 49.9999222], [13.9996871, 49.9999239], [13.9996837, 49.9999281], [13.9996753, 49.9999453], [13.9996741, 49.9999464], [13.9996568, 49.9999552], [13.999656, 49.9999575], [13.999656, 49.9999629], [13.9996576, 49.9999698], [13.999661, 49.9999722], [13.9996661, 49.9999738], [13.9996849, 49.9999746], [13.9996861, 49.9999747], [13.9996939, 49.9999768], [13.9996955, 49.9999776], [13.9997034, 49.9999852], [13.9997077, 49.999988], [13.9997164, 49.9999917], [13.9997237, 49.9999935], [13.9997303, 49.9999941], [13.9997389, 49.999994], [13.9997551, 49.9999901], [13.9997568, 49.99999], [13.9997972, 49.9999932], [13.9998015, 49.9999928], [13.9998079, 49.9999909], [13.999809, 49.9999907], [13.9998145, 49.9999903], [13.9998157, 49.9999904], [13.9998284, 49.9999922], [13.9998297, 49.999992], [13.9998297, 49.999992], [13.9998402, 49.9999446], [13.9998403, 49.9999444], [13.999843, 49.9999367], [13.9998425, 49.9999364], [13.9997992, 49.9999335], [13.9997985, 49.9999334], [13.9997879, 49.9999313], [13.999773, 49.9999305], [13.999772, 49.9999303], [13.9997556, 49.9999263], [13.9997539, 49.9999255], [13.9997496, 49.9999216], [13.999749, 49.9999215]]]}, "properties": {"hash": 32, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 7, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[13.9996405, 49.9999033], [13.9996349, 49.9999039], [13.9996303, 49.9999054], [13.9996265, 49.9999084], [13.9996245, 49.9999113], [13.9996222, 49.9999216], [13.9996229, 49.9999305], [13.9996237, 49.9999322], [13.9996271, 49.9999352], [13.9996301, 49.9999362], [13.999656, 49.999921], [13.9996594, 49.9999149], [13.9996599, 49.9999122], [13.9996564, 49.999909], [13.9996465, 49.9999042], [13.9996405, 49.9999033]]]}, "properties": {"hash": 33, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 7, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0004415, 50.000107], [14.0004374, 50.0001104], [14.0004365, 50.0001109], [14.0004328, 50.0001124], [14.0004317, 50.0001132], [14.0004315, 50.0001146], [14.0004329, 50.0001172], [14.0004353, 50.0001186], [14.0004457, 50.0001174], [14.0004474, 50.0001164], [14.0004483, 50.0001144], [14.0004477, 50.0001106], [14.000444, 50.0001078], [14.0004419, 50.000107], [14.0004415, 50.000107]]]}, "properties": {"hash": 34, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 8, "parent_hash_b": 0}}, {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[14.0000008, 50.0000491], [13.9999979, 50.0000516], [13.9999973, 50.0000572], [13.9999981, 50.0000596], [14.0000059, 50.0000628], [14.0000085, 50.0000556], [14.0000081, 50.0000533], [14.0000065, 50.0000511], [14.0000008, 50.0000491]]]}, "properties": {"hash": 35, "title": "Obstacle", "type_name": "obstacle", "parent_hash_a": 1, "parent_hash_b": 0}}]};
+
+/** Recorded history of a few sensors: [seconds before now, state]. */
+export const HISTORY: Record<string, [number, string][]> = {"sensor.heat_pump_supply_temperature": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85740, "60.3"], [85680, "59.8"], [85621, "36.8"], [85560, "30.4"], [85380, "29.9"], [84957, "29.9"], [84897, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74756, "41.8"], [74336, "41.3"], [73856, "41.8"], [73796, "39.3"], [73736, "38.8"], [73676, "38.3"], [73196, "37.8"], [72522, "37.3"], [71945, "36.8"], [71434, "36.3"], [70954, "35.8"], [70414, "35.3"], [69934, "34.8"], [69454, "34.3"], [68973, "33.8"], [68434, "33.3"], [67954, "32.8"], [67354, "32.3"], [66874, "31.8"], [66274, "31.3"], [65674, "30.8"], [65074, "30.3"], [64414, "29.8"], [63754, "29.3"], [63094, "28.8"], [62314, "28.3"], [61534, "27.8"], [60694, "27.3"], [59854, "26.8"], [58894, "26.3"], [57874, "25.8"], [56734, "25.3"], [55594, "24.8"], [54394, "24.3"], [52954, "23.8"], [51454, "23.3"], [49774, "22.8"], [47974, "22.3"], [47194, "22.9"], [47134, "32.3"], [47074, "32.8"], [45394, "27.9"], [45334, "23.6"], [45274, "20.7"], [40338, "20.2"], [38238, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35898, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32598, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32298, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29418, "60.4"], [29358, "57.4"], [29298, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.current_water_temperature": [[86186, "47.6"], [78865, "46.6"], [75685, "45.6"], [74758, "45.6"], [74696, "45.6"], [68395, "44.6"], [63175, "43.6"], [58855, "42.6"], [51235, "41.9"], [43915, "40.9"], [40315, "39.9"], [38574, "38.9"], [37974, "37.9"], [37794, "36.9"], [37614, "35.9"], [36234, "34.9"], [34254, "33.9"], [33354, "34.9"], [33114, "35.9"], [32934, "36.9"], [32754, "37.9"], [32454, "38.9"], [31493, "39.9"], [31314, "40.9"], [31299, "40.9"], [31134, "41.9"], [30954, "42.9"], [30714, "43.9"], [30534, "44.9"], [30293, "45.9"], [30137, "46.9"], [29813, "47.9"], [29502, "47.9"], [24773, "46.9"], [17213, "46.5"], [9593, "45.9"], [2873, "44.9"]], "sensor.water_temperature": [[74758, "47"], [74696, "47"], [34254, "47"], [31299, "47"], [29502, "47"]], "sensor.heating_on": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85766, "60.8"], [85740, "60.3"], [84865, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74758, "41.8"], [74696, "41.8"], [74336, "41.3"], [73856, "41.8"], [38214, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36114, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35874, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32574, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32274, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31299, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29453, "60.9"], [29418, "60.4"], [29358, "57.4"], [29273, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.water_heating_on": [[85231, "off"], [74758, "off"], [33138, "on"], [31300, "off"], [31300, "on"], [31299, "on"], [29502, "on"], [28698, "off"]]};

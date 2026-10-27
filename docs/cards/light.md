@@ -4,6 +4,8 @@
 
 A room's lights on one tile: its scenes as round buttons, and a bar of liquid glass for each light – tap the bulb to switch it, drag the bar to dim. The bar fills as bright as the light is, in the light's own colour. Lights with colour or white temperature get a switch between brightness, temperature and colour.
 
+![Lights](../images/cards/light.webp)
+
 **Good for:** a room's pop-up or page; anywhere you dim lights.
 
 ## Quick start

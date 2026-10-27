@@ -1,6 +1,6 @@
 # The demo dashboard
 
-The fastest way to see what Glass Cards and Glass Studio can do: the author's own dashboard –
+The fastest way to see what Glass Cards and Dashboard Studio can do: the author's own dashboard –
 the same layout, photos and pop-ups – running on a made-up home. Alex and Sam, nine rooms, a heat
 pump, solar panels with a battery, a washing machine, a robot vacuum, a mop and a lawn mower.
 
@@ -12,11 +12,11 @@ devices and no entities are added to Home Assistant.
 
 ## Add it
 
-1. Open Glass Studio: add `?glass-studio` to the address of any Home Assistant page, e.g.
+1. Open Dashboard Studio: add `?glass-studio` to the address of any Home Assistant page, e.g.
    `http://homeassistant.local:8123/lovelace/0?glass-studio`.
 2. Click **Demo dashboard** in the top bar.
 
-The dashboard appears in the sidebar as **Glass demo** and opens in Glass Studio. Clicking the
+The dashboard appears in the sidebar as **Glass demo** and opens in Dashboard Studio. Clicking the
 button again later just opens it – your changes are kept.
 
 > You need to be an administrator to add a dashboard.
@@ -43,8 +43,8 @@ from HACS for the full demo; without them those parts show an error card:
 
 **On the dashboard**
 
-- The **dock** at the bottom opens the pop-ups: lights, blinds, films, music, weather, energy,
-  heating, security, cleaning. They slide over the dashboard; ✕ or the back button closes them.
+- The **dock** at the bottom opens the pop-ups: lights, blinds, weather, energy, heating,
+  security, cleaning. They slide over the dashboard; ✕ or the back button closes them.
 - Tap the light bulbs on the room cards. The photos turn from grey to colour when something is on.
 - In **Lights**, pick a scene – the room's lights follow.
 - Drag a blind's bar, or the brightness bar of a light.
@@ -56,7 +56,7 @@ from HACS for the full demo; without them those parts show an error card:
 | --- | --- |
 | ![](images/phone-day.webp) | ![](images/phone-lights.webp) |
 
-**In Glass Studio**
+**In Dashboard Studio**
 
 - Switch the preview between **phone** and **tablet**, and between devices (iPhone, iPad, Galaxy Tab…).
 - Click any card in the preview to see its settings on the right.
@@ -70,7 +70,7 @@ from HACS for the full demo; without them those parts show an error card:
 Every card on the demo is a regular glass card – only `demo: true` on the dashboard makes it
 run on the made-up home. To build your own from it:
 
-1. Copy a card (⌘C / Ctrl+C in Glass Studio) and paste it into your dashboard (⌘V / Ctrl+V).
+1. Copy a card (⌘C / Ctrl+C in Dashboard Studio) and paste it into your dashboard (⌘V / Ctrl+V).
 2. Replace the entity ids with yours (`light.living_room` → your light) – in the card's settings
    every entity field has a picker.
 

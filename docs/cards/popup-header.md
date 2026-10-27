@@ -4,6 +4,8 @@
 
 A glass header for a Bubble Card pop-up whose own header is hidden: the icon and name on a bar of liquid glass, any cards in the middle (a period bar…), buttons on the right and a round close button.
 
+![Pop-up header](../images/cards/popup-header.webp)
+
 **Good for:** pop-ups that should look like the rest of the dashboard.
 
 ## Quick start

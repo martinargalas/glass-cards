@@ -4,6 +4,8 @@
 
 An icon bar floating at the bottom, on one capsule of liquid glass – like the macOS Dock. Its buttons switch the dashboard's pages, or open Bubble Card pop-ups by their `#link`. The current one is lit.
 
+![Dock](../images/cards/dock.webp)
+
 **Good for:** navigation on a wall tablet or a phone.
 
 ## Quick start

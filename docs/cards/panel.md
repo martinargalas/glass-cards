@@ -4,6 +4,8 @@
 
 A glass frame that arranges other cards in a row, a column or a grid. The panel owns the glass (and the blur); glass cards inside are drawn flat on it, which keeps a full dashboard fast.
 
+![Panel](../images/cards/panel.webp)
+
 **Good for:** grouping cards – a room's controls, the side column, a grid of room cards.
 
 ## Quick start

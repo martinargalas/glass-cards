@@ -4,7 +4,7 @@
 
 A glass dashboard ([`glass-dashboard`](cards/dashboard.md)) fills the whole screen and divides it
 into **areas**: `header`, `top`, `left`, `main` (and `right` for three columns). Each area holds a
-list of cards. Pick a **preset** in Glass Studio and drag the lines between areas to size them.
+list of cards. Pick a **preset** in Dashboard Studio and drag the lines between areas to size them.
 
 | Preset | Areas |
 | --- | --- |
@@ -40,7 +40,7 @@ view_layout:
   align: start     # cross-axis alignment of this card
 ```
 
-In Glass Studio you set all of this under the card's **Placement**, or drag a card's corner.
+In Dashboard Studio you set all of this under the card's **Placement**, or drag a card's corner.
 
 Panels nest: a row of two columns, each a column of cards, is a row panel with two column
 panels. `glass: none` makes a panel invisible – just arrangement.
@@ -83,7 +83,7 @@ Three tools adapt the dashboard:
 areas (`left: null` hides the side column on phones, `main: [...]` gives phones their own cards).
 YAML anchors keep it short – the [demo](../examples/demo.yaml) reuses its pages on phones with `*pages`.
 
-Glass Studio's **Phone / Tablet** switch previews each mode. A card's order and **Shown on** can
+Dashboard Studio's **Phone / Tablet** switch previews each mode. A card's order and **Shown on** can
 differ per mode right there; for other differences add a `responsive.mobile` block in the card's YAML.
 
 ## Pages without pop-ups
@@ -121,8 +121,8 @@ The picked page is remembered per browser tab. Any card in a panel can listen to
 With [Bubble Card](https://github.com/Clooos/Bubble-Card), the dashboard's `overlay` holds
 pop-ups that open over everything by their `#link` (a dock button, a room card's tap, a menu).
 Keep them on a separate, hidden dashboard and load them with `overlay_source` to share them
-between a tablet and a phone dashboard. Glass Studio creates, previews and edits them – see
-[Glass Studio → Pop-ups](studio.md#pop-ups).
+between a tablet and a phone dashboard. Dashboard Studio creates, previews and edits them – see
+[Dashboard Studio → Pop-ups](studio.md#pop-ups).
 
 ## Showing cards only sometimes
 

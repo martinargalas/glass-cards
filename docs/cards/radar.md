@@ -4,6 +4,8 @@
 
 Real satellite clouds and the rain radar over your home, animated over the last hour – and a few hours of rain forecast. Tabs switch between the satellite picture, clouds and rain; zoom and drag like a map.
 
+![Radar](../images/cards/radar.webp)
+
 **Good for:** a weather page, next to the forecast.
 
 ## Quick start

@@ -6,14 +6,14 @@ import { PRESETS, areaOrder, overlayCards, parseAreas, popupOf, trackList, type 
 import { preview, previewSize, setPreviewMode } from "../core/settings";
 import { LiquidController } from "../core/liquid";
 import { addDemoDashboard, backup, dropBackup, findGlass, lastBackup, listDashboards, loadConfig, putAt, saveConfig, type DashInfo } from "./store";
-import { AREA_TITLES, DEVICE_MODES, MODE_NAMES, NEW_CARDS, SUPPORT_BUTTON, SUPPORT_URL, bubbleNotice, hasBubble, missingFor,
+import { AREA_TITLES, DEVICE_MODES, MODE_NAMES, NEW_CARDS, bubbleNotice, hasBubble, missingFor,
   foreignNotice, describeCard, getClip, makeEditor, move, orderOn, setClip, shownOn, stubFor, withOrder, withShown } from "./editor";
 import { dashboardSpec } from "./specs";
 import { editorLangPref, setEditorLang, t } from "./i18n";
 import { LANGS, syncLang } from "../i18n";
 
 /**
- * Glass studio: the dashboard editor on the whole screen, laid out like Home
+ * Dashboard Studio: the dashboard editor on the whole screen, laid out like Home
  * Assistant's automation editor – the structure on the left (areas → panels →
  * cards, drag to move anything anywhere), a live preview in the middle (click a
  * card to pick it) and the picked item's settings on the right.
@@ -2896,7 +2896,7 @@ export class GlassStudio extends LitElement {
         <button class="icon" title=${t(this.haDialog ? "Cancel" : "Close")} @click=${() => (this.haDialog || this.standalone ? this._cancel() : this._close())}>
           <ha-icon .icon=${"mdi:close"}></ha-icon>
         </button>
-        ${this.standalone ? this._hostBar() : html`<span class="title">${t("Dashboard editor")}</span>`}
+        ${this.standalone ? this._hostBar() : html`<span class="title">Dashboard Studio</span>`}
         <span class="seg">
           ${modes.map(
             ([m, icon]) => html`<button class=${preview.mode === m ? "on" : ""} @click=${() => this._device(m)}>
@@ -2916,9 +2916,6 @@ export class GlassStudio extends LitElement {
             ${LANGS.map(([v, l]) => html`<option value=${v} ?selected=${editorLangPref() === v}>${l}</option>`)}
           </select>
         </label>
-        <a class="coffee" href=${SUPPORT_URL} target="_blank" rel="noreferrer" title=${t("Support glass cards")}>
-          <img src=${SUPPORT_BUTTON} alt="Buy Me a Coffee" />
-        </a>
         <button class="icon ${this._hideTree ? "" : "on"}" title=${t("Structure panel")} @click=${() => (this._hideTree = !this._hideTree)}>
           <ha-icon .icon=${"mdi:file-tree-outline"}></ha-icon>
         </button>
@@ -3154,29 +3151,6 @@ export class GlassStudio extends LitElement {
       margin: 0 16px 0 4px;
     }
     /* support: a yellow pill that hops now and then (once 20 s after opening, then every 2 min) */
-    .coffee {
-      display: inline-flex;
-      animation: coffee-hop 120s ease-in-out 20s infinite;
-      transform-origin: 50% 100%;
-    }
-    .coffee img {
-      display: block;
-      height: 32px;
-    }
-    .coffee:hover {
-      animation-play-state: paused;
-      filter: brightness(1.05);
-    }
-    @keyframes coffee-hop {
-      0%, 2.5%, 100% { transform: none; }
-      0.5% { transform: translateY(-6px) rotate(-6deg); }
-      1% { transform: translateY(0) rotate(0); }
-      1.5% { transform: translateY(-3px) rotate(5deg); }
-      2% { transform: translateY(0) rotate(0); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .coffee { animation: none; }
-    }
     .icon {
       width: 40px;
       height: 40px;

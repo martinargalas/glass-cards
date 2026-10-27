@@ -4,6 +4,8 @@
 
 A segmented switch – Sun · Rain · Wind – that picks which cards of a panel show. The cards listen with a `visibility` condition, so you can switch any cards, not just glass ones.
 
+![Tabs](../images/cards/tabs.webp)
+
 **Good for:** several views of one panel: cleaning vs. mowing, today vs. week, cameras vs. map.
 
 ## Quick start

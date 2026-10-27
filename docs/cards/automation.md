@@ -4,6 +4,8 @@
 
 An automation on or off – and, when you switch it off, for how long: an hour, until tonight, until a time. It comes back on by itself.
 
+![Automation switch](../images/cards/automation.webp)
+
 **Good for:** blinds, lights by motion, anything you sometimes want to pause.
 
 ## Quick start

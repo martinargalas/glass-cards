@@ -10,12 +10,12 @@ weather and the calendar, your rooms in the middle, and a look that fits your wa
    **View type** to **Panel (single card)**. A glass dashboard fills the whole screen, so it
    wants the whole view.
 
-## 2. Open Glass Studio
+## 2. Open Dashboard Studio
 
-Add a card and pick **Glass – dashboard**. On a computer or tablet Glass Studio opens right
+Add a card and pick **Glass – dashboard**. On a computer or tablet Dashboard Studio opens right
 away: the structure on the left, a live preview in the middle, the settings on the right.
 
-> Already have a dashboard? Add `?glass-studio` to its address instead – Glass Studio lists your
+> Already have a dashboard? Add `?glass-studio` to its address instead – Dashboard Studio lists your
 > dashboards in its top bar and saves straight to Home Assistant.
 
 ## 3. Pick a layout
@@ -60,10 +60,10 @@ card's *Placement*) or change their layout there – see [Layout](layout.md#phon
 
 ## 7. Save
 
-Click **Save**. Glass Studio checks that nobody changed the dashboard meanwhile and keeps
+Click **Save**. Dashboard Studio checks that nobody changed the dashboard meanwhile and keeps
 the previous version in your browser: **Undo the last save** (the clock-arrow button) puts it
 back if you change your mind.
 
 ---
 
-**Next:** [Glass Studio in depth](studio.md) · [all the cards](README.md#the-cards) · [recipes](recipes.md)
+**Next:** [Dashboard Studio in depth](studio.md) · [all the cards](README.md#the-cards) · [recipes](recipes.md)

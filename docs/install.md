@@ -3,15 +3,17 @@
 Glass Cards need Home Assistant **2025.1 or newer** and a browser from the last few years
 (Chrome, Edge, Safari, Firefox; the Home Assistant app on phones and tablets).
 
-## From HACS (recommended)
+## Through HACS, as a custom repository (recommended)
+
+Glass Cards are not in the HACS store (yet) – you add the repository to HACS yourself, once:
 
 1. Open **HACS** in Home Assistant.
-2. Search for **Glass Cards** and open it.
-   Not listed yet? Add it as a custom repository first: HACS → ⋮ → **Custom repositories** →
-   `https://github.com/martinargalas/glass-cards`, type **Dashboard**.
-3. Click **Download**, then reload the browser (or the app) when HACS asks you to.
+2. **⋮** (top right) → **Custom repositories**.
+3. Repository `https://github.com/martinargalas/glass-cards`, type **Dashboard** → **Add**.
+4. Find **Glass Cards** in HACS, open it and click **Download**. Reload the browser (or the
+   app) when HACS asks you to.
 
-HACS adds the resource for you. Updates arrive the same way.
+HACS adds the resource for you, and updates arrive the same way.
 
 ## By hand
 
@@ -46,5 +48,5 @@ list. Or go straight to [the demo dashboard](demo.md).
 ## Language
 
 The cards follow your Home Assistant profile's language (**Profile → Language**). English and
-Czech are included; anything not translated stays in English. Glass Studio can be set to a
+Czech are included; anything not translated stays in English. Dashboard Studio can be set to a
 different language than the cards – handy when you share a dashboard.

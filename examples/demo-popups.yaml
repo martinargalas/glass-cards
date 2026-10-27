@@ -18,33 +18,6 @@ views:
             is_sidebar_hidden: true
             highlight_current_view: true
             hide_gradient: true
-            1_link: "#lights"
-            1_name: ""
-            1_icon: mdi:lightbulb-group
-            2_link: "#blinds"
-            2_name: ""
-            2_icon: mdi:blinds-horizontal
-            3_link: "#movies"
-            3_name: ""
-            3_icon: mdi:movie-play-outline
-            4_link: "#media"
-            4_name: ""
-            4_icon: mdi:music
-            5_link: "#weather"
-            5_name: ""
-            5_icon: mdi:weather-partly-cloudy
-            6_link: "#energy"
-            6_name: ""
-            6_icon: mdi:solar-power-variant
-            7_link: "#heating"
-            7_name: ""
-            7_icon: mdi:radiator
-            8_link: "#security"
-            8_name: ""
-            8_icon: mdi:cctv
-            9_link: "#cleaning"
-            9_name: ""
-            9_icon: mdi:broom
             styles: |2-
               
                .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color {
@@ -85,6 +58,27 @@ views:
               }
             grid_options:
               columns: full
+            1_link: "#lights"
+            1_name: ""
+            1_icon: mdi:lightbulb-group
+            2_link: "#blinds"
+            2_name: ""
+            2_icon: mdi:blinds-horizontal
+            3_link: "#weather"
+            3_name: ""
+            3_icon: mdi:weather-partly-cloudy
+            4_link: "#energy"
+            4_name: ""
+            4_icon: mdi:solar-power-variant
+            5_link: "#heating"
+            5_name: ""
+            5_icon: mdi:radiator
+            6_link: "#security"
+            6_name: ""
+            6_icon: mdi:cctv
+            7_link: "#cleaning"
+            7_name: ""
+            7_icon: mdi:broom
       - type: grid
         cards:
           - type: custom:bubble-card
@@ -887,22 +881,54 @@ views:
                       grow: 1
                       basis: 0px
                     cards:
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
-                        view_layout:
-                          grow: 1
+                      - type: custom:glass-room-map
+                        entity: vacuum.vacuum
+                        map: image.vacuum_rooms_map
+                        room_names:
+                          Hallway: Hallway
+                          Living Room: Living room
+                          Kitchen: Kitchen
+                        options:
+                          - entity: select.vacuum_carpet_boost_select
+                            name: Suction
+                            icon: mdi:fan
+                            option_names:
+                              automatic: Automatic
+                              eco: Eco
+                              performance: Strong
+                          - entity: select.vacuum_cleaning_passes
+                            name: Passes
+                            icon: mdi:repeat
+                            option_names:
+                              Auto: Automatic
+                              One pass: Once
+                              Two passes: Twice
                         visibility:
                           - condition: select
                             group: cleaning
                             id: roomba
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
                         view_layout:
                           grow: 1
+                      - type: custom:glass-room-map
+                        entity: vacuum.mop
+                        map: image.mop_rooms_map
+                        room_names:
+                          Living room: Living room
+                          Hallway: Hallway
+                        options:
+                          - entity: select.mop_reusable_pad_wetness
+                            name: Water
+                            icon: mdi:water-outline
+                            option_names:
+                              "1": A little
+                              "2": Medium
+                              "3": A lot
                         visibility:
                           - condition: select
                             group: cleaning
                             id: braava
+                        view_layout:
+                          grow: 1
                       - type: custom:glass-tabs
                         group: cleaning_mower
                         default: front
@@ -918,7 +944,7 @@ views:
                             group: cleaning
                             id: mower
                       - type: picture
-                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop&h=619
                         view_layout:
                           grow: 1
                         visibility:
@@ -928,10 +954,17 @@ views:
                           - condition: select
                             group: cleaning_mower
                             id: front
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
-                        view_layout:
-                          grow: 1
+                      - type: custom:glass-room-map
+                        entity: lawn_mower.mower
+                        tracker: device_tracker.mower
+                        room_names:
+                          Area 3: Zone 3
+                          Area 5: Zone 5
+                        settings:
+                          angle: number.mower_cutting_path_angle
+                          height: number.mower_blade_height
+                          speed: number.mower_working_speed
+                          spacing: number.mower_path_spacing
                         visibility:
                           - condition: select
                             group: cleaning
@@ -939,137 +972,9 @@ views:
                           - condition: select
                             group: cleaning_mower
                             id: zones
-            show_header: false
-      - type: grid
-        cards:
-          - type: custom:bubble-card
-            card_type: pop-up
-            hash: "#media"
-            margin_top_desktop: -7%
-            width_desktop: 1280px
-            bg_blur: 90
-            bg_opacity: 0
-            is_sidebar_hidden: true
-            auto_close: 1200000
-            icon: mdi:multimedia
-            name: Media
-            hide_backdrop: true
-            cards:
-              - type: custom:glass-popup-header
-                name: Media
-                icon: mdi:multimedia
-              - type: custom:layout-card
-                layout_type: custom:grid-layout
-                layout:
-                  grid-template-columns: 1fr 1fr
-                  grid-template-rows: min-content
-                  grid-template-areas: |
-                    "media_hub_title media_hub_title" "media_hub media_hub_playlist2"
-                cards:
-                  - view_layout:
-                      grid-area: media_hub_title
-                    type: custom:bubble-card
-                    card_type: separator
-                    name: Playback
-                    icon: mdi:music
-                  - view_layout:
-                      grid-area: media_hub
-                    type: custom:vertical-stack-in-card
-                    card_mod:
-                      style: |
-                        ha-card {
-                          border-radius: 34px;
-                          padding: 10px !important;
-                          background: var(--mod-card-background);
-                          backdrop-filter: blur(35px) saturate(100%);
-                          -webkit-backdrop-filter: blur(35px) saturate(200%);
-                          border: 1px solid var(--mod-card-border);
-                          box-shadow: 
-                            0 15px 25px var(--mod-card-shadow), 
-                            inset 0 2px 3px var(--mod-card-inset-shadow);
-                        }
-
-                        ha-card::before {
-                          content: "";
-                          position: absolute;
-                          inset: 0;
-                          border-radius: 34px;
-                          background: linear-gradient(
-                            120deg,
-                            var(--mod-card-gradient-start),
-                            var(--mod-card-gradient-mid) 25%,
-                            var(--mod-card-gradient-end) 50%,
-                            transparent 70%
-                          );
-                          opacity: 0.35;
-                          pointer-events: none;
-                        }
-                    cards:
-                      - type: media-control
-                        entity: media_player.office
-                  - view_layout:
-                      grid-area: media_hub_playlist2
-                    type: custom:vertical-stack-in-card
-                    card_mod:
-                      style: |
-                        ha-card {
-                          border-radius: 34px;
-                          padding: 10px !important;
-                          background: var(--mod-card-background);
-                          backdrop-filter: blur(35px) saturate(100%);
-                          -webkit-backdrop-filter: blur(35px) saturate(200%);
-                          border: 1px solid var(--mod-card-border);
-                          box-shadow: 
-                            0 15px 25px var(--mod-card-shadow), 
-                            inset 0 2px 3px var(--mod-card-inset-shadow);
-                        }
-
-                        ha-card::before {
-                          content: "";
-                          position: absolute;
-                          inset: 0;
-                          border-radius: 34px;
-                          background: linear-gradient(
-                            120deg,
-                            var(--mod-card-gradient-start),
-                            var(--mod-card-gradient-mid) 25%,
-                            var(--mod-card-gradient-end) 50%,
-                            transparent 70%
-                          );
-                          opacity: 0.35;
-                          pointer-events: none;
-                        }
-                    cards:
-                      - type: media-control
-                        entity: media_player.office
-                      - type: media-control
-                        entity: media_player.office
-            show_header: false
-      - type: grid
-        cards:
-          - type: custom:bubble-card
-            card_type: pop-up
-            hash: "#movies"
-            margin_top_desktop: -7%
-            width_desktop: 1280px
-            bg_blur: 90
-            bg_opacity: 0
-            is_sidebar_hidden: true
-            auto_close: 1200000
-            icon: mdi:movie-play-outline
-            name: Films
-            hide_backdrop: true
-            cards:
-              - type: custom:layout-card
-                layout_type: custom:grid-layout
-                layout:
-                  grid-template-columns: 1fr
-                  grid-template-rows: min-content
-                  grid-template-areas: |
-                    "movies_arr"
-                cards:
-                  - type: picture
-                    image: https://arrcard.argalas.org/arrcard/light/card-desktop.webp
+                        view_layout:
+                          grow: 1
+                        satellite: false
             show_header: false
       - type: grid
         cards:
@@ -1150,6 +1055,12 @@ views:
                         entity: sensor.air_quality_index_air_quality_index
                         view_layout:
                           shrink: 0
+                        pollutants:
+                          - sensor.air_quality_index_nitrogen_dioxide
+                          - sensor.air_quality_index_ozone
+                          - sensor.air_quality_index_pm10
+                          - sensor.air_quality_index_pm2_5
+                          - sensor.air_quality_index_sulphur_dioxide
             show_header: false
       - type: grid
         cards:
@@ -1657,18 +1568,58 @@ views:
                       shrink: 0
                       basis: max(340px, calc((100% - 22px) * 0.36 / 1.36))
                     cards:
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                      - type: vertical-stack
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_1
                             state: on
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                        cards:
+                          - type: heading
+                            heading: Front door – latest
+                            heading_style: subtitle
+                            icon: mdi:cctv
+                          - type: grid
+                            columns: 2
+                            square: false
+                            cards:
+                              - type: picture
+                                image: glass:demo/event-front-1.jpg
+                              - type: picture
+                                image: glass:demo/event-front-2.jpg
+                              - type: picture
+                                image: glass:demo/event-front-3.jpg
+                              - type: picture
+                                image: glass:demo/event-front-4.jpg
+                              - type: picture
+                                image: glass:demo/event-front-5.jpg
+                              - type: picture
+                                image: glass:demo/event-front-6.jpg
+                      - type: vertical-stack
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_2
                             state: on
+                        cards:
+                          - type: heading
+                            heading: Garden – latest
+                            heading_style: subtitle
+                            icon: mdi:cctv
+                          - type: grid
+                            columns: 2
+                            square: false
+                            cards:
+                              - type: picture
+                                image: glass:demo/event-garden-1.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-2.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-3.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-4.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-5.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-6.jpg
                   - type: custom:glass-panel
                     bar: true
                     layout: column
@@ -1680,13 +1631,13 @@ views:
                       basis: 0px
                     cards:
                       - type: picture
-                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        image: glass:demo/camera-front.jpg
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_1
                             state: on
                       - type: picture
-                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        image: glass:demo/camera-front.jpg
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_2
@@ -1885,7 +1836,7 @@ views:
                     "security_stream_front"
                 cards:
                   - type: picture
-                    image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                    image: glass:demo/camera-front.jpg
                     view_layout:
                       grid-area: security_stream_front
             show_header: false
@@ -1920,7 +1871,7 @@ views:
                     "security_stream_garden"
                 cards:
                   - type: picture
-                    image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                    image: glass:demo/camera-garden.jpg
                     view_layout:
                       grid-area: security_stream_garden
             show_header: false
@@ -1940,33 +1891,6 @@ views:
             is_sidebar_hidden: true
             highlight_current_view: true
             hide_gradient: true
-            1_link: "#lights"
-            1_name: ""
-            1_icon: mdi:lightbulb-group
-            2_link: "#blinds"
-            2_name: ""
-            2_icon: mdi:blinds-horizontal
-            3_link: "#movies"
-            3_name: ""
-            3_icon: mdi:movie-play-outline
-            4_link: "#media"
-            4_name: ""
-            4_icon: mdi:music
-            5_link: "#weather"
-            5_name: ""
-            5_icon: mdi:weather-partly-cloudy
-            6_link: "#energy"
-            6_name: ""
-            6_icon: mdi:solar-power-variant
-            7_link: "#heating"
-            7_name: ""
-            7_icon: mdi:radiator
-            8_link: "#security"
-            8_name: ""
-            8_icon: mdi:cctv
-            9_link: "#cleaning"
-            9_name: ""
-            9_icon: mdi:broom
             styles: |2-
               
                .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color {
@@ -2007,6 +1931,27 @@ views:
               }
             grid_options:
               columns: full
+            1_link: "#lights"
+            1_name: ""
+            1_icon: mdi:lightbulb-group
+            2_link: "#blinds"
+            2_name: ""
+            2_icon: mdi:blinds-horizontal
+            3_link: "#weather"
+            3_name: ""
+            3_icon: mdi:weather-partly-cloudy
+            4_link: "#energy"
+            4_name: ""
+            4_icon: mdi:solar-power-variant
+            5_link: "#heating"
+            5_name: ""
+            5_icon: mdi:radiator
+            6_link: "#security"
+            6_name: ""
+            6_icon: mdi:cctv
+            7_link: "#cleaning"
+            7_name: ""
+            7_icon: mdi:broom
       - type: grid
         cards:
           - type: custom:bubble-card
@@ -2811,22 +2756,54 @@ views:
                     view_layout:
                       height: auto
                     cards:
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
-                        view_layout:
-                          grow: 1
+                      - type: custom:glass-room-map
+                        entity: vacuum.vacuum
+                        map: image.vacuum_rooms_map
+                        room_names:
+                          Hallway: Hallway
+                          Living Room: Living room
+                          Kitchen: Kitchen
+                        options:
+                          - entity: select.vacuum_carpet_boost_select
+                            name: Suction
+                            icon: mdi:fan
+                            option_names:
+                              automatic: Automatic
+                              eco: Eco
+                              performance: Strong
+                          - entity: select.vacuum_cleaning_passes
+                            name: Passes
+                            icon: mdi:repeat
+                            option_names:
+                              Auto: Automatic
+                              One pass: Once
+                              Two passes: Twice
                         visibility:
                           - condition: select
                             group: cleaning
                             id: roomba
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
                         view_layout:
                           grow: 1
+                      - type: custom:glass-room-map
+                        entity: vacuum.mop
+                        map: image.mop_rooms_map
+                        room_names:
+                          Living room: Living room
+                          Hallway: Hallway
+                        options:
+                          - entity: select.mop_reusable_pad_wetness
+                            name: Water
+                            icon: mdi:water-outline
+                            option_names:
+                              "1": A little
+                              "2": Medium
+                              "3": A lot
                         visibility:
                           - condition: select
                             group: cleaning
                             id: braava
+                        view_layout:
+                          grow: 1
                       - type: custom:glass-tabs
                         group: cleaning_mower
                         default: front
@@ -2842,7 +2819,7 @@ views:
                             group: cleaning
                             id: mower
                       - type: picture
-                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop&h=619
                         view_layout:
                           grow: 1
                         visibility:
@@ -2852,10 +2829,17 @@ views:
                           - condition: select
                             group: cleaning_mower
                             id: front
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=1100&q=80&auto=format&fit=crop
-                        view_layout:
-                          grow: 1
+                      - type: custom:glass-room-map
+                        entity: lawn_mower.mower
+                        tracker: device_tracker.mower
+                        room_names:
+                          Area 3: Zone 3
+                          Area 5: Zone 5
+                        settings:
+                          angle: number.mower_cutting_path_angle
+                          height: number.mower_blade_height
+                          speed: number.mower_working_speed
+                          spacing: number.mower_path_spacing
                         visibility:
                           - condition: select
                             group: cleaning
@@ -2863,65 +2847,9 @@ views:
                           - condition: select
                             group: cleaning_mower
                             id: zones
-            show_header: false
-      - type: grid
-        cards:
-          - type: custom:bubble-card
-            card_type: pop-up
-            hash: "#media"
-            width_desktop: 340px
-            margin: 8px
-            margin_top_mobile: -56px
-            bg_blur: 50
-            bg_opacity: 0
-            hide_backdrop: true
-            icon: mdi:multimedia
-            margin_top_desktop: -35px
-            name: Media
-            cards:
-              - type: custom:glass-popup-header
-                name: Media
-                icon: mdi:multimedia
-              - type: custom:layout-card
-                layout_type: custom:grid-layout
-                layout:
-                  grid-template-columns: 1fr
-                  grid-template-rows: min-content
-                  grid-template-areas: |
-                    "media_hub_mobile"
-                cards:
-                  - view_layout:
-                      grid-area: media_hub_mobile
-                    type: vertical-stack
-                    cards:
-                      - type: media-control
-                        entity: media_player.office
-            show_header: false
-      - type: grid
-        cards:
-          - type: custom:bubble-card
-            card_type: pop-up
-            hash: "#movies"
-            width_desktop: 340px
-            margin: 8px
-            margin_top_mobile: -56px
-            bg_blur: 50
-            bg_opacity: 0
-            hide_backdrop: true
-            icon: mdi:movie-play-outline
-            margin_top_desktop: -35px
-            name: Films
-            cards:
-              - type: custom:layout-card
-                layout_type: custom:grid-layout
-                layout:
-                  grid-template-columns: 1fr
-                  grid-template-rows: min-content
-                  grid-template-areas: |
-                    "movies_arr"
-                cards:
-                  - type: picture
-                    image: https://arrcard.argalas.org/arrcard/light/card-desktop.webp
+                        view_layout:
+                          grow: 1
+                        satellite: false
             show_header: false
       - type: grid
         cards:
@@ -2997,6 +2925,12 @@ views:
                       - type: custom:glass-air-quality
                         entity: sensor.air_quality_index_air_quality_index
                         view_layout: {}
+                        pollutants:
+                          - sensor.air_quality_index_nitrogen_dioxide
+                          - sensor.air_quality_index_ozone
+                          - sensor.air_quality_index_pm10
+                          - sensor.air_quality_index_pm2_5
+                          - sensor.air_quality_index_sulphur_dioxide
             show_header: false
       - type: grid
         cards:
@@ -3488,13 +3422,13 @@ views:
                               entity: input_boolean.switch_security_camera_2
                               state: on
                       - type: picture
-                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        image: glass:demo/camera-front.jpg
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_1
                             state: on
                       - type: picture
-                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                        image: glass:demo/camera-front.jpg
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_2
@@ -3563,16 +3497,56 @@ views:
                     view_layout:
                       height: auto
                     cards:
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1100&q=80&auto=format&fit=crop
+                      - type: vertical-stack
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_1
                             state: on
-                      - type: picture
-                        image: https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop
+                        cards:
+                          - type: heading
+                            heading: Front door – latest
+                            heading_style: subtitle
+                            icon: mdi:cctv
+                          - type: grid
+                            columns: 2
+                            square: false
+                            cards:
+                              - type: picture
+                                image: glass:demo/event-front-1.jpg
+                              - type: picture
+                                image: glass:demo/event-front-2.jpg
+                              - type: picture
+                                image: glass:demo/event-front-3.jpg
+                              - type: picture
+                                image: glass:demo/event-front-4.jpg
+                              - type: picture
+                                image: glass:demo/event-front-5.jpg
+                              - type: picture
+                                image: glass:demo/event-front-6.jpg
+                      - type: vertical-stack
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_2
                             state: on
+                        cards:
+                          - type: heading
+                            heading: Garden – latest
+                            heading_style: subtitle
+                            icon: mdi:cctv
+                          - type: grid
+                            columns: 2
+                            square: false
+                            cards:
+                              - type: picture
+                                image: glass:demo/event-garden-1.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-2.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-3.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-4.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-5.jpg
+                              - type: picture
+                                image: glass:demo/event-garden-6.jpg
             show_header: false

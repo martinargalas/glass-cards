@@ -4,6 +4,8 @@
 
 Everything that is on in the whole home, one row each – the lights counted per room, the TV, the music, the PC – with a button to switch it off. Machines that work on their own (washer, mower, robot vacuum) show what they're doing instead. When nothing is on, the card disappears.
 
+![Running now](../images/cards/now.webp)
+
 **Good for:** leaving the house; the phone dashboard; checking before bed.
 
 ## Quick start

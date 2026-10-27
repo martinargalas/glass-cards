@@ -1,10 +1,10 @@
-# Glass Studio
+# Dashboard Studio
 
-Glass Studio is the editor for glass dashboards: a full-screen window laid out like Home
+Dashboard Studio is the editor for glass dashboards: a full-screen window laid out like Home
 Assistant's automation editor. [Try it live on the website](https://glass.argalas.org/#studio) –
 it runs there on the demo home.
 
-![Glass Studio](images/studio.webp)
+![Dashboard Studio](images/studio.webp)
 
 ```
 ┌───────────────┬──────────────────────────────┬────────────────────┐
@@ -23,12 +23,12 @@ it runs there on the demo home.
 
 | From | How |
 | --- | --- |
-| A glass dashboard's card editor | Edit the **Glass – dashboard** card. On screens 900 px and wider Glass Studio opens on its own; otherwise click **Open the large editor**. |
+| A glass dashboard's card editor | Edit the **Glass – dashboard** card. On screens 900 px and wider Dashboard Studio opens on its own; otherwise click **Open the large editor**. |
 | Anywhere in Home Assistant | Add `?glass-studio` to the page's address. `?glass-studio=home` opens the dashboard at `/home`. |
 | The browser console | `glassStudio()` |
 
 Opened from the card editor, your changes go back to Home Assistant's dialog and its **Save**
-saves them. Opened on its own (`?glass-studio`), Glass Studio picks the dashboard in its top bar
+saves them. Opened on its own (`?glass-studio`), Dashboard Studio picks the dashboard in its top bar
 and saves straight to Home Assistant.
 
 ## The top bar
@@ -46,7 +46,7 @@ and saves straight to Home Assistant.
 
 ## The preview
 
-![Glass Studio editing the phone layout](images/studio-mobile.webp)
+![Dashboard Studio editing the phone layout](images/studio-mobile.webp)
 
 Above the preview:
 
@@ -116,7 +116,7 @@ follows as you type; YAML that doesn't parse is not applied – the last valid v
 
 ## Saving safely
 
-- Before saving, Glass Studio checks the dashboard wasn't changed elsewhere since you opened it
+- Before saving, Dashboard Studio checks the dashboard wasn't changed elsewhere since you opened it
   (another browser, another person). If it was, nothing is overwritten and you're told.
 - The version before each save is kept **in your browser** – **Undo the last save** puts it back.
 - Dashboards kept in YAML files can be shown and explored, not saved.

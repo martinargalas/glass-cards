@@ -1,4 +1,5 @@
 import type { ActionConfig, HassEntity, HomeAssistant } from "../core/types";
+import { MOWER_GEO } from "./home.generated";
 import { EFFECTS, WORLD, demoCalendar, demoForecast, demoHistory, demoStatistics, type DemoState } from "./world";
 import { DEMO_POPUPS, DEMO_POPUPS_URL } from "./dashboard";
 
@@ -100,6 +101,14 @@ async function callService(domain: string, service: string, data?: ServiceData, 
     changed();
     return;
   }
+  // a script that runs a list of actions (one tap, several services), as dashboards use them
+  if (domain === "script" && Array.isArray(d.actions)) {
+    for (const x of d.actions as Attrs[]) {
+      const [dm, sv] = String(x.service ?? x.action ?? "").split(".");
+      if (dm && sv) void callService(dm, sv, { ...(x.data ?? {}), ...(x.entity_id ? { entity_id: x.entity_id } : {}) }, x.target);
+    }
+    return;
+  }
   if (domain === "script" && WORLD_EFFECTS[`script.${service}`]) {
     WORLD_EFFECTS[`script.${service}`](d);
     changed();
@@ -159,6 +168,16 @@ async function callService(domain: string, service: string, data?: ServiceData, 
       case "set_value":
         put(id, String(d.value));
         break;
+      case "increment":
+      case "decrement": {
+        // a number helper (the period bar's back / forward): one step, within its limits
+        const step = Number(s.attributes.step ?? 1);
+        const v = parseFloat(s.state) + (service === "increment" ? step : -step);
+        const min = s.attributes.min ?? -Infinity;
+        const max = s.attributes.max ?? Infinity;
+        put(id, String(Math.min(max, Math.max(min, v))));
+        break;
+      }
       case "select_option":
         put(id, String(d.option));
         WORLD_EFFECTS[`${id}=${d.option}`]?.(d);
@@ -194,6 +213,9 @@ async function callService(domain: string, service: string, data?: ServiceData, 
       case "alarm_arm_away":
         put(id, "armed_away");
         break;
+      case "alarm_arm_night":
+        put(id, "armed_night");
+        break;
       case "alarm_disarm":
         put(id, "disarmed");
         break;
@@ -214,6 +236,21 @@ async function callService(domain: string, service: string, data?: ServiceData, 
 const WORLD_EFFECTS: Record<string, (data: Attrs) => void> = Object.fromEntries(
   Object.entries(EFFECTS).map(([k, fn]) => [k, (data: Attrs) => fn({ set: put, get: (id: string) => states[id], data })]),
 );
+
+/**
+ * The demo's own pictures (`glass:demo/…`, beside the bundle) as addresses: Home Assistant's
+ * picture card shows the cameras' views and events, and it knows no `glass:`.
+ */
+function bundledFiles(node: unknown): unknown {
+  if (typeof node === "string") {
+    // the bundle's address in a variable: Vite would turn `new URL(…, import.meta.url)` into a file lookup
+    const bundle = import.meta.url;
+    return /^glass:demo\/[\w.-]+$/.test(node) ? new URL(`./${node.slice(6)}`, bundle).href : node;
+  }
+  if (Array.isArray(node)) return node.map(bundledFiles);
+  if (node && typeof node === "object") return Object.fromEntries(Object.entries(node).map(([k, v]) => [k, bundledFiles(v)]));
+  return node;
+}
 
 /** A card's action (tap, hold…) in demo mode: run here instead of by HA's frontend. */
 function runAction(action: ActionConfig, entity?: string): boolean {
@@ -333,10 +370,15 @@ export function demoHass(base?: Partial<HomeAssistant>): HomeAssistant & { demo:
         const list = ((msg.statistic_ids as string[]) ?? []).filter((id) => all[id]);
         return Object.fromEntries(list.map((id) => [id, demoStatistics(id, all[id], Date.parse(String(msg.start_time)), msg.end_time ? Date.parse(String(msg.end_time)) : Date.now(), String(msg.period ?? "hour"))])) as T;
       }
-      // the demo's pop-ups: HA's own copy when it has one (edited in Glass Studio), else the bundled one
+      // the demo's pop-ups: HA's own copy when it has one (edited in Dashboard Studio), else the bundled one
+      // the mower's lawn (glass-room-map asks Mammotion for it); no job on, so no route yet
+      if (msg.type === "call_service" && msg.domain === "mammotion") {
+        const empty = { type: "FeatureCollection", features: [] };
+        return { response: msg.service === "get_geojson" ? structuredClone(MOWER_GEO) : empty } as T;
+      }
       if (msg.type === "lovelace/config" && msg.url_path === DEMO_POPUPS_URL) {
         const own = base?.callWS ? await base.callWS<T>(msg).catch(() => undefined) : undefined;
-        return own ?? (structuredClone(DEMO_POPUPS) as T);
+        return bundledFiles(own ?? structuredClone(DEMO_POPUPS)) as T;
       }
       if (!base?.callWS) throw Object.assign(new Error("Not available in the demo"), { code: "not_found" });
       return base.callWS<T>(msg);

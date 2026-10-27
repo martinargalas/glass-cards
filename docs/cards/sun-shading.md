@@ -4,6 +4,8 @@
 
 The sun over a compass with your windows' band – where it shines into the room – the light outside as a ring, and what your shading automation decided.
 
+![Sun and shading](../images/cards/sun-shading.webp)
+
 **Good for:** the side of a blinds page, with the automation switch and the value grid.
 
 ## Quick start

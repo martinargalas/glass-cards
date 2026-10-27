@@ -219,18 +219,25 @@ class GlassNotifications extends GlassElement<NotificationsConfig> {
   private _measure = () => {
     if (this._config?.place === "block" || this._config?.place === "overlay") return;
     const pill = this.renderRoot.querySelector(".pill") as HTMLElement | null;
-    const bar = this._chips();
-    if (!pill || !bar) {
+    if (!pill) {
       this._shift = undefined;
       return;
     }
-    const chips = bar.shadowRoot?.querySelectorAll(".chip");
-    const last = chips?.length ? (chips[chips.length - 1] as HTMLElement).getBoundingClientRect().right : bar.getBoundingClientRect().left;
-    const slot = this.getBoundingClientRect().right;
-    const start = last + 12;
-    // the row's inner right edge (the panel's padding stays clear): never past it
+    const bar = this._chips();
     const panel = (this.getRootNode() as ParentNode).querySelector?.(".panel") as HTMLElement | null;
-    const end = panel ? panel.getBoundingClientRect().right - (parseFloat(getComputedStyle(panel).paddingRight) || 0) : window.innerWidth - 12;
+    const box = panel?.getBoundingClientRect();
+    const pad = panel ? getComputedStyle(panel) : undefined;
+    const chips = bar?.shadowRoot?.querySelectorAll(".chip");
+    // from just after the status chips; with none in the row (a date, a title…), from the row's inner left edge
+    const start = bar
+      ? (chips?.length ? (chips[chips.length - 1] as HTMLElement).getBoundingClientRect().right : bar.getBoundingClientRect().left) + 12
+      : box
+        ? box.left + (parseFloat(pad!.paddingLeft) || 0)
+        : 12;
+    const slot = this.getBoundingClientRect().right;
+    // the row's inner right edge (the panel's padding stays clear): never past it; with no chips
+    // to start after, never over the next card either – a long message is cut short instead
+    const end = !bar ? slot : box ? box.right - (parseFloat(pad!.paddingRight) || 0) : window.innerWidth - 12;
     const maxw = Math.max(120, Math.floor(end - start));
     if (maxw !== this._maxw) this._maxw = maxw;
     const w = Math.min(pill.offsetWidth, maxw);

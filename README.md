@@ -1,6 +1,6 @@
 # Glass Cards
 
-**Liquid glass dashboards for Home Assistant – built visually in Glass Studio.**
+**Liquid glass dashboards for Home Assistant – built visually in Dashboard Studio.**
 
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 [![release](https://img.shields.io/github/v/release/martinargalas/glass-cards)](https://github.com/martinargalas/glass-cards/releases)
@@ -13,7 +13,7 @@
 
 ![Glass Cards on a tablet](docs/images/tablet-day.webp)
 
-| Pop-ups over the dashboard | Glass Studio |
+| Pop-ups over the dashboard | Dashboard Studio |
 | --- | --- |
 | ![](docs/images/popup-energy.webp) | ![](docs/images/studio.webp) |
 
@@ -22,7 +22,7 @@ glass look: panels that really refract the wallpaper, soft tiles, a dark sidebar
 app – or, for older tablets, the same look at almost no cost.
 
 - **Not a theme.** No card_mod, no CSS hacks: every material, colour and font is a setting.
-- **Glass Studio** – a full-screen editor with a live preview on real device sizes (iPhone, iPad,
+- **Dashboard Studio** – a full-screen editor with a live preview on real device sizes (iPhone, iPad,
   Galaxy Tab, Nest Hub…), drag and drop, pop-ups, undo and safe saving.
 - **One dashboard for every screen** – it rearranges itself for phones, tablets and computers.
 - **Day and night** – its own wallpaper and look after sunset, per card if you want.
