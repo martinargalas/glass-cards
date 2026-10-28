@@ -36,6 +36,7 @@ import "./cards/panel";
 import "./cards/notifications";
 import "./cards/dashboard";
 import "./editor/studio";
+import { offerStarter } from "./editor/starter";
 
 declare const __VERSION__: string;
 const VERSION = typeof __VERSION__ === "string" ? __VERSION__ : "dev";
@@ -94,5 +95,6 @@ if (!window.GlassCards) {
   window.GlassCards = api;
   requestAnimationFrame(rebuildEarlyErrors);
   window.dispatchEvent(new CustomEvent("glass-cards-ready", { detail: api }));
+  void offerStarter();
   console.info(`%c GLASS-CARDS %c ${VERSION} `, "background:#0a84ff;color:#fff;border-radius:4px 0 0 4px;padding:2px 4px", "background:#fff;color:#0a84ff;border-radius:0 4px 4px 0;padding:2px 4px");
 }

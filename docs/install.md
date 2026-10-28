@@ -41,6 +41,23 @@ Most cards need nothing else. A few build on other HACS cards:
 You can do without both: the dock can switch **pages** instead of opening pop-ups – see
 [Layout → Pages](layout.md#pages-without-pop-ups).
 
+## Your first Glass dashboard
+
+After the install, reload the page. If you're an administrator, a bar at the bottom offers to
+**create a Glass dashboard from your rooms** – the demo's layout on your own home:
+
+- **Rooms are your areas.** Each area with lights, blinds, a thermostat or a temperature sensor
+  gets a room card with them (devices count too: an entity is in its device's area). Living
+  room, kitchen, bedroom and other common rooms get a photo; an area's own picture wins.
+- **The left column** shows the time, your people, the weather and your calendars – whatever
+  your home has.
+- **One pop-up as an example**: the weather, opened from the dock – only with
+  [Bubble Card](https://github.com/Clooos/Bubble-Card) installed.
+
+It appears in the sidebar as **Glass**. Nothing is created until you click, and the bar is asked
+once: **No, thanks** hides it for good. You can add the dashboard later in Dashboard Studio
+(**From your rooms**), e.g. after you've sorted your devices into areas.
+
 ## Check it works
 
 Open any dashboard, add a card and search for **Glass** – you'll see the glass cards in the

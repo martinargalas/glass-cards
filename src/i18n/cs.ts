@@ -1605,4 +1605,12 @@ export const cs: Dict = {
   "This card is built on nothing but Home Assistant.": "Tahle karta stojí jen na Home Assistantu.",
   "As Home Assistant": "Jako Home Assistant",
   "Language of the studio – the cards follow your HA profile": "Jazyk studia – karty se řídí tvým profilem v HA",
+  "A Glass dashboard from your own areas: their lights, blinds and temperatures": "Glass dashboard z tvých oblastí: jejich světla, žaluzie a teploty",
+  "From your rooms": "Z tvých místností",
+  "The dashboard is in the sidebar as “Glass”. Rooms without lights, blinds or a temperature were left out.": "Dashboard je v postranním panelu jako „Glass“. Místnosti bez světel, žaluzií a teploty jsou vynechané.",
+  "The dashboard could not be created:": "Dashboard se nepodařilo vytvořit:",
+  "Glass Cards are installed": "Glass Cards jsou nainstalované",
+  "Create a Glass dashboard from your rooms? Lights, blinds and temperatures come from your areas.": "Vytvořit Glass dashboard z tvých místností? Světla, žaluzie a teploty se vezmou z oblastí v Home Assistantu.",
+  "No, thanks": "Ne, díky",
+  "No rooms yet: assign your lights, blinds and thermostats to areas in Home Assistant, then add this dashboard again in Dashboard Studio.": "Zatím žádné místnosti: přiřaď světla, žaluzie a termostaty k oblastem v Home Assistantu a pak dashboard přidej znovu v Dashboard Studiu.",
 };

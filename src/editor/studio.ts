@@ -5,6 +5,7 @@ import { buildChildren, cardSource, configForMode, forward, type ChildEl } from 
 import { PRESETS, areaOrder, overlayCards, parseAreas, popupOf, trackList, type OverlaySource, type Preset } from "../core/layout";
 import { preview, previewSize, setPreviewMode } from "../core/settings";
 import { LiquidController } from "../core/liquid";
+import { addStarterDashboard } from "./starter";
 import { addDemoDashboard, backup, dropBackup, findGlass, lastBackup, listDashboards, loadConfig, putAt, saveConfig, type DashInfo } from "./store";
 import { AREA_TITLES, DEVICE_MODES, MODE_NAMES, NEW_CARDS, bubbleNotice, hasBubble, missingFor,
   foreignNotice, describeCard, getClip, makeEditor, move, orderOn, setClip, shownOn, stubFor, withOrder, withShown } from "./editor";
@@ -2741,9 +2742,27 @@ export class GlassStudio extends LitElement {
       ${this.hass?.user?.is_admin
         ? html`<button class="quiet" title=${t("A made-up home with every glass card on it – nothing it does reaches your devices")} ?disabled=${this._busy} @click=${() => void this._addDemo()}>
             <ha-icon .icon=${"mdi:creation-outline"}></ha-icon>${t("Demo dashboard")}
+          </button>
+          <button class="quiet" title=${t("A Glass dashboard from your own areas: their lights, blinds and temperatures")} ?disabled=${this._busy} @click=${() => void this._addStarter()}>
+            <ha-icon .icon=${"mdi:home-variant-outline"}></ha-icon>${t("From your rooms")}
           </button>`
         : nothing}
     </span>`;
+  }
+
+  /** Adds the dashboard built from the user's areas (once) and opens it here. */
+  private async _addStarter() {
+    this._busy = true;
+    try {
+      const url = await addStarterDashboard(this.hass as any);
+      this._dashList = await listDashboards(this.hass as any).catch(() => this._dashList);
+      this._busy = false;
+      await this.openDashboard(url);
+      this._notice = { kind: "ok", text: t("The dashboard is in the sidebar as “Glass”. Rooms without lights, blinds or a temperature were left out.") };
+    } catch (e: any) {
+      this._busy = false;
+      this._notice = { kind: "error", text: `${t("The dashboard could not be created:")} ${e?.message ?? e}` };
+    }
   }
 
   /** Adds the demo dashboard to HA (once) and opens it here. */
