@@ -528,6 +528,7 @@ export const cs: Dict = {
   "Shows": "Zobrazuje",
   "Photo layouts": "Rozložení s fotkou",
   "Custom size": "Vlastní rozměr",
+  "This window": "Toto okno",
   "Width (px)": "Šířka (px)",
   "Height (px)": "Výška (px)",
   "Rotate": "Otočit",

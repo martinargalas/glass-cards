@@ -498,6 +498,8 @@ class GlassDashboard extends GlassElement<DashboardConfig> {
   protected override updated(changed: Map<string, unknown>) {
     super.updated(changed);
     this._applyOverlayTheme();
+    // preview: the dock may have changed – the layout follows at once, not on the next tick
+    if (this._preview) requestAnimationFrame(() => this._measureDock());
   }
 
   /** `styles:` of the current mode (responsive overrides included). */
@@ -528,7 +530,13 @@ class GlassDashboard extends GlassElement<DashboardConfig> {
   private _measureDock() {
     const c = this._eff ?? this._config;
     let top: number | undefined;
-    if (c && !this._preview && this._mode !== "mobile" && typeof c.dock_space !== "number") {
+    // preview: the dock drawn on the device's bottom edge, measured in the device's own px
+    const pvDock = this._preview && this.shadowRoot?.querySelector(".pv-bar glass-dock:not([inline])")?.shadowRoot?.querySelector(".dock");
+    if (pvDock && this._mode !== "mobile" && typeof c?.dock_space !== "number") {
+      const frame = this.shadowRoot!.querySelector(".pv-frame")!.getBoundingClientRect();
+      const r = pvDock.getBoundingClientRect();
+      if (r.height) top = Math.round((frame.bottom - r.top) / (this._zoom || 1));
+    } else if (c && !this._preview && this._mode !== "mobile" && typeof c.dock_space !== "number") {
       const find = (n: Element | ShadowRoot, depth: number): Element | null => {
         const hit = n.querySelector("glass-dock:not([inline])");
         if (hit || !depth) return hit;
@@ -774,7 +782,7 @@ class GlassDashboard extends GlassElement<DashboardConfig> {
     // preview: the device's screen; --glass-vw / --glass-vh stand in for vw / vh in card sizes
     const { w: pvW, h: pvH } = previewSize(this._mode);
     const pv = this._preview
-      ? `;width:${pvW}px;height:${this._mode === "mobile" ? "auto" : `${pvH}px`};--offset:0px;--glass-vw:${pvW / 100}px;--glass-vh:${pvH / 100}px`
+      ? `;width:${pvW}px;height:${this._mode === "mobile" ? "auto" : `calc(${pvH}px - var(--dock, 0px))`};--offset:0px;--glass-vw:${pvW / 100}px;--glass-vh:${pvH / 100}px`
       : "";
     const dash = html`<div class="dash ${mobile ? "mobile" : ""} ${c.fill_height === false || this._preview ? "" : "fill"}" style="${vars};${tracks}${pv}">
       ${areaOrder(g.template).map((a) =>
@@ -793,11 +801,12 @@ class GlassDashboard extends GlassElement<DashboardConfig> {
       const url = wallpaperUrl(nightConfig<DashboardConfig>(this._rawConfig ?? ({} as DashboardConfig), this.hasAttribute("dark")).wallpaper);
       bg = `background:${url ? `url('${url}') center / cover no-repeat` : "var(--lovelace-background, var(--primary-background-color))"}`;
     }
-    // a phone: its screen's height, the content scrolling under the dock at the bottom edge
+    // the device's screen: a phone's content scrolls under the dock at the bottom edge; a tablet's
+    // layout ends at the dock's top edge, as on the screen (the space measured in _measureDock)
     const phone = this._mode === "mobile";
     return html`<div
         class="pv-frame ${bg ? "bg" : ""} ${phone ? "phone" : ""}"
-        style="zoom:${this._zoom};${phone ? `height:${previewSize("mobile").h}px;` : ""}${bg}"
+        style="zoom:${this._zoom};height:${pvH}px;${bg}"
       >
         ${phone ? html`<div class="pv-scroll" @scroll=${this._onPvScroll}>${dash}<div class="pv-room"></div></div>` : dash}${this._pvBar.length
           ? html`<div class="pv-bar">${this._pvBar}</div>`
@@ -882,12 +891,21 @@ class GlassDashboard extends GlassElement<DashboardConfig> {
         width: fit-content;
         margin: 0 auto;
       }
-      /* the space kept for the floating dock: the preview draws the dock right below instead */
+      /* the space kept for the floating dock: the preview draws it at the screen's bottom edge */
+      .pv-frame {
+        position: relative;
+      }
       .pv-frame .dash {
         margin-bottom: 0;
       }
+      .pv-frame:not(.phone) .pv-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 0 0 var(--glass-dock-bottom, 6px);
+      }
       .pv-frame.phone {
-        position: relative;
         overflow: hidden;
         border-radius: 18px;
         outline: 1px solid var(--divider-color, rgba(0, 0, 0, 0.12));

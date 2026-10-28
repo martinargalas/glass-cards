@@ -69,13 +69,28 @@ const ZOOMS = [0.25, 0.33, 0.5, 0.67, 0.75, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2];
 const PANE_DEFAULT = { tree: 280, insp: 420, yaml: 640 };
 const PANE_MIN = { tree: 180, insp: 280, yaml: 360 };
 
-/** The size last picked per mode, remembered per browser. */
+/** The size of the screen the dashboard is shown on here: this window, less HA's top bar. */
+const WINDOW = "This window";
+function windowSize(): { w: number; h: number } {
+  const bar = parseFloat(getComputedStyle(document.querySelector("home-assistant") ?? document.documentElement).getPropertyValue("--header-height")) || 56;
+  return { w: window.innerWidth, h: window.innerHeight - bar };
+}
+
+/**
+ * The size last picked per mode, remembered per browser. "This window" follows the window; a
+ * tablet / computer never picked is this window, so the preview shows what saving will show.
+ */
 function savedSizes(): Partial<Record<"mobile" | "tablet", { w: number; h: number; name?: string }>> {
+  let saved: Partial<Record<"mobile" | "tablet", { w: number; h: number; name?: string }>> = {};
   try {
-    return JSON.parse(localStorage.getItem(SIZE_KEY) ?? "{}");
+    saved = JSON.parse(localStorage.getItem(SIZE_KEY) ?? "{}");
   } catch {
-    return {};
+    /* private mode */
   }
+  const win = windowSize();
+  for (const m of ["mobile", "tablet"] as const) if (saved[m]?.name === WINDOW) saved[m] = { ...win, name: WINDOW };
+  if (!saved.tablet && win.w >= 700) saved.tablet = { ...win, name: WINDOW };
+  return saved;
 }
 
 export class GlassStudio extends LitElement {
@@ -1265,19 +1280,23 @@ export class GlassStudio extends LitElement {
     const picked = savedSizes()[preview.mode as "mobile" | "tablet"]?.name;
     const fits = (d: (typeof DEVICES)[number]) => d.w === w && d.h === h;
     const named = DEVICES.findIndex((d) => fits(d) && d.name === picked);
-    const hit = named >= 0 ? named : DEVICES.findIndex(fits);
+    const win = windowSize();
+    const isWin = picked === WINDOW && win.w === w && win.h === h;
+    const hit = isWin ? -2 : named >= 0 ? named : DEVICES.findIndex(fits);
     const num = (v: number, set: (n: number) => void, title: string) =>
       html`<input type="number" title=${t(title)} .value=${String(v)} min="240" max="3840" @change=${(e: Event) => set(Number((e.target as HTMLInputElement).value))} />`;
     return html`<span class="size">
       <select
         title=${t("Device")}
         @change=${(e: Event) => {
-          const d = DEVICES[Number((e.target as HTMLSelectElement).value)];
+          const v = Number((e.target as HTMLSelectElement).value);
+          const d = v === -2 ? { ...windowSize(), name: WINDOW } : DEVICES[v];
           if (d) this._setSize(d.w, d.h, d.name);
         }}
       >
+        <option value="-2" ?selected=${isWin}>${t(WINDOW)} (${win.w} × ${win.h})</option>
         ${DEVICES.map((d, i) => html`<option value=${i} ?selected=${i === hit}>${t(d.name)}</option>`)}
-        <option value="-1" ?selected=${hit < 0} disabled>${t("Custom size")}</option>
+        <option value="-1" ?selected=${hit === -1} disabled>${t("Custom size")}</option>
       </select>
       ${num(w, (n) => this._setSize(n, h), "Width (px)")}<span class="x">×</span>${num(h, (n) => this._setSize(w, n), "Height (px)")}
       <button class="icon small" title=${t("Rotate")} @click=${() => this._setSize(h, w)}><ha-icon .icon=${"mdi:phone-rotate-landscape"}></ha-icon></button>
