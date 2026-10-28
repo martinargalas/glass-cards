@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "node scripts/demo-dashboard.mjs && tsc --noEmit && node scripts/check-i18n.mjs && vite build && node scripts/copy-wallpapers.mjs && node scripts/write-version.mjs",
+    "release:zip": "rm -f glass-cards.zip && cd dist && zip -qr -X ../glass-cards.zip glass-cards.js glass-cards-loader.js version.json wallpapers demo",
     "watch": "vite build --watch",
     "typecheck": "tsc --noEmit",
     "deploy": "npm run build && bash scripts/deploy.sh",

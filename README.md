@@ -48,7 +48,7 @@ app – or, for older tablets, the same look at almost no cost.
 **HACS:** HACS → ⋮ → *Custom repositories* → `https://github.com/martinargalas/glass-cards`, type
 *Dashboard* → search **Glass Cards** → *Download* → reload the browser.
 
-**By hand:** copy `dist/glass-cards.js` and `dist/wallpapers/` to `config/www/glass-cards/` and add
+**By hand:** unpack `glass-cards.zip` from the [latest release](https://github.com/martinargalas/glass-cards/releases/latest) into `config/www/glass-cards/` and add
 the resource `/local/glass-cards/glass-cards.js` (JavaScript module).
 
 Details: [Install](docs/install.md).
