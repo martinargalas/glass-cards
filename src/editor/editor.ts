@@ -347,6 +347,24 @@ export const AREA_TITLES: Record<string, [string, string]> = {
 };
 const LEGACY_AREAS = ["header", "top", "left", "main"];
 
+/**
+ * A layout picked on a dashboard with no cards yet: an empty panel in each of its areas, so
+ * the preview shows where cards go and each has its "+" (an empty panel shows only in editors).
+ */
+function withEmptyPanels(c: Record<string, any>, rows: string[][]): Record<string, any> {
+  const lists = [...LEGACY_AREAS.map((k) => c[k]), ...Object.values(c.areas ?? {})];
+  if (lists.some((l) => Array.isArray(l) && l.length)) return c;
+  const out: Record<string, any> = { ...c, areas: { ...(c.areas ?? {}) } };
+  for (const n of areaOrder(rows)) {
+    if (n === ".") continue;
+    const panel = [{ type: "custom:glass-panel", cards: [] }];
+    if (LEGACY_AREAS.includes(n)) out[n] = panel;
+    else out.areas[n] = panel;
+  }
+  if (!Object.keys(out.areas).length) delete out.areas;
+  return out;
+}
+
 /** Cards offered by "+ Add card": type, name, icon, one-line description. */
 /** Glass cards that need another card installed: not offered without it. */
 const REQUIRES: Record<string, string> = {
@@ -1903,7 +1921,7 @@ export class GlassCardEditor extends LitElement {
             presetRows(p),
             !custom && (c.preset ?? "classic") === p,
             PRESETS[p].label,
-            () => this._emit({ ...c, preset: p === "classic" ? undefined : p, grid: undefined }),
+            () => this._emit(withEmptyPanels({ ...c, preset: p === "classic" ? undefined : p, grid: undefined }, presetRows(p))),
             PRESETS[p].thumb,
           ),
         )}
