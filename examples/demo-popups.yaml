@@ -1194,7 +1194,7 @@ views:
                                 unit: kWh
                                 secondary:
                                   entity: sensor.electricity_cost_year
-                                  unit: CZK
+                                  unit: USD
                                 tap_action:
                                   action: none
                               - name: Month
@@ -1202,7 +1202,7 @@ views:
                                 unit: kWh
                                 secondary:
                                   entity: sensor.electricity_cost_month
-                                  unit: CZK
+                                  unit: USD
                                 tap_action:
                                   action: none
                               - name: Today
@@ -1210,7 +1210,7 @@ views:
                                 unit: kWh
                                 secondary:
                                   entity: sensor.electricity_cost_day
-                                  unit: CZK
+                                  unit: USD
                                 tap_action:
                                   action: none
                             graph:
@@ -1637,7 +1637,7 @@ views:
                             entity: input_boolean.switch_security_camera_1
                             state: on
                       - type: picture
-                        image: glass:demo/camera-front.jpg
+                        image: glass:demo/camera-garden.jpg
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_2
@@ -3046,7 +3046,7 @@ views:
                             unit: kWh
                             secondary:
                               entity: sensor.electricity_cost_year
-                              unit: CZK
+                              unit: USD
                             tap_action:
                               action: none
                           - name: Month
@@ -3054,7 +3054,7 @@ views:
                             unit: kWh
                             secondary:
                               entity: sensor.electricity_cost_month
-                              unit: CZK
+                              unit: USD
                             tap_action:
                               action: none
                           - name: Today
@@ -3062,7 +3062,7 @@ views:
                             unit: kWh
                             secondary:
                               entity: sensor.electricity_cost_day
-                              unit: CZK
+                              unit: USD
                             tap_action:
                               action: none
                         graph:
@@ -3428,7 +3428,7 @@ views:
                             entity: input_boolean.switch_security_camera_1
                             state: on
                       - type: picture
-                        image: glass:demo/camera-front.jpg
+                        image: glass:demo/camera-garden.jpg
                         visibility:
                           - condition: state
                             entity: input_boolean.switch_security_camera_2

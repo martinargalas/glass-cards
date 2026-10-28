@@ -23,6 +23,16 @@ function avatar(initials: string, from: string, to: string) {
  * What's going on in the demo home right now – a lively evening rather than the quiet
  * moment the snapshot happened to catch (examples/demo.yaml shows these first).
  */
+// day (7–19, as the demo's sun) or night: the light outside and the blinds follow it
+const hourNow = new Date().getHours();
+const daytime = hourNow >= 7 && hourNow < 19;
+// the light outside: rising to a sunny afternoon's 60 klx
+const lux = daytime ? Math.round(60000 * Math.sin(((hourNow + 0.5 - 7) / 12) * Math.PI)) : 0;
+const blindAt = (name: string, position: number, tilt: number): DemoState => [
+  position > 0 ? "open" : "closed",
+  { friendly_name: name, current_position: position, current_tilt_position: tilt, device_class: "blind", supported_features: 255 },
+];
+
 const LIVE: Record<string, DemoState> = {
   "person.alex": ["home", { friendly_name: "Alex", entity_picture: avatar("A", "#7aa7ff", "#5161d6") }],
   "person.sam": ["Work", { friendly_name: "Sam", entity_picture: avatar("S", "#ffb37a", "#e0617d") }],
@@ -48,6 +58,13 @@ const LIVE: Record<string, DemoState> = {
       ],
     },
   ],
+  // the sun in the shading azimuth by day: the office and the kids' room shaded, the balcony open
+  "sensor.sun_sensor_luminance": [String(lux), { friendly_name: "Sun sensor luminance", unit_of_measurement: "lx", device_class: "illuminance", state_class: "measurement" }],
+  "sensor.blinds_shading_level": [daytime ? "mid" : "open", { friendly_name: "Blinds shading level" }],
+  "sensor.blinds_target_tilt": [daytime ? "45" : "100", { friendly_name: "Blinds target tilt", unit_of_measurement: "%" }],
+  "cover.office": blindAt("Office", 0, daytime ? 45 : 0),
+  "cover.kids_room": blindAt("Kids room", 0, daytime ? 45 : 0),
+  "cover.balcony": blindAt("Balcony", 100, 100),
   // the weather now: what the forecast (demoForecast) starts with, by day or night
   "weather.home": [new Date().getHours() >= 7 && new Date().getHours() < 19 ? "partlycloudy" : "clear-night", { friendly_name: "Home", temperature: 14.6, temperature_unit: "°C", humidity: 64, pressure: 1016, pressure_unit: "hPa", wind_speed: 14, wind_speed_unit: "km/h", wind_bearing: 240, apparent_temperature: 13.2, cloud_coverage: 45, supported_features: 3 }],
   "sensor.heat_pump_outside_temperature": ["14.8", { unit_of_measurement: "°C", device_class: "temperature", state_class: "measurement", friendly_name: "Outside" }],

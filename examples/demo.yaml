@@ -2,7 +2,7 @@
 #
 # A made-up home (`demo: true`): every card runs on invented entities, so it works in any
 # Home Assistant without touching a real device. Its pop-ups (Bubble Card) are in
-# examples/demo-popups.yaml – Dashboard Studio's "Demo dashboard" button adds both.
+# examples/demo-popups.yaml – Glass Studio's "Demo dashboard" button adds both.
 title: Glass demo
 views:
   - title: Home

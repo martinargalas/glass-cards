@@ -2696,23 +2696,23 @@ export const HOME: Record<string, DemoState> = {
   }
  ],
  "sensor.electricity_cost_day": [
-  "34.8",
+  "1.51",
   {
-   "unit_of_measurement": "CZK",
+   "unit_of_measurement": "USD",
    "friendly_name": "Electricity cost day"
   }
  ],
  "sensor.electricity_cost_month": [
-  "1199.7",
+  "52.16",
   {
-   "unit_of_measurement": "CZK",
+   "unit_of_measurement": "USD",
    "friendly_name": "Electricity cost month"
   }
  ],
  "sensor.electricity_cost_year": [
-  "5949.0",
+  "258.65",
   {
-   "unit_of_measurement": "CZK",
+   "unit_of_measurement": "USD",
    "friendly_name": "Electricity cost year"
   }
  ],
