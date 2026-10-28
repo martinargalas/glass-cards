@@ -25,7 +25,8 @@ more-info dialog on a hold.
 
 `action: menu` opens a small glass menu next to the button – a few related choices without a
 pop-up. Each item can show whether it is the current one (`active`), hide itself (`visible`)
-and count down a timer:
+and count down a timer. The idea follows [honeycomb-menu](https://github.com/Sian-Lee-SA/honeycomb-menu)
+by [Sian-Lee-SA](https://github.com/Sian-Lee-SA).
 
 ```yaml
 - entity: cover.office_blind

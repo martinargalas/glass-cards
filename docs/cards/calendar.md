@@ -2,7 +2,7 @@
 
 `custom:glass-calendar`
 
-Upcoming events from one or more calendars, grouped by day – Today, Tomorrow, then the dates. Each calendar has its colour.
+Upcoming events from one or more calendars, grouped by day – Today, Tomorrow, then the dates. Each calendar has its colour. The idea follows [atomic-calendar-revive](https://github.com/totaldebug/atomic-calendar-revive) by [totaldebug](https://github.com/totaldebug).
 
 ![Calendar](../images/cards/calendar.webp)
 

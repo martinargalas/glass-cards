@@ -77,6 +77,31 @@ const CLOCK_WEATHER_CARD: Credit = {
   note: "The clock above the forecast with temperature bars.",
 };
 
+const HONEYCOMB_MENU: Credit = {
+  kind: "inspired",
+  name: "honeycomb-menu",
+  url: "https://github.com/Sian-Lee-SA/honeycomb-menu",
+  author: "Sian-Lee-SA",
+  author_url: "https://github.com/Sian-Lee-SA",
+  note: "The menu that opens from a button (action: menu): related choices around it.",
+};
+const ATOMIC_CALENDAR: Credit = {
+  kind: "inspired",
+  name: "atomic-calendar-revive",
+  url: "https://github.com/totaldebug/atomic-calendar-revive",
+  author: "totaldebug",
+  author_url: "https://github.com/totaldebug",
+  note: "Upcoming events of several calendars in one list, each calendar in its colour.",
+};
+const PERSON_INFO_CARD: Credit = {
+  kind: "inspired",
+  name: "custom_card_person_info (UI Lovelace Minimalist)",
+  url: "https://ui-lovelace-minimalist.github.io/UI/usage/custom_cards/custom_card_person_info/",
+  author: "Jordan Janzen",
+  author_url: "https://github.com/jordandrako",
+  note: "A person's round picture with where they are and their phone's battery.",
+};
+
 export const dateHeaderSpec: EditorSpec = {
   parts: DATE_HEADER_PARTS,
   defaults: { align: "center" },
@@ -267,6 +292,7 @@ export const statusBarSpec: EditorSpec = {
 };
 
 export const peopleSpec: EditorSpec = {
+  credits: [PERSON_INFO_CARD],
   parts: PEOPLE_PARTS,
   defaults: { size: 44, gap: 12, show_location: "away", align: "end", show_battery: true, show_name: false, battery_style: "ring" },
   form: [
@@ -343,6 +369,7 @@ const ROOM_LAYOUTS = [
 ];
 
 export const roomSpec: EditorSpec = {
+  credits: [HONEYCOMB_MENU],
   parts: ROOM_PARTS,
   defaults: { layout: "stacked", show_icon: true, image_opacity: 1, image_fade: 50, image_position: "center", status: "auto" },
   form: (c) => {
@@ -1035,6 +1062,7 @@ export const dividerSpec: EditorSpec = {
 };
 
 export const calendarSpec: EditorSpec = {
+  credits: [ATOMIC_CALENDAR],
   parts: CALENDAR_PARTS,
   defaults: { days: 5, max_events: 6, show_location: false, show_title: false, hide_empty: false },
   form: [

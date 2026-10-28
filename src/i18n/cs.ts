@@ -1624,4 +1624,7 @@ export const cs: Dict = {
   "Every card on a made-up home – a tour of everything Glass Cards can do. Then make it yours in Dashboard Studio: swap in your own devices, keep what you like.": "Všechny karty na vymyšlené domácnosti – přehled všeho, co Glass Cards umí. Pak si ho v Dashboard Studiu přizpůsob: dosaď svá zařízení, nech si, co se ti líbí.",
   "Want to see what they can do?": "Chceš vidět, co umí?",
   "Create the demo home": "Vytvořit ukázkovou domácnost",
+  "The menu that opens from a button (action: menu): related choices around it.": "Menu, které se otevře z tlačítka (action: menu): související volby kolem něj.",
+  "Upcoming events of several calendars in one list, each calendar in its colour.": "Nadcházející události více kalendářů v jednom seznamu, každý kalendář ve své barvě.",
+  "A person's round picture with where they are and their phone's battery.": "Kulatý obrázek osoby s tím, kde je, a baterií jejího telefonu.",
 };

@@ -30,6 +30,9 @@ Projects whose idea or design a card follows. Their code is not copied.
 | --- | --- | --- |
 | [clock-weather-card](https://github.com/pkissling/clock-weather-card) | [pkissling](https://github.com/pkissling) | [Clock and weather](cards/clock-weather.md): the clock above the forecast with temperature bars. |
 | [liquid-glass-js](https://github.com/dashersw/liquid-glass-js) (MIT) | [dashersw](https://github.com/dashersw) | The liquid glass look: the refraction model and its defaults. |
+| [honeycomb-menu](https://github.com/Sian-Lee-SA/honeycomb-menu) | [Sian-Lee-SA](https://github.com/Sian-Lee-SA) | [Menus](actions-and-conditions.md#menus) (`action: menu`): related choices that open around a button, e.g. a blind's positions. |
+| [atomic-calendar-revive](https://github.com/totaldebug/atomic-calendar-revive) (MIT) | [totaldebug](https://github.com/totaldebug) | [Calendar](cards/calendar.md): the events of several calendars in one list, each in its colour. |
+| [custom_card_person_info](https://ui-lovelace-minimalist.github.io/UI/usage/custom_cards/custom_card_person_info/) from [UI Lovelace Minimalist](https://github.com/UI-Lovelace-Minimalist/UI) | [Jordan Janzen](https://github.com/jordandrako) | [People](cards/people.md): a round picture with where the person is and their phone's battery. |
 
 ## Data and pictures
 

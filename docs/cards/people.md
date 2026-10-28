@@ -2,7 +2,7 @@
 
 `custom:glass-people`
 
-The people of the household as round avatars: a badge for home or away, where they are (the zone's name and icon), and their phone's battery as a ring.
+The people of the household as round avatars: a badge for home or away, where they are (the zone's name and icon), and their phone's battery as a ring. The idea follows [custom_card_person_info](https://ui-lovelace-minimalist.github.io/UI/usage/custom_cards/custom_card_person_info/) by [Jordan Janzen](https://github.com/jordandrako), from UI Lovelace Minimalist.
 
 ![People](../images/cards/people.webp)
 
