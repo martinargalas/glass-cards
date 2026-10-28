@@ -1,6 +1,6 @@
 {
   "name": "glass-cards",
-  "version": "1.10.6",
+  "version": "1.10.7",
   "description": "Liquid / frosted glass cards for Home Assistant dashboards. Fast, themeable without card_mod.",
   "type": "module",
   "license": "MIT",
