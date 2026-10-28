@@ -381,7 +381,7 @@ export class GlassStudio extends LitElement {
   }
 
   /** Every node of the shown tree by object and by content, built once per config. */
-  private _index?: { cfg: Cfg; mode: string; byObj: Map<Cfg, Path>; byJson: Map<string, Path> };
+  private _index?: { cfg: Cfg; mode: string; byObj: Map<Cfg, Path>; byJson: Map<string, Path[]> };
   private _json = new WeakMap<Cfg, string>();
   private _jsonOf(c: Cfg) {
     let j = this._json.get(c);
@@ -389,15 +389,15 @@ export class GlassStudio extends LitElement {
     return j;
   }
 
-  /** Where a config object sits (same object, else the first equal one). */
-  private _find(target: Cfg): Path | undefined {
+  /** Where a config object sits: the same object, else an equal one – the one `el` shows, if given. */
+  private _find(target: Cfg, el?: Element): Path | undefined {
     let ix = this._index;
     if (!ix || ix.cfg !== this._config || ix.mode !== preview.mode) {
       ix = { cfg: this._config, mode: preview.mode, byObj: new Map(), byJson: new Map() };
       const visit = (c: Cfg, p: Path) => {
         ix!.byObj.set(c, p);
         const j = this._jsonOf(c);
-        if (!ix!.byJson.has(j)) ix!.byJson.set(j, p);
+        ix!.byJson.set(j, [...(ix!.byJson.get(j) ?? []), p]);
         const k = kids(c);
         if (k) walk(k.list, [...p, k.key]);
       };
@@ -410,7 +410,37 @@ export class GlassStudio extends LitElement {
         });
       this._index = ix;
     }
-    return ix.byObj.get(target) ?? ix.byJson.get(this._jsonOf(target));
+    const hit = ix.byObj.get(target);
+    if (hit) return hit;
+    const all = ix.byJson.get(this._jsonOf(target)) ?? [];
+    if (all.length < 2 || !el) return all[0];
+    // the same content in several places (two empty panels, say): the one in the area the
+    // element sits in, and among twins there the n-th on screen is the n-th in the config
+    const section = this._sectionOf(el);
+    const name = (section?.getAttribute("style") ?? "").match(/grid-area:\s*([\w-]+)/)?.[1];
+    const area = this._areas().find((x) => x.name === name || x.name === `areas.${name}`);
+    const here = area ? all.filter((p) => same(p.slice(0, area.path.length), area.path)) : all;
+    if (here.length < 2 || !section) return here[0] ?? all[0];
+    const json = this._jsonOf(target);
+    const twins: Element[] = [];
+    const walk = (n: Element | ShadowRoot, depth: number) => {
+      for (const x of n.querySelectorAll("*")) {
+        if (cardSource.has(x) && this._jsonOf(cardSource.get(x) as Cfg) === json) twins.push(x);
+        if (x.shadowRoot && depth < 8) walk(x.shadowRoot, depth + 1);
+      }
+    };
+    walk(section, 0);
+    return here[twins.indexOf(el)] ?? here[0];
+  }
+
+  /** The dashboard area (its `section.area`) an element of the preview sits in. */
+  private _sectionOf(el: Element): Element | undefined {
+    let n: Node | null = el;
+    while (n && n !== this._dash) {
+      if (n instanceof Element && n.localName === "section" && n.classList.contains("area")) return n;
+      n = (n as Element).parentNode instanceof ShadowRoot ? ((n as Element).parentNode as ShadowRoot).host : (n as Element).parentNode;
+    }
+    return undefined;
   }
 
   /* ── moving ────────────────────────────────────────────────────────────── */
@@ -573,7 +603,7 @@ export class GlassStudio extends LitElement {
     for (const n of e.composedPath()) {
       if (n === this._dash) break;
       if (n instanceof Element && cardSource.has(n)) {
-        const path = this._find(cardSource.get(n) as Cfg);
+        const path = this._find(cardSource.get(n) as Cfg, n);
         if (path) out.push({ el: n, path });
       }
     }
@@ -763,7 +793,7 @@ export class GlassStudio extends LitElement {
     const walk = (n: Element | ShadowRoot, depth: number) => {
       for (const el of n.querySelectorAll("*")) {
         if (cardSource.has(el)) {
-          const p = this._find(cardSource.get(el) as Cfg);
+          const p = this._find(cardSource.get(el) as Cfg, el);
           if (p && p.length === list.length + 1 && same(p.slice(0, -1), list)) out.set(p[p.length - 1] as number, el);
           continue; // not into a child's own children
         }
@@ -1117,7 +1147,7 @@ export class GlassStudio extends LitElement {
     const walk = (root: ShadowRoot | Element): Element | undefined => {
       for (const el of root.querySelectorAll("*")) {
         if (cardSource.has(el)) {
-          const p = this._find(cardSource.get(el) as Cfg);
+          const p = this._find(cardSource.get(el) as Cfg, el);
           if (p && same(p, this._sel)) return el;
         }
         if (el.shadowRoot) {
@@ -1200,7 +1230,7 @@ export class GlassStudio extends LitElement {
 
   /** A line between a grid panel's columns / rows dragged in the preview: on a phone its own mobile sizes if it has them. */
   private _panelResize(d: { panel: Element; key: "column_widths" | "row_heights"; value: string; mode: string }) {
-    const path = this._find(cardSource.get(d.panel) as Cfg);
+    const path = this._find(cardSource.get(d.panel) as Cfg, d.panel);
     if (!path) return;
     const card = get(this._config, path) as Cfg;
     const mob = d.mode === "mobile" ? card.responsive?.mobile : undefined;
@@ -1213,7 +1243,7 @@ export class GlassStudio extends LitElement {
 
   /** A card's edge dragged in a line / column panel: its view_layout width / height (on a phone its own mobile one if it has it). */
   private _cardResize(d: { card: Element; key: "width" | "height"; value?: string; mode: string }) {
-    const path = this._find(cardSource.get(d.card) as Cfg);
+    const path = this._find(cardSource.get(d.card) as Cfg, d.card);
     if (!path) return;
     const card = get(this._config, path) as Cfg;
     const size = (vl: Cfg | undefined): Cfg | undefined => {
