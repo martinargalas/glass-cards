@@ -22,7 +22,7 @@ let El = class {
     return this.cssText;
   }
 };
-const Ne = (s) => new El(typeof s == "string" ? s : s + "", void 0, wn), Q = (s, ...t) => {
+const Re = (s) => new El(typeof s == "string" ? s : s + "", void 0, wn), Q = (s, ...t) => {
   const e = s.length === 1 ? s[0] : t.reduce((o, a, i) => o + ((n) => {
     if (n._$cssResult$ === !0) return n.cssText;
     if (typeof n == "number") return n;
@@ -38,14 +38,14 @@ const Ne = (s) => new El(typeof s == "string" ? s : s + "", void 0, wn), Q = (s,
 }, Vn = vn ? (s) => s : (s) => s instanceof CSSStyleSheet ? ((t) => {
   let e = "";
   for (const o of t.cssRules) e += o.cssText;
-  return Ne(e);
+  return Re(e);
 })(s) : s;
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { is: zd, defineProperty: Ad, getOwnPropertyDescriptor: Cd, getOwnPropertyNames: Md, getOwnPropertySymbols: Pd, getPrototypeOf: Td } = Object, ui = globalThis, Yn = ui.trustedTypes, Ed = Yn ? Yn.emptyScript : "", Dd = ui.reactiveElementPolyfillSupport, No = (s, t) => s, ss = { toAttribute(s, t) {
+const { is: zd, defineProperty: Ad, getOwnPropertyDescriptor: Cd, getOwnPropertyNames: Md, getOwnPropertySymbols: Pd, getPrototypeOf: Td } = Object, ui = globalThis, Yn = ui.trustedTypes, Ed = Yn ? Yn.emptyScript : "", Dd = ui.reactiveElementPolyfillSupport, Ro = (s, t) => s, ss = { toAttribute(s, t) {
   switch (t) {
     case Boolean:
       s = s ? Ed : null;
@@ -103,13 +103,13 @@ let Ue = class extends HTMLElement {
     return this.elementProperties.get(t) ?? Kn;
   }
   static _$Ei() {
-    if (this.hasOwnProperty(No("elementProperties"))) return;
+    if (this.hasOwnProperty(Ro("elementProperties"))) return;
     const t = Td(this);
     t.finalize(), t.l !== void 0 && (this.l = [...t.l]), this.elementProperties = new Map(t.elementProperties);
   }
   static finalize() {
-    if (this.hasOwnProperty(No("finalized"))) return;
-    if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(No("properties"))) {
+    if (this.hasOwnProperty(Ro("finalized"))) return;
+    if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(Ro("properties"))) {
       const e = this.properties, o = [...Md(e), ...Pd(e)];
       for (const a of o) this.createProperty(a, e[a]);
     }
@@ -256,7 +256,7 @@ let Ue = class extends HTMLElement {
   firstUpdated(t) {
   }
 };
-Ue.elementStyles = [], Ue.shadowRootOptions = { mode: "open" }, Ue[No("elementProperties")] = /* @__PURE__ */ new Map(), Ue[No("finalized")] = /* @__PURE__ */ new Map(), Dd?.({ ReactiveElement: Ue }), (ui.reactiveElementVersions ??= []).push("2.1.2");
+Ue.elementStyles = [], Ue.shadowRootOptions = { mode: "open" }, Ue[Ro("elementProperties")] = /* @__PURE__ */ new Map(), Ue[Ro("finalized")] = /* @__PURE__ */ new Map(), Dd?.({ ReactiveElement: Ue }), (ui.reactiveElementVersions ??= []).push("2.1.2");
 /**
  * @license
  * Copyright 2017 Google LLC
@@ -264,18 +264,18 @@ Ue.elementStyles = [], Ue.shadowRootOptions = { mode: "open" }, Ue[No("elementPr
  */
 const xn = globalThis, Zn = (s) => s, Ea = xn.trustedTypes, Jn = Ea ? Ea.createPolicy("lit-html", { createHTML: (s) => s }) : void 0, Ll = "$lit$", le = `lit$${Math.random().toFixed(9).slice(2)}$`, Ol = "?" + le, Ld = `<${Ol}>`, Ee = document, Xo = () => Ee.createComment(""), Qo = (s) => s === null || typeof s != "object" && typeof s != "function", kn = Array.isArray, Od = (s) => kn(s) || typeof s?.[Symbol.iterator] == "function", fi = `[ 	
 \f\r]`, go = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, Xn = /-->/g, Qn = />/g, ge = RegExp(`>|${fi}(?:([^\\s"'>=/]+)(${fi}*=${fi}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), tr = /'/g, er = /"/g, Nl = /^(?:script|style|textarea|title)$/i, Rl = (s) => (t, ...e) => ({ _$litType$: s, strings: t, values: e }), h = Rl(1), N = Rl(2), De = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), or = /* @__PURE__ */ new WeakMap(), $e = Ee.createTreeWalker(Ee, 129);
+\f\r"'\`<>=]|("|')|))|$)`, "g"), tr = /'/g, er = /"/g, Rl = /^(?:script|style|textarea|title)$/i, Nl = (s) => (t, ...e) => ({ _$litType$: s, strings: t, values: e }), h = Nl(1), R = Nl(2), De = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), or = /* @__PURE__ */ new WeakMap(), $e = Ee.createTreeWalker(Ee, 129);
 function jl(s, t) {
   if (!kn(s) || !s.hasOwnProperty("raw")) throw Error("invalid template strings array");
   return Jn !== void 0 ? Jn.createHTML(t) : t;
 }
-const Nd = (s, t) => {
+const Rd = (s, t) => {
   const e = s.length - 1, o = [];
   let a, i = t === 2 ? "<svg>" : t === 3 ? "<math>" : "", n = go;
   for (let r = 0; r < e; r++) {
     const l = s[r];
     let c, d, p = -1, u = 0;
-    for (; u < l.length && (n.lastIndex = u, d = n.exec(l), d !== null); ) u = n.lastIndex, n === go ? d[1] === "!--" ? n = Xn : d[1] !== void 0 ? n = Qn : d[2] !== void 0 ? (Nl.test(d[2]) && (a = RegExp("</" + d[2], "g")), n = ge) : d[3] !== void 0 && (n = ge) : n === ge ? d[0] === ">" ? (n = a ?? go, p = -1) : d[1] === void 0 ? p = -2 : (p = n.lastIndex - d[2].length, c = d[1], n = d[3] === void 0 ? ge : d[3] === '"' ? er : tr) : n === er || n === tr ? n = ge : n === Xn || n === Qn ? n = go : (n = ge, a = void 0);
+    for (; u < l.length && (n.lastIndex = u, d = n.exec(l), d !== null); ) u = n.lastIndex, n === go ? d[1] === "!--" ? n = Xn : d[1] !== void 0 ? n = Qn : d[2] !== void 0 ? (Rl.test(d[2]) && (a = RegExp("</" + d[2], "g")), n = ge) : d[3] !== void 0 && (n = ge) : n === ge ? d[0] === ">" ? (n = a ?? go, p = -1) : d[1] === void 0 ? p = -2 : (p = n.lastIndex - d[2].length, c = d[1], n = d[3] === void 0 ? ge : d[3] === '"' ? er : tr) : n === er || n === tr ? n = ge : n === Xn || n === Qn ? n = go : (n = ge, a = void 0);
     const m = n === ge && s[r + 1].startsWith("/>") ? " " : "";
     i += n === go ? l + Ld : p >= 0 ? (o.push(c), l.slice(0, p) + Ll + l.slice(p) + le + m) : l + le + (p === -2 ? r : m);
   }
@@ -286,7 +286,7 @@ class ta {
     let a;
     this.parts = [];
     let i = 0, n = 0;
-    const r = t.length - 1, l = this.parts, [c, d] = Nd(t, e);
+    const r = t.length - 1, l = this.parts, [c, d] = Rd(t, e);
     if (this.el = ta.createElement(c, o), $e.currentNode = this.el.content, e === 2 || e === 3) {
       const p = this.el.content.firstChild;
       p.replaceWith(...p.childNodes);
@@ -297,7 +297,7 @@ class ta {
           const u = d[n++], m = a.getAttribute(p).split(le), f = /([.?@])?(.*)/.exec(u);
           l.push({ type: 1, index: i, name: f[2], strings: m, ctor: f[1] === "." ? jd : f[1] === "?" ? Bd : f[1] === "@" ? Id : mi }), a.removeAttribute(p);
         } else p.startsWith(le) && (l.push({ type: 6, index: i }), a.removeAttribute(p));
-        if (Nl.test(a.tagName)) {
+        if (Rl.test(a.tagName)) {
           const p = a.textContent.split(le), u = p.length - 1;
           if (u > 0) {
             a.textContent = Ea ? Ea.emptyScript : "";
@@ -324,7 +324,7 @@ function ao(s, t, e = s, o) {
   const i = Qo(t) ? void 0 : t._$litDirective$;
   return a?.constructor !== i && (a?._$AO?.(!1), i === void 0 ? a = void 0 : (a = new i(s), a._$AT(s, e, o)), o !== void 0 ? (e._$Co ??= [])[o] = a : e._$Cl = a), a !== void 0 && (t = ao(s, a._$AS(s, t.values), a, o)), t;
 }
-let Rd = class {
+let Nd = class {
   constructor(t, e) {
     this._$AV = [], this._$AN = void 0, this._$AD = t, this._$AM = e;
   }
@@ -386,7 +386,7 @@ class co {
     const { values: e, _$litType$: o } = t, a = typeof o == "number" ? this._$AC(t) : (o.el === void 0 && (o.el = ta.createElement(jl(o.h, o.h[0]), this.options)), o);
     if (this._$AH?._$AD === a) this._$AH.p(e);
     else {
-      const i = new Rd(a, this), n = i.u(this.options);
+      const i = new Nd(a, this), n = i.u(this.options);
       i.p(e), this.T(n), this._$AH = i;
     }
   }
@@ -2224,14 +2224,14 @@ const bi = {
     sidebar: "home",
     sidebar_areas: { mobile: ["header", "top"] }
   }
-}, $a = (s) => s && s in bi ? bi[s] : bi.liquid, Gl = Ne(`
+}, $a = (s) => s && s in bi ? bi[s] : bi.liquid, Gl = Re(`
     --glass-room-bg: linear-gradient(rgba(246, 246, 248, 0.8), rgba(246, 246, 248, 0.8));
     --glass-room-fg: #1c1c1e;
     --glass-room-fg-2: rgba(60, 60, 67, 0.68);
     --glass-room-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     --glass-room-solid: rgba(246, 246, 248, 0.94);
     --glass-room-level-filter: brightness(0.72) saturate(1.4);
-`), Vl = Ne(`
+`), Vl = Re(`
     --glass-surface: rgba(18, 20, 30, 0.38);
     --glass-surface-nested: rgba(255, 255, 255, 0.06);
     --glass-border: rgba(255, 255, 255, 0.12);
@@ -2361,7 +2361,7 @@ const bi = {
     color: var(--g-text);
     -webkit-tap-highlight-color: transparent;
   }
-`, zn = Ne(`
+`, zn = Re(`
     --glass-text: var(--glass-home-side-text, #fff);
     --glass-text-secondary: var(--glass-home-side-text-2, rgba(235, 235, 245, 0.6));
     --glass-text-shadow: none;
@@ -2373,7 +2373,7 @@ const bi = {
     --glass-divider-color: rgba(255, 255, 255, 0.28);
     --glass-divider-size: 2px;
     --glass-bar-mono: var(--glass-home-side-bar, rgba(255, 255, 255, 0.92));
-`), Kl = Ne(`
+`), Kl = Re(`
     --glass-text: #fff;
     --glass-text-secondary: rgba(255, 255, 255, 0.86);
     --glass-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.32), 0 0 10px rgba(0, 0, 0, 0.18);
@@ -2392,12 +2392,12 @@ const bi = {
     --glass-home-shadow: none;
     --glass-home-border: rgba(255, 255, 255, 0.22);
     --glass-home-control: rgba(22, 30, 46, 0.2);
-`), La = Ne(`
+`), La = Re(`
     --glass-accent-icon: var(--glass-side-icon, #fff);
     --glass-graph-color: #fff;
     --glass-graph-accent: #ff9f0a;
     --glass-graph-span: 0.28;
-`), Zl = Ne(`
+`), Zl = Re(`
     --glass-text: var(--glass-side-frosted-text, #2c2c2e);
     --glass-text-secondary: rgba(60, 60, 67, 0.7);
     --glass-text-shadow: none;
@@ -3831,7 +3831,7 @@ function sp(s) {
   }
   return t;
 }
-const R = (s, t, e, o, a, i = !0) => ({ key: s, kind: "text", sel: t, on: a, title: e, group: o, size: i }), Ht = (s) => ({ ...s, always: !0 }), ur = (s, t, e, o, a) => ({ key: s, kind: "icon", sel: t, on: a, title: e, group: o, svg: !0 }), X = (s, t, e, o, a) => ({ key: s, kind: "icon", sel: t, on: a, title: e, group: o }), np = (s) => s === void 0 || s === "" || s === null ? void 0 : typeof s == "number" || /^\d*\.?\d+$/.test(s) ? `${s}px` : s;
+const N = (s, t, e, o, a, i = !0) => ({ key: s, kind: "text", sel: t, on: a, title: e, group: o, size: i }), Ht = (s) => ({ ...s, always: !0 }), ur = (s, t, e, o, a) => ({ key: s, kind: "icon", sel: t, on: a, title: e, group: o, svg: !0 }), X = (s, t, e, o, a) => ({ key: s, kind: "icon", sel: t, on: a, title: e, group: o }), np = (s) => s === void 0 || s === "" || s === null ? void 0 : typeof s == "number" || /^\d*\.?\d+$/.test(s) ? `${s}px` : s;
 function ec(s, t, e) {
   let o = "";
   for (const a of [!1, !0])
@@ -3855,7 +3855,7 @@ function oc(s, t) {
   for (const [o, a] of Object.entries(t)) e[o] = ea(a) && ea(s[o]) ? oc(s[o], a) : a;
   return e;
 }
-function Ro(s, t) {
+function No(s, t) {
   const { dark: e, ...o } = s ?? {};
   if (!t || !ea(e)) return o;
   const { appearance: a, ...i } = e;
@@ -3909,7 +3909,7 @@ const qo = class qo extends Kt {
   }
   setConfig(t) {
     if (!t) throw new Error("Invalid configuration");
-    if (this._rawConfig = t, this._configNight = this.nightNow(), this._config = this.validateConfig(Ro(t, this._configNight)), this._watched = [...new Set([...this.watchedEntities(this._config)].filter(Boolean))], this._seen.clear(), this._hass) for (const e of this._watched) this._seen.set(e, this._hass.states[e]);
+    if (this._rawConfig = t, this._configNight = this.nightNow(), this._config = this.validateConfig(No(t, this._configNight)), this._watched = [...new Set([...this.watchedEntities(this._config)].filter(Boolean))], this._seen.clear(), this._hass) for (const e of this._watched) this._seen.set(e, this._hass.states[e]);
     this.requestUpdate();
   }
   /** Whether the card is dark now – the dashboard's day / night. */
@@ -4097,7 +4097,7 @@ const lp = /* @__PURE__ */ new Set([
   "or",
   "not",
   "conditions"
-]), cp = /^[a-z_]+\.[a-z0-9_]+$/, Na = (s) => typeof s == "string" && cp.test(s);
+]), cp = /^[a-z_]+\.[a-z0-9_]+$/, Ra = (s) => typeof s == "string" && cp.test(s);
 function lc(s, t, e) {
   if (!t) return;
   const o = s.states[t];
@@ -4105,7 +4105,7 @@ function lc(s, t, e) {
     return e ? o.attributes[e] : o.state;
 }
 function gr(s, t) {
-  return Na(t) ? Number(lc(s, t)) : Number(t);
+  return Ra(t) ? Number(lc(s, t)) : Number(t);
 }
 const be = (s) => Array.isArray(s) ? s : [s];
 function dt(s, t, e) {
@@ -4134,7 +4134,7 @@ function Mt(s, t, e = /* @__PURE__ */ new Set()) {
     return s.forEach((a) => Mt(a, t, e)), e;
   const o = s.entity ?? t;
   o && (s.state !== void 0 || s.state_not !== void 0 || s.above !== void 0 || s.below !== void 0) && e.add(o);
-  for (const a of ["above", "below"]) Na(s[a]) && e.add(s[a]);
+  for (const a of ["above", "below"]) Ra(s[a]) && e.add(s[a]);
   for (const a of ["and", "or", "not", "conditions"]) s[a] && Mt(s[a], t, e);
   return e;
 }
@@ -4147,7 +4147,7 @@ function cc(s) {
   for (const [o, a] of Object.entries(s)) (lp.has(o) ? t : e)[o] = a;
   return { when: t, set: e };
 }
-function Ra(s, t, e, o) {
+function Na(s, t, e, o) {
   if (!t?.length) return s;
   let a = s;
   for (const i of t) {
@@ -4159,7 +4159,7 @@ function Ra(s, t, e, o) {
 function ps(s, t, e = /* @__PURE__ */ new Set()) {
   return s?.forEach((o) => {
     const { when: a, set: i } = cc(o);
-    Mt(a, t, e), Na(i.entity) && e.add(i.entity), Array.isArray(i.entities) && i.entities.filter(Na).forEach((n) => e.add(n));
+    Mt(a, t, e), Ra(i.entity) && e.add(i.entity), Array.isArray(i.entities) && i.entities.filter(Ra).forEach((n) => e.add(n));
   }), e;
 }
 function hs(s) {
@@ -9482,7 +9482,7 @@ function bs(s) {
   }
   return Array.isArray(s) ? s.map(bs) : s && typeof s == "object" ? Object.fromEntries(Object.entries(s).map(([t, e]) => [t, bs(e)])) : s;
 }
-function Np(s, t) {
+function Rp(s, t) {
   switch (s.action) {
     case "toggle":
       return t && Ba(t.split(".")[0], "toggle", { entity_id: t }), !0;
@@ -9497,7 +9497,7 @@ function Np(s, t) {
       return !1;
   }
 }
-function Rp(s) {
+function Np(s) {
   if (s) return s;
   const t = (/* @__PURE__ */ new Date()).getHours(), e = (a, i = 0) => {
     const n = /* @__PURE__ */ new Date();
@@ -9557,7 +9557,7 @@ function Bp(s, t) {
 }
 const _r = /* @__PURE__ */ new Set();
 function mc(s) {
-  const t = s?.locale?.language ?? s?.language ?? navigator.language?.slice(0, 2) ?? "en", e = { ...ae, "sun.sun": Rp(s?.states?.["sun.sun"]) }, o = s?.connection, a = {
+  const t = s?.locale?.language ?? s?.language ?? navigator.language?.slice(0, 2) ?? "en", e = { ...ae, "sun.sun": Np(s?.states?.["sun.sun"]) }, o = s?.connection, a = {
     subscribeMessage: async (i, n) => {
       if (n.type === "weather/subscribe_forecast" && ae[String(n.entity_id)]) {
         const r = () => i({ type: n.forecast_type, forecast: Cp(String(n.forecast_type)) });
@@ -9617,7 +9617,7 @@ function mc(s) {
       }
       return s?.callApi ? s.callApi(i, n, r) : [];
     },
-    demo: { action: Np }
+    demo: { action: Rp }
   };
 }
 const zt = {
@@ -9721,7 +9721,7 @@ function vs(s) {
   return /^\d*\.?\d+$/.test(s) ? `minmax(0,${s}fr)` : s.endsWith("fr") ? `minmax(0,${s})` : ys(s);
 }
 function Ai(s) {
-  const t = Rt(s);
+  const t = Nt(s);
   return t.length ? t.map(vs).join(" ") : void 0;
 }
 function ws(s) {
@@ -9734,7 +9734,7 @@ function ws(s) {
     return i ? ws(Array(Number(i[1])).fill(i[2]).join(" ")) : [a];
   });
 }
-function Rt(s) {
+function Nt(s) {
   return s == null || s === "" ? [] : (Array.isArray(s) ? s.map(String) : String(s).split(/[\s,;]+/)).map((e) => e.trim()).filter(Boolean);
 }
 function fc(s, t, e, o) {
@@ -10639,7 +10639,7 @@ function _h(s) {
     t || o ? b("Everything inside takes the sidebar style. A panel with its own glass setting keeps it.") : ""
   ].filter(Boolean).join(" ");
 }
-function Nn(s) {
+function Rn(s) {
   let t = 0;
   const e = (i) => {
     !i || typeof i != "object" || (On(i) && t++, o(i.cards), i.card && e(i.card));
@@ -10679,7 +10679,7 @@ const Qa = class Qa extends Kt {
   /** The config being edited: at night (the Appearance tab's day / night switch) the night look,
    *  `dark:` merged in – what is changed then goes to `dark:` (see _emit). */
   get _config() {
-    return this._open?.night === 1 && this._cfg ? Ro(this._cfg, !0) : this._cfg;
+    return this._open?.night === 1 && this._cfg ? No(this._cfg, !0) : this._cfg;
   }
   set _config(t) {
     this._cfg = t;
@@ -11139,7 +11139,7 @@ const Qa = class Qa extends Kt {
       return h`<div class="list-hint">${b("Behind every card, glass or not. An image URL, e.g. /local/wallpapers/day.jpg, or one that comes with the cards, e.g. glass:hills-day; empty = the HA theme's.")}</div>
         ${this._form({ wallpaper: e.wallpaper ?? "" }, [{ name: "wallpaper", selector: { text: {} } }], (x) => this._emit({ ...e, wallpaper: x.wallpaper || void 0 }))}`;
     if (t === "foreign") {
-      const x = o ? Nn(e) : p, S = o ? "on this dashboard" : "in this panel";
+      const x = o ? Rn(e) : p, S = o ? "on this dashboard" : "in this panel";
       return x ? h`<div class="bubble-notice"><ha-icon .icon=${"mdi:information-outline"}></ha-icon><span>${x} ${b(x === 1 ? `card ${S} is not a glass card` : `cards ${S} are not glass cards`)} ${b("(from HA or HACS) – the glass and the colours set here do not reach them; they keep their own look.")}</span></div>` : h`<div class="list-hint">${b("Every card here is a glass card.")}</div>`;
     }
     if (t === "looks") {
@@ -12651,7 +12651,7 @@ const gt = (s, t) => ({ value: s, label: t }), vh = [
   ["Frosted glass", "frosted"],
   ["Light glass", "light"],
   ["Solid", "solid"]
-], Rn = ["glass", "tile_glass", "control_glass"], Lc = ["glass", "tile_glass", "control_glass"];
+], Nn = ["glass", "tile_glass", "control_glass"], Lc = ["glass", "tile_glass", "control_glass"];
 function lo(s) {
   const t = [], e = (o, a) => {
     if (o) {
@@ -12665,7 +12665,7 @@ function lo(s) {
 }
 function wh(s) {
   const t = {};
-  for (const o of Rn) s[o] !== void 0 && (t[o] = s[o]);
+  for (const o of Nn) s[o] !== void 0 && (t[o] = s[o]);
   const e = {};
   for (const [o, a] of lo(s))
     a.forEach((i, n) => {
@@ -12679,7 +12679,7 @@ function wh(s) {
 function xh(s, t, e) {
   const o = structuredClone(s);
   e && (o.custom_look = wh(s)), t === "liquid" ? delete o.look : o.look = t;
-  for (const a of Rn) delete o[a];
+  for (const a of Nn) delete o[a];
   for (const [, a] of lo(o))
     for (const i of a)
       !i || typeof i != "object" || (i.glass !== "none" && delete i.glass, delete i.tile_glass, delete i.control_glass);
@@ -12695,7 +12695,7 @@ function $h(s) {
   if (!t) return s;
   const e = structuredClone(s);
   t.look ? e.look = t.look : delete e.look;
-  for (const o of Rn)
+  for (const o of Nn)
     t[o] !== void 0 ? e[o] = t[o] : delete e[o];
   for (const [o, a] of lo(e))
     a.forEach((i, n) => {
@@ -12716,7 +12716,7 @@ const wt = {
   }
 };
 ({ ...wt });
-const Re = { ...wt, name: "control_glass" };
+const Ne = { ...wt, name: "control_glass" };
 function Lt(s, t, e = !1, o = !0) {
   const a = (i, n) => ({
     type: "grid",
@@ -12855,68 +12855,68 @@ const z = (...s) => ({ type: "grid", name: "", schema: s }), ht = (s, t) => ({ t
     background: var(--mat-sheen, linear-gradient(transparent, transparent)), linear-gradient(var(--mat-tint, transparent), var(--mat-tint, transparent));
     box-shadow: none;
   }
-`, jn = ".btn ha-icon, .btn ha-state-icon", Nc = (s) => `${s} .btn ha-icon, ${s} .btn ha-state-icon`, Rc = [
-  R("name", ".name", "Room name", "Room"),
+`, jn = ".btn ha-icon, .btn ha-state-icon", Rc = (s) => `${s} .btn ha-icon, ${s} .btn ha-state-icon`, Nc = [
+  N("name", ".name", "Room name", "Room"),
   X("room_icon", ".ricon", "Room icon", "Room"),
-  R("light", ".lname", "Light name", "Bars", ".lbar.on .lname"),
-  R("state", ".lstate", "Light state", "Bars", ".lbar.on .lstate"),
-  R("label", ".slabel", "Button label", "Bars", ".bitem:has(.btn[aria-pressed='true']) .slabel"),
-  X("icon", jn, "Icon", "Icon", `${Nc(".lbar.on")}, .btn[aria-pressed='true'] ha-icon, .btn[aria-pressed='true'] ha-state-icon`),
+  N("light", ".lname", "Light name", "Bars", ".lbar.on .lname"),
+  N("state", ".lstate", "Light state", "Bars", ".lbar.on .lstate"),
+  N("label", ".slabel", "Button label", "Bars", ".bitem:has(.btn[aria-pressed='true']) .slabel"),
+  X("icon", jn, "Icon", "Icon", `${Rc(".lbar.on")}, .btn[aria-pressed='true'] ha-icon, .btn[aria-pressed='true'] ha-state-icon`),
   X("modes", ".mode ha-icon", "Mode icons", "Modes", ".mode.cur ha-icon"),
   X("presets", ".segb ha-icon", "Preset icons", "Presets", ".segb.cur ha-icon"),
   X("scenes", ".sbtn ha-icon", "Scene icons", "Scenes", ".sbtn.cur ha-icon")
 ], jc = [
-  R("name", ".name", "Room name", "Room"),
-  R("sub", ".sub", "Room subtitle", "Room"),
+  N("name", ".name", "Room name", "Room"),
+  N("sub", ".sub", "Room subtitle", "Room"),
   X("room_icon", ".ricon", "Room icon", "Room"),
-  R("position", ".bar.lbar .blabel", "Position text", "Bars", ".bar.lbar.on .blabel"),
-  R("slats", ".bar.thin .blabel, .bval", "Slats text", "Bars"),
+  N("position", ".bar.lbar .blabel", "Position text", "Bars", ".bar.lbar.on .blabel"),
+  N("slats", ".bar.thin .blabel, .bval", "Slats text", "Bars"),
   X("glyph", ".bicon", "Bar glyphs", "Bars"),
   ur("icon", ".btn svg.glyph", "Icon", "Icon", ".bar.lbar.on .btn svg.glyph"),
   X("positions", ".mode ha-icon", "Position button icons", "Quick choices"),
   ur("tilts", ".round.side svg.glyph", "Tilt button icons", "Quick choices", ".round.side.cur svg.glyph"),
   X("pause", ".round.pause ha-icon", "Pause icon", "Pause button")
 ], Bc = [
-  R("name", ".name", "Name", "Text"),
-  R("value", ".val, .val small", "Temperature", "Text"),
-  R("hilo", ".hilo", "Min / max", "Text"),
-  R("inline", ".ival, .ival small", "Value on the name's line", "Text"),
-  R("setpoint", ".sp", "Setpoint", "− / + buttons"),
-  X("icon", jn, "Icon", "Icon", Nc(".frame.on")),
+  N("name", ".name", "Name", "Text"),
+  N("value", ".val, .val small", "Temperature", "Text"),
+  N("hilo", ".hilo", "Min / max", "Text"),
+  N("inline", ".ival, .ival small", "Value on the name's line", "Text"),
+  N("setpoint", ".sp", "Setpoint", "− / + buttons"),
+  X("icon", jn, "Icon", "Icon", Rc(".frame.on")),
   X("steps", ".set ha-icon", "− / + icons", "− / + buttons")
 ], Ic = [
-  R("name", ".name", "Name", "Text"),
-  R("info", ".info", "Info line", "Text"),
-  R("badge", ".badge", "Badges", "Text"),
-  R("label", ".label", "Button labels", "Text"),
-  R("tile_name", ".tile .nm", "Tile name", "Text", ".tile.lit .nm"),
-  R("tile_state", ".tile .st, .txt.stack .st", "Tile state", "Text", ".tile.lit .st"),
+  N("name", ".name", "Name", "Text"),
+  N("info", ".info", "Info line", "Text"),
+  N("badge", ".badge", "Badges", "Text"),
+  N("label", ".label", "Button labels", "Text"),
+  N("tile_name", ".tile .nm", "Tile name", "Text", ".tile.lit .nm"),
+  N("tile_state", ".tile .st, .txt.stack .st", "Tile state", "Text", ".tile.lit .st"),
   // the room icon: above the buttons, or in place of the photo on a tile without one
   X("icon", ".room-icon, .pic.none ha-icon", "Room icon", "Icons"),
   X("info", ".info ha-icon", "Info icons", "Icons"),
   X("badge", ".badge ha-icon", "Badge icons", "Icons"),
   X("buttons", jn, "Button icons", "Icons", ".btn.active ha-icon, .btn.active ha-state-icon, .btn.mat.on ha-icon, .btn.mat.on ha-state-icon")
 ], qc = [
-  R("chip", ".chip", "Chip text", "Text", ".chip.active"),
-  R("name", ".primary", "Pill name", "Text"),
-  R("value", ".secondary", "Pill value", "Text"),
-  R("detail", ".detail", "Attribute on the right", "Text"),
-  R("row", ".row", "Row text", "Text", ".row.lit"),
-  R("figure_name", ".fname", "Figure name", "Text"),
-  R("figure", ".fval", "Figure value", "Text"),
-  R("figure_sub", ".fsub", "Figure note", "Text"),
-  Ht(R("menu", ".menu button", "Menu text", "Text", ".menu button.cur")),
+  N("chip", ".chip", "Chip text", "Text", ".chip.active"),
+  N("name", ".primary", "Pill name", "Text"),
+  N("value", ".secondary", "Pill value", "Text"),
+  N("detail", ".detail", "Attribute on the right", "Text"),
+  N("row", ".row", "Row text", "Text", ".row.lit"),
+  N("figure_name", ".fname", "Figure name", "Text"),
+  N("figure", ".fval", "Figure value", "Text"),
+  N("figure_sub", ".fsub", "Figure note", "Text"),
+  Ht(N("menu", ".menu button", "Menu text", "Text", ".menu button.cur")),
   X("chip", ".chip ha-icon", "Chip icons", "Icons", ".chip.active ha-icon"),
   X("icon", ".ico ha-icon", "Pill icons", "Icons", ".ico.on ha-icon, .ico.active ha-icon"),
   X("row", ".row ha-icon", "Row icons", "Icons", ".row.lit ha-icon")
 ], Fc = [
-  R("title", ".title", "Title", "Text"),
-  R("node", ".nval", "Node values", "Text"),
-  R("chip", ".chip", "Chips", "Text"),
-  R("label", ".lbl, .gtitle", "Labels", "Text"),
-  R("setpoint", ".sp", "Setpoint", "Text"),
-  R("mode", ".segb", "Mode buttons", "Text", ".segb.cur"),
-  R("summary", ".sum, .svc", "Summary", "Text"),
+  N("title", ".title", "Title", "Text"),
+  N("node", ".nval", "Node values", "Text"),
+  N("chip", ".chip", "Chips", "Text"),
+  N("label", ".lbl, .gtitle", "Labels", "Text"),
+  N("setpoint", ".sp", "Setpoint", "Text"),
+  N("mode", ".segb", "Mode buttons", "Text", ".segb.cur"),
+  N("summary", ".sum, .svc", "Summary", "Text"),
   X("node", ".node ha-icon", "Node icons", "Icons", ".node.lit ha-icon"),
   X("chip", ".chip ha-icon", "Chip icons", "Icons"),
   X("label", ".lbl ha-icon, .gtitle ha-icon", "Label icons", "Icons"),
@@ -12924,93 +12924,93 @@ const z = (...s) => ({ type: "grid", name: "", schema: s }), ht = (s, t) => ({ t
   X("mode", ".segb ha-icon", "Mode icons", "Icons", ".segb.cur ha-icon"),
   X("summary", ".sum ha-icon", "Summary icons", "Icons")
 ], mo = [
-  R("title", ".gtitle", "Title", "Text"),
-  R("label", ".lbl", "Labels", "Text"),
-  R("setpoint", ".sp", "Values", "Text"),
-  R("hint", ".hint, .pnote", "Notes", "Text"),
-  R("pause", ".pbtn, .ptime", "Pause", "Text"),
-  Ht(R("menu", ".pmenu button", "Menu text", "Text", ".pmenu button.cur")),
-  R("sky", ".skytext, .skytext .v2, .dec", "Sun", "Text"),
-  R("head", ".head", "Column heads", "Text", ".head.cur"),
-  R("level", ".lvl, .dash", "Values in the grid", "Text"),
+  N("title", ".gtitle", "Title", "Text"),
+  N("label", ".lbl", "Labels", "Text"),
+  N("setpoint", ".sp", "Values", "Text"),
+  N("hint", ".hint, .pnote", "Notes", "Text"),
+  N("pause", ".pbtn, .ptime", "Pause", "Text"),
+  Ht(N("menu", ".pmenu button", "Menu text", "Text", ".pmenu button.cur")),
+  N("sky", ".skytext, .skytext .v2, .dec", "Sun", "Text"),
+  N("head", ".head", "Column heads", "Text", ".head.cur"),
+  N("level", ".lvl, .dash", "Values in the grid", "Text"),
   X("label", ".lbl ha-icon, .head ha-icon", "Label icons", "Icons"),
   X("steps", ".set ha-icon", "− / + icons", "Icons"),
   X("pause", ".pbtn ha-icon, .pmenu ha-icon", "Pause icons", "Icons")
 ], Hc = [X("icon", ".btn ha-icon", "Icons", "Icons", ".btn.on ha-icon")], Wc = [
-  R("title", ".title", "Title", "Text"),
-  R("what", ".a", "What runs", "Text"),
-  R("detail", ".b", "Detail", "Text"),
-  Ht(R("empty", ".empty", "Nothing running", "Text")),
+  N("title", ".title", "Title", "Text"),
+  N("what", ".a", "What runs", "Text"),
+  N("detail", ".b", "Detail", "Text"),
+  Ht(N("empty", ".empty", "Nothing running", "Text")),
   X("icon", ".ic", "Icons", "Icons"),
   X("button", ".end ha-icon, .end", "Button icons", "Icons")
 ], Uc = [
-  R("title", ".title", "Title", "Text"),
-  R("message", ".msg", "Message", "Text"),
-  R("more", ".more", "More", "Text"),
-  R("ago", ".ago", "Time", "Text"),
+  N("title", ".title", "Title", "Text"),
+  N("message", ".msg", "Message", "Text"),
+  N("more", ".more", "More", "Text"),
+  N("ago", ".ago", "Time", "Text"),
   X("level", ".lvl", "Level icons", "Icons"),
   X("close", ".x ha-icon", "Close icon", "Icons")
 ].map(Ht), Gc = [
-  R("name", ".name", "Name", "Text"),
-  R("info", ".info, .loc", "Place", "Text"),
-  R("initials", ".initials", "Initials", "Text"),
+  N("name", ".name", "Name", "Text"),
+  N("info", ".info, .loc", "Place", "Text"),
+  N("initials", ".initials", "Initials", "Text"),
   X("battery", ".battery ha-icon", "Battery icon", "Icons"),
   X("badge", ".badge ha-icon", "Badge icon", "Icons")
 ], Vc = [
-  R("label", ".label", "Period", "Text"),
-  R("now", ".now", "Now button", "Text", ".now.on"),
-  R("drop", ".drop span", "Period picker", "Text", ".drop.open span"),
-  Ht(R("menu", ".menu button", "Menu text", "Text", ".menu button.cur")),
+  N("label", ".label", "Period", "Text"),
+  N("now", ".now", "Now button", "Text", ".now.on"),
+  N("drop", ".drop span", "Period picker", "Text", ".drop.open span"),
+  Ht(N("menu", ".menu button", "Menu text", "Text", ".menu button.cur")),
   X("arrows", "ha-icon", "Icons", "Icons"),
   X("now", ".now-icon", "Now icon", "Icons"),
   Ht(X("menu", ".menu ha-icon", "Menu icons", "Icons"))
 ], Yc = [
-  R("title", ".title", "Title", "Text"),
-  R("day", ".label", "Day", "Text"),
-  R("event", ".ev", "Event", "Text"),
-  R("time", ".ev .time", "Event time", "Text"),
-  R("place", ".loc", "Place", "Text"),
-  R("more", ".more, .empty", "Notes", "Text")
+  N("title", ".title", "Title", "Text"),
+  N("day", ".label", "Day", "Text"),
+  N("event", ".ev", "Event", "Text"),
+  N("time", ".ev .time", "Event time", "Text"),
+  N("place", ".loc", "Place", "Text"),
+  N("more", ".more, .empty", "Notes", "Text")
 ], Kc = [
-  R("time", ".time, .ampm", "Time", "Clock"),
-  R("date", ".date", "Date under the time", "Clock"),
-  R("temperature", ".temp, .c-temp", "Temperature", "Text"),
-  R("condition", ".cond, .c-cond, .forecast-text", "Condition", "Text"),
-  R("details", ".details span, .details small", "Details (humidity, wind…)", "Details"),
-  R("forecast_time", ".when", "Forecast time", "Forecast"),
-  R("forecast", ".forecast-cols .t, .forecast .t", "Forecast temperature", "Forecast"),
-  R("hilo", ".hilo", "Min / max", "Text"),
-  R("precip", ".precip, .rain", "Precipitation", "Text"),
+  N("time", ".time, .ampm", "Time", "Clock"),
+  N("date", ".date", "Date under the time", "Clock"),
+  N("temperature", ".temp, .c-temp", "Temperature", "Text"),
+  N("condition", ".cond, .c-cond, .forecast-text", "Condition", "Text"),
+  N("details", ".details span, .details small", "Details (humidity, wind…)", "Details"),
+  N("forecast_time", ".when", "Forecast time", "Forecast"),
+  N("forecast", ".forecast-cols .t, .forecast .t", "Forecast temperature", "Forecast"),
+  N("hilo", ".hilo", "Min / max", "Text"),
+  N("precip", ".precip, .rain", "Precipitation", "Text"),
   X("weather", ".big-icon ha-icon.mdi, .c-icon ha-icon.mdi, .line-icon ha-icon", "Weather icon (MDI)", "Icons"),
   X("forecast", ".mini-icon ha-icon.mdi", "Forecast icons (MDI)", "Icons"),
   X("details", ".details ha-icon:not(.arrow)", "Details icons", "Details")
 ], Zc = [
-  R("title", ".title", "Date", "Text"),
-  R("lines", ".line, .line span", "Lines (name day…)", "Text"),
+  N("title", ".title", "Date", "Text"),
+  N("lines", ".line, .line span", "Lines (name day…)", "Text"),
   X("lines", "ha-icon", "Line icons", "Icons")
 ], Jc = [
-  R("title", ".title", "Title", "Text"),
-  R("name", ".name", "Name", "Text"),
-  R("index", ".big", "Index", "Text"),
-  R("label", ".label", "Pollutant name", "Text"),
-  R("value", ".val", "Pollutant value", "Text"),
-  R("level", ".lvl", "Level", "Text")
+  N("title", ".title", "Title", "Text"),
+  N("name", ".name", "Name", "Text"),
+  N("index", ".big", "Index", "Text"),
+  N("label", ".label", "Pollutant name", "Text"),
+  N("value", ".val", "Pollutant value", "Text"),
+  N("level", ".lvl", "Level", "Text")
 ], Xc = [
-  R("title", ".title", "Title", "Text"),
-  Ht(R("time", ".time", "Time", "Text")),
-  Ht(R("tab", ".styles button", "Tab text", "Text", ".styles button.on")),
+  N("title", ".title", "Title", "Text"),
+  Ht(N("time", ".time", "Time", "Text")),
+  Ht(N("tab", ".styles button", "Tab text", "Text", ".styles button.on")),
   Ht(X("zoom", ".zoom button", "Zoom icons", "Icons")),
   Ht(X("play", ".play", "Play icon", "Icons"))
-], Qc = [R("title", ".title", "Title", "Text"), X("title", ".title ha-icon", "Title icon", "Icons")], td = [R("head", ".head", "Heading", "Text"), X("head", ".head ha-icon", "Heading icon", "Icons")], ed = [
-  R("name", ".name", "Name", "Bar"),
+], Qc = [N("title", ".title", "Title", "Text"), X("title", ".title ha-icon", "Title icon", "Icons")], td = [N("head", ".head", "Heading", "Text"), X("head", ".head ha-icon", "Heading icon", "Icons")], ed = [
+  N("name", ".name", "Name", "Bar"),
   X("icon", ".ico ha-icon", "Icon", "Icon"),
-  R("buttons", ".act", "Button text", "Buttons", ".act:not(.off)"),
+  N("buttons", ".act", "Button text", "Buttons", ".act:not(.off)"),
   X("buttons", ".act ha-icon", "Button icons", "Buttons", ".act:not(.off) ha-icon"),
   X("close", ".close ha-icon", "Close icon", "Close button")
 ], Es = [
-  R("axis", ".apexcharts-yaxis-label", "Value labels", "Text"),
-  R("time", ".apexcharts-xaxis-label", "Time labels", "Text"),
-  R("tooltip", ".apexcharts-tooltip, .apexcharts-tooltip-title", "Tooltip", "Text")
+  N("axis", ".apexcharts-yaxis-label", "Value labels", "Text"),
+  N("time", ".apexcharts-xaxis-label", "Time labels", "Text"),
+  N("tooltip", ".apexcharts-tooltip, .apexcharts-tooltip-title", "Tooltip", "Text")
 ].map(Ht), aa = [
   ["start", "Left / top"],
   ["center", "Center"],
@@ -13034,7 +13034,7 @@ const z = (...s) => ({ type: "grid", name: "", schema: s }), ht = (s, t) => ({ t
   ["light", "Always light"],
   ["dark", "Always dark"]
 ], Ch = { liquid: "Liquid glass", "apple-home": "Apple Home", frosted: "Frosted glass", light: "Light glass", solid: "Solid" };
-function Nr(s, t, e = {}, o = 0) {
+function Rr(s, t, e = {}, o = 0) {
   const a = t.filter((i) => s[i] !== void 0 && s[i] !== "").length + Object.entries(e).filter(([i, n]) => s[i] !== void 0 && s[i] !== n).length + o;
   return a ? `${a} ${b(a === 1 ? "setting" : "settings")}` : b("Default");
 }
@@ -13166,7 +13166,7 @@ const Mh = {
         schema: [
           { ...wt, group: "Card" },
           { ...eo("glass_tint", "Glass color"), group: "Card" },
-          { ...Re, group: "Buttons" },
+          { ...Ne, group: "Buttons" },
           ...t === "pills" ? [
             ...j(
               "Pill",
@@ -13264,7 +13264,7 @@ const Mh = {
       ["text", "Icon and percent"],
       ["ring", "Ring around the photo"]
     ]),
-    ht("Advanced", [wt, eo("glass_tint", "Glass color"), Re, V("styles")])
+    ht("Advanced", [wt, eo("glass_tint", "Glass color"), Ne, V("styles")])
   ],
   lists: [
     {
@@ -13285,7 +13285,7 @@ const Mh = {
       ]
     }
   ]
-}, Oh = ["image-full", "compact"], Nh = ["image-left", "image-right"], Rr = (s) => [
+}, Oh = ["image-full", "compact"], Rh = ["image-left", "image-right"], Nr = (s) => [
   { name: "entity", selector: { entity: {} } },
   z({ name: "icon", selector: { icon: {} } }, { name: "icon_active", selector: { icon: {} } }),
   z(B("active_color"), Oc),
@@ -13307,11 +13307,11 @@ const Mh = {
   { group: vo, value: "image-background", label: "Photo, buttons below", rows: [["p"], ["p"], ["b"]] },
   { group: jr, value: "image-full", label: "Photo with a bar", rows: [["p", "p"], ["p", "p"], ["n", "b"]] },
   { group: jr, value: "compact", label: "Low strip", rows: [["p", "n", "n", "b"]] }
-], Rh = {
+], Nh = {
   parts: Ic,
   defaults: { layout: "stacked", show_icon: !0, image_opacity: 1, image_fade: 50, image_position: "center", status: "auto" },
   form: (s) => {
-    const t = s.layout ?? "stacked", e = Oh.includes(t), o = Nh.includes(t), a = t === "image-background", i = (p, u, m, f, y) => ({
+    const t = s.layout ?? "stacked", e = Oh.includes(t), o = Rh.includes(t), a = t === "image-background", i = (p, u, m, f, y) => ({
       name: p,
       label: f,
       selector: { number: { min: u, max: m, mode: "box", ...y ? { unit_of_measurement: y } : {} } }
@@ -13470,7 +13470,7 @@ const Mh = {
             },
             eo("bar_tint", "Bar color")
           ] : [],
-          { ...Re, label: "Button material" },
+          { ...Ne, label: "Button material" },
           eo("control_tint", "Button color"),
           V("rules"),
           V("styles")
@@ -13488,14 +13488,14 @@ const Mh = {
       title: "Entity buttons",
       label: (s) => s.name ?? Pt(s.entity) ?? "Entity",
       create: () => ({ entity: "" }),
-      item: Rr
+      item: Nr
     },
     {
       name: "contextual",
       title: "Contextual buttons",
       label: (s) => s.name ?? Pt(s.entity) ?? "Entity",
       create: () => ({ entity: "" }),
-      item: Rr
+      item: Nr
     },
     {
       name: "info",
@@ -13686,11 +13686,11 @@ const Bh = {
     ),
     ...t === "grid" ? [
       // own widths / heights set the count themselves: the plain count only without them
-      ...Rt(s.column_widths).length && Rt(s.row_heights).length ? [] : [
+      ...Nt(s.column_widths).length && Nt(s.row_heights).length ? [] : [
         z(
           ...[
-            Rt(s.column_widths).length ? void 0 : { name: "columns", selector: { number: { min: 1, max: 8, mode: "box" } } },
-            Rt(s.row_heights).length || s.masonry ? void 0 : { name: "rows", selector: { number: { min: 1, max: 8, mode: "box" } } }
+            Nt(s.column_widths).length ? void 0 : { name: "columns", selector: { number: { min: 1, max: 8, mode: "box" } } },
+            Nt(s.row_heights).length || s.masonry ? void 0 : { name: "rows", selector: { number: { min: 1, max: 8, mode: "box" } } }
           ].filter(Boolean)
         )
       ],
@@ -13745,7 +13745,7 @@ const Bh = {
   defaults: { layout: "column", gap: 16, align: "stretch", justify: "start", wrap: !1, columns: 3 },
   // own column widths / row heights: the count follows them
   adjust: (s, t) => {
-    const e = { ...s }, o = Rt(e.column_widths), a = Rt(e.row_heights);
+    const e = { ...s }, o = Nt(e.column_widths), a = Nt(e.row_heights);
     return e.column_widths !== t.column_widths && o.length && (e.columns = o.length), e.row_heights !== t.row_heights && a.length && (e.rows = a.length), e;
   },
   form: Ir,
@@ -13765,7 +13765,7 @@ const Bh = {
           title: "Cards that are not glass",
           blocks: ["foreign"],
           summary: (s) => {
-            const t = Nn(s);
+            const t = Rn(s);
             return t ? `${t} ${b(t === 1 ? "card" : "cards")}` : b("None");
           }
         }
@@ -13834,7 +13834,7 @@ const Bh = {
             z({ name: "padding", selector: { text: {} } }, { name: "offset", selector: { text: {} } }),
             { name: "dock_space", selector: { number: { min: 0, max: 200, mode: "box", unit_of_measurement: "px" } } }
           ],
-          summary: (s) => Nr(s, ["left_width", "column_widths", "row_heights", "padding", "offset", "dock_space"], { gap: 22 })
+          summary: (s) => Rr(s, ["left_width", "column_widths", "row_heights", "padding", "offset", "dock_space"], { gap: 22 })
         },
         {
           key: "demo",
@@ -13875,7 +13875,7 @@ const Bh = {
           title: "Cards that are not glass",
           blocks: ["foreign", "popupTheme"],
           summary: (s) => {
-            const t = Nn(s);
+            const t = Rn(s);
             return t ? `${t} ${b(t === 1 ? "card" : "cards")}` : b("None");
           }
         },
@@ -13884,7 +13884,7 @@ const Bh = {
           title: "For advanced users",
           blocks: ["tuning"],
           form: [V("styles")],
-          summary: (s) => Nr(s, ["styles"], {}, Object.keys(s.liquid ?? {}).length)
+          summary: (s) => Rr(s, ["styles"], {}, Object.keys(s.liquid ?? {}).length)
         }
       ]
     }
@@ -14366,7 +14366,7 @@ const Bh = {
         key: "look",
         title: "Look",
         schema: [
-          ...j("Bars", { ...Re, label: "Material of the controls" }),
+          ...j("Bars", { ...Ne, label: "Material of the controls" }),
           ...j("Bars", z({ ...O("bar_glass", [["", "Default"], ...Z]), label: "Bar material" }, { ...B("bar_color"), label: "Bar colour" })),
           ...j("Bars", z({ ...O("picked_glass", [["", "Default"], ...Z]), label: "Picked bar material" }, { ...B("picked_color"), label: "Picked bar colour" })),
           ...j("Bars", z({ ...B("active_color"), label: "Colour at work" }, { ...B("fill_color"), label: "Fill colour" })),
@@ -14598,10 +14598,10 @@ const Bh = {
       ]
     },
     { custom: "section", key: "actions", title: "Actions", schema: Jt(s, ["tap_action", "hold_action", "double_tap_action"]) },
-    { custom: "section", key: "advanced", title: "Advanced", schema: [Re, V("styles")] }
+    { custom: "section", key: "advanced", title: "Advanced", schema: [Ne, V("styles")] }
   ]
 }, Qh = {
-  parts: Rc,
+  parts: Nc,
   defaults: { active_color: "yellow", show_name: !0, layout: "bars", fill_style: "fade", fill_strength: 34, fill_source: "light" },
   form: (s) => [
     {
@@ -14689,7 +14689,7 @@ const Bh = {
       title: "Advanced",
       schema: [
         ...j("Card", { ...wt, label: "Tile material" }),
-        ...j("Buttons", { ...Re, label: "Bars and buttons material" }),
+        ...j("Buttons", { ...Ne, label: "Bars and buttons material" }),
         V("styles")
       ]
     }
@@ -14888,7 +14888,7 @@ const tu = {
       key: "look",
       title: "Look",
       schema: [
-        ...j("Bars", { ...Re, label: "Material of the bars" }),
+        ...j("Bars", { ...Ne, label: "Material of the bars" }),
         ...j("Bars", z({ ...O("bar_glass", [["", "Default"], ...Z]), label: "Position bar material" }, { ...B("bar_color"), label: "Position bar colour" })),
         ...j("Bars", z({ ...O("slats_glass", [["", "Default"], ...Z]), label: "Slats bar material" }, { ...B("slats_color"), label: "Slats bar colour" })),
         ...j(
@@ -15758,7 +15758,7 @@ const Ho = class Ho extends H {
             <stop offset="1" stop-color="currentColor" stop-opacity="0"></stop>
           </linearGradient>
         </defs>
-        ${d ? N`<path class="area" d=${`${d}L100,100L0,100Z`}></path>` : g}
+        ${d ? R`<path class="area" d=${`${d}L100,100L0,100Z`}></path>` : g}
       </svg>
       ${d ? h`<svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="line" d=${d}></path></svg>` : g}
     </div>`;
@@ -15766,7 +15766,7 @@ const Ho = class Ho extends H {
   _chip(t, e) {
     const o = this._hass;
     if (!dt(t.visible, o, t.entity)) return g;
-    const a = Ra(t, t.rules, o, t.entity);
+    const a = Na(t, t.rules, o, t.entity);
     if (a.hidden) return g;
     const i = a.entity ? o.states[a.entity] : void 0;
     if ((a.hide_unavailable ?? !0) && a.entity && !a.entities && ro(i)) return g;
@@ -16293,8 +16293,8 @@ Ho.parts = qc, Ho.properties = { ...H.properties, _menu: { state: !0 } }, Ho.sty
       }
     `
 ];
-let Ns = Ho;
-lt("glass-status-bar", Ns, {
+let Rs = Ho;
+lt("glass-status-bar", Rs, {
   name: "Glass – status bar",
   description: "Chips with entity values, conditional icons, colors and animations."
 });
@@ -16368,7 +16368,7 @@ const ti = class ti extends H {
     const a = o ?? Math.max(2, Math.round(t * 0.065 * 2) / 2), i = (t - a) / 2, n = 2 * Math.PI * i, r = n * e / 100;
     return h`<svg class="arc" viewBox="0 0 ${t} ${t}" aria-hidden="true">
       <circle class="track" cx=${t / 2} cy=${t / 2} r=${i} stroke-width=${a}></circle>
-      ${e > 0 ? N`<circle
+      ${e > 0 ? R`<circle
             class="level"
             cx=${t / 2}
             cy=${t / 2}
@@ -16377,7 +16377,7 @@ const ti = class ti extends H {
             stroke-dasharray="${r} ${n}"
             transform="rotate(-90 ${t / 2} ${t / 2})"
           ></circle>` : g}
-      ${e > 0 ? N`<circle
+      ${e > 0 ? R`<circle
             class="spark"
             cx=${t / 2}
             cy=${t / 2}
@@ -16617,8 +16617,8 @@ ti.parts = Gc, ti.styles = [
       }
     `
 ];
-let Rs = ti;
-lt("glass-people", Rs, {
+let Ns = ti;
+lt("glass-people", Ns, {
   name: "Glass – people",
   description: "Avatar, location and phone battery for each person."
 });
@@ -17575,7 +17575,7 @@ const oi = class oi extends H {
     t.style.setProperty("-webkit-mask", i), t.style.setProperty("mask", i);
   }
   static getConfigElement() {
-    return ct(Rh);
+    return ct(Nh);
   }
   /** A setting of the nearest panel / dashboard above that has it (their per-device config). */
   _inherited(t) {
@@ -17618,7 +17618,7 @@ const oi = class oi extends H {
       color: t.color ?? (r ? t.active_color ?? this._config?.active_color ?? Tu[n] ?? "blue" : void 0),
       icon: r && t.icon_active || i && t.state_icons?.[i.state] || t.icon,
       animation: t.animation ?? Eu(i)
-    }, c = Ra(l, t.rules, a, t.entity), d = rs(c.animation), p = kt(c.color), u = G(c.color), m = ue(c), f = jt(
+    }, c = Na(l, t.rules, a, t.entity), d = rs(c.animation), p = kt(c.color), u = G(c.color), m = ue(c), f = jt(
       () => m,
       (v, $) => bt(this, a, m, v, $)
     ), y = c.name ?? i?.attributes.friendly_name ?? c.entity, w = c.label ? Ce(a, { entity: c.entity, text: c.label }).text : "", _ = (c.artwork ?? !1) && r && n === "media_player" ? i?.attributes.entity_picture : void 0;
@@ -17711,7 +17711,7 @@ const oi = class oi extends H {
   }
   render() {
     if (!this._config || !this._hass) return g;
-    const t = this._hass, e = Ra(this._config, this._config.rules, t);
+    const t = this._hass, e = Na(this._config, this._config.rules, t);
     if (e.layout === "image-full" || e.layout === "compact") {
       const E = { tap_action: e.tap_action, hold_action: e.hold_action, double_tap_action: e.double_tap_action }, D = jt(
         () => E,
@@ -18539,7 +18539,7 @@ lt("glass-room-card", qs, {
   name: "Glass – room",
   description: "Room icon or photo with entity buttons, custom colors, icons and animations."
 });
-const Vr = N`<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+const Vr = R`<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <radialGradient id="wi-sun" cx="40%" cy="35%" r="70%">
       <stop offset="0" stop-color="#fff3b0"/><stop offset=".45" stop-color="#ffd60a"/><stop offset="1" stop-color="#ff9f0a"/>
@@ -18555,25 +18555,25 @@ const Vr = N`<svg width="0" height="0" style="position:absolute" aria-hidden="tr
       <feDropShadow dx="0" dy="2.5" stdDeviation="2.2" flood-color="#1b2a4a" flood-opacity=".22"/>
     </filter>
   </defs>
-</svg>`, Lu = "M19 47h27a10 10 0 0 0 1.3-19.9A14 14 0 0 0 20.6 24.4 11.4 11.4 0 0 0 19 47z", Yr = (s = "") => N`<g transform=${s}>
+</svg>`, Lu = "M19 47h27a10 10 0 0 0 1.3-19.9A14 14 0 0 0 20.6 24.4 11.4 11.4 0 0 0 19 47z", Yr = (s = "") => R`<g transform=${s}>
   <g class="rays">${[0, 45, 90, 135, 180, 225, 270, 315].map(
-  (t) => N`<rect x="30.6" y="6" width="2.8" height="8" rx="1.4" fill="url(#wi-ray)" transform="rotate(${t} 32 32)"/>`
+  (t) => R`<rect x="30.6" y="6" width="2.8" height="8" rx="1.4" fill="url(#wi-ray)" transform="rotate(${t} 32 32)"/>`
 )}</g>
   <circle cx="32" cy="32" r="12.5" fill="url(#wi-sun)" filter="url(#wi-soft)"/>
-</g>`, Li = (s = "") => N`<g transform=${s}><g class="moon">
+</g>`, Li = (s = "") => R`<g transform=${s}><g class="moon">
   <path d="M38.5 14.5a17 17 0 1 0 11 27.8A14 14 0 0 1 38.5 14.5z" fill="url(#wi-moon)" filter="url(#wi-soft)"/>
-</g></g>`, Et = (s = "wi-cloud", t = "", e = "cloud") => N`<g transform=${t}><g class=${e}><path d=${Lu} fill="url(#${s})" filter="url(#wi-soft)"/></g></g>`, ma = (s) => N`<g class="drops">${Array.from({ length: s }, (t, e) => {
+</g></g>`, Et = (s = "wi-cloud", t = "", e = "cloud") => R`<g transform=${t}><g class=${e}><path d=${Lu} fill="url(#${s})" filter="url(#wi-soft)"/></g></g>`, ma = (s) => R`<g class="drops">${Array.from({ length: s }, (t, e) => {
   const o = 22 + e * (20 / Math.max(1, s - 1));
-  return N`<path class="drop" style="animation-delay:${e * 0.23}s" d="M${o} 50.5l-2 5.5a2.1 2.1 0 1 0 4 0z" fill="url(#wi-drop)"/>`;
-})}</g>`, Oi = (s) => N`<g class="flakes">${Array.from({ length: s }, (t, e) => {
+  return R`<path class="drop" style="animation-delay:${e * 0.23}s" d="M${o} 50.5l-2 5.5a2.1 2.1 0 1 0 4 0z" fill="url(#wi-drop)"/>`;
+})}</g>`, Oi = (s) => R`<g class="flakes">${Array.from({ length: s }, (t, e) => {
   const o = 23 + e * (18 / Math.max(1, s - 1));
-  return N`<circle class="flake" style="animation-delay:${e * 0.4}s" cx=${o} cy="54" r="2.1" fill="#fff" stroke="#c7d6ea" stroke-width=".6"/>`;
-})}</g>`, Kr = N`<path class="bolt" d="M33 44l-6 10h5l-3 8 9-12h-5l3-6z" fill="url(#wi-bolt)" filter="url(#wi-soft)"/>`, Ou = N`<g class="fog" stroke="#e8eef6" stroke-width="3" stroke-linecap="round">
+  return R`<circle class="flake" style="animation-delay:${e * 0.4}s" cx=${o} cy="54" r="2.1" fill="#fff" stroke="#c7d6ea" stroke-width=".6"/>`;
+})}</g>`, Kr = R`<path class="bolt" d="M33 44l-6 10h5l-3 8 9-12h-5l3-6z" fill="url(#wi-bolt)" filter="url(#wi-soft)"/>`, Ou = R`<g class="fog" stroke="#e8eef6" stroke-width="3" stroke-linecap="round">
   <line x1="14" y1="51" x2="50" y2="51"/><line x1="18" y1="57" x2="46" y2="57"/>
-</g>`, Zr = N`<g class="wind" fill="none" stroke="#eef4fb" stroke-width="3" stroke-linecap="round">
+</g>`, Zr = R`<g class="wind" fill="none" stroke="#eef4fb" stroke-width="3" stroke-linecap="round">
   <path d="M10 26h28a6 6 0 1 0-6-6"/><path d="M10 34h38a6 6 0 1 1-6 6"/><path d="M10 42h18"/>
 </g>`;
-function Ni(s, t = !1) {
+function Ri(s, t = !1) {
   let e;
   const o = (a) => t ? Li(a) : Yr(a);
   switch (s) {
@@ -18584,47 +18584,47 @@ function Ni(s, t = !1) {
       e = Li();
       break;
     case "partlycloudy":
-      e = N`${o("translate(-7 -8) scale(.82)")}${Et("wi-cloud", "translate(4 5)")}`;
+      e = R`${o("translate(-7 -8) scale(.82)")}${Et("wi-cloud", "translate(4 5)")}`;
       break;
     case "cloudy":
-      e = N`${Et("wi-cloud-back", "translate(9 -7) scale(.8)", "cloud back")}${Et("wi-cloud", "translate(-2 2)")}`;
+      e = R`${Et("wi-cloud-back", "translate(9 -7) scale(.8)", "cloud back")}${Et("wi-cloud", "translate(-2 2)")}`;
       break;
     case "fog":
-      e = N`${Et("wi-cloud", "translate(0 -6)")}${Ou}`;
+      e = R`${Et("wi-cloud", "translate(0 -6)")}${Ou}`;
       break;
     case "rainy":
-      e = N`${Et("wi-cloud", "translate(0 -6)")}${ma(3)}`;
+      e = R`${Et("wi-cloud", "translate(0 -6)")}${ma(3)}`;
       break;
     case "pouring":
-      e = N`${Et("wi-cloud-dark", "translate(0 -6)")}${ma(5)}`;
+      e = R`${Et("wi-cloud-dark", "translate(0 -6)")}${ma(5)}`;
       break;
     case "snowy":
-      e = N`${Et("wi-cloud", "translate(0 -6)")}${Oi(3)}`;
+      e = R`${Et("wi-cloud", "translate(0 -6)")}${Oi(3)}`;
       break;
     case "snowy-rainy":
-      e = N`${Et("wi-cloud", "translate(0 -6)")}${ma(2)}${Oi(2)}`;
+      e = R`${Et("wi-cloud", "translate(0 -6)")}${ma(2)}${Oi(2)}`;
       break;
     case "hail":
-      e = N`${Et("wi-cloud-dark", "translate(0 -6)")}${Oi(4)}`;
+      e = R`${Et("wi-cloud-dark", "translate(0 -6)")}${Oi(4)}`;
       break;
     case "lightning":
-      e = N`${Et("wi-cloud-dark", "translate(0 -8)")}${Kr}`;
+      e = R`${Et("wi-cloud-dark", "translate(0 -8)")}${Kr}`;
       break;
     case "lightning-rainy":
-      e = N`${Et("wi-cloud-dark", "translate(0 -8)")}${ma(2)}${Kr}`;
+      e = R`${Et("wi-cloud-dark", "translate(0 -8)")}${ma(2)}${Kr}`;
       break;
     case "windy":
       e = Zr;
       break;
     case "windy-variant":
-      e = N`${Et("wi-cloud", "translate(4 -8) scale(.85)")}${Zr}`;
+      e = R`${Et("wi-cloud", "translate(4 -8) scale(.85)")}${Zr}`;
       break;
     default:
-      e = N`<circle cx="32" cy="32" r="14" fill="none" stroke="#fff" stroke-width="3"/><path d="M32 24v10M32 38v2" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`;
+      e = R`<circle cx="32" cy="32" r="14" fill="none" stroke="#fff" stroke-width="3"/><path d="M32 24v10M32 38v2" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`;
   }
-  return N`<svg class="wi" viewBox="0 0 64 64" role="img" aria-label=${s ?? ""}>${e}</svg>`;
+  return R`<svg class="wi" viewBox="0 0 64 64" role="img" aria-label=${s ?? ""}>${e}</svg>`;
 }
-const Nu = Q`
+const Ru = Q`
   .wi {
     display: block;
     width: 100%;
@@ -18722,7 +18722,7 @@ const Nu = Q`
       animation: none !important;
     }
   }
-`, Fs = N`<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+`, Fs = R`<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <radialGradient id="wr-sun" cx="50%" cy="50%" r="50%">
       <stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#fffbe0"/>
@@ -18883,92 +18883,92 @@ const Nu = Q`
       <stop offset="0" stop-color="#f6d8ff"/><stop offset="1" stop-color="#b44dff"/>
     </linearGradient>
   </defs>
-</svg>`, Jr = (s = "") => N`<g transform=${s}>
+</svg>`, Jr = (s = "") => R`<g transform=${s}>
   <g class="halo"><circle cx="50" cy="50" r="40" fill="url(#gs-fire)" filter="url(#gs-flame)"/></g>
   <circle cx="50" cy="50" r="24" fill="url(#gs-ball)"/>
   <circle cx="50" cy="50" r="17" fill="none" stroke="#fff3b0" stroke-opacity=".28" stroke-width="1.2"/>
   <ellipse cx="50" cy="38" rx="17" ry="10" fill="url(#gs-gloss)" opacity=".75"/>
-</g>`, Ri = (s = "") => N`<g transform=${s}>
+</g>`, Ni = (s = "") => R`<g transform=${s}>
   <circle cx="50" cy="50" r="38" fill="url(#gs-orb-glow)"/>
   <g class="moon">
     <circle cx="50" cy="50" r="24" fill="url(#gs-orb)"/>
     <ellipse cx="50" cy="37" rx="16" ry="9" fill="url(#gs-gloss)" opacity=".7"/>
     <circle cx="40" cy="60" r="4" fill="#bfe9ff" opacity=".18"/>
   </g>
-</g>`, Xr = "M22 70c-8 0-12-6-10-12 2-5 7-7 12-6 0-9 8-15 16-13 3-9 12-14 21-11 8 2 13 10 12 18 7-1 13 4 13 11 0 7-6 13-13 13z", Dt = (s = "", t = !1, e = "cloud") => N`<g transform=${s}><g class=${e}>
+</g>`, Xr = "M22 70c-8 0-12-6-10-12 2-5 7-7 12-6 0-9 8-15 16-13 3-9 12-14 21-11 8 2 13 10 12 18 7-1 13 4 13 11 0 7-6 13-13 13z", Dt = (s = "", t = !1, e = "cloud") => R`<g transform=${s}><g class=${e}>
   <path d=${Xr} fill=${t ? "#3c4252" : "#7d8698"} opacity=".4" filter="url(#gc-mist)" transform="translate(0 4)"/>
   <path d=${Xr} fill=${t ? "url(#gc-shade-dark)" : "url(#gc-shade)"} filter="url(#gc-soft)"/>
   <g fill="#fff" opacity=${t ? 0.35 : 0.9} filter="url(#gc-hl)">
     <ellipse cx="57" cy="40" rx="11" ry="7"/><ellipse cx="40" cy="47" rx="9" ry="5.5"/><ellipse cx="72" cy="53" rx="7" ry="4.5"/>
   </g>
-</g></g>`, ga = (s, t = !1) => N`<g class="drops">${Array.from({ length: s }, (e, o) => {
+</g></g>`, ga = (s, t = !1) => R`<g class="drops">${Array.from({ length: s }, (e, o) => {
   const a = 34 + o * (32 / Math.max(1, s - 1)), i = 72 + o % 2 * 6;
-  return N`<g class="drop" style="animation-delay:${o * 0.21}s">
+  return R`<g class="drop" style="animation-delay:${o * 0.21}s">
       <path d="M${a} ${i}c-3.9 6-6 9.6-6 12.6a6 6 0 0 0 12 0c0-3-2.1-6.6-6-12.6z" fill="url(#wr-drop)" opacity=${t ? 0.97 : 0.93} filter="url(#wr-shadow)"/>
       <ellipse cx=${a - 2} cy=${i + 10.5} rx="1.3" ry="2.4" fill="#fff" opacity=".75"/>
     </g>`;
-})}</g>`, ji = (s, t = !1) => N`<g class="flakes">${Array.from({ length: s }, (e, o) => {
+})}</g>`, ji = (s, t = !1) => R`<g class="flakes">${Array.from({ length: s }, (e, o) => {
   const a = 34 + o * (32 / Math.max(1, s - 1)), i = 82 + o % 2 * 5;
-  return t ? N`<circle class="flake" style="animation-delay:${o * 0.3}s" cx=${a} cy=${i} r="3.2" fill="#f4f9ff" stroke="#b8c9e0" stroke-width=".8"/>` : N`<g class="flake" style="animation-delay:${o * 0.4}s" stroke="#fff" stroke-width="1.1" stroke-linecap="round" filter="url(#wr-glow)">
-          ${[0, 60, 120].map((n) => N`<line x1=${a - 3.4} y1=${i} x2=${a + 3.4} y2=${i} transform="rotate(${n} ${a} ${i})"/>`)}
+  return t ? R`<circle class="flake" style="animation-delay:${o * 0.3}s" cx=${a} cy=${i} r="3.2" fill="#f4f9ff" stroke="#b8c9e0" stroke-width=".8"/>` : R`<g class="flake" style="animation-delay:${o * 0.4}s" stroke="#fff" stroke-width="1.1" stroke-linecap="round" filter="url(#wr-glow)">
+          ${[0, 60, 120].map((n) => R`<line x1=${a - 3.4} y1=${i} x2=${a + 3.4} y2=${i} transform="rotate(${n} ${a} ${i})"/>`)}
         </g>`;
-})}</g>`, Qr = N`<g class="bolt" fill="none" stroke="url(#gb-bolt)" stroke-linecap="round" stroke-linejoin="round" filter="url(#wr-glow)">
+})}</g>`, Qr = R`<g class="bolt" fill="none" stroke="url(#gb-bolt)" stroke-linecap="round" stroke-linejoin="round" filter="url(#wr-glow)">
   <path d="M52 58l-7 13 8 3-10 18" stroke-width="3"/><path d="M45 71l-8 7" stroke-width="1.8"/><path d="M53 74l8 8" stroke-width="1.6"/><path d="M47 83l-5 3" stroke-width="1.2"/>
-</g>`, Ru = N`<g class="fog" filter="url(#wr-blur)" stroke="#f2f6fb" stroke-linecap="round" stroke-width="4.5" opacity=".9">
+</g>`, Nu = R`<g class="fog" filter="url(#wr-blur)" stroke="#f2f6fb" stroke-linecap="round" stroke-width="4.5" opacity=".9">
   <line x1="20" y1="78" x2="80" y2="78"/><line x1="28" y1="88" x2="72" y2="88"/>
-</g>`, tl = N`<g class="wind" fill="none" stroke="#f2f6fb" stroke-width="4.5" stroke-linecap="round" opacity=".92" filter="url(#wr-shadow)">
+</g>`, tl = R`<g class="wind" fill="none" stroke="#f2f6fb" stroke-width="4.5" stroke-linecap="round" opacity=".92" filter="url(#wr-shadow)">
   <path d="M14 42h44a9 9 0 1 0-9-9"/><path d="M14 56h58a9 9 0 1 1-9 9"/><path d="M14 70h28"/>
 </g>`;
 function hd(s, t = !1) {
   let e;
-  const o = (a) => t ? Ri(a) : Jr(a);
+  const o = (a) => t ? Ni(a) : Jr(a);
   switch (s) {
     case "sunny":
-      e = t ? Ri() : Jr();
+      e = t ? Ni() : Jr();
       break;
     case "clear-night":
-      e = Ri();
+      e = Ni();
       break;
     case "partlycloudy":
-      e = N`${o("translate(-10 -14) scale(.85)")}${Dt("translate(2 10) scale(1.02)")}`;
+      e = R`${o("translate(-10 -14) scale(.85)")}${Dt("translate(2 10) scale(1.02)")}`;
       break;
     case "cloudy":
-      e = N`${Dt("translate(24 -4) scale(.72)", !1, "cloud back")}${Dt("translate(0 12)")}`;
+      e = R`${Dt("translate(24 -4) scale(.72)", !1, "cloud back")}${Dt("translate(0 12)")}`;
       break;
     case "fog":
-      e = N`${Dt("translate(0 -4)")}${Ru}`;
+      e = R`${Dt("translate(0 -4)")}${Nu}`;
       break;
     case "rainy":
-      e = N`${Dt("translate(0 -6)")}${ga(3)}`;
+      e = R`${Dt("translate(0 -6)")}${ga(3)}`;
       break;
     case "pouring":
-      e = N`${Dt("translate(0 -8)", !0)}${ga(5, !0)}`;
+      e = R`${Dt("translate(0 -8)", !0)}${ga(5, !0)}`;
       break;
     case "snowy":
-      e = N`${Dt("translate(0 -6)")}${ji(3)}`;
+      e = R`${Dt("translate(0 -6)")}${ji(3)}`;
       break;
     case "snowy-rainy":
-      e = N`${Dt("translate(0 -6)")}${ga(2)}${ji(2)}`;
+      e = R`${Dt("translate(0 -6)")}${ga(2)}${ji(2)}`;
       break;
     case "hail":
-      e = N`${Dt("translate(0 -8)", !0)}${ji(4, !0)}`;
+      e = R`${Dt("translate(0 -8)", !0)}${ji(4, !0)}`;
       break;
     case "lightning":
-      e = N`${Dt("translate(0 -10)", !0)}${Qr}`;
+      e = R`${Dt("translate(0 -10)", !0)}${Qr}`;
       break;
     case "lightning-rainy":
-      e = N`${Dt("translate(0 -10)", !0)}${ga(2, !0)}${Qr}`;
+      e = R`${Dt("translate(0 -10)", !0)}${ga(2, !0)}${Qr}`;
       break;
     case "windy":
       e = tl;
       break;
     case "windy-variant":
-      e = N`${Dt("translate(10 -12) scale(.8)")}${tl}`;
+      e = R`${Dt("translate(10 -12) scale(.8)")}${tl}`;
       break;
     default:
-      e = N`<circle cx="50" cy="50" r="22" fill="none" stroke="#fff" stroke-width="4"/><path d="M50 38v15M50 59v3" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`;
+      e = R`<circle cx="50" cy="50" r="22" fill="none" stroke="#fff" stroke-width="4"/><path d="M50 38v15M50 59v3" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`;
   }
-  return N`<svg class="wi wi3d" viewBox="0 0 100 100" role="img" aria-label=${s ?? ""}>${e}</svg>`;
+  return R`<svg class="wi wi3d" viewBox="0 0 100 100" role="img" aria-label=${s ?? ""}>${e}</svg>`;
 }
 function Bi(s, t = !1) {
   return {
@@ -19134,7 +19134,7 @@ const al = {
   sunset: "mdi:weather-sunset-down"
 }, ju = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"], Uo = class Uo extends H {
   constructor() {
-    super(), this._unsubs = [], new ft(this, ".frame");
+    super(), this._unsubs = [], this._monoRo = new ResizeObserver(() => this.hasUpdated && this._mono !== this._wasMono && this.requestUpdate()), new ft(this, ".frame");
   }
   static getConfigElement() {
     return ct(Bh);
@@ -19150,10 +19150,10 @@ const al = {
     return t.show_weather === !1 && t.variant !== "compact" ? [] : [t.weather, t.temperature_entity, "sun.sun"].filter(Boolean);
   }
   connectedCallback() {
-    super.connectedCallback(), this._tick(), this._hass && this._subscribe(this._hass);
+    super.connectedCallback(), this._monoRo.observe(this), this._tick(), this._hass && this._subscribe(this._hass);
   }
   disconnectedCallback() {
-    super.disconnectedCallback(), clearTimeout(this._timer), clearTimeout(this._nowcastTimer), this._nowcastTimer = void 0, this._unsubscribe();
+    super.disconnectedCallback(), this._monoRo.disconnect(), clearTimeout(this._timer), clearTimeout(this._nowcastTimer), this._nowcastTimer = void 0, this._unsubscribe();
   }
   /** rain_nowcast: fetch now and every 10 minutes while connected. */
   _fetchNowcast(t) {
@@ -19266,15 +19266,16 @@ const al = {
     return (!t || t === "flat") && getComputedStyle(this).getPropertyValue("--glass-mono-icons").trim() === "1";
   }
   firstUpdated() {
-    requestAnimationFrame(() => this._mono && this.requestUpdate());
+    requestAnimationFrame(() => this._mono !== this._wasMono && this.requestUpdate());
   }
   _bigIcon(t, e) {
-    const o = this._mono ? "mdi" : this._config.icon_style ?? "flat";
+    this._wasMono = this._mono;
+    const o = this._wasMono ? "mdi" : this._config.icon_style ?? "flat";
     if (o === "mdi") {
       const a = G(this._config.icons?.weather?.color);
       return h`<ha-icon class="mdi" .icon=${Bi(t, e)} style=${a ? `color:${a}` : ""}></ha-icon>`;
     }
-    return o === "flat" ? Ni(t, e) : hd(t, e);
+    return o === "flat" ? Ri(t, e) : hd(t, e);
   }
   _clock(t) {
     const e = this._config, o = /* @__PURE__ */ new Date(), a = ce(this._hass) ?? !1, i = new Intl.DateTimeFormat(t, {
@@ -19364,7 +19365,7 @@ const al = {
         return h`<div class="col">
             <span class="when">${el(y.format(A))}</span>
             <span class="mini-icon"
-              >${w || i.icon_style === "mdi" ? h`<ha-icon class="mdi" .icon=${Bi(k.condition, x)} style=${S ? `color:${S}` : ""}></ha-icon>` : Ni(k.condition, x)}</span
+              >${w || i.icon_style === "mdi" ? h`<ha-icon class="mdi" .icon=${Bi(k.condition, x)} style=${S ? `color:${S}` : ""}></ha-icon>` : Ri(k.condition, x)}</span
             >
             <span class="t">${k.templow !== void 0 ? h`${Math.round(k.templow)}° / ` : g}${Math.round(k.temperature)}°</span>
           </div>`;
@@ -19377,7 +19378,7 @@ const al = {
       return h`<div class="row">
           <span class="when">${y.format(A)}</span>
           <span class="mini-icon"
-            >${w ? h`<ha-icon class="mdi" .icon=${Bi(k.condition, x)}></ha-icon>` : Ni(k.condition, x)}</span
+            >${w ? h`<ha-icon class="mdi" .icon=${Bi(k.condition, x)}></ha-icon>` : Ri(k.condition, x)}</span
           >
           <span class="t lo">${Math.round(S)}${$}</span>
           <span class="bar">
@@ -19431,7 +19432,7 @@ const al = {
 Uo.parts = Kc, Uo.properties = { ...H.properties, _forecasts: { state: !0 }, _nowcast: { state: !0 } }, Uo.styles = [
   H.styles,
   yt,
-  Nu,
+  Ru,
   ud,
   Q`
       .big-icon ha-icon.mdi,
@@ -20929,13 +20930,13 @@ const Ju = [
   ["M0 92 C30 78 55 80 80 88 C105 96 130 74 160 76 C180 78 192 84 200 86 V140 H0Z", "#a9c1df", "#2f4268"],
   ["M0 104 C25 94 50 92 78 100 C104 108 128 92 152 94 C172 96 188 102 200 100 V140 H0Z", "#86a6cf", "#27375a"],
   ["M0 118 C30 108 60 110 92 116 C122 122 150 108 176 110 C188 111 196 114 200 115 V140 H0Z", "#6489ba", "#1e2c4a"]
-], ba = (s, t, e, o) => N`<g class="cloud" style="--dur:${e}s;--delay:${-o * e}s">
+], ba = (s, t, e, o) => R`<g class="cloud" style="--dur:${e}s;--delay:${-o * e}s">
     <g transform="translate(0 ${s}) scale(${t})">
       <ellipse cx="0" cy="0" rx="14" ry="6"></ellipse>
       <ellipse cx="9" cy="-4" rx="9" ry="7"></ellipse>
       <ellipse cx="-8" cy="-2" rx="7" ry="5"></ellipse>
     </g>
-  </g>`, Gi = (s, t, e) => N`<g class="bird" style="--d:${e}s" transform="translate(${s} ${t})">
+  </g>`, Gi = (s, t, e) => R`<g class="bird" style="--d:${e}s" transform="translate(${s} ${t})">
     <path class="wing" d="M-3 0 Q-1.5 -1.6 0 0 Q1.5 -1.6 3 0"></path>
   </g>`, om = [
   { houses: 0, day: "#ffffff", night: "#9aa3b5", op: 0, k: 1 },
@@ -20944,7 +20945,7 @@ const Ju = [
   { houses: 5, day: "#9a9389", night: "#7f7f82", op: 0.8, k: 3.2 },
   { houses: 5, day: "#7a7369", night: "#6c6866", op: 0.85, k: 3.6 },
   { houses: 5, day: "#5a534c", night: "#5a5552", op: 0.9, k: 4 }
-], md = (s, t, e, o, a, i = 22) => N`${Array.from({ length: e }, (n, r) => N`<circle class="puff" cx=${s} cy=${t} r=${o} style="--delay:${-(a + r * 4.8 / e)}s;--rise:${-i}px;--drift:${i * 0.5}px"></circle>`)}`, am = [
+], md = (s, t, e, o, a, i = 22) => R`${Array.from({ length: e }, (n, r) => R`<circle class="puff" cx=${s} cy=${t} r=${o} style="--delay:${-(a + r * 4.8 / e)}s;--rise:${-i}px;--drift:${i * 0.5}px"></circle>`)}`, am = [
   [81, 101.4, 0.95],
   [89, 102.5, 1.15],
   [97, 102.6, 1],
@@ -20952,17 +20953,17 @@ const Ju = [
   [113, 100.3, 0.9]
 ], im = [1, 3, 0, 2, 4], sm = (s, t, e, o, a, i) => {
   const n = e * 1.25, r = 3.6 * n, l = 3.4 * n, c = 2.8 * n, d = s + r * 0.45, p = t - l - c * 0.75;
-  return N`<g>
+  return R`<g>
     <rect class="chim" x=${d} y=${p} width=${0.9 * n} height=${c}></rect>
     <rect class="wall" x=${s - r} y=${t - l} width=${r * 2} height=${l + 1}></rect>
     <path class="roof" d="M${s - r - 0.6} ${t - l + 0.2} L${s} ${t - l - c} L${s + r + 0.6} ${t - l + 0.2}Z"></path>
-    ${i ? N`<rect class="win" x=${s - 0.6 * n} y=${t - l * 0.6} width=${1.2 * n} height=${1.1 * n}></rect>` : null}
+    ${i ? R`<rect class="win" x=${s - 0.6 * n} y=${t - l * 0.6} width=${1.2 * n} height=${1.1 * n}></rect>` : null}
     ${o ? md(d + 0.45 * n, p - 0.6, 4, 1.5 + a * 0.2, s * 0.07, 16 + a * 3) : null}
   </g>`;
 }, nm = (s) => {
   const t = s >= 5 ? [[113, 22], [121, 17]] : [[115, 18]];
-  return N`<g class="factory" transform="translate(56 -2)">
-    ${t.map(([e, o]) => N`<rect class="stack" x=${e - 1.3} y=${81 - o} width="2.6" height=${o}></rect>
+  return R`<g class="factory" transform="translate(56 -2)">
+    ${t.map(([e, o]) => R`<rect class="stack" x=${e - 1.3} y=${81 - o} width="2.6" height=${o}></rect>
       <rect class="band" x=${e - 1.3} y=${81 - o + 2} width="2.6" height="1.4"></rect>`)}
     <path class="hall" d="M104 82 V75.5 L108 73 V75.5 L112 73 V75.5 L116 73 V75.5 L120 73 V75.5 L124 73 V82Z"></path>
     ${t.map(([e, o], a) => md(e, 79 - o, 9, s >= 5 ? 2.6 : 2.1, a * 0.9, 30))}
@@ -20970,7 +20971,7 @@ const Ju = [
 };
 function rm(s, t) {
   const e = Math.min(5, Math.max(0, s)), [o, a] = (t ? Xu : Ju)[e], i = tm[e], n = t ? "#6b6a66" : e >= 3 ? "#b9ab92" : "#e8eef2", r = om[e];
-  return N`<svg class="air-scene" viewBox="0 0 200 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  return R`<svg class="air-scene" viewBox="0 0 200 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs>
       <linearGradient id="as-sky" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stop-color=${o}></stop>
@@ -20997,7 +20998,7 @@ function rm(s, t) {
       </radialGradient>
     </defs>
     <rect width="200" height="140" fill="url(#as-sky)"></rect>
-    ${t ? N`<g class="stars" style="opacity:${Math.max(0, 1 - e * 0.3)}">
+    ${t ? R`<g class="stars" style="opacity:${Math.max(0, 1 - e * 0.3)}">
           ${[
     [20, 14],
     [48, 26],
@@ -21006,27 +21007,27 @@ function rm(s, t) {
     [140, 8],
     [176, 24],
     [96, 34]
-  ].map(([l, c], d) => N`<circle class="star" cx=${l} cy=${c} r="0.8" style="--delay:${d * 0.7}s"></circle>`)}
+  ].map(([l, c], d) => R`<circle class="star" cx=${l} cy=${c} r="0.8" style="--delay:${d * 0.7}s"></circle>`)}
         </g>` : null}
     <g class="sun" style="opacity:${Qu[e]}">
       <circle cx="150" cy="36" r="26" fill="url(#as-glow)"></circle>
-      ${t ? N`<mask id="as-crescent">
+      ${t ? R`<mask id="as-crescent">
               <circle cx="150" cy="36" r="8" fill="#fff"></circle>
               <circle cx="153.5" cy="33" r="7.5" fill="#000"></circle>
             </mask>
-            <circle cx="150" cy="36" r="8" fill="#f2eedd" mask="url(#as-crescent)"></circle>` : N`<circle cx="150" cy="36" r="10" fill=${Ui[e]}></circle>`}
+            <circle cx="150" cy="36" r="8" fill="#f2eedd" mask="url(#as-crescent)"></circle>` : R`<circle cx="150" cy="36" r="10" fill=${Ui[e]}></circle>`}
     </g>
     <g class="clouds" fill=${t ? "#55627d" : e >= 3 ? "#cfc6b4" : "#ffffff"} style="opacity:${t ? 0.45 : 0.85 - e * 0.08}">
       ${ba(30, 1, 90, 0.25)}${ba(22, 0.8, 110, 0.75)}${ba(48, 0.7, 70, 0.55)}${ba(40, 0.6, 80, 0.05)}
     </g>
-    ${e <= 1 && !t ? N`<g class="birds">${Gi(30, 54, 0)}${Gi(38, 50, 0.3)}${Gi(25, 47, 0.6)}</g>` : null}
+    ${e <= 1 && !t ? R`<g class="birds">${Gi(30, 54, 0)}${Gi(38, 50, 0.3)}${Gi(25, 47, 0.6)}</g>` : null}
     ${em.map(
-    ([l, c, d], p) => N`
+    ([l, c, d], p) => R`
         <path d=${l} fill=${t ? d : c}></path>
         ${p === 0 && e >= 4 ? nm(e) : null}
 
         <rect class="haze h${p}" x="-40" y=${70 + p * 14} width="280" height="70" fill="url(#as-haze)" style="opacity:${i * (0.55 + p * 0.2)}"></rect>
-        ${p === 1 ? N`<g class="village ${t ? "night" : e >= 3 ? "dull" : ""}" style="--op:${r.op};--k:${r.k}">
+        ${p === 1 ? R`<g class="village ${t ? "night" : e >= 3 ? "dull" : ""}" style="--op:${r.op};--k:${r.k}">
               ${am.map(([u, m, f], y) => sm(u, m, f, im.indexOf(y) < r.houses, e, t))}
             </g>` : null}`
   )}
@@ -21038,7 +21039,7 @@ function rm(s, t) {
     [170, 96.5, 1.25],
     [177, 97.5, 0.95]
   ].map(
-    ([l, c, d], p) => N`<g transform="translate(${l} ${c}) scale(${d})"><g class="tree" style="--delay:${p * 0.5}s"><path d="M0 -10 L3.6 0 H-3.6Z"></path><rect x="-0.6" y="0" width="1.2" height="2.6"></rect></g></g>`
+    ([l, c, d], p) => R`<g transform="translate(${l} ${c}) scale(${d})"><g class="tree" style="--delay:${p * 0.5}s"><path d="M0 -10 L3.6 0 H-3.6Z"></path><rect x="-0.6" y="0" width="1.2" height="2.6"></rect></g></g>`
   )}
     </g>
   </svg>`;
@@ -21752,9 +21753,9 @@ const Ys = id(class extends sd {
           </linearGradient>
         </defs>
         ${r.map(
-      (A) => A.spans ? A.spans.map(([x, S]) => N`<rect class="span" x=${x} y="0" width=${S - x} height="100"></rect>`) : N`<path class="extra" d=${Os(A.values, m, f)}></path>`
+      (A) => A.spans ? A.spans.map(([x, S]) => R`<rect class="span" x=${x} y="0" width=${S - x} height="100"></rect>`) : R`<path class="extra" d=${Os(A.values, m, f)}></path>`
     )}
-        ${y ? N`<path class="area" d=${`${y}L100,100L0,100Z`}></path>` : g}
+        ${y ? R`<path class="area" d=${`${y}L100,100L0,100Z`}></path>` : g}
       </svg>
       ${y ? h`<svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="line" d=${y}></path></svg>` : g}
       </div>
@@ -22276,11 +22277,11 @@ const pm = [
   ["rod_hours", "sensor", /heating_rod_hours$/],
   ["pressure", "sensor", /supply_pressure$|pressure$/],
   ["flow", "sensor", /volumetric_flow$/]
-], hm = "#0084FF", dl = "#ff9500", um = "#ff3b30", mm = "rgba(160, 160, 165, 0.78)", Ao = 300, Ft = 96, Ot = 22, Nt = 34, Va = [26, Nt], Gt = [110, Nt], Fn = [194, Nt], Ve = [274, Nt], He = {
-  out: `M${Va[0] + Ot + 2},${Nt} L${Gt[0] - Ot - 2},${Nt}`,
-  heat: `M${Gt[0] + Ot + 2},${Nt} L${Fn[0] - Ot - 2},${Nt}`,
-  dhw: `M${Gt[0]},${Nt + Ot + 2} L${Gt[0]},${Ft - 22} Q${Gt[0]},${Ft - 10} ${Gt[0] + 12},${Ft - 10} L${Ve[0] - 12},${Ft - 10} Q${Ve[0]},${Ft - 10} ${Ve[0]},${Ft - 22} L${Ve[0]},${Nt + Ot + 2}`
-}, Yi = { out: Gt[0] - Va[0] - 2 * Ot - 4, heat: Fn[0] - Gt[0] - 2 * Ot - 4, dhw: Ve[0] - Gt[0] + 2 * (Ft - 10 - Nt - Ot) }, gm = 40, fm = 34, _a = 20, bm = {
+], hm = "#0084FF", dl = "#ff9500", um = "#ff3b30", mm = "rgba(160, 160, 165, 0.78)", Ao = 300, Ft = 96, Ot = 22, Rt = 34, Va = [26, Rt], Gt = [110, Rt], Fn = [194, Rt], Ve = [274, Rt], He = {
+  out: `M${Va[0] + Ot + 2},${Rt} L${Gt[0] - Ot - 2},${Rt}`,
+  heat: `M${Gt[0] + Ot + 2},${Rt} L${Fn[0] - Ot - 2},${Rt}`,
+  dhw: `M${Gt[0]},${Rt + Ot + 2} L${Gt[0]},${Ft - 22} Q${Gt[0]},${Ft - 10} ${Gt[0] + 12},${Ft - 10} L${Ve[0] - 12},${Ft - 10} Q${Ve[0]},${Ft - 10} ${Ve[0]},${Ft - 22} L${Ve[0]},${Rt + Ot + 2}`
+}, Yi = { out: Gt[0] - Va[0] - 2 * Ot - 4, heat: Fn[0] - Gt[0] - 2 * Ot - 4, dhw: Ve[0] - Gt[0] + 2 * (Ft - 10 - Rt - Ot) }, gm = 40, fm = 34, _a = 20, bm = {
   comfort: "Comfort",
   home: "Home",
   sleep: "Sleep",
@@ -22366,11 +22367,11 @@ const pm = [
   /** One beam (head, white core, fading tail) along a pipe, like the energy card's laser. */
   _beam(t, e, o, a) {
     const i = e / gm, n = Math.min(fm * i / e, i * 0.6), r = n / _a, l = `offset-path:path('${t}');animation-duration:${i.toFixed(2)}s;`, c = (d) => `animation-delay:${(-n + d * r).toFixed(3)}s;`;
-    return N`
+    return R`
       <g filter="url(#${a}-t)">
         ${Array.from({ length: _a }, (d, p) => {
       const u = (2.4 - p * 2 / (_a - 1)).toFixed(2), m = (0.85 * Math.pow(1 - p / _a, 0.55)).toFixed(3);
-      return N`<ellipse class="beam" rx=${u} ry=${u} fill=${o} fill-opacity=${m} style="${l}${c(p + 1)}"></ellipse>`;
+      return R`<ellipse class="beam" rx=${u} ry=${u} fill=${o} fill-opacity=${m} style="${l}${c(p + 1)}"></ellipse>`;
     })}
       </g>
       <ellipse class="beam" rx="7" ry="2.5" fill=${o} filter="url(#${a}-h)" style="${l}${c(0)}"></ellipse>
@@ -22412,7 +22413,7 @@ const pm = [
         </defs>
         <path class="pipe" d=${He.out}></path>
         <path class="pipe" d=${He.heat}></path>
-        ${i.dhw || r ? N`<path class="pipe" d=${He.dhw}></path>` : g}
+        ${i.dhw || r ? R`<path class="pipe" d=${He.dhw}></path>` : g}
         ${A && l ? this._beam(He.out, Yi.out, _, y) : g}
         ${A && u ? this._beam(He.heat, Yi.heat, v, y) : g}
         ${A && p && (i.dhw || r) ? this._beam(He.dhw, Yi.dhw, $, y) : g}
@@ -22420,7 +22421,7 @@ const pm = [
       ${this._node(Va, l ? _ : void 0, "mdi:weather-windy", this._st("outside") ? `${a(this._num("outside"))}°` : "", M("Outside"))}
       ${m ? h`<span
             class="badge on frost"
-            style="left:${(Va[0] + Ot * 0.72) / Ao * 100}%;top:${(Nt - Ot * 0.72) / Ft * 100}%"
+            style="left:${(Va[0] + Ot * 0.72) / Ao * 100}%;top:${(Rt - Ot * 0.72) / Ft * 100}%"
             title=${M("Frost protection on")}
             ><ha-icon icon="mdi:snowflake"></ha-icon
           ></span>` : g}
@@ -23026,14 +23027,14 @@ const pl = (s) => {
   const t = 6 + (100 - Math.min(100, Math.max(0, s))) / 100 * 14, e = [];
   if (s >= 99) e.push(7, 9.5);
   else for (let o = 7.5; o <= t + 0.01; o += 3) e.push(o);
-  return N`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
+  return R`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
     <line x1="3.5" y1="4" x2="20.5" y2="4"></line>
-    ${e.map((o) => N`<line class="thin" x1="5" y1=${o} x2="19" y2=${o}></line>`)}
+    ${e.map((o) => R`<line class="thin" x1="5" y1=${o} x2="19" y2=${o}></line>`)}
   </svg>`;
 }, vm = (s) => {
   const t = s * Math.PI / 180, e = Math.cos(t) * 4.2, o = Math.sin(t) * 4.2;
-  return N`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
-    ${[5, 10, 15, 20].map((a) => N`<line x1=${12 - e} y1=${a - o} x2=${12 + e} y2=${a + o}></line>`)}
+  return R`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
+    ${[5, 10, 15, 20].map((a) => R`<line x1=${12 - e} y1=${a - o} x2=${12 + e} y2=${a + o}></line>`)}
   </svg>`;
 }, Ko = class Ko extends H {
   constructor() {
@@ -23134,7 +23135,7 @@ const pl = (s) => {
               title=${n !== void 0 ? M("Automation paused for {n} more min – tap to resume", { n: Math.ceil(n * (t.pause_duration ?? 3600) / 60) }) : M("Pause the automation")}
               @click=${() => (st("light"), e.callService("switch", "toggle", { entity_id: t.pause }))}
             >
-              ${n !== void 0 ? N`<svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
+              ${n !== void 0 ? R`<svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
                     <circle cx="18" cy="18" r=${m} class="track"></circle>
                     <circle cx="18" cy="18" r=${m} class="left" stroke-dasharray="${f * n} ${f}"></circle>
                   </svg>` : g}
@@ -24035,23 +24036,23 @@ const hl = {
           <clipPath id="bk-in"><circle cx=${50} cy=${50} r=${40 - $ / 2}></circle></clipPath>
         </defs>
         <circle class="dial ${w !== void 0 ? "ringed" : ""}" cx=${50} cy=${50} r=${w !== void 0 ? 40 - $ / 2 : 40}></circle>
-        ${f ? N`<path class="band ${i ? "lit" : ""}" d=${f} clip-path="url(#bk-in)"></path>` : g}
+        ${f ? R`<path class="band ${i ? "lit" : ""}" d=${f} clip-path="url(#bk-in)"></path>` : g}
         ${(_.show_ticks === !1 ? [] : Array.from({ length: 12 }, (S, P) => P * 30)).filter((S) => S % 90).map((S) => {
       const [P, C] = d(S, 29), [T, L] = d(S, 32);
-      return N`<line class="tick" x1=${P} y1=${C} x2=${T} y2=${L}></line>`;
+      return R`<line class="tick" x1=${P} y1=${C} x2=${T} y2=${L}></line>`;
     })}
         ${(_.show_letters === !1 ? [] : ["N", "E", "S", "W"]).map((S, P) => {
       const [C, T] = d(P * 90, 26);
-      return N`<text x=${C} y=${T} dominant-baseline="central">${M(`compass.${S}`)}</text>`;
+      return R`<text x=${C} y=${T} dominant-baseline="central">${M(`compass.${S}`)}</text>`;
     })}
-        ${w !== void 0 ? N`<circle class="lux-track" cx=${50} cy=${50} r=${40}></circle>
+        ${w !== void 0 ? R`<circle class="lux-track" cx=${50} cy=${50} r=${40}></circle>
               <circle class="lux" cx=${50} cy=${50} r=${40} pathLength="100" stroke-dasharray="${w} 100" transform="rotate(-90 ${50} ${50})"></circle>
               ${A.map(({ k: S, pct: P, hit: C }) => {
       const [T, L] = d(P * 3.6, 37), [E, D] = d(P * 3.6, 40 + $ / 2);
-      return N`<line class="lvl ${C ? "hit" : ""}" x1=${T} y1=${L} x2=${E} y2=${D}><title>${S}</title></line>`;
+      return R`<line class="lvl ${C ? "hit" : ""}" x1=${T} y1=${L} x2=${E} y2=${D}><title>${S}</title></line>`;
     })}` : g}
-        ${v === "watch" ? N`<ellipse class="glare" cx=${44} cy=${50 - 40 * 0.5} rx=${40 * 0.78} ry=${40 * 0.48} clip-path="url(#bk-in)"></ellipse>` : g}
-        ${o && k ? N`<circle class="sundot" cx=${u} cy=${m} r="5"></circle>` : g}
+        ${v === "watch" ? R`<ellipse class="glare" cx=${44} cy=${50 - 40 * 0.5} rx=${40 * 0.78} ry=${40 * 0.48} clip-path="url(#bk-in)"></ellipse>` : g}
+        ${o && k ? R`<circle class="sundot" cx=${u} cy=${m} r="5"></circle>` : g}
       </svg>
       ${o && !k ? h`${Fs}<span class="sun3d" style="left:${u}%;top:${m}%">${hd("sunny")}</span>` : g}
     </div>`;
@@ -24625,7 +24626,7 @@ const Zi = (s) => [Number(s.attributes.min_color_temp_kelvin) || 2e3, Number(s.a
     return { columns: 6, rows: 3, min_rows: 2 };
   }
 };
-ni.parts = Rc, ni.styles = [
+ni.parts = Nc, ni.styles = [
   H.styles,
   yt,
   Tt,
@@ -25658,7 +25659,7 @@ const Om = {
   month: ["1d", "day", "d. M. yyyy"],
   year: ["1month", "month", "M / yyyy"]
 };
-function Nm(s, t) {
+function Rm(s, t) {
   const [e, o, a] = Om[t], i = Array.isArray(s.series) ? s.series.map((n) => Yt(n) ? Yt(n.statistics) ? { ...n, statistics: { period: o, ...n.statistics } } : Yt(n.group_by) ? { ...n, group_by: { duration: e, ...n.group_by } } : n : n) : s.series;
   return Oe({ ...s, series: i }, { apex_config: Oe({ tooltip: { x: { format: a } } }, Yt(s.apex_config) ? s.apex_config : {}) });
 }
@@ -25668,7 +25669,7 @@ function Qi(s, t) {
   const o = getComputedStyle(e).color.match(/[\d.]+/g);
   return e.remove(), o && o.length >= 3 ? [Number(o[0]), Number(o[1]), Number(o[2])] : void 0;
 }
-const sn = (s) => `#${s.map((t) => Math.round(t).toString(16).padStart(2, "0")).join("")}`, Rm = (s) => sn(s.map((t) => t + (255 - t) * 0.25));
+const sn = (s) => `#${s.map((t) => Math.round(t).toString(16).padStart(2, "0")).join("")}`, Nm = (s) => sn(s.map((t) => t + (255 - t) * 0.25));
 function jm(s, t, e) {
   const o = Qi(G(t.color) ?? "var(--glass-chart-color, #ff9f0a)", e) ?? [255, 159, 10], a = (Array.isArray(s.series) ? s.series : []).map((c) => {
     if (!Yt(c)) return c;
@@ -25686,7 +25687,7 @@ function jm(s, t, e) {
     },
     fill: {
       type: t.gradient === !1 ? "solid" : "gradient",
-      gradient: { type: "vertical", shade: "light", shadeIntensity: 0, gradientToColors: i.map(Rm), inverseColors: !1, opacityFrom: 1, opacityTo: 0.85, stops: [0, 100] }
+      gradient: { type: "vertical", shade: "light", shadeIntensity: 0, gradientToColors: i.map(Nm), inverseColors: !1, opacityFrom: 1, opacityTo: 0.85, stops: [0, 100] }
     },
     xaxis: { labels: { show: !!t.time, datetimeUTC: !1 }, axisBorder: { show: !1 }, axisTicks: { show: !1 }, tooltip: { enabled: !1 }, crosshairs: { show: !1 } },
     ...t.values === !1 ? { yaxis: { labels: { show: !1 } } } : {},
@@ -25766,7 +25767,7 @@ ha-card { background: none !important; border: 0 !important; box-shadow: none !i
     if (o !== this._key || !this._card) {
       this._key = o;
       const a = e ? t[e.kind] : void 0;
-      let i = e ? Nm(Oe(Oe(t.card, Lm(e)), Yt(a) ? a : {}), e.kind) : { ...t.card };
+      let i = e ? Rm(Oe(Oe(t.card, Lm(e)), Yt(a) ? a : {}), e.kind) : { ...t.card };
       t.look !== "apex" && (i = jm(i, t, this)), this._card = En(i, this._hass), this._style(this._card);
     }
     return this._card;
@@ -27240,7 +27241,7 @@ const ci = class ci extends H {
     for (let u = Math.floor(e / d); u * d < e + a; u++)
       for (let m = Math.floor(t / d); m * d < t + o; m++)
         p.push(
-          N`<image href=${r.url.replace("{z}", String(c)).replace("{y}", String(u)).replace("{x}", String(m))} x=${m * d - t} y=${u * d - e} width=${d + d / 256} height=${d + d / 256} preserveAspectRatio="none"></image>`
+          R`<image href=${r.url.replace("{z}", String(c)).replace("{y}", String(u)).replace("{x}", String(m))} x=${m * d - t} y=${u * d - e} width=${d + d / 256} height=${d + d / 256} preserveAspectRatio="none"></image>`
         );
     return p;
   }
@@ -27355,10 +27356,10 @@ const ci = class ci extends H {
     const [d, p, u] = [(n + l) / 2, (r + c) / 2, Math.hypot(l - n, c - r) / 2], m = (a + 90) * Math.PI / 180, [f, y] = [Math.sin(m), -Math.cos(m)], [w, _] = [-y, f], v = (this._num(this._config.settings?.spacing) ?? 25) / 100 * o, $ = v * Math.max(1, Math.ceil(7 * e / v)), k = [];
     for (let x = -Math.floor(u / $) * $; x <= u; x += $) {
       const [S, P] = [d + w * x, p + _ * x];
-      k.push(N`<line x1=${S - f * u} y1=${P - y * u} x2=${S + f * u} y2=${P + y * u}></line>`);
+      k.push(R`<line x1=${S - f * u} y1=${P - y * u} x2=${S + f * u} y2=${P + y * u}></line>`);
     }
     const A = (x) => x.map((S) => S.map((P) => P.toFixed(1)).join(",")).join(" ");
-    return N`<clipPath id="mow-zones">${t.map((x) => N`<polygon points=${A(x.pts)}></polygon>`)}</clipPath>
+    return R`<clipPath id="mow-zones">${t.map((x) => R`<polygon points=${A(x.pts)}></polygon>`)}</clipPath>
       <g class="stripes" clip-path="url(#mow-zones)">${k}</g>`;
   }
   /** The zones of the running job (from when it was started here); empty = all. */
@@ -27432,7 +27433,7 @@ const ci = class ci extends H {
   }
   /** The names on the map, each in its roomiest spot – left out where it wouldn't fit. `unit`: map units per screen pixel. */
   _labels(t, e) {
-    return N`<g class="labels">${t.map((o) => {
+    return R`<g class="labels">${t.map((o) => {
       if (o.pts.length < 3 || !o.name) return g;
       const [a, i] = o.pts[0], n = `${o.key}|${o.pts.length}|${(o.pts[1][0] - a).toFixed(2)}|${(o.pts[1][1] - i).toFixed(2)}`;
       let r = this._spots.get(n);
@@ -27441,13 +27442,13 @@ const ci = class ci extends H {
         r = [u - a, m - i, f], this._spots.set(n, r);
       }
       const [l, c, d] = [r[0] + a, r[1] + i, r[2]], p = d / e;
-      return p < 9 || p * 2.6 < o.name.length * 7 ? g : N`<text x=${l} y=${c} font-size=${12 * e} stroke-width=${3 * e} class="${this._picked.includes(o.key) ? "on" : ""} ${this._cur === o.key ? "cur" : ""}">${o.name}</text>`;
+      return p < 9 || p * 2.6 < o.name.length * 7 ? g : R`<text x=${l} y=${c} font-size=${12 * e} stroke-width=${3 * e} class="${this._picked.includes(o.key) ? "on" : ""} ${this._cur === o.key ? "cur" : ""}">${o.name}</text>`;
     })}</g>`;
   }
   _poly(t) {
     if (!t.pts.length) return g;
     const e = t.pts.map((o) => o.map((a) => a.toFixed(1)).join(",")).join(" ");
-    return N`<polygon class="room ${this._picked.includes(t.key) ? "on" : ""} ${this._cur === t.key ? "cur" : ""}" points=${e} @click=${() => this._toggle(t.key)}><title>${t.name}</title></polygon>`;
+    return R`<polygon class="room ${this._picked.includes(t.key) ? "on" : ""} ${this._cur === t.key ? "cur" : ""}" points=${e} @click=${() => this._toggle(t.key)}><title>${t.name}</title></polygon>`;
   }
   render() {
     const t = this._config, e = this._hass;
@@ -27473,13 +27474,13 @@ const ci = class ci extends H {
             >
               ${J ?? g}
             ${r.map((F) => this._poly(F))}
-            ${x.obstacles.map((F) => F.length ? N`<polygon class="obstacle" points=${W(F)}></polygon>` : g)}
-            ${x.paths.map((F) => N`<polyline class="path" points=${W(F)}></polyline>`)}
-            ${this._job?.route.length ? N`${this._job.done.map((F) => N`<polyline class="done" stroke-width=${(this._num(t.settings?.spacing) ?? 25) / 100 * x.perMetre} points=${W(F)}></polyline>`)}
-                  ${this._job.route.map((F) => N`<polyline class="route" points=${W(F)}></polyline>`)}` : this._stripes(this._mowing(r), U, x.perMetre)}
+            ${x.obstacles.map((F) => F.length ? R`<polygon class="obstacle" points=${W(F)}></polygon>` : g)}
+            ${x.paths.map((F) => R`<polyline class="path" points=${W(F)}></polyline>`)}
+            ${this._job?.route.length ? R`${this._job.done.map((F) => R`<polyline class="done" stroke-width=${(this._num(t.settings?.spacing) ?? 25) / 100 * x.perMetre} points=${W(F)}></polyline>`)}
+                  ${this._job.route.map((F) => R`<polyline class="route" points=${W(F)}></polyline>`)}` : this._stripes(this._mowing(r), U, x.perMetre)}
             ${this._labels(r, U)}
-            ${ot ? N`<circle class="dock" cx=${ot[0]} cy=${ot[1]} r=${5 * U}></circle>` : g}
-            ${I ? N`<circle class="mower" cx=${I[0]} cy=${I[1]} r=${7 * U}></circle>` : g}
+            ${ot ? R`<circle class="dock" cx=${ot[0]} cy=${ot[1]} r=${5 * U}></circle>` : g}
+            ${I ? R`<circle class="mower" cx=${I[0]} cy=${I[1]} r=${7 * U}></circle>` : g}
           </svg>
           ${this._zoom > 1 ? h`<button class="reset" aria-label=${M("Whole lawn")} @click=${() => (this._zoom = 1, this._pan = [0, 0])}>
                 <ha-icon icon="mdi:arrow-collapse-all"></ha-icon>
@@ -28384,7 +28385,7 @@ const di = class di extends H {
   render() {
     if (!this._config) return g;
     const t = this._config, e = t.layout ?? "column", o = this._bare ? "0" : typeof t.padding == "number" ? `${t.padding}px` : t.padding ?? "20px", a = t.equal_rows, i = e === "grid" && !!t.masonry, n = i ? !1 : a === void 0 || a === "" ? this._mode !== "mobile" : a === !0 || a === "true";
-    this.toggleAttribute("grid", e === "grid" && n && !Rt(t.row_heights).length);
+    this.toggleAttribute("grid", e === "grid" && n && !Nt(t.row_heights).length);
     const r = e === "grid" ? `display:grid;grid-template-columns:${Ai(t.column_widths) ?? (t.min_column_width ? `repeat(auto-fill,minmax(min(100%,${t.min_column_width}px),1fr))` : `repeat(${t.columns ?? 3},minmax(0,1fr))`)};${i ? `grid-auto-rows:1px;row-gap:0;--masonry-gap:${t.gap ?? 16}px;` : Ai(t.row_heights) ? `grid-template-rows:${Ai(t.row_heights)};` : t.rows ? `grid-template-rows:repeat(${t.rows},${n ? "minmax(0,1fr)" : "auto"});${n ? "" : "align-content:start;"}` : n ? "grid-auto-rows:1fr;" : "grid-auto-rows:auto;"}--room-grow:${n ? 0 : 1};${this._mode === "mobile" ? "" : "--room-min:0px;--room-max:100%;"}` : `display:flex;flex-direction:${e};${t.wrap ? "flex-wrap:wrap;" : ""}`, l = this._bare, c = At(t.tile_glass ?? rt.tile_glass ?? t.glass) === "home";
     return h`<div class="panel surface ${l ? "transparent" : ""} ${t.bar ? "barglass" : ""} ${l && c ? "tiles" : ""}" style="padding:${o};${t.height ? `height:${ys(t.height)};` : ""}">
       ${t.title || t.icon ? h`<div class="title">
@@ -29328,12 +29329,12 @@ const pi = class pi extends H {
     const w = Object.keys(i).filter((D) => this._areas[D]?.length), _ = Ct(y), v = Math.max(1, ...y.map((D) => D.length));
     for (const D of w) _.includes(D) || (y = [...y, Array(v).fill(D)]);
     let $ = o.grid?.columns ?? (f.length ? `repeat(${v}, minmax(0, 1fr))` : m.columns(u)), k = o.grid?.rows ?? (f.length ? "" : m.rows);
-    const A = Rt(o.column_widths);
+    const A = Nt(o.column_widths);
     if (A.length) {
       const D = ws($);
       $ = Array.from({ length: v }, (U, W) => A[W] ? vs(A[W]) : D[W] ?? "minmax(0, 1fr)").join(" ");
     }
-    const x = Rt(o.row_heights), S = ws(k), P = y.map((D, U) => x[U] ? vs(x[U]) : S[U] ?? "auto"), C = y.length;
+    const x = Nt(o.row_heights), S = ws(k), P = y.map((D, U) => x[U] ? vs(x[U]) : S[U] ?? "auto"), C = y.length;
     this._keepEmpty = this._preview && f.length > 0;
     const T = (D) => D !== "." && (this._keepEmpty || !!this._areas[D]?.length), L = y.map((D, U) => D.some(T) ? U : -1).filter((D) => D >= 0);
     y = L.map((D) => y[D]), x.length && (k = L.map((D) => P[D]).join(" "));
@@ -29363,7 +29364,7 @@ const pi = class pi extends H {
   _emitGrid(t, e) {
     let o = bc(e);
     if (t === "rows") {
-      const a = Rt(this._eff?.row_heights), i = Array.from({ length: this._grid.rowCount }, (n, r) => a[r] ?? "auto");
+      const a = Nt(this._eff?.row_heights), i = Array.from({ length: this._grid.rowCount }, (n, r) => a[r] ?? "auto");
       this._grid.rowIdx.forEach((n, r) => i[n] = o[r]), o = i;
     }
     this.dispatchEvent(
@@ -29470,7 +29471,7 @@ const pi = class pi extends H {
   /** The configured day / night wallpaper on HA's view background (it may not exist yet on first render). */
   _applyWallpaper(t) {
     if (this._preview) return;
-    const e = Ro(this._rawConfig ?? {}, t).wallpaper;
+    const e = No(this._rawConfig ?? {}, t).wallpaper;
     if (e !== this._wallpaper)
       if (Ql(e)) {
         this._wallpaper = e;
@@ -29493,7 +29494,7 @@ const pi = class pi extends H {
   }
   setConfig(t) {
     this._rawConfig = t;
-    const e = Ro(t, this.nightNow()), o = $a(e.look);
+    const e = No(t, this.nightNow()), o = $a(e.look);
     if (rt.glass = e.glass ?? o?.glass ?? "auto", rt.tile_glass = e.tile_glass ?? o?.tile_glass, rt.control_glass = e.control_glass ?? o?.control_glass, rt.sidebar = o?.sidebar, rt.bar_glass = o?.bar_glass, super.setConfig(t), this._syncDemo(), this._preview || this.isConnected && this._inEditor()) {
       if (this._preview = !0, clearTimeout(this._pending), this.isConnected && this._hiddenPreview()) {
         this._stale = !0;
@@ -29574,7 +29575,7 @@ const pi = class pi extends H {
     if (!this._preview) return h`${m}${f}`;
     let y = "";
     if (this.previewBackground) {
-      const _ = Mn(Ro(this._rawConfig ?? {}, this.hasAttribute("dark")).wallpaper);
+      const _ = Mn(No(this._rawConfig ?? {}, this.hasAttribute("dark")).wallpaper);
       y = `background:${_ ? `url('${_}') center / cover no-repeat` : "var(--lovelace-background, var(--primary-background-color))"}`;
     }
     const w = this._mode === "mobile";
@@ -30911,7 +30912,7 @@ const hi = class hi extends Kt {
     const e = K(this._config, t.slice(0, -2));
     if (!e || Array.isArray(e) || e.layout !== "grid") return 0;
     const o = pe(e, tt.mode) ?? e;
-    return Rt(o.column_widths).length || Number(o.columns) || 3;
+    return Nt(o.column_widths).length || Number(o.columns) || 3;
   }
   /** How the container of a card lays it out: "grid", "row" or "column" (an area is a column). */
   _parentLayout(t) {
@@ -32986,10 +32987,10 @@ window.addEventListener("location-changed", () => setTimeout(wd, 0));
 const xd = "0.1.0", Tl = {
   version: xd,
   GlassElement: H,
-  lit: { LitElement: Kt, html: h, css: Q, svg: N, nothing: g },
+  lit: { LitElement: Kt, html: h, css: Q, svg: R, nothing: g },
   registerCard: lt,
   createCard: En,
-  conditions: { evalCondition: dt, applyRules: Ra },
+  conditions: { evalCondition: dt, applyRules: Na },
   format: { displayText: Ce, computeValue: pc },
   colors: { cssColor: G, tint: kt },
   actions: { pressHandlers: jt, runAction: bt, withDefaults: ue },

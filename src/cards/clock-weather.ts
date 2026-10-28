@@ -204,14 +204,20 @@ class GlassClockWeather extends GlassElement<ClockWeatherConfig> {
     return [c.weather, c.temperature_entity, "sun.sun"].filter(Boolean) as string[];
   }
 
+  /** The panel's glass attribute (its sidebar colours) may arrive after the first render – in a
+   *  pop-up built while hidden, only once it shows: looked at again then (it gets a size). */
+  private _monoRo = new ResizeObserver(() => this.hasUpdated && this._mono !== this._wasMono && this.requestUpdate());
+
   override connectedCallback() {
     super.connectedCallback();
+    this._monoRo.observe(this);
     this._tick();
     if (this._hass) this._subscribe(this._hass);
   }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
+    this._monoRo.disconnect();
     clearTimeout(this._timer);
     clearTimeout(this._nowcastTimer);
     this._nowcastTimer = undefined;
@@ -377,13 +383,16 @@ class GlassClockWeather extends GlassElement<ClockWeatherConfig> {
     return (!style || style === "flat") && getComputedStyle(this).getPropertyValue("--glass-mono-icons").trim() === "1";
   }
 
+  /** what _mono was at the last render */
+  private _wasMono?: boolean;
+
   override firstUpdated() {
-    // the panel's glass attribute may arrive after the first render
-    requestAnimationFrame(() => this._mono && this.requestUpdate());
+    requestAnimationFrame(() => this._mono !== this._wasMono && this.requestUpdate());
   }
 
   private _bigIcon(condition: string, night: boolean) {
-    const style = this._mono ? "mdi" : (this._config.icon_style ?? "flat");
+    this._wasMono = this._mono;
+    const style = this._wasMono ? "mdi" : (this._config.icon_style ?? "flat");
     if (style === "mdi") {
       const color = cssColor(this._config.icons?.weather?.color);
       return html`<ha-icon class="mdi" .icon=${weatherMdi(condition, night)} style=${color ? `color:${color}` : ""}></ha-icon>`;
