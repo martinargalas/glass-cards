@@ -30141,24 +30141,27 @@ function x0(i) {
   history.pushState(null, "", i), window.dispatchEvent(new CustomEvent("location-changed", { detail: { replace: !1 } }));
 }
 async function k0() {
+  const i = import.meta.url.split("?")[0];
+  return fetch(i, { method: "HEAD", cache: "no-store" }).then((t) => t.headers.get("last-modified") ?? "").catch(() => "");
+}
+async function $0() {
   let i;
-  for (let e = 0; e < 40 && !(i = w0())?.user; e++) await new Promise((o) => setTimeout(o, 500));
+  for (let o = 0; o < 40 && !(i = w0())?.user; o++) await new Promise((a) => setTimeout(a, 500));
   if (!i?.user?.is_admin) return;
-  const t = () => i.callWS({ type: "frontend/set_user_data", key: Ll, value: { at: (/* @__PURE__ */ new Date()).toISOString() } }).catch(() => {
+  const t = await k0(), e = () => i.callWS({ type: "frontend/set_user_data", key: Ll, value: { at: (/* @__PURE__ */ new Date()).toISOString(), install: t } }).catch(() => {
   });
   if (!new URLSearchParams(location.search).has("glass-setup")) {
-    if ((await i.callWS({ type: "frontend/get_user_data", key: Ll }).catch(() => ({ value: !0 })))?.value) return;
-    const o = await i.callWS({ type: "lovelace/dashboards/list" }).catch(() => {
-    });
-    if (!o) return;
-    if (o.some((a) => /glass/i.test(`${a.url_path} ${a.title ?? ""}`))) {
-      t();
-      return;
-    }
+    const [o, a] = await Promise.all([
+      i.callWS({ type: "frontend/get_user_data", key: Ll }).catch(() => {
+      }),
+      i.callWS({ type: "lovelace/dashboards/list" }).catch(() => {
+      })
+    ]);
+    if (!o || !a || a.some((s) => /glass/i.test(`${s.url_path} ${s.title ?? ""}`)) || o.value && o.value.install === t) return;
   }
-  vi(i), $0(i, t);
+  vi(i), S0(i, e);
 }
-function $0(i, t) {
+function S0(i, t) {
   const e = document.createElement("glass-starter-offer"), o = e.attachShadow({ mode: "open" });
   o.innerHTML = `
     <style>
@@ -33366,7 +33369,7 @@ function Ed() {
 }
 Ed();
 window.addEventListener("location-changed", () => setTimeout(Ed, 0));
-const Dd = "1.10.5", Bl = {
+const Dd = "1.10.6", Bl = {
   version: Dd,
   GlassElement: H,
   lit: { LitElement: Zt, html: h, css: Q, svg: R, nothing: g },
@@ -33382,9 +33385,9 @@ const Dd = "1.10.5", Bl = {
   /** The made-up demo home (src/demo): a hass for pages without HA, and its changes. */
   demo: { hass: xc, onChange: wc, setState: Hp }
 };
-function S0() {
+function z0() {
   const i = (t, e) => (t.querySelectorAll("hui-error-card").forEach((o) => e.push(o)), t.querySelectorAll("*").forEach((o) => o.shadowRoot && i(o.shadowRoot, e)), e);
   for (const t of i(document, []))
     JSON.stringify(t._config ?? t.config ?? {}).includes("custom:glass-") && t.dispatchEvent(new CustomEvent("ll-rebuild", { bubbles: !0, composed: !0 }));
 }
-window.GlassCards || (window.GlassCards = Bl, requestAnimationFrame(S0), window.dispatchEvent(new CustomEvent("glass-cards-ready", { detail: Bl })), k0(), console.info(`%c GLASS-CARDS %c ${Dd} `, "background:#0a84ff;color:#fff;border-radius:4px 0 0 4px;padding:2px 4px", "background:#fff;color:#0a84ff;border-radius:0 4px 4px 0;padding:2px 4px"));
+window.GlassCards || (window.GlassCards = Bl, requestAnimationFrame(z0), window.dispatchEvent(new CustomEvent("glass-cards-ready", { detail: Bl })), $0(), console.info(`%c GLASS-CARDS %c ${Dd} `, "background:#0a84ff;color:#fff;border-radius:4px 0 0 4px;padding:2px 4px", "background:#fff;color:#0a84ff;border-radius:0 4px 4px 0;padding:2px 4px"));

@@ -364,26 +364,36 @@ function navigate(path: string) {
   window.dispatchEvent(new CustomEvent("location-changed", { detail: { replace: false } }));
 }
 
+/** When the cards' files were put in place (the bundle's Last-Modified): a reinstall changes it. */
+async function installStamp(): Promise<string> {
+  const bundle = import.meta.url.split("?")[0];
+  return fetch(bundle, { method: "HEAD", cache: "no-store" })
+    .then((r) => r.headers.get("last-modified") ?? "")
+    .catch(() => "");
+}
+
 /**
- * Once per admin, the first time Glass Cards load: a bar offering the demo home. Not shown when a Glass dashboard is already there or the
- * offer was answered before (kept in HA's user data, so it is not asked again on another
- * device); `?glass-setup` in the address shows it again.
+ * Once per admin and install, the first time Glass Cards load: a bar offering the demo home.
+ * Not shown while a Glass dashboard is there, nor again after an answer – until the cards are
+ * installed anew (kept in HA's user data with the files' date, so another device doesn't ask
+ * either). `?glass-setup` in the address shows it any time.
  */
 export async function offerStarter() {
   let hass: Hass | undefined;
   for (let i = 0; i < 40 && !(hass = haHass())?.user; i++) await new Promise((r) => setTimeout(r, 500));
   if (!hass?.user?.is_admin) return;
-  const remember = () => hass!.callWS({ type: "frontend/set_user_data", key: SEEN, value: { at: new Date().toISOString() } }).catch(() => undefined);
+  const install = await installStamp();
+  const remember = () => hass!.callWS({ type: "frontend/set_user_data", key: SEEN, value: { at: new Date().toISOString(), install } }).catch(() => undefined);
   if (!new URLSearchParams(location.search).has("glass-setup")) {
-    const seen = await hass.callWS<{ value?: unknown }>({ type: "frontend/get_user_data", key: SEEN }).catch(() => ({ value: true }));
-    if (seen?.value) return;
-    const list = await hass.callWS<any[]>({ type: "lovelace/dashboards/list" }).catch(() => undefined);
-    if (!list) return;
-    // someone who uses Glass Cards already: no offer, now or later
-    if (list.some((d) => /glass/i.test(`${d.url_path} ${d.title ?? ""}`))) {
-      void remember();
-      return;
-    }
+    const [seen, list] = await Promise.all([
+      hass.callWS<{ value?: { install?: string } | null }>({ type: "frontend/get_user_data", key: SEEN }).catch(() => undefined),
+      hass.callWS<any[]>({ type: "lovelace/dashboards/list" }).catch(() => undefined),
+    ]);
+    if (!seen || !list) return;
+    // someone with a Glass dashboard uses Glass Cards already: nothing to offer
+    if (list.some((d) => /glass/i.test(`${d.url_path} ${d.title ?? ""}`))) return;
+    // answered for these very files
+    if (seen.value && seen.value.install === install) return;
   }
   syncLang(hass as any);
   showBar(hass, remember);

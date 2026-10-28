@@ -56,8 +56,9 @@ never touches your devices. It appears in the sidebar as **Glass demo**
 ([the demo dashboard](demo.md)), and it's yours to change: open it in Dashboard Studio, swap in
 your own devices and keep what you like.
 
-Nothing is created until you click, and the bar asks once – **No, thanks** hides it for good. To
-see it again (after reinstalling, say), add `?glass-setup` to the address of a dashboard.
+Nothing is created until you click. The bar asks once per install – **No, thanks** hides it,
+and it doesn't come while you have a Glass dashboard. To see it any time, add `?glass-setup` to
+the address of a dashboard.
 
 ### A dashboard from your own rooms
 
