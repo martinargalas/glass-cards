@@ -13,14 +13,21 @@ Glass Cards are not in the HACS store (yet) – you add the repository to HACS y
 4. Find **Glass Cards** in HACS, open it and click **Download**. Reload the browser (or the
    app) when HACS asks you to.
 
-HACS adds the resource for you, and updates arrive the same way.
+HACS adds the resource (`/hacsfiles/glass-cards/glass-cards.js`) for you, and updates arrive the
+same way.
+
+> **Installed 1.10.1 or 1.10.2 through HACS?** Those registered the resource as
+> `…/glass-cards.zip`, which the browser can't run. Update to the newest version in HACS – it
+> fixes the resource – or change it by hand in **Settings → Dashboards → ⋮ → Resources** to
+> `/hacsfiles/glass-cards/glass-cards.js`.
 
 ## By hand
 
-1. Download `glass-cards.zip` from the
-   [latest release](https://github.com/martinargalas/glass-cards/releases/latest) (or take the repository's `dist` folder).
-2. Unpack it into `config/www/glass-cards/` in your Home Assistant configuration – the cards, the
-   wallpapers and the demo's pictures stay together in that folder.
+1. Download the source code of the
+   [latest release](https://github.com/martinargalas/glass-cards/releases/latest) (**Source code (zip)**).
+2. Copy everything in its `dist` folder into `config/www/glass-cards/` in your Home Assistant
+   configuration – the cards, the wallpapers (`wallpaper-*.jpg`) and the demo's pictures
+   (`demo-*`) lie side by side in that one folder.
 3. **Settings → Dashboards → ⋮ → Resources → Add resource**:
    URL `/local/glass-cards/glass-cards.js`, type **JavaScript module**.
 4. Reload the browser.

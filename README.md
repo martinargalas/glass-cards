@@ -1,3 +1,5 @@
+<img src="docs/images/icon.png" alt="" width="72" align="right">
+
 # Glass Cards
 
 **Liquid glass dashboards for Home Assistant – built visually in Dashboard Studio.**
@@ -48,8 +50,11 @@ app – or, for older tablets, the same look at almost no cost.
 **HACS:** HACS → ⋮ → *Custom repositories* → `https://github.com/martinargalas/glass-cards`, type
 *Dashboard* → search **Glass Cards** → *Download* → reload the browser.
 
-**By hand:** unpack `glass-cards.zip` from the [latest release](https://github.com/martinargalas/glass-cards/releases/latest) into `config/www/glass-cards/` and add
+**By hand:** copy the `dist` folder of the [latest release](https://github.com/martinargalas/glass-cards/releases/latest) into `config/www/glass-cards/` and add
 the resource `/local/glass-cards/glass-cards.js` (JavaScript module).
+
+After the install, reload: an administrator is offered a Glass dashboard built from their own
+rooms ([Install → Your first Glass dashboard](docs/install.md#your-first-glass-dashboard)).
 
 Details: [Install](docs/install.md).
 

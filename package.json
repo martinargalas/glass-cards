@@ -1,19 +1,18 @@
 {
   "name": "glass-cards",
-  "version": "1.10.2",
+  "version": "1.10.3",
   "description": "Liquid / frosted glass cards for Home Assistant dashboards. Fast, themeable without card_mod.",
   "type": "module",
   "license": "MIT",
   "scripts": {
     "build": "node scripts/demo-dashboard.mjs && tsc --noEmit && node scripts/check-i18n.mjs && vite build && node scripts/copy-wallpapers.mjs && node scripts/write-version.mjs",
-    "release:zip": "rm -f glass-cards.zip && cd dist && zip -qr -X ../glass-cards.zip glass-cards.js glass-cards-loader.js version.json wallpapers demo",
     "watch": "vite build --watch",
     "typecheck": "tsc --noEmit",
     "deploy": "npm run build && bash scripts/deploy.sh",
     "dev": "vite --config dev/vite.config.ts",
     "check-i18n": "node scripts/check-i18n.mjs",
     "web": "node scripts/demo-dashboard.mjs && vite --config web/vite.config.ts",
-    "build:web": "node scripts/demo-dashboard.mjs && vite build --config web/vite.config.ts && mkdir -p dist-web/assets/wallpapers dist-web/assets/demo dist-web/assets/vendor && cp wallpapers/hills-day.jpg wallpapers/hills-night-blue-soft.jpg dist-web/assets/wallpapers/ && cp demo-assets/* dist-web/assets/demo/ && rm -rf dist-web/assets/vendor/* && (cd web/vendor && cp bubble-card.js layout-card.js apexcharts-card.js solar-arc-card.js ../../dist-web/assets/vendor/ 2>/dev/null || true)"
+    "build:web": "node scripts/demo-dashboard.mjs && vite build --config web/vite.config.ts && mkdir -p dist-web/assets/vendor && cp wallpapers/hills-day.jpg dist-web/assets/wallpaper-hills-day.jpg && cp wallpapers/hills-night-blue-soft.jpg dist-web/assets/wallpaper-hills-night-blue-soft.jpg && (cd demo-assets && for f in *; do cp \"$f\" \"../dist-web/assets/demo-$f\"; done) && rm -rf dist-web/assets/vendor/* && (cd web/vendor && cp bubble-card.js layout-card.js apexcharts-card.js solar-arc-card.js ../../dist-web/assets/vendor/ 2>/dev/null || true)"
   },
   "dependencies": {
     "lit": "^3.3.3"

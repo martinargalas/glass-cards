@@ -3349,7 +3349,7 @@ function Rn(s) {
   const t = s?.match(/^glass:([\w-]+(?:\/[\w.-]+)?)$/);
   if (!t) return s;
   const e = import.meta.url;
-  return new URL(t[1].includes("/") ? `./${t[1]}` : `./wallpapers/${t[1]}.jpg`, e).href;
+  return new URL(t[1].includes("/") ? `./${t[1].replace("/", "-")}` : `./wallpaper-${t[1]}.jpg`, e).href;
 }
 const nc = Rn;
 function rc(s) {
@@ -9506,7 +9506,7 @@ const ye = Object.fromEntries(
 function Si(s) {
   if (typeof s == "string") {
     const t = import.meta.url;
-    return /^glass:demo\/[\w.-]+$/.test(s) ? new URL(`./${s.slice(6)}`, t).href : s;
+    return /^glass:demo\/[\w.-]+$/.test(s) ? new URL(`./demo-${s.slice(11)}`, t).href : s;
   }
   return Array.isArray(s) ? s.map(Si) : s && typeof s == "object" ? Object.fromEntries(Object.entries(s).map(([t, e]) => [t, Si(e)])) : s;
 }
@@ -33336,7 +33336,7 @@ function Ed() {
 }
 Ed();
 window.addEventListener("location-changed", () => setTimeout(Ed, 0));
-const Dd = "1.10.2", Bl = {
+const Dd = "1.10.3", Bl = {
   version: Dd,
   GlassElement: H,
   lit: { LitElement: Zt, html: h, css: Q, svg: R, nothing: g },

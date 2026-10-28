@@ -245,7 +245,7 @@ function bundledFiles(node: unknown): unknown {
   if (typeof node === "string") {
     // the bundle's address in a variable: Vite would turn `new URL(…, import.meta.url)` into a file lookup
     const bundle = import.meta.url;
-    return /^glass:demo\/[\w.-]+$/.test(node) ? new URL(`./${node.slice(6)}`, bundle).href : node;
+    return /^glass:demo\/[\w.-]+$/.test(node) ? new URL(`./demo-${node.slice(11)}`, bundle).href : node;
   }
   if (Array.isArray(node)) return node.map(bundledFiles);
   if (node && typeof node === "object") return Object.fromEntries(Object.entries(node).map(([k, v]) => [k, bundledFiles(v)]));

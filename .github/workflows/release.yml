@@ -19,11 +19,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: git diff --exit-code -- dist
-      # the cards with their wallpapers and the demo's pictures, unpacked by HACS into one folder
-      - run: npm run release:zip
       - name: Release notes from the tag
         run: git tag -l --format='%(contents)' "$GITHUB_REF_NAME" > notes.md
       - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
         with:
+          # no files: HACS takes everything from dist/ at the tag; an attached file would replace it
           body_path: notes.md
-          files: glass-cards.zip

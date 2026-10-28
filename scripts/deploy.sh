@@ -14,9 +14,6 @@ if [ -n "$BACKUPS" ] && [ -d "$DEST" ]; then
   echo "backup: $BACKUPS/glass-cards-$stamp"
 fi
 mkdir -p "$DEST"
-cp dist/glass-cards.js dist/glass-cards-loader.js dist/version.json "$DEST/"
-mkdir -p "$DEST/wallpapers"
-cp dist/wallpapers/*.jpg "$DEST/wallpapers/"
-mkdir -p "$DEST/demo"
-cp dist/demo/* "$DEST/demo/"
+# everything flat in dist/: the bundle, the loader, wallpaper-*.jpg and demo-*
+cp dist/* "$DEST/"
 echo "deployed to $DEST: $(cat dist/version.json)"

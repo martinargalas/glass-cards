@@ -251,15 +251,16 @@ interface Backdrop {
  */
 /**
  * An address of a picture that may come with the cards: `glass:<name>` is one of the bundled
- * wallpapers (wallpapers/<name>.jpg next to the bundle), `glass:<folder>/<file>` any other
- * bundled file (the demo home's photos: glass:demo/laundry.jpg); anything else as it is.
+ * wallpapers (wallpaper-<name>.jpg next to the bundle), `glass:<folder>/<file>` any other
+ * bundled file (the demo home's photos: glass:demo/laundry.jpg is demo-laundry.jpg); anything
+ * else as it is. All of them lie flat beside the bundle: HACS downloads no subfolders.
  */
 export function wallpaperUrl(url: string | undefined): string | undefined {
   const m = url?.match(/^glass:([\w-]+(?:\/[\w.-]+)?)$/);
   if (!m) return url;
   // the bundle's own address in a variable: Vite would turn `new URL(…, import.meta.url)` into a lookup of files beside the source
   const bundle = import.meta.url;
-  return new URL(m[1].includes("/") ? `./${m[1]}` : `./wallpapers/${m[1]}.jpg`, bundle).href;
+  return new URL(m[1].includes("/") ? `./${m[1].replace("/", "-")}` : `./wallpaper-${m[1]}.jpg`, bundle).href;
 }
 export const assetUrl = wallpaperUrl;
 
