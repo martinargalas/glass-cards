@@ -1147,9 +1147,16 @@ class GlassRoomCard extends GlassElement<RoomConfig> {
         gap: 4px;
         min-width: 0;
       }
+      .btns .slot {
+        flex: none;
+      }
       .btn {
         width: var(--btn);
         height: var(--btn);
+        /* round whatever squeezes it */
+        flex: none;
+        min-width: var(--btn);
+        aspect-ratio: 1;
         display: grid;
         place-items: center;
         overflow: visible;
@@ -1326,6 +1333,8 @@ class GlassRoomCard extends GlassElement<RoomConfig> {
         position: relative;
         isolation: isolate;
         flex: none;
+        /* never narrower than tall: in a narrow tile the name's capsule gives way, not this one */
+        min-width: var(--glass-room-bar-height, 48px);
         height: var(--glass-room-bar-height, 48px);
         box-sizing: border-box;
         display: flex;
