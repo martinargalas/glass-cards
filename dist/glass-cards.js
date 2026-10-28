@@ -32994,7 +32994,7 @@ function $d() {
 }
 $d();
 window.addEventListener("location-changed", () => setTimeout($d, 0));
-const Sd = "0.1.0", Ll = {
+const Sd = "1.10.1", Ll = {
   version: Sd,
   GlassElement: H,
   lit: { LitElement: Kt, html: h, css: Q, svg: R, nothing: g },
