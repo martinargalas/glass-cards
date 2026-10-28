@@ -460,6 +460,13 @@ export class GlassStudio extends LitElement {
     const list = get(root, g.anchor.slice(0, -1)) as Cfg[];
     const holder = get(root, g.anchor.slice(0, -2)) as Cfg | Cfg[];
     const i = g.anchor[g.anchor.length - 1] as number;
+    // a grid keeps its layout (it wraps by itself): the new card just joins it
+    if (!Array.isArray(holder) && holder?.type === "custom:glass-panel" && this._parentLayout(g.anchor) === "grid") {
+      list.splice(g.after ? i + 1 : i, 0, card);
+      this._set(root);
+      this._sel = [...g.anchor.slice(0, -1), g.after ? i + 1 : i];
+      return;
+    }
     if (!Array.isArray(holder) && holder?.type === "custom:glass-panel" && list.length === 1) {
       holder.layout = g.layout;
       list.splice(g.after ? 1 : 0, 0, card);
@@ -638,8 +645,7 @@ export class GlassStudio extends LitElement {
       // next to this card, in its own list: the axis its container lays cards out on
       const list = path.slice(0, -1);
       const i = path[path.length - 1] as number;
-      const parent = get(this._config, list.slice(0, -1)) as Cfg | undefined;
-      const layout = Array.isArray(parent) ? "column" : (parent?.layout ?? "column");
+      const layout = this._parentLayout(path);
       const across = layout === "row" || layout === "grid";
       const fx = (e.clientX - r.left) / r.width;
       const fy = (e.clientY - r.top) / r.height;
@@ -855,8 +861,7 @@ export class GlassStudio extends LitElement {
     const r = rect ?? this._rect(top.el);
     const list = top.path.slice(0, -1);
     const i = top.path[top.path.length - 1] as number;
-    const parent = get(this._config, list.slice(0, -1)) as Cfg | undefined;
-    const layout = Array.isArray(parent) ? "column" : (parent?.layout ?? "column");
+    const layout = this._parentLayout(top.path);
     const across = layout === "row" || layout === "grid";
     const nearX = e.clientX < r.left + EDGE ? -1 : e.clientX > r.right - EDGE ? 1 : 0;
     const nearY = e.clientY < r.top + EDGE ? -1 : e.clientY > r.bottom - EDGE ? 1 : 0;
