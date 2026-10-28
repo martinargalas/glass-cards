@@ -7,7 +7,7 @@ import { preview, previewSize, setPreviewMode } from "../core/settings";
 import { LiquidController } from "../core/liquid";
 import { addStarterDashboard } from "./starter";
 import { addDemoDashboard, backup, dropBackup, findGlass, lastBackup, listDashboards, loadConfig, putAt, saveConfig, type DashInfo } from "./store";
-import { AREA_TITLES, DEVICE_MODES, MODE_NAMES, NEW_CARDS, bubbleNotice, hasBubble, missingFor,
+import { AREA_TITLES, DEVICE_MODES, MODE_NAMES, NEW_CARDS, SUPPORT_BUTTON, SUPPORT_URL, bubbleNotice, hasBubble, missingFor,
   foreignNotice, describeCard, getClip, makeEditor, move, orderOn, setClip, shownOn, stubFor, withOrder, withShown } from "./editor";
 import { dashboardSpec } from "./specs";
 import { editorLangPref, setEditorLang, t } from "./i18n";
@@ -2935,6 +2935,11 @@ export class GlassStudio extends LitElement {
             ${LANGS.map(([v, l]) => html`<option value=${v} ?selected=${editorLangPref() === v}>${l}</option>`)}
           </select>
         </label>
+        ${(this.hass as any)?.demo
+          ? nothing
+          : html`<a class="coffee" href=${SUPPORT_URL} target="_blank" rel="noreferrer" title=${t("Support glass cards")}>
+              <img src=${SUPPORT_BUTTON} alt="Buy Me a Coffee" />
+            </a>`}
         <button class="icon ${this._hideTree ? "" : "on"}" title=${t("Structure panel")} @click=${() => (this._hideTree = !this._hideTree)}>
           <ha-icon .icon=${"mdi:file-tree-outline"}></ha-icon>
         </button>
@@ -3169,7 +3174,31 @@ export class GlassStudio extends LitElement {
       font-size: 20px;
       margin: 0 16px 0 4px;
     }
-    /* support: a yellow pill that hops now and then (once 20 s after opening, then every 2 min) */
+    /* support: a yellow pill that hops now and then (once 20 s after opening, then every 2 min);
+       in Home Assistant only – the web demo has its own on the page */
+    .coffee {
+      display: inline-flex;
+      animation: coffee-hop 120s ease-in-out 20s infinite;
+      transform-origin: 50% 100%;
+    }
+    .coffee img {
+      display: block;
+      height: 32px;
+    }
+    .coffee:hover {
+      animation-play-state: paused;
+      filter: brightness(1.05);
+    }
+    @keyframes coffee-hop {
+      0%, 2.5%, 100% { transform: none; }
+      0.5% { transform: translateY(-6px) rotate(-6deg); }
+      1% { transform: translateY(0) rotate(0); }
+      1.5% { transform: translateY(-3px) rotate(5deg); }
+      2% { transform: translateY(0) rotate(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .coffee { animation: none; }
+    }
     .icon {
       width: 40px;
       height: 40px;

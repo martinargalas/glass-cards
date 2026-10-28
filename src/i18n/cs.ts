@@ -1627,4 +1627,5 @@ export const cs: Dict = {
   "The menu that opens from a button (action: menu): related choices around it.": "Menu, které se otevře z tlačítka (action: menu): související volby kolem něj.",
   "Upcoming events of several calendars in one list, each calendar in its colour.": "Nadcházející události více kalendářů v jednom seznamu, každý kalendář ve své barvě.",
   "A person's round picture with where they are and their phone's battery.": "Kulatý obrázek osoby s tím, kde je, a baterií jejího telefonu.",
+  "Support glass cards": "Podpořit glass karty",
 };
