@@ -53,8 +53,8 @@ app – or, for older tablets, the same look at almost no cost.
 **By hand:** copy the `dist` folder of the [latest release](https://github.com/martinargalas/glass-cards/releases/latest) into `config/www/glass-cards/` and add
 the resource `/local/glass-cards/glass-cards.js` (JavaScript module).
 
-After the install, reload: an administrator is offered a Glass dashboard built from their own
-rooms ([Install → Your first Glass dashboard](docs/install.md#your-first-glass-dashboard)).
+After the install, reload: an administrator is offered the demo home – every card on a made-up
+home ([Install → Your first Glass dashboard](docs/install.md#your-first-glass-dashboard)).
 
 Details: [Install](docs/install.md).
 

@@ -245,7 +245,6 @@ export const cs: Dict = {
   "Picked at first": "Na začátku vybraný",
   "A made-up home with every glass card on it – nothing it does reaches your devices": "Vymyšlená domácnost se všemi glass kartami – nic z ní nedosáhne na tvá zařízení",
   "Demo dashboard": "Ukázkový dashboard",
-  "Demo home": "Ukázková domácnost",
   "Run on the made-up demo home": "Běžet na vymyšlené ukázkové domácnosti",
   "Every card here shows invented devices; switching them changes nothing in your home. Off: the cards use your entities.": "Všechny karty tu ukazují vymyšlená zařízení; jejich přepínání ve tvé domácnosti nic nezmění. Vypnuto: karty používají tvé entity.",
   "The demo dashboard is in the sidebar as “Glass demo”. Change anything – it runs on a made-up home.": "Ukázkový dashboard je v postranním panelu jako „Glass demo“. Měň cokoli – běží na vymyšlené domácnosti.",
@@ -1610,7 +1609,6 @@ export const cs: Dict = {
   "The dashboard is in the sidebar as “Glass”. Rooms without lights, blinds or a temperature were left out.": "Dashboard je v postranním panelu jako „Glass“. Místnosti bez světel, žaluzií a teploty jsou vynechané.",
   "The dashboard could not be created:": "Dashboard se nepodařilo vytvořit:",
   "Glass Cards are installed": "Glass Cards jsou nainstalované",
-  "Create a Glass dashboard from your rooms? Lights, blinds and temperatures come from your areas.": "Vytvořit Glass dashboard z tvých místností? Světla, žaluzie a teploty se vezmou z oblastí v Home Assistantu.",
   "No, thanks": "Ne, díky",
   "No lights, blinds or thermostats found yet. Add some to Home Assistant, then add this dashboard again in Dashboard Studio.": "Zatím tu nejsou žádná světla, žaluzie ani termostaty. Přidej je do Home Assistantu a pak dashboard přidej znovu v Dashboard Studiu.",
   "Office": "Pracovna",
@@ -1623,4 +1621,7 @@ export const cs: Dict = {
   "Laundry": "Prádelna",
   "Garage": "Garáž",
   "Garden": "Zahrada",
+  "Every card on a made-up home – a tour of everything Glass Cards can do. Then make it yours in Dashboard Studio: swap in your own devices, keep what you like.": "Všechny karty na vymyšlené domácnosti – přehled všeho, co Glass Cards umí. Pak si ho v Dashboard Studiu přizpůsob: dosaď svá zařízení, nech si, co se ti líbí.",
+  "Want to see what they can do?": "Chceš vidět, co umí?",
+  "Create the demo home": "Vytvořit ukázkovou domácnost",
 };

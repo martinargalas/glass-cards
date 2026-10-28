@@ -4,12 +4,13 @@
  * left column from what the home has (people, weather, calendars). With Bubble Card there is
  * one pop-up as an example: the weather.
  *
- * After an install an admin is offered it once, in a bar at the bottom of the page; Dashboard
- * Studio adds it on request too. Nothing is created without a click.
+ * Dashboard Studio adds it on request ("From your rooms"). After an install an admin is offered
+ * the demo home instead, once, in a bar at the bottom of the page – it always shows the cards at
+ * their best, whatever state the home's areas are in. Nothing is created without a click.
  */
 
 import { syncLang, tr } from "../i18n";
-import { saveConfig } from "./store";
+import { addDemoDashboard, saveConfig } from "./store";
 
 type Hass = {
   callWS<T>(m: Record<string, unknown>): Promise<T>;
@@ -364,23 +365,25 @@ function navigate(path: string) {
 }
 
 /**
- * Once per admin, the first time Glass Cards load: a bar offering the starter dashboard.
- * Not shown when a Glass dashboard is already there or the offer was answered before
- * (kept in HA's user data, so it is not asked again on another device).
+ * Once per admin, the first time Glass Cards load: a bar offering the demo home. Not shown when a Glass dashboard is already there or the
+ * offer was answered before (kept in HA's user data, so it is not asked again on another
+ * device); `?glass-setup` in the address shows it again.
  */
 export async function offerStarter() {
   let hass: Hass | undefined;
   for (let i = 0; i < 40 && !(hass = haHass())?.user; i++) await new Promise((r) => setTimeout(r, 500));
   if (!hass?.user?.is_admin) return;
-  const seen = await hass.callWS<{ value?: unknown }>({ type: "frontend/get_user_data", key: SEEN }).catch(() => ({ value: true }));
-  if (seen?.value) return;
-  const list = await hass.callWS<any[]>({ type: "lovelace/dashboards/list" }).catch(() => undefined);
   const remember = () => hass!.callWS({ type: "frontend/set_user_data", key: SEEN, value: { at: new Date().toISOString() } }).catch(() => undefined);
-  if (!list) return;
-  // someone who uses Glass Cards already: no offer, now or later
-  if (list.some((d) => /glass/i.test(`${d.url_path} ${d.title ?? ""}`))) {
-    void remember();
-    return;
+  if (!new URLSearchParams(location.search).has("glass-setup")) {
+    const seen = await hass.callWS<{ value?: unknown }>({ type: "frontend/get_user_data", key: SEEN }).catch(() => ({ value: true }));
+    if (seen?.value) return;
+    const list = await hass.callWS<any[]>({ type: "lovelace/dashboards/list" }).catch(() => undefined);
+    if (!list) return;
+    // someone who uses Glass Cards already: no offer, now or later
+    if (list.some((d) => /glass/i.test(`${d.url_path} ${d.title ?? ""}`))) {
+      void remember();
+      return;
+    }
   }
   syncLang(hass as any);
   showBar(hass, remember);
@@ -391,46 +394,57 @@ function showBar(hass: Hass, remember: () => Promise<unknown>) {
   const root = host.attachShadow({ mode: "open" });
   root.innerHTML = `
     <style>
-      :host { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 9; width: min(560px, calc(100vw - 32px)); }
-      .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 16px; border-radius: 22px;
+      :host { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 9; width: min(600px, calc(100vw - 32px)); }
+      .bar { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 24px;
         background: color-mix(in srgb, var(--card-background-color, #1c1c1e) 82%, transparent); color: var(--primary-text-color, #fff);
         backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
         border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 12px 40px rgba(0,0,0,0.28); font: 14px/1.4 var(--paper-font-body1_-_font-family, system-ui, sans-serif); }
-      .text { flex: 1 1 260px; }
+      .head { display: flex; align-items: start; gap: 12px; }
+      .text { flex: 1; }
       b { display: block; font-weight: 600; margin-bottom: 2px; }
-      .actions { display: flex; gap: 8px; margin-left: auto; }
-      button { border: 0; border-radius: 999px; padding: 8px 16px; font: inherit; font-weight: 600; cursor: pointer; }
-      .go { background: var(--primary-color, #0a84ff); color: var(--text-primary-color, #fff); }
-      .no { background: rgba(127,127,127,0.18); color: inherit; }
+      .choices { display: grid; gap: 8px; }
+      button { border: 0; font: inherit; cursor: pointer; color: inherit; }
+      .pick { text-align: left; border-radius: 16px; padding: 12px 14px; background: rgba(127,127,127,0.16); }
+      .pick:hover { background: rgba(127,127,127,0.26); }
+      .pick strong { display: block; font-weight: 600; }
+      .pick span { display: block; opacity: 0.72; font-size: 13px; margin-top: 2px; }
+      .pick.main { background: var(--primary-color, #0a84ff); color: var(--text-primary-color, #fff); }
+      .pick.main span { opacity: 0.85; }
+      .no { border-radius: 999px; padding: 6px 12px; background: none; opacity: 0.7; font-weight: 600; flex: none; }
+      .no:hover { opacity: 1; }
       button[disabled] { opacity: 0.6; cursor: default; }
     </style>
     <div class="bar" role="dialog">
-      <div class="text"><b></b><span></span></div>
-      <div class="actions"><button class="no"></button><button class="go"></button></div>
+      <div class="head"><div class="text"><b></b><span class="msg"></span></div><button class="no"></button></div>
+      <div class="choices">
+        <button class="pick main"><strong></strong><span></span></button>
+      </div>
     </div>`;
   const title = root.querySelector("b")!;
-  const text = root.querySelector("span")!;
-  const go = root.querySelector<HTMLButtonElement>(".go")!;
+  const text = root.querySelector<HTMLElement>(".msg")!;
   const no = root.querySelector<HTMLButtonElement>(".no")!;
+  const picks = [...root.querySelectorAll<HTMLButtonElement>(".pick")];
   title.textContent = tr("Glass Cards are installed");
-  text.textContent = tr("Create a Glass dashboard from your rooms? Lights, blinds and temperatures come from your areas.");
-  go.textContent = tr("Create");
+  text.textContent = tr("Want to see what they can do?");
+  picks[0].querySelector("strong")!.textContent = tr("Create the demo home");
+  picks[0].querySelector("span")!.textContent = tr("Every card on a made-up home – a tour of everything Glass Cards can do. Then make it yours in Dashboard Studio: swap in your own devices, keep what you like.");
   no.textContent = tr("No, thanks");
   no.onclick = () => {
     void remember();
     host.remove();
   };
-  go.onclick = async () => {
-    go.disabled = no.disabled = true;
-    try {
-      const url = await addStarterDashboard(hass);
-      await remember();
-      host.remove();
-      navigate(`/${url}/home`);
-    } catch (e: any) {
-      go.disabled = no.disabled = false;
-      text.textContent = `${tr("The dashboard could not be created:")} ${e?.message ?? e}`;
-    }
-  };
+  for (const b of picks)
+    b.onclick = async () => {
+      for (const x of [...picks, no]) x.disabled = true;
+      try {
+        const url = await addDemoDashboard(hass);
+        await remember();
+        host.remove();
+        navigate(`/${url}/0`);
+      } catch (e: any) {
+        for (const x of [...picks, no]) x.disabled = false;
+        text.textContent = `${tr("The dashboard could not be created:")} ${e?.message ?? e}`;
+      }
+    };
   document.body.appendChild(host);
 }

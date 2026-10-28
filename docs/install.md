@@ -50,8 +50,19 @@ You can do without both: the dock can switch **pages** instead of opening pop-up
 
 ## Your first Glass dashboard
 
-After the install, reload the page. If you're an administrator, a bar at the bottom offers to
-**create a Glass dashboard from your rooms** – the demo's layout on your own home:
+After the install, reload the page. If you're an administrator, a bar at the bottom offers the
+**demo home**: every card on a made-up home – a tour of everything Glass Cards can do, which
+never touches your devices. It appears in the sidebar as **Glass demo**
+([the demo dashboard](demo.md)), and it's yours to change: open it in Dashboard Studio, swap in
+your own devices and keep what you like.
+
+Nothing is created until you click, and the bar asks once – **No, thanks** hides it for good. To
+see it again (after reinstalling, say), add `?glass-setup` to the address of a dashboard.
+
+### A dashboard from your own rooms
+
+Dashboard Studio (`?glass-studio`) builds one more: **From your rooms** – the demo's layout on
+your own home, as **Glass** in the sidebar:
 
 - **Rooms are your areas.** Each area with lights, blinds, a thermostat, a TV or speaker or a
   temperature sensor gets a room card with them (devices count too: an entity is in its
@@ -59,15 +70,11 @@ After the install, reload the page. If you're an administrator, a bar at the bot
   own picture wins.
 - **No areas yet?** Then the rooms are guessed from the names – `light.kitchen_ceiling` goes to
   the kitchen – and what no name places is shared out among the demo's rooms. Sort your
-  devices into areas later and add the dashboard again for the real thing.
+  devices into areas first for the real thing.
 - **The left column** shows the time, your people, the weather and your calendars – whatever
   your home has.
 - **One pop-up as an example**: the weather, opened from the dock – only with
   [Bubble Card](https://github.com/Clooos/Bubble-Card) installed.
-
-It appears in the sidebar as **Glass**. Nothing is created until you click, and the bar is asked
-once: **No, thanks** hides it for good. You can add the dashboard later in Dashboard Studio
-(**From your rooms**), e.g. after you've sorted your devices into areas.
 
 ## Check it works
 
