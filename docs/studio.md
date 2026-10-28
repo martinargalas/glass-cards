@@ -97,7 +97,7 @@ Other cards (Home Assistant's, HACS) get Home Assistant's own editor here, or th
 
 ## Pop-ups
 
-With [Bubble Card](https://github.com/Clooos/Bubble-Card) installed, the structure has a
+With [Bubble Card](https://github.com/Clooos/Bubble-Card) by [Clooos](https://github.com/Clooos) installed, the structure has a
 **Pop-ups** section:
 
 - **New pop-up** creates one; open it from a dock button, a room card or a menu with its `#link`.

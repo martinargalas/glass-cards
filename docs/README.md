@@ -79,3 +79,4 @@ YAML is there for when you want to copy, share or fine-tune.
 - [Blinds that follow the sun](automation-cards.md) – the automation cards, with the helpers and the automation behind them
 - [Questions and answers](faq.md) – performance, themes, card_mod, other cards inside, troubleshooting
 - [For developers: plugin API](plugin-api.md) – build your own glass cards on the same base
+- [Credits](credits.md) – the work of others Glass Cards build on: Bubble Card, apexcharts-card and more

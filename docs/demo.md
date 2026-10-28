@@ -29,13 +29,14 @@ It adds two dashboards: **Glass demo** and, hidden from the sidebar, **Glass dem
 The dashboard itself needs only Glass Cards. Its pop-ups use what the author's do – install them
 from HACS for the full demo; without them those parts show an error card:
 
-| Card | In the demo |
-| --- | --- |
-| [Bubble Card](https://github.com/Clooos/Bubble-Card) | Every pop-up |
-| [card-mod](https://github.com/thomasloven/lovelace-card-mod) | The pop-ups' finishing touches |
-| [layout-card](https://github.com/thomasloven/lovelace-layout-card), [vertical-stack-in-card](https://github.com/ofekashery/vertical-stack-in-card) | Arranging some pop-ups |
-| [apexcharts-card](https://github.com/RomRider/apexcharts-card) | The energy charts |
-| solar-arc-card | The sun and solar production in the energy pop-up |
+| Card | By | In the demo |
+| --- | --- | --- |
+| [Bubble Card](https://github.com/Clooos/Bubble-Card) | [Clooos](https://github.com/Clooos) | Every pop-up – the pop-ups are Bubble Card's |
+| [apexcharts-card](https://github.com/RomRider/apexcharts-card) | [RomRider](https://github.com/RomRider) | The energy charts |
+| [layout-card](https://github.com/thomasloven/lovelace-layout-card) | [Thomas Lovén](https://github.com/thomasloven) | The full-screen camera pop-ups |
+| [solar-arc-card](https://github.com/martinargalas/ha-solar-arc-card) | the author of Glass Cards | The sun and solar production in the energy pop-up |
+
+All the others' work Glass Cards build on: [Credits](credits.md).
 
 ![The lights pop-up over the dashboard](images/popup-lights.webp)
 

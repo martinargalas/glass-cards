@@ -118,7 +118,7 @@ The picked page is remembered per browser tab. Any card in a panel can listen to
 
 ## Pop-ups
 
-With [Bubble Card](https://github.com/Clooos/Bubble-Card), the dashboard's `overlay` holds
+With [Bubble Card](https://github.com/Clooos/Bubble-Card) by [Clooos](https://github.com/Clooos), the dashboard's `overlay` holds
 pop-ups that open over everything by their `#link` (a dock button, a room card's tap, a menu).
 Keep them on a separate, hidden dashboard and load them with `overlay_source` to share them
 between a tablet and a phone dashboard. Dashboard Studio creates, previews and edits them – see

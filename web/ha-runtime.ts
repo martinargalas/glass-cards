@@ -196,7 +196,8 @@ export function createCardElement(config: Cfg): CardEl {
       return el;
     };
     if (customElements.get(tag)) return make();
-    // not loaded (yet): a stand-in that becomes the card when it is
+    // not loaded (yet): the demo fetches it now if it can, and a stand-in becomes the card when it is
+    (window as any).glassDemoNeed?.(tag);
     const holder = document.createElement("div") as CardEl;
     holder.style.display = "contents";
     let inner: CardEl | undefined;

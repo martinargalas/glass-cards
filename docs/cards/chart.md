@@ -2,7 +2,7 @@
 
 `custom:glass-chart`
 
-A chart in the dashboard's glass look – no card background, the glass font, columns with a soft gradient and glow, a glass tooltip – drawn by apexcharts-card. It follows the [period bar](period-bar.md): the span, the grouping and the date format change with day, week, month or year.
+A chart in the dashboard's glass look – no card background, the glass font, columns with a soft gradient and glow, a glass tooltip – drawn by [apexcharts-card](https://github.com/RomRider/apexcharts-card) by [RomRider](https://github.com/RomRider). It follows the [period bar](period-bar.md): the span, the grouping and the date format change with day, week, month or year.
 
 ![Chart](../images/cards/chart.webp)
 
@@ -21,7 +21,7 @@ card:
       statistics: { type: change }
 ```
 
-Needs [apexcharts-card](https://github.com/RomRider/apexcharts-card) from HACS. The data stay apexcharts-card's – `series`, `group_by`, `data_generator`… Each period can have its own data:
+Needs [apexcharts-card](https://github.com/RomRider/apexcharts-card) by [RomRider](https://github.com/RomRider) from HACS. The data stay apexcharts-card's – `series`, `group_by`, `data_generator`… Each period can have its own data:
 
 ```yaml
 day:

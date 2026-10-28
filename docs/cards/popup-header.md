@@ -2,7 +2,7 @@
 
 `custom:glass-popup-header`
 
-A glass header for a Bubble Card pop-up whose own header is hidden: the icon and name on a bar of liquid glass, any cards in the middle (a period bar…), buttons on the right and a round close button.
+A glass header for a pop-up of [Bubble Card](https://github.com/Clooos/Bubble-Card) – the pop-up itself is Bubble Card's, made by [Clooos](https://github.com/Clooos); this card only gives it a glass header, for a pop-up whose own header is hidden: the icon and name on a bar of liquid glass, any cards in the middle (a period bar…), buttons on the right and a round close button.
 
 ![Pop-up header](../images/cards/popup-header.webp)
 
@@ -26,7 +26,7 @@ cards:
   - type: custom:glass-period-bar
 ```
 
-Needs [Bubble Card](https://github.com/Clooos/Bubble-Card). Set the pop-up's own header off (`show_header: false`) and put this card first.
+Needs [Bubble Card](https://github.com/Clooos/Bubble-Card) by [Clooos](https://github.com/Clooos). Set the pop-up's own header off (`show_header: false`) and put this card first.
 
 
 ## Options

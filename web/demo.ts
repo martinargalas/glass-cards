@@ -15,16 +15,27 @@ import { openStudio } from "../src/editor/studio";
 type Dash = HTMLElement & { setConfig(c: unknown): void; hass: unknown };
 
 // the custom cards the dashboard uses besides the glass ones – the same releases as the
-// author's own Home Assistant (copied to vendor/ when the demo is built)
-const VENDOR = ["bubble-card", "vertical-stack-in-card", "layout-card", "apexcharts-card", "solar-arc-card"];
+// author's own Home Assistant (copied to vendor/ when the demo is built). Bubble Card at once
+// (the pop-ups and the dock need it), the others only once a card of theirs is on screen:
+// the charts and layouts sit in pop-ups, and a page that never opens them never loads them.
 const vendorBase = new URL("./vendor/", import.meta.url);
-for (const name of VENDOR) {
+const loaded = new Set<string>();
+function vendor(name: string) {
+  if (loaded.has(name)) return;
+  loaded.add(name);
   const s = document.createElement("script");
   s.type = "module";
   s.src = new URL(`${name}.js`, vendorBase).href;
   s.onerror = () => console.warn(`demo: ${name} not available`);
   document.head.appendChild(s);
 }
+vendor("bubble-card");
+const ON_DEMAND: Record<string, string> = { "apexcharts-card": "apexcharts-card", "layout-card": "layout-card", "solar-arc-card": "solar-arc-card" };
+(window as any).glassDemoNeed = (tag: string) => ON_DEMAND[tag] && vendor(ON_DEMAND[tag]);
+// the rest in the background once the dashboard is up – or as soon as a pop-up opens
+const rest = () => Object.values(ON_DEMAND).forEach(vendor);
+window.addEventListener("load", () => setTimeout(rest, 2500), { once: true });
+window.addEventListener("location-changed", () => location.hash && rest());
 
 const q = new URLSearchParams(location.search);
 const base = DEMO_DASHBOARD.views[0].cards[0];
@@ -89,4 +100,48 @@ window.addEventListener("message", (e) => {
   if (m.look || m.night !== undefined) apply();
   if (m.open !== undefined) go(m.open ? `#${m.open}` : location.pathname + location.search);
   if (m.studio) studio();
+});
+
+// A phone's dashboard swipes its rooms; on a computer the mouse drags them the same way
+// (browsers only scroll sideways by touch or a trackpad). Not in the Studio, which has
+// its own dragging.
+let drag: { el: HTMLElement; x: number; left: number; moved: boolean } | undefined;
+const sideways = (path: EventTarget[]) =>
+  path.find((t): t is HTMLElement => {
+    if (!(t instanceof HTMLElement)) return false;
+    const o = getComputedStyle(t).overflowX;
+    return (o === "auto" || o === "scroll") && t.scrollWidth > t.clientWidth + 4;
+  });
+window.addEventListener(
+  "pointerdown",
+  (e) => {
+    if (e.pointerType !== "mouse" || e.button !== 0 || document.querySelector("dialog.glass-studio-dialog")) return;
+    const el = sideways(e.composedPath());
+    if (el) drag = { el, x: e.clientX, left: el.scrollLeft, moved: false };
+  },
+  true,
+);
+window.addEventListener("pointermove", (e) => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x;
+  if (!drag.moved && Math.abs(dx) < 6) return;
+  if (!drag.moved) {
+    drag.moved = true;
+    // follow the hand while it drags; the snap points take it again on release
+    drag.el.style.scrollSnapType = "none";
+    drag.el.style.scrollBehavior = "auto";
+  }
+  drag.el.scrollLeft = drag.left - dx;
+});
+window.addEventListener("pointerup", () => {
+  if (!drag) return;
+  const { el, moved } = drag;
+  drag = undefined;
+  if (!moved) return;
+  el.style.scrollSnapType = "";
+  el.style.scrollBehavior = "";
+  // a drag is not a tap on the card it ended on
+  const eat = (c: Event) => (c.stopPropagation(), c.preventDefault());
+  window.addEventListener("click", eat, { capture: true, once: true });
+  setTimeout(() => window.removeEventListener("click", eat, true), 100); // none came: nothing to eat later
 });
