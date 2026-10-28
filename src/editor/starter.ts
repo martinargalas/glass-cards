@@ -25,18 +25,18 @@ type Cfg = Record<string, any>;
 export const STARTER_URL = "glass-home";
 
 /** Room photos of the demo, by the kind of room an area's name suggests (English and Czech). */
-const KINDS: { re: RegExp; icon: string; image?: string; position?: string }[] = [
-  { re: /living|lounge|obyv/i, icon: "mdi:sofa", image: "photo-1631679706909-1844bbd07221", position: "center 92%" },
-  { re: /office|study|pracov/i, icon: "mdi:desk", image: "photo-1606223226350-4cf4cd93a221", position: "center 55%" },
-  { re: /kitchen|kuchy/i, icon: "mdi:silverware-fork-knife", image: "photo-1723470917889-31b8a36056f9", position: "center 60%" },
-  { re: /kid|child|nursery|d[eě]t/i, icon: "mdi:teddy-bear", image: "photo-1721395288477-b546804ce392" }, // i18n-ok
-  { re: /bed|lo[zž]nic/i, icon: "mdi:bed-king-outline", image: "photo-1766431066492-9bec8410a57b", position: "center 85%" }, // i18n-ok
-  { re: /bath|koupel/i, icon: "mdi:shower", image: "photo-1688786219616-598ed96aa19d", position: "center 100%" },
-  { re: /toilet|wc|z[aá]chod/i, icon: "mdi:toilet", image: "photo-1737233536991-8ee3f92b7781", position: "35% 80%" }, // i18n-ok
-  { re: /hall|entr|corridor|chodb|p[rř]eds/i, icon: "mdi:coat-rack", image: "photo-1689263132088-c9d2233ca5b1" }, // i18n-ok
-  { re: /laundry|utility|pr[aá]delna/i, icon: "mdi:washing-machine" }, // i18n-ok
-  { re: /garage|gar[aá][zž]/i, icon: "mdi:garage" }, // i18n-ok
-  { re: /garden|yard|terrace|zahrad|terasa/i, icon: "mdi:flower-outline" },
+const KINDS: { name: string; re: RegExp; icon: string; image?: string; position?: string }[] = [
+  { name: "Living room", re: /living|lounge|obyv/i, icon: "mdi:sofa", image: "photo-1631679706909-1844bbd07221", position: "center 92%" },
+  { name: "Office", re: /office|study|pracov/i, icon: "mdi:desk", image: "photo-1606223226350-4cf4cd93a221", position: "center 55%" },
+  { name: "Kitchen", re: /kitchen|kuchy/i, icon: "mdi:silverware-fork-knife", image: "photo-1723470917889-31b8a36056f9", position: "center 60%" },
+  { name: "Kids\' room", re: /kid|child|nursery|d[eě]t/i, icon: "mdi:teddy-bear", image: "photo-1721395288477-b546804ce392" }, // i18n-ok
+  { name: "Bedroom", re: /bed|lo[zž]nic/i, icon: "mdi:bed-king-outline", image: "photo-1766431066492-9bec8410a57b", position: "center 85%" }, // i18n-ok
+  { name: "Bathroom", re: /bath|koupel/i, icon: "mdi:shower", image: "photo-1688786219616-598ed96aa19d", position: "center 100%" },
+  { name: "Toilet", re: /toilet|wc|z[aá]chod/i, icon: "mdi:toilet", image: "photo-1737233536991-8ee3f92b7781", position: "35% 80%" }, // i18n-ok
+  { name: "Hallway", re: /hall|entr|corridor|chodb|p[rř]eds/i, icon: "mdi:coat-rack", image: "photo-1689263132088-c9d2233ca5b1" }, // i18n-ok
+  { name: "Laundry", re: /laundry|utility|pr[aá]delna/i, icon: "mdi:washing-machine" }, // i18n-ok
+  { name: "Garage", re: /garage|gar[aá][zž]/i, icon: "mdi:garage" }, // i18n-ok
+  { name: "Garden", re: /garden|yard|terrace|zahrad|terasa/i, icon: "mdi:flower-outline" },
 ];
 
 const photo = (id: string) => `https://images.unsplash.com/${id}?w=1100&q=80&auto=format&fit=crop`;
@@ -62,18 +62,20 @@ function roomCard(hass: Hass, area: { name: string; icon?: string | null; pictur
   const lights = ids.filter((id) => domain(id) === "light");
   const covers = ids.filter((id) => domain(id) === "cover" && cls(hass, id) !== "garage" && cls(hass, id) !== "gate");
   const climate = ids.filter((id) => domain(id) === "climate");
+  const media = ids.filter((id) => domain(id) === "media_player" && !hass.states[id].attributes.entity_id);
   const temp =
     ids.find((id) => domain(id) === "sensor" && cls(hass, id) === "temperature" && !OFF.includes(hass.states[id].state)) ??
     climate.find((id) => hass.states[id].attributes.current_temperature !== undefined);
-  if (!lights.length && !covers.length && !climate.length && !temp) return undefined;
+  if (!lights.length && !covers.length && !climate.length && !media.length && !temp) return undefined;
 
   const entities: Cfg[] = [
     // a light group first: the button then counts its members
     ...lights.sort((a, b) => Number(!!hass.states[b].attributes.entity_id) - Number(!!hass.states[a].attributes.entity_id)).slice(0, 2).map((entity) => ({ entity, icon: "mdi:lightbulb-outline" })),
     ...covers.slice(0, 1).map((entity) => ({ entity, icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" } })),
     ...climate.slice(0, 1).map((entity) => ({ entity, icon: "mdi:radiator", active_states: ["heat", "cool", "heat_cool", "auto"] })),
+    ...media.slice(0, 1).map((entity) => ({ entity, icon: cls(hass, entity) === "tv" ? "mdi:television" : "mdi:speaker", active: { state_not: ["off", "standby", "idle", "unavailable", "unknown"] } })),
   ];
-  const kind = KINDS.find((k) => k.re.test(area.name));
+  const kind = KINDS.find((k) => k.re.test(area.name) || tr(k.name) === area.name);
   const image = area.picture || (kind?.image ? photo(kind.image) : undefined);
   return {
     type: "custom:glass-room-card",
@@ -87,6 +89,40 @@ function roomCard(hass: Hass, area: { name: string; icon?: string | null; pictur
     bar: "split",
     ...(lights.length ? { image_entities: lights.slice(0, 2) } : {}),
   };
+}
+
+/**
+ * Without areas: rooms guessed from the entities' names (light.kitchen_ceiling → Kitchen); what
+ * no name places is shared out among the demo's rooms, so the dashboard still shows the home.
+ */
+function guessedRooms(hass: Hass): Cfg[] {
+  const ids = Object.keys(hass.states).filter((id) => {
+    const e = hass.entities?.[id];
+    if (e?.hidden || e?.entity_category || OFF.includes(hass.states[id].state)) return false;
+    const d = domain(id);
+    return d === "light" || d === "climate" || d === "media_player" || (d === "cover" && !["garage", "gate"].includes(cls(hass, id) ?? "")) || (d === "sensor" && cls(hass, id) === "temperature");
+  });
+  const label = (id: string) => `${id.split(".")[1].replace(/_/g, " ")} ${hass.states[id].attributes.friendly_name ?? ""}`;
+  const named = new Map<(typeof KINDS)[number], string[]>();
+  const rest: string[] = [];
+  for (const id of ids) {
+    const kind = KINDS.find((k) => k.re.test(label(id)));
+    if (kind) named.set(kind, [...(named.get(kind) ?? []), id]);
+    else rest.push(id);
+  }
+  // the rest round the demo's main rooms, a light, a blind and a thermostat each before the next ones
+  const spare = KINDS.slice(0, 5);
+  const byKind = (d: string) => rest.filter((id) => domain(id) === d);
+  // temperatures only where the name says: an outdoor or boiler sensor is no room's
+  for (const d of ["light", "cover", "climate", "media_player"]) {
+    byKind(d).forEach((id, i) => {
+      const kind = spare[i % spare.length];
+      named.set(kind, [...(named.get(kind) ?? []), id]);
+    });
+  }
+  return KINDS.filter((k) => named.has(k))
+    .map((k) => roomCard(hass, { name: tr(k.name) }, named.get(k)!))
+    .filter((c): c is Cfg => !!c);
 }
 
 /** The weather pop-up of the demo, on the user's weather entity. */
@@ -152,11 +188,12 @@ export function starterConfig(hass: Hass, bubble: boolean): Cfg {
   const people = ids.filter((id) => domain(id) === "person").map((entity) => ({ entity }));
   const calendars = ids.filter((id) => domain(id) === "calendar").slice(0, 4).map((entity) => ({ entity }));
   const members = byArea(hass);
-  const rooms = Object.values(hass.areas ?? {})
+  let rooms = Object.values(hass.areas ?? {})
     .map((a) => roomCard(hass, a, members.get(a.area_id) ?? []))
     .filter((c): c is Cfg => !!c);
+  if (!rooms.length) rooms = guessedRooms(hass);
   // the living room gets the wide tile, as in the demo – or else the room with most buttons
-  const living = rooms.findIndex((c) => KINDS[0].re.test(c.name));
+  const living = rooms.findIndex((c) => KINDS[0].re.test(c.name) || c.name === tr(KINDS[0].name));
   const wide = living >= 0 ? living : rooms.reduce((best, c, i) => (c.entities.length > (rooms[best]?.entities.length ?? -1) ? i : best), -1);
   const grid = rooms.map((c, i) => (i === wide && rooms.length > 2 ? { ...c, view_layout: { span: 2 } } : c));
 
@@ -218,7 +255,7 @@ export function starterConfig(hass: Hass, bubble: boolean): Cfg {
 
   const popups = bubble && weather ? [weatherPopup(weather)] : [];
   const dock = popups.length ? [{ type: "custom:glass-dock", items: [{ icon: "mdi:weather-partly-cloudy", link: "#weather" }], indicator: "dot", bare: true, fade: true }] : [];
-  const noRooms = { type: "markdown", content: tr("No rooms yet: assign your lights, blinds and thermostats to areas in Home Assistant, then add this dashboard again in Dashboard Studio.") };
+  const noRooms = { type: "markdown", content: tr("No lights, blinds or thermostats found yet. Add some to Home Assistant, then add this dashboard again in Dashboard Studio.") };
 
   return {
     title: "Glass",
