@@ -1427,6 +1427,10 @@ class GlassRoomCard extends GlassElement<RoomConfig> {
         flex: 1 1 0;
         min-width: 0;
       }
+      /* a tile too narrow even for the name: it is cut at the capsule's edge, not spilled over */
+      .bar.split .txt .nm {
+        min-width: 0;
+      }
       .tile .nm {
         text-shadow: var(--glass-text-shadow, none);
         display: flex;

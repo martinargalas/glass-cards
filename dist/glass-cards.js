@@ -18428,6 +18428,10 @@ rs.parts = Yc, rs.styles = [
         flex: 1 1 0;
         min-width: 0;
       }
+      /* a tile too narrow even for the name: it is cut at the capsule's edge, not spilled over */
+      .bar.split .txt .nm {
+        min-width: 0;
+      }
       .tile .nm {
         text-shadow: var(--glass-text-shadow, none);
         display: flex;
@@ -33345,7 +33349,7 @@ function Ed() {
 }
 Ed();
 window.addEventListener("location-changed", () => setTimeout(Ed, 0));
-const Dd = "1.10.3", Bl = {
+const Dd = "1.10.4", Bl = {
   version: Dd,
   GlassElement: H,
   lit: { LitElement: Zt, html: h, css: Q, svg: R, nothing: g },
