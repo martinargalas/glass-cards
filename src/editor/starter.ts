@@ -25,19 +25,19 @@ type Cfg = Record<string, any>;
 /** Where the starter dashboard lives once added. */
 export const STARTER_URL = "glass-home";
 
-/** Room photos of the demo, by the kind of room an area's name suggests (English and Czech). */
+/** Room photos of the demo, by the kind of room an area's name suggests (English, Czech and German). */
 const KINDS: { name: string; re: RegExp; icon: string; image?: string; position?: string }[] = [
-  { name: "Living room", re: /living|lounge|obyv/i, icon: "mdi:sofa", image: "photo-1631679706909-1844bbd07221", position: "center 92%" },
-  { name: "Office", re: /office|study|pracov/i, icon: "mdi:desk", image: "photo-1606223226350-4cf4cd93a221", position: "center 55%" },
-  { name: "Kitchen", re: /kitchen|kuchy/i, icon: "mdi:silverware-fork-knife", image: "photo-1723470917889-31b8a36056f9", position: "center 60%" },
-  { name: "Kids\' room", re: /kid|child|nursery|d[eě]t/i, icon: "mdi:teddy-bear", image: "photo-1721395288477-b546804ce392" }, // i18n-ok
-  { name: "Bedroom", re: /bed|lo[zž]nic/i, icon: "mdi:bed-king-outline", image: "photo-1766431066492-9bec8410a57b", position: "center 85%" }, // i18n-ok
-  { name: "Bathroom", re: /bath|koupel/i, icon: "mdi:shower", image: "photo-1688786219616-598ed96aa19d", position: "center 100%" },
+  { name: "Living room", re: /living|lounge|obyv|wohn/i, icon: "mdi:sofa", image: "photo-1631679706909-1844bbd07221", position: "center 92%" },
+  { name: "Office", re: /office|study|pracov|b[uü]ro|arbeit/i, icon: "mdi:desk", image: "photo-1606223226350-4cf4cd93a221", position: "center 55%" }, // i18n-ok
+  { name: "Kitchen", re: /kitchen|kuchy|(?<!wasch)k[uü]che/i, icon: "mdi:silverware-fork-knife", image: "photo-1723470917889-31b8a36056f9", position: "center 60%" }, // i18n-ok
+  { name: "Kids\' room", re: /kid|child|nursery|d[eě]t|kinder/i, icon: "mdi:teddy-bear", image: "photo-1721395288477-b546804ce392" }, // i18n-ok
+  { name: "Bedroom", re: /bed|lo[zž]nic|schlaf/i, icon: "mdi:bed-king-outline", image: "photo-1766431066492-9bec8410a57b", position: "center 85%" }, // i18n-ok
+  { name: "Bathroom", re: /bath|koupel|\bbad/i, icon: "mdi:shower", image: "photo-1688786219616-598ed96aa19d", position: "center 100%" },
   { name: "Toilet", re: /toilet|wc|z[aá]chod/i, icon: "mdi:toilet", image: "photo-1737233536991-8ee3f92b7781", position: "35% 80%" }, // i18n-ok
-  { name: "Hallway", re: /hall|entr|corridor|chodb|p[rř]eds/i, icon: "mdi:coat-rack", image: "photo-1689263132088-c9d2233ca5b1" }, // i18n-ok
-  { name: "Laundry", re: /laundry|utility|pr[aá]delna/i, icon: "mdi:washing-machine" }, // i18n-ok
+  { name: "Hallway", re: /hall|entr|corridor|chodb|p[rř]eds|flur|diele|eingang/i, icon: "mdi:coat-rack", image: "photo-1689263132088-c9d2233ca5b1" }, // i18n-ok
+  { name: "Laundry", re: /laundry|utility|pr[aá]delna|wasch/i, icon: "mdi:washing-machine" }, // i18n-ok
   { name: "Garage", re: /garage|gar[aá][zž]/i, icon: "mdi:garage" }, // i18n-ok
-  { name: "Garden", re: /garden|yard|terrace|zahrad|terasa/i, icon: "mdi:flower-outline" },
+  { name: "Garden", re: /garden|yard|terrace|zahrad|terasa|garten|terrasse/i, icon: "mdi:flower-outline" },
 ];
 
 const photo = (id: string) => `https://images.unsplash.com/${id}?w=1100&q=80&auto=format&fit=crop`;

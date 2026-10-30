@@ -1,8 +1,9 @@
 import { cs } from "./cs";
+import { de } from "./de";
 
 /**
  * One dictionary for the cards and the editor. The source language is English: a text's
- * key is its English wording. Other languages are packs keyed by that text (./cs.ts);
+ * key is its English wording. Other languages are packs keyed by that text (./cs.ts, ./de.ts);
  * a text missing in a pack stays English. The language is the HA user's (Profile →
  * Language) – there is no other place to set it.
  *
@@ -31,11 +32,12 @@ const en: Dict = {
   "compass.NW": "NW",
 };
 
-const PACKS: Record<string, Dict> = { cs };
+const PACKS: Record<string, Dict> = { cs, de };
 /** The languages there is a pack for, by their own name (the editor's language picker). */
 export const LANGS: [string, string][] = [
   ["en", "English"],
   ["cs", "Čeština"], // i18n-ok
+  ["de", "Deutsch"],
 ];
 const packOf = (l: string) => PACKS[l] ?? PACKS[l.split("-")[0]];
 

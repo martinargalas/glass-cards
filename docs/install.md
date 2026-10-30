@@ -84,6 +84,6 @@ list. Or go straight to [the demo dashboard](demo.md).
 
 ## Language
 
-The cards follow your Home Assistant profile's language (**Profile → Language**). English and
-Czech are included; anything not translated stays in English. Dashboard Studio can be set to a
+The cards follow your Home Assistant profile's language (**Profile → Language**). English,
+Czech and German are included; anything not translated stays in English. Dashboard Studio can be set to a
 different language than the cards – handy when you share a dashboard.

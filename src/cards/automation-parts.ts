@@ -221,7 +221,7 @@ class GlassAutomation extends GlassElement<AutomationConfig> {
     // "until a time": the time beside the drop-down (HH:MM)
     const untilSt = c.pause_until ? this._hass?.states[c.pause_until]?.state : undefined;
     // the option's own words (the user's dropdown), Czech or English: "Do času" / "Until a time"
-    const until = /čas|time/i.test(sel.state) && untilSt ? untilSt.slice(0, 5) : undefined; // i18n-ok
+    const until = /čas|time|uhrzeit/i.test(sel.state) && untilSt ? untilSt.slice(0, 5) : undefined; // i18n-ok
     let note = "";
     if (!on) {
       const at = c.resume_at ? this._hass?.states[c.resume_at]?.state : undefined;
@@ -236,7 +236,7 @@ class GlassAutomation extends GlassElement<AutomationConfig> {
       <span class="pnote">${on ? (tr("When off")) : note}</span>
       <div class="pdrop">
         <button class="pbtn" aria-haspopup="listbox" aria-expanded=${this._menu ? "true" : "false"} @click=${() => (this._menu = !this._menu)}>
-          <span>${until ? sel.state.replace(/\s*(času|a time)$/i, "") /* i18n-ok */ : sel.state}</span><ha-icon class="${this._menu ? "open" : ""}" icon="mdi:chevron-down"></ha-icon>
+          <span>${until ? sel.state.replace(/\s*(času|a time|einer uhrzeit)$/i, "") /* i18n-ok */ : sel.state}</span><ha-icon class="${this._menu ? "open" : ""}" icon="mdi:chevron-down"></ha-icon>
         </button>
         ${this._menu
           ? html`<div class="pmenu" role="listbox">
