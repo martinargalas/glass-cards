@@ -35111,7 +35111,7 @@ function Nd() {
 }
 Nd();
 window.addEventListener("location-changed", () => setTimeout(Nd, 0));
-const Od = "1.10.11", Hl = {
+const Od = "1.10.12", Hl = {
   version: Od,
   GlassElement: W,
   lit: { LitElement: Je, html: p, css: Q, svg: N, nothing: g },
