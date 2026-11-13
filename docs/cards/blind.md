@@ -2,11 +2,11 @@
 
 `custom:glass-blind`
 
-A room's blind: its position and its slats' tilt as two bars – tap anywhere on a bar or drag it – with quick choices under each, a stop button while it moves and the pause of the room's automation, its time left drawn as a ring.
+A room's blind – or anything else that opens and closes: its position and its slats' tilt as two bars – tap anywhere on a bar or drag it – with quick choices under each, a stop button while it moves and the pause of the room's automation, its time left drawn as a ring.
 
 ![Blind](../images/cards/blind.webp)
 
-**Good for:** blinds and shutters with tilting slats; any cover.
+**Good for:** blinds with tilting slats, rollers and shutters, gates, garage doors, windows – any cover.
 
 ## Quick start
 
@@ -28,9 +28,38 @@ tilts:                              # quick tilts (default: closed / half / open
 
 A quick choice either sets a value (0–100) or runs a script: `{ name: Mid, script: script.office_tilt_mid }` – handy when your blinds need their own sequence.
 
+## Kinds
+
+`kind` says what the cover is. Left out (or `auto`), the card goes by the entity: a gate, garage door, door, window or damper (its device class) is a gate; a cover with tilting slats – or with your own `tilts` – a blind; anything else a roller.
+
+| | `blind` | `roller` | `gate` |
+| --- | --- | --- | --- |
+| For | blinds with tilting slats | blinds, rollers, shutters, awnings without tilt | gates, garage doors, doors, windows… |
+| The bar fills | as far as it is down | as far as it is down | as far as it is open |
+| Coloured (`active_color`) | while down | while down | while open |
+| Words | At the top · At the bottom · 45 % | the same | Closed · Open · Open 45 % |
+| Quick choices (default) | Up, Down | Up, Down | Close, Open |
+| Symbol on the bar | the slats as they hang | the same | the entity's: gate, garage, door, window – open or closed |
+| Slats' drawer | yes (`slats`) | – | – |
+
+```yaml
+type: custom:glass-blind
+entity: cover.gate
+kind: gate
+name: Gate
+```
+
+A cover that can only open and close – no position, as most gates – gets a bar that shows its state and the buttons, not a slider: it is never moved by a slip of the finger.
+
+## While it moves
+
+- The symbol on the bar blinks and the bar says *Opening* or *Closing* with the position on the way.
+- The quick choices make way for a **stop** button (when the cover can stop).
+- A cover that doesn't report *opening* / *closing* counts as moving from a tap until it reaches the position sent.
+
 ## Tips
 
-- `slats: bar` – the tilt bar without quick choices; `slats: none` – no tilt at all (rollers).
+- `slats: bar` – the tilt bar without quick choices; `slats: none` – no drawer, though the blind tilts.
 - With the [automation cards](../automation-cards.md) the blinds can follow the sun.
 
 ## Options
@@ -39,13 +68,14 @@ A quick choice either sets a value (0–100) or runs a script: `{ name: Mid, scr
 | Option | Type | What it does |
 | --- | --- | --- |
 | `entity` **required** | string | Entity |
+| `kind` | "auto" \| "blind" \| "roller" \| "gate" | what it is: a blind with tilting slats, a roller (no tilt), a gate / garage door / window; auto = by the entity |
 | `name` | string | Name |
 | `icon` | string | Icon |
 | `pause` | string |  |
 | `pause_duration` | number |  |
 | `positions` | Choice[] |  |
 | `tilts` | Choice[] |  |
-| `slats` | "full" \| "bar" \| "none" | the slats in the drawer: their bar and quick tilts, the bar only, or no drawer |
+| `slats` | "full" \| "bar" \| "none" | the slats in the drawer (a blind): their bar and quick tilts, the bar only, or no drawer |
 | `hide_pause` | boolean | Hide the pause button |
 | `show_icon` | boolean | the blind's button on the position bar (default shown) |
 
@@ -55,7 +85,7 @@ Materials and colours of the card's parts – set them in the card's **Appearanc
 
 | Option | Type | What it does |
 | --- | --- | --- |
-| `active_color` | string | the blind down (bar fill, icon); the pause ring – default orange |
+| `active_color` | string | the blind down / the gate open (bar fill, icon); the pause ring – default orange |
 | `pause_color` | string | Colour of the pause (a tint of its material). |
 | `pause_glass` | material | the pause button: its material (default Apple Home's dark glass) and a tint over it |
 | `pause_button_color` | string | Colour of the pause button (a tint of its material). |

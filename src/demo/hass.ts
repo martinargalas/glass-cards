@@ -80,6 +80,32 @@ function switchTo(id: string, on: boolean, attrs: Attrs = {}) {
   put(id, [on ? yes : no, attrs]);
 }
 
+/** Covers on their way: a blind takes a few seconds, as a real one, and can be stopped. */
+const travels = new Map<string, number>();
+function travel(id: string, target: number) {
+  clearInterval(travels.get(id));
+  const has = states[id].attributes.current_position !== undefined;
+  // only open / close (a gate): its state alone, open or closed after a while
+  let at = has ? Number(states[id].attributes.current_position) : states[id].state === "open" ? 100 : 0;
+  if (Math.abs(at - target) < 1) return;
+  const up = target > at;
+  put(id, [up ? "opening" : "closing", {}]);
+  travels.set(
+    id,
+    window.setInterval(() => {
+      at = up ? Math.min(target, at + 5) : Math.max(target, at - 5);
+      const done = at === target;
+      if (done) halt(id);
+      put(id, [done ? (at > 0 ? "open" : "closed") : up ? "opening" : "closing", has ? { current_position: at } : {}]);
+      changed();
+    }, 250),
+  );
+}
+function halt(id: string) {
+  clearInterval(travels.get(id));
+  travels.delete(id);
+}
+
 function lightAttrs(data: Attrs): Attrs {
   const a: Attrs = {};
   if (data.brightness_pct !== undefined) a.brightness = Math.round((Number(data.brightness_pct) / 100) * 255);
@@ -138,18 +164,21 @@ async function callService(domain: string, service: string, data?: ServiceData, 
         put(id, s.state === "playing" ? "paused" : "playing");
         break;
       case "open_cover":
-        put(id, ["open", { current_position: 100 }]);
+        travel(id, 100);
         break;
       case "close_cover":
-        put(id, ["closed", { current_position: 0 }]);
+        travel(id, 0);
         break;
-      case "stop_cover":
-        break;
-      case "set_cover_position": {
-        const p = Number(d.position);
-        put(id, [p > 0 ? "open" : "closed", { current_position: p }]);
+      case "stop_cover": {
+        halt(id);
+        const p = s.attributes.current_position;
+        // stopped half way: open, as Home Assistant has it
+        put(id, [p === undefined ? (["opening", "closing"].includes(s.state) ? "open" : s.state) : Number(p) > 0 ? "open" : "closed", {}]);
         break;
       }
+      case "set_cover_position":
+        travel(id, Number(d.position));
+        break;
       case "set_cover_tilt_position":
         put(id, [s.state, { current_tilt_position: Number(d.tilt_position) }]);
         break;

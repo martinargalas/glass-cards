@@ -45,7 +45,7 @@ YAML is there for when you want to copy, share or fine-tune.
 | [Room](cards/room-card.md) | A room's photo or icon with buttons for its devices |
 | [Lights](cards/light.md) | Scenes and a brightness bar per light |
 | [Thermostat](cards/thermostat.md) | Room temperature with a soft graph and the set point |
-| [Blind](cards/blind.md) | Position and tilt bars, quick choices, the automation's pause |
+| [Blind](cards/blind.md) | Blinds, rollers and gates: position and tilt bars, stop while it moves, quick choices, the automation's pause |
 | [Appliance](cards/appliance.md) | Washers, robot vacuums and mowers as bars with their controls |
 | [Room map](cards/room-map.md) | Pick rooms or lawn zones on a robot's map and clean or mow just those |
 

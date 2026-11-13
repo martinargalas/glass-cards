@@ -2008,7 +2008,7 @@ export const heatPumpSpec: EditorSpec = {
 
 export const blindSpec: EditorSpec = {
   parts: BLIND_PARTS,
-  defaults: { pause_glass: "dark", positions_glass: "none", tilts_glass: "dark", fill_style: "fade", fill_strength: 34, show_icon: true },
+  defaults: { kind: "auto", pause_glass: "dark", positions_glass: "none", tilts_glass: "dark", fill_style: "fade", fill_strength: 34, show_icon: true },
   form: (c) => [
     {
       custom: "section",
@@ -2017,8 +2017,17 @@ export const blindSpec: EditorSpec = {
       open: true,
       schema: [
         { name: "entity", selector: { entity: { domain: "cover" } } },
+        {
+          ...select("kind", [
+            ["auto", "Automatic (by the entity)"],
+            ["blind", "Blind with tilting slats"],
+            ["roller", "Blind or shutter without tilt"],
+            ["gate", "Gate, garage door, window…"],
+          ]),
+          label: "Kind",
+        },
         grid({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
-        ...part("Bars", grid({ ...COLOR_FIELD("active_color"), label: "Colour when down" })),
+        ...part("Bars", grid({ ...COLOR_FIELD("active_color"), label: c.kind === "gate" ? "Colour when open" : "Colour when down" })),
         ...part("Pause button", { ...COLOR_FIELD("pause_color"), label: "Pause ring colour" }),
       ],
     },
@@ -2026,34 +2035,45 @@ export const blindSpec: EditorSpec = {
       custom: "section",
       key: "positions",
       title: "Positions",
-      secondary: (c.positions ?? []).length ? "" : "Up and Down",
+      secondary: (c.positions ?? []).length ? "" : c.kind === "gate" ? "Close and Open" : "Up and Down",
       schema: [
-        { custom: "hint", text: "Quick choices under the blind: a script is run, or a position 0–100 % set. None = Up and Down." },
+        {
+          custom: "hint",
+          text:
+            c.kind === "gate"
+              ? "Quick choices on the bar: a script is run, or a position 0–100 % set (100 = open). None = Close and Open."
+              : "Quick choices under the blind: a script is run, or a position 0–100 % set. None = Up and Down.",
+        },
         { custom: "list", list: "positions" },
       ],
     },
-    {
-      custom: "section",
-      key: "tilts",
-      title: "Slats",
-      secondary: c.slats === "none" ? "Hidden" : c.slats === "bar" ? "Bar only" : (c.tilts ?? []).length ? "" : "Close, Half, Open",
-      schema: [
-        {
-          ...select("slats", [
-            ["full", "Bar and quick tilts"],
-            ["bar", "Bar only"],
-            ["none", "Hidden"],
-          ]),
-          label: "Slats",
-        },
-        ...(c.slats === "none" || c.slats === "bar"
-          ? []
-          : [
-              { custom: "hint", text: "Tilts of the slats in the drawer: a script, or a value 0–100 %. None = Close, Half and Open." },
-              { custom: "list", list: "tilts" },
-            ]),
-      ],
-    },
+    // the slats: a blind's only (automatic: the card shows them when the entity tilts)
+    ...(c.kind === "roller" || c.kind === "gate"
+      ? []
+      : [
+          {
+            custom: "section",
+            key: "tilts",
+            title: "Slats",
+            secondary: c.slats === "none" ? "Hidden" : c.slats === "bar" ? "Bar only" : (c.tilts ?? []).length ? "" : "Close, Half, Open",
+            schema: [
+              {
+                ...select("slats", [
+                  ["full", "Bar and quick tilts"],
+                  ["bar", "Bar only"],
+                  ["none", "Hidden"],
+                ]),
+                label: "Slats",
+              },
+              ...(c.slats === "none" || c.slats === "bar"
+                ? []
+                : [
+                    { custom: "hint", text: "Tilts of the slats in the drawer: a script, or a value 0–100 %. None = Close, Half and Open." },
+                    { custom: "list", list: "tilts" },
+                  ]),
+            ],
+          },
+        ]),
     {
       custom: "section",
       key: "pause",

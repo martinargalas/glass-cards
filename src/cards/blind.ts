@@ -12,12 +12,14 @@ import { SHEEN, materials, matTint, type Material } from "../core/materials";
 import { BLIND_PARTS } from "../core/card-parts";
 
 /**
- * A room's blind: position and tilt as bars – tap anywhere on a bar or drag it – with
- * quick choices under each (your own scripts or plain values), a stop button while it
- * moves and the pause of the room's automation with the time left as a ring.
+ * A room's blind – or anything else that opens and closes: position and tilt as bars – tap
+ * anywhere on a bar or drag it – with quick choices under each (your own scripts or plain
+ * values), a stop button while it moves and the pause of the room's automation with the time
+ * left as a ring.
  *
  *   type: custom:glass-blind
  *   entity: cover.office
+ *   kind: blind                               # blind (tilting slats) | roller | gate; default: by the entity
  *   name: Pracovna
  *   pause: switch.office_blinds_user_switch   # the automation's pause for this room
  *   pause_duration: 3600                      # s – how long a pause lasts (for the ring)
@@ -37,6 +39,11 @@ import { BLIND_PARTS } from "../core/card-parts";
  *   fill_style: solid                         # the bar's fill: fade | solid | glow | none, fill_strength %
  *
  * A choice is { name, icon?, script? | value? } – a script is run, a value (0–100) set.
+ *
+ * The kind: a blind's bar fills as far as it is down and has the slats' drawer; a roller the
+ * same without the drawer; a gate (garage door, door, window…) fills as far as it is open, with
+ * the entity's own icon and Open / Close. A cover that can't be set to a position (only open and
+ * close) gets a bar that shows its state and the buttons, not a slider.
  */
 interface Choice {
   name?: string;
@@ -45,17 +52,21 @@ interface Choice {
   value?: number;
 }
 
+type Kind = "blind" | "roller" | "gate";
+
 interface BlindConfig extends BaseCardConfig {
   entity: string;
+  /** what it is: a blind with tilting slats, a roller (no tilt), a gate / garage door / window; auto = by the entity */
+  kind?: "auto" | "blind" | "roller" | "gate";
   name?: string;
   icon?: string;
   pause?: string;
   pause_duration?: number;
   positions?: Choice[];
   tilts?: Choice[];
-  /** the slats in the drawer: their bar and quick tilts, the bar only, or no drawer */
+  /** the slats in the drawer (a blind): their bar and quick tilts, the bar only, or no drawer */
   slats?: "full" | "bar" | "none";
-  /** the blind down (bar fill, icon); the pause ring – default orange */
+  /** the blind down / the gate open (bar fill, icon); the pause ring – default orange */
   active_color?: string;
   pause_color?: string;
   /** the pause button: its material (default Apple Home's dark glass) and a tint over it */
@@ -83,6 +94,20 @@ interface BlindConfig extends BaseCardConfig {
 }
 
 type Bar = "pos" | "tilt";
+
+/** Home Assistant's cover features (supported_features bits). */
+const SET_POSITION = 4;
+const STOP = 8;
+const TILT = 16 | 32 | 128;
+/** Device classes that open and close like a gate: their bar is how far open. */
+const GATES = ["gate", "garage", "door", "window", "damper"];
+/** A gate's icon by its device class: closed, open. */
+const GATE_ICONS: Record<string, [string, string]> = {
+  gate: ["mdi:gate", "mdi:gate-open"],
+  garage: ["mdi:garage", "mdi:garage-open"],
+  door: ["mdi:door-closed", "mdi:door-open"],
+  window: ["mdi:window-closed", "mdi:window-open"],
+};
 
 const has = (v?: string) => !!v && v !== "none";
 /** An element's own material (a colour alone tints the default one). */
@@ -154,10 +179,58 @@ class GlassBlind extends GlassElement<BlindConfig> {
     clearInterval(this._tick);
   }
 
+  /** What it is: as set, else by the entity – gates by their class, blinds by their tilt. */
+  private _kind(): Kind {
+    const c = this._config;
+    if (c.kind && c.kind !== "auto") return c.kind;
+    const a = this._hass?.states[c.entity]?.attributes ?? {};
+    if (GATES.includes(a.device_class)) return "gate";
+    const f = a.supported_features;
+    // tilts of its own or slats asked for: a blind, even if the entity doesn't tilt (scripts do)
+    const tilt = !!c.tilts?.length || c.slats === "full" || c.slats === "bar" || a.current_tilt_position !== undefined || (typeof f === "number" && (f & TILT) !== 0);
+    return tilt ? "blind" : "roller";
+  }
+
+  /** A cover feature; an entity without supported_features is taken to have it. */
+  private _can(feature: number, attr?: string): boolean {
+    const a = this._hass?.states[this._config.entity]?.attributes ?? {};
+    if (typeof a.supported_features === "number") return (a.supported_features & feature) !== 0;
+    return attr ? a[attr] !== undefined : true;
+  }
+
   private _value(bar: Bar): number | undefined {
     const st = this._hass?.states[this._config.entity];
-    const v = Number(bar === "pos" ? st?.attributes.current_position : st?.attributes.current_tilt_position);
+    const raw = bar === "pos" ? st?.attributes.current_position : st?.attributes.current_tilt_position;
+    // only open / closed: up or down all the way
+    if (bar === "pos" && raw === undefined) return st?.state === "open" ? 100 : st?.state === "closed" ? 0 : undefined;
+    const v = Number(raw);
     return Number.isFinite(v) ? v : undefined;
+  }
+
+  /** On its way: as the cover says, or towards a position sent and not reached yet. */
+  private _motion(): "opening" | "closing" | undefined {
+    const st = this._hass?.states[this._config.entity];
+    if (st?.state === "opening" || st?.state === "closing") return st.state;
+    const sent = this._sent.get("pos");
+    const real = this._value("pos");
+    if (!sent || real === undefined || Date.now() > sent.until || Math.abs(real - sent.v) <= 2) return undefined;
+    return sent.v > real ? "opening" : "closing";
+  }
+
+  /** A position: set, or – a cover that only opens and closes – opened or closed. */
+  private _move(position: number) {
+    const id = this._config.entity;
+    this._sent.set("pos", { v: position, until: Date.now() + 90000 });
+    if (this._can(SET_POSITION, "current_position")) this._hass?.callService("cover", "set_cover_position", { entity_id: id, position });
+    else this._hass?.callService("cover", position >= 50 ? "open_cover" : "close_cover", { entity_id: id });
+    this.requestUpdate();
+  }
+
+  private _stop() {
+    haptic("light");
+    this._sent.delete("pos");
+    this._hass?.callService("cover", "stop_cover", { entity_id: this._config.entity });
+    this.requestUpdate();
   }
 
   private _choose(bar: Bar, c: Choice) {
@@ -168,9 +241,9 @@ class GlassBlind extends GlassElement<BlindConfig> {
       return;
     }
     if (c.value === undefined) return;
+    if (bar === "pos") return this._move(c.value);
     this._sent.set(bar, { v: c.value, until: Date.now() + 90000 });
-    if (bar === "pos") this._hass?.callService("cover", "set_cover_position", { entity_id: id, position: c.value });
-    else this._hass?.callService("cover", "set_cover_tilt_position", { entity_id: id, tilt_position: c.value });
+    this._hass?.callService("cover", "set_cover_tilt_position", { entity_id: id, tilt_position: c.value });
     this.requestUpdate();
   }
 
@@ -200,13 +273,16 @@ class GlassBlind extends GlassElement<BlindConfig> {
     }
     this._drag = undefined;
     if (e.type === "pointercancel") return;
-    // the position bar fills as far as the blind is down: its value is 100 − filled
-    const pct = Math.round((bar === "pos" ? 1 - v : v) * 100);
-    this._sent.set(bar, { v: pct, until: Date.now() + 90000 });
+    const pct = Math.round(this._fromBar(bar, v) * 100);
     haptic("light");
-    const id = this._config.entity;
-    if (bar === "pos") this._hass?.callService("cover", "set_cover_position", { entity_id: id, position: pct });
-    else this._hass?.callService("cover", "set_cover_tilt_position", { entity_id: id, tilt_position: pct });
+    if (bar === "pos") return this._move(pct);
+    this._sent.set(bar, { v: pct, until: Date.now() + 90000 });
+    this._hass?.callService("cover", "set_cover_tilt_position", { entity_id: this._config.entity, tilt_position: pct });
+  }
+
+  /** The value at a point of a bar (0–1): a blind's position bar fills as far as it is down (100 − position), a gate's as far as it is open. */
+  private _fromBar(bar: Bar, v: number) {
+    return bar === "pos" && this._kind() !== "gate" ? 1 - v : v;
   }
 
   /** What a value shows now: dragged, sent (until the blind reports it) or reported. */
@@ -214,7 +290,10 @@ class GlassBlind extends GlassElement<BlindConfig> {
     const real = this._value(bar);
     const sent = this._sent.get(bar);
     if (sent && (Date.now() > sent.until || (real !== undefined && Math.abs(real - sent.v) <= 2))) this._sent.delete(bar);
-    if (this._drag?.bar === bar) return Math.round((bar === "pos" ? 1 - this._drag.v : this._drag.v) * 100);
+    if (this._drag?.bar === bar) return Math.round(this._fromBar(bar, this._drag.v) * 100);
+    // on its way and saying where it is: the live position, not the target
+    const st = this._hass?.states[this._config.entity]?.state;
+    if (bar === "pos" && real !== undefined && (st === "opening" || st === "closing")) return real;
     return this._sent.get(bar)?.v ?? real;
   }
 
@@ -224,15 +303,29 @@ class GlassBlind extends GlassElement<BlindConfig> {
     if (!c || !hass) return nothing;
     const st = hass.states[c.entity];
     if (!st) return html`<div class="frame surface"><span class="name">${c.entity}?</span></div>`;
-    const moving = st.state === "opening" || st.state === "closing";
+    const kind = this._kind();
+    const gate = kind === "gate";
+    const motion = this._motion();
     const onColor = c.active_color ?? "orange";
     const left = this._pauseLeft();
     const pos = this._shown("pos");
     const tilt = this._shown("tilt");
-    const positions = c.positions ?? [
-      { name: tr("Up"), icon: "mdi:chevron-up", value: 100 },
-      { name: tr("Down"), icon: "mdi:chevron-down", value: 0 },
-    ];
+    // a garage door goes up and down, the others open sideways
+    const garage = st.attributes.device_class === "garage";
+    const positions =
+      c.positions ??
+      (gate
+        ? [
+            { name: tr("Close"), icon: garage ? "mdi:chevron-down" : "mdi:arrow-collapse-horizontal", value: 0 },
+            { name: tr("cover.open"), icon: garage ? "mdi:chevron-up" : "mdi:arrow-expand-horizontal", value: 100 },
+          ]
+        : [
+            { name: tr("Up"), icon: "mdi:chevron-up", value: 100 },
+            { name: tr("Down"), icon: "mdi:chevron-down", value: 0 },
+          ]);
+    // only open / close: the bar shows the state, the buttons move it
+    const slider = this._can(SET_POSITION, "current_position");
+    const canStop = this._can(STOP);
     const TILT_DEG = [78, 40, 0];
     const tilts = (
       c.tilts ?? [
@@ -241,10 +334,28 @@ class GlassBlind extends GlassElement<BlindConfig> {
         { name: tr("Open"), value: 100 },
       ]
     ).map((t, i, all) => ({ ...t, deg: TILT_DEG[Math.round((i / Math.max(1, all.length - 1)) * 2)] }));
-    const posText = pos === undefined ? "–" : pos >= 99 ? tr("At the top") : pos <= 1 ? tr("At the bottom") : `${pos} %`;
+    const posText =
+      pos === undefined
+        ? "–"
+        : gate
+          ? pos >= 99
+            ? tr("cover.is_open")
+            : pos <= 1
+              ? tr("cover.is_closed")
+              : tr("Open {n} %", { n: pos })
+          : pos >= 99
+            ? tr("At the top")
+            : pos <= 1
+              ? tr("At the bottom")
+              : `${pos} %`;
+    const motionText = motion ? (gate ? tr(motion === "closing" ? "cover.closing" : "cover.opening") : tr(motion === "closing" ? "Closing" : "Opening")) : "";
     const R = 15;
     const C = 2 * Math.PI * R;
     const down = (pos ?? 100) < 99;
+    // how much of the bar is filled: a blind as far as it is down, a gate as far as it is open
+    const amount = gate ? (pos ?? 0) : 100 - (pos ?? 100);
+    const lit = amount > 1;
+    const drawer = kind === "blind" && c.slats !== "none";
     // the tilt in words (Home Assistant: 100 = slats open, flat; 0 = shut); pulled up they're packed
     const tiltText =
       tilt === undefined
@@ -270,13 +381,15 @@ class GlassBlind extends GlassElement<BlindConfig> {
     const bar = part(c.bar_glass, c.bar_color, "frosted");
     const slatsMat = part(c.slats_glass, c.slats_color, "flat");
     const tray = part(c.tray_glass, c.tray_color, "flat");
-    const icon = this._icon(down, onColor);
+    const icon = this._icon(lit, onColor);
+    const gateIcon = GATE_ICONS[st.attributes.device_class] ?? ["mdi:window-shutter", "mdi:window-shutter-open"];
+    const slide = (bar: Bar) => (e: PointerEvent) => this._slide(bar, e);
     return html`<div class="frame surface" style="--c-on:${cssColor(onColor) ?? "transparent"};--fill:${has(c.fill_color) ? cssColor(c.fill_color) : "var(--c-on)"};--c-pause:${cssColor(c.pause_color ?? onColor) ?? "transparent"}">
       <div class="title">
         ${c.icon ? html`<ha-icon class="ricon" .icon=${c.icon}></ha-icon>` : nothing}
         <span class="tt">
           <span class="name">${c.name ?? st.attributes.friendly_name ?? c.entity}</span>
-          <span class="sub narrow-only">${moving ? (st.state === "closing" ? (tr("Closing")) : tr("Opening")) : posText}</span>
+          <span class="sub narrow-only">${motion ? motionText : posText}</span>
         </span>
         ${c.pause && !c.hide_pause
           ? html`<button
@@ -299,28 +412,35 @@ class GlassBlind extends GlassElement<BlindConfig> {
       </div>
       <div class="ctl">
         <div
-          class="bar lbar ${bar ? bar.cls : "control"} ${c.show_icon === false ? "no-icon" : ""} ${this._drag?.bar === "pos" ? "drag" : ""} ${down ? "on" : ""} fill-${c.fill_style ?? "fade"}"
-          style="${bar ? `${bar.style};` : ""}--pct:${100 - (pos ?? 100)};--fill-a:${c.fill_strength ?? 34}"
-          role="slider"
+          class="bar lbar ${bar ? bar.cls : "control"} ${c.show_icon === false ? "no-icon" : ""} ${slider ? "" : "fixed"} ${motion ? "moving" : ""} ${this._drag?.bar === "pos" ? "drag" : ""} ${lit ? "on" : ""} fill-${c.fill_style ?? "fade"}"
+          style="${bar ? `${bar.style};` : ""}--pct:${amount};--fill-a:${c.fill_strength ?? 34}"
+          role=${slider ? "slider" : "group"}
           aria-label=${tr("Position")}
-          aria-valuenow=${pos ?? 0}
-          @pointerdown=${(e: PointerEvent) => this._slide("pos", e)}
-          @pointermove=${(e: PointerEvent) => this._slide("pos", e)}
-          @pointerup=${(e: PointerEvent) => this._slide("pos", e)}
-          @pointercancel=${(e: PointerEvent) => this._slide("pos", e)}
+          aria-valuenow=${slider ? (pos ?? 0) : nothing}
+          @pointerdown=${slider ? slide("pos") : nothing}
+          @pointermove=${slider ? slide("pos") : nothing}
+          @pointerup=${slider ? slide("pos") : nothing}
+          @pointercancel=${slider ? slide("pos") : nothing}
         >
           <i class="fill"></i>
           ${c.show_icon === false
             ? nothing
-            : html`<div class="btn ${icon.cls}" style=${icon.style}>
-                ${moving
-                  ? html`<span class="run ${st.state === "closing" ? "down" : "up"}">${blindGlyph(0)}</span>`
-                  : blindGlyph(pos ?? 100)}
+            : html`<div class="btn ${icon.cls} ${motion ? "moving" : ""}" style=${icon.style}>
+                ${gate ? html`<ha-icon class="gicon" .icon=${gateIcon[(pos ?? 0) > 1 || motion ? 1 : 0]}></ha-icon>` : blindGlyph(pos ?? 100)}
               </div>`}
-          <span class="blabel"><span class="wide-only">${posText}</span><span class="narrow-only">${pos === undefined ? "–" : `${pos} %`}</span></span>
-          <span class="btns" @pointerdown=${(e: Event) => e.stopPropagation()}>${positions.map((p) => modeBtn("pos", p))}</span>
+          <span class="blabel"
+            ><span class="wide-only">${motion ? `${motionText}${slider && pos !== undefined ? ` · ${pos} %` : ""}` : posText}</span
+            ><span class="narrow-only">${pos === undefined ? "–" : slider ? `${pos} %` : posText}</span></span
+          >
+          <span class="btns" @pointerdown=${(e: Event) => e.stopPropagation()}
+            >${motion && canStop
+              ? html`<button class="mode stop mat-${c.positions_glass ?? "none"}" style=${matTint(c.choices_color)} title=${tr("Stop")} aria-label=${tr("Stop")} @click=${() => this._stop()}>
+                  <ha-icon .icon=${"mdi:stop"}></ha-icon>
+                </button>`
+              : positions.map((p) => modeBtn("pos", p))}</span
+          >
         </div>
-        ${c.slats === "none"
+        ${!drawer
           ? nothing
           : html`<div class="tray ${tray ? tray.cls : ""}" style=${tray ? tray.style : ""}>
           <div
@@ -329,10 +449,10 @@ class GlassBlind extends GlassElement<BlindConfig> {
             role="slider"
             aria-label=${tr("Slats")}
             aria-valuenow=${tilt ?? 0}
-            @pointerdown=${(e: PointerEvent) => this._slide("tilt", e)}
-            @pointermove=${(e: PointerEvent) => this._slide("tilt", e)}
-            @pointerup=${(e: PointerEvent) => this._slide("tilt", e)}
-            @pointercancel=${(e: PointerEvent) => this._slide("tilt", e)}
+            @pointerdown=${slide("tilt")}
+            @pointermove=${slide("tilt")}
+            @pointerup=${slide("tilt")}
+            @pointercancel=${slide("tilt")}
           >
             <i class="fill"></i>
             <span class="blabel">${tr("Slats")}</span>
@@ -344,7 +464,7 @@ class GlassBlind extends GlassElement<BlindConfig> {
     </div>`;
   }
 
-  /** The button on the bar: own material / backing / symbol colours (icon_*), else the control glass lit while down. */
+  /** The button on the bar: own material / backing / symbol colours (icon_*), else the control glass lit while down (a gate: open). */
   private _icon(down: boolean, color: string) {
     const c = this._config;
     const fill = down ? tint(color) : undefined;
@@ -769,30 +889,30 @@ class GlassBlind extends GlassElement<BlindConfig> {
       .glyph line.thin {
         stroke-width: 1.6;
       }
-      /* on its way: the slats unroll (down) or pack up (up) again and again */
-      .run {
-        display: grid;
-        place-items: center;
+      /* on its way: the symbol on the bar blinks, the stop button takes the quick choices' place */
+      .btn.moving > * {
+        animation: cover-blink 1.1s ease-in-out infinite;
       }
-      .run .glyph {
-        animation: blind-down 1.6s ease-in-out infinite;
-      }
-      .run.up .glyph {
-        animation-direction: reverse;
-      }
-      @keyframes blind-down {
-        0% {
-          clip-path: inset(0 0 72% 0);
-        }
-        80%,
-        100% {
-          clip-path: inset(0 0 0 0);
+      @keyframes cover-blink {
+        50% {
+          opacity: 0.25;
         }
       }
       @media (prefers-reduced-motion: reduce) {
-        .run .glyph {
+        .btn.moving > * {
           animation: none;
         }
+      }
+      .btn .gicon {
+        --mdc-icon-size: calc(var(--btn) * 0.52);
+        display: flex;
+      }
+      /* only open / close: the bar shows the state, the buttons move it */
+      .bar.fixed {
+        cursor: default;
+      }
+      .mode.stop {
+        color: var(--c-on);
       }
       .round.side.cur {
         color: #1c1c1e;
@@ -806,5 +926,5 @@ class GlassBlind extends GlassElement<BlindConfig> {
 
 registerCard("glass-blind", GlassBlind, {
   name: "Glass – blind",
-  description: "A room's blind: position and tilt bars (tap or drag), quick choices, the automation's pause.",
+  description: "A room's blind, roller or gate: position and tilt bars (tap or drag), stop while it moves, quick choices, the automation's pause.",
 });

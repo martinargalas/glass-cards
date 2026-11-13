@@ -30,6 +30,12 @@ const en: Dict = {
   "compass.SE": "SE",
   "compass.SW": "SW",
   "compass.NW": "NW",
+  // a gate's (cover.*): the blind's own words say up and down
+  "cover.open": "Open",
+  "cover.is_open": "Open",
+  "cover.is_closed": "Closed",
+  "cover.opening": "Opening",
+  "cover.closing": "Closing",
 };
 
 const PACKS: Record<string, Dict> = { cs, de };

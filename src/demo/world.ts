@@ -65,6 +65,8 @@ const LIVE: Record<string, DemoState> = {
   "cover.office": blindAt("Office", 0, daytime ? 45 : 0),
   "cover.kids_room": blindAt("Kids room", 0, daytime ? 45 : 0),
   "cover.balcony": blindAt("Balcony", 100, 100),
+  // a gate that only opens and closes (no position), and can be stopped
+  "cover.gate": ["closed", { friendly_name: "Gate", device_class: "gate", supported_features: 1 | 2 | 8 }],
   // the weather now: what the forecast (demoForecast) starts with, by day or night
   "weather.home": [new Date().getHours() >= 7 && new Date().getHours() < 19 ? "partlycloudy" : "clear-night", { friendly_name: "Home", temperature: 14.6, temperature_unit: "°C", humidity: 64, pressure: 1016, pressure_unit: "hPa", wind_speed: 14, wind_speed_unit: "km/h", wind_bearing: 240, apparent_temperature: 13.2, cloud_coverage: 45, supported_features: 3 }],
   "sensor.heat_pump_outside_temperature": ["14.8", { unit_of_measurement: "°C", device_class: "temperature", state_class: "measurement", friendly_name: "Outside" }],
