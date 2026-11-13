@@ -35354,7 +35354,7 @@ function Kd() {
 }
 Kd();
 window.addEventListener("location-changed", () => setTimeout(Kd, 0));
-const Yd = "1.11.1", Xl = {
+const Yd = "1.11.2", Xl = {
   version: Yd,
   GlassElement: W,
   lit: { LitElement: et, html: p, css: ee, svg: N, nothing: g },
