@@ -4,12 +4,13 @@ import { GlassElement } from "../core/glass-element";
 import type { BaseCardConfig, HomeAssistant } from "../core/types";
 import { registerCard } from "../core/registry";
 import { makeEditor } from "../editor/editor";
-import { blindSpec } from "../editor/specs";
+import { blindSpec, defaultTilts } from "../editor/specs";
 import { haptic } from "../core/actions";
 import { control, liquidBar, surface } from "../core/styles";
 import { cssColor, tint } from "../core/colors";
 import { SHEEN, materials, matTint, type Material } from "../core/materials";
 import { BLIND_PARTS } from "../core/card-parts";
+import { blindPath, slatsPath, tiltDeg } from "../core/glass-icons";
 
 /**
  * A room's blind – or anything else that opens and closes: position and tilt as bars – tap
@@ -32,7 +33,11 @@ import { BLIND_PARTS } from "../core/card-parts";
  *     - { name: Max, script: script.tilt_blinds_office_max }
  *   slats: full                               # full (bar + quick tilts) | bar | none
  *   hide_pause: true                          # no pause button (the automation still pauses)
+ *   show_title: false                         # no icon, name and state above the bars (no pause button
+ *                                             #   either: no row at all, the card is just its bars)
  *   show_icon: false                          # no button on the position bar, the bar keeps its height
+ *   show_positions: false                     # no quick positions on the bar (its button still goes up / down)
+ *   percent_only: true                        # the bars say "45 %", no words (Closed, Partially open…)
  *   bar_glass: frosted                        # own materials (core/materials), *_color tints them:
  *   slats_glass: flat                         #   the position bar, the slats bar, the drawer,
  *   tray_glass: flat                          #   the icon's button up / down (icon_glass / icon_on_glass)
@@ -77,6 +82,12 @@ interface BlindConfig extends BaseCardConfig {
   tilts_glass?: Material;
   choices_color?: string;
   hide_pause?: boolean;
+  /** the quick positions on the bar (default shown); the button on the bar still goes all the way up / down */
+  show_positions?: boolean;
+  /** the bars' states as numbers only – "45 %", not "Closed" / "Partially open · 45 %" / "Closing" */
+  percent_only?: boolean;
+  /** the title above the bars: the icon, name and state (default shown) – off, and with no pause button either, the card is just its bars */
+  show_title?: boolean;
   /** the blind's button on the position bar (default shown) */
   show_icon?: boolean;
   bar_glass?: Material;
@@ -116,31 +127,11 @@ function part(m: Material | undefined, color: string | undefined, def: Material)
   return use ? { cls: `mat mat-${use}`, style: matTint(has(color) ? color : undefined) } : undefined;
 }
 
-/**
- * The blind as it hangs: a head rail, slats down to the position at their tilt; pulled up
- * it is only the packed stack under the rail.
- */
-const blindGlyph = (pos: number) => {
-  // seen from the front: the head rail, the slats as lines down to the position
-  const bottom = 6 + ((100 - Math.min(100, Math.max(0, pos))) / 100) * 14;
-  const ys: number[] = [];
-  if (pos >= 99) ys.push(7, 9.5);
-  else for (let y = 7.5; y <= bottom + 0.01; y += 3) ys.push(y);
-  return svg`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
-    <line x1="3.5" y1="4" x2="20.5" y2="4"></line>
-    ${ys.map((y) => svg`<line class="thin" x1="5" y1=${y} x2="19" y2=${y}></line>`)}
-  </svg>`;
-};
+/** The blind as it hangs at a position (the glass:blind icons' shapes, at any position). */
+const blindGlyph = (pos: number) => svg`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${blindPath(pos)}></path></svg>`;
 
-/** Slats seen from the side at an angle (90° = shut, 0° = flat open): the tilt buttons' icon. */
-const slats = (deg: number) => {
-  const r = (deg * Math.PI) / 180;
-  const dx = Math.cos(r) * 4.2;
-  const dy = Math.sin(r) * 4.2;
-  return svg`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true">
-    ${[5, 10, 15, 20].map((y) => svg`<line x1=${12 - dx} y1=${y - dy} x2=${12 + dx} y2=${y + dy}></line>`)}
-  </svg>`;
-};
+/** Three slats from the side at an angle (the glass:slats icons' shapes): the tilt buttons' icon. */
+const slats = (deg: number) => svg`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${slatsPath(deg)}></path></svg>`;
 
 class GlassBlind extends GlassElement<BlindConfig> {
   static override parts = BLIND_PARTS;
@@ -226,6 +217,19 @@ class GlassBlind extends GlassElement<BlindConfig> {
     this.requestUpdate();
   }
 
+  /** Up or down (a gate: open or closed), the end the cover is not at; is it at the open end now? */
+  private _atOpenEnd() {
+    const pos = this._value("pos") ?? 0;
+    return this._kind() === "gate" ? pos > 1 : pos >= 99;
+  }
+
+  /** The button on the bar: stop while it moves, else all the way to the other end. */
+  private _iconTap() {
+    if (this._motion() && this._can(STOP)) return this._stop();
+    haptic("light");
+    this._move(this._atOpenEnd() ? 0 : 100);
+  }
+
   private _stop() {
     haptic("light");
     this._sent.delete("pos");
@@ -291,10 +295,15 @@ class GlassBlind extends GlassElement<BlindConfig> {
     const sent = this._sent.get(bar);
     if (sent && (Date.now() > sent.until || (real !== undefined && Math.abs(real - sent.v) <= 2))) this._sent.delete(bar);
     if (this._drag?.bar === bar) return Math.round(this._fromBar(bar, this._drag.v) * 100);
-    // on its way and saying where it is: the live position, not the target
-    const st = this._hass?.states[this._config.entity]?.state;
-    if (bar === "pos" && real !== undefined && (st === "opening" || st === "closing")) return real;
+    // the position: always where the blind is – where it is going shows as the target (_target)
+    if (bar === "pos" && real !== undefined) return real;
     return this._sent.get(bar)?.v ?? real;
+  }
+
+  /** Where a position sent is taking the blind, while it is not there yet (the bar's target). */
+  private _target(): number | undefined {
+    if (this._drag?.bar === "pos" || !this._motion()) return undefined;
+    return this._sent.get("pos")?.v;
   }
 
   protected override render() {
@@ -326,35 +335,33 @@ class GlassBlind extends GlassElement<BlindConfig> {
     // only open / close: the bar shows the state, the buttons move it
     const slider = this._can(SET_POSITION, "current_position");
     const canStop = this._can(STOP);
-    const TILT_DEG = [78, 40, 0];
-    const tilts = (
-      c.tilts ?? [
-        { name: tr("Close"), value: 0 },
-        { name: tr("Half"), value: 50 },
-        { name: tr("Open"), value: 100 },
-      ]
-    ).map((t, i, all) => ({ ...t, deg: TILT_DEG[Math.round((i / Math.max(1, all.length - 1)) * 2)] }));
+    // the slats drawn as the tilt sets them; a script's (no value) by its place: first shut, last open
+    const tilts = (c.tilts ?? defaultTilts()).map((t, i, all) => ({
+      ...t,
+      deg: tiltDeg(typeof t.value === "number" ? t.value : (i / Math.max(1, all.length - 1)) * 100),
+    }));
+    // percent_only: numbers, not words (a cover that only opens and closes keeps its words: it has no number)
+    const pctOnly = c.percent_only === true;
     const posText =
       pos === undefined
         ? "–"
-        : gate
-          ? pos >= 99
+        : pctOnly && slider
+          ? `${pos} %`
+          : pos >= 99
             ? tr("cover.is_open")
             : pos <= 1
               ? tr("cover.is_closed")
-              : tr("Open {n} %", { n: pos })
-          : pos >= 99
-            ? tr("At the top")
-            : pos <= 1
-              ? tr("At the bottom")
-              : `${pos} %`;
-    const motionText = motion ? (gate ? tr(motion === "closing" ? "cover.closing" : "cover.opening") : tr(motion === "closing" ? "Closing" : "Opening")) : "";
+              : `${tr("Partially open")} · ${pos} %`;
+    const motionText = motion && !(pctOnly && slider) ? (gate ? tr(motion === "closing" ? "cover.closing" : "cover.opening") : tr(motion === "closing" ? "Closing" : "Opening")) : "";
     const R = 15;
     const C = 2 * Math.PI * R;
     const down = (pos ?? 100) < 99;
     // how much of the bar is filled: a blind as far as it is down, a gate as far as it is open
     const amount = gate ? (pos ?? 0) : 100 - (pos ?? 100);
     const lit = amount > 1;
+    // on its way to a position set on the bar: that position, from the bar's start, uncoloured
+    const target = this._target();
+    const targetAmount = target === undefined ? undefined : gate ? target : 100 - target;
     const drawer = kind === "blind" && c.slats !== "none";
     // the tilt in words (Home Assistant: 100 = slats open, flat; 0 = shut); pulled up they're packed
     const tiltText =
@@ -362,11 +369,13 @@ class GlassBlind extends GlassElement<BlindConfig> {
         ? "–"
         : !down && this._drag?.bar !== "tilt"
           ? "–"
-          : tilt >= 90
-            ? tr("Open")
+          : pctOnly
+            ? `${tilt} %`
+            : tilt >= 90
+            ? tr("cover.is_open")
             : tilt <= 10
-              ? tr("Shut")
-              : `${tr("Half open")} · ${tilt} %`;
+              ? tr("cover.is_closed")
+              : `${tr("Partially open")} · ${tilt} %`;
     // up / down on the bar: the lights' quiet round mode buttons
     const modeBtn = (bar: Bar, ch: Choice) => html`<button class="mode mat-${c.positions_glass ?? "none"}" style=${matTint(c.choices_color)} title=${ch.name ?? ""} aria-label=${ch.name ?? ""} @click=${() => this._choose(bar, ch)}>
       <ha-icon .icon=${ch.icon ?? "mdi:circle-small"}></ha-icon>
@@ -382,15 +391,19 @@ class GlassBlind extends GlassElement<BlindConfig> {
     const slatsMat = part(c.slats_glass, c.slats_color, "flat");
     const tray = part(c.tray_glass, c.tray_color, "flat");
     const icon = this._icon(lit, onColor);
-    const gateIcon = GATE_ICONS[st.attributes.device_class] ?? ["mdi:window-shutter", "mdi:window-shutter-open"];
+    const gateIcon = GATE_ICONS[st.attributes.device_class] ?? ["glass:blind", "glass:blind-open"];
     const slide = (bar: Bar) => (e: PointerEvent) => this._slide(bar, e);
     return html`<div class="frame surface" style="--c-on:${cssColor(onColor) ?? "transparent"};--fill:${has(c.fill_color) ? cssColor(c.fill_color) : "var(--c-on)"};--c-pause:${cssColor(c.pause_color ?? onColor) ?? "transparent"}">
-      <div class="title">
-        ${c.icon ? html`<ha-icon class="ricon" .icon=${c.icon}></ha-icon>` : nothing}
-        <span class="tt">
-          <span class="name">${c.name ?? st.attributes.friendly_name ?? c.entity}</span>
-          <span class="sub narrow-only">${motion ? motionText : posText}</span>
-        </span>
+      ${c.show_title === false && !(c.pause && !c.hide_pause)
+        ? nothing
+        : html`<div class="title ${c.show_title === false ? "bare" : ""}">
+        ${c.show_title === false
+          ? nothing
+          : html`${c.icon ? html`<ha-icon class="ricon" .icon=${c.icon}></ha-icon>` : nothing}
+              <span class="tt">
+                <span class="name">${c.name ?? st.attributes.friendly_name ?? c.entity}</span>
+                <span class="sub narrow-only">${motion && motionText ? motionText : posText}</span>
+              </span>`}
         ${c.pause && !c.hide_pause
           ? html`<button
               class="round pause mat-${c.pause_glass ?? "dark"} ${left !== undefined ? "on" : ""}"
@@ -409,11 +422,11 @@ class GlassBlind extends GlassElement<BlindConfig> {
               <ha-icon icon=${left !== undefined ? "mdi:play" : "mdi:pause"}></ha-icon>
             </button>`
           : nothing}
-      </div>
+      </div>`}
       <div class="ctl">
         <div
           class="bar lbar ${bar ? bar.cls : "control"} ${c.show_icon === false ? "no-icon" : ""} ${slider ? "" : "fixed"} ${motion ? "moving" : ""} ${this._drag?.bar === "pos" ? "drag" : ""} ${lit ? "on" : ""} fill-${c.fill_style ?? "fade"}"
-          style="${bar ? `${bar.style};` : ""}--pct:${amount};--fill-a:${c.fill_strength ?? 34}"
+          style="${bar ? `${bar.style};` : ""}--pct:${amount};--tgt:${targetAmount ?? 0};--fill-a:${c.fill_strength ?? 34}"
           role=${slider ? "slider" : "group"}
           aria-label=${tr("Position")}
           aria-valuenow=${slider ? (pos ?? 0) : nothing}
@@ -422,14 +435,24 @@ class GlassBlind extends GlassElement<BlindConfig> {
           @pointerup=${slider ? slide("pos") : nothing}
           @pointercancel=${slider ? slide("pos") : nothing}
         >
+          ${slider && targetAmount !== undefined ? html`<i class="target"></i>` : nothing}
           <i class="fill"></i>
           ${c.show_icon === false
             ? nothing
-            : html`<div class="btn ${icon.cls} ${motion ? "moving" : ""}" style=${icon.style}>
+            : html`<div
+                class="btn tap ${icon.cls} ${motion ? "moving" : ""}"
+                style=${icon.style}
+                role="button"
+                tabindex="0"
+                title=${motion && canStop ? tr("Stop") : this._atOpenEnd() ? (gate ? tr("Close") : tr("Down")) : gate ? tr("cover.open") : tr("Up")}
+                @pointerdown=${(e: Event) => e.stopPropagation()}
+                @click=${() => this._iconTap()}
+                @keydown=${(e: KeyboardEvent) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), this._iconTap())}
+              >
                 ${gate ? html`<ha-icon class="gicon" .icon=${gateIcon[(pos ?? 0) > 1 || motion ? 1 : 0]}></ha-icon>` : blindGlyph(pos ?? 100)}
               </div>`}
           <span class="blabel"
-            ><span class="wide-only">${motion ? `${motionText}${slider && pos !== undefined ? ` · ${pos} %` : ""}` : posText}</span
+            ><span class="wide-only">${motion && motionText ? `${motionText}${slider && pos !== undefined ? ` · ${pos} %` : ""}` : posText}</span
             ><span class="narrow-only">${pos === undefined ? "–" : slider ? `${pos} %` : posText}</span></span
           >
           <span class="btns" @pointerdown=${(e: Event) => e.stopPropagation()}
@@ -437,7 +460,9 @@ class GlassBlind extends GlassElement<BlindConfig> {
               ? html`<button class="mode stop mat-${c.positions_glass ?? "none"}" style=${matTint(c.choices_color)} title=${tr("Stop")} aria-label=${tr("Stop")} @click=${() => this._stop()}>
                   <ha-icon .icon=${"mdi:stop"}></ha-icon>
                 </button>`
-              : positions.map((p) => modeBtn("pos", p))}</span
+              : c.show_positions === false
+                ? nothing
+                : positions.map((p) => modeBtn("pos", p))}</span
           >
         </div>
         ${!drawer
@@ -573,6 +598,10 @@ class GlassBlind extends GlassElement<BlindConfig> {
           width: 30px;
           height: 30px;
         }
+        .frame .tilts .round.side .glyph {
+          width: 21px;
+          height: 21px;
+        }
       }
       .frame {
         --btn: var(--glass-light-button-size, 42px);
@@ -590,6 +619,10 @@ class GlassBlind extends GlassElement<BlindConfig> {
         gap: 8px;
         min-height: 34px;
         padding: 0 2px 0 4px;
+      }
+      /* no title (show_title: false), only the pause button: on the right */
+      .title.bare {
+        justify-content: flex-end;
       }
       .name {
         flex: 1;
@@ -700,6 +733,25 @@ class GlassBlind extends GlassElement<BlindConfig> {
         clip-path: inset(0 calc(100% - (var(--btn) + 8px) - (100% - var(--btn) - 8px) * var(--pct) / 100) 0 0 round 999px);
         transition: clip-path 0.35s ease;
       }
+      /* where it is going (a position set on the bar, not reached yet): from the bar's start to
+         there, in the text's colour, faint – under the fill, which follows the blind */
+      .target {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: color-mix(in srgb, var(--g-text, currentColor) 12%, transparent);
+        clip-path: inset(0 calc(100% - (var(--btn) + 8px) - (100% - var(--btn) - 8px) * var(--tgt) / 100) 0 0 round 999px);
+        animation: target-in 0.25s ease;
+      }
+      .bar.no-icon .target {
+        clip-path: inset(0 calc(100% - var(--tgt) * 1%) 0 0 round 999px);
+      }
+      @keyframes target-in {
+        from {
+          opacity: 0;
+        }
+      }
       /* up: nothing to fill (as a light that's off) */
       .bar.lbar:not(.on) .fill {
         opacity: 0;
@@ -806,6 +858,16 @@ class GlassBlind extends GlassElement<BlindConfig> {
         display: grid;
         place-items: center;
       }
+      /* the button on the bar: a tap goes all the way to the other end, or stops it */
+      .btn.tap {
+        cursor: pointer;
+        border-radius: 50%;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.15s ease;
+      }
+      .btn.tap:active {
+        transform: scale(0.9);
+      }
       .btn .glyph {
         width: calc(var(--btn) * 0.52);
         height: calc(var(--btn) * 0.52);
@@ -877,17 +939,18 @@ class GlassBlind extends GlassElement<BlindConfig> {
         color: var(--g-text-2);
         background: color-mix(in srgb, var(--g-text) 8%, transparent);
       }
+      /* the slats fill the button more; a pixel lower looks centred in the round button */
+      .tilts .round.side .glyph {
+        width: 24px;
+        height: 24px;
+        transform: translateY(1px);
+      }
       .glyph {
         width: 20px;
         height: 20px;
       }
-      .glyph line {
-        stroke: currentColor;
-        stroke-width: 2;
-        stroke-linecap: round;
-      }
-      .glyph line.thin {
-        stroke-width: 1.6;
+      .glyph path {
+        fill: currentColor;
       }
       /* on its way: the symbol on the bar blinks, the stop button takes the quick choices' place */
       .btn.moving > * {

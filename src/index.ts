@@ -9,6 +9,7 @@ import { LiquidController } from "./core/liquid";
 import { settings } from "./core/settings";
 import { cssColor, tint } from "./core/colors";
 import { demoHass, onDemoChange, setDemoState } from "./demo/hass";
+import { registerGlassIcons } from "./core/glass-icons";
 
 import "./cards/date-header";
 import "./cards/status-bar";
@@ -90,6 +91,9 @@ function rebuildEarlyErrors() {
     if (cfg.includes("custom:glass-")) el.dispatchEvent(new CustomEvent("ll-rebuild", { bubbles: true, composed: true }));
   }
 }
+
+// the glass: icons (blinds and slats with three slats) for every card and icon picker
+registerGlassIcons();
 
 if (!window.GlassCards) {
   window.GlassCards = api;

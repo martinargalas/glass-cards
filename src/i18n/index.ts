@@ -30,7 +30,7 @@ const en: Dict = {
   "compass.SE": "SE",
   "compass.SW": "SW",
   "compass.NW": "NW",
-  // a gate's (cover.*): the blind's own words say up and down
+  // a cover's states (cover.*): a blind's and a gate's alike
   "cover.open": "Open",
   "cover.is_open": "Open",
   "cover.is_closed": "Closed",

@@ -1,5 +1,6 @@
 import { PRESETS, knownPopups, trackList } from "../core/layout";
 import { t } from "./i18n";
+import { tr } from "../i18n";
 import { MATERIALS } from "../core/materials";
 import { AIR_QUALITY_PARTS, AUTOMATION_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
 import { ANIMATION_FIELD, COLOR_FIELD, CONTROL_GLASS_FIELD, ICON_FIELD, TEXT_FIELD, TINT_FIELD, GLASS_FIELD, YAML, actionFields, expandable, grid, part, select, type Credit, type EditorSpec, type Schema, foreignCards, hasDock } from "./editor";
@@ -2008,7 +2009,7 @@ export const heatPumpSpec: EditorSpec = {
 
 export const blindSpec: EditorSpec = {
   parts: BLIND_PARTS,
-  defaults: { kind: "auto", pause_glass: "dark", positions_glass: "none", tilts_glass: "dark", fill_style: "fade", fill_strength: 34, show_icon: true },
+  defaults: { kind: "auto", pause_glass: "dark", positions_glass: "none", tilts_glass: "dark", fill_style: "fade", fill_strength: 34, show_icon: true, show_title: true, show_positions: true, percent_only: false },
   form: (c) => [
     {
       custom: "section",
@@ -2027,6 +2028,8 @@ export const blindSpec: EditorSpec = {
           label: "Kind",
         },
         grid({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        { name: "percent_only", label: "Percentages only", helper: "The bars show only the percentage", selector: { boolean: {} } },
+        { name: "show_title", label: "Show the title – icon, name and state", helper: "Off, and with the pause button hidden too, the card is just its bars", selector: { boolean: {} } },
         ...part("Bars", grid({ ...COLOR_FIELD("active_color"), label: c.kind === "gate" ? "Colour when open" : "Colour when down" })),
         ...part("Pause button", { ...COLOR_FIELD("pause_color"), label: "Pause ring colour" }),
       ],
@@ -2044,7 +2047,8 @@ export const blindSpec: EditorSpec = {
               ? "Quick choices on the bar: a script is run, or a position 0–100 % set (100 = open). None = Close and Open."
               : "Quick choices under the blind: a script is run, or a position 0–100 % set. None = Up and Down.",
         },
-        { custom: "list", list: "positions" },
+        { name: "show_positions", label: "Show the position buttons on the bar", helper: "The button at the start of the bar goes all the way up or down (a gate: open or closed) either way, or stops it while it moves", selector: { boolean: {} } },
+        ...(c.show_positions === false ? [] : [{ custom: "list", list: "positions" }]),
       ],
     },
     // the slats: a blind's only (automatic: the card shows them when the entity tilts)
@@ -2068,7 +2072,7 @@ export const blindSpec: EditorSpec = {
               ...(c.slats === "none" || c.slats === "bar"
                 ? []
                 : [
-                    { custom: "hint", text: "Tilts of the slats in the drawer: a script, or a value 0–100 %. None = Close, Half and Open." },
+                    { custom: "hint", text: "Tilts of the slats in the drawer: a script, or a value 0–100 % (0 = shut, 100 = open)." },
                     { custom: "list", list: "tilts" },
                   ]),
             ],
@@ -2125,7 +2129,7 @@ export const blindSpec: EditorSpec = {
   ],
   lists: [
     { name: "positions", title: "Positions", label: (p) => p.name ?? p.icon ?? "Position", create: () => ({ name: "", value: 50 }), item: () => CHOICE },
-    { name: "tilts", title: "Slats", label: (p) => p.name ?? "Tilt", create: () => ({ name: "", value: 50 }), item: () => CHOICE },
+    { name: "tilts", title: "Slats", label: (p) => p.name ?? "Tilt", create: () => ({ name: "", value: 50 }), item: () => TILT_CHOICE, initial: () => defaultTilts() },
   ],
 };
 
@@ -2134,6 +2138,19 @@ const CHOICE: Schema[] = [
   grid({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
   { name: "script", label: "Script", helper: "Run instead of setting a value", selector: { entity: { domain: "script" } } },
   { name: "value", label: "Value", selector: { number: { min: 0, max: 100, mode: "slider", unit_of_measurement: "%" } } },
+];
+
+/** A tilt: as a position, but with no icon the card draws the slats as the tilt sets them. */
+const TILT_CHOICE: Schema[] = [
+  grid({ name: "name", selector: { text: {} } }, { name: "icon", helper: "Empty = the slats drawn as this tilt sets them", selector: { icon: {} } }),
+  ...CHOICE.slice(1),
+];
+
+/** The quick tilts a blind has when none are set: shut, half, open. */
+export const defaultTilts = () => [
+  { name: tr("Close"), value: 0 },
+  { name: tr("Half"), value: 50 },
+  { name: tr("Open"), value: 100 },
 ];
 
 /** An element's own material (core/materials). */

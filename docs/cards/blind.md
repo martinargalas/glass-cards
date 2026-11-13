@@ -28,6 +28,21 @@ tilts:                              # quick tilts (default: closed / half / open
 
 A quick choice either sets a value (0–100) or runs a script: `{ name: Mid, script: script.office_tilt_mid }` – handy when your blinds need their own sequence.
 
+A tilt without an `icon` shows the slats as that tilt sets them (0 = shut, 100 = flat open; a script's by its place in the list – first shut, last open). In the Studio the three default tilts are listed under **Slats**, ready to change.
+
+### Glass icons
+
+The cards bring their own icons for blinds, drawn with three slats so they stay bold at small sizes. They work anywhere an icon does – in this card's quick choices, a room card's buttons, any other card – and are in Home Assistant's icon picker (search *glass*):
+
+| Icon | What |
+| --- | --- |
+| `glass:blind` | a blind down |
+| `glass:blind-half` | half way |
+| `glass:blind-open` | pulled up |
+| `glass:slats-shut` | slats from the side, shut |
+| `glass:slats-half` | half open |
+| `glass:slats-open` | flat open |
+
 ## Kinds
 
 `kind` says what the cover is. Left out (or `auto`), the card goes by the entity: a gate, garage door, door, window or damper (its device class) is a gate; a cover with tilting slats – or with your own `tilts` – a blind; anything else a roller.
@@ -37,7 +52,7 @@ A quick choice either sets a value (0–100) or runs a script: `{ name: Mid, scr
 | For | blinds with tilting slats | blinds, rollers, shutters, awnings without tilt | gates, garage doors, doors, windows… |
 | The bar fills | as far as it is down | as far as it is down | as far as it is open |
 | Coloured (`active_color`) | while down | while down | while open |
-| Words | At the top · At the bottom · 45 % | the same | Closed · Open · Open 45 % |
+| Words | Open · Closed · Partially open · 45 % | the same | the same |
 | Quick choices (default) | Up, Down | Up, Down | Close, Open |
 | Symbol on the bar | the slats as they hang | the same | the entity's: gate, garage, door, window – open or closed |
 | Slats' drawer | yes (`slats`) | – | – |
@@ -54,12 +69,16 @@ A cover that can only open and close – no position, as most gates – gets a b
 ## While it moves
 
 - The symbol on the bar blinks and the bar says *Opening* or *Closing* with the position on the way.
+- A position set on the bar (a tap, a drag or a quick choice) shows faintly, uncoloured, from the bar's start to where the blind is going; the fill follows the blind there, and the mark goes when it arrives.
 - The quick choices make way for a **stop** button (when the cover can stop).
 - A cover that doesn't report *opening* / *closing* counts as moving from a tap until it reaches the position sent.
 
 ## Tips
 
+- Tap the button at the start of the position bar to go all the way up or down (a gate: open or closed) – or to stop it while it moves. With that, `show_positions: false` drops the quick positions from the bar.
 - `slats: bar` – the tilt bar without quick choices; `slats: none` – no drawer, though the blind tilts.
+- `percent_only: true` – both bars say just the number (*45 %*), no *Closed*, *Partially open* or *Closing*; a cover that only opens and closes keeps its words.
+- `show_title: false` – no icon, name and state above the bars; with `hide_pause: true` (or no `pause`) as well, there's no row at all and the card is just its bars – compact, e.g. in a pop-up with its own heading.
 - With the [automation cards](../automation-cards.md) the blinds can follow the sun.
 
 ## Options
@@ -77,6 +96,9 @@ A cover that can only open and close – no position, as most gates – gets a b
 | `tilts` | Choice[] |  |
 | `slats` | "full" \| "bar" \| "none" | the slats in the drawer (a blind): their bar and quick tilts, the bar only, or no drawer |
 | `hide_pause` | boolean | Hide the pause button |
+| `show_positions` | boolean | the quick positions on the bar (default shown); the button on the bar still goes all the way up / down |
+| `percent_only` | boolean | the bars' states as numbers only – "45 %", not "Closed" / "Partially open · 45 %" / "Closing" |
+| `show_title` | boolean | the title above the bars: the icon, name and state (default shown) – off, and with no pause button either, the card is just its bars |
 | `show_icon` | boolean | the blind's button on the position bar (default shown) |
 
 #### Look

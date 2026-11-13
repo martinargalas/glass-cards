@@ -51,6 +51,9 @@ export interface ListSpec {
   create: () => Record<string, any>;
   /** Values the card uses when a key is missing; shown in the form, never written. */
   defaults?: Record<string, any>;
+  /** What the card shows while the config has no such list (its built-in items): listed so
+   *  they can be changed; the first change writes them all to the config. */
+  initial?: (config: Record<string, any>) => Record<string, any>[];
 }
 
 /** A list of child card configs, each edited with HA's own card editor. */
@@ -1042,7 +1045,7 @@ export class GlassCardEditor extends LitElement {
 
   /** A list of the card's config, or – with `src` – one nested in an item of another list. */
   private _list(spec: ListSpec, src?: { items: Record<string, any>[]; set: (next: Record<string, any>[]) => void; id: string; title?: string }): TemplateResult {
-    const items: Record<string, any>[] = src ? src.items : (this._config?.[spec.name] ?? []);
+    const items: Record<string, any>[] = src ? src.items : (this._config?.[spec.name] ?? spec.initial?.(this._config ?? {}) ?? []);
     const set = src ? src.set : (next: Record<string, any>[]) => this._emit({ ...this._config, [spec.name]: next });
     const okey = src?.id ?? spec.name;
     const open = this._open[okey] ?? -1;
@@ -1051,7 +1054,7 @@ export class GlassCardEditor extends LitElement {
       ${items.map(
         (item, i) => html`<div class="item ${open === i ? "open" : ""}">
           <div class="item-head" @click=${() => (this._open = { ...this._open, [okey]: open === i ? -1 : i })}>
-            ${item.icon && typeof item.icon === "string" && item.icon.startsWith("mdi:") ? html`<ha-icon .icon=${item.icon}></ha-icon>` : nothing}
+            ${item.icon && typeof item.icon === "string" && /^(mdi|glass):/.test(item.icon) ? html`<ha-icon .icon=${item.icon}></ha-icon>` : nothing}
             <span class="item-label">${spec.label(item, i)}</span>
             <span class="tools" @click=${(e: Event) => e.stopPropagation()}>
               <button title=${t("Up")} ?disabled=${i === 0} @click=${() => set(move(items, i, i - 1))}>▲</button>
