@@ -34,6 +34,26 @@ export const BLIND_PARTS: PartDef[] = [
   icon("pause", ".round.pause ha-icon", "Pause icon", "Pause button"),
 ];
 
+export const ALARM_PARTS: PartDef[] = [
+  text("name", ".name", "Name", "Text"),
+  text("time", ".time, .ap", "Time", "Text", ".frame.on .time"),
+  text("next", ".next", "Next alarm", "Text"),
+  text("days", ".dlabel", "Days", "Days"),
+  icon("icon", BTN_ICON, "Icon", "Icon", on(".frame.on")),
+];
+
+export const ALARMS_PARTS: PartDef[] = [
+  text("title", ".title", "Title", "Text"),
+  text("time", ".time, .ap", "Time", "Text", ".alarm.on .time"),
+  text("soon", ".soon-head", "Soonest alarm", "Text"),
+  text("soon_sub", ".soon-sub", "Its date", "Text"),
+  text("name", ".aname", "Alarm name", "Text"),
+  text("days", ".when, .week b", "Days", "Text", ".alarm.on .week b.lit"),
+  text("where", ".where", "Speakers", "Text"),
+  icon("add", ".add ha-icon", "+ icon", "Icons"),
+  icon("where", ".where ha-icon", "Speaker icon", "Icons"),
+];
+
 export const THERMOSTAT_PARTS: PartDef[] = [
   text("name", ".name", "Name", "Text"),
   text("value", ".val, .val small", "Temperature", "Text"),

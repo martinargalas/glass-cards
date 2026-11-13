@@ -1,6 +1,7 @@
 import { tr } from "../i18n";
 import { css, html, nothing } from "lit";
 import { GlassElement } from "../core/glass-element";
+import { LiquidController } from "../core/liquid";
 import type { ActionConfig, BaseCardConfig, HomeAssistant } from "../core/types";
 import { registerCard } from "../core/registry";
 import { makeEditor } from "../editor/editor";
@@ -77,6 +78,12 @@ const dayKey = (d: Date) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 const startOfDay = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
 
 class GlassCalendar extends GlassElement<CalendarConfig> {
+  constructor() {
+    super();
+    // the card's own glass (glass: liquid / light): the WebGL glass over it, as every card's
+    new LiquidController(this, ".cal");
+  }
+
   static override parts = CALENDAR_PARTS;
   static override properties = { ...GlassElement.properties, _events: { state: true }, _error: { state: true } };
   declare _events?: Ev[];

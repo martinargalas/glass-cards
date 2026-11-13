@@ -34,6 +34,7 @@ A panel, and any part of a card, can have its own material:
 | Material | |
 | --- | --- |
 | `liquid` | Liquid glass – refracts the wallpaper |
+| `dark-liquid` | Dark liquid glass, as the Apple Home sidebar – refracts the wallpaper, white text; for a panel or a card's own tile (in a panel too) |
 | `frosted` | Frosted glass – blurred |
 | `light` | Light glass – the pre-blurred wallpaper, no live blur |
 | `flat` | No blur – a translucent tint only |

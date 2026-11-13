@@ -745,7 +745,7 @@ const HELPERS: Record<string, string> = {
   preset: "",
   appearance: "When to use the dark (night) glass.",
   time_tint: "Subtle warm tint in the morning and evening, blue at night.",
-  glass: "Empty = as the panel or the dashboard (inside a panel with glass the card then has no tile of its own). A material picked here always gives the card a tile of its own: Liquid refracts light, Frosted is blurred, No blur is the fastest, Home is a matte tile as in Apple Home. None = no tile at all.",
+  glass: "Empty = as the panel or the dashboard (inside a panel with glass the card then has no tile of its own). A material picked here always gives the card a tile of its own: Liquid refracts light, Dark liquid is the Apple Home sidebar's dark glass, Frosted is blurred, No blur is the fastest, Home is a matte tile as in Apple Home. None = no tile at all.",
   tile_glass: "Cards inside panels, e.g. rooms. Empty = same as the panel.",
   control_glass: "Buttons, chips and people. Empty = same as the card they sit on.",
   layout: "Switches between mobile and tablet by screen width.",
@@ -3496,14 +3496,19 @@ export const GLASS_FIELD: Schema = {
   selector: {
     select: {
       mode: "dropdown",
-      options: [opt("", "Automatic – from the panel / dashboard"), opt("liquid", "Liquid glass"), opt("frosted", "Frosted glass"), opt("light", "Light glass (no live blur)"), opt("flat", "No blur"), opt("solid", "Solid (fastest)"), opt("none", "None (no glass)"), opt("home", "Home (Apple Home look)")],
+      options: [opt("", "Automatic – from the panel / dashboard"), opt("liquid", "Liquid glass"), opt("dark-liquid", "Dark liquid glass (Apple Home sidebar)"), opt("frosted", "Frosted glass"), opt("light", "Light glass (no live blur)"), opt("flat", "No blur"), opt("solid", "Solid (fastest)"), opt("none", "None (no glass)"), opt("home", "Home (Apple Home look)")],
     },
   },
 };
 
 /** Same choices as GLASS_FIELD, for the cards inside a panel. */
 export const TILE_GLASS_FIELD: Schema = { ...GLASS_FIELD, name: "tile_glass" };
-export const CONTROL_GLASS_FIELD: Schema = { ...GLASS_FIELD, name: "control_glass" };
+/** Buttons have their own dark glass (Apple Home): no dark liquid for them. */
+export const CONTROL_GLASS_FIELD: Schema = {
+  ...GLASS_FIELD,
+  name: "control_glass",
+  selector: { select: { ...GLASS_FIELD.selector.select, options: GLASS_FIELD.selector.select.options.filter((o: { value: string }) => o.value !== "dark-liquid") } },
+};
 
 /** `fonts:` editor – one collapsible group per text part (nested object fonts.<part>.*). */
 /** The text of one part of a card: colour, size and weight – with `active`, the same for its

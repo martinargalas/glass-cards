@@ -78,6 +78,8 @@ A cover that can only open and close – no position, as most gates – gets a b
 - Tap the button at the start of the position bar to go all the way up or down (a gate: open or closed) – or to stop it while it moves. With that, `show_positions: false` drops the quick positions from the bar.
 - `slats: bar` – the tilt bar without quick choices; `slats: none` – no drawer, though the blind tilts.
 - `percent_only: true` – both bars say just the number (*45 %*), no *Closed*, *Partially open* or *Closing*; a cover that only opens and closes keeps its words.
+- `show_bar_text: false` – no state or percentage on the position bar; they go under the name. Without the button too (`show_icon: false`), the arrows sit at the bar's two ends.
+- A very narrow tile (three in a row on a phone) does that by itself: the state under the name (*29 %*), the bar with the button alone – a tap goes all the way, a drag sets the position – or, without the button, the arrows at its ends.
 - `show_title: false` – no icon, name and state above the bars; with `hide_pause: true` (or no `pause`) as well, there's no row at all and the card is just its bars – compact, e.g. in a pop-up with its own heading.
 - With the [automation cards](../automation-cards.md) the blinds can follow the sun.
 
@@ -100,6 +102,7 @@ A cover that can only open and close – no position, as most gates – gets a b
 | `percent_only` | boolean | the bars' states as numbers only – "45 %", not "Closed" / "Partially open · 45 %" / "Closing" |
 | `show_title` | boolean | the title above the bars: the icon, name and state (default shown) – off, and with no pause button either, the card is just its bars |
 | `show_icon` | boolean | the blind's button on the position bar (default shown) |
+| `show_bar_text` | boolean | the state and percentage on the position bar (default shown) – off, they go under the name; a very narrow tile drops them from the bar itself |
 
 #### Look
 

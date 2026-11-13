@@ -1,6 +1,7 @@
 import { locale, tr } from "../i18n";
 import { css, html, nothing, svg } from "lit";
 import { GlassElement } from "../core/glass-element";
+import { LiquidController } from "../core/liquid";
 import type { BaseCardConfig, HassEntity, HomeAssistant } from "../core/types";
 import { registerCard } from "../core/registry";
 import { makeEditor } from "../editor/editor";
@@ -173,6 +174,12 @@ const PHASES: Record<string, string> = {
 };
 
 class GlassHeatPump extends GlassElement<HeatPumpConfig> {
+  constructor() {
+    super();
+    // the card's own glass (glass: liquid / light): the WebGL glass over it, as every card's
+    new LiquidController(this, ".frame");
+  }
+
   static override parts = HEAT_PUMP_PARTS;
   static getConfigElement() {
     return makeEditor(heatPumpSpec);

@@ -25,6 +25,8 @@ import "./cards/air-quality";
 import "./cards/thermostat";
 import "./cards/heat-pump";
 import "./cards/blind";
+import "./cards/alarm";
+import "./cards/alarms";
 import "./cards/automation-parts";
 import "./cards/light";
 import "./cards/period-bar";

@@ -1,6 +1,7 @@
 import { tr } from "../i18n";
 import { css, html, nothing, svg } from "lit";
 import { GlassElement } from "../core/glass-element";
+import { LiquidController } from "../core/liquid";
 import type { BaseCardConfig, HomeAssistant } from "../core/types";
 import { registerCard } from "../core/registry";
 import { makeEditor } from "../editor/editor";
@@ -36,6 +37,7 @@ import { blindPath, slatsPath, tiltDeg } from "../core/glass-icons";
  *   show_title: false                         # no icon, name and state above the bars (no pause button
  *                                             #   either: no row at all, the card is just its bars)
  *   show_icon: false                          # no button on the position bar, the bar keeps its height
+ *   show_bar_text: false                      # no state / % on the position bar – under the name instead
  *   show_positions: false                     # no quick positions on the bar (its button still goes up / down)
  *   percent_only: true                        # the bars say "45 %", no words (Closed, Partially open…)
  *   bar_glass: frosted                        # own materials (core/materials), *_color tints them:
@@ -90,6 +92,8 @@ interface BlindConfig extends BaseCardConfig {
   show_title?: boolean;
   /** the blind's button on the position bar (default shown) */
   show_icon?: boolean;
+  /** the state and percentage on the position bar (default shown) – off, they go under the name; a very narrow tile drops them from the bar itself */
+  show_bar_text?: boolean;
   bar_glass?: Material;
   bar_color?: string;
   slats_glass?: Material;
@@ -134,6 +138,12 @@ const blindGlyph = (pos: number) => svg`<svg class="glyph" viewBox="0 0 24 24" a
 const slats = (deg: number) => svg`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${slatsPath(deg)}></path></svg>`;
 
 class GlassBlind extends GlassElement<BlindConfig> {
+  constructor() {
+    super();
+    // the card's own glass (glass: liquid / light): the WebGL glass over it, as every card's
+    new LiquidController(this, ".frame");
+  }
+
   static override parts = BLIND_PARTS;
   static getConfigElement() {
     return makeEditor(blindSpec);
@@ -402,7 +412,13 @@ class GlassBlind extends GlassElement<BlindConfig> {
           : html`${c.icon ? html`<ha-icon class="ricon" .icon=${c.icon}></ha-icon>` : nothing}
               <span class="tt">
                 <span class="name">${c.name ?? st.attributes.friendly_name ?? c.entity}</span>
-                <span class="sub narrow-only">${motion && motionText ? motionText : posText}</span>
+                <span class="sub ${c.show_bar_text === false ? "always" : "narrow-only"}"
+                  >${motion && motionText
+                    ? html`<span class="word">${motionText}${slider && pos !== undefined ? " · " : ""}</span>${slider && pos !== undefined ? `${pos} %` : ""}`
+                    : slider && !pctOnly && pos !== undefined && pos > 1 && pos < 99
+                      ? html`<span class="word">${tr("Partially open")} · </span>${pos} %`
+                      : posText}</span
+                >
               </span>`}
         ${c.pause && !c.hide_pause
           ? html`<button
@@ -425,7 +441,7 @@ class GlassBlind extends GlassElement<BlindConfig> {
       </div>`}
       <div class="ctl">
         <div
-          class="bar lbar ${bar ? bar.cls : "control"} ${c.show_icon === false ? "no-icon" : ""} ${slider ? "" : "fixed"} ${motion ? "moving" : ""} ${this._drag?.bar === "pos" ? "drag" : ""} ${lit ? "on" : ""} fill-${c.fill_style ?? "fade"}"
+          class="bar lbar ${bar ? bar.cls : "control"} ${c.show_icon === false ? "no-icon" : ""} ${c.show_bar_text === false ? "no-text" : ""} ${slider ? "" : "fixed"} ${motion ? "moving" : ""} ${this._drag?.bar === "pos" ? "drag" : ""} ${lit ? "on" : ""} fill-${c.fill_style ?? "fade"}"
           style="${bar ? `${bar.style};` : ""}--pct:${amount};--tgt:${targetAmount ?? 0};--fill-a:${c.fill_strength ?? 34}"
           role=${slider ? "slider" : "group"}
           aria-label=${tr("Position")}
@@ -528,6 +544,87 @@ class GlassBlind extends GlassElement<BlindConfig> {
       /* a narrow tile (two side by side on a phone): a tighter bar */
       .narrow-only {
         display: none;
+      }
+      /* the bar's text off (show_bar_text: false): the state under the name, the arrows to the right */
+      .tt .sub.always {
+        display: block;
+      }
+      .bar.lbar.no-text .blabel {
+        display: none;
+      }
+      .bar.lbar .btns {
+        margin-left: auto;
+      }
+      /* no button and no text: the arrows at the bar's two ends, their round matching its */
+      .bar.lbar.no-icon.no-text {
+        padding: 4px;
+      }
+      .bar.lbar.no-icon.no-text .btns {
+        flex: 1;
+        justify-content: space-between;
+        padding: 0;
+      }
+      /* a very narrow tile (three in a row on a phone): no text on the bar – the state is under
+         the name; with the button only the button (a tap goes up / down, the bar drags), without
+         it the arrows at the two ends */
+      @container blind (max-width: 170px) {
+        :host .frame .bar.lbar .blabel {
+          display: none;
+        }
+        :host .frame .bar.lbar:not(.no-icon) .btns {
+          display: none;
+        }
+        :host .frame .bar.lbar.no-icon {
+          padding: 4px;
+          /* as tall as a bar with the button: a row of tiles stays even */
+          min-height: calc(var(--btn) + 8px);
+          box-sizing: border-box;
+        }
+        :host .frame .bar.lbar.no-icon .btns {
+          flex: 1;
+          min-width: 0;
+          justify-content: space-between;
+          padding: 0;
+        }
+        /* the two arrows at full size, each in its half of the bar against its end – where the
+           bar is too short they overlap a little in the middle, never the bar's ends */
+        :host .frame .bar.lbar.no-icon .btns {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        }
+        :host .frame .bar.lbar.no-icon .btns .mode {
+          flex: none;
+        }
+        :host .frame .bar.lbar.no-icon .btns .mode:last-child:not(:first-child) {
+          justify-self: end;
+        }
+        /* under the name: "29 %", not "Partially open · 29 %" – it wouldn't fit */
+        :host .tt .sub .word {
+          display: none;
+        }
+        /* the drawer: the slats' state alone on its bar, the tilts smaller */
+        :host .frame .bar.thin .blabel {
+          display: none;
+        }
+        :host .frame .bar.thin {
+          justify-content: center;
+          padding: 0 6px;
+        }
+        :host .frame .tray {
+          padding-left: 4px;
+          padding-right: 4px;
+        }
+        :host .frame .tilts {
+          justify-content: space-between;
+        }
+        :host .frame .tilts .round.side {
+          width: 26px;
+          height: 26px;
+        }
+        :host .frame .tilts .round.side .glyph {
+          width: 18px;
+          height: 18px;
+        }
       }
       /* a narrow tile (phones, two columns): the state under the name, the bar just the glyph and the arrows */
       @container blind (max-width: 230px) {
@@ -761,7 +858,9 @@ class GlassBlind extends GlassElement<BlindConfig> {
       }
       /* no button: the bar keeps its height, the fill runs from the very edge */
       .bar.no-icon {
-        min-height: var(--btn);
+        /* as tall as a bar with the button (the button + 4 px around it) */
+        box-sizing: border-box;
+        min-height: calc(var(--btn) + 8px);
         padding-left: 16px;
       }
       .bar.no-icon .fill {

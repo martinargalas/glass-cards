@@ -1,6 +1,7 @@
 import { locale, tr } from "../i18n";
 import { css, html, nothing, svg, type PropertyValues } from "lit";
 import { GlassElement } from "../core/glass-element";
+import { LiquidController } from "../core/liquid";
 import type { BaseCardConfig, HomeAssistant } from "../core/types";
 import { registerCard } from "../core/registry";
 import { makeEditor } from "../editor/editor";
@@ -278,6 +279,8 @@ class GlassRoomMap extends GlassElement<RoomMapConfig> {
 
   constructor() {
     super();
+    // the card's own glass (glass: liquid / light): the WebGL glass over it, as every card's
+    new LiquidController(this, ".wrap");
     this._picked = [];
     this._drag = {};
     this._zoom = 1;

@@ -642,6 +642,48 @@ export const surface = css`
   :host([glass="home"]) .surface::after {
     display: none;
   }
+  /* ── glass: dark-liquid ─────────────────────────────────────────────────
+     The Apple Home sidebar's dark liquid glass (home on a panel of its own), for any card –
+     in a panel too: the shader's night mode with the wallpaper-tinted dark, white text. */
+  :host([glass="dark-liquid"]) {
+    ${sideVars}
+    --glass-liquid-dark: 1;
+    --glass-panel-tint: var(--glass-home-side-rgb, 22, 30, 46);
+    --glass-panel-tint-a: var(--glass-home-side-a, 0.45);
+    /* chips, people and buttons inside: dark translucent, white text – as on the sidebar */
+    --glass-home-surface: rgba(255, 255, 255, 0.12);
+    --glass-home-fill: initial;
+    --glass-home-shadow: initial;
+    --glass-home-border: rgba(255, 255, 255, 0.1);
+    --glass-home-text: #fff;
+    --glass-home-text-2: rgba(235, 235, 245, 0.6);
+    --glass-home-control: rgba(255, 255, 255, 0.14);
+    --glass-home-icon: rgba(255, 255, 255, 0.9);
+  }
+  :host([glass="dark-liquid"]) .surface {
+    --g-text: var(--glass-text);
+    --g-text-2: var(--glass-text-secondary);
+    --g-text-shadow: none;
+    --g-icon-shadow: none;
+    color: var(--g-text);
+    /* the fallback where WebGL can't draw: the sidebar's dark frosting */
+    background: linear-gradient(var(--glass-home-side, rgba(30, 42, 62, 0.42)), var(--glass-home-side, rgba(30, 42, 62, 0.42))) !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16) !important;
+    -webkit-backdrop-filter: blur(calc(var(--glass-home-side-blur, 40px) * var(--glass-blur-scale, 1))) saturate(150%) !important;
+    backdrop-filter: blur(calc(var(--glass-home-side-blur, 40px) * var(--glass-blur-scale, 1))) saturate(150%) !important;
+  }
+  /* the WebGL canvas paints the glass; the CSS frosting is only the fallback */
+  :host([glass="dark-liquid"]) .surface.lg-on {
+    background: none !important;
+    border-color: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  :host([glass="dark-liquid"]) .surface::before,
+  :host([glass="dark-liquid"]) .surface::after {
+    display: none;
+  }
 `;
 
 /**

@@ -136,7 +136,7 @@ export class LiquidController implements ReactiveController {
     // home panels (Apple Home sidebar) are dark liquid glass too
     // nested: the panel is the glass – unless it has none and the card asks for its own
     const own = !this.host.hasAttribute("nested") || this.host.hasAttribute("own-tile");
-    const wanted = g === "liquid" || (g === "home" && !this.host.hasAttribute("nested")) || (!!this.legibilitySelector && g === "none");
+    const wanted = g === "liquid" || g === "dark-liquid" || (g === "home" && !this.host.hasAttribute("nested")) || (!!this.legibilitySelector && g === "none");
     return (webglAvailable || supported) && wanted && own;
   }
 

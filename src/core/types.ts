@@ -20,12 +20,12 @@ export interface HomeAssistant {
   connection: HassConnection;
   language?: string;
   user?: { id: string; name?: string; is_admin?: boolean };
-  locale?: { language: string; number_format?: string; time_format?: string };
+  locale?: { language: string; number_format?: string; time_format?: string; first_weekday?: string };
   themes?: { darkMode?: boolean; themes?: Record<string, Record<string, any>> };
-  config?: { time_zone?: string; unit_system?: { temperature?: string }; latitude?: number; longitude?: number };
+  config?: { time_zone?: string; country?: string; unit_system?: { temperature?: string }; latitude?: number; longitude?: number };
   callService(domain: string, service: string, data?: Record<string, unknown>, target?: Record<string, unknown>): Promise<unknown>;
   callWS<T>(msg: Record<string, unknown>): Promise<T>;
-  callApi?<T>(method: "GET" | "POST", path: string, data?: Record<string, unknown>): Promise<T>;
+  callApi?<T>(method: "GET" | "POST" | "DELETE", path: string, data?: Record<string, unknown>): Promise<T>;
   formatEntityState?(stateObj: HassEntity, state?: string): string;
   localize?(key: string, ...args: unknown[]): string;
 }
@@ -37,7 +37,8 @@ export interface ActionConfig {
 
 /** none = no glass at all: no fill, border, shadow or blur – just the content. */
 /** light: frosted look from a pre-blurred wallpaper, no live blur; solid: opaque, nothing to compose. */
-export type GlassMode = "auto" | "liquid" | "frosted" | "light" | "flat" | "solid" | "none" | "home";
+/** dark-liquid: the Apple Home sidebar's dark liquid glass – anywhere, a card in a panel too. */
+export type GlassMode = "auto" | "liquid" | "dark-liquid" | "frosted" | "light" | "flat" | "solid" | "none" | "home";
 
 export interface BaseCardConfig {
   type: string;

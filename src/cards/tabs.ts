@@ -41,6 +41,8 @@ function part(m: Material | undefined, color: string | undefined, def: Material)
 }
 
 class GlassTabs extends GlassElement<TabsConfig> {
+  /** no tile of its own: with `glass` set, it gets one (liquid glass included) */
+  static override wrapTile = true;
   static override properties = { ...GlassElement.properties, _cur: { state: true } };
   declare _cur?: string;
   private _unsub?: () => void;

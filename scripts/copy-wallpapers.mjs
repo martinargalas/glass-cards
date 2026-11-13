@@ -21,3 +21,9 @@ const demoFrom = new URL("../demo-assets/", import.meta.url);
 const files = readdirSync(demoFrom);
 for (const f of files) copyFileSync(new URL(f, demoFrom), new URL(`demo-${f}`, to));
 console.log(`demo photos: ${files.length} → dist/demo-*`);
+
+// the alarm's sounds (sounds/<name>.mp3 → sound-<name>.mp3): the Glass alarm's default melody
+const soundsFrom = new URL("../sounds/", import.meta.url);
+const sounds = readdirSync(soundsFrom).filter((f) => f.endsWith(".mp3"));
+for (const f of sounds) copyFileSync(new URL(f, soundsFrom), new URL(`sound-${f}`, to));
+console.log(`sounds: ${sounds.length} → dist/sound-*`);

@@ -1,0 +1,278 @@
+blueprint:
+  name: Glass alarm
+  description: >-
+    Rings the alarm of a Glass alarm card (custom:glass-alarm, glass-alarms) – at its time, on
+    its days, not on days off if you want (all-day events in calendars: public holidays, a
+    holiday…): plays a sound on the speakers you pick, louder and
+    louder, and runs your own actions (lights, blinds…). An alarm set to ring once turns
+    itself off after ringing.
+
+
+    The helpers are the card's: the time (input_datetime), on / off (input_boolean), the
+    days (input_text: mon,tue,wed,thu,fri or once) and, for days off, calendars – the Holiday
+    integration's public holidays, your holidays… – with an optional on / off switch.
+  domain: automation
+  source_url: https://github.com/martinargalas/glass-cards/blob/main/blueprints/automation/glass_alarm.yaml
+  input:
+    alarm:
+      name: Alarm
+      icon: mdi:alarm
+      input:
+        time_entity:
+          name: Time
+          description: The alarm's time (input_datetime with the time only) – the card's `entity`.
+          selector:
+            entity:
+              filter:
+                - domain: input_datetime
+        switch_entity:
+          name: On / off
+          description: The alarm on / off (input_boolean) – the card's `switch`. Leave empty when it is always on.
+          default: ""
+          selector:
+            entity:
+              filter:
+                - domain:
+                    - input_boolean
+                    - switch
+        days_entity:
+          name: Days
+          description: >-
+            The days it rings (input_text) – the card's `days`: mon,tue,wed,thu,fri, or
+            once. Leave empty to ring every day.
+          default: ""
+          selector:
+            entity:
+              filter:
+                - domain: input_text
+    holidays:
+      name: Days off
+      icon: mdi:calendar-star
+      collapsed: true
+      input:
+        skip_calendars:
+          name: Calendars with days off
+          description: >-
+            Calendars whose all-day events are days off: the Holiday integration's public
+            holidays, a calendar of your holidays… – the card's `skip_calendars`. Empty = it
+            rings on any day it is set for.
+          default: []
+          selector:
+            entity:
+              multiple: true
+              filter:
+                - domain: calendar
+        skip_holidays_entity:
+          name: Not on days off (switch)
+          description: An input_boolean that turns the skipping on and off – the alarm's own. Empty = days off are always skipped.
+          default: ""
+          selector:
+            entity:
+              filter:
+                - domain:
+                    - input_boolean
+                    - switch
+    sound:
+      name: Sound
+      icon: mdi:speaker
+      input:
+        players:
+          name: Speakers
+          description: Where it rings – one or more media players. Empty = no sound, only your actions.
+          default: []
+          selector:
+            entity:
+              multiple: true
+              filter:
+                - domain: media_player
+        players_entity:
+          name: Speakers from a helper
+          description: >-
+            An input_text with the media players (comma separated) – the card's `player`, set
+            in the alarm's settings. When it names any, they ring instead of the speakers above.
+          default: ""
+          selector:
+            entity:
+              filter:
+                - domain: input_text
+        media:
+          name: Sound
+          description: >-
+            What plays – a sound, a radio, a playlist. Pick it with any player; it plays on the
+            speakers above.
+          default: {}
+          selector:
+            media: {}
+        sound_entity:
+          name: Sound from a helper
+          description: >-
+            An input_text with the sound's address (https://…, /local/…, media-source://…) –
+            the card's `sound`, picked in the alarm's settings. When set, it plays instead of the
+            sound above.
+          default: ""
+          selector:
+            entity:
+              filter:
+                - domain: input_text
+        volume:
+          name: Volume
+          description: The volume it ends at.
+          default: 30
+          selector:
+            number:
+              min: 1
+              max: 100
+              unit_of_measurement: "%"
+        fade_in:
+          name: Getting louder
+          description: How long it takes from quiet to the volume above. 0 = at once.
+          default: 60
+          selector:
+            number:
+              min: 0
+              max: 600
+              step: 10
+              unit_of_measurement: s
+        stop_after:
+          name: Stop after
+          description: Stops the sound after this long. 0 = plays until it's stopped.
+          default: 0
+          selector:
+            number:
+              min: 0
+              max: 120
+              unit_of_measurement: min
+    more:
+      name: More
+      icon: mdi:play-box-multiple
+      collapsed: true
+      input:
+        actions:
+          name: Actions
+          description: Your own actions when it rings – open the blinds, turn on the lights…
+          default: []
+          selector:
+            action: {}
+
+mode: single
+
+variables:
+  switch_entity: !input switch_entity
+  days_entity: !input days_entity
+  skip_calendars_input: !input skip_calendars
+  skip_calendars: "{{ [skip_calendars_input] if skip_calendars_input is string else skip_calendars_input }}"
+  skip_holidays_entity: !input skip_holidays_entity
+  players_entity: !input players_entity
+  sound_entity: !input sound_entity
+  players_input: !input players
+  media_input: !input media
+  # the speakers and the sound: from the card's helpers when they say any, else as picked here
+  players_text: "{{ states(players_entity) if players_entity else '' }}"
+  players: >-
+    {% set own = players_text.replace(';', ',').split(',') | map('trim') | select('match', 'media_player\\.') | list %}
+    {{ own if own | count > 0 else ([players_input] if players_input is string else players_input) }}
+  sound_text: "{{ states(sound_entity) | trim if sound_entity else '' }}"
+  media: >-
+    {% if sound_text not in ['', 'unknown', 'unavailable'] %}
+      {{ {'media_content_id': sound_text, 'media_content_type': 'music'} }}
+    {% else %}{{ media_input }}{% endif %}
+  volume: !input volume
+  fade_in: !input fade_in
+  stop_after: !input stop_after
+  # the card's days: short English names, or once (empty = every day)
+  days_text: "{{ (states(days_entity) if days_entity else 'mon,tue,wed,thu,fri,sat,sun') | lower | trim }}"
+  once: "{{ days_text in ['', 'once', 'unknown', 'unavailable'] }}"
+
+triggers:
+  - trigger: time
+    at: !input time_entity
+
+conditions:
+  - alias: The alarm is on
+    condition: template
+    value_template: "{{ not switch_entity or is_state(switch_entity, 'on') }}"
+  - alias: It rings today
+    condition: template
+    value_template: >-
+      {% set today = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'][now().weekday()] %}
+      {{ once or days_text in ['daily', 'all', 'every day'] or today in days_text }}
+
+actions:
+  # a day off in the calendars (an all-day event today): no alarm today
+  - if:
+      - condition: template
+        value_template: "{{ skip_calendars | count > 0 and (not skip_holidays_entity or is_state(skip_holidays_entity, 'on')) }}"
+    then:
+      - action: calendar.get_events
+        target:
+          entity_id: "{{ skip_calendars }}"
+        data:
+          start_date_time: "{{ today_at('00:00').isoformat() }}"
+          end_date_time: "{{ (today_at('00:00') + timedelta(days=1)).isoformat() }}"
+        response_variable: day_events
+        continue_on_error: true
+      - variables:
+          day_off: >-
+            {% set ns = namespace(off=false) %}
+            {% for cal in (day_events or {}).values() %}
+              {% for e in cal.events | default([]) %}
+                {% if 'T' not in (e.start | string) %}{% set ns.off = true %}{% endif %}
+              {% endfor %}
+            {% endfor %}
+            {{ ns.off }}
+      - if:
+          - condition: template
+            value_template: "{{ day_off }}"
+        then:
+          - stop: A day off in the calendars
+  # once: off now, so it doesn't ring again tomorrow
+  - if:
+      - condition: template
+        value_template: "{{ once and switch_entity != '' }}"
+    then:
+      - action: homeassistant.turn_off
+        target:
+          entity_id: "{{ switch_entity }}"
+  # the sound and your actions at the same time
+  - parallel:
+      - if:
+          - condition: template
+            value_template: "{{ players | count > 0 and media.media_content_id is defined }}"
+        then:
+          - action: media_player.volume_set
+            target:
+              entity_id: "{{ players }}"
+            data:
+              volume_level: "{{ 0.05 if fade_in > 0 else volume / 100 }}"
+            continue_on_error: true
+          - action: media_player.play_media
+            target:
+              entity_id: "{{ players }}"
+            data:
+              media:
+                media_content_id: "{{ media.media_content_id }}"
+                media_content_type: "{{ media.media_content_type }}"
+            continue_on_error: true
+          # louder in ten steps
+          - repeat:
+              count: "{{ 10 if fade_in > 0 else 0 }}"
+              sequence:
+                - delay:
+                    seconds: "{{ fade_in / 10 }}"
+                - action: media_player.volume_set
+                  target:
+                    entity_id: "{{ players }}"
+                  data:
+                    volume_level: "{{ (0.05 + (volume / 100 - 0.05) * repeat.index / 10) | round(2) }}"
+                  continue_on_error: true
+          - if:
+              - condition: template
+                value_template: "{{ stop_after > 0 }}"
+            then:
+              - delay:
+                  seconds: "{{ [stop_after * 60 - fade_in, 0] | max }}"
+              - action: media_player.media_stop
+                target:
+                  entity_id: "{{ players }}"
+                continue_on_error: true
+      - sequence: !input actions

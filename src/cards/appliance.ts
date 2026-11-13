@@ -1,6 +1,7 @@
 import { tr } from "../i18n";
 import { css, html, nothing } from "lit";
 import { GlassElement } from "../core/glass-element";
+import { LiquidController } from "../core/liquid";
 import type { ActionConfig, BaseCardConfig, HassEntity, HomeAssistant } from "../core/types";
 import { registerCard } from "../core/registry";
 import { makeEditor } from "../editor/editor";
@@ -153,6 +154,12 @@ const CHARGING = ["on", "charging", "recharging", "charging_mid_mission"];
 const batteryIcon = (b: number) => (b >= 95 ? "mdi:battery" : b < 5 ? "mdi:battery-outline" : `mdi:battery-${Math.round(b / 10) * 10}`);
 
 class GlassAppliance extends GlassElement<ApplianceConfig> {
+  constructor() {
+    super();
+    // the card's own glass (glass: liquid / light): the WebGL glass over it, as every card's
+    new LiquidController(this, ".list");
+  }
+
   static override properties = { ...GlassElement.properties, _sel: { state: true } };
   declare _sel?: string;
   private _unsub?: () => void;
