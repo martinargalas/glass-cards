@@ -4,7 +4,7 @@ import { hour12, language } from "./settings";
 import blueprintYaml from "../../blueprints/automation/glass_alarm.yaml?raw";
 
 /**
- * What the alarm cards share (glass-alarm, glass-alarms): an alarm's helpers, its days, when it
+ * What the alarms card (glass-alarms) needs: an alarm's helpers, its days, when it
  * rings next – days off skipped (all-day events in calendars: public holidays, a holiday…) – the week as the user's country starts it, and the
  * alarms the cards create themselves (a set of helpers and an automation from the Glass alarm
  * blueprint, which ships in the bundle).

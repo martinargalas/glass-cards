@@ -34,14 +34,6 @@ export const BLIND_PARTS: PartDef[] = [
   icon("pause", ".round.pause ha-icon", "Pause icon", "Pause button"),
 ];
 
-export const ALARM_PARTS: PartDef[] = [
-  text("name", ".name", "Name", "Text"),
-  text("time", ".time, .ap", "Time", "Text", ".frame.on .time"),
-  text("next", ".next", "Next alarm", "Text"),
-  text("days", ".dlabel", "Days", "Days"),
-  icon("icon", BTN_ICON, "Icon", "Icon", on(".frame.on")),
-];
-
 export const ALARMS_PARTS: PartDef[] = [
   text("title", ".title", "Title", "Text"),
   text("time", ".time, .ap", "Time", "Text", ".alarm.on .time"),

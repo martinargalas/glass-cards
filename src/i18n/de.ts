@@ -1645,7 +1645,7 @@ export const de: Dict = {
   "Upcoming events of several calendars in one list, each calendar in its colour.": "Anstehende Termine mehrerer Kalender in einer Liste, jeder Kalender in seiner Farbe.",
   "A person's round picture with where they are and their phone's battery.": "Das runde Bild einer Person mit ihrem Aufenthaltsort und der Batterie ihres Telefons.",
   "Support glass cards": "Glass-Karten unterstützen",
-  // the alarm clock (glass-alarm)
+  // the alarm clocks (glass-alarms)
   "AM": "AM",
   "PM": "PM",
   "Minutes": "Minuten",

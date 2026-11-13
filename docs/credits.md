@@ -43,6 +43,6 @@ Projects whose idea or design a card follows. Their code is not copied.
 | [Esri](https://www.esri.com/), [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors | Maps under the radar and the aerial picture of the [Room map](cards/room-map.md). |
 | [Material Design Icons](https://pictogrammers.com/library/mdi/) by Pictogrammers | Icons, as in Home Assistant. |
 | [Unsplash](https://unsplash.com/) and its photographers | The demo home's room photos, camera views and the visitors in them. |
-| *Birds* (`sound-birds.mp3`), free to use and share | The calm default melody of the [Alarm](cards/alarm.md) cards. |
+| *Birds* (`sound-birds.mp3`), free to use and share | The calm default melody of the [Alarms](cards/alarms.md) card. |
 
 And [Home Assistant](https://www.home-assistant.io/) itself, which all of this runs on.

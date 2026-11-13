@@ -1645,7 +1645,7 @@ export const cs: Dict = {
   "Upcoming events of several calendars in one list, each calendar in its colour.": "Nadcházející události více kalendářů v jednom seznamu, každý kalendář ve své barvě.",
   "A person's round picture with where they are and their phone's battery.": "Kulatý obrázek osoby s tím, kde je, a baterií jejího telefonu.",
   "Support glass cards": "Podpořit glass karty",
-  // the alarm clock (glass-alarm)
+  // the alarm clocks (glass-alarms)
   "AM": "dop.",
   "PM": "odp.",
   "Minutes": "Minuty",

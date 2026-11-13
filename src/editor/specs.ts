@@ -2,7 +2,7 @@ import { PRESETS, knownPopups, trackList } from "../core/layout";
 import { t } from "./i18n";
 import { tr } from "../i18n";
 import { MATERIALS } from "../core/materials";
-import { AIR_QUALITY_PARTS, ALARM_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
+import { AIR_QUALITY_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
 import { ANIMATION_FIELD, COLOR_FIELD, CONTROL_GLASS_FIELD, ICON_FIELD, TEXT_FIELD, TINT_FIELD, GLASS_FIELD, YAML, actionFields, expandable, grid, part, select, type Credit, type EditorSpec, type Schema, foreignCards, hasDock } from "./editor";
 
 const ALIGN: [string, string][] = [
@@ -2176,86 +2176,6 @@ const SHEET_GLASS_FIELD: Schema = {
 /** The alarm cards' days off: any calendars, their all-day events. */
 const DAYS_OFF_HINT =
   "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays or of days without an alarm… The alarms don't ring on them (each alarm can turn that off in its settings) and the card says which day it skips. Events with a time – a meeting at 6:00 – don't count.";
-
-export const alarmSpec: EditorSpec = {
-  parts: ALARM_PARTS,
-  defaults: { show_next: true, show_days: true },
-  form: (c) => [
-    {
-      custom: "section",
-      key: "alarm",
-      title: "Alarm",
-      open: true,
-      schema: [
-        { custom: "hint", text: "The card shows and sets helpers of your own; an automation rings the alarm – the Glass alarm blueprint. See the documentation: Alarm." },
-        { name: "entity", label: "Time (input_datetime, time only)", selector: { entity: { domain: "input_datetime" } } },
-        { name: "switch", label: "On / off (input_boolean)", helper: "The bell button turns it on and off; a new time turns it on", selector: { entity: { domain: ["input_boolean", "switch"] } } },
-        grid({ name: "name", selector: { text: {} } }, { name: "icon", label: "Icon", helper: "Empty = a bell, crossed out while off", selector: { icon: {} } }),
-        { name: "show_next", label: "When it rings next", helper: "Under the time: today 6:30, tomorrow, Monday… – or Off", selector: { boolean: {} } },
-        {
-          ...select("minute_step", [
-            ["1", "Every minute"],
-            ["5", "5 minutes"],
-            ["10", "10 minutes"],
-            ["15", "15 minutes"],
-            ["30", "30 minutes"],
-          ]),
-          label: "Minutes in the picker",
-        },
-        ...part("Icon", { ...COLOR_FIELD("active_color"), label: "Colour when on" }),
-      ],
-    },
-    {
-      custom: "section",
-      key: "days",
-      title: "Days",
-      secondary: c.days ? "" : "Every day",
-      schema: [
-        { custom: "hint", text: "A text helper (input_text) the card writes the days into: mon,tue,wed,thu,fri – or once (it rings once, then the automation turns it off). None = every day, no days to pick." },
-        { name: "days", label: "Days (input_text)", selector: { entity: { domain: "input_text" } } },
-        ...(c.days ? [{ name: "show_days", label: "Show the days under the time", selector: { boolean: {} } }] : []),
-      ],
-    },
-    {
-      custom: "section",
-      key: "sound",
-      title: "Speakers and sound",
-      secondary: c.player || c.sound ? "" : "Optional",
-      schema: [
-        { custom: "hint", text: "Two text helpers (input_text, 255 characters) for the blueprint: the media players it rings on and the sound's address. With them, the alarm's settings offer the speakers and the sounds – the cards' own melody or your own address." },
-        grid(
-          { name: "player", label: "Speakers (input_text)", selector: { entity: { domain: "input_text" } } },
-          { name: "sound", label: "Sound (input_text)", selector: { entity: { domain: "input_text" } } },
-        ),
-      ],
-    },
-    {
-      custom: "section",
-      key: "holidays",
-      title: "Days off",
-      secondary: (c.skip_calendars ?? []).length ? "" : "Optional",
-      schema: [
-        { custom: "hint", text: DAYS_OFF_HINT },
-        { name: "skip_calendars", label: "Calendars with days off", selector: { entity: { domain: "calendar", multiple: true } } },
-        { name: "skip_holidays", label: "Not on days off (input_boolean)", helper: "Turns the skipping on and off in the card; empty = always skipped", selector: { entity: { domain: ["input_boolean", "switch"] } } },
-      ],
-    },
-    {
-      custom: "section",
-      key: "look",
-      title: "Look",
-      schema: [
-        ...part("Icon", grid({ ...select("icon_glass", [["", "Default"], ...MATERIALS]), label: "Icon material when off" }, { ...select("icon_on_glass", [["", "Default"], ...MATERIALS]), label: "Icon material when on" })),
-        ...part("Icon", { ...COLOR_FIELD("icon_background"), label: "Icon background" }),
-        ...part("Days", grid({ ...select("days_glass", [["", "Default"], ...MATERIALS]), label: "Days bar material" }, { ...COLOR_FIELD("days_color"), label: "Days bar colour" })),
-        ...part("Days", grid({ ...select("button_glass", [["", "Default"], ...MATERIALS]), label: "Settings button material" }, { ...COLOR_FIELD("button_color"), label: "Settings button colour" })),
-        ...part("Settings window", grid({ ...SHEET_GLASS_FIELD, label: "Window material" }, { ...COLOR_FIELD("sheet_color"), label: "Window colour" })),
-        ...part("Settings window", grid({ ...select("controls_glass", [["", "Default"], ...MATERIALS]), label: "Controls' material" }, { ...COLOR_FIELD("controls_color"), label: "Controls' colour" })),
-      ],
-    },
-    { custom: "section", key: "advanced", title: "Advanced", schema: [{ ...GLASS_FIELD, group: "Card" }, YAML("styles")] },
-  ],
-};
 
 export const alarmsSpec: EditorSpec = {
   parts: ALARMS_PARTS,

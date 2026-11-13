@@ -1,7 +1,5 @@
 import { tr } from "../i18n";
 import { LitElement, css, html, nothing, type PropertyValues } from "lit";
-import { openSheet } from "./sheet";
-import type { GlassMode } from "./types";
 
 /**
  * Wheels for the hours and minutes (and AM / PM in the 12-hour format), as on a phone: scroll,
@@ -10,7 +8,6 @@ import type { GlassMode } from "./types";
  *   <glass-time-wheels .hours=${6} .minutes=${30} .hour12=${false} .step=${5} @change=${…}>
  *
  * Its colours come from the modal it sits in (core/sheet: --text, --text-2, --band, --accent).
- * openTimePicker() puts it in a modal of its own.
  */
 
 /** A wheel's row height and how many rows show (odd: the picked one in the middle). */
@@ -208,47 +205,3 @@ export class GlassTimeWheels extends LitElement {
 }
 
 if (!customElements.get("glass-time-wheels")) customElements.define("glass-time-wheels", GlassTimeWheels);
-
-export interface TimePickerOptions {
-  hours: number;
-  minutes: number;
-  hour12: boolean;
-  /** the minutes' step (1, 5, 10, 15…) */
-  step?: number;
-  title?: string;
-  dark?: boolean;
-  accent?: string;
-  /** the card it opens from (its look carries over) and the window's own material */
-  host?: HTMLElement;
-  glass?: GlassMode | "";
-  tint?: string;
-  onSet: (hours: number, minutes: number) => void;
-}
-
-/** The wheels in a modal of their own: Done sets the time, Cancel / Escape / a tap outside leaves it. */
-export function openTimePicker(o: TimePickerOptions) {
-  let h = o.hours;
-  let m = o.minutes;
-  const set = () => {
-    o.onSet(h, m);
-    sheet.close();
-  };
-  const sheet = openSheet({
-    title: o.title ?? tr("Time"),
-    dark: o.dark,
-    accent: o.accent,
-    host: o.host,
-    glass: o.glass,
-    tint: o.tint,
-    onEnter: set,
-    render: () =>
-      html`<glass-time-wheels
-        .hours=${o.hours}
-        .minutes=${o.minutes}
-        .hour12=${o.hour12}
-        .step=${o.step ?? 1}
-        @change=${(e: CustomEvent) => ((h = e.detail.hours), (m = e.detail.minutes))}
-      ></glass-time-wheels>`,
-    actions: () => html`<button class="secondary" @click=${() => sheet.close()}>${tr("Cancel")}</button><button class="primary" @click=${set}>${tr("Done")}</button>`,
-  });
-}

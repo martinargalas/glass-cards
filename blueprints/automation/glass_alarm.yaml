@@ -1,7 +1,7 @@
 blueprint:
   name: Glass alarm
   description: >-
-    Rings the alarm of a Glass alarm card (custom:glass-alarm, glass-alarms) – at its time, on
+    Rings an alarm of the Glass alarms card (custom:glass-alarms) – at its time, on
     its days, not on days off if you want (all-day events in calendars: public holidays, a
     holiday…): plays a sound on the speakers you pick, louder and
     louder, and runs your own actions (lights, blinds…). An alarm set to ring once turns
