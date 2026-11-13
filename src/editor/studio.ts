@@ -12,6 +12,7 @@ import { AREA_TITLES, DEVICE_MODES, MODE_NAMES, NEW_CARDS, SUPPORT_BUTTON, SUPPO
 import { dashboardSpec } from "./specs";
 import { editorLangPref, setEditorLang, t } from "./i18n";
 import { LANGS, syncLang } from "../i18n";
+import { demoHass, onDemoChange } from "../demo/hass";
 
 /**
  * Dashboard Studio: the dashboard editor on the whole screen, laid out like Home
@@ -260,14 +261,62 @@ export class GlassStudio extends LitElement {
     const first = !this._hass;
     syncLang(h);
     this._hass = h;
+    // the dashboard swaps in the demo home itself (its `demo` option)
     if (this._dash) this._dash.hass = h;
-    if (h && this._popEls.length) forward(this._popEls, h);
-    if (this._dashEditor) this._dashEditor.hass = h;
-    this.renderRoot?.querySelectorAll?.("hui-card-element-editor").forEach((e) => ((e as any).hass = h));
+    this._pushCardHass();
     if (first) this.requestUpdate();
   }
   get hass() {
     return this._hass;
+  }
+
+  /* ── demo mode: the cards outside the dashboard element get its demo home too ── */
+
+  private _demoOf?: { real: HomeAssistant; rev: number; hass: HomeAssistant };
+  private _demoRev = 0;
+  private _demoUnsub?: () => void;
+  private _demoWas = false;
+
+  /**
+   * What the cards and their editors get: HA's hass, or – when the edited dashboard has `demo` –
+   * the demo home built on it, as glass-dashboard gives its own cards. The pop-up preview and the
+   * card editors are drawn here, not by the dashboard, so they need it from here.
+   * Everything else (loading and saving dashboards) keeps HA's own hass.
+   */
+  private get _cardHass(): HomeAssistant | undefined {
+    const h = this._hass;
+    if (!h || !this._main()?.demo) return h;
+    if (this._demoOf?.real !== h || this._demoOf.rev !== this._demoRev) this._demoOf = { real: h, rev: this._demoRev, hass: demoHass(h) };
+    return this._demoOf.hass;
+  }
+
+  /** New states for the pop-up preview and every open card editor. */
+  private _pushCardHass() {
+    const h = this._cardHass;
+    if (h && this._popEls.length) forward(this._popEls, h);
+    if (this._dashEditor) this._dashEditor.hass = h;
+    if (this._own) this._own.el.hass = h;
+    this.renderRoot?.querySelectorAll?.("hui-card-element-editor").forEach((e) => ((e as any).hass = h));
+  }
+
+  /** Demo on: follow the demo home's changes (covers moving, a scene…); off or closed: stop. */
+  private _syncDemo() {
+    const on = !!this._main()?.demo && this.isConnected;
+    if (on && !this._demoUnsub)
+      this._demoUnsub = onDemoChange(() => {
+        this._demoRev++;
+        this._pushCardHass();
+      });
+    if (!on && this._demoUnsub) {
+      this._demoUnsub();
+      this._demoUnsub = undefined;
+    }
+    // switched on or off: the pop-up preview and the editors move to the other home now
+    if (on !== this._demoWas) {
+      this._demoWas = on;
+      this._demoOf = undefined;
+      this._pushCardHass();
+    }
   }
 
   /* ── state ─────────────────────────────────────────────────────────────── */
@@ -1033,6 +1082,7 @@ export class GlassStudio extends LitElement {
   }
 
   protected override updated() {
+    this._syncDemo();
     this._mountPreview();
     // a new pick (in the tree, the preview or the schematic): show it in the other two
     if (this._sel !== this._selShown) {
@@ -1046,7 +1096,7 @@ export class GlassStudio extends LitElement {
     void this._loadSources();
     if (this._dashEditor && (this._dashEditor as any)._studioCfg !== this._main()) {
       (this._dashEditor as any)._studioCfg = this._main();
-      this._dashEditor.hass = this.hass;
+      this._dashEditor.hass = this._cardHass;
       this._dashEditor.lovelace = this.lovelace;
       this._dashEditor.setConfig(this._main());
     }
@@ -1739,7 +1789,7 @@ export class GlassStudio extends LitElement {
       `border-radius:${p.border_radius ?? "32px"} ${p.border_radius ?? "32px"} 0 0;background:${bg};-webkit-backdrop-filter:blur(${blur});backdrop-filter:blur(${blur});` +
       "box-shadow:0 -6px 40px rgba(0,0,0,.2);color:var(--primary-text-color)";
     const content = this._popContent(card);
-    const els = buildChildren(content as any, this.hass, { nested: false, glass: "frosted", mode: preview.mode as any, reuse: this._popEls });
+    const els = buildChildren(content as any, this._cardHass, { nested: false, glass: "frosted", mode: preview.mode as any, reuse: this._popEls });
     const keep = new Set<Element>(els);
     for (const n of [...body.children]) if (!keep.has(n)) n.remove();
     // Bubble's header as Bubble draws it: not when hidden (show_header: false), nor when the
@@ -1763,7 +1813,8 @@ export class GlassStudio extends LitElement {
       empty.textContent = t("This pop-up has no cards yet – add them in its settings.");
       body.appendChild(empty);
     }
-    if (this.hass) forward(els, this.hass);
+    const cardHass = this._cardHass;
+    if (cardHass) forward(els, cardHass);
     this._popEls = els;
     this._popOpen = hash;
     requestAnimationFrame(() => sheet!.isConnected && (this._popTop = Math.max(8, sheet!.getBoundingClientRect().top - 44)));
@@ -2351,7 +2402,7 @@ export class GlassStudio extends LitElement {
     const q = (this._q ?? "").trim().toLowerCase();
     const hit = (...s: (string | undefined)[]) => !q || s.some((x) => x?.toLowerCase().includes(q));
     const glass = NEW_CARDS.filter(([type, name, , desc]) => type !== "markdown" && hit(type, t(name), t(desc), name));
-    const firstOf = (d: string) => Object.keys(this.hass?.states ?? {}).find((e) => e.startsWith(`${d}.`)) ?? "";
+    const firstOf = (d: string) => Object.keys(this._cardHass?.states ?? {}).find((e) => e.startsWith(`${d}.`)) ?? "";
     const all: [string, string, string, () => Cfg][] = [
       ["tile", "Tile", "mdi:card-outline", () => ({ type: "tile", entity: firstOf("light") || firstOf("switch") })],
       ["entities", "Entities", "mdi:format-list-bulleted", () => ({ type: "entities", entities: [firstOf("light") || firstOf("sensor")].filter(Boolean) })],
@@ -2373,7 +2424,7 @@ export class GlassStudio extends LitElement {
     const stubOf = (type: string): Cfg => {
       const cls = customElements.get(type) as unknown as { getStubConfig?: (h?: HomeAssistant) => Cfg } | undefined;
       try {
-        return { type: `custom:${type}`, ...(cls?.getStubConfig?.(this.hass) ?? {}) };
+        return { type: `custom:${type}`, ...(cls?.getStubConfig?.(this._cardHass) ?? {}) };
       } catch {
         return { type: `custom:${type}` };
       }
@@ -2399,7 +2450,7 @@ export class GlassStudio extends LitElement {
         .value=${this._q ?? ""}
         @input=${(e: Event) => (this._q = (e.target as HTMLInputElement).value)}
       />
-      ${group("glass", t("Glass cards"), glass.length, glass.map(([type, name, icon, desc]) => btn(icon, t(name), t(desc), () => stubFor(type, this.hass), missingFor(type))))}
+      ${group("glass", t("Glass cards"), glass.length, glass.map(([type, name, icon, desc]) => btn(icon, t(name), t(desc), () => stubFor(type, this._cardHass), missingFor(type))))}
       ${group("ha", t("Home Assistant cards"), builtIn.length, builtIn.map(([, name, icon, make]) => btn(icon, t(name), "", make)))}
       ${group("custom", t("Custom cards (HACS)"), custom.length, custom.map((c: any) => btn("mdi:puzzle-outline", c.name ?? c.type, c.description ?? "", () => stubOf(c.type))))}
       ${group("import", t("From another dashboard"), -1, this._importGroup(pick, hit))}
@@ -2472,7 +2523,7 @@ export class GlassStudio extends LitElement {
         ? keyed(
             `${key}|${this._yamlRev}`,
             html`<ha-yaml-editor
-              .hass=${this.hass}
+              .hass=${this._cardHass}
               .defaultValue=${node}
               @value-changed=${(e: CustomEvent) => {
                 e.stopPropagation();
@@ -2574,7 +2625,7 @@ export class GlassStudio extends LitElement {
               // a fresh editor per card: one without a visual editor leaves HA's editor in YAML for the next
               `${JSON.stringify(sel)}|${card.type}`,
               html`<hui-card-element-editor
-                .hass=${this.hass}
+                .hass=${this._cardHass}
                 .lovelace=${this.lovelace}
                 .value=${card}
                 @GUImode-changed=${(e: CustomEvent) => {
@@ -2891,6 +2942,7 @@ export class GlassStudio extends LitElement {
     window.addEventListener("pointerup", this._onWinUp);
     window.addEventListener("pointerdown", this._onWinDown, true);
     window.addEventListener("glass-preview-dark", this._onPreviewDark);
+    this._syncDemo();
   }
 
   override disconnectedCallback() {
@@ -2903,6 +2955,7 @@ export class GlassStudio extends LitElement {
     window.removeEventListener("pointerdown", this._onWinDown, true);
     window.removeEventListener("glass-preview-dark", this._onPreviewDark);
     this._autoScroll(undefined);
+    this._syncDemo();
   }
 
   private _onClip = () => this.requestUpdate();
@@ -2950,7 +3003,7 @@ export class GlassStudio extends LitElement {
       this._own = { type: tag, el };
     }
     const el = this._own.el;
-    el.hass = this.hass;
+    el.hass = this._cardHass;
     el.lovelace = this.lovelace;
     if ((el as any)._studioCfg !== card) {
       (el as any)._studioCfg = card;
