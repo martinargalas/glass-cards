@@ -26,6 +26,7 @@ import {
   managedHelpers,
   managedNumber,
   nextRing,
+  updateBlueprint,
   parseDays,
   repeatText,
   soundName,
@@ -111,6 +112,8 @@ interface Row {
   /** its next date, on or off – a once alarm shows it */
   date: Date | undefined;
   skipped?: string;
+  /** it rings next on a day off, as on a weekend (its name) */
+  dayOff?: string;
 }
 
 class GlassAlarms extends GlassElement<AlarmsConfig> {
@@ -150,6 +153,7 @@ class GlassAlarms extends GlassElement<AlarmsConfig> {
       this.requestUpdate();
     }
     this._sheet?.update();
+    void updateBlueprint(hass);
   }
   private _key = "";
 
@@ -287,7 +291,7 @@ class GlassAlarms extends GlassElement<AlarmsConfig> {
       const skipping = !!hol && (!a.skip_holidays || hass.states[a.skip_holidays]?.state === "on");
       // the next ring as if it were on: a switched-off once alarm still shows its date
       const next = nextRing(t, true, days, skipping ? hol : undefined);
-      return { a, on, t, days, next: on ? next : undefined, date: next?.at, skipped: on ? next?.skipped?.name : undefined };
+      return { a, on, t, days, next: on ? next : undefined, date: next?.at, skipped: on ? next?.skipped?.name : undefined, dayOff: on ? next?.dayOff : undefined };
     });
     const top = this._soonest(rows);
     const carousel = c.layout === "carousel" && rows.length > 1;
@@ -341,7 +345,9 @@ class GlassAlarms extends GlassElement<AlarmsConfig> {
                 >${weekOrder(hass).map((x) => html`<b class=${days.has(x) ? "lit" : ""} title=${dayName(hass, x, "long")}>${dayName(hass, x, "narrow")}</b>`)}</span
               >`
             : html`<span class="date">${r.date ? new Intl.DateTimeFormat(lang, { weekday: "short", day: "numeric", month: "numeric" }).format(r.date) : tr("Once")}</span>`}
-          ${r.skipped ? html`<span class="skip" title=${tr("{name} skipped", { name: r.skipped })}><ha-icon .icon=${"mdi:calendar-star"}></ha-icon></span>` : nothing}
+          ${r.skipped || r.dayOff
+            ? html`<span class="skip" title=${r.skipped ? tr("{name} skipped", { name: r.skipped }) : tr("{name}: rings as on a weekend", { name: r.dayOff! })}><ha-icon .icon=${"mdi:calendar-star"}></ha-icon></span>`
+            : nothing}
         </div>
         ${where
           ? html`<div class="where"><ha-icon .icon=${"mdi:speaker"}></ha-icon><span>${where}${a.sound ? ` · ${soundName(d!.sound)}` : ""}</span></div>`

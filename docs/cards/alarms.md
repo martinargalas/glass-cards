@@ -2,69 +2,64 @@
 
 `custom:glass-alarms`
 
-A list of alarms. Each alarm shows its name, time, the days it rings, the speaker it plays on and an on / off switch. Above the list the card shows when the next alarm rings. You add and change alarms in the card – it creates the helpers and the automation in Home Assistant for you.
+Your alarms in one card: when the next one rings, and for each alarm its time, days, speaker and an on / off switch. You add and change alarms right in the card – it sets up everything they need in Home Assistant.
 
 ![The Alarms card with three alarms](../images/cards/alarms.webp "phone")
 
 ## Add an alarm
 
 1. Add the card: in the Dashboard Studio (or *Add card* in Home Assistant) pick **Glass – alarms**. It needs no settings.
-2. Tap **+** in the top right corner.
-3. Fill in the name, the time and the days, pick a speaker and tap **Done**.
+2. Tap **+** in the top right corner, set the alarm up and tap **Done**.
 
-The alarm appears in the list and rings at that time.
+Only administrators see **+**, because a new alarm creates helpers and an automation (see [What the card creates](#what-the-card-creates)). Everyone can turn alarms on and off and change them.
 
-![A new alarm](../images/alarms/new-alarm.webp "phone")
+## The card
 
-Only Home Assistant administrators see **+**, because adding an alarm creates helpers and an automation (see [What the card creates](#what-the-card-creates)). Other users can turn alarms on and off and change them.
+- **Top line** – when the next alarm rings, e.g. *Alarm in 8 h 15 min*, with its day and time.
+- **Each alarm** – the days it rings are highlighted (an alarm set to ring once shows its date). A calendar icon means a day off changes its next ring.
+- **Switch** – turns the alarm on or off; it keeps its settings.
 
-## The list
-
-- **Top line** – when the next alarm rings, e.g. *Alarm in 8 h 15 min*, and its day and time. When every alarm is off, it says so.
-- **Each alarm** – name and time; the days of the week, with the days it rings highlighted (an alarm set to ring once shows its date instead); the speaker and the sound. A small calendar icon means the alarm skips a day off this week.
-- **Switch** – turns the alarm on or off. An alarm that is off is greyed out and keeps its settings.
-
-With `layout: carousel` the card shows one alarm at a time; swipe to see the others.
+`layout: carousel` shows one alarm at a time; swipe to the others.
 
 ![Carousel layout](../images/alarms/carousel.webp "phone")
 
 ## Change an alarm
 
-Tap an alarm to open its settings. On a phone they slide up from the bottom, on a tablet they open in the middle of the screen. Changes are saved when you tap **Done**; **Cancel** or a tap outside discards them.
+Tap an alarm. On a phone the settings slide up from the bottom, on a tablet they open in the middle. **Done** saves, **Cancel** or a tap outside leaves the alarm as it was.
 
 ![The settings of an alarm](../images/alarms/settings.webp "phone")
 
-- **Name** – shown above the time.
-- **Time** – scroll the wheels or tap a number (arrow keys work too). The card uses the time format from your Home Assistant profile: 12 hours with AM / PM in English, 24 hours in Czech and German by default.
-- **Repeat** – *Once*, *Weekdays*, *Every day*, *Weekends*, or tap single days. In Europe the week starts on Monday. An alarm set to *Once* rings the next time it reaches the time and then turns itself off.
-- **Not on days off** – the alarm doesn't ring on public holidays and other days off (see [Days off](#days-off)). Turn it off for an alarm that should always ring.
-- **Rings on** – tick one or more speakers. With no speaker ticked the alarm plays nothing and only runs the actions in its automation (see [Actions when it rings](#actions-when-it-rings)).
-- **Sound** – *Birds*, a quiet melody included with the cards, or **Your own**: the address of a sound or stream, e.g. `https://…/wake-up.mp3`, `/local/sounds/wake-up.mp3` for a file in `config/www/sounds/`, or `media-source://…`.
-- **Delete the alarm** – tap twice. The second tap deletes the alarm together with its helpers and automation.
+- **Time** – scroll the wheels or tap a number. 12 or 24 hours, as your Home Assistant profile sets it.
+- **Repeat** – *Once*, *Weekdays*, *Every day*, *Weekends*, or single days. *Once* rings the next time it reaches the time, then turns itself off.
+- **Days off** – how the alarm treats holidays, see [Days off](#days-off).
+- **Rings on** and **Sound** – the speakers and what they play, see [Speakers and sounds](#speakers-and-sounds).
+- **Delete the alarm** – tap twice; it removes the alarm with its helpers and automation.
 
 ![Choosing speakers and the sound](../images/alarms/speakers.webp "phone")
 
 ## Days off
 
-A day off is an **all-day event** in one of the calendars set in the card (Studio → the card → **Days off**). Events with a start time, such as a meeting at 6:00, are ignored. The top line takes days off into account, so it always shows the alarm that will actually ring.
+A day off is an **all-day event** in a calendar set in the card (Studio → the card → **Days off**): public holidays from Home Assistant's **Holiday** integration (*Settings → Devices & services → Add integration → Holiday*), or any calendar with your vacation. Events with a start time don't count.
 
-- **Public holidays** – add the **Holiday** integration for your country (*Settings → Devices & services → Add integration → Holiday*). It creates a calendar with the public holidays.
-- **Your own days off** – any calendar works: a local calendar, Google, CalDAV… Add your holidays to it as all-day events.
+On a day off the alarms behave as on a weekend:
+
+- an alarm on weekdays (or every day) doesn't ring – the switch reads **Not on days off**;
+- an alarm with Saturday or Sunday rings – the switch reads **On days off, ring as on a weekend**.
+
+Example: *Kids' room* at 6:45 on weekdays, *Weekend* at 9:00 on Saturday and Sunday. On a public holiday on Wednesday only the 9:00 alarm rings. Turn the switch off for an alarm that should follow just its days of the week; an alarm set to *Once* ignores days off.
 
 ```yaml
 type: custom:glass-alarms
 skip_calendars:
-  - calendar.czechia      # public holidays (the Holiday integration)
-  - calendar.holidays     # your own
+  - calendar.czech_holidays   # the Holiday integration
+  - calendar.vacation         # your own
 ```
-
-## Actions when it rings
-
-Every alarm has its own automation, **Glass alarm 1**, **Glass alarm 2**… (*Settings → Automations & scenes*). Open it to add actions that run when the alarm rings – open the blinds, turn on the lights – under **Actions**. There you can also set the **Volume**, how long it takes to get louder (**Getting louder**) and when it stops (**Stop after**).
 
 ## Speakers and sounds
 
-By default **Rings on** lists all media players. To show only some of them, and to add your own sounds next to *Birds*, set them in YAML:
+**Rings on** lists all media players; tick one or more. With none ticked the alarm only runs its automation's actions. **Sound** is *Birds*, a quiet melody that comes with the cards, or **Your own**: an address such as `https://…/wake-up.mp3`, `/local/sounds/wake-up.mp3` (a file in `config/www/sounds/`) or `media-source://…`.
+
+To offer only some speakers, and sounds of your own next to *Birds*:
 
 ```yaml
 type: custom:glass-alarms
@@ -76,28 +71,25 @@ sounds:
   - { name: Rooster, url: /local/sounds/rooster.mp3 }
 ```
 
-The speaker downloads the sound from Home Assistant. For sounds from `/local/…` (Birds included) set Home Assistant's *local network* address in *Settings → System → Network*, otherwise the speaker can't reach it.
+The speaker downloads the sound from Home Assistant. For sounds from `/local/…` (Birds included) set the *local network* address in *Settings → System → Network*.
 
-## Look
+## Actions when it rings
 
-In the Studio's **Appearance** tab you can set the material and colour of each part: the list of alarms, the highlighted days, the switches, the **+** button, the settings window and its controls.
+Every alarm has an automation, **Glass alarm 1**, **Glass alarm 2**… (*Settings → Automations & scenes*). Add your own **Actions** there – open the blinds, turn on the lights – and set **Volume**, **Getting louder** and **Stop after**.
 
 ## What the card creates
 
-When you save a new alarm, the card creates:
-
-- **Helpers** named *Glass alarm 1 …* (*Settings → Devices & services → Helpers*): time, on / off, days, name, speakers, sound and days off on / off. The alarm's settings are stored in them.
-- **An automation** named *Glass alarm 1* that rings the alarm. It uses the **Glass alarm** blueprint, which the card adds to Home Assistant itself.
-
-**Delete the alarm** removes both. Don't rename the helpers – the card finds its alarms by their names.
+For each new alarm: **helpers** named *Glass alarm 1 …* that store its settings, and **an automation** that rings it, made from the **Glass alarm** blueprint. The card adds the blueprint to Home Assistant itself and updates it with new versions of the cards. **Delete the alarm** removes all of it. Don't rename the helpers – the card finds its alarms by their names.
 
 ## Troubleshooting
 
-**The alarm didn't ring.** Check that its switch is on, that today is one of its days and not a day off, and that a speaker is ticked. Then open its automation (*Glass alarm …*) → **Traces** to see whether it ran and where it stopped.
+**The alarm didn't ring.** Check its switch, its days, the days off and that a speaker is ticked. Then open its automation → **Traces** to see where it stopped.
 
-**There's no + in the card.** Only Home Assistant administrators see it.
+**It rang but nothing played.** The speaker couldn't download the sound – check the network address (see [Speakers and sounds](#speakers-and-sounds)) or try an `https://` address.
 
-**It rang but nothing played.** The speaker couldn't download the sound. Check the network address as described in [Speakers and sounds](#speakers-and-sounds), or try a sound with an `https://` address.
+## Look
+
+Every part – the list, the highlighted days, the switches, **+**, the settings window and its controls – has its material and colour in the Studio's **Appearance** tab, or in the options below.
 
 ## Options
 

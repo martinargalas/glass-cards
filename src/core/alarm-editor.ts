@@ -7,6 +7,7 @@ import {
   WEEK,
   WEEKDAYS,
   WEEKENDS,
+  asWeekend,
   dayName,
   defaultSound,
   parseDays,
@@ -192,10 +193,11 @@ export function openAlarmEditor(o: AlarmEditorOptions) {
               )}
             </div>`
         : nothing}
-      ${o.calendars?.length && h.skip_holidays
+      ${o.calendars?.length && h.skip_holidays && (d.days || !h.days)
         ? html`<button class="row ${ctl}" style=${cst} role="switch" aria-checked=${d.skip} @click=${() => set(() => (d.skip = !d.skip))}>
             <ha-icon .icon=${"mdi:calendar-star"}></ha-icon
-            ><span>${tr("Not on days off")}<small>${o.calendars.map((id) => label(hass, id)).join(", ")}</small></span
+            ><span
+              >${asWeekend(d.days) ? tr("On days off, ring as on a weekend") : tr("Not on days off")}<small>${o.calendars.map((id) => label(hass, id)).join(", ")}</small></span
             ><i class="sw ${d.skip ? "on" : ""}"></i>
           </button>`
         : nothing}

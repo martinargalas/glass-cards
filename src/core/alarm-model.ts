@@ -5,7 +5,7 @@ import blueprintYaml from "../../blueprints/automation/glass_alarm.yaml?raw";
 
 /**
  * What the alarms card (glass-alarms) needs: an alarm's helpers, its days, when it
- * rings next – days off skipped (all-day events in calendars: public holidays, a holiday…) – the week as the user's country starts it, and the
+ * rings next – days off (all-day events in calendars: public holidays, a holiday…) – the week as the user's country starts it, and the
  * alarms the cards create themselves (a set of helpers and an automation from the Glass alarm
  * blueprint, which ships in the bundle).
  */
@@ -135,20 +135,34 @@ export interface NextRing {
   at: Date;
   /** a day off skipped on the way (its event's name) */
   skipped?: { date: Date; name: string };
+  /** it rings on a day off, as on a weekend (its event's name) */
+  dayOff?: string;
 }
 
-/** When it rings next – within two weeks – the holidays (by date) skipped. */
+/** An alarm on a weekend day (not every day, not once): a day off counts as a weekend – it rings then. */
+export const asWeekend = (days: Set<Day> | undefined) => !!days && days.size < 7 && WEEKENDS.some((d) => days.has(d));
+
+/**
+ * When it rings next – within two weeks. With the days off (by date): an alarm on weekdays only
+ * (or every day) skips them; one on a weekend day rings on them too, as on a weekend.
+ */
 export function nextRing(time: [number, number] | undefined, on: boolean, days: Set<Day> | undefined, holidays?: Map<string, string>): NextRing | undefined {
   if (!time || !on) return undefined;
   const now = new Date();
+  const weekend = asWeekend(days);
   let skipped: NextRing["skipped"];
   for (let i = 0; i < 15; i++) {
     const at = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i, time[0], time[1]);
     if (at <= now) continue;
     // once: the next time the clock gets there, whatever the day
     if (!days) return { at };
-    if (!days.has(dayOf(at))) continue;
     const h = holidays?.get(dateKey(at));
+    if (weekend) {
+      if (days.has(dayOf(at))) return { at };
+      if (h) return { at, dayOff: h };
+      continue;
+    }
+    if (!days.has(dayOf(at))) continue;
     if (h) {
       skipped ??= { date: at, name: h };
       continue;
@@ -336,15 +350,43 @@ export async function createAlarm(hass: HomeAssistant, opts: { name: string; tim
 }
 
 /** Saves the blueprint that ships with the cards into HA (over an older copy). */
+/** The bundled blueprint's version: a hash of its text, kept in its source URL. */
+const BLUEPRINT_V = (() => {
+  let h = 5381;
+  for (let i = 0; i < blueprintYaml.length; i++) h = ((h * 33) ^ blueprintYaml.charCodeAt(i)) >>> 0;
+  return h.toString(36);
+})();
+const BLUEPRINT_URL = `https://github.com/martinargalas/glass-cards/blob/main/blueprints/automation/glass_alarm.yaml?v=${BLUEPRINT_V}`;
+
 async function installBlueprint(hass: HomeAssistant) {
   await hass.callWS({
     type: "blueprint/save",
     domain: "automation",
     path: BLUEPRINT_PATH.replace(/\.yaml$/, ""),
     yaml: blueprintYaml,
-    source_url: "https://github.com/martinargalas/glass-cards/blob/main/blueprints/automation/glass_alarm.yaml",
+    source_url: BLUEPRINT_URL,
     allow_override: true,
   });
+}
+
+let checked = false;
+/**
+ * A newer card than the blueprint in Home Assistant (saved by an older one when its first alarm
+ * was created): the bundled one replaces it, and the alarms' automations are reloaded to use it.
+ * Once a page load, for an administrator, with alarms there.
+ */
+export async function updateBlueprint(hass: HomeAssistant) {
+  if (checked || !hass.user?.is_admin || !managedAlarms(hass).length) return;
+  checked = true;
+  try {
+    const list = await hass.callWS<Record<string, { metadata?: { source_url?: string } }>>({ type: "blueprint/list", domain: "automation" });
+    const saved = list[BLUEPRINT_PATH];
+    if (!saved || saved.metadata?.source_url === BLUEPRINT_URL) return;
+    await installBlueprint(hass);
+    await hass.callService("automation", "reload");
+  } catch {
+    // not this time: the next page load tries again
+  }
 }
 
 /** An alarm the cards created gone: its automation and helpers. */

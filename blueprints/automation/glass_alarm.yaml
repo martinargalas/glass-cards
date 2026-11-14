@@ -63,8 +63,11 @@ blueprint:
               filter:
                 - domain: calendar
         skip_holidays_entity:
-          name: Not on days off (switch)
-          description: An input_boolean that turns the skipping on and off – the alarm's own. Empty = days off are always skipped.
+          name: Days off (switch)
+          description: >-
+            An input_boolean that turns days off on and off – the alarm's own. On: an alarm on
+            weekdays only (or every day) doesn't ring on a day off; an alarm with a weekend day
+            rings on a day off as on a weekend. Empty = always on.
           default: ""
           selector:
             entity:
@@ -182,6 +185,16 @@ variables:
   # the card's days: short English names, or once (empty = every day)
   days_text: "{{ (states(days_entity) if days_entity else 'mon,tue,wed,thu,fri,sat,sun') | lower | trim }}"
   once: "{{ days_text in ['', 'once', 'unknown', 'unavailable'] }}"
+  every_day: "{{ days_text in ['daily', 'all', 'every day'] or (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] | select('in', days_text) | list | count) == 7 }}"
+  rings_today: >-
+    {% set today = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'][now().weekday()] %}
+    {{ once or every_day or today in days_text }}
+  # days off taken into account: the calendars set and the alarm's switch for it on
+  # (an alarm set to ring once rings whatever the day)
+  skipping: "{{ not once and skip_calendars | count > 0 and (not skip_holidays_entity or is_state(skip_holidays_entity, 'on')) }}"
+  # an alarm on a weekend day (not every day): a day off counts as a weekend – it rings then too;
+  # an alarm on weekdays only (or every day) doesn't ring on a day off
+  as_weekend: "{{ not once and not every_day and ('sat' in days_text or 'sun' in days_text) }}"
 
 triggers:
   - trigger: time
@@ -191,17 +204,16 @@ conditions:
   - alias: The alarm is on
     condition: template
     value_template: "{{ not switch_entity or is_state(switch_entity, 'on') }}"
-  - alias: It rings today
+  - alias: It rings today (or, on a weekend day's alarm, it may be a day off)
     condition: template
-    value_template: >-
-      {% set today = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'][now().weekday()] %}
-      {{ once or days_text in ['daily', 'all', 'every day'] or today in days_text }}
+    value_template: "{{ rings_today or (as_weekend and skipping) }}"
 
 actions:
-  # a day off in the calendars (an all-day event today): no alarm today
+  # a day off in the calendars (an all-day event today): a weekday alarm doesn't ring,
+  # a weekend alarm rings as on a weekend
   - if:
       - condition: template
-        value_template: "{{ skip_calendars | count > 0 and (not skip_holidays_entity or is_state(skip_holidays_entity, 'on')) }}"
+        value_template: "{{ skipping }}"
     then:
       - action: calendar.get_events
         target:
@@ -222,9 +234,14 @@ actions:
             {{ ns.off }}
       - if:
           - condition: template
-            value_template: "{{ day_off }}"
+            value_template: "{{ day_off and not as_weekend }}"
         then:
           - stop: A day off in the calendars
+      - if:
+          - condition: template
+            value_template: "{{ as_weekend and not rings_today and not day_off }}"
+        then:
+          - stop: Not one of its days, and not a day off
   # once: off now, so it doesn't ring again tomorrow
   - if:
       - condition: template

@@ -2175,7 +2175,7 @@ const SHEET_GLASS_FIELD: Schema = {
 
 /** The alarm cards' days off: any calendars, their all-day events. */
 const DAYS_OFF_HINT =
-  "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays or of days without an alarm… The alarms don't ring on them (each alarm can turn that off in its settings) and the card says which day it skips. Events with a time – a meeting at 6:00 – don't count.";
+  "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays… An alarm on weekdays doesn't ring on them, an alarm with a weekend day rings on them as on a weekend (each alarm can turn that off in its settings). Events with a time – a meeting at 6:00 – don't count.";
 
 export const alarmsSpec: EditorSpec = {
   parts: ALARMS_PARTS,
