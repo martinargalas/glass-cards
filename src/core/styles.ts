@@ -464,7 +464,8 @@ export const surface = css`
       inset 0 0 14px rgba(255, 255, 255, calc(0.07 * var(--glass-edge-k, 1)));
   }
   /* round buttons, chips: light edges only, no dark sides */
-  :host([control-glass="liquid"]) .control::after {
+  :host([control-glass="liquid"]) .control::after , no dark sides */
+  :host([control-glass="liquid-gl"]) .control::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -482,7 +483,9 @@ export const surface = css`
   }
   /* active (coloured) controls: keep the white edge lines, drop the blue tint –
      it would muddy the fill colour */
-  :host([control-glass="liquid"]) .control.active::after {
+  :host([control-glass="liquid"]) .control.active::after , drop the blue tint –
+     it would muddy the fill colour */
+  :host([control-glass="liquid-gl"]) .control.active::after {
     background:
       linear-gradient(90deg, transparent 6%, rgba(255, 255, 255, calc(0.75 * var(--glass-edge-k, 1))) 50%, transparent 94%) top / 100% 1.5px no-repeat,
       linear-gradient(90deg, transparent 10%, rgba(255, 255, 255, calc(0.5 * var(--glass-edge-k, 1))) 50%, transparent 90%) bottom / 100% 1.5px no-repeat;
@@ -684,6 +687,30 @@ export const surface = css`
   :host([glass="dark-liquid"]) .surface::after {
     display: none;
   }
+  /* control_glass liquid-gl / dark-liquid-gl: the WebGL glass on each control (core/liquid), lit ones keep their fill */
+  :host([control-glass="liquid-gl"]) .control {
+    --glass-panel-tint-a: 0;
+    --glass-liquid-dark: 0;
+  }
+  :host([control-glass="dark-liquid-gl"]) .control {
+    --glass-liquid-dark: 1;
+    --glass-panel-tint: var(--glass-home-side-rgb, 22, 30, 46);
+    --glass-panel-tint-a: var(--glass-home-side-a, 0.45);
+  }
+  :host([control-glass="liquid-gl"]) .control.lg-on,
+  :host([control-glass="dark-liquid-gl"]) .control.lg-on {
+    background: none !important;
+    border-color: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+  }
+  :host([control-glass="liquid-gl"]) .control.lg-on::before,
+  :host([control-glass="liquid-gl"]) .control.lg-on::after,
+  :host([control-glass="dark-liquid-gl"]) .control.lg-on::before,
+  :host([control-glass="dark-liquid-gl"]) .control.lg-on::after {
+    display: none;
+  }
 `;
 
 /**
@@ -835,6 +862,23 @@ export const control = css`
     color: var(--accent, var(--g-text));
   }
   /* control glass: home – grey circle when off, white with a coloured icon when on */
+  /* dark liquid: the sidebar's dark glass as a control – dark, blurred, light rims, white icon */
+  :host([control-glass="dark-liquid"]) .control:not(.active) {
+    border: 0 !important;
+    background: linear-gradient(rgba(var(--glass-home-side-rgb, 22, 30, 46), var(--glass-home-side-a, 0.55)), rgba(var(--glass-home-side-rgb, 22, 30, 46), var(--glass-home-side-a, 0.55))) !important;
+    box-shadow:
+      inset 0 0.5px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -0.5px 0 rgba(255, 255, 255, 0.12),
+      0 4px 12px rgba(0, 0, 0, 0.16) !important;
+    color: #fff;
+    --fg: #fff;
+    -webkit-backdrop-filter: blur(calc(16px * var(--glass-blur-scale, 1))) saturate(150%);
+    backdrop-filter: blur(calc(16px * var(--glass-blur-scale, 1))) saturate(150%);
+  }
+  :host([control-glass="dark-liquid"]) .control::before,
+  :host([control-glass="dark-liquid"]) .control::after {
+    display: none;
+  }
   :host([control-glass="home"]) .control {
     border: 0 !important;
     background: linear-gradient(var(--glass-home-control, rgba(118, 118, 128, 0.16)), var(--glass-home-control, rgba(118, 118, 128, 0.16))) !important;

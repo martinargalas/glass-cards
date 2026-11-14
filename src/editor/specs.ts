@@ -547,7 +547,8 @@ export const roomSpec: EditorSpec = {
                 {
                   helper: "Empty = as set on the panel or the dashboard (liquid glass).",
                   ...select("bar_glass", [
-                    ["liquid", "Liquid glass"],
+                    ["liquid", "Liquid glass (WebGL)"],
+                    ["dark-liquid", "Dark liquid glass (WebGL)"],
                     ["frosted", "Frosted glass"],
                     ["solid", "Smoky, no blur (fastest)"],
                     ["none", "None (text on the photo)"],

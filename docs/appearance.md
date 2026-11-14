@@ -34,7 +34,8 @@ A panel, and any part of a card, can have its own material:
 | Material | |
 | --- | --- |
 | `liquid` | Liquid glass – refracts the wallpaper |
-| `dark-liquid` | Dark liquid glass, as the Apple Home sidebar – refracts the wallpaper, white text; for a panel or a card's own tile (in a panel too) |
+| `dark-liquid` | Dark liquid glass, as the Apple Home sidebar – white text |
+| `liquid-gl`, `dark-liquid-gl` | The same two drawn by WebGL on the part itself – the real lens over the wallpaper (over the photo on a room's tile). For buttons, chips and people (`control_glass`) and any part of a card. While a part is lit or picked it shows its colour instead |
 | `frosted` | Frosted glass – blurred |
 | `light` | Light glass – the pre-blurred wallpaper, no live blur |
 | `flat` | No blur – a translucent tint only |
@@ -45,6 +46,11 @@ A panel, and any part of a card, can have its own material:
 
 Every material can be tinted with a colour: set the part's `_color` (e.g. `bar_glass: liquid`,
 `bar_color: blue`). A colour alone tints the part's default material.
+
+**WebGL or CSS.** A panel, a card's background and a room's bar draw `liquid` and `dark-liquid`
+with WebGL – the real refraction. Parts of cards and buttons draw them in CSS (blurred glass with
+light rims), which is light on the device; pick `liquid-gl` / `dark-liquid-gl` there for the WebGL
+glass. Each part in WebGL costs a little drawing on scroll, so keep it for a few parts.
 
 **Where blur happens.** Only panels blur. Glass cards inside a panel are drawn flat on the
 panel's glass – that is what keeps a full dashboard fast. A card gets a tile of its own only

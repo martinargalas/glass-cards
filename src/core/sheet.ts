@@ -2,8 +2,8 @@ import { tr } from "../i18n";
 import { LitElement, css, html, nothing, type TemplateResult } from "lit";
 import { materials } from "./materials";
 import { surface, tokens } from "./styles";
-import { LiquidController } from "./liquid";
-import { GLASS_DEFAULTS } from "./liquid-gl";
+import { LiquidController, PART_GL } from "./liquid";
+import { GLASS_DEFAULTS, wallpaperElement } from "./liquid-gl";
 import type { GlassMode } from "./types";
 
 /**
@@ -56,6 +56,8 @@ export class GlassSheet extends LitElement {
 
   /** the WebGL glass (liquid, dark-liquid) and the light glass, as on a card */
   private _liquid = new LiquidController(this, ".sheet.surface");
+  /** its controls in a WebGL material (controls_glass: liquid-gl / dark-liquid-gl) */
+  private _parts = new LiquidController(this, PART_GL, undefined, undefined, () => wallpaperElement());
 
   constructor() {
     super();
@@ -110,7 +112,7 @@ export class GlassSheet extends LitElement {
 
   protected override firstUpdated() {
     // the glass drawn where the window comes to rest (it slides / grows in)
-    this.renderRoot.querySelector(".sheet")?.addEventListener("transitionend", () => this._liquid.refresh());
+    this.renderRoot.querySelector(".sheet")?.addEventListener("transitionend", () => (this._liquid.refresh(), this._parts.refresh()));
     // the top layer: nothing on the page – a dock at the bottom edge either – can cover it
     const d = this.renderRoot.querySelector("dialog");
     try {
@@ -152,7 +154,7 @@ export class GlassSheet extends LitElement {
       >
         ${phone ? html`<i class="grip"></i>` : nothing}
         ${o.title ? html`<div class="title">${o.title}</div>` : nothing}
-        <div class="body">${o.render()}</div>
+        <div class="body" @scroll=${() => this._parts.refresh()}>${o.render()}</div>
         <div class="actions">${o.actions ? o.actions() : html`<button class="primary" @click=${() => this.close()}>${tr("Done")}</button>`}</div>
       </div>
     </dialog>`;

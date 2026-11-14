@@ -96,7 +96,7 @@ Materials and colours of the card's parts – set them in the card's **Appearanc
 
 | Option | Type | What it does |
 | --- | --- | --- |
-| `bar_glass` | "liquid" \| "frosted" \| "solid" \| "none" | image-full / compact: the bar's material – liquid glass (default), frosted, or none. |
+| `bar_glass` | "liquid" \| "dark-liquid" \| "frosted" \| "solid" \| "none" | image-full / compact: the bar's material – liquid glass (default), frosted, or none. |
 | `bar_tint` | { color: number[] \| string; strength?: number } | image-full / compact: the bar's colour, as glass_tint: { color, strength }. |
 | `active_color` | string | One colour for every button that is on (unless the button sets its own) – e.g. amber for a calm grid. |
 | `image_color` | "always" \| "active" | Photo in colour |

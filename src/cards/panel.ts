@@ -32,7 +32,7 @@ import { PANEL_PARTS } from "../core/card-parts";
  *   masonry_fill: true     # … stretched so every column ends at the panel's bottom
  *   min_column_width: 180  # grid: as many columns as fit at this width, instead of `columns`
  *   tile_glass: frosted    # optional glass tier for the cards inside (default: dashboard tile_glass, else the panel's)
- *   bar: true              # optional: the liquid glass bars' material (clear, bright rims) instead of a tile
+ *   bar: true              # optional: the liquid glass bars' material (clear, bright rims) instead of a tile – while no glass is picked
  *   role: sidebar          # optional: look's side-column material (panel = look's panel glass), even when nested
  *   control_glass: liquid  # optional tier for their buttons / chips / people (default: dashboard control_glass, else the card's)
  *   cards:
@@ -451,7 +451,7 @@ class GlassPanel extends GlassElement<PanelConfig> {
     const bare = this._bare;
     // home tiles bring their own backing – no legibility shading behind them
     const tiles = resolveGlass(c.tile_glass ?? settings.tile_glass ?? c.glass) === "home";
-    return html`<div class="panel surface ${bare ? "transparent" : ""} ${c.bar ? "barglass" : ""} ${bare && tiles ? "tiles" : ""}" style="padding:${pad};${c.height ? `height:${screenUnits(c.height)};` : ""}">
+    return html`<div class="panel surface ${bare ? "transparent" : ""} ${c.bar && !c.glass ? "barglass" : ""} ${bare && tiles ? "tiles" : ""}" style="padding:${pad};${c.height ? `height:${screenUnits(c.height)};` : ""}">
       ${c.title || c.icon
         ? html`<div class="title">
             ${c.icon ? html`<ha-icon .icon=${c.icon}></ha-icon>` : nothing}${c.title ? html`<span>${c.title}</span>` : nothing}<i></i>
@@ -576,7 +576,10 @@ class GlassPanel extends GlassElement<PanelConfig> {
       /* bar material: as the liquid glass bars (core/styles.ts liquidBar), night via --glass-bar */
       :host([glass]) .panel.surface.barglass {
         border: 0 !important;
-        background: var(--glass-panel-bar, var(--glass-bar, linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.22) 55%, rgba(255, 255, 255, 0.34)))) !important;
+        /* its own colour (glass_tint) over the bars' material */
+        background:
+          linear-gradient(rgba(var(--glass-own-tint, 255, 255, 255), var(--glass-own-tint-a, 0)), rgba(var(--glass-own-tint, 255, 255, 255), var(--glass-own-tint-a, 0))),
+          var(--glass-panel-bar, var(--glass-bar, linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.22) 55%, rgba(255, 255, 255, 0.34)))) !important;
         box-shadow: var(
           --glass-bar-shadow,
           inset 0 1px 0 rgba(255, 255, 255, 0.95),

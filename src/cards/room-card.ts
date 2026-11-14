@@ -105,7 +105,7 @@ interface RoomConfig extends BaseCardConfig {
    *  split – a capsule as wide as the name and status, the buttons on a capsule of their own (wide tiles). */
   bar?: "full" | "split";
   /** image-full / compact: the bar's material – liquid glass (default), frosted, or none. */
-  bar_glass?: "liquid" | "frosted" | "solid" | "none";
+  bar_glass?: "liquid" | "dark-liquid" | "frosted" | "solid" | "none";
   /** image-full / compact: the bar's colour, as glass_tint: { color, strength }. */
   bar_tint?: { color: number[] | string; strength?: number };
   /** One colour for every button that is on (unless the button sets its own) – e.g. amber for a calm grid. */
@@ -614,7 +614,7 @@ class GlassRoomCard extends GlassElement<RoomConfig> {
     // dashboard's; its colour likewise (the CSS variable comes down from whoever set it)
     const mat = c.bar_glass ?? this._inherited("bar_glass") ?? settings.bar_glass ?? "liquid";
     const tinted = !!(c.bar_tint ?? this._inherited("bar_tint"));
-    const barCls = `${mat === "liquid" ? "liq" : ""} mat-${mat} ${tinted ? "bar-tinted" : ""}`;
+    const barCls = `${mat === "liquid" || mat === "dark-liquid" ? "liq" : ""} mat-${mat} ${tinted ? "bar-tinted" : ""}`;
     const top = c.buttons === "top-center" || c.buttons === "top-end";
     // contextual buttons: there only while on – they grow out of the capsule, left of the others
     const ctx = (c.contextual ?? [])
@@ -1493,6 +1493,31 @@ class GlassRoomCard extends GlassElement<RoomConfig> {
         background:
           linear-gradient(rgba(var(--glass-bar-tint), var(--glass-bar-tint-a)), rgba(var(--glass-bar-tint), var(--glass-bar-tint-a))),
           var(--glass-room-strip, linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.34)));
+      }
+      /* bar_glass: dark-liquid – the WebGL glass in its night mode with the sidebar's dark tint, white text;
+         where WebGL can't draw, a dark frosting */
+      .strip.mat-dark-liquid,
+      .btns.mat-dark-liquid,
+      .tile.cmp.mat-dark-liquid {
+        --glass-liquid-dark: 1;
+        --glass-panel-tint: var(--glass-home-side-rgb, 22, 30, 46);
+        --glass-panel-tint-a: var(--glass-home-side-a, 0.45);
+        --g-text: #fff;
+        --g-text-2: rgba(235, 235, 245, 0.6);
+        color: #fff;
+      }
+      .strip.mat-dark-liquid.bar-tinted,
+      .btns.mat-dark-liquid.bar-tinted,
+      .tile.cmp.mat-dark-liquid.bar-tinted {
+        --glass-panel-tint: var(--glass-bar-tint);
+        --glass-panel-tint-a: var(--glass-bar-tint-a);
+      }
+      .strip.mat-dark-liquid:not(.lg-on),
+      .btns.mat-dark-liquid:not(.lg-on),
+      .tile.cmp.mat-dark-liquid:not(.lg-on) {
+        background: linear-gradient(rgba(var(--glass-panel-tint), var(--glass-panel-tint-a)), rgba(var(--glass-panel-tint), var(--glass-panel-tint-a))) !important;
+        -webkit-backdrop-filter: blur(calc(16px * var(--glass-blur-scale, 1))) saturate(150%) !important;
+        backdrop-filter: blur(calc(16px * var(--glass-blur-scale, 1))) saturate(150%) !important;
       }
       /* bar_glass: none – name and buttons straight on the photo, a shadow keeps them legible */
       .strip.mat-none,

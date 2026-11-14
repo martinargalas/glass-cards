@@ -1525,7 +1525,7 @@ export class GlassCardEditor extends LitElement {
     const c = this._config!;
     const dash = !!this.spec.looks;
     // the room bars only come as liquid, frosted or none
-    const BAR = ["liquid", "frosted", "solid", "none"];
+    const BAR = ["liquid", "dark-liquid", "frosted", "solid", "none"];
     const groups: [string, string, string, string, string[]?][] = dash
       ? [
           ["Panels", "The large glass panels.", "glass", "glass_tint"],
@@ -1569,9 +1569,12 @@ export class GlassCardEditor extends LitElement {
     const tiles = [...new Set(inside.map(kind).filter(TILE_CARDS))].map(cardName);
     if (dash && tiles.length)
       for (const g of groups) if (g[2] === "tile_glass") g[1] = `${t("Cards inside the panels and pop-ups:")} ${tiles.slice(0, 8).join(", ")}${tiles.length > 8 ? "…" : ""}.`;
-    const allTypes = (inherit: boolean) => [
+    // buttons, chips and people also come in the liquid glasses drawn by WebGL on each control
+    const allTypes = (inherit: boolean, controls = false) => [
       ...(inherit ? [{ value: "", label: t(dash ? "Same as the level above" : "As on the dashboard") }] : []),
-      { value: "liquid", label: t("Liquid glass") },
+      { value: "liquid", label: t(controls ? "Liquid glass (CSS)" : "Liquid glass (WebGL)") },
+      { value: "dark-liquid", label: t(controls ? "Dark liquid glass (CSS)" : "Dark liquid glass (WebGL, Apple Home sidebar)") },
+      ...(controls ? [{ value: "liquid-gl", label: t("Liquid glass (WebGL)") }, { value: "dark-liquid-gl", label: t("Dark liquid glass (WebGL)") }] : []),
       { value: "frosted", label: t("Frosted glass") },
       { value: "light", label: t("Light glass (no live blur)") },
       { value: "flat", label: t("No blur") },
@@ -1579,8 +1582,8 @@ export class GlassCardEditor extends LitElement {
       { value: "none", label: t("None (no glass)") },
       { value: "home", label: t("Home (Apple Home look)") },
     ];
-    const types = (inherit: boolean, only?: string[]) => allTypes(inherit).filter((o) => !only || !o.value || only.includes(o.value));
-    const label = (v: string | undefined, inherit: boolean) => t(allTypes(inherit).find((o) => o.value === (v ?? (inherit ? "" : "liquid")))?.label ?? v ?? "");
+    const types = (inherit: boolean, only?: string[], controls = false) => allTypes(inherit, controls).filter((o) => !only || !o.value || only.includes(o.value));
+    const label = (v: string | undefined, inherit: boolean, controls = false) => t(allTypes(inherit, controls).find((o) => o.value === (v ?? (inherit ? "" : "liquid")))?.label ?? v ?? "");
     const picked: Look = (c.look as Look) ?? "liquid";
     const look = lookOf(picked);
     // a level set by hand on top of the look → "Custom"
@@ -1655,7 +1658,8 @@ export class GlassCardEditor extends LitElement {
       const lookDefault = dash ? look?.[gk as "glass" | "tile_glass" | "control_glass"] : undefined;
       // inherited on a panel: also say what that is now
       const now = !dash && c[gk] === undefined ? dashValue[gk] : undefined;
-      const shown = now ? `${label(undefined, inherit)} – ${now ? t(allTypes(false).find((o) => o.value === now)?.label ?? now) : ""}` : label(c[gk] ?? lookDefault, inherit);
+      const ctl = gk === "control_glass";
+      const shown = now ? `${label(undefined, inherit, ctl)} – ${now ? t(allTypes(false, ctl).find((o) => o.value === now)?.label ?? now) : ""}` : label(c[gk] ?? lookDefault, inherit, ctl);
       const summary = [shown, tint?.color ? `${t("color")} ${tint.strength ?? 30} %` : ""]
         .filter(Boolean)
         .join(" · ");
@@ -1669,7 +1673,7 @@ export class GlassCardEditor extends LitElement {
             strength: tint?.strength ?? 30,
           },
           [
-            { name: "type", selector: { select: { mode: "dropdown", options: types(inherit, only) } } },
+            { name: "type", selector: { select: { mode: "dropdown", options: types(inherit, only, gk === "control_glass") } } },
             { type: "grid", name: "", schema: [{ name: "color", selector: { color_rgb: {} } }, strength("strength")] },
           ],
           (v) => {
@@ -3496,18 +3500,30 @@ export const GLASS_FIELD: Schema = {
   selector: {
     select: {
       mode: "dropdown",
-      options: [opt("", "Automatic – from the panel / dashboard"), opt("liquid", "Liquid glass"), opt("dark-liquid", "Dark liquid glass (Apple Home sidebar)"), opt("frosted", "Frosted glass"), opt("light", "Light glass (no live blur)"), opt("flat", "No blur"), opt("solid", "Solid (fastest)"), opt("none", "None (no glass)"), opt("home", "Home (Apple Home look)")],
+      options: [opt("", "Automatic – from the panel / dashboard"), opt("liquid", "Liquid glass (WebGL)"), opt("dark-liquid", "Dark liquid glass (WebGL, Apple Home sidebar)"), opt("frosted", "Frosted glass"), opt("light", "Light glass (no live blur)"), opt("flat", "No blur"), opt("solid", "Solid (fastest)"), opt("none", "None (no glass)"), opt("home", "Home (Apple Home look)")],
     },
   },
 };
 
 /** Same choices as GLASS_FIELD, for the cards inside a panel. */
 export const TILE_GLASS_FIELD: Schema = { ...GLASS_FIELD, name: "tile_glass" };
-/** Buttons have their own dark glass (Apple Home): no dark liquid for them. */
+/** Buttons, chips and people: the card materials, and the liquid ones drawn by WebGL on each control. */
 export const CONTROL_GLASS_FIELD: Schema = {
   ...GLASS_FIELD,
   name: "control_glass",
-  selector: { select: { ...GLASS_FIELD.selector.select, options: GLASS_FIELD.selector.select.options.filter((o: { value: string }) => o.value !== "dark-liquid") } },
+  selector: {
+    select: {
+      ...GLASS_FIELD.selector.select,
+      // on a control liquid and dark-liquid are CSS; the WebGL ones are their own options
+      options: GLASS_FIELD.selector.select.options.flatMap((o: { value: string; label: string }) =>
+        o.value === "liquid"
+          ? [opt("liquid", "Liquid glass (CSS)"), opt("dark-liquid", "Dark liquid glass (CSS)"), opt("liquid-gl", "Liquid glass (WebGL)"), opt("dark-liquid-gl", "Dark liquid glass (WebGL)")]
+          : o.value === "dark-liquid"
+            ? []
+            : [o],
+      ),
+    },
+  },
 };
 
 /** `fonts:` editor – one collapsible group per text part (nested object fonts.<part>.*). */

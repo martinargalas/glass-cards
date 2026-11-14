@@ -97,6 +97,33 @@ function inFastPreview(el: Element): boolean {
   return false;
 }
 
+/** Parts of a card in a WebGL material (core/materials: liquid-gl, dark-liquid-gl). */
+const PART_GL_ANY = ".mat-liquid-gl, .mat-dark-liquid-gl";
+/**
+ * The ones that get the glass: not while lit or picked (their colour shows then), and not a
+ * field (an input can't hold the canvas).
+ */
+export const PART_GL = [".mat-liquid-gl", ".mat-dark-liquid-gl"]
+  .map((m) => `${m}:not(input):not(textarea):not(select):not(.on):not(.cur):not(.active):not(.lit)`)
+  .join(", ");
+
+/** Any CSS colour → [r, g, b, a] (0–255, 0–1), as the browser computes it. */
+let probe: HTMLElement | undefined;
+function cssRgba(color: string): [number, number, number, number] | undefined {
+  const c = color.trim();
+  if (!c || c === "initial") return undefined;
+  probe ??= Object.assign(document.createElement("i"), { hidden: true });
+  if (!probe.isConnected) document.body.append(probe);
+  probe.style.color = "";
+  probe.style.color = c;
+  const m = getComputedStyle(probe).color.match(/[\d.]+/g)?.map(Number);
+  if (!m || m.length < 3) return undefined;
+  // color(srgb r g b / a): 0–1 channels
+  const srgb = getComputedStyle(probe).color.startsWith("color(");
+  const [r, g, b] = srgb ? m.slice(0, 3).map((x) => x * 255) : m.slice(0, 3);
+  return [r, g, b, m[3] ?? 1];
+}
+
 export class LiquidController implements ReactiveController {
   private ro?: ResizeObserver;
   private svg?: SVGSVGElement;
@@ -123,6 +150,8 @@ export class LiquidController implements ReactiveController {
      * element whose background image is behind `el`. Whatever the glass tier, even nested.
      */
     private under?: (el: HTMLElement) => Element | null | undefined,
+    /** Only while this holds (a material picked on the host, say); else no glass is drawn. */
+    private when?: () => boolean,
   ) {
     host.addController(this);
   }
@@ -130,6 +159,7 @@ export class LiquidController implements ReactiveController {
   get active() {
     // in a preview without glass nothing is liquid: the CSS glass stays, its blur turned off
     if (inFastPreview(this.host)) return false;
+    if (this.when && !this.when()) return false;
     if (this.under) return webglAvailable || supported;
     const g = this.host.getAttribute("glass");
     // glass-less containers (glass: none) still get the legibility boost over the wallpaper
@@ -215,6 +245,9 @@ export class LiquidController implements ReactiveController {
       [out.tintR, out.tintG, out.tintB] = rgb;
       out.tintA = a;
     }
+    // a part's colour (--mat-tint, any CSS colour): the WebGL glass takes it as its tint
+    const part = el.matches(PART_GL_ANY) && cs.getPropertyValue("--mat-tinted").trim() === "1" ? cssRgba(cs.getPropertyValue("--mat-tint")) : undefined;
+    if (part) [out.tintR, out.tintG, out.tintB, out.tintA] = part;
     return out;
   }
 
@@ -240,6 +273,11 @@ export class LiquidController implements ReactiveController {
 
   private updateGl(root: ShadowRoot) {
     const targets = new Set(root.querySelectorAll<HTMLElement>(this.selector));
+    // nothing to draw (no part in a WebGL material, say): no canvas, no job on every scroll
+    if (!targets.size) {
+      this.teardown();
+      return;
+    }
     for (const [el, canvas] of this.canvases) {
       if (!targets.has(el)) {
         this.ro?.unobserve(el);
@@ -252,6 +290,10 @@ export class LiquidController implements ReactiveController {
     for (const el of targets) {
       let canvas = this.canvases.get(el);
       if (!canvas || !canvas.isConnected) {
+        // the canvas lies under the element's content: it needs a box (and a stacking context) to sit in
+        const cs = getComputedStyle(el);
+        if (cs.position === "static") el.style.position = "relative";
+        if (cs.isolation !== "isolate") el.style.isolation = "isolate";
         canvas = document.createElement("canvas");
         canvas.className = "lg";
         canvas.setAttribute("aria-hidden", "true");

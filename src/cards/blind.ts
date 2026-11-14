@@ -393,7 +393,7 @@ class GlassBlind extends GlassElement<BlindConfig> {
     const btn = (bar: Bar, ch: Choice & { deg?: number }) => {
       const real = this._value(bar);
       const cur = ch.value !== undefined && real !== undefined && Math.abs(real - ch.value) <= 2;
-      return html`<button class="round side mat-${c.tilts_glass ?? "dark"} ${cur ? "cur" : ""}" style=${matTint(c.choices_color)} title=${ch.name ?? ""} aria-label=${ch.name ?? ""} @click=${() => this._choose(bar, ch)}>
+      return html`<button class="round side mat-${c.tilts_glass ?? "dark"} ${c.tilts_glass ? "" : "auto"} ${cur ? "cur" : ""}" style=${matTint(c.choices_color)} title=${ch.name ?? ""} aria-label=${ch.name ?? ""} @click=${() => this._choose(bar, ch)}>
         ${ch.deg !== undefined && !ch.icon ? slats(ch.deg) : html`<ha-icon .icon=${ch.icon ?? "mdi:circle-small"}></ha-icon>`}
       </button>`;
     };
@@ -1035,6 +1035,9 @@ class GlassBlind extends GlassElement<BlindConfig> {
       .tilts .round.side {
         width: 34px;
         height: 34px;
+      }
+      /* no material picked: a faint round; a picked one (tilts_glass) draws its own */
+      .tilts .round.side.auto {
         color: var(--g-text-2);
         background: color-mix(in srgb, var(--g-text) 8%, transparent);
       }

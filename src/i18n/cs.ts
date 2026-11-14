@@ -1761,6 +1761,12 @@ export const cs: Dict = {
   "not on days off": "ne ve volné dny",
   "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays… An alarm on weekdays doesn't ring on them, an alarm with a weekend day rings on them as on a weekend (each alarm can turn that off in its settings). Events with a time – a meeting at 6:00 – don't count.": "Kalendáře, jejichž celodenní události jsou volné dny: státní svátky z integrace Holiday, kalendář vaší dovolené… Budík na všední dny v nich nezvoní, budík s víkendovým dnem v nich zvoní jako o víkendu (každý budík to může v nastavení vypnout). Události s časem – schůzka v 6:00 – se nepočítají.",
   "Dark liquid glass (Apple Home sidebar)": "Tmavé liquid sklo (boční panel Apple Home)",
+  "Dark liquid glass": "Tmavé liquid sklo",
+  "Liquid glass (CSS)": "Liquid sklo (CSS)",
+  "Dark liquid glass (CSS)": "Tmavé liquid sklo (CSS)",
+  "Dark liquid glass (WebGL, Apple Home sidebar)": "Tmavé liquid sklo (WebGL, boční panel Apple Home)",
+  "Liquid glass (WebGL)": "Liquid sklo (WebGL)",
+  "Dark liquid glass (WebGL)": "Tmavé liquid sklo (WebGL)",
   "Show the state on the bar": "Zobrazit stav na liště",
   "Off: the state and percentage go under the name": "Vypnuto: stav a procenta se ukážou pod názvem",
 };

@@ -3,7 +3,8 @@ import { LitElement, html, nothing, type CSSResultGroup, type PropertyValues } f
 import type { BaseCardConfig, GlassMode, HassEntity, HomeAssistant } from "./types";
 import { resolveGlass, isDark, language, settings } from "./settings";
 import { surface, tokens } from "./styles";
-import { LiquidController } from "./liquid";
+import { LiquidController, PART_GL } from "./liquid";
+import { wallpaperElement } from "./liquid-gl";
 import { fontVars, iconVars, type FontSpec, type IconSpec } from "./typography";
 import { partsCss, type PartDef } from "./parts";
 import { nightConfig } from "./night";
@@ -52,6 +53,11 @@ export abstract class GlassElement<C extends BaseCardConfig = BaseCardConfig> ex
 
   constructor() {
     super();
+    // parts in a WebGL material (liquid-gl, dark-liquid-gl) and controls with control_glass in one:
+    // the real liquid glass, over a room's photo where they sit on one, else over the wallpaper
+    const under = (el: HTMLElement) => el.closest(".tile.full")?.querySelector(".pic") ?? wallpaperElement();
+    new LiquidController(this, PART_GL, undefined, undefined, under);
+    new LiquidController(this, ".control:not(.active)", undefined, undefined, under, () => /^(dark-)?liquid-gl$/.test(this.getAttribute("control-glass") ?? ""));
     if (!(this.constructor as typeof GlassElement).wrapTile) return;
     const own = this.render;
     this.render = () => {
@@ -241,6 +247,8 @@ export abstract class GlassElement<C extends BaseCardConfig = BaseCardConfig> ex
       ["control_tint", "control"],
       // a room's bar over its photo (image-full / compact)
       ["bar_tint", "bar"],
+      // the card's own colour, not inherited by what is inside it (a panel in the bars' material)
+      ["glass_tint", "own"],
     ];
     for (const [key, level] of tints) {
       const t = tintVars(cfg?.[key]);
