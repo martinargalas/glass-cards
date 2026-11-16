@@ -240,6 +240,8 @@ void main() {
 
 interface Backdrop {
   url: string;
+  /** a playing video (a camera's picture): its current frame is the picture under the glass */
+  video?: HTMLVideoElement;
   rect: { x: number; y: number; w: number; h: number };
   /** CSS filter of the element (a room photo in greyscale), baked into the texture. */
   filter?: string;
@@ -303,7 +305,34 @@ function backdropFor(el: Element): Backdrop | undefined {
 }
 
 /** An element's background image (cover / contain / natural size, background-position), in viewport px. */
+/** Boxes read at most twice a second while glass follows a video's frames: reading layout after
+ *  the page changed (a player's time ticking) costs a page-wide layout pass each time. */
+const boxes = new WeakMap<Element, { r: DOMRect; fit?: string; at: number }>();
+export let framesMode = false;
+export function setFramesMode(on: boolean) {
+  framesMode = on;
+}
+function boxOf(el: Element, fit = false): { r: DOMRect; fit?: string } {
+  const now = performance.now();
+  const c = boxes.get(el);
+  if (framesMode && c && now - c.at < 500) return c;
+  const n = { r: el.getBoundingClientRect(), fit: fit ? getComputedStyle(el).objectFit : undefined, at: now };
+  boxes.set(el, n);
+  return n;
+}
+
 function backdropOf(el: Element): Backdrop | undefined {
+  if (el instanceof HTMLVideoElement) {
+    const { r: box, fit } = boxOf(el, true);
+    const vw = el.videoWidth;
+    const vh = el.videoHeight;
+    if (!vw || !vh || !box.width) return undefined;
+    // where the frame lies: object-fit cover (default for camera pictures) or contain
+    const k = fit === "contain" ? Math.min(box.width / vw, box.height / vh) : fit === "fill" ? 0 : Math.max(box.width / vw, box.height / vh);
+    const w = k ? vw * k : box.width;
+    const h = k ? vh * k : box.height;
+    return { url: "", video: el, rect: { x: box.x + (box.width - w) / 2, y: box.y + (box.height - h) / 2, w, h } };
+  }
   const s = getComputedStyle(el);
   const m = s.backgroundImage.match(/url\(["']?(.*?)["']?\)/);
   if (!m) return undefined;
@@ -501,6 +530,54 @@ class Renderer {
     this.thumb = entry.thumb;
   }
 
+  /** A video's current frame, blurred, as the picture under the glass – uploaded once per frame
+   *  however many glass parts lie over it. False when the frame can't be read. */
+  private styled = new WeakMap<HTMLElement, { at: number; shade: number }>();
+  private vtex?: WebGLTexture;
+  private vkey = "";
+  private vcanvas = document.createElement("canvas");
+  private vthumb = document.createElement("canvas");
+  private vthumbAt = 0;
+  private frame(video: HTMLVideoElement, _bgW: number, _blur: number): boolean {
+    const gl = this.gl!;
+    const key = `${video.currentTime}|${video.videoWidth}`;
+    if (key !== this.vkey || !this.vtex) {
+      // tiny: scaling a frame down this far blurs it as much as the glass wants, on the GPU –
+      // no canvas filter (slow, on the CPU) with every frame
+      const w = Math.min(160, video.videoWidth);
+      const h = Math.max(1, Math.round((w * video.videoHeight) / video.videoWidth));
+      const c = this.vcanvas;
+      if (c.width !== w) c.width = w;
+      if (c.height !== h) c.height = h;
+      const ctx = c.getContext("2d")!;
+      try {
+        ctx.drawImage(video, 0, 0, w, h);
+        // the colours behind (edge light, legibility) twice a second: reading pixels back is slow
+        const now = performance.now();
+        if (!this.thumb || now - this.vthumbAt > 450) {
+          const t = this.vthumb;
+          t.width = t.height = 48;
+          const tc = t.getContext("2d", { willReadFrequently: true })!;
+          tc.drawImage(c, 0, 0, 48, 48);
+          this.thumb = tc.getImageData(0, 0, 48, 48).data;
+          this.vthumbAt = now;
+        }
+      } catch {
+        return false; // a picture from another origin: it can't be read
+      }
+      this.vtex ??= gl.createTexture()!;
+      gl.bindTexture(gl.TEXTURE_2D, this.vtex);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, c);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      this.vkey = key;
+    } else gl.bindTexture(gl.TEXTURE_2D, this.vtex);
+    return true;
+  }
+
   /**
    * Sets --glass-edge-light on `target` from the wallpaper colour behind it: its
    * hue at full brightness, well over half-way to white. Nested tiles and controls inherit
@@ -587,24 +664,37 @@ class Renderer {
     if (under && under === wallpaperElement()) under = undefined;
     const bd = under ? backdropOf(under) : backdropFor(target);
     if (!bd) return false;
-    const entry = loadImage(bd.url);
-    if (!entry.img.complete || !entry.img.naturalWidth) {
+    const entry = bd.video ? undefined : loadImage(bd.url);
+    if (entry && (!entry.img.complete || !entry.img.naturalWidth)) {
       entry.ready.then(() => scheduleAll()).catch(() => {});
       return false;
     }
+    if (bd.video && bd.video.readyState < 2) return false;
     const gl = this.gl!;
-    const r = target.getBoundingClientRect();
+    const r = bd.video ? boxOf(target).r : target.getBoundingClientRect();
     if (!r.width || !r.height) return false;
     // scaled ancestors (HA edit mode, editor preview zoom): the shape is drawn in
     // screen px, so CSS-px sizes (corner radius, rim width) scale with it
-    const k = target.offsetWidth ? r.width / target.offsetWidth : 1;
+    const k = bd.video ? 1 : target.offsetWidth ? r.width / target.offsetWidth : 1;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const W = Math.round(r.width * dpr);
     const H = Math.round(r.height * dpr);
-    this.texture(entry.img, bd.rect.w, (p.blur / 2) ** 2, bd.filter);
-    const shade = this.contrast(target, this.edgeLight(target, r, bd.rect) ?? 0, p.contrast);
-    this.canvas.width = W;
-    this.canvas.height = H;
+    if (bd.video) {
+      if (!this.frame(bd.video, bd.rect.w, (p.blur / 2) ** 2)) return false;
+    } else this.texture(entry!.img, bd.rect.w, (p.blur / 2) ** 2, bd.filter);
+    // over a video the colours behind change every frame: its edge light and text shadow (inline
+    // styles – a page-wide style pass each) follow twice a second, not with every frame
+    let shade: number;
+    const last = this.styled.get(target);
+    if (bd.video && last && performance.now() - last.at < 500) shade = last.shade;
+    else {
+      shade = this.contrast(target, this.edgeLight(target, r, bd.rect) ?? 0, p.contrast);
+      this.styled.set(target, { at: performance.now(), shade });
+    }
+    // the GL canvas only grows: resizing it reallocates its buffer and waits for the GPU – for
+    // every element, every frame – so each draws into its bottom-left corner instead
+    if (this.canvas.width < W) this.canvas.width = W;
+    if (this.canvas.height < H) this.canvas.height = H;
     gl.viewport(0, 0, W, H);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -646,7 +736,8 @@ class Renderer {
     if (out.height !== H) out.height = H;
     const ctx = out.getContext("2d")!;
     ctx.clearRect(0, 0, W, H);
-    ctx.drawImage(this.canvas, 0, 0);
+    // GL's (0, 0) is the canvas's bottom-left: that corner, W × H
+    ctx.drawImage(this.canvas, 0, this.canvas.height - H, W, H, 0, 0, W, H);
     return true;
   }
 }

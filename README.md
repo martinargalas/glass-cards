@@ -43,7 +43,7 @@ app – or, for older tablets, the same look at almost no cost.
 | [Calendar](docs/cards/calendar.md) | [Appliance](docs/cards/appliance.md) | [Chart](docs/cards/chart.md) | [Pop-up header](docs/cards/popup-header.md) |
 | [Running now](docs/cards/now.md) | [Room map](docs/cards/room-map.md) | [Automation switch](docs/cards/automation.md) | [Divider](docs/cards/divider.md) |
 | [Notifications](docs/cards/notifications.md) | [Alarms](docs/cards/alarms.md) | [Sun and shading](docs/cards/sun-shading.md) | |
-| | | [Value grid](docs/cards/value-grid.md) | |
+| [Camera](docs/cards/camera.md) | | [Value grid](docs/cards/value-grid.md) | |
 
 ## Install
 

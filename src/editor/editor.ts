@@ -378,8 +378,9 @@ const REQUIRES: Record<string, string> = {
   "custom:glass-dock": "bubble-card",
   "custom:glass-popup-header": "bubble-card",
   "custom:glass-chart": "apexcharts-card",
+  "custom:glass-camera": "webrtc-camera",
 };
-const REQUIRED_NAMES: Record<string, string> = { "bubble-card": "Bubble Card", "apexcharts-card": "apexcharts-card" };
+const REQUIRED_NAMES: Record<string, string> = { "bubble-card": "Bubble Card", "apexcharts-card": "apexcharts-card", "webrtc-camera": "WebRTC Camera" };
 /** Whether a card can be added: what it needs is installed. */
 export const cardAvailable = (type: string) => !REQUIRES[type] || !!customElements.get(REQUIRES[type]);
 /** What to install first, for a card that cannot be added yet: "Requires Bubble Card (HACS)". */
@@ -408,6 +409,20 @@ export const NEW_CARDS: [string, string, string, string][] = [
   ["custom:glass-automation", "Automation switch", "mdi:robot-outline", "An automation on / off, and for how long a switch-off lasts"],
   ["custom:glass-sun-shading", "Sun and shading", "mdi:sun-compass", "The sun over a compass with your windows, the light and the shading decision"],
   ["custom:glass-value-grid", "Value grid", "mdi:table-cog", "Numbers with − / + in a table, a column per season or mode"],
+  ["custom:glass-light", "Lights", "mdi:lightbulb-group-outline", "Scenes and a brightness bar per light"],
+  ["custom:glass-blind", "Blind", "mdi:blinds-horizontal", "Position and tilt of a blind, roller or gate"],
+  ["custom:glass-thermostat", "Thermostat", "mdi:thermostat", "Room temperature, set point and its history"],
+  ["custom:glass-heat-pump", "Heat pump", "mdi:heat-pump-outline", "Heat flow, heating mode, hot water and the curve"],
+  ["custom:glass-appliance", "Appliances", "mdi:washing-machine", "Vacuums, mowers and washers with their controls"],
+  ["custom:glass-room-map", "Room map", "mdi:robot-vacuum", "A robot's map: clean or mow just the picked rooms"],
+  ["custom:glass-camera", "Camera", "mdi:cctv", "Live picture and Frigate's recordings"],
+  ["custom:glass-alarms", "Alarms", "mdi:alarm", "Alarms with their days, speakers and sound"],
+  ["custom:glass-notifications", "Notifications", "mdi:bell-outline", "Messages and alerts in a pill from the top"],
+  ["custom:glass-air-quality", "Air quality", "mdi:air-filter", "Air quality index and every pollutant"],
+  ["custom:glass-radar", "Radar", "mdi:radar", "Clouds and precipitation radar over the last hour"],
+  ["custom:glass-chart", "Chart", "mdi:chart-areaspline", "apexcharts-card in the dashboard's look"],
+  ["custom:glass-period-bar", "Period bar", "mdi:calendar-range", "Day, month or year for the charts"],
+  ["custom:glass-popup-header", "Pop-up header", "mdi:page-layout-header", "Icon, name and a close button for a pop-up"],
   // any other card (HA's own or from HACS): starts as a Markdown card, change it in the card's YAML
   ["markdown", "Other card (YAML)", "mdi:code-braces", "Any Home Assistant or HACS card – edit its YAML"],
 ];

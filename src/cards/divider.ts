@@ -1,4 +1,4 @@
-import { css, html, nothing } from "lit";
+import { css, html, nothing, type PropertyValues } from "lit";
 import { GlassElement } from "../core/glass-element";
 import type { BaseCardConfig } from "../core/types";
 import { registerCard } from "../core/registry";
@@ -43,6 +43,13 @@ class GlassDivider extends GlassElement<DividerConfig> {
     return [];
   }
 
+  /** In a grid a divider is a row of its own: it separates rows, not two cells. */
+  protected override updated(changed: PropertyValues) {
+    super.updated(changed);
+    const p = this.parentElement;
+    this.toggleAttribute("in-grid", !!p && /grid/.test(getComputedStyle(p).display));
+  }
+
   protected override render() {
     if (!this._config) return nothing;
     const c = this._config;
@@ -66,8 +73,14 @@ class GlassDivider extends GlassElement<DividerConfig> {
       :host {
         display: block;
       }
-      /* between separate home tiles a line has nothing to divide */
-      :host([on-bare][glass="home"]) {
+      /* in a grid: across the whole row (a span picked in the editor still wins) */
+      :host([in-grid]) {
+        grid-column: 1 / -1;
+        align-self: center;
+      }
+      /* between separate home tiles in a line or column a line has nothing to divide;
+         in a grid it parts the rows */
+      :host([on-bare][glass="home"]:not([in-grid])) {
         display: none;
       }
       /* a heading: icon, name and the line to the right edge */

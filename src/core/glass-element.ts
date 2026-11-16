@@ -55,8 +55,8 @@ export abstract class GlassElement<C extends BaseCardConfig = BaseCardConfig> ex
     super();
     // parts in a WebGL material (liquid-gl, dark-liquid-gl) and controls with control_glass in one:
     // the real liquid glass, over a room's photo where they sit on one, else over the wallpaper
-    const under = (el: HTMLElement) => el.closest(".tile.full")?.querySelector(".pic") ?? wallpaperElement();
-    new LiquidController(this, PART_GL, undefined, undefined, under);
+    const under = (el: HTMLElement) => this.glassUnder(el) ?? el.closest(".tile.full")?.querySelector(".pic") ?? wallpaperElement();
+    this.partsGl = new LiquidController(this, PART_GL, undefined, undefined, under);
     new LiquidController(this, ".control:not(.active)", undefined, undefined, under, () => /^(dark-)?liquid-gl$/.test(this.getAttribute("control-glass") ?? ""));
     if (!(this.constructor as typeof GlassElement).wrapTile) return;
     const own = this.render;
@@ -65,6 +65,14 @@ export abstract class GlassElement<C extends BaseCardConfig = BaseCardConfig> ex
       return body === nothing || !this.tile ? body : html`<div class="${this.tile} tile-wrap">${body}</div>`;
     };
     new LiquidController(this, ".tile-wrap");
+  }
+
+  /** The WebGL glass of the card's parts (re-rendered by a card whose picture moves, a video). */
+  protected partsGl: LiquidController;
+
+  /** What a part in a WebGL material lies over, when the card knows better (a camera's video). */
+  protected glassUnder(_el: HTMLElement): Element | undefined {
+    return undefined;
   }
 
   /** The texts and icons its Appearance offers (core/parts): `fonts` / `icons` style them. */

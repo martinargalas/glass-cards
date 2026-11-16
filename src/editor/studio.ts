@@ -827,7 +827,7 @@ export class GlassStudio extends LitElement {
   }
 
   /* "+" in the gaps: hovering the free space of a panel or area offers a new card right there */
-  declare _plus?: { list: Path; i: number; x: number; y: number; group?: { anchor: Path; layout: "row" | "column"; after: boolean } };
+  declare _plus?: { list: Path; i: number; x: number; y: number; below?: boolean; group?: { anchor: Path; layout: "row" | "column"; after: boolean } };
   /** HA's card editor of the picked card: showing YAML, and whether it has a visual editor at all */
   declare _yaml: boolean;
   declare _guiAvail: boolean;
@@ -863,7 +863,18 @@ export class GlassStudio extends LitElement {
     if (top) {
       const node = get(this._config, top.path) as Cfg;
       const k = kids(node);
-      if (!k) return this._edgeAt(e, top); // over a card: a "+" only at its edges
+      if (!k) {
+        // over a card: a "+" only at its edges (under it in a grid: by where the others sit)
+        const parent = cards.slice(1).find((c) => kids(get(this._config, c.path) as Cfg)) ?? this._areaAt(e);
+        const sibs = () => {
+          if (!parent) return [];
+          const list = top.path.slice(0, -1);
+          const els = this._childEls(list, (parent.el as HTMLElement).shadowRoot ?? parent.el);
+          const n = ((get(this._config, list) as Cfg[] | undefined) ?? []).length;
+          return [...Array(n).keys()].map((j) => (els.get(j) ? this._rect(els.get(j)!) : undefined));
+        };
+        return this._edgeAt(e, top, undefined, sibs);
+      }
       list = [...top.path, k.key];
       root = (top.el as HTMLElement).shadowRoot ?? top.el;
       layout = node.layout === "grid" && node.masonry ? "masonry" : (node.layout ?? "column");
@@ -935,7 +946,7 @@ export class GlassStudio extends LitElement {
    * grid, top / bottom in a column): a "+" on that edge. The first and last card of
    * a row or column have no gap outside them, so this is the way to add there.
    */
-  private _edgeAt(e: PointerEvent, top: { el: Element; path: Path }, rect?: DOMRect): typeof this._plus {
+  private _edgeAt(e: PointerEvent, top: { el: Element; path: Path }, rect?: DOMRect, siblings?: () => (DOMRect | undefined)[]): typeof this._plus {
     const EDGE = 16;
     const r = rect ?? this._rect(top.el);
     const list = top.path.slice(0, -1);
@@ -951,6 +962,18 @@ export class GlassStudio extends LitElement {
     // along the container's axis: a new card before / after this one
     const along = across ? nearX : nearY;
     if (along) return { list, i: along > 0 ? i + 1 : i, ...at(across ? "x" : "y", along) };
+    // under a card in a grid: a new card in the same column of the next row – it takes the
+    // place of the card below (which moves on by one); with no card below it goes last
+    if (layout === "grid" && nearY > 0 && siblings) {
+      const rects = siblings();
+      const below = rects.flatMap((s, k) => (s && k !== i && s.top >= r.bottom - 1 ? [{ s, k }] : []));
+      const rowTop = Math.min(...below.map((b) => b.s.top));
+      const next = below.filter((b) => Math.abs(b.s.top - rowTop) < 4).sort((a, b) => a.s.left - b.s.left);
+      const under = next.find((b) => b.s.right > r.left + 1);
+      const at = under ? under.k : next.length ? next[next.length - 1].k + 1 : rects.length;
+      const b = this._box(new DOMRect(r.left + r.width / 2, r.bottom, 0, 0))!;
+      return { list, i: at, x: b.x, y: b.y, below: true };
+    }
     // across it (not in a grid, which wraps by itself): a new row / column with this card
     const cross = across ? nearY : nearX;
     if (cross && layout !== "grid")
@@ -2262,7 +2285,21 @@ export class GlassStudio extends LitElement {
     const isArea = el.classList.contains("warea");
     const node = isArea ? undefined : (get(this._config, path) as Cfg);
     const k = node && kids(node);
-    if (!isArea && !k) return this._edgeAt(e, { el, path }, el.getBoundingClientRect());
+    if (!isArea && !k) {
+      const sibs = () => {
+        const list = path.slice(0, -1);
+        const host = el.parentElement?.closest<HTMLElement>("[data-path]");
+        const out: (DOMRect | undefined)[] = [];
+        for (const c of host?.querySelectorAll<HTMLElement>("[data-path]") ?? []) {
+          if (c.classList.contains("wclone")) continue;
+          const p = JSON.parse(c.dataset.path!) as Path;
+          if (p.length === list.length + 1 && same(p.slice(0, -1), list)) out[p[p.length - 1] as number] = c.getBoundingClientRect();
+        }
+        out.length = ((get(this._config, list) as Cfg[] | undefined) ?? []).length;
+        return out;
+      };
+      return this._edgeAt(e, { el, path }, el.getBoundingClientRect(), sibs);
+    }
     const list = isArea ? path : [...path, k!.key];
     const rects: (DOMRect | undefined)[] = [];
     for (const c of el.querySelectorAll<HTMLElement>("[data-path]")) {
@@ -3195,7 +3232,7 @@ export class GlassStudio extends LitElement {
             ? html`<button
                 class="plus"
                 style="left:${this._plus.x}px;top:${this._plus.y}px"
-                title=${t(this._plus.group ? (this._plus.group.layout === "row" ? "Add a card beside (new row)" : "Add a card above / below (new column)") : "Add a card here")}
+                title=${t(this._plus.group ? (this._plus.group.layout === "row" ? "Add a card beside (new row)" : "Add a card above / below (new column)") : this._plus.below ? "Add a card below" : "Add a card here")}
                 @click=${() => (this._addAt = this._plus)}
               >
                 <ha-icon .icon=${"mdi:plus"}></ha-icon>

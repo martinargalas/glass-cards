@@ -37,6 +37,7 @@ YAML is there for when you want to copy, share or fine-tune.
 | [Calendar](cards/calendar.md) | Upcoming events, grouped by day |
 | [Running now](cards/now.md) | Everything that is on in the home, switched off with one tap |
 | [Notifications](cards/notifications.md) | Messages from automations and alerts, in one pill |
+| [Camera](cards/camera.md) | The live picture and Frigate's recordings: a tap plays one in its place; the camera's light and night vision under it |
 
 **Rooms** – control
 

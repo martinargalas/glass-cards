@@ -2,7 +2,7 @@ import { PRESETS, knownPopups, trackList } from "../core/layout";
 import { t } from "./i18n";
 import { tr } from "../i18n";
 import { MATERIALS } from "../core/materials";
-import { AIR_QUALITY_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
+import { AIR_QUALITY_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, CAMERA_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
 import { ANIMATION_FIELD, COLOR_FIELD, CONTROL_GLASS_FIELD, ICON_FIELD, TEXT_FIELD, TINT_FIELD, GLASS_FIELD, YAML, actionFields, expandable, grid, part, select, type Credit, type EditorSpec, type Schema, foreignCards, hasDock } from "./editor";
 
 const ALIGN: [string, string][] = [
@@ -2245,6 +2245,195 @@ export const alarmsSpec: EditorSpec = {
       ],
     },
     { custom: "section", key: "advanced", title: "Advanced", schema: [{ ...GLASS_FIELD, group: "Card" }, YAML("styles")] },
+  ],
+};
+
+const WEBRTC_CAMERA: Credit = {
+  kind: "requires",
+  name: "WebRTC Camera",
+  url: "https://github.com/AlexxIT/WebRTC",
+  author: "AlexxIT",
+  author_url: "https://github.com/AlexxIT",
+  note: "Plays the live picture (RTSP through go2rtc); its settings go through this card.",
+};
+const FRIGATE_CARD: Credit = {
+  kind: "inspired",
+  name: "Advanced Camera Card (Frigate card)",
+  url: "https://github.com/dermotduffy/advanced-camera-card",
+  author: "dermotduffy",
+  author_url: "https://github.com/dermotduffy",
+  note: "Frigate's recordings next to the live picture, played in its place.",
+};
+
+/** WebRTC Camera's settings, as its documentation has them (glass-camera passes them on). */
+const WEBRTC_FIELDS = (cardLevel: boolean): Schema[] => [
+  ...(cardLevel ? [] : [{ name: "url", label: "Live picture: RTSP or go2rtc stream", helper: "Played by WebRTC Camera (HACS). Empty: the camera entity's own stream", selector: { text: {} } }]),
+  {
+    name: "poster",
+    label: "Picture before the stream runs",
+    helper: cardLevel ? "An image's URL or a camera / image entity" : "An image's URL or a camera / image entity – default: the camera's own picture",
+    selector: { text: {} },
+  },
+  grid(
+    { name: "mode", label: "Ways to play (in order)", helper: "webrtc,mse,hls,mjpeg", selector: { text: {} } },
+    { name: "media", label: "Media", helper: "video,audio (microphone: talk back)", selector: { text: {} } },
+  ),
+  grid(
+    { name: "server", label: "go2rtc server", helper: "Default: the WebRTC integration's", selector: { text: {} } },
+    { name: "intersection", label: "Plays when this much is seen", helper: "0–1, default 0.75; 0 = always", selector: { number: { min: 0, max: 1, step: 0.05, mode: "box" } } },
+  ),
+  grid({ name: "muted", label: "Muted", selector: { boolean: {} } }, { name: "ui", label: "Its own controls", selector: { boolean: {} } }),
+  grid({ name: "background", label: "Plays when not seen", selector: { boolean: {} } }, { name: "poster_remote", label: "Poster from go2rtc", selector: { boolean: {} } }),
+  { name: "title", label: "Its title", selector: { text: {} } },
+  { custom: "hint", text: "Pan / tilt, shortcuts, digital zoom, more streams and its CSS – in YAML, as in its documentation." },
+  YAML("ptz"),
+  YAML("shortcuts"),
+  YAML("digital_ptz"),
+  YAML("streams"),
+  YAML("style"),
+];
+
+export const cameraSpec: EditorSpec = {
+  parts: CAMERA_PARTS,
+  credits: [WEBRTC_CAMERA, FRIGATE_CARD],
+  defaults: {
+    layout: "auto",
+    aspect_ratio: "16/9",
+    fit: "cover",
+    controls: "below",
+    severity: "all",
+    hours: 48,
+    return_after: 30,
+    show_live: true,
+    show_events: true,
+    show_controls: true,
+    show_detections: true,
+    show_timeline: false,
+    show_severity: true,
+    show_fullscreen: true,
+    zoom: true,
+    sticky: true,
+    badge_position: "top-left",
+  },
+  form: (c) => [
+    {
+      custom: "section",
+      key: "view",
+      title: "Layout",
+      open: true,
+      schema: [
+        {
+          ...select("layout", [
+            ["auto", "By the card's width"],
+            ["side", "Recordings beside the picture"],
+            ["stacked", "Picture above the recordings (phone)"],
+          ]),
+          label: "Layout",
+        },
+        grid(
+          { ...select("aspect_ratio", [["16/9", "16 : 9"], ["4/3", "4 : 3"], ["1/1", "1 : 1"], ["9/16", "9 : 16 (doorbell)"]]), label: "Picture shape" },
+          { ...select("fit", [["cover", "Fill (crop the edges)"], ["contain", "Whole picture"]]), label: "Picture fit" },
+        ),
+        { ...select("controls", [["below", "Under the picture"], ["overlay", "On the picture"]]), label: "Camera's entities" },
+        grid(
+          ...(c.layout === "stacked" ? [] : [{ name: "list_width", label: "Recordings' column", helper: "Default as a dashboard's left side: minmax(320px, 0.36fr)", selector: { text: {} } }]),
+          { name: "list_columns", label: "Thumbnails in a row", helper: "Empty = as many as fit", selector: { number: { min: 1, max: 6, mode: "box" } } },
+        ),
+        { name: "height", label: "Card height", helper: "Empty = as tall as the picture; fill = down to the dock / the screen's bottom; or CSS, e.g. 640px – the recordings fill it and scroll", selector: { text: {} } },
+        {
+          ...select("badge_position", [
+            ["top-left", "Top left"],
+            ["top-right", "Top right"],
+            ["bottom-left", "Bottom left"],
+            ["bottom-right", "Bottom right"],
+          ]),
+          label: "Where Live sits on the picture",
+        },
+        ...(c.layout === "side" ? [] : [{ name: "sticky", label: "Picture stays at the top while the recordings scroll", selector: { boolean: {} } }]),
+      ],
+    },
+    {
+      custom: "section",
+      key: "parts",
+      title: "Parts",
+      schema: [
+        grid({ name: "show_live", label: "Live picture", selector: { boolean: {} } }, { name: "show_events", label: "Recordings", selector: { boolean: {} } }),
+        grid(
+          { name: "show_switcher", label: "Camera switch", helper: "Default: only when no camera is switched elsewhere (its `active`, e.g. a pop-up header's buttons)", selector: { boolean: {} } },
+          { name: "show_controls", label: "Camera's entities", selector: { boolean: {} } },
+        ),
+        grid({ name: "show_detections", label: "What it sees now", selector: { boolean: {} } }, { name: "show_timeline", label: "Time line", selector: { boolean: {} } }),
+        grid(
+          { name: "show_severity", label: "Alerts / detections switch", helper: "Above the recordings: All · Alerts · Detections", selector: { boolean: {} } },
+          { name: "show_fullscreen", label: "Full-screen button", selector: { boolean: {} } },
+        ),
+        grid({ name: "zoom", label: "Zoom into the picture", helper: "Mouse wheel or two fingers; a double tap back", selector: { boolean: {} } }),
+      ],
+    },
+    {
+      custom: "section",
+      key: "frigate",
+      title: "Recordings (Frigate)",
+      schema: [
+        { custom: "hint", text: "Recordings come from the Frigate integration (HACS) – Frigate's own cameras find them by themselves." },
+        grid(
+          { ...select("severity", [["all", "Alerts and detections"], ["alert", "Alerts only"], ["detection", "Detections only"]]), label: "Which" },
+          { name: "hours", label: "Hours back", selector: { number: { min: 1, max: 720, mode: "box" } } },
+        ),
+        grid(
+          { name: "return_after", label: "Back to live after (s)", helper: "After a recording ended or was paused; 0 = stay", selector: { number: { min: 0, max: 600, mode: "box" } } },
+          { name: "all_cameras", label: "Every camera's recordings", selector: { boolean: {} } },
+        ),
+      ],
+    },
+    {
+      custom: "section",
+      key: "look",
+      title: "Look",
+      schema: [
+        ...part("Recordings", grid({ ...select("list_glass", [["", "Default"], ...MATERIALS]), label: "Recordings' material" }, { ...COLOR_FIELD("list_color"), label: "Recordings' colour" })),
+        ...part("Recordings", grid({ ...select("label_glass", [["", "Default"], ...MATERIALS]), label: "Labels' material" }, { ...COLOR_FIELD("label_color"), label: "Labels' colour" })),
+        ...part("Recordings", grid({ ...COLOR_FIELD("alert_color"), label: "Alerts' colour" }, { ...COLOR_FIELD("selected_color"), label: "The one playing" })),
+        ...part("On the picture", grid({ ...select("badge_glass", [["", "Default"], ...MATERIALS]), label: "Live / time material" }, { ...COLOR_FIELD("badge_color"), label: "Live / time colour" })),
+        ...part("On the picture", grid({ ...select("seen_glass", [["", "Default"], ...MATERIALS]), label: "What it sees – material" }, { ...COLOR_FIELD("seen_color"), label: "What it sees – colour" })),
+        ...part("Player", grid({ ...select("player_glass", [["", "Default"], ...MATERIALS]), label: "Player's material" }, { ...COLOR_FIELD("player_color"), label: "Player's colour" })),
+        ...part("Cameras", grid({ ...select("switcher_glass", [["", "Default"], ...MATERIALS]), label: "Camera switch material" }, { ...COLOR_FIELD("switcher_color"), label: "Camera switch colour" })),
+        ...part("Camera's entities", grid({ ...select("controls_glass", [["", "Default"], ...MATERIALS]), label: "Pills' material" }, { ...COLOR_FIELD("controls_color"), label: "Pills' colour" })),
+        ...part("Time line", grid({ ...select("timeline_glass", [["", "Default"], ...MATERIALS]), label: "Time line material" }, { ...COLOR_FIELD("timeline_color"), label: "Time line colour" })),
+      ],
+    },
+    {
+      custom: "section",
+      key: "advanced",
+      title: "Advanced",
+      schema: [{ ...GLASS_FIELD, group: "Card" }, YAML("styles")],
+    },
+    {
+      custom: "section",
+      key: "webrtc",
+      title: "Live picture (WebRTC Camera)",
+      schema: [{ custom: "hint", text: "WebRTC Camera's settings for every camera – a camera's own (in its list item) win." }, ...WEBRTC_FIELDS(true)],
+    },
+  ],
+  lists: [
+    {
+      name: "cameras",
+      title: "Cameras",
+      label: (d) => d.name ?? shortId(d.camera) ?? "Camera",
+      create: () => ({ camera: "" }),
+      item: () => [
+        { name: "camera", label: "Camera", selector: { entity: { domain: "camera" } } },
+        grid({ name: "name", label: "Name", selector: { text: {} } }, { name: "icon", label: "Icon", selector: { icon: {} } }),
+        { custom: "hint", text: "Entities under the picture (a light, night vision…) – as the status bar's pills: an entity, or { entity, dropdown: true, rules: … }." },
+        YAML("items"),
+        { custom: "hint", text: "Optional: shown while a condition holds (switched elsewhere, e.g. a pop-up header's buttons) – { entity: input_boolean.camera_1, state: on }." },
+        YAML("active"),
+        ...WEBRTC_FIELDS(false),
+        { custom: "hint", text: "Optional: any other card as the live picture; Frigate's camera name when it differs." },
+        YAML("live_card"),
+        { name: "frigate_camera", label: "Frigate camera name", selector: { text: {} } },
+      ],
+    },
   ],
 };
 

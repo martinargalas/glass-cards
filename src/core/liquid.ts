@@ -1,5 +1,5 @@
 import type { ReactiveController, ReactiveControllerHost } from "lit";
-import { GLASS_DEFAULTS, blurredBackdrop, getRenderer, registerJob, webglAvailable, type GlassParams } from "./liquid-gl";
+import { GLASS_DEFAULTS, blurredBackdrop, getRenderer, registerJob, setFramesMode, webglAvailable, type GlassParams } from "./liquid-gl";
 
 /**
  * Liquid glass, modelled on Apple's material:
@@ -251,18 +251,52 @@ export class LiquidController implements ReactiveController {
     return out;
   }
 
-  /** Re-renders the glass now – for cards animating its shape (--glass-liquid-blob-*). */
-  refresh() {
-    this.renderGl();
+  /** Re-renders the glass now – for cards animating its shape (--glass-liquid-blob-*). With
+   *  `frames` (a video under it, redrawn on every frame) the glass's settings are read once a
+   *  second only: reading CSS after the last frame's styles costs a page-wide style pass. */
+  refresh(frames = false) {
+    this.frames = frames;
+    setFramesMode(frames);
+    try {
+      this.renderGl();
+    } finally {
+      this.frames = false;
+      setFramesMode(false);
+    }
   }
+  private frames = false;
+  /** since when a part's glass couldn't be drawn (it keeps the last one for a while) */
+  private failed = new WeakMap<HTMLElement, number>();
+  private retry?: number;
+  private pcache = new WeakMap<HTMLElement, { p: GlassParams; at: number }>();
 
   private renderGl = () => {
     const r = getRenderer();
     if (!r) return;
+    const now = performance.now();
     for (const [el, canvas] of this.canvases) {
       const under = this.under?.(el) ?? undefined;
       if (this.under && !under) continue;
-      if (r.render(el, canvas, this.params(el), under)) el.classList.add("lg-on");
+      let c = this.pcache.get(el);
+      if (!this.frames || !c || now - c.at > 1000) this.pcache.set(el, (c = { p: this.params(el), at: now }));
+      if (r.render(el, canvas, c.p, under)) {
+        el.classList.add("lg-on");
+        this.failed.delete(el);
+      } else if (el.classList.contains("lg-on")) {
+        // a frame that can't be read for a moment (a video between frames, a picture reloading):
+        // the glass drawn last stays – clearing it would blink. Gone for good (a video swapped for
+        // one not playing yet): cleared after a while, no stale glass
+        const since = this.failed.get(el) ?? now;
+        this.failed.set(el, since);
+        if (now - since < 1500) {
+          clearTimeout(this.retry);
+          this.retry = window.setTimeout(() => this.renderGl(), 400);
+          continue;
+        }
+        this.failed.delete(el);
+        canvas.getContext("2d")?.clearRect(0, 0, canvas.width, canvas.height);
+        el.classList.remove("lg-on");
+      }
     }
     // glass-less (transparent) containers still get the legibility boost
     if (this.legibilitySelector) {

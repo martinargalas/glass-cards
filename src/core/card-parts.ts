@@ -207,6 +207,14 @@ export const PANEL_PARTS: PartDef[] = [text("title", ".title", "Title", "Text"),
 
 export const DIVIDER_PARTS: PartDef[] = [text("head", ".head", "Heading", "Text"), icon("head", ".head ha-icon", "Heading icon", "Icons")];
 
+export const CAMERA_PARTS: PartDef[] = [
+  text("day", ".day", "Day", "Recordings"),
+  text("when", ".foot", "Time and length", "Recordings"),
+  text("tag", ".tag", "What was seen", "Recordings"),
+  icon("tag", ".tag ha-icon", "What was seen – icons", "Recordings"),
+  text("tab", ".tab", "Camera names", "Cameras"),
+];
+
 export const POPUP_HEADER_PARTS: PartDef[] = [
   text("name", ".name", "Name", "Bar"),
   icon("icon", ".ico ha-icon", "Icon", "Icon"),
