@@ -874,7 +874,9 @@ class GlassDashboard extends GlassElement<DashboardConfig> {
         ${sideDayVars}
         ${sideMonoVars}
       }
-      .area.side.frosted {
+      /* graphite by day only: at night the side column's white comes back (the night set doesn't
+         name the clock's or the temperature's colour, so the day's would stay) */
+      :host(:not([dark])) .area.side.frosted {
         ${sideFrostedVars}
       }
       :host([dark]) .area.side {

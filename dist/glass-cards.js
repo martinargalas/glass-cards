@@ -38198,7 +38198,9 @@ Js.properties = { ...I.properties, _mode: { state: !0 } }, Js.styles = [
         ${Ad}
         ${ms}
       }
-      .area.side.frosted {
+      /* graphite by day only: at night the side column's white comes back (the night set doesn't
+         name the clock's or the temperature's colour, so the day's would stay) */
+      :host(:not([dark])) .area.side.frosted {
         ${Cd}
       }
       :host([dark]) .area.side {
