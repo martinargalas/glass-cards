@@ -359,7 +359,9 @@ const forecastSubs = new Set<() => void>();
  */
 export function demoHass(base?: Partial<HomeAssistant>): HomeAssistant & { demo: { action: typeof runAction } } {
   const lang = base?.locale?.language ?? base?.language ?? navigator.language?.slice(0, 2) ?? "en";
-  const all: Record<string, HassEntity> = { ...states, "sun.sun": sun(base?.states?.["sun.sun"]) };
+  // the demo home's entities; anything else a dashboard names (a real alarm, cameras) is Home
+  // Assistant's own – a demo dashboard can mix in real devices
+  const all: Record<string, HassEntity> = { ...(base?.states ?? {}), ...states, "sun.sun": sun(base?.states?.["sun.sun"]) };
   const realConn = base?.connection as any;
   const connection = {
     subscribeMessage: async (cb: (m: unknown) => void, msg: Record<string, unknown>) => {
@@ -383,7 +385,13 @@ export function demoHass(base?: Partial<HomeAssistant>): HomeAssistant & { demo:
     connection: connection as HomeAssistant["connection"],
     formatEntityState: formatter(base, lang),
     localize: base?.localize ?? ((k: string) => k),
-    callService,
+    // a service for real entities only (not the demo's) goes to Home Assistant
+    callService: async (domain: string, service: string, data?: ServiceData, target?: Attrs) => {
+      const raw = target?.entity_id ?? data?.entity_id;
+      const named = (Array.isArray(raw) ? raw : raw ? [raw] : []) as string[];
+      if (base?.callService && named.length && named.every((id) => !states[id])) return base.callService(domain, service, data, target);
+      return callService(domain, service, data, target);
+    },
     callWS: async <T>(msg: Record<string, unknown>): Promise<T> => {
       if (msg.type === "history/history_during_period") {
         const list = (msg.entity_ids as string[]) ?? [];

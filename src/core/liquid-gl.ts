@@ -240,8 +240,9 @@ void main() {
 
 interface Backdrop {
   url: string;
-  /** a playing video (a camera's picture): its current frame is the picture under the glass */
-  video?: HTMLVideoElement;
+  /** a playing video (a camera's picture), or a canvas a card keeps drawn (a radar's map):
+   *  its current picture is the one under the glass */
+  video?: HTMLVideoElement | HTMLCanvasElement;
   rect: { x: number; y: number; w: number; h: number };
   /** CSS filter of the element (a room photo in greyscale), baked into the texture. */
   filter?: string;
@@ -321,7 +322,19 @@ function boxOf(el: Element, fit = false): { r: DOMRect; fit?: string } {
   return n;
 }
 
+/** Bump after drawing into a canvas that lies under glass: its picture is uploaded again. */
+export function canvasChanged(c: HTMLCanvasElement) {
+  gens.set(c, (gens.get(c) ?? 0) + 1);
+}
+const gens = new WeakMap<HTMLCanvasElement, number>();
+
 function backdropOf(el: Element): Backdrop | undefined {
+  if (el instanceof HTMLCanvasElement) {
+    if (!el.width || !el.height) return undefined;
+    const { r: box } = boxOf(el);
+    if (!box.width) return undefined;
+    return { url: "", video: el, rect: { x: box.x, y: box.y, w: box.width, h: box.height } };
+  }
   if (el instanceof HTMLVideoElement) {
     const { r: box, fit } = boxOf(el, true);
     const vw = el.videoWidth;
@@ -538,14 +551,17 @@ class Renderer {
   private vcanvas = document.createElement("canvas");
   private vthumb = document.createElement("canvas");
   private vthumbAt = 0;
-  private frame(video: HTMLVideoElement, _bgW: number, _blur: number): boolean {
+  private frame(video: HTMLVideoElement | HTMLCanvasElement, _bgW: number, _blur: number): boolean {
     const gl = this.gl!;
-    const key = `${video.currentTime}|${video.videoWidth}`;
+    const isVideo = video instanceof HTMLVideoElement;
+    const sw = isVideo ? video.videoWidth : video.width;
+    const sh = isVideo ? video.videoHeight : video.height;
+    const key = isVideo ? `${video.currentTime}|${sw}` : `canvas${gens.get(video) ?? 0}|${sw}x${sh}`;
     if (key !== this.vkey || !this.vtex) {
       // tiny: scaling a frame down this far blurs it as much as the glass wants, on the GPU –
       // no canvas filter (slow, on the CPU) with every frame
-      const w = Math.min(160, video.videoWidth);
-      const h = Math.max(1, Math.round((w * video.videoHeight) / video.videoWidth));
+      const w = Math.min(160, sw);
+      const h = Math.max(1, Math.round((w * sh) / sw));
       const c = this.vcanvas;
       if (c.width !== w) c.width = w;
       if (c.height !== h) c.height = h;
@@ -669,7 +685,7 @@ class Renderer {
       entry.ready.then(() => scheduleAll()).catch(() => {});
       return false;
     }
-    if (bd.video && bd.video.readyState < 2) return false;
+    if (bd.video instanceof HTMLVideoElement && bd.video.readyState < 2) return false;
     const gl = this.gl!;
     const r = bd.video ? boxOf(target).r : target.getBoundingClientRect();
     if (!r.width || !r.height) return false;

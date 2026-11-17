@@ -215,6 +215,17 @@ export const CAMERA_PARTS: PartDef[] = [
   text("tab", ".tab", "Camera names", "Cameras"),
 ];
 
+export const SECURITY_PARTS: PartDef[] = [
+  text("name", ".name", "Name", "State"),
+  text("state", ".state", "State", "State"),
+  text("detail", ".detail", "What's going on", "State"),
+  text("modes", ".mode span", "Mode buttons", "Buttons"),
+  icon("modes", ".mode ha-icon", "Mode button icons", "Buttons"),
+  text("keys", ".key", "Keypad", "Keypad"),
+  text("sensors", ".sname", "Sensors' bar", "Sensors"),
+  text("summary", ".ssum", "What's open", "Sensors"),
+];
+
 export const POPUP_HEADER_PARTS: PartDef[] = [
   text("name", ".name", "Name", "Bar"),
   icon("icon", ".ico ha-icon", "Icon", "Icon"),

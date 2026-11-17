@@ -416,6 +416,7 @@ export const NEW_CARDS: [string, string, string, string][] = [
   ["custom:glass-appliance", "Appliances", "mdi:washing-machine", "Vacuums, mowers and washers with their controls"],
   ["custom:glass-room-map", "Room map", "mdi:robot-vacuum", "A robot's map: clean or mow just the picked rooms"],
   ["custom:glass-camera", "Camera", "mdi:cctv", "Live picture and Frigate's recordings"],
+  ["custom:glass-security", "Security", "mdi:shield-home", "Alarm panel: modes, countdown, keypad (Alarmo or any alarm)"],
   ["custom:glass-alarms", "Alarms", "mdi:alarm", "Alarms with their days, speakers and sound"],
   ["custom:glass-notifications", "Notifications", "mdi:bell-outline", "Messages and alerts in a pill from the top"],
   ["custom:glass-air-quality", "Air quality", "mdi:air-filter", "Air quality index and every pollutant"],

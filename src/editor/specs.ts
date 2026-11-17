@@ -2,7 +2,7 @@ import { PRESETS, knownPopups, trackList } from "../core/layout";
 import { t } from "./i18n";
 import { tr } from "../i18n";
 import { MATERIALS } from "../core/materials";
-import { AIR_QUALITY_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, CAMERA_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
+import { AIR_QUALITY_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, CAMERA_PARTS, SECURITY_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
 import { ANIMATION_FIELD, COLOR_FIELD, CONTROL_GLASS_FIELD, ICON_FIELD, TEXT_FIELD, TINT_FIELD, GLASS_FIELD, YAML, actionFields, expandable, grid, part, select, type Credit, type EditorSpec, type Schema, foreignCards, hasDock } from "./editor";
 
 const ALIGN: [string, string][] = [
@@ -2292,6 +2292,89 @@ const WEBRTC_FIELDS = (cardLevel: boolean): Schema[] => [
   YAML("streams"),
   YAML("style"),
 ];
+
+export const securitySpec: EditorSpec = {
+  parts: SECURITY_PARTS,
+  defaults: { layout: "card", keypad: "ask", keyboard: true, close_popup: true, show_sensors: true, drawer: true, drawer_style: "pill", sensor_items: "list" },
+  form: [
+    { custom: "hint", text: "Any alarm (alarm_control_panel). With Alarmo it also shows which modes can be armed now, the exact countdown and a wrong code, and offers skip delay and arm anyway." },
+    { name: "entity", selector: { entity: { domain: "alarm_control_panel" } } },
+    {
+      ...select("layout", [
+        ["card", "The whole panel"],
+        ["header", "Only the mode buttons (for a pop-up header)"],
+        ["keypad", "Only the keypad (for a pop-up of its own)"],
+      ]),
+      label: "Layout",
+    },
+    grid(
+      { name: "labels", label: "Names on the header's buttons", helper: "Off: round icons only (a phone)", selector: { boolean: {} } },
+      { ...select("align", [["start", "At the start"], ["end", "At the end"], ["stretch", "Across the whole width"]]), label: "Header's buttons" },
+    ),
+    {
+      name: "keypad_popup",
+      label: "Keypad in a pop-up",
+      helper: "The #hash of a Bubble Card pop-up with the keypad (layout: keypad). Empty: over the screen",
+      selector: { text: {} },
+    },
+    grid({ name: "name", selector: { text: {} } }, { ...select("keypad", [["ask", "When an action needs it (over the screen)"], ["auto", "Whenever a code is needed (in the card)"], ["always", "Always"], ["never", "Never"]]), label: "Keypad" }),
+    {
+      name: "modes",
+      label: "Arm buttons",
+      helper: "Default: the modes the alarm supports",
+      selector: {
+        select: {
+          multiple: true,
+          options: [
+            { value: "away", label: "Away" },
+            { value: "home", label: "Home" },
+            { value: "night", label: "Night" },
+            { value: "vacation", label: "Vacation" },
+            { value: "custom_bypass", label: "Custom" },
+          ],
+        },
+      },
+    },
+    grid(
+      { name: "keyboard", label: "Physical keypad types into it", helper: "A USB / Bluetooth keypad or keyboard: digits, Enter, Backspace, Esc", selector: { boolean: {} } },
+      { name: "close_popup", label: "Close the pop-up when it's over", helper: "In a Bubble Card pop-up: closes once the alarm is disarmed or armed", selector: { boolean: {} } },
+    ),
+    grid(
+      { name: "show_sensors", label: "Open and bypassed sensors", helper: "Under the state: what's open, what started it", selector: { boolean: {} } },
+      { name: "drawer", label: "Sensors' drawer", helper: "A bar that says what's open; a tap shows every sensor", selector: { boolean: {} } },
+    ),
+    { name: "sensors", label: "Sensors", helper: "Default: Alarmo's sensors of this alarm", selector: { entity: { multiple: true, domain: "binary_sensor" } } },
+    grid(
+      { ...select("drawer_style", [["pill", "A pill with an arrow"], ["bar", "A bar with a round button"]]), label: "Drawer's bar" },
+      { ...select("sensor_items", [["list", "Rows"], ["pills", "Pills"]]), label: "Sensors in the drawer" },
+    ),
+    {
+      custom: "section",
+      key: "look",
+      title: "Look",
+      schema: [
+        { ...GLASS_FIELD, group: "Card" },
+        { ...TINT_FIELD("glass_tint", "Glass color"), group: "Card" },
+        { ...CONTROL_GLASS_FIELD, group: "Buttons" },
+        ...part("Bar", grid({ ...select("bar_glass", [["", "Control glass (default)"], ...MATERIALS]), label: "Bar material" }, { ...COLOR_FIELD("bar_color"), label: "Bar colour" })),
+        ...part("Mode buttons", grid({ ...select("buttons_glass", [["", "Default"], ...MATERIALS]), label: "Buttons' material" }, { ...COLOR_FIELD("buttons_color"), label: "Buttons' colour" })),
+        ...part(
+          "Round button, Arm anyway",
+          grid({ ...select("actions_glass", [["", "Control glass (default)"], ...MATERIALS]), label: "Material" }, { ...COLOR_FIELD("actions_color"), label: "Colour" }),
+        ),
+        ...part(
+          "Header: the button in force",
+          grid({ ...select("active_glass", [["", "Dark (default)"], ...MATERIALS]), label: "Material" }, { ...COLOR_FIELD("active_color"), label: "Colour" }),
+        ),
+        ...part("Keypad", grid({ ...select("keys_glass", [["", "Control glass (default)"], ...MATERIALS]), label: "Keys' material" }, { ...COLOR_FIELD("keys_color"), label: "Keys' colour" })),
+        ...part("Sensors' drawer", grid({ ...select("tray_glass", [["", "Default"], ...MATERIALS]), label: "Drawer material" }, { ...COLOR_FIELD("tray_color"), label: "Drawer colour" })),
+        ...part("Sensors", grid({ ...select("sensors_glass", [["", "Control glass (default)"], ...MATERIALS]), label: "Pills' material" }, { ...COLOR_FIELD("sensors_color"), label: "Pills' colour" })),
+        ...part("Message", grid({ ...select("message_glass", [["", "Default"], ...MATERIALS]), label: "Message material" }, { ...COLOR_FIELD("message_color"), label: "Message colour" })),
+      ],
+    },
+    expandable("Advanced", [YAML("styles")]),
+  ],
+};
 
 export const cameraSpec: EditorSpec = {
   parts: CAMERA_PARTS,

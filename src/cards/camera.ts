@@ -1917,9 +1917,11 @@ class GlassCamera extends GlassElement<CameraConfig> {
       .bar.under.plain .seek {
         background: linear-gradient(90deg, var(--g-text, #000) var(--p), color-mix(in srgb, var(--g-text, #000) 22%, transparent) var(--p));
       }
-      /* a height of its own: the recordings fill it */
+      /* a height of its own: the row is as tall as the picture's side (never taller than the card),
+         and the recordings beside it are no taller than that */
       .side.fixed {
-        grid-template-rows: minmax(0, 1fr);
+        grid-template-rows: fit-content(100%);
+        align-content: start;
       }
       .side.fixed .main {
         min-height: 0;

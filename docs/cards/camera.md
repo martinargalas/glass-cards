@@ -6,7 +6,7 @@ Shows a camera's live picture and the recordings Frigate made. A tapped recordin
 
 On a wide card the recordings are a column on the left and the picture is on the right. On a narrow card (a phone) the picture is on top and the recordings are below it.
 
-![The Camera card on a Nest Hub Max: the recordings on the left, the live picture, the time line and the camera's light and night vision](../images/cards/camera.webp)
+![The Camera card on a Nest Hub Max: the recordings on the left, a recording playing, the time line and the camera's light and night vision](../images/cards/camera.webp)
 
 ## What it needs
 

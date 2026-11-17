@@ -163,8 +163,27 @@ export function demoHistory(id: string, now: HassEntity, start: number, end: num
   const outside = /outdoor|outside/.test(id);
   // a meter (kWh since ever) only grows: back in time it was lower, by a day's worth
   if (numeric && now.attributes.state_class === "total_increasing") {
-    const perStep = (Math.max(value, 1) / 2000) * (step / 3600000);
-    for (let t = start, i = 0; t < end; t += step, i++) out.push({ s: (value - ((end - t) / step) * perStep * (0.6 + noise(id, i) * 0.8)).toFixed(2), lu: t / 1000 });
+    // what it adds in each step: solar with the sun, a home's use with its morning and evening
+    // peaks – never less than nothing, so a chart of the differences reads like a real day
+    const solar = /pv|solar|generation|production|export/.test(id);
+    const rate = (t: number, i: number) => {
+      const h = new Date(t).getHours() + new Date(t).getMinutes() / 60;
+      const shape = solar ? Math.max(0, Math.sin(((h - 6) / 14) * Math.PI)) ** 1.4 : 0.3 + 0.55 * Math.exp(-(((h - 7.5) / 1.3) ** 2)) + 0.9 * Math.exp(-(((h - 19) / 2) ** 2));
+      return shape * (0.85 + noise(id, i) * 0.3);
+    };
+    // a day's worth as a real home: about 22 kWh used, 30 kWh made on a sunny day
+    let perDay = 0;
+    for (let m = 0; m < 1440; m += 10) perDay += rate(new Date(start).setHours(0, m, 0, 0), 0) / 0.85 / 1.15;
+    const k = ((solar ? 30 : 22) / perDay) * (step / 600000);
+    const times: number[] = [];
+    for (let t = start; t < end; t += step) times.push(t);
+    let left = 0;
+    const back: number[] = [];
+    for (let i = times.length - 1; i >= 0; i--) {
+      left += rate(times[i], i) * k;
+      back[i] = left;
+    }
+    times.forEach((t, i) => out.push({ s: Math.max(0, value - back[i]).toFixed(2), lu: t / 1000 }));
     out.push({ s: now.state, lu: end / 1000 });
     return out;
   }

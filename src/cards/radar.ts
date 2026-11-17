@@ -7,6 +7,7 @@ import { makeEditor } from "../editor/editor";
 import { radarSpec } from "../editor/specs";
 import { surface } from "../core/styles";
 import { LiquidController } from "../core/liquid";
+import { canvasChanged } from "../core/liquid-gl";
 import { hour12, isDark, language } from "../core/settings";
 import { cssColor } from "../core/colors";
 import { materials, matTint, type Material } from "../core/materials";
@@ -368,6 +369,59 @@ class GlassRadar extends GlassElement<RadarConfig> {
     this._h = 0;
     this._visible = false;
     new LiquidController(this, ".frame");
+  }
+
+  /** Controls in a WebGL material lie over the map: the map as one picture, drawn from its tiles. */
+  protected override glassUnder(el: HTMLElement): Element | undefined {
+    return el.closest(".map") ? (this.renderRoot.querySelector("canvas.glass-src") ?? undefined) : undefined;
+  }
+
+  protected override updated(changed: Map<PropertyKey, unknown>) {
+    super.updated(changed);
+    this._composeSoon();
+  }
+
+  private _composeRaf?: number;
+  private _composeSoon = () => {
+    if (this._composeRaf !== undefined) return;
+    this._composeRaf = requestAnimationFrame(() => {
+      this._composeRaf = undefined;
+      this._compose();
+    });
+  };
+
+  /** The map's tiles (the base, the radar frame shown, the names) drawn into the canvas the WebGL
+   *  glass of the controls reads – only when a control is in a WebGL material. */
+  private _compose() {
+    const root = this.renderRoot;
+    const map = root.querySelector<HTMLElement>(".map");
+    const cv = root.querySelector<HTMLCanvasElement>("canvas.glass-src");
+    if (!map || !cv || !root.querySelector(".map .mat-liquid-gl, .map .mat-dark-liquid-gl")) return;
+    const mr = map.getBoundingClientRect();
+    if (!mr.width || !mr.height) return;
+    const k = 0.5; // the glass blurs it anyway
+    const w = Math.round(mr.width * k);
+    const h = Math.round(mr.height * k);
+    if (cv.width !== w) cv.width = w;
+    if (cv.height !== h) cv.height = h;
+    const ctx = cv.getContext("2d")!;
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = getComputedStyle(map).backgroundColor || "#1b2230";
+    ctx.fillRect(0, 0, w, h);
+    try {
+      for (const img of root.querySelectorAll<HTMLImageElement>(".base img, .frame-layer.on img, .labels img")) {
+        if (!img.complete || !img.naturalWidth) continue;
+        const q = img.getBoundingClientRect();
+        if (q.right < mr.x || q.bottom < mr.y || q.x > mr.right || q.y > mr.bottom) continue;
+        const layer = img.closest<HTMLElement>(".radar, .sat") ?? img;
+        ctx.globalAlpha = parseFloat(getComputedStyle(layer).opacity) || 1;
+        ctx.drawImage(img, (q.x - mr.x) * k, (q.y - mr.y) * k, q.width * k, q.height * k);
+      }
+    } catch {
+      return; // a tile from a server without CORS: the canvas can't be read, the CSS glass stays
+    }
+    canvasChanged(cv);
+    this.partsGl.refresh();
   }
 
   protected override validateConfig(c: RadarConfig) {
@@ -741,7 +795,10 @@ class GlassRadar extends GlassElement<RadarConfig> {
     const play = part(c.play_glass, c.play_color, "liquid");
     const tab = part(c.tab_glass, c.tab_color, "liquid");
     const tileEls = (list: Tile[], cls: string) =>
-      list.map((t) => html`<img class=${cls} src=${t.url} style="left:${t.left}px;top:${t.top}px;width:${t.size}px;height:${t.size}px" alt="" draggable="false" />`);
+      list.map(
+        (t) =>
+          html`<img class=${cls} crossorigin="anonymous" src=${t.url} style="left:${t.left}px;top:${t.top}px;width:${t.size}px;height:${t.size}px" alt="" draggable="false" @load=${this._composeSoon} />`,
+      );
     const frames = this._frames;
     const cur = frames[this._idx];
     const h12 = hour12(hass);
@@ -750,7 +807,8 @@ class GlassRadar extends GlassElement<RadarConfig> {
     const ahead = Math.max(1, Math.round(-ago / 60));
     const agoText = cur?.fc ? tr("forecast in {n} h", { n: ahead }) : ago < 5 ? tr("now") : tr("{n} min ago", { n: ago });
 
-    return html`<div class="pan">
+    return html`<canvas class="glass-src" aria-hidden="true"></canvas>
+      <div class="pan">
       ${sat && !clouds
         ? nothing
         : html`<div class="base ${mp}">${tileEls(tiles(p.x, p.y, z, z, w, h, baseUrl), "t")}</div>`}
@@ -900,6 +958,15 @@ class GlassRadar extends GlassElement<RadarConfig> {
         --g-text-2: inherit;
         --g-text-shadow: inherit;
         color: inherit;
+      }
+      /* the map as one picture for the controls' WebGL glass: laid out, never seen */
+      .glass-src {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        pointer-events: none;
       }
       .map {
         position: relative;

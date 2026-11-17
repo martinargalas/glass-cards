@@ -44,6 +44,7 @@ app – or, for older tablets, the same look at almost no cost.
 | [Running now](docs/cards/now.md) | [Room map](docs/cards/room-map.md) | [Automation switch](docs/cards/automation.md) | [Divider](docs/cards/divider.md) |
 | [Notifications](docs/cards/notifications.md) | [Alarms](docs/cards/alarms.md) | [Sun and shading](docs/cards/sun-shading.md) | |
 | [Camera](docs/cards/camera.md) | | [Value grid](docs/cards/value-grid.md) | |
+| [Security](docs/cards/security.md) | | | |
 
 ## Install
 

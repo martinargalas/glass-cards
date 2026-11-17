@@ -27,6 +27,7 @@ import "./cards/heat-pump";
 import "./cards/blind";
 import "./cards/alarms";
 import "./cards/camera";
+import "./cards/security";
 import "./cards/automation-parts";
 import "./cards/light";
 import "./cards/period-bar";
