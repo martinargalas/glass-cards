@@ -10,8 +10,8 @@ uses one of these also shows it in its editor, in the **Credits** tab.
 
 | Project | Author | Used for |
 | --- | --- | --- |
-| [Bubble Card](https://github.com/Clooos/Bubble-Card) | [Clooos](https://github.com/Clooos) | **Every pop-up** – in the demo and on your dashboard – is a Bubble Card pop-up. Glass Cards only place them, open them from the dock and give them the glass header and look. Install it from HACS. |
-| [apexcharts-card](https://github.com/RomRider/apexcharts-card) | [RomRider](https://github.com/RomRider) | **The charts.** The [Chart](cards/chart.md) card wraps apexcharts-card: apexcharts-card draws the chart, the glass card sets its span for the period bar and its look. Install it from HACS. |
+| [Bubble Card](https://github.com/Clooos/Bubble-Card) | [Clooos](https://github.com/Clooos) | **Every pop-up** – in the demo and on your dashboard – is a Bubble Card pop-up. Glass Cards only place them, open them from the dock and give them the glass header and look. Install it from the Marketplace. |
+| [apexcharts-card](https://github.com/RomRider/apexcharts-card) | [RomRider](https://github.com/RomRider) | **The charts.** The [Chart](cards/chart.md) card wraps apexcharts-card: apexcharts-card draws the chart, the glass card sets its span for the period bar and its look. Install it from the Marketplace. |
 
 ### Used in the demo dashboard
 

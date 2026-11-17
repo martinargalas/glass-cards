@@ -236,17 +236,25 @@ async function callService(domain: string, service: string, data?: ServiceData, 
           changed();
         }, 4000);
         break;
+      // an alarm as a real one: away and night give 10 s to leave (a countdown on the card), home
+      // arms at once; any code disarms it
       case "alarm_arm_home":
-        put(id, "armed_home");
+        put(id, ["armed_home", { arm_mode: "armed_home", next_state: null, delay: null }]);
         break;
       case "alarm_arm_away":
-        put(id, "armed_away");
+      case "alarm_arm_night": {
+        const mode = service === "alarm_arm_away" ? "armed_away" : "armed_night";
+        put(id, ["arming", { arm_mode: mode, next_state: mode, delay: 10 }]);
+        const at = states[id].last_changed;
+        setTimeout(() => {
+          if (states[id]?.state !== "arming" || states[id].last_changed !== at) return;
+          put(id, [mode, { next_state: null, delay: null }]);
+          changed();
+        }, 10000);
         break;
-      case "alarm_arm_night":
-        put(id, "armed_night");
-        break;
+      }
       case "alarm_disarm":
-        put(id, "disarmed");
+        put(id, ["disarmed", { arm_mode: null, next_state: null, delay: null }]);
         break;
       case "trigger":
         break;

@@ -11,7 +11,7 @@ YAML is there for when you want to copy, share or fine-tune.
 
 ## Start here
 
-1. [Install Glass Cards](install.md) – as a HACS custom repository or by hand, in a minute.
+1. [Install Glass Cards](install.md) – from the Marketplace or by hand, in a minute.
 2. [Try the demo dashboard](demo.md) – a made-up home with every card on it. Nothing it does reaches your devices.
 3. [Build your first dashboard](first-dashboard.md) – in Dashboard Studio, step by step.
 

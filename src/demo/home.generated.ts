@@ -5,7 +5,7 @@ export const HOME: Record<string, DemoState> = {
  "alarm_control_panel.hub_security": [
   "disarmed",
   {
-   "code_format": null,
+   "code_format": "number",
    "code_arm_required": false,
    "supported_features": 7,
    "friendly_name": "Hub security"

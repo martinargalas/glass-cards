@@ -27,7 +27,7 @@ It adds two dashboards: **Glass demo** and, hidden from the sidebar, **Glass dem
 ### Cards the demo uses besides the glass ones
 
 The dashboard itself needs only Glass Cards. Its pop-ups use what the author's do – install them
-from HACS for the full demo; without them those parts show an error card:
+from the Marketplace for the full demo; without them those parts show an error card:
 
 | Card | By | In the demo |
 | --- | --- | --- |

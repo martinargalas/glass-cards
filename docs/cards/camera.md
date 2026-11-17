@@ -12,14 +12,14 @@ On a wide card the recordings are a column on the left and the picture is on the
 
 **For the live picture (required):**
 
-- The **WebRTC Camera** integration, installed from HACS (repository `AlexxIT/WebRTC`) and added in *Settings → Devices & services → Add integration → WebRTC Camera*. It adds the `custom:webrtc-camera` card this card uses for the live picture; without it the card can't be added in the Studio.
+- The **WebRTC Camera** integration, installed from the Marketplace (repository `AlexxIT/WebRTC`) and added in *Settings → Devices & services → Add integration → WebRTC Camera*. It adds the `custom:webrtc-camera` card this card uses for the live picture; without it the card can't be added in the Studio.
 - A **go2rtc** server for WebRTC Camera: the one it starts by itself, or your own (its address in the integration's settings).
 - A camera entity, or an RTSP address / go2rtc stream name for each camera (`url`).
 
 **For the recordings, the time line and the objects on the picture (optional):**
 
 - **Frigate** 0.14 or newer (older versions work with fewer details: events instead of alerts and detections).
-- The **Frigate integration** from HACS (repository `blakeblackshear/frigate-hass-integration`), set up with your Frigate server. It needs **MQTT** in Home Assistant, as Frigate does.
+- The **Frigate integration** from the Marketplace (repository `blakeblackshear/frigate-hass-integration`), set up with your Frigate server. It needs **MQTT** in Home Assistant, as Frigate does.
 - The cameras from the Frigate integration (`camera.<name>`). For another camera entity set `frigate_camera` and `frigate_instance`.
 
 Without Frigate the card shows the live picture and the camera's entities only.

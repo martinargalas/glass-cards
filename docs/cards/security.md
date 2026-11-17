@@ -9,12 +9,12 @@ An alarm panel: the alarm's state, buttons to arm it, a countdown and a keypad. 
 ## What it needs
 
 - **An alarm:** any `alarm_control_panel` entity.
-- **[Alarmo](https://github.com/nielsfaber/alarmo)** (optional, HACS). With Alarmo the card also shows:
+- **[Alarmo](https://github.com/nielsfaber/alarmo)** (optional, from the Marketplace). With Alarmo the card also shows:
   - the exact countdown;
   - which modes can't be armed because something is open;
   - which sensor is in the way, with a button to arm without it;
   - a wrong code.
-- **[Bubble Card](https://github.com/Clooos/Bubble-Card)** (HACS), only for the pop-ups.
+- **[Bubble Card](https://github.com/Clooos/Bubble-Card)** (from the Marketplace), only for the pop-ups.
 
 ## Add the card
 

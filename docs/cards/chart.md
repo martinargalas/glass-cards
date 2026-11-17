@@ -21,7 +21,7 @@ card:
       statistics: { type: change }
 ```
 
-Needs [apexcharts-card](https://github.com/RomRider/apexcharts-card) by [RomRider](https://github.com/RomRider) from HACS. The data stay apexcharts-card's – `series`, `group_by`, `data_generator`… Each period can have its own data:
+Needs [apexcharts-card](https://github.com/RomRider/apexcharts-card) by [RomRider](https://github.com/RomRider) from the Marketplace. The data stay apexcharts-card's – `series`, `group_by`, `data_generator`… Each period can have its own data:
 
 ```yaml
 day:

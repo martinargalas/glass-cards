@@ -64,7 +64,7 @@ Above the preview:
 - **Pick** a card by clicking it in the preview or in the structure. Its settings open on the right.
 - **Add**: hover the preview – a **+** appears in every gap. Next to a card it offers *beside*
   (a new row) or *above / below* (a new column). In the structure, **+ Add card into this panel**.
-  The card picker searches glass cards, Home Assistant's cards and your HACS cards; **Other card
+  The card picker searches glass cards, Home Assistant's cards and your community cards; **Other card
   (YAML)** takes any card by its YAML.
 - **Move**: drag a card in the preview or in the structure. A line shows where it lands; a
   highlighted panel means *into* it. Near the window's edge the view scrolls.
@@ -93,7 +93,7 @@ Glass cards have their settings in tabs:
   (visibility conditions).
 - **Credits** – for cards built on other people's work.
 
-Other cards (Home Assistant's, HACS) get Home Assistant's own editor here, or their YAML.
+Other cards (Home Assistant's, from the Marketplace) get Home Assistant's own editor here, or their YAML.
 
 ## Pop-ups
 

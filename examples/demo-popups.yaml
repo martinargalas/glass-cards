@@ -1477,51 +1477,12 @@ views:
               - type: custom:glass-popup-header
                 name: Security
                 icon: mdi:cctv
+                cards:
+                  - type: custom:glass-security
+                    entity: alarm_control_panel.hub_security
+                    layout: header
+                    modes: [home, away, night]
                 buttons:
-                  - name: Home
-                    icon: mdi:shield-home-outline
-                    tap_action:
-                      action: perform-action
-                      perform_action: alarm_control_panel.alarm_arm_home
-                      target:
-                        entity_id: alarm_control_panel.hub_security
-                    active:
-                      entity: alarm_control_panel.hub_security
-                      state: armed_home
-                    align: start
-                  - name: Away
-                    icon: mdi:shield-lock-outline
-                    tap_action:
-                      action: perform-action
-                      perform_action: alarm_control_panel.alarm_arm_away
-                      target:
-                        entity_id: alarm_control_panel.hub_security
-                    active:
-                      entity: alarm_control_panel.hub_security
-                      state: armed_away
-                    align: start
-                  - name: Night
-                    icon: mdi:shield-moon-outline
-                    tap_action:
-                      action: perform-action
-                      perform_action: alarm_control_panel.alarm_arm_night
-                      target:
-                        entity_id: alarm_control_panel.hub_security
-                    active:
-                      entity: alarm_control_panel.hub_security
-                      state: armed_night
-                    align: start
-                  - name: Off
-                    icon: mdi:shield-off-outline
-                    tap_action:
-                      action: perform-action
-                      perform_action: alarm_control_panel.alarm_disarm
-                      target:
-                        entity_id: alarm_control_panel.hub_security
-                    active:
-                      entity: alarm_control_panel.hub_security
-                      state: disarmed
-                    align: start
                   - name: Entrance
                     icon: mdi:door
                     tap_action:
@@ -3342,43 +3303,12 @@ views:
                     close: false
                     view_layout:
                       height: auto
-                    buttons:
-                      - icon: mdi:shield-home-outline
-                        tap_action:
-                          action: perform-action
-                          perform_action: alarm_control_panel.alarm_arm_home
-                          target:
-                            entity_id: alarm_control_panel.hub_security
-                        active:
-                          entity: alarm_control_panel.hub_security
-                          state: armed_home
-                      - icon: mdi:shield-lock-outline
-                        tap_action:
-                          action: perform-action
-                          perform_action: alarm_control_panel.alarm_arm_away
-                          target:
-                            entity_id: alarm_control_panel.hub_security
-                        active:
-                          entity: alarm_control_panel.hub_security
-                          state: armed_away
-                      - icon: mdi:shield-moon-outline
-                        tap_action:
-                          action: perform-action
-                          perform_action: alarm_control_panel.alarm_arm_night
-                          target:
-                            entity_id: alarm_control_panel.hub_security
-                        active:
-                          entity: alarm_control_panel.hub_security
-                          state: armed_night
-                      - icon: mdi:shield-off-outline
-                        tap_action:
-                          action: perform-action
-                          perform_action: alarm_control_panel.alarm_disarm
-                          target:
-                            entity_id: alarm_control_panel.hub_security
-                        active:
-                          entity: alarm_control_panel.hub_security
-                          state: disarmed
+                    cards:
+                      - type: custom:glass-security
+                        entity: alarm_control_panel.hub_security
+                        layout: header
+                        modes: [home, away, night]
+                        align: stretch
                   - type: custom:glass-panel
                     bar: true
                     layout: column

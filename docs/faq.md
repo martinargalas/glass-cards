@@ -14,7 +14,7 @@ Cards don't use card_mod and don't need it installed.
 
 ## Can I put other cards inside?
 
-Yes – any card: Home Assistant's own, HACS cards, cameras. Panels and the dashboard hold them
+Yes – any card: Home Assistant's own, community cards, cameras. Panels and the dashboard hold them
 like glass cards. In Dashboard Studio, pick **Home Assistant cards** or **Custom cards (HACS)** in the
 card picker, or **Other card (YAML)**. They keep their own look; a panel's glass behind them
 ties them in.
@@ -33,7 +33,7 @@ switch parts of one dashboard.
 ## The cards show "Custom element doesn't exist"
 
 The resource isn't loaded. Check **Settings → Dashboards → ⋮ → Resources** for
-`/hacsfiles/glass-cards/glass-cards.js` (HACS) or `/local/glass-cards/glass-cards.js` (by hand),
+`/local/community/glass-cards/glass-cards.js` (Marketplace), `/hacsfiles/glass-cards/glass-cards.js` (HACS) or `/local/glass-cards/glass-cards.js` (by hand),
 type *JavaScript module*, then reload the browser. On the phone app: **Settings → Companion app →
 Debugging → Reset frontend cache**.
 

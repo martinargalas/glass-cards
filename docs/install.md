@@ -3,23 +3,20 @@
 Glass Cards need Home Assistant **2025.1 or newer** and a browser from the last few years
 (Chrome, Edge, Safari, Firefox; the Home Assistant app on phones and tablets).
 
-## Through HACS, as a custom repository (recommended)
+## From the Marketplace (recommended)
 
-Glass Cards are not in the HACS store (yet) – you add the repository to HACS yourself, once:
+Glass Cards aren't listed in the Marketplace yet – you add them from their GitHub page, once:
 
-1. Open **HACS** in Home Assistant.
-2. **⋮** (top right) → **Custom repositories**.
-3. Repository `https://github.com/martinargalas/glass-cards`, type **Dashboard** → **Add**.
-4. Find **Glass Cards** in HACS, open it and click **Download**. Reload the browser (or the
-   app) when HACS asks you to.
+1. In Home Assistant open **Settings → Marketplace**.
+2. Click the **link icon** in the top right (**Add from a GitHub link**).
+3. Paste `https://github.com/martinargalas/glass-cards` and click **Add**.
+4. Open **Glass Cards** and click **Download**. Reload the browser (or the app) when asked.
 
-HACS adds the resource (`/hacsfiles/glass-cards/glass-cards.js`) for you, and updates arrive the
-same way.
+The Marketplace adds the resource for you, and updates arrive the same way.
 
-> **Installed 1.10.1 or 1.10.2 through HACS?** Those registered the resource as
-> `…/glass-cards.zip`, which the browser can't run. Update to the newest version in HACS – it
-> fixes the resource – or change it by hand in **Settings → Dashboards → ⋮ → Resources** to
-> `/hacsfiles/glass-cards/glass-cards.js`.
+> **An older Home Assistant with HACS?** The same in HACS: **⋮ → Custom repositories**,
+> repository `https://github.com/martinargalas/glass-cards`, type **Dashboard**, then
+> **Download**.
 
 ## By hand
 
@@ -38,7 +35,7 @@ same way.
 
 ## Optional companions
 
-Most cards need nothing else. A few build on other HACS cards:
+Most cards need nothing else. A few build on other community cards (from the Marketplace too):
 
 | You want | Install | Used by |
 | --- | --- | --- |
