@@ -43306,7 +43306,7 @@ function Gp() {
 }
 Gp();
 window.addEventListener("location-changed", () => setTimeout(Gp, 0));
-const Up = "1.11.4", Sd = {
+const Up = "1.11.5", Sd = {
   version: Up,
   GlassElement: I,
   lit: { LitElement: Oe, html: p, css: ee, svg: j, nothing: g },
