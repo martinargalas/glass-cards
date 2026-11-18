@@ -4,7 +4,8 @@
  * demo remembers how many lines it had when it was written, and sees the ones after.
  */
 export const DEMO_NEWS: string[] = [
-  "The Security card and the Camera card in the security pop-ups",
-  "A More pop-up in the dock: Security, Alarms and Alarm ringing – ring an alarm to try it",
-  "Alarm ringing over the whole dashboard, with a morning and a night photo",
+  "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up",
+  "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up",
+  "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up",
+  "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups",
 ];

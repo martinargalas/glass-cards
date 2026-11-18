@@ -2052,7 +2052,8 @@ export const de: Dict = {
   "Save first": "Zuerst speichern",
   "Keep as my own": "Als eigene behalten",
   "Delete this demo": "Diese Demo löschen",
-  "The Security card and the Camera card in the security pop-ups": "Die Security- und die Camera-Karte in den Sicherheits-Pop-ups",
-  "A More pop-up in the dock: Security, Alarms and Alarm ringing – ring an alarm to try it": "Ein More-Pop-up im Dock: Security, Alarms und Alarm ringing – lassen Sie einen Wecker klingeln",
-  "Alarm ringing over the whole dashboard, with a morning and a night photo": "Klingelnder Wecker über dem ganzen Dashboard, mit Morgen- und Nachtfoto",
+        "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up": "Camera – Live-Bild und Frigate-Aufnahmen, Zoom und Wischen: im Security-Pop-up",
+  "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up": "Alarms – Ihre Wecker mit Tagen, Lautsprechern und Ton: im neuen More-Pop-up",
+  "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up": "Alarm ringing – Schlummern und zum Ausschalten schieben über dem ganzen Dashboard, bei Tag und Nacht: aus dem More-Pop-up klingeln lassen",
+  "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups": "Security – Modi der Alarmanlage, Countdown und Tastenfeld: in den Pop-ups Security und More",
 };

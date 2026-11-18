@@ -2569,9 +2569,10 @@ const gu = {
   "Save first": "Nejdřív uložte",
   "Keep as my own": "Ponechat jako vlastní",
   "Delete this demo": "Smazat toto demo",
-  "The Security card and the Camera card in the security pop-ups": "Karta Security a karta Camera v pop-upech zabezpečení",
-  "A More pop-up in the dock: Security, Alarms and Alarm ringing – ring an alarm to try it": "Pop-up More v docku: Security, Alarms a Alarm ringing – zkuste nechat zazvonit budík",
-  "Alarm ringing over the whole dashboard, with a morning and a night photo": "Zvonící budík přes celý dashboard, s ranní a noční fotkou"
+  "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up": "Camera – živý obraz a záznamy z Frigate, zoom a swipe: v pop-upu Security",
+  "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up": "Alarms – budíky s jejich dny, reproduktory a zvukem: v novém pop-upu More",
+  "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up": "Alarm ringing – odložení a posunutí pro vypnutí přes celý dashboard, ve dne i v noci: zazvoňte z pop-upu More",
+  "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups": "Security – režimy alarmu, odpočet a klávesnice: v pop-upech Security a More"
 }, fu = {
   "Any colour": "Beliebige Farbe",
   Primary: "Primär (Design)",
@@ -4622,9 +4623,10 @@ const gu = {
   "Save first": "Zuerst speichern",
   "Keep as my own": "Als eigene behalten",
   "Delete this demo": "Diese Demo löschen",
-  "The Security card and the Camera card in the security pop-ups": "Die Security- und die Camera-Karte in den Sicherheits-Pop-ups",
-  "A More pop-up in the dock: Security, Alarms and Alarm ringing – ring an alarm to try it": "Ein More-Pop-up im Dock: Security, Alarms und Alarm ringing – lassen Sie einen Wecker klingeln",
-  "Alarm ringing over the whole dashboard, with a morning and a night photo": "Klingelnder Wecker über dem ganzen Dashboard, mit Morgen- und Nachtfoto"
+  "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up": "Camera – Live-Bild und Frigate-Aufnahmen, Zoom und Wischen: im Security-Pop-up",
+  "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up": "Alarms – Ihre Wecker mit Tagen, Lautsprechern und Ton: im neuen More-Pop-up",
+  "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up": "Alarm ringing – Schlummern und zum Ausschalten schieben über dem ganzen Dashboard, bei Tag und Nacht: aus dem More-Pop-up klingeln lassen",
+  "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups": "Security – Modi der Alarmanlage, Countdown und Tastenfeld: in den Pop-ups Security und More"
 }, bu = {
   "{n} lights": { one: "{n} light", other: "{n} lights" },
   "{n} cards": { one: "{n} card", other: "{n} cards" },
@@ -38869,9 +38871,10 @@ ce("glass-notifications", Nr, {
   description: "Messages from automations and alerts from conditions, in one pill that drops in from the top."
 });
 const Pp = [
-  "The Security card and the Camera card in the security pop-ups",
-  "A More pop-up in the dock: Security, Alarms and Alarm ringing – ring an alarm to try it",
-  "Alarm ringing over the whole dashboard, with a morning and a night photo"
+  "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up",
+  "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up",
+  "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up",
+  "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups"
 ];
 async function yt(n) {
   const [e, t] = await Promise.all([
