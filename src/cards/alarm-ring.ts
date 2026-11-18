@@ -82,6 +82,25 @@ function nightPhoto(): string {
 
 /** photos' shapes (width / height), once loaded: a tablet shows the whole photo */
 const ratios = new Map<string, number>();
+/** photos' bottom edge colour: the phone shows it under the photo */
+const unders = new Map<string, string>();
+/** the average colour of a picture's last rows (a picture of another site may not be read: none) */
+function bottomColour(img: HTMLImageElement): string | undefined {
+  try {
+    const c = document.createElement("canvas");
+    c.width = 32;
+    c.height = 4;
+    const ctx = c.getContext("2d", { willReadFrequently: true })!;
+    ctx.drawImage(img, 0, img.naturalHeight - Math.max(2, img.naturalHeight / 100), img.naturalWidth, Math.max(2, img.naturalHeight / 100), 0, 0, 32, 4);
+    const d = ctx.getImageData(0, 0, 32, 4).data;
+    const sum = [0, 0, 0];
+    for (let i = 0; i < d.length; i += 4) for (let k = 0; k < 3; k++) sum[k] += d[i + k];
+    const n = d.length / 4;
+    return `rgb(${sum.map((v) => Math.round(v / n)).join(",")})`;
+  } catch {
+    return undefined;
+  }
+}
 
 interface Ringing {
   h: ReturnType<typeof managedHelpers>;
@@ -154,8 +173,17 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
     if (known || ratios.has(url)) return known;
     ratios.set(url, 0);
     const img = new Image();
+    img.crossOrigin = "anonymous";
+    // a picture of another site without CORS: loaded again plainly (its shape only)
+    img.onerror = () => {
+      if (!img.crossOrigin) return;
+      img.removeAttribute("crossorigin");
+      img.src = url;
+    };
     img.onload = () => {
       if (img.naturalWidth && img.naturalHeight) ratios.set(url, img.naturalWidth / img.naturalHeight);
+      const under = bottomColour(img);
+      if (under) unders.set(url, under);
       this.requestUpdate();
     };
     img.src = url;
@@ -408,7 +436,7 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
     const more = list.length > 1 ? html`<span class="more">+${list.length - 1}</span>` : nothing;
     return html`<div
       class="frame ${this.tile} ${photo ? "photo-style" : "simple"} ${night ? "night" : ""}"
-      style=${ratio ? `--ring-photo-ratio:${ratio}` : ""}
+      style=${[ratio ? `--ring-photo-ratio:${ratio}` : "", unders.has(image) ? `--ring-under:${unders.get(image)}` : ""].join(";")}
       @pointerdown=${this._onUpDown}
       @pointerup=${(e: PointerEvent) => this._onUpEnd(e, r)}
       @pointercancel=${() => (this._up = undefined)}
@@ -509,10 +537,16 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
       :host([overlay]) .photo-style {
         min-height: min(680px, calc(100vh - 32px));
       }
-      /* narrow (a phone): the photo larger, its middle (the clock) up above the glass at the bottom */
+      /* narrow (a phone): the photo above the glass, whole across (a wide photo in a tall frame),
+         under it the photo's own bottom colour – the WebGL glass carries the photo's last row on
+         beyond its edge, so the page and the glass meet without a seam */
+      :host(:not([wide])) .photo-style {
+        background: var(--ring-under, #d9d6d2);
+      }
       :host(:not([wide])) .photo-style .photo {
-        background-size: auto 140%;
-        background-position: 56% 100%;
+        bottom: 34%;
+        background-size: cover;
+        background-position: 50% 100%;
       }
       /* wide (a tablet): the whole photo, the alarm's card in the middle of it */
       :host([wide]) .photo-style {
@@ -749,18 +783,6 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
       }
       .photo-style.night .slide:not(.mat) {
         background: rgba(255, 255, 255, 0.14);
-      }
-      /* the night photo on a phone: its clock up, above the glass */
-      /* (a wide photo in a tall frame: the photo above the glass, a dark night under it) */
-      :host(:not([wide])) .photo-style.night {
-        background: #0b1630;
-      }
-      :host(:not([wide])) .photo-style.night .photo {
-        bottom: 34%;
-        background-size: cover;
-        background-position: 50% 100%;
-        -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent);
-        mask-image: linear-gradient(to bottom, #000 80%, transparent);
       }
       .frame .hint {
         background: none;
