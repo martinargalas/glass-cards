@@ -48,6 +48,7 @@ class GlassDivider extends GlassElement<DividerConfig> {
     super.updated(changed);
     const p = this.parentElement;
     this.toggleAttribute("in-grid", !!p && /grid/.test(getComputedStyle(p).display));
+    this.toggleAttribute("heading", !!(this._config?.name || this._config?.icon));
   }
 
   protected override render() {
@@ -79,8 +80,8 @@ class GlassDivider extends GlassElement<DividerConfig> {
         align-self: center;
       }
       /* between separate home tiles in a line or column a line has nothing to divide;
-         in a grid it parts the rows */
-      :host([on-bare][glass="home"]:not([in-grid])) {
+         in a grid it parts the rows (a heading always shows) */
+      :host([on-bare][glass="home"]:not([in-grid]):not([heading])) {
         display: none;
       }
       /* a heading: icon, name and the line to the right edge */

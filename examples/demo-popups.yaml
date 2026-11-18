@@ -1603,29 +1603,49 @@ views:
                 padding: 0 6px
                 align: start
                 cards:
-                  - type: custom:glass-security
-                    entity: alarm_control_panel.hub_security
-                    view_layout:
-                      grow: 1
-                      basis: 0px
                   - type: custom:glass-panel
                     glass: none
                     layout: column
-                    gap: 18
+                    gap: 14
                     padding: 0
                     view_layout:
                       grow: 1
                       basis: 0px
                     cards:
+                      - type: custom:glass-divider
+                        name: Security
+                        icon: mdi:shield-home
+                        margin: 0
+                        line: false
+                      - type: custom:glass-security
+                        entity: alarm_control_panel.hub_security
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: column
+                    gap: 14
+                    padding: 0
+                    view_layout:
+                      grow: 1
+                      basis: 0px
+                    cards:
+                      - type: custom:glass-divider
+                        name: Alarms
+                        icon: mdi:alarm
+                        margin: 0
+                        line: false
                       - type: custom:glass-alarms
-                        title: Alarms
+                      - type: custom:glass-divider
+                        name: Alarm ringing
+                        icon: mdi:alarm-bell
+                        margin: 0
+                        line: false
                       - type: custom:glass-room-card
                         layout: compact
-                        name: Alarm ringing
+                        name: Ring an alarm
                         image: glass:demo/alarm-morning.jpg
                         status: info
                         info:
-                          - text: Try it – ring the Kids' room alarm
+                          - text: Kids' room – snooze it or slide to stop
                         tap_action:
                           action: perform-action
                           perform_action: input_boolean.turn_on
@@ -3312,21 +3332,35 @@ views:
                     icon: mdi:dots-horizontal-circle-outline
                     view_layout:
                       height: auto
+                  - type: custom:glass-divider
+                    name: Security
+                    icon: mdi:shield-home
+                    margin: 0
+                    line: false
                   - type: custom:glass-security
                     entity: alarm_control_panel.hub_security
                     view_layout:
                       height: auto
+                  - type: custom:glass-divider
+                    name: Alarms
+                    icon: mdi:alarm
+                    margin: 0
+                    line: false
                   - type: custom:glass-alarms
-                    title: Alarms
                     view_layout:
                       height: auto
+                  - type: custom:glass-divider
+                    name: Alarm ringing
+                    icon: mdi:alarm-bell
+                    margin: 0
+                    line: false
                   - type: custom:glass-room-card
                     layout: compact
-                    name: Alarm ringing
+                    name: Ring an alarm
                     image: glass:demo/alarm-morning.jpg
                     status: info
                     info:
-                      - text: Try it – ring the Kids' room alarm
+                      - text: Kids' room – snooze it or slide to stop
                     tap_action:
                       action: perform-action
                       perform_action: input_boolean.turn_on
