@@ -1040,6 +1040,7 @@ views:
                       grow: 1
                     cards:
                       - type: custom:glass-radar
+                        controls_glass: liquid-gl
                         zoom: 7
                         frames: 7
                         height: fill
@@ -1511,260 +1512,68 @@ views:
                     active:
                       entity: input_boolean.switch_security_camera_2
                       state: on
-              - type: custom:glass-panel
-                glass: none
-                layout: row
-                gap: 22
-                padding: 0 6px
-                align: stretch
+              - type: custom:glass-camera
+                layout: side
+                list_glass: dark-liquid-gl
                 height: 628px
-                cards:
-                  - type: custom:glass-panel
-                    role: sidebar
-                    layout: column
-                    gap: 0
-                    padding: 22
-                    view_layout:
-                      grow: 0
-                      shrink: 0
-                      basis: max(340px, calc((100% - 22px) * 0.36 / 1.36))
-                    cards:
-                      - type: vertical-stack
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_1
-                            state: on
-                        cards:
-                          - type: heading
-                            heading: Front door – latest
-                            heading_style: subtitle
-                            icon: mdi:cctv
-                          - type: grid
-                            columns: 2
-                            square: false
-                            cards:
-                              - type: picture
-                                image: glass:demo/event-front-1.jpg
-                              - type: picture
-                                image: glass:demo/event-front-2.jpg
-                              - type: picture
-                                image: glass:demo/event-front-3.jpg
-                              - type: picture
-                                image: glass:demo/event-front-4.jpg
-                              - type: picture
-                                image: glass:demo/event-front-5.jpg
-                              - type: picture
-                                image: glass:demo/event-front-6.jpg
-                      - type: vertical-stack
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_2
-                            state: on
-                        cards:
-                          - type: heading
-                            heading: Garden – latest
-                            heading_style: subtitle
-                            icon: mdi:cctv
-                          - type: grid
-                            columns: 2
-                            square: false
-                            cards:
-                              - type: picture
-                                image: glass:demo/event-garden-1.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-2.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-3.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-4.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-5.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-6.jpg
-                  - type: custom:glass-panel
-                    bar: true
-                    layout: column
-                    justify: start
-                    gap: 10
-                    padding: 12
-                    view_layout:
-                      grow: 1
-                      basis: 0px
-                    cards:
-                      - type: picture
-                        image: glass:demo/camera-front.jpg
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_1
-                            state: on
-                      - type: picture
-                        image: glass:demo/camera-garden.jpg
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_2
-                            state: on
-                      - type: custom:glass-status-bar
-                        layout: pills
-                        columns: 4
-                        items:
-                          - entity: binary_sensor.frontdoor_person_occupancy
-                            name: Person
-                            icon: mdi:account-outline
-                            text: "{changed}"
-                            tap_action:
-                              action: none
-                            rules:
-                              - state: on
-                                text: In view
-                                icon_color: orange
-                                animation: pulse
-                          - entity: binary_sensor.frontdoor_dog_occupancy
-                            name: Dog
-                            icon: mdi:dog
-                            text: "{changed}"
-                            tap_action:
-                              action: none
-                            rules:
-                              - state: on
-                                text: In view
-                                icon_color: orange
-                                animation: pulse
-                          - entity: binary_sensor.frontdoor_cat_occupancy
-                            name: Cat
-                            icon: mdi:cat
-                            text: "{changed}"
-                            tap_action:
-                              action: none
-                            rules:
-                              - state: on
-                                text: In view
-                                icon_color: orange
-                                animation: pulse
-                          - entity: binary_sensor.frontdoor_car_occupancy
-                            name: Auto
-                            icon: mdi:car-outline
-                            text: "{changed}"
-                            tap_action:
-                              action: none
-                            rules:
-                              - state: on
-                                text: In view
-                                icon_color: orange
-                                animation: pulse
-                        pill_height: 46
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_1
-                            state: on
-                      - type: custom:glass-status-bar
-                        layout: pills
-                        columns: 2
-                        items:
-                          - entity: switch.front_door_light
-                            name: Light
-                            icon: mdi:lightbulb-outline
-                            text: Off
-                            rules:
-                              - state: on
-                                text: On
-                                icon_color: orange
-                          - entity: select.front_door_nightvision
-                            name: Night vision
-                            icon: mdi:weather-night
-                            rules:
-                              - state_not: Off
-                                icon_color: orange
-                            dropdown: true
-                            option_names:
-                              Off: Off
-                              B&W Night Vision: Black and white
-                              Color Night Vision: Colour
-                        pill_height: 46
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_1
-                            state: on
-                      - type: custom:glass-status-bar
-                        layout: pills
-                        columns: 4
-                        items:
-                          - entity: binary_sensor.garden_person_occupancy
-                            name: Person
-                            icon: mdi:account-outline
-                            text: "{changed}"
-                            tap_action:
-                              action: none
-                            rules:
-                              - state: on
-                                text: In view
-                                icon_color: orange
-                                animation: pulse
-                          - entity: binary_sensor.garden_dog_occupancy
-                            name: Dog
-                            icon: mdi:dog
-                            text: "{changed}"
-                            tap_action:
-                              action: none
-                            rules:
-                              - state: on
-                                text: In view
-                                icon_color: orange
-                                animation: pulse
-                          - entity: binary_sensor.garden_cat_occupancy
-                            name: Cat
-                            icon: mdi:cat
-                            text: "{changed}"
-                            tap_action:
-                              action: none
-                            rules:
-                              - state: on
-                                text: In view
-                                icon_color: orange
-                                animation: pulse
-                          - entity: binary_sensor.garden_car_occupancy
-                            name: Auto
-                            icon: mdi:car-outline
-                            text: "{changed}"
-                            tap_action:
-                              action: none
-                            rules:
-                              - state: on
-                                text: In view
-                                icon_color: orange
-                                animation: pulse
-                        pill_height: 46
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_2
-                            state: on
-                      - type: custom:glass-status-bar
-                        layout: pills
-                        columns: 2
-                        items:
-                          - entity: switch.garden_light
-                            name: Light
-                            icon: mdi:lightbulb-outline
-                            text: Off
-                            rules:
-                              - state: on
-                                text: On
-                                icon_color: orange
-                          - entity: select.garden_nightvision
-                            name: Night vision
-                            icon: mdi:weather-night
-                            rules:
-                              - state_not: Off
-                                icon_color: orange
-                            dropdown: true
-                            option_names:
-                              Off: Off
-                              B&W Night Vision: Black and white
-                              Color Night Vision: Colour
-                        pill_height: 46
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_2
-                            state: on
+                player_glass: liquid-gl
+                badge_glass: liquid-gl
+                show_timeline: true
+                cameras:
+                  - camera: camera.front_door
+                    name: Entrance
+                    icon: mdi:door
+                    frigate_camera: frontdoor
+                    active:
+                      entity: input_boolean.switch_security_camera_1
+                      state: "on"
+                    items:
+                      - entity: switch.front_door_light
+                        name: Light
+                        icon: mdi:lightbulb-outline
+                        text: "Off"
+                        rules:
+                          - state: "on"
+                            text: "On"
+                            icon_color: orange
+                      - entity: select.front_door_nightvision
+                        name: Night vision
+                        icon: mdi:weather-night
+                        dropdown: true
+                        rules:
+                          - state_not: "Off"
+                            icon_color: orange
+                        option_names:
+                          "Off": "Off"
+                          B&W Night Vision: Black and white
+                          Color Night Vision: Colour
+                  - camera: camera.garden
+                    name: Garden
+                    icon: mdi:tree-outline
+                    frigate_camera: garden
+                    active:
+                      entity: input_boolean.switch_security_camera_2
+                      state: "on"
+                    items:
+                      - entity: switch.garden_light
+                        name: Light
+                        icon: mdi:lightbulb-outline
+                        text: "Off"
+                        rules:
+                          - state: "on"
+                            text: "On"
+                            icon_color: orange
+                      - entity: select.garden_nightvision
+                        name: Night vision
+                        icon: mdi:weather-night
+                        dropdown: true
+                        rules:
+                          - state_not: "Off"
+                            icon_color: orange
+                        option_names:
+                          "Off": "Off"
+                          B&W Night Vision: Black and white
+                          Color Night Vision: Colour
             show_header: false
       - type: grid
         cards:
@@ -2874,6 +2683,7 @@ views:
                       height: auto
                     cards:
                       - type: custom:glass-radar
+                        controls_glass: liquid-gl
                         zoom: 7
                         frames: 7
                         height: 320
@@ -3351,132 +3161,65 @@ views:
                             active:
                               entity: input_boolean.switch_security_camera_2
                               state: on
-                      - type: picture
-                        image: glass:demo/camera-front.jpg
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_1
-                            state: on
-                      - type: picture
-                        image: glass:demo/camera-garden.jpg
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_2
-                            state: on
-                      - type: custom:glass-status-bar
-                        layout: pills
-                        columns: 2
-                        items:
-                          - entity: switch.front_door_light
-                            name: Light
-                            icon: mdi:lightbulb-outline
-                            text: Off
-                            rules:
-                              - state: on
-                                text: On
-                                icon_color: orange
-                          - entity: select.front_door_nightvision
-                            name: Night vision
-                            icon: mdi:weather-night
-                            rules:
-                              - state_not: Off
-                                icon_color: orange
-                            dropdown: true
-                            option_names:
-                              Off: Off
-                              B&W Night Vision: Black and white
-                              Color Night Vision: Colour
-                        pill_height: 46
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_1
-                            state: on
-                      - type: custom:glass-status-bar
-                        layout: pills
-                        columns: 2
-                        items:
-                          - entity: switch.garden_light
-                            name: Light
-                            icon: mdi:lightbulb-outline
-                            text: Off
-                            rules:
-                              - state: on
-                                text: On
-                                icon_color: orange
-                          - entity: select.garden_nightvision
-                            name: Night vision
-                            icon: mdi:weather-night
-                            rules:
-                              - state_not: Off
-                                icon_color: orange
-                            dropdown: true
-                            option_names:
-                              Off: Off
-                              B&W Night Vision: Black and white
-                              Color Night Vision: Colour
-                        pill_height: 46
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_2
-                            state: on
-                  - type: custom:glass-panel
-                    role: sidebar
-                    layout: column
-                    gap: 0
-                    padding: 22
-                    view_layout:
-                      height: auto
-                    cards:
-                      - type: vertical-stack
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_1
-                            state: on
-                        cards:
-                          - type: heading
-                            heading: Front door – latest
-                            heading_style: subtitle
-                            icon: mdi:cctv
-                          - type: grid
-                            columns: 2
-                            square: false
-                            cards:
-                              - type: picture
-                                image: glass:demo/event-front-1.jpg
-                              - type: picture
-                                image: glass:demo/event-front-2.jpg
-                              - type: picture
-                                image: glass:demo/event-front-3.jpg
-                              - type: picture
-                                image: glass:demo/event-front-4.jpg
-                              - type: picture
-                                image: glass:demo/event-front-5.jpg
-                              - type: picture
-                                image: glass:demo/event-front-6.jpg
-                      - type: vertical-stack
-                        visibility:
-                          - condition: state
-                            entity: input_boolean.switch_security_camera_2
-                            state: on
-                        cards:
-                          - type: heading
-                            heading: Garden – latest
-                            heading_style: subtitle
-                            icon: mdi:cctv
-                          - type: grid
-                            columns: 2
-                            square: false
-                            cards:
-                              - type: picture
-                                image: glass:demo/event-garden-1.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-2.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-3.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-4.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-5.jpg
-                              - type: picture
-                                image: glass:demo/event-garden-6.jpg
+                      - type: custom:glass-camera
+                        layout: stacked
+                        list_glass: dark-liquid
+                        player_glass: liquid-gl
+                        badge_glass: liquid-gl
+                        show_timeline: true
+                        cameras:
+                          - camera: camera.front_door
+                            name: Entrance
+                            icon: mdi:door
+                            frigate_camera: frontdoor
+                            active:
+                              entity: input_boolean.switch_security_camera_1
+                              state: "on"
+                            items:
+                              - entity: switch.front_door_light
+                                name: Light
+                                icon: mdi:lightbulb-outline
+                                text: "Off"
+                                rules:
+                                  - state: "on"
+                                    text: "On"
+                                    icon_color: orange
+                              - entity: select.front_door_nightvision
+                                name: Night vision
+                                icon: mdi:weather-night
+                                dropdown: true
+                                rules:
+                                  - state_not: "Off"
+                                    icon_color: orange
+                                option_names:
+                                  "Off": "Off"
+                                  B&W Night Vision: Black and white
+                                  Color Night Vision: Colour
+                          - camera: camera.garden
+                            name: Garden
+                            icon: mdi:tree-outline
+                            frigate_camera: garden
+                            active:
+                              entity: input_boolean.switch_security_camera_2
+                              state: "on"
+                            items:
+                              - entity: switch.garden_light
+                                name: Light
+                                icon: mdi:lightbulb-outline
+                                text: "Off"
+                                rules:
+                                  - state: "on"
+                                    text: "On"
+                                    icon_color: orange
+                              - entity: select.garden_nightvision
+                                name: Night vision
+                                icon: mdi:weather-night
+                                dropdown: true
+                                rules:
+                                  - state_not: "Off"
+                                    icon_color: orange
+                                option_names:
+                                  "Off": "Off"
+                                  B&W Night Vision: Black and white
+                                  Color Night Vision: Colour
             show_header: false

@@ -551,6 +551,7 @@ class Renderer {
   private vcanvas = document.createElement("canvas");
   private vthumb = document.createElement("canvas");
   private vthumbAt = 0;
+  private vblank = false;
   private frame(video: HTMLVideoElement | HTMLCanvasElement, _bgW: number, _blur: number): boolean {
     const gl = this.gl!;
     const isVideo = video instanceof HTMLVideoElement;
@@ -577,7 +578,14 @@ class Renderer {
           tc.drawImage(c, 0, 0, 48, 48);
           this.thumb = tc.getImageData(0, 0, 48, 48).data;
           this.vthumbAt = now;
+          // a frame drawn as nothing at all (no pixel opaque): a browser that won't hand over the
+          // stream's pictures (Safari on a phone, some streams) – no glass rather than a black one
+          const d = this.thumb;
+          let seen = false;
+          for (let i = 3; i < d.length; i += 4 * 47) if (d[i]) { seen = true; break; }
+          this.vblank = isVideo && !seen;
         }
+        if (this.vblank) return false;
       } catch {
         return false; // a picture from another origin: it can't be read
       }

@@ -328,6 +328,7 @@ class GlassCamera extends GlassElement<CameraConfig> {
     _span: { state: true },
     _note: { state: true },
     _narrow: { state: true },
+    _glFail: { state: true },
     _fillH: { state: true },
     _end: { state: true },
     _sev: { state: true },
@@ -343,6 +344,9 @@ class GlassCamera extends GlassElement<CameraConfig> {
   declare _end?: number;
   /** a narrow card (a phone): a recording's controls go under the picture, the badges get small */
   declare _narrow: boolean;
+  /** WebGL glass can't draw from this picture (a phone's browser that won't read the stream's
+   *  frames, a picture that isn't a video): the parts show their CSS glass instead */
+  declare _glFail: boolean;
   /** the camera picked in the card (index) – a camera's `active` that holds wins */
   declare _pick?: number;
   /** what plays instead of live: a recording, or a stretch of the time line */
@@ -361,6 +365,7 @@ class GlassCamera extends GlassElement<CameraConfig> {
     this._pos = 0;
     this._span = 24;
     this._narrow = false;
+    this._glFail = false;
     this._fs = false;
   }
 
@@ -905,6 +910,7 @@ class GlassCamera extends GlassElement<CameraConfig> {
   private _glLoop?: number;
   private _glT = -1;
   private _glGen = 0;
+  private _glWait?: number;
   private _glTick = () => {
     const gen = ++this._glGen;
     this._glLoop = undefined;
@@ -914,6 +920,16 @@ class GlassCamera extends GlassElement<CameraConfig> {
     if (t !== this._glT) {
       this._glT = t;
       this.partsGl.refresh(true);
+    }
+    // no glass drawn two seconds on: its CSS glass shows (hidden while it waits for a frame)
+    const drawn = !!this.renderRoot.querySelector(".stage .lg-on");
+    const now = performance.now();
+    if (drawn) {
+      this._glWait = undefined;
+      if (this._glFail) this._glFail = false;
+    } else if (!this._glFail) {
+      this._glWait ??= now;
+      if (now - this._glWait > 2000) this._glFail = true;
     }
     const next = () => gen === this._glGen && this._glTick();
     if (v && "requestVideoFrameCallback" in v) (v as any).requestVideoFrameCallback(next);
@@ -992,9 +1008,12 @@ class GlassCamera extends GlassElement<CameraConfig> {
           type: "custom:webrtc-camera",
           ui: false,
           muted: true,
+          // the card zooms the picture itself: the player's own zoom would take the fingers (and
+          // keep a zoom of its own, remembered in the browser)
+          digital_ptz: false,
           ...own,
           // fills the picture; a style of its own comes after
-          style: `ha-card{height:100%;margin:0;border-radius:0;background:none;box-shadow:none;border:0} .player{height:100%;padding:0!important} video,img.poster{width:100%;height:100%;object-fit:${fit}} ${own.ui ? "" : "video::-webkit-media-controls{display:none!important} video::-webkit-media-controls-enclosure{display:none!important}"} ${own.style ?? ""}`,
+          style: `ha-card{height:100%;margin:0;border-radius:0;background:none;box-shadow:none;border:0} .player{height:100%;padding:0!important} video,img.poster{width:100%;height:100%;object-fit:var(--cam-fit,${fit})} ${own.ui ? "" : "video::-webkit-media-controls{display:none!important} video::-webkit-media-controls-enclosure{display:none!important}"} ${own.style ?? ""}`,
         } as unknown as BaseCardConfig,
         this._hass,
       ) as unknown as HTMLElement;
@@ -1027,13 +1046,17 @@ class GlassCamera extends GlassElement<CameraConfig> {
     const bp = c.badge_position ?? "top-left";
     const fsAt = ctl ? (bp === "top-right" ? "top-left" : "top-right") : bp === "bottom-right" ? "bottom-left" : "bottom-right";
     return html`<div
-      class="stage ${p ? "playing" : ""} ${webglAvailable ? "gl" : ""} fit-${c.fit ?? "cover"} ${c.zoom === false ? "" : "can-zoom"}"
+      class="stage ${p ? "playing" : ""} ${webglAvailable && !this._glFail ? "gl" : ""} fit-${c.fit ?? "cover"} ${c.zoom === false ? "" : "can-zoom"}"
       style="aspect-ratio:${ratio}"
       @wheel=${this._onWheel}
       @pointerdown=${this._onDown}
       @pointermove=${this._onMove}
       @pointerup=${this._onUp}
       @pointercancel=${this._onUp}
+      @touchstart=${this._onTouch}
+      @touchmove=${this._onTouch}
+      @touchend=${this._onTouch}
+      @touchcancel=${this._onTouch}
       @click=${{ handleEvent: this._onClickCapture, capture: true }}
       @dblclick=${this._onDbl}
     >
@@ -1170,7 +1193,9 @@ class GlassCamera extends GlassElement<CameraConfig> {
 
   /** what zooms: the recording, else the live picture */
   private _zoomEl(): HTMLElement | null {
-    return this.renderRoot.querySelector<HTMLElement>(".stage > video.clip, .stage > .live");
+    const el = this.renderRoot.querySelector<HTMLElement>(".stage > video.clip, .stage > .live");
+    // a player card sits in a display:contents holder, which has no box to scale: the card itself
+    return el && getComputedStyle(el).display === "contents" ? ((el.firstElementChild as HTMLElement | null) ?? el) : el;
   }
 
   private _applyZoom() {
@@ -1215,13 +1240,98 @@ class GlassCamera extends GlassElement<CameraConfig> {
 
   private _onWheel = (e: WheelEvent) => {
     if (this._config.zoom === false) return;
-    if (this._z.s <= 1.001 && e.deltaY > 0) return;
+    // a wheel counting lines or pages (Firefox): in px, as the others
+    const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1);
+    if (this._z.s <= 1.001 && dy > 0) return;
     e.preventDefault();
     const p = this._local(e);
-    this._zoomBy(Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0015)), p.x, p.y);
+    this._zoomBy(Math.exp(-dy * (e.ctrlKey ? 0.01 : 0.0015)), p.x, p.y);
+  };
+
+  /** Fingers: touch events, not pointer ones – a phone's browser cancels the pointers as soon as
+   *  two fingers move (its own gesture), and only a touch it is told to leave alone stays ours.
+   *  Two fingers zoom; one moves the picture once zoomed; a tap stays a tap. */
+  private _tPrev?: { x: number; y: number };
+  /** a swipe across a recording playing (not zoomed): the one before / after it */
+  private _swipe?: { x: number; y: number };
+  private _swipeStart(x: number, y: number, target: EventTarget | null) {
+    const on = !!this._play?.rec && this._z.s <= 1.001 && !(target as HTMLElement | null)?.closest?.("button, a, input, .bar, .top, .over-ctl, .fs");
+    this._swipe = on ? { x, y } : undefined;
+  }
+  /** true once it is a swipe (sideways, past a few px) */
+  private _swipeMove(x: number, y: number) {
+    const w = this._swipe;
+    if (!w) return false;
+    const dx = x - w.x;
+    const dy = y - w.y;
+    if (Math.abs(dy) > 24 && Math.abs(dy) > Math.abs(dx)) {
+      this._swipe = undefined;
+      return false;
+    }
+    if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) this._moved = true;
+    return Math.abs(dx) > 10;
+  }
+  private _swipeEnd(x: number, y: number) {
+    const w = this._swipe;
+    this._swipe = undefined;
+    if (!w) return;
+    const dx = x - w.x;
+    const dy = y - w.y;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    this._moved = true;
+    // to the left: the next in the list (older), to the right: the one before it (newer)
+    this._step(dx < 0 ? 1 : -1);
+  }
+  private _onTouch = {
+    passive: false,
+    handleEvent: (e: TouchEvent) => {
+      const t = e.touches;
+      if (e.type === "touchstart") this._swipeStart(t.length === 1 ? t[0].clientX : NaN, t.length === 1 ? t[0].clientY : NaN, e.target);
+      else if (e.type === "touchmove" && t.length === 1 && this._swipeMove(t[0].clientX, t[0].clientY)) e.preventDefault();
+      else if (e.type === "touchend" && !t.length && e.changedTouches.length) this._swipeEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      if (t.length > 1 || e.type === "touchcancel") this._swipe = undefined;
+      if (this._config.zoom === false) return;
+      if (e.type === "touchstart" && (e.target as HTMLElement).closest?.("button, a, input, .bar, .top, .over-ctl, .fs")) return;
+      if (t.length >= 2) {
+        e.preventDefault();
+        const [a, b] = [t[0], t[1]];
+        const m = this._local({ clientX: (a.clientX + b.clientX) / 2, clientY: (a.clientY + b.clientY) / 2 });
+        const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+        if (!this._pinch) this._pinch = { d, s: this._z.s, mx: m.x, my: m.y, x: this._z.x, y: this._z.y };
+        else {
+          const p = this._pinch;
+          const s = Math.min(6, Math.max(1, (p.s * d) / Math.max(1, p.d)));
+          const r = s / p.s;
+          this._z = { s, x: m.x - (p.mx - p.x) * r, y: m.y - (p.my - p.y) * r };
+          this._moved = true;
+          this._applyZoom();
+        }
+        this._tPrev = undefined;
+        return;
+      }
+      this._pinch = undefined;
+      if (t.length !== 1) {
+        this._tPrev = undefined;
+        return;
+      }
+      const now = { x: t[0].clientX, y: t[0].clientY };
+      if (e.type === "touchmove" && this._z.s > 1.001 && this._tPrev) {
+        e.preventDefault();
+        const dx = now.x - this._tPrev.x;
+        const dy = now.y - this._tPrev.y;
+        if (Math.abs(dx) + Math.abs(dy) > 0.5) this._moved = true;
+        this._z.x += dx;
+        this._z.y += dy;
+        this._applyZoom();
+      }
+      if (e.type === "touchstart" && t.length === 1) this._moved = false;
+      this._tPrev = now;
+    },
   };
 
   private _onDown = (e: PointerEvent) => {
+    if (e.pointerType === "touch") return;
+    this._swipeStart(e.clientX, e.clientY, e.target);
     if (this._config.zoom === false || (e.target as HTMLElement).closest("button, a, input, .bar, .top, .over-ctl, .fs")) return;
     this._ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
     this._moved = false;
@@ -1234,6 +1344,8 @@ class GlassCamera extends GlassElement<CameraConfig> {
   };
 
   private _onMove = (e: PointerEvent) => {
+    if (e.pointerType === "touch") return;
+    if (e.buttons) this._swipeMove(e.clientX, e.clientY);
     const last = this._ptrs.get(e.pointerId);
     if (!last) return;
     const now = { x: e.clientX, y: e.clientY };
@@ -1259,6 +1371,10 @@ class GlassCamera extends GlassElement<CameraConfig> {
   };
 
   private _onUp = (e: PointerEvent) => {
+    if (e.pointerType !== "touch") {
+      if (e.type === "pointerup") this._swipeEnd(e.clientX, e.clientY);
+      else this._swipe = undefined;
+    }
     this._ptrs.delete(e.pointerId);
     if (this._ptrs.size < 2) this._pinch = undefined;
   };
@@ -1310,6 +1426,8 @@ class GlassCamera extends GlassElement<CameraConfig> {
   /** The time line: the span's recordings and recorded stretches; a tap plays from there. */
   /** The time line: the span's recordings and recorded stretches; a tap plays from there, a drag
    *  (or ‹ ›) goes back and forth in time, an empty stretch offers the latest recording. */
+  private _tlDrag?: { id: number; x: number; w: number; end: number; span: number; from: number; moved: boolean };
+
   private _timeline(cur: number) {
     const c = this._config;
     if (!c.show_timeline) return nothing;
@@ -1331,31 +1449,34 @@ class GlassCamera extends GlassElement<CameraConfig> {
     const m = matPart(c.timeline_glass, c.timeline_color, "home");
     const p = this._play;
     const head = p ? (p.from !== undefined ? p.from + this._pos : p.at + this._pos) : undefined;
-    // a tap plays, a drag pans
-    let drag: { x: number; w: number; end: number; moved: boolean } | undefined;
+    // a tap plays, a drag (a swipe) pans – the drag lives on the card: each step re-renders it
+    // (and so does a recording playing), which would drop a drag kept in here
     const down = (e: PointerEvent) => {
+      if (e.button) return;
       const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
-      drag = { x: e.clientX, w: r.width, end: to, moved: false };
+      this._tlDrag = { id: e.pointerId, x: e.clientX, w: r.width, end: to, span, from, moved: false };
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     };
     const move = (e: PointerEvent) => {
-      if (!drag) return;
+      const drag = this._tlDrag;
+      if (!drag || drag.id !== e.pointerId) return;
       const dx = e.clientX - drag.x;
       if (!drag.moved && Math.abs(dx) < 5) return;
       drag.moved = true;
-      const end = Math.min(now, drag.end - (dx / drag.w) * span);
-      this._end = end >= now - 60 ? undefined : end;
+      const t = Date.now() / 1000;
+      const end = Math.min(t, drag.end - (dx / drag.w) * drag.span);
+      this._end = end >= t - 60 ? undefined : end;
     };
     const up = (e: PointerEvent) => {
-      const d = drag;
-      drag = undefined;
-      if (!d) return;
+      const d = this._tlDrag;
+      this._tlDrag = undefined;
+      if (!d || d.id !== e.pointerId) return;
       if (d.moved) {
         this._cover = undefined;
         return;
       }
       const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
-      this._openAt(from + ((e.clientX - r.left) / r.width) * span);
+      this._openAt(d.from + ((e.clientX - r.left) / r.width) * d.span);
     };
     const page = (k: number) => {
       haptic("selection");
@@ -1367,7 +1488,7 @@ class GlassCamera extends GlassElement<CameraConfig> {
     const empty = !recs.length && !(this._cover?.segs ?? []).some(([a, b]) => b >= from && a <= to);
     return html`<div class="timeline ${m.cls || "control still"}" style=${m.style}>
       <button class="nav" title=${tr("Earlier")} @click=${() => page(-1)}><ha-icon .icon=${"mdi:chevron-left"}></ha-icon></button>
-      <div class="track" @pointerdown=${down} @pointermove=${move} @pointerup=${up} @pointercancel=${() => (drag = undefined)}>
+      <div class="track" @pointerdown=${down} @pointermove=${move} @pointerup=${up} @pointercancel=${() => (this._tlDrag = undefined)}>
         ${(this._cover?.segs ?? []).map(([a, b]) => (b < from || a > to ? nothing : html`<i class="cov" style="left:${x(a)};width:calc(${x(b)} - ${x(a)})"></i>`))}
         ${recs.map((r) => html`<i class="mark ${r.alert ? "alert" : ""}" style="left:${x(r.start)};width:max(3px, calc(${x(r.end ?? now)} - ${x(r.start)}))" title=${`${this._time(r.start)} ${r.labels.map(labelName).join(", ")}`}></i>`)}
         ${ticks.map((t) => html`<span class="tick" style="left:${x(t)}">${tickText(t)}</span>`)}
@@ -1621,11 +1742,16 @@ class GlassCamera extends GlassElement<CameraConfig> {
       .stage.can-zoom {
         touch-action: pan-x pan-y;
       }
+      .stage.can-zoom:fullscreen {
+        touch-action: none;
+      }
       .stage.zoomed {
         touch-action: none;
         cursor: grab;
       }
       .stage:fullscreen {
+        /* the whole picture (live too): zoom in with two fingers */
+        --cam-fit: contain;
         aspect-ratio: auto !important;
         width: 100%;
         height: 100%;
@@ -1691,6 +1817,7 @@ class GlassCamera extends GlassElement<CameraConfig> {
         background: color-mix(in srgb, currentColor 18%, transparent);
       }
       .stage > .live,
+      .stage > .live[style*="contents"] > *,
       .stage > video,
       .stage > .empty {
         position: absolute;
