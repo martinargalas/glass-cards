@@ -1,3 +1,4 @@
+import { checkDemosOnce } from "../editor/store";
 import { scheduleAll, setWallpaper, wallpaperUrl } from "../core/liquid-gl";
 
 /** The wallpaper last shown: put back as soon as the page loads, before the dashboard
@@ -131,6 +132,10 @@ class GlassDashboard extends GlassElement<DashboardConfig> {
   override set hass(hass: HomeAssistant) {
     this._realHass = hass;
     super.hass = this._rawConfig?.demo ? demoHass(hass) : hass;
+    // a demo dashboard an administrator opens: an older one, unchanged, brought up to date (HA
+    // then reloads the dashboard by itself); a changed one is offered the newest in the studio
+    if (this._rawConfig?.demo && hass?.user?.is_admin && typeof (hass as { callWS?: unknown }).callWS === "function" && !this._inEditor())
+      void checkDemosOnce(hass as never);
   }
 
   override get hass(): HomeAssistant | undefined {

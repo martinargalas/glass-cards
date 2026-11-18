@@ -78,6 +78,18 @@ run on the made-up home. To build your own from it:
 Or turn the whole demo into yours: open the dashboard's settings, switch **Demo** off and
 replace the entities card by card.
 
+## A new version of the demo
+
+New versions of Glass Cards often bring a new demo, with the newest cards on it. What happens to yours depends on whether you changed it:
+
+- **You didn't change it:** it's brought up to date the next time an administrator opens it. The old one is kept in the browser, and **Undo the last save** in Dashboard Studio puts it back.
+- **You changed it:** it stays exactly as it is. Dashboard Studio shows *A new demo dashboard is available* with what's new, and offers:
+  - **Open the newest demo**: adds a second demo beside yours, **Glass demo – newest**, with its own pop-ups. From then on it's the one that gets the new demos.
+  - **Replace mine**: your demo becomes the newest one. Your version is kept in the browser for **Undo the last save**.
+  - **Not now**: it asks again with the next new demo.
+
+**Glass demo – newest** belongs to the cards: the next new demo is written over it. If you changed it, Dashboard Studio asks first and offers **Keep mine as my own**: your version is copied to **Glass demo – mine** (it never gets updates), and the newest demo takes its place. In Dashboard Studio, **Delete this demo** removes it with its pop-ups – your own dashboards aren't touched.
+
 ## Remove it
 
-**Settings → Dashboards**: delete **Glass demo** and **Glass demo – pop-ups**. That's all there is to it.
+**Settings → Dashboards**: delete **Glass demo** and **Glass demo – pop-ups** (and **Glass demo – newest** with its pop-ups, if you have it). That's all there is to it.

@@ -6,7 +6,7 @@ import { PRESETS, areaOrder, overlayCards, parseAreas, popupOf, trackList, type 
 import { preview, previewSize, setPreviewMode } from "../core/settings";
 import { LiquidController } from "../core/liquid";
 import { addStarterDashboard } from "./starter";
-import { addDemoDashboard, backup, dropBackup, findGlass, lastBackup, listDashboards, loadConfig, putAt, saveConfig, type DashInfo } from "./store";
+import { addDemoDashboard, backup, checkDemos, DEMO_LATEST_URL, DEMO_URL, DEMO_VERSION, deleteDemo, dropBackup, findGlass, keepDemoAsOwn, lastBackup, listDashboards, loadConfig, putAt, replaceDemo, saveConfig, writeLatestDemo, type DashInfo, type DemoState } from "./store";
 import { AREA_TITLES, DEVICE_MODES, MODE_NAMES, NEW_CARDS, SUPPORT_BUTTON, SUPPORT_URL, bubbleNotice, hasBubble, missingFor,
   foreignNotice, describeCard, getClip, makeEditor, move, orderOn, setClip, shownOn, stubFor, withOrder, withShown } from "./editor";
 import { dashboardSpec } from "./specs";
@@ -120,6 +120,7 @@ export class GlassStudio extends LitElement {
     _dashList: { state: true },
     _notice: { state: true },
     _busy: { state: true },
+    _demoOffer: { state: true },
     _resizing: { state: true },
     _popOpen: { state: true },
     _popTop: { state: true },
@@ -194,6 +195,9 @@ export class GlassStudio extends LitElement {
     which: number;
   };
   declare _dashList?: DashInfo[];
+  /** demos in HA older than the cards' and changed by the user: the newest offered beside them */
+  declare _demoOffer?: DemoState[];
+  private _demoChecked = false;
   /** A message over the preview: saved, a conflict, an error. */
   declare _notice?: { text: string; kind: "ok" | "warn" | "error" };
   declare _busy: boolean;
@@ -1106,6 +1110,10 @@ export class GlassStudio extends LitElement {
 
   protected override updated() {
     this._syncDemo();
+    if (!this._demoChecked && this.hass?.user?.is_admin && typeof (this.hass as any).callWS === "function") {
+      this._demoChecked = true;
+      void this._checkDemo();
+    }
     this._mountPreview();
     // a new pick (in the tree, the preview or the schematic): show it in the other two
     if (this._sel !== this._selShown) {
@@ -2907,6 +2915,120 @@ export class GlassStudio extends LitElement {
     }
   }
 
+  /* ── the demo: the newest one beside a changed one ── */
+
+  /** The dashboard being edited: its url (HA's dialog: the dashboard on screen). */
+  private _editedUrl(): string | null | undefined {
+    return this.standalone ? this._host?.url : (this.lovelace as any)?.urlPath;
+  }
+
+  /** Demos older than the cards': unchanged ones brought up to date, changed ones offered the newest. */
+  private async _checkDemo() {
+    const res = await checkDemos(this.hass as any, this._editedUrl()).catch(() => undefined);
+    if (!res) return;
+    if (res.updated.length) {
+      this._dashList = await listDashboards(this.hass as any).catch(() => this._dashList);
+      if (this.standalone && res.updated.includes(this._host?.url ?? "") && !this._dirty) await this.openDashboard(this._host!.url);
+      this._notice = { kind: "ok", text: t("The demo dashboard was brought up to the newest demo.") };
+    }
+    this._demoOffer = res.outdated.filter((d) => {
+      try {
+        return localStorage.getItem(`glass-demo-skip:${d.url}`) !== DEMO_VERSION;
+      } catch {
+        return true;
+      }
+    });
+  }
+
+  /** A demo dashboard written or kept: opened here (in HA's dialog: where it is told). */
+  private async _showDemo(url: string, text: string) {
+    this._dashList = await listDashboards(this.hass as any).catch(() => this._dashList);
+    if (this.standalone) await this.openDashboard(url);
+    this._notice = { kind: "ok", text };
+  }
+
+  private async _demoAct(d: DemoState, act: "newest" | "replace" | "keep" | "later") {
+    if (act === "later") {
+      try {
+        localStorage.setItem(`glass-demo-skip:${d.url}`, DEMO_VERSION);
+      } catch {
+        /* private mode */
+      }
+    }
+    if (act === "replace" && !confirm(t("Replace it with the newest demo? What you changed is kept in this browser – Undo the last save puts it back."))) return;
+    this._demoOffer = this._demoOffer?.filter((x) => x !== d);
+    if (act === "later") return;
+    this._busy = true;
+    try {
+      if (act === "newest") {
+        const url = await writeLatestDemo(this.hass as any);
+        this._busy = false;
+        await this._showDemo(url, t("The newest demo is in the sidebar as “Glass demo – newest”. Yours stays as it is."));
+      } else if (act === "replace") {
+        const url = await replaceDemo(this.hass as any, d.url);
+        this._busy = false;
+        await this._showDemo(url, t("The demo is the newest one now."));
+      } else {
+        const mine = await keepDemoAsOwn(this.hass as any, d.url);
+        this._busy = false;
+        await this._showDemo(d.url, t("Yours is kept as “{name}” in the sidebar; this is the newest demo now.", { name: mine === "glass-demo-mine-1" ? "Glass demo – mine" : `Glass demo – mine ${mine.slice(15)}` }));
+      }
+    } catch (e: any) {
+      this._busy = false;
+      this._notice = { kind: "error", text: `${t("The demo dashboard could not be added:")} ${e?.message ?? e}` };
+    }
+  }
+
+  /** The newest demo removed (with its pop-ups); the user's demo opened, if any. */
+  private async _deleteLatest() {
+    if (!confirm(t("Delete “Glass demo – newest” and its pop-ups from Home Assistant?"))) return;
+    this._busy = true;
+    try {
+      await deleteDemo(this.hass as any, DEMO_LATEST_URL);
+      this._dashList = await listDashboards(this.hass as any).catch(() => this._dashList);
+      this._busy = false;
+      await this.openDashboard(this._dashList?.some((x) => x.url === DEMO_URL) ? DEMO_URL : null);
+      this._notice = { kind: "ok", text: t("“Glass demo – newest” was removed. Your own dashboards weren't touched.") };
+    } catch (e: any) {
+      this._busy = false;
+      this._notice = { kind: "error", text: `${e?.message ?? e}` };
+    }
+  }
+
+  /** Under the bar: a newer demo for a changed one; on the newest demo, what it is. */
+  private _demoBars() {
+    const offers = (this._demoOffer ?? []).map((d) => {
+      const latest = d.url === DEMO_LATEST_URL;
+      const news = d.news.map((n) => t(n)).join(" · ");
+      return html`<div class="notice demo">
+        <ha-icon .icon=${"mdi:creation-outline"}></ha-icon>
+        <span
+          >${latest
+            ? t("A new demo dashboard is available. “Glass demo – newest” has changes of yours – keep them as your own dashboard, or replace them.")
+            : t("A new demo dashboard is available. Your “Glass demo” stays as you changed it – the new one opens beside it.")}${news ? html`<small>${t("New:")} ${news}</small>` : nothing}</span
+        >
+        ${latest
+          ? html`<button class="quiet" ?disabled=${this._busy} @click=${() => void this._demoAct(d, "keep")}>${t("Keep mine as my own")}</button>
+              <button class="quiet" ?disabled=${this._busy} @click=${() => void this._demoAct(d, "replace")}>${t("Replace with the newest")}</button>`
+          : html`<button class="done" ?disabled=${this._busy} @click=${() => void this._demoAct(d, "newest")}>${t("Open the newest demo")}</button>
+              <button class="quiet" ?disabled=${this._busy} @click=${() => void this._demoAct(d, "replace")}>${t("Replace mine")}</button>`}
+        <button class="quiet" @click=${() => void this._demoAct(d, "later")}>${t("Not now")}</button>
+      </div>`;
+    });
+    const onLatest =
+      this._editedUrl() === DEMO_LATEST_URL && !this._demoOffer?.some((d) => d.url === DEMO_LATEST_URL)
+        ? html`<div class="notice warn">
+            <ha-icon .icon=${"mdi:information-outline"}></ha-icon>
+            <span>${t("The newest demo: the next version of the cards writes over it. Keep your changes with Keep as my own.")}</span>
+            <button class="quiet" ?disabled=${this._busy || this._dirty} title=${this._dirty ? t("Save first") : ""} @click=${() => void this._demoAct({ url: DEMO_LATEST_URL, outdated: false, changed: true, news: [] }, "keep")}>
+              ${t("Keep as my own")}
+            </button>
+            ${this.standalone ? html`<button class="quiet" ?disabled=${this._busy} @click=${() => void this._deleteLatest()}>${t("Delete this demo")}</button>` : nothing}
+          </div>`
+        : nothing;
+    return html`${offers}${onLatest}`;
+  }
+
   /** Adds the demo dashboard to HA (once) and opens it here. */
   private async _addDemo() {
     this._busy = true;
@@ -3123,6 +3245,7 @@ export class GlassStudio extends LitElement {
             <button class="icon small" title=${t("Close")} @click=${() => (this._notice = undefined)}><ha-icon .icon=${"mdi:close"}></ha-icon></button>
           </div>`
         : nothing}
+      ${this._demoBars()}
       <div
         class="body ${this._hideTree ? "no-tree" : ""} ${this._hideInspector ? "no-inspector" : ""}"
         style="--tree-w:${this._panes.tree}px;--insp-w:${this._wide ? this._panes.yaml : this._panes.insp}px"
@@ -3568,6 +3691,15 @@ export class GlassStudio extends LitElement {
     }
     .notice.error {
       background: rgba(var(--rgb-error-color, 219, 68, 55), 0.16);
+    }
+    .notice.demo {
+      background: rgba(var(--rgb-primary-color, 3, 169, 244), 0.12);
+      flex-wrap: wrap;
+    }
+    .notice span small {
+      display: block;
+      opacity: 0.75;
+      font-size: 12.5px;
     }
     /* the preview's scale: highlighted while it is not the device's real size */
     .size select.zoom.scaled {

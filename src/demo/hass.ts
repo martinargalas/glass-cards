@@ -422,9 +422,12 @@ export function demoHass(base?: Partial<HomeAssistant>): HomeAssistant & { demo:
         const empty = { type: "FeatureCollection", features: [] };
         return { response: msg.service === "get_geojson" ? structuredClone(MOWER_GEO) : empty } as T;
       }
-      if (msg.type === "lovelace/config" && msg.url_path === DEMO_POPUPS_URL) {
+      // any demo's pop-ups (glass-demo-popups, glass-demo-latest-popups, a kept copy's)
+      if (msg.type === "lovelace/config" && typeof msg.url_path === "string" && /^glass-demo(-[\w-]+)?-popups$/.test(msg.url_path)) {
         const own = base?.callWS ? await base.callWS<T>(msg).catch(() => undefined) : undefined;
-        return bundledFiles(own ?? structuredClone(DEMO_POPUPS)) as T;
+        const cfg = own ?? (msg.url_path === DEMO_POPUPS_URL ? structuredClone(DEMO_POPUPS) : undefined);
+        if (!cfg) throw Object.assign(new Error("No such dashboard"), { code: "config_not_found" });
+        return bundledFiles(cfg) as T;
       }
       if (!base?.callWS) throw Object.assign(new Error("Not available in the demo"), { code: "not_found" });
       return base.callWS<T>(msg);
