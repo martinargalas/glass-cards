@@ -2030,4 +2030,7 @@ export const de: Dict = {
   "invisible until then": "bis dahin unsichtbar",
   "Try it": "Ausprobieren",
   "Snooze and slide to stop when an alarm rings – over the dashboard or in a pop-up": "Schlummern und zum Ausschalten schieben, wenn ein Wecker klingelt – über dem Dashboard oder in einem Pop-up",
+  "Photo at night": "Foto in der Nacht",
+  "While the sun is below the horizon (sun.sun). Empty = the cards' own night photo, none = the day photo all the time": "Solange die Sonne unter dem Horizont ist (sun.sun). Leer = das Nachtfoto der Karten, none = immer das Tagesfoto",
+  "Glass at night": "Glas in der Nacht",
 };

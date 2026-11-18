@@ -2233,6 +2233,10 @@ export const alarmRingSpec: EditorSpec = {
           ? [
               { name: "image", label: "Photo", helper: "Empty = the cards' own morning photo", selector: { text: {} } },
               grid({ ...select("panel_glass", [["", "Default"], ...MATERIALS]), label: "Glass over the photo" }, { ...COLOR_FIELD("panel_color"), label: "Its colour" }),
+              { name: "night_image", label: "Photo at night", helper: "While the sun is below the horizon (sun.sun). Empty = the cards' own night photo, none = the day photo all the time", selector: { text: {} } },
+              ...(c.night_image !== "none"
+                ? [grid({ ...select("night_panel_glass", [["", "Default"], ...MATERIALS]), label: "Glass at night" }, { ...COLOR_FIELD("night_panel_color"), label: "Its colour" })]
+                : []),
             ]
           : []),
         grid({ ...select("controls_glass", [["", "Default"], ...MATERIALS]), label: "Buttons' material" }, { ...COLOR_FIELD("controls_color"), label: "Buttons' colour" }),

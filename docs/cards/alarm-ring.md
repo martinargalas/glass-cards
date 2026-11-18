@@ -67,14 +67,25 @@ Two cards: one opens the pop-up when an alarm rings, the other one inside the po
 
 | `style` | |
 | --- | --- |
-| `photo` (default) | A morning photo under a light liquid glass panel that shows the photo through it. On a tablet you see the whole photo; on a phone it fills the screen. |
+| `photo` (default) | A morning photo under a light liquid glass panel that shows the photo through it; at night a night photo under dark liquid glass. On a tablet you see the whole photo; on a phone it fills the screen. |
 | `simple` | The time and the buttons on the card's glass (default `dark-liquid`), with no photo. |
 
 ![The simple look](../images/alarm-ring/simple.webp "phone")
 
-A photo of your own: `image: /local/morning.jpg` (a file in `config/www/`). A landscape photo with free space in its middle works best: the glass panel sits there. Set `--ring-photo-ratio` (e.g. `16 / 9`) when its shape isn't 3 : 2.
+A photo of your own: `image: /local/morning.jpg` (a file in `config/www/`). A landscape photo with free space in its middle works best: the glass panel sits there. On a tablet the pop-up takes the photo's own shape.
 
-The glass panel over the photo is WebGL liquid glass (`panel_glass: liquid-gl`). **Snooze** and the slider are plain. Give them a material with `controls_glass`, and set every text's colour, font and size in the Studio's **Appearance** tab.
+### By day and at night
+
+While the sun is below the horizon (`sun.sun`), the card shows its night photo under **dark** liquid glass (WebGL) with white text. Without a `sun.sun` entity it follows Home Assistant's dark mode.
+
+```yaml
+type: custom:glass-alarm-ring
+image: /local/alarm-day.jpg          # by day
+night_image: /local/alarm-night.jpg  # at night – none: the day photo all the time
+night_panel_glass: dark-liquid-gl    # the glass at night (default)
+```
+
+The glass panel over the photo is WebGL liquid glass (`panel_glass: liquid-gl`, at night `night_panel_glass: dark-liquid-gl`). **Snooze** and the slider are plain. Give them a material with `controls_glass`, and set every text's colour, font and size in the Studio's **Appearance** tab.
 
 ## Troubleshooting
 
@@ -91,6 +102,7 @@ The glass panel over the photo is WebGL liquid glass (`panel_glass: liquid-gl`).
 | `popup` | string | display: popup – the pop-up's hash (default #alarm) |
 | `style` | "simple" \| "photo" | photo (default): a morning photo under liquid glass; simple: the time and the buttons on the card's glass |
 | `image` | string | style photo – a photo of your own (default the cards' morning photo) |
+| `night_image` | string | style photo – the photo at night, while the sun is below the horizon (sun.sun): default the cards' night photo; none – the day photo all the time |
 | `snooze` | number | Snooze: minutes until it rings again (default 10) |
 | `preview` | boolean | display: card – a sample alarm while nothing rings, to see its look |
 
@@ -103,6 +115,8 @@ Materials and colours of the card's parts – set them in the card's **Appearanc
 | `glass` | GlassMode | style simple – the card's glass (default dark-liquid) |
 | `panel_glass` | material | style photo – the glass panel over the photo (default liquid-gl, WebGL liquid glass) |
 | `panel_color` | string | Colour of the panel (a tint of its material). |
+| `night_panel_glass` | material | style photo – the glass panel at night (default dark-liquid-gl, dark WebGL liquid glass) |
+| `night_panel_color` | string | Colour of the night panel (a tint of its material). |
 | `controls_glass` | material | Snooze and the slider: their material (default plain) |
 | `controls_color` | string | Colour of the controls (a tint of its material). |
 <!-- /options -->

@@ -2030,4 +2030,7 @@ export const cs: Dict = {
   "invisible until then": "do té doby neviditelná",
   "Try it": "Vyzkoušet",
   "Snooze and slide to stop when an alarm rings – over the dashboard or in a pop-up": "Odložení a posunutí pro vypnutí, když budík zvoní – přes dashboard nebo v pop-upu",
+  "Photo at night": "Fotka v noci",
+  "While the sun is below the horizon (sun.sun). Empty = the cards' own night photo, none = the day photo all the time": "Když je slunce pod obzorem (sun.sun). Prázdné = noční fotka karet, none = pořád denní fotka",
+  "Glass at night": "Sklo v noci",
 };

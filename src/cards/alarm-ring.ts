@@ -26,9 +26,12 @@ import { matPart } from "./alarms";
  *   style: photo            # simple: the time and the buttons on glass; photo (default): a morning
  *                           #   photo, the time and the buttons on liquid glass over it
  *   image: /local/morning.jpg  # style photo – a photo of your own
+ *   night_image: /local/night.jpg  # style photo – at night (sun.sun below the horizon), under dark
+ *                           #   liquid glass; default the cards' night photo, none = the day photo
  *   snooze: 10              # Snooze: minutes (default 10)
  *   glass: dark-liquid      # style simple – its glass (default dark-liquid)
  *   panel_glass: liquid-gl  # style photo – the glass over the photo (default liquid-gl)
+ *   night_panel_glass: dark-liquid-gl  # style photo – the glass at night
  *   controls_glass: …       # Snooze and the slider: their material and a tint (controls_color)
  *
  * Swiping the alarm up snoozes it too. It needs the alarms' ringing helpers – the Glass alarms
@@ -45,6 +48,8 @@ interface RingConfig extends BaseCardConfig {
   style?: "simple" | "photo";
   /** style photo – a photo of your own (default the cards' morning photo) */
   image?: string;
+  /** style photo – the photo at night, while the sun is below the horizon (sun.sun): default the cards' night photo; none – the day photo all the time */
+  night_image?: string;
   /** Snooze: minutes until it rings again (default 10) */
   snooze?: number;
   /** style simple – the card's glass (default dark-liquid) */
@@ -52,6 +57,9 @@ interface RingConfig extends BaseCardConfig {
   /** style photo – the glass panel over the photo (default liquid-gl, WebGL liquid glass) */
   panel_glass?: Material;
   panel_color?: string;
+  /** style photo – the glass panel at night (default dark-liquid-gl, dark WebGL liquid glass) */
+  night_panel_glass?: Material;
+  night_panel_color?: string;
   /** Snooze and the slider: their material (default plain) */
   controls_glass?: Material;
   controls_color?: string;
@@ -67,6 +75,13 @@ function morningPhoto(): string {
   // ?v: a browser keeps an older picture of the same name
   return new URL("./demo-alarm-morning.jpg?v=2", bundle).href;
 }
+/** the night photo that comes with the cards (dist/demo-alarm-night.jpg) */
+function nightPhoto(): string {
+  return new URL("./demo-alarm-night.jpg?v=1", import.meta.url).href;
+}
+
+/** photos' shapes (width / height), once loaded: a tablet shows the whole photo */
+const ratios = new Map<string, number>();
 
 interface Ringing {
   h: ReturnType<typeof managedHelpers>;
@@ -121,7 +136,30 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
   private _done = new Set<string>();
 
   protected watchedEntities() {
-    return [];
+    return ["sun.sun"];
+  }
+
+  /** night: the sun below the horizon (and a night photo – none keeps the day's) */
+  private _night(): boolean {
+    const c = this._config;
+    if (c.style === "simple" || c.night_image === "none") return false;
+    const sun = this._hass?.states["sun.sun"];
+    // no sun entity: Home Assistant's dark mode stands for the night
+    return sun ? sun.state === "below_horizon" : !!this._hass?.themes?.darkMode;
+  }
+
+  /** the photo's shape for the tablet's layout, once the browser has it */
+  private _ratio(url: string): number | undefined {
+    const known = ratios.get(url);
+    if (known || ratios.has(url)) return known;
+    ratios.set(url, 0);
+    const img = new Image();
+    img.onload = () => {
+      if (img.naturalWidth && img.naturalHeight) ratios.set(url, img.naturalWidth / img.naturalHeight);
+      this.requestUpdate();
+    };
+    img.src = url;
+    return undefined;
   }
 
   protected override validateConfig(c: RingConfig): RingConfig {
@@ -356,18 +394,26 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
     const now = new Date();
     const clock = clockParts(this._hass, now.getHours(), now.getMinutes());
     const date = new Intl.DateTimeFormat(language(this._hass), { weekday: "long", day: "numeric", month: "long" }).format(now);
-    const panel = photo ? matPart(c.panel_glass ?? "liquid-gl", c.panel_color, "liquid-gl") : undefined;
+    const night = photo && this._night();
+    const panel = !photo
+      ? undefined
+      : night
+        ? matPart(c.night_panel_glass ?? "dark-liquid-gl", c.night_panel_color, "dark-liquid-gl")
+        : matPart(c.panel_glass ?? "liquid-gl", c.panel_color, "liquid-gl");
+    const image = night ? c.night_image || nightPhoto() : c.image || morningPhoto();
+    const ratio = photo ? this._ratio(image) : undefined;
     // Snooze and the slider: plain (no glass) unless controls_glass names one
     const ctl = matPart(c.controls_glass, c.controls_color, "dark");
     const minutes = c.snooze ?? 10;
     const more = list.length > 1 ? html`<span class="more">+${list.length - 1}</span>` : nothing;
     return html`<div
-      class="frame ${this.tile} ${photo ? "photo-style" : "simple"}"
+      class="frame ${this.tile} ${photo ? "photo-style" : "simple"} ${night ? "night" : ""}"
+      style=${ratio ? `--ring-photo-ratio:${ratio}` : ""}
       @pointerdown=${this._onUpDown}
       @pointerup=${(e: PointerEvent) => this._onUpEnd(e, r)}
       @pointercancel=${() => (this._up = undefined)}
     >
-      ${photo ? html`<div class="photo" style="background-image:url('${c.image || morningPhoto()}')"></div>` : nothing}
+      ${photo ? html`<div class="photo" style="background-image:url('${image}')"></div>` : nothing}
       <div class="panel ${panel?.cls ?? ""}" style=${panel?.style ?? ""}>
         <div class="label"><ha-icon .icon=${"mdi:alarm"}></ha-icon><span class="aname">${r.name}</span>${more}</div>
         <div class="now">${clock.time}${clock.ap ? html`<small>${clock.ap}</small>` : nothing}</div>
@@ -688,6 +734,33 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
       }
       .photo-style .slide:not(.mat) {
         background: rgba(0, 0, 0, 0.14);
+      }
+      /* night: the dark liquid glass (WebGL), white text on it */
+      .photo-style.night .panel {
+        color: var(--ring-night-text, #fff);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+        --glass-liquid-contrast: initial;
+        --glass-liquid-tint: initial;
+        --glass-liquid-blur: initial;
+      }
+      .photo-style.night .snooze:not(.mat) {
+        background: rgba(255, 255, 255, 0.16);
+        box-shadow: none;
+      }
+      .photo-style.night .slide:not(.mat) {
+        background: rgba(255, 255, 255, 0.14);
+      }
+      /* the night photo on a phone: its clock up, above the glass */
+      /* (a wide photo in a tall frame: the photo above the glass, a dark night under it) */
+      :host(:not([wide])) .photo-style.night {
+        background: #0b1630;
+      }
+      :host(:not([wide])) .photo-style.night .photo {
+        bottom: 34%;
+        background-size: cover;
+        background-position: 50% 100%;
+        -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent);
+        mask-image: linear-gradient(to bottom, #000 80%, transparent);
       }
       .frame .hint {
         background: none;

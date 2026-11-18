@@ -311,10 +311,11 @@ function runAction(action: ActionConfig, entity?: string): boolean {
   }
 }
 
-/** The sun for the demo: the real one in HA, else by the clock (up 7–19). */
-function sun(real?: HassEntity): HassEntity {
+/** The sun for the demo: the real one in HA, else the website's day / night (dark mode), else
+ *  by the clock (up 7–19). */
+function sun(real?: HassEntity, dark?: boolean): HassEntity {
   if (real) return real;
-  const h = new Date().getHours();
+  const h = dark === undefined ? new Date().getHours() : dark ? 22 : 12;
   const at = (hour: number, dayOffset = 0) => {
     const d = new Date();
     d.setDate(d.getDate() + dayOffset);
@@ -369,7 +370,7 @@ export function demoHass(base?: Partial<HomeAssistant>): HomeAssistant & { demo:
   const lang = base?.locale?.language ?? base?.language ?? navigator.language?.slice(0, 2) ?? "en";
   // the demo home's entities; anything else a dashboard names (a real alarm, cameras) is Home
   // Assistant's own – a demo dashboard can mix in real devices
-  const all: Record<string, HassEntity> = { ...(base?.states ?? {}), ...states, "sun.sun": sun(base?.states?.["sun.sun"]) };
+  const all: Record<string, HassEntity> = { ...(base?.states ?? {}), ...states, "sun.sun": sun(base?.states?.["sun.sun"], base?.states ? undefined : base?.themes?.darkMode) };
   const realConn = base?.connection as any;
   const connection = {
     subscribeMessage: async (cb: (m: unknown) => void, msg: Record<string, unknown>) => {
