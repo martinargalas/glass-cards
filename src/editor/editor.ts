@@ -418,6 +418,7 @@ export const NEW_CARDS: [string, string, string, string][] = [
   ["custom:glass-camera", "Camera", "mdi:cctv", "Live picture and Frigate's recordings"],
   ["custom:glass-security", "Security", "mdi:shield-home", "Alarm panel: modes, countdown, keypad (Alarmo or any alarm)"],
   ["custom:glass-alarms", "Alarms", "mdi:alarm", "Alarms with their days, speakers and sound"],
+  ["custom:glass-alarm-ring", "Alarm ringing", "mdi:alarm-bell", "Snooze and slide to stop when an alarm rings – over the dashboard or in a pop-up"],
   ["custom:glass-notifications", "Notifications", "mdi:bell-outline", "Messages and alerts in a pill from the top"],
   ["custom:glass-air-quality", "Air quality", "mdi:air-filter", "Air quality index and every pollutant"],
   ["custom:glass-radar", "Radar", "mdi:radar", "Clouds and precipitation radar over the last hour"],

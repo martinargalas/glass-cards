@@ -49,6 +49,7 @@ YAML is there for when you want to copy, share or fine-tune.
 | [Thermostat](cards/thermostat.md) | Room temperature with a soft graph and the set point |
 | [Blind](cards/blind.md) | Blinds, rollers and gates: position and tilt bars, stop while it moves, quick choices, the automation's pause |
 | [Alarms](cards/alarms.md) | Alarm clocks in one list: time, days, speakers and sound, no ringing on days off – you add them in the card |
+| [Alarm ringing](cards/alarm-ring.md) | The alarm when it rings: Snooze and slide to stop, over the dashboard or in a pop-up, on a morning photo under liquid glass |
 | [Appliance](cards/appliance.md) | Washers, robot vacuums and mowers as bars with their controls |
 | [Room map](cards/room-map.md) | Pick rooms or lawn zones on a robot's map and clean or mow just those |
 

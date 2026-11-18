@@ -103,7 +103,8 @@ for (const file of readdirSync(SRC).filter((f) => f.endsWith(".ts"))) {
     if (!existsSync(page)) continue;
     const row = (o) => `| \`${o.name}\`${o.optional ? "" : " **required**"} | ${prettyType(o.type)} | ${o.doc || texts.get(o.name) || generic.get(o.name) || lookText(o.name)} |`;
     const head = ["| Option | Type | What it does |", "| --- | --- | --- |"];
-    const list = options.filter((o) => !SKIP.has(o.name));
+    // an option the card sets itself ("internal: …" in its comment) is not one to set
+    const list = options.filter((o) => !SKIP.has(o.name) && !/^internal\b/i.test(o.doc));
     const main = list.filter((o) => !isLook(o.name)).map(row);
     const look = list.filter((o) => isLook(o.name)).map(row);
     const table = [

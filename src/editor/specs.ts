@@ -2,7 +2,7 @@ import { PRESETS, knownPopups, trackList } from "../core/layout";
 import { t } from "./i18n";
 import { tr } from "../i18n";
 import { MATERIALS } from "../core/materials";
-import { AIR_QUALITY_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, CAMERA_PARTS, SECURITY_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
+import { AIR_QUALITY_PARTS, ALARM_RING_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, CAMERA_PARTS, SECURITY_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
 import { ANIMATION_FIELD, COLOR_FIELD, CONTROL_GLASS_FIELD, ICON_FIELD, TEXT_FIELD, TINT_FIELD, GLASS_FIELD, YAML, actionFields, expandable, grid, part, select, type Credit, type EditorSpec, type Schema, foreignCards, hasDock } from "./editor";
 
 const ALIGN: [string, string][] = [
@@ -2177,6 +2177,69 @@ const SHEET_GLASS_FIELD: Schema = {
 /** The alarm cards' days off: any calendars, their all-day events. */
 const DAYS_OFF_HINT =
   "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays… An alarm on weekdays doesn't ring on them, an alarm with a weekend day rings on them as on a weekend (each alarm can turn that off in its settings). Events with a time – a meeting at 6:00 – don't count.";
+
+export const alarmRingSpec: EditorSpec = {
+  parts: ALARM_RING_PARTS,
+  defaults: { display: "modal", style: "photo", snooze: 10 },
+  form: (c) => [
+    {
+      custom: "section",
+      key: "ring",
+      title: "When an alarm rings",
+      open: true,
+      schema: [
+        { custom: "hint", text: "Invisible until an alarm of the Glass alarms card rings: then Snooze (a tap, or a swipe up) and slide to stop. Put it once on the dashboard. See the documentation: Alarm ringing." },
+        {
+          ...select("display", [
+            ["modal", "Modal over the dashboard"],
+            ["popup", "Bubble Card pop-up (opens it)"],
+            ["card", "In this card (the one inside the pop-up)"],
+          ]),
+          label: "Show as",
+          helper: "Modal needs nothing else. A Bubble Card pop-up: this card opens it – put a second one into the pop-up, shown as In this card",
+        },
+        ...(c.display === "popup"
+          ? [
+              { name: "popup", label: "The pop-up's hash", helper: "#alarm – the Bubble Card pop-up to open", selector: { text: {} } },
+            ]
+          : []),
+        {
+          ...select("snooze", [
+            ["5", "5 minutes"],
+            ["9", "9 minutes"],
+            ["10", "10 minutes"],
+            ["15", "15 minutes"],
+          ]),
+          label: "Snooze",
+        },
+        ...(c.display === "card" || c.inline
+          ? [{ name: "preview", label: "Show a sample", helper: "While nothing rings – to see its look", selector: { boolean: {} } }]
+          : []),
+      ],
+    },
+    {
+      custom: "section",
+      key: "look",
+      title: "Look",
+      schema: [
+        {
+          ...select("style", [
+            ["photo", "A morning photo under liquid glass"],
+            ["simple", "Simple: the time and the buttons on glass"],
+          ]),
+          label: "Style",
+        },
+        ...(c.style !== "simple"
+          ? [
+              { name: "image", label: "Photo", helper: "Empty = the cards' own morning photo", selector: { text: {} } },
+              grid({ ...select("panel_glass", [["", "Default"], ...MATERIALS]), label: "Glass over the photo" }, { ...COLOR_FIELD("panel_color"), label: "Its colour" }),
+            ]
+          : []),
+        grid({ ...select("controls_glass", [["", "Default"], ...MATERIALS]), label: "Buttons' material" }, { ...COLOR_FIELD("controls_color"), label: "Buttons' colour" }),
+      ],
+    },
+  ],
+};
 
 export const alarmsSpec: EditorSpec = {
   parts: ALARMS_PARTS,

@@ -46,6 +46,15 @@ export const ALARMS_PARTS: PartDef[] = [
   icon("where", ".where ha-icon", "Speaker icon", "Icons"),
 ];
 
+export const ALARM_RING_PARTS: PartDef[] = [
+  text("name", ".aname", "Alarm name", "Text"),
+  text("now", ".now", "Time", "Text"),
+  text("date", ".date", "Date", "Text"),
+  text("snooze", ".snooze span", "Snooze", "Text"),
+  text("hint", ".hint", "Slide to stop", "Text"),
+  icon("alarm", ".label ha-icon", "Alarm icon", "Icons"),
+];
+
 export const THERMOSTAT_PARTS: PartDef[] = [
   text("name", ".name", "Name", "Text"),
   text("value", ".val, .val small", "Temperature", "Text"),

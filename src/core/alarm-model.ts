@@ -29,6 +29,10 @@ export interface AlarmHelpers {
   name?: string;
   /** where it rings: an input_text with media players, comma separated */
   player?: string;
+  /** on while it rings (input_boolean): off stops it – the ringing notice */
+  ringing?: string;
+  /** snoozed until (input_datetime with a date): it rings again then */
+  snooze?: string;
   /** what plays: an input_text with a sound's address */
   sound?: string;
 }
@@ -282,7 +286,17 @@ export function managedHelpers(n: number): Required<AlarmHelpers> {
     name: `input_text.${id}_name`,
     player: `input_text.${id}_player`,
     sound: `input_text.${id}_sound`,
+    ringing: `input_boolean.${id}_ringing`,
+    snooze: `input_datetime.${id}_snooze`,
   };
+}
+
+/** The ringing helpers of alarm n (created with it, or added to an older one). */
+async function createRingHelpers(hass: HomeAssistant, n: number) {
+  const base = `Glass alarm ${n}`;
+  const h = managedHelpers(n);
+  if (!hass.states[h.ringing]) await hass.callWS({ type: "input_boolean/create", name: `${base} ringing`, icon: "mdi:alarm-bell" });
+  if (!hass.states[h.snooze]) await hass.callWS({ type: "input_datetime/create", name: `${base} snooze`, has_date: true, has_time: true, icon: "mdi:alarm-snooze" });
 }
 
 /** The alarms the cards created, found by their helpers: their numbers, in order. */
@@ -320,6 +334,7 @@ export async function createAlarm(hass: HomeAssistant, opts: { name: string; tim
   await ws({ type: "input_text/create", name: `${base} player`, max: 255, icon: "mdi:speaker" });
   await ws({ type: "input_text/create", name: `${base} sound`, max: 255, icon: "mdi:music-note" });
   await ws({ type: "input_boolean/create", name: `${base} holidays`, icon: "mdi:calendar-star" });
+  await createRingHelpers(hass, n);
   const h = managedHelpers(n);
   // the helpers' first values (a new entity takes a moment to exist)
   await waitFor(hass, [h.entity, h.days, h.name, h.player, h.sound]);
@@ -343,10 +358,50 @@ export async function createAlarm(hass: HomeAssistant, opts: { name: string; tim
         skip_holidays_entity: h.skip_holidays,
         players_entity: h.player,
         sound_entity: h.sound,
+        ringing_entity: h.ringing,
+        snooze_entity: h.snooze,
       },
     },
   });
   return n;
+}
+
+/**
+ * Alarms created by an older card: no ringing helpers yet – created, and their automations
+ * given them (the ringing notice, snooze, the sound until it's stopped).
+ */
+async function addRingHelpers(hass: HomeAssistant) {
+  for (const n of managedAlarms(hass)) {
+    const h = managedHelpers(n);
+    if (hass.states[h.ringing] && hass.states[h.snooze]) continue;
+    await createRingHelpers(hass, n);
+    const id = `${PREFIX}${n}`;
+    const cfg = await hass.callApi!<{ use_blueprint?: { input?: Record<string, unknown> } }>("GET", `config/automation/config/${id}`).catch(() => undefined);
+    if (!cfg?.use_blueprint) continue;
+    cfg.use_blueprint.input = { ...cfg.use_blueprint.input, ringing_entity: h.ringing, snooze_entity: h.snooze };
+    await hass.callApi!("POST", `config/automation/config/${id}`, cfg);
+  }
+}
+
+/** Stops a ringing alarm: its sound now, the notice gone (its automation ends with the helper). */
+export async function stopAlarm(hass: HomeAssistant, h: AlarmHelpers) {
+  if (h.ringing) await hass.callService("input_boolean", "turn_off", { entity_id: h.ringing });
+  const players = (h.player ? hass.states[h.player]?.state ?? "" : "")
+    .split(/[,;]/)
+    .map((x) => x.trim())
+    .filter((x) => x.startsWith("media_player."));
+  if (players.length) await hass.callService("media_player", "media_stop", { entity_id: players }).catch(() => undefined);
+}
+
+/** Snoozes a ringing alarm: it stops, and rings again in `minutes`. */
+export async function snoozeAlarm(hass: HomeAssistant, h: AlarmHelpers, minutes = 10) {
+  if (h.snooze) {
+    const t = new Date(Date.now() + minutes * 60000);
+    const pad = (x: number) => String(x).padStart(2, "0");
+    const datetime = `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())} ${pad(t.getHours())}:${pad(t.getMinutes())}:${pad(t.getSeconds())}`;
+    await hass.callService("input_datetime", "set_datetime", { entity_id: h.snooze, datetime });
+  }
+  await stopAlarm(hass, h);
 }
 
 /** Saves the blueprint that ships with the cards into HA (over an older copy). */
@@ -381,9 +436,12 @@ export async function updateBlueprint(hass: HomeAssistant) {
   try {
     const list = await hass.callWS<Record<string, { metadata?: { source_url?: string } }>>({ type: "blueprint/list", domain: "automation" });
     const saved = list[BLUEPRINT_PATH];
-    if (!saved || saved.metadata?.source_url === BLUEPRINT_URL) return;
-    await installBlueprint(hass);
-    await hass.callService("automation", "reload");
+    if (saved && saved.metadata?.source_url !== BLUEPRINT_URL) {
+      await installBlueprint(hass);
+      await hass.callService("automation", "reload");
+    }
+    // after the blueprint: the automations' new inputs are its
+    if (saved) await addRingHelpers(hass);
   } catch {
     // not this time: the next page load tries again
   }

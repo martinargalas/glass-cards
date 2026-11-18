@@ -73,13 +73,17 @@ sounds:
 
 The speaker downloads the sound from Home Assistant. For sounds from `/local/…` (Birds included) set the *local network* address in *Settings → System → Network*.
 
+## When it rings
+
+Add the [Alarm ringing](alarm-ring.md) card once to the dashboard: when an alarm rings it shows the time with **Snooze** and a slider that stops it, over the dashboard or in a pop-up.
+
 ## Actions when it rings
 
 Every alarm has an automation, **Glass alarm 1**, **Glass alarm 2**… (*Settings → Automations & scenes*). Add your own **Actions** there – open the blinds, turn on the lights – and set **Volume**, **Getting louder** and **Stop after**.
 
 ## What the card creates
 
-For each new alarm: **helpers** named *Glass alarm 1 …* that store its settings, and **an automation** that rings it, made from the **Glass alarm** blueprint. The card adds the blueprint to Home Assistant itself and updates it with new versions of the cards. **Delete the alarm** removes all of it. Don't rename the helpers – the card finds its alarms by their names.
+For each new alarm: **helpers** named *Glass alarm 1 …* that store its settings (and whether it's ringing or snoozed), and **an automation** that rings it, made from the **Glass alarm** blueprint. The card adds the blueprint to Home Assistant itself and updates it with new versions of the cards. **Delete the alarm** removes all of it. Don't rename the helpers – the card finds its alarms by their names.
 
 ## Troubleshooting
 

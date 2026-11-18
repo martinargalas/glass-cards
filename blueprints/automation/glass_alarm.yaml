@@ -145,6 +145,33 @@ blueprint:
               min: 0
               max: 120
               unit_of_measurement: min
+    ringing:
+      name: Ringing
+      icon: mdi:alarm-bell
+      collapsed: true
+      input:
+        ringing_entity:
+          name: Ringing (helper)
+          description: >-
+            An input_boolean that is on while the alarm rings – the cards' ringing notice
+            (custom:glass-alarm-ring) shows it. Turning it off stops the sound; while it is on
+            the sound plays again whenever it ends. Empty = it plays once, as set above.
+          default: ""
+          selector:
+            entity:
+              filter:
+                - domain: input_boolean
+        snooze_entity:
+          name: Snooze (helper)
+          description: >-
+            An input_datetime with a date and a time – Snooze in the ringing notice sets it a
+            few minutes on, and the alarm rings again then (on any day, also an alarm set to
+            ring once).
+          default: ""
+          selector:
+            entity:
+              filter:
+                - domain: input_datetime
     more:
       name: More
       icon: mdi:play-box-multiple
@@ -157,10 +184,15 @@ blueprint:
           selector:
             action: {}
 
-mode: single
+mode: restart
+
+trigger_variables:
+  snooze_entity: !input snooze_entity
 
 variables:
   switch_entity: !input switch_entity
+  ringing_entity: !input ringing_entity
+  snoozed: "{{ trigger.id == 'snooze' }}"
   days_entity: !input days_entity
   skip_calendars_input: !input skip_calendars
   skip_calendars: "{{ [skip_calendars_input] if skip_calendars_input is string else skip_calendars_input }}"
@@ -199,21 +231,28 @@ variables:
 triggers:
   - trigger: time
     at: !input time_entity
+    id: ring
+  # snoozed: the snooze helper's moment has come (a moment set in the past doesn't ring)
+  - trigger: template
+    id: snooze
+    value_template: >-
+      {% set t = as_timestamp(states(snooze_entity), 0) if snooze_entity else 0 %}
+      {{ t > 0 and now().timestamp() >= t and now().timestamp() - t < 300 }}
 
 conditions:
-  - alias: The alarm is on
+  - alias: The alarm is on (a snoozed one rings anyway)
     condition: template
-    value_template: "{{ not switch_entity or is_state(switch_entity, 'on') }}"
+    value_template: "{{ snoozed or not switch_entity or is_state(switch_entity, 'on') }}"
   - alias: It rings today (or, on a weekend day's alarm, it may be a day off)
     condition: template
-    value_template: "{{ rings_today or (as_weekend and skipping) }}"
+    value_template: "{{ snoozed or rings_today or (as_weekend and skipping) }}"
 
 actions:
   # a day off in the calendars (an all-day event today): a weekday alarm doesn't ring,
   # a weekend alarm rings as on a weekend
   - if:
       - condition: template
-        value_template: "{{ skipping }}"
+        value_template: "{{ skipping and not snoozed }}"
     then:
       - action: calendar.get_events
         target:
@@ -245,11 +284,20 @@ actions:
   # once: off now, so it doesn't ring again tomorrow
   - if:
       - condition: template
-        value_template: "{{ once and switch_entity != '' }}"
+        value_template: "{{ once and switch_entity != '' and not snoozed }}"
     then:
       - action: homeassistant.turn_off
         target:
           entity_id: "{{ switch_entity }}"
+  - if:
+      - condition: template
+        value_template: "{{ ringing_entity != '' }}"
+    then:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: "{{ ringing_entity }}"
+  - variables:
+      started: "{{ now().timestamp() }}"
   # the sound and your actions at the same time
   - parallel:
       - if:
@@ -270,26 +318,91 @@ actions:
                 media_content_id: "{{ media.media_content_id }}"
                 media_content_type: "{{ media.media_content_type }}"
             continue_on_error: true
-          # louder in ten steps
-          - repeat:
-              count: "{{ 10 if fade_in > 0 else 0 }}"
-              sequence:
-                - delay:
-                    seconds: "{{ fade_in / 10 }}"
-                - action: media_player.volume_set
-                  target:
-                    entity_id: "{{ players }}"
-                  data:
-                    volume_level: "{{ (0.05 + (volume / 100 - 0.05) * repeat.index / 10) | round(2) }}"
-                  continue_on_error: true
           - if:
               - condition: template
-                value_template: "{{ stop_after > 0 }}"
+                value_template: "{{ ringing_entity == '' }}"
             then:
-              - delay:
-                  seconds: "{{ [stop_after * 60 - fade_in, 0] | max }}"
+              # louder in ten steps
+              - repeat:
+                  count: "{{ 10 if fade_in > 0 else 0 }}"
+                  sequence:
+                    - delay:
+                        seconds: "{{ fade_in / 10 }}"
+                    - action: media_player.volume_set
+                      target:
+                        entity_id: "{{ players }}"
+                      data:
+                        volume_level: "{{ (0.05 + (volume / 100 - 0.05) * repeat.index / 10) | round(2) }}"
+                      continue_on_error: true
+              - if:
+                  - condition: template
+                    value_template: "{{ stop_after > 0 }}"
+                then:
+                  - delay:
+                      seconds: "{{ [stop_after * 60 - fade_in, 0] | max }}"
+                  - action: media_player.media_stop
+                    target:
+                      entity_id: "{{ players }}"
+                    continue_on_error: true
+            else:
+              # rings until the ringing helper goes off (stop or snooze), or stop_after: louder
+              # over fade_in, the sound again whenever it has ended
+              - repeat:
+                  until:
+                    - condition: template
+                      value_template: >-
+                        {{ not is_state(ringing_entity, 'on')
+                           or (stop_after > 0 and now().timestamp() - started >= stop_after * 60) }}
+                  sequence:
+                    - wait_template: "{{ not is_state(ringing_entity, 'on') }}"
+                      timeout:
+                        seconds: "{{ [fade_in / 10, 5] | min if fade_in > 0 else 5 }}"
+                      continue_on_timeout: true
+                    - if:
+                        - condition: template
+                          value_template: "{{ is_state(ringing_entity, 'on') }}"
+                      then:
+                        - if:
+                            - condition: template
+                              value_template: "{{ fade_in > 0 and now().timestamp() - started <= fade_in + 5 }}"
+                          then:
+                            - action: media_player.volume_set
+                              target:
+                                entity_id: "{{ players }}"
+                              data:
+                                volume_level: >-
+                                  {% set k = [(now().timestamp() - started) / fade_in, 1] | min %}
+                                  {{ (0.05 + (volume / 100 - 0.05) * k) | round(2) }}
+                              continue_on_error: true
+                        - if:
+                            - condition: template
+                              value_template: "{{ players | select('is_state', 'playing') | list | count == 0 }}"
+                          then:
+                            - action: media_player.play_media
+                              target:
+                                entity_id: "{{ players }}"
+                              data:
+                                media:
+                                  media_content_id: "{{ media.media_content_id }}"
+                                  media_content_type: "{{ media.media_content_type }}"
+                              continue_on_error: true
               - action: media_player.media_stop
                 target:
                   entity_id: "{{ players }}"
                 continue_on_error: true
       - sequence: !input actions
+  - if:
+      - condition: template
+        value_template: "{{ ringing_entity != '' and not (players | count > 0 and media.media_content_id is defined) }}"
+    then:
+      - wait_template: "{{ not is_state(ringing_entity, 'on') }}"
+        timeout:
+          minutes: "{{ stop_after if stop_after > 0 else 60 }}"
+        continue_on_timeout: true
+  - if:
+      - condition: template
+        value_template: "{{ ringing_entity != '' }}"
+    then:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: "{{ ringing_entity }}"

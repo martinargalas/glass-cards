@@ -1666,6 +1666,7 @@ views:
                     color: orange
                 hide_empty: true
             overlay:
+              - type: custom:glass-alarm-ring
               - type: custom:glass-dock
                 items:
                   - icon: mdi:lightbulb-group
@@ -1682,6 +1683,8 @@ views:
                     link: "#security"
                   - icon: mdi:broom
                     link: "#cleaning"
+                  - icon: mdi:dots-horizontal-circle-outline
+                    link: "#more"
                 indicator: dot
                 bare: true
                 scroll: true
@@ -1708,6 +1711,7 @@ views:
         wallpaper: glass:hills-day
         look: apple-home
         overlay:
+          - type: custom:glass-alarm-ring
           - type: custom:glass-dock
             items:
               - icon: mdi:lightbulb-group
@@ -1724,6 +1728,8 @@ views:
                 link: "#security"
               - icon: mdi:broom
                 link: "#cleaning"
+              - icon: mdi:dots-horizontal-circle-outline
+                link: "#more"
             indicator: dot
             bare: true
             fade: true

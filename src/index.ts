@@ -26,6 +26,7 @@ import "./cards/thermostat";
 import "./cards/heat-pump";
 import "./cards/blind";
 import "./cards/alarms";
+import "./cards/alarm-ring";
 import "./cards/camera";
 import "./cards/security";
 import "./cards/automation-parts";

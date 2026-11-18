@@ -2,6 +2,225 @@
 import type { DemoState } from "./world";
 
 export const HOME: Record<string, DemoState> = {
+ "input_boolean.glass_alarm_1_ringing": [
+  "off",
+  {
+   "friendly_name": "Kids' room ringing"
+  }
+ ],
+ "input_datetime.glass_alarm_1_snooze": [
+  "2026-01-01 00:00:00",
+  {
+   "has_date": true,
+   "has_time": true,
+   "friendly_name": "Kids' room snooze"
+  }
+ ],
+ "input_boolean.glass_alarm_2_ringing": [
+  "off",
+  {
+   "friendly_name": "Bedroom ringing"
+  }
+ ],
+ "input_datetime.glass_alarm_2_snooze": [
+  "2026-01-01 00:00:00",
+  {
+   "has_date": true,
+   "has_time": true,
+   "friendly_name": "Bedroom snooze"
+  }
+ ],
+ "input_boolean.glass_alarm_3_ringing": [
+  "off",
+  {
+   "friendly_name": "Weekend ringing"
+  }
+ ],
+ "input_datetime.glass_alarm_3_snooze": [
+  "2026-01-01 00:00:00",
+  {
+   "has_date": true,
+   "has_time": true,
+   "friendly_name": "Weekend snooze"
+  }
+ ],
+ "input_datetime.glass_alarm_1_time": [
+  "06:45:00",
+  {
+   "has_date": false,
+   "has_time": true,
+   "hour": 6,
+   "minute": 45,
+   "second": 0,
+   "friendly_name": "Kids' room time"
+  }
+ ],
+ "input_boolean.glass_alarm_1": [
+  "on",
+  {
+   "friendly_name": "Kids' room"
+  }
+ ],
+ "input_text.glass_alarm_1_days": [
+  "workdays",
+  {
+   "friendly_name": "Kids' room days",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_boolean.glass_alarm_1_holidays": [
+  "on",
+  {
+   "friendly_name": "Kids' room days off"
+  }
+ ],
+ "input_text.glass_alarm_1_name": [
+  "Kids' room",
+  {
+   "friendly_name": "Kids' room name",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_text.glass_alarm_1_player": [
+  "media_player.bedroom_speaker",
+  {
+   "friendly_name": "Kids' room speakers",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_text.glass_alarm_1_sound": [
+  "",
+  {
+   "friendly_name": "Kids' room sound",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_datetime.glass_alarm_2_time": [
+  "07:15:00",
+  {
+   "has_date": false,
+   "has_time": true,
+   "hour": 7,
+   "minute": 15,
+   "second": 0,
+   "friendly_name": "Bedroom time"
+  }
+ ],
+ "input_boolean.glass_alarm_2": [
+  "off",
+  {
+   "friendly_name": "Bedroom"
+  }
+ ],
+ "input_text.glass_alarm_2_days": [
+  "workdays",
+  {
+   "friendly_name": "Bedroom days",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_boolean.glass_alarm_2_holidays": [
+  "on",
+  {
+   "friendly_name": "Bedroom days off"
+  }
+ ],
+ "input_text.glass_alarm_2_name": [
+  "Bedroom",
+  {
+   "friendly_name": "Bedroom name",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_text.glass_alarm_2_player": [
+  "media_player.bedroom_speaker,media_player.office",
+  {
+   "friendly_name": "Bedroom speakers",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_text.glass_alarm_2_sound": [
+  "",
+  {
+   "friendly_name": "Bedroom sound",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_datetime.glass_alarm_3_time": [
+  "09:00:00",
+  {
+   "has_date": false,
+   "has_time": true,
+   "hour": 9,
+   "minute": 0,
+   "second": 0,
+   "friendly_name": "Weekend time"
+  }
+ ],
+ "input_boolean.glass_alarm_3": [
+  "on",
+  {
+   "friendly_name": "Weekend"
+  }
+ ],
+ "input_text.glass_alarm_3_days": [
+  "weekends",
+  {
+   "friendly_name": "Weekend days",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_boolean.glass_alarm_3_holidays": [
+  "off",
+  {
+   "friendly_name": "Weekend days off"
+  }
+ ],
+ "input_text.glass_alarm_3_name": [
+  "Weekend",
+  {
+   "friendly_name": "Weekend name",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_text.glass_alarm_3_player": [
+  "media_player.office",
+  {
+   "friendly_name": "Weekend speakers",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
+ "input_text.glass_alarm_3_sound": [
+  "",
+  {
+   "friendly_name": "Weekend sound",
+   "max": 255,
+   "min": 0,
+   "mode": "text"
+  }
+ ],
  "alarm_control_panel.hub_security": [
   "disarmed",
   {

@@ -20,7 +20,7 @@ views:
             hide_gradient: true
             styles: |2-
               
-               .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color {
+               .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color, .more > .bubble-background-color {
                 background: var(--button-card-background) !important;
                 border: 1px solid var(--button-card-border) !important;
                 box-shadow:
@@ -29,15 +29,15 @@ views:
                 backdrop-filter: blur(35px) saturate(100%) !important;
                 -webkit-backdrop-filter: blur(35px) saturate(100%) !important;
               }
-               .lights > .bubble-background, .blinds > .bubble-background, .media > .bubble-background, .movies > .bubble-background, .weather > .bubble-background, .energy > .bubble-background, .heating > .bubble-background, .security > .bubble-background, .cleaning > .bubble-background {
+               .lights > .bubble-background, .blinds > .bubble-background, .media > .bubble-background, .movies > .bubble-background, .weather > .bubble-background, .energy > .bubble-background, .heating > .bubble-background, .security > .bubble-background, .cleaning > .bubble-background, .more > .bubble-background {
                 background: rgba(0,0,0,0) !important;
               }
-              /* ikony */ .lights > .bubble-icon, .blinds > .bubble-icon, .media > .bubble-icon, .movies > .bubble-icon, .weather > .bubble-icon, .energy > .bubble-icon, .heating > .bubble-icon, .security > .bubble-icon, .cleaning > .bubble-icon {
+              /* ikony */ .lights > .bubble-icon, .blinds > .bubble-icon, .media > .bubble-icon, .movies > .bubble-icon, .weather > .bubble-icon, .energy > .bubble-icon, .heating > .bubble-icon, .security > .bubble-icon, .cleaning > .bubble-icon, .more > .bubble-icon {
                 color: var(--button-card-icon) !important;
                 filter: drop-shadow(0 2px 6px var(--button-card-icon-shadow)) !important;
                 transition: color 0.3s ease !important;
               }
-               .lights > .bubble-name, .blinds > .bubble-name, .media > .bubble-name, .movies > .bubble-name, .weather > .bubble-name, .energy > .bubble-name, .heating > .bubble-name, .security > .bubble-name, .cleaning > .bubble-name {
+               .lights > .bubble-name, .blinds > .bubble-name, .media > .bubble-name, .movies > .bubble-name, .weather > .bubble-name, .energy > .bubble-name, .heating > .bubble-name, .security > .bubble-name, .cleaning > .bubble-name, .more > .bubble-name {
                 color: var(--button-card-name) !important;
               }
                .bubble-button.highlight > .bubble-icon {
@@ -79,6 +79,9 @@ views:
             7_link: "#cleaning"
             7_name: ""
             7_icon: mdi:broom
+            8_link: "#more"
+            8_name: ""
+            8_icon: mdi:dots-horizontal-circle-outline
       - type: grid
         cards:
           - type: custom:bubble-card
@@ -1579,6 +1582,64 @@ views:
         cards:
           - type: custom:bubble-card
             card_type: pop-up
+            hash: "#more"
+            margin_top_desktop: -7%
+            width_desktop: 1080px
+            bg_blur: 50
+            bg_opacity: 0
+            is_sidebar_hidden: true
+            auto_close: 60000
+            icon: mdi:dots-horizontal-circle-outline
+            name: More
+            hide_backdrop: true
+            cards:
+              - type: custom:glass-popup-header
+                name: More
+                icon: mdi:dots-horizontal-circle-outline
+              - type: custom:glass-panel
+                glass: none
+                layout: row
+                gap: 22
+                padding: 0 6px
+                align: start
+                cards:
+                  - type: custom:glass-panel
+                    glass: none
+                    layout: column
+                    gap: 18
+                    padding: 0
+                    view_layout:
+                      grow: 1
+                      basis: 0px
+                    cards:
+                      - type: custom:glass-security
+                        entity: alarm_control_panel.hub_security
+                      - type: custom:glass-room-card
+                        layout: compact
+                        name: Alarm ringing
+                        image: glass:demo/alarm-morning.jpg
+                        status: info
+                        info:
+                          - text: Try it – ring the Kids' room alarm
+                        tap_action:
+                          action: perform-action
+                          perform_action: input_boolean.turn_on
+                          target:
+                            entity_id: input_boolean.glass_alarm_1_ringing
+                        entities:
+                          - entity: input_boolean.glass_alarm_1_ringing
+                            icon: mdi:alarm-bell
+                            name: Ring
+                  - type: custom:glass-alarms
+                    title: Alarms
+                    view_layout:
+                      grow: 1
+                      basis: 0px
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
             hash: "#security_front"
             margin_top_desktop: -7%
             width_desktop: 1280px
@@ -1663,7 +1724,7 @@ views:
             hide_gradient: true
             styles: |2-
               
-               .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color {
+               .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color, .more > .bubble-background-color {
                 background: var(--button-card-background) !important;
                 border: 1px solid var(--button-card-border) !important;
                 box-shadow:
@@ -1672,15 +1733,15 @@ views:
                 backdrop-filter: blur(35px) saturate(100%) !important;
                 -webkit-backdrop-filter: blur(35px) saturate(100%) !important;
               }
-               .lights > .bubble-background, .blinds > .bubble-background, .media > .bubble-background, .movies > .bubble-background, .weather > .bubble-background, .energy > .bubble-background, .heating > .bubble-background, .security > .bubble-background, .cleaning > .bubble-background {
+               .lights > .bubble-background, .blinds > .bubble-background, .media > .bubble-background, .movies > .bubble-background, .weather > .bubble-background, .energy > .bubble-background, .heating > .bubble-background, .security > .bubble-background, .cleaning > .bubble-background, .more > .bubble-background {
                 background: rgba(0,0,0,0) !important;
               }
-              /* ikony */ .lights > .bubble-icon, .blinds > .bubble-icon, .media > .bubble-icon, .movies > .bubble-icon, .weather > .bubble-icon, .energy > .bubble-icon, .heating > .bubble-icon, .security > .bubble-icon, .cleaning > .bubble-icon {
+              /* ikony */ .lights > .bubble-icon, .blinds > .bubble-icon, .media > .bubble-icon, .movies > .bubble-icon, .weather > .bubble-icon, .energy > .bubble-icon, .heating > .bubble-icon, .security > .bubble-icon, .cleaning > .bubble-icon, .more > .bubble-icon {
                 color: var(--button-card-icon) !important;
                 filter: drop-shadow(0 2px 6px var(--button-card-icon-shadow)) !important;
                 transition: color 0.3s ease !important;
               }
-               .lights > .bubble-name, .blinds > .bubble-name, .media > .bubble-name, .movies > .bubble-name, .weather > .bubble-name, .energy > .bubble-name, .heating > .bubble-name, .security > .bubble-name, .cleaning > .bubble-name {
+               .lights > .bubble-name, .blinds > .bubble-name, .media > .bubble-name, .movies > .bubble-name, .weather > .bubble-name, .energy > .bubble-name, .heating > .bubble-name, .security > .bubble-name, .cleaning > .bubble-name, .more > .bubble-name {
                 color: var(--button-card-name) !important;
               }
                .bubble-button.highlight > .bubble-icon {
@@ -1722,6 +1783,9 @@ views:
             7_link: "#cleaning"
             7_name: ""
             7_icon: mdi:broom
+            8_link: "#more"
+            8_name: ""
+            8_icon: mdi:dots-horizontal-circle-outline
       - type: grid
         cards:
           - type: custom:bubble-card
@@ -3222,4 +3286,56 @@ views:
                                   "Off": "Off"
                                   B&W Night Vision: Black and white
                                   Color Night Vision: Colour
+            show_header: false
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#more"
+            width_desktop: 340px
+            margin_top_mobile: -56px
+            bg_blur: 50
+            bg_opacity: 0
+            hide_backdrop: true
+            icon: mdi:dots-horizontal-circle-outline
+            margin_top_desktop: -35px
+            name: More
+            cards:
+              - type: custom:glass-panel
+                glass: none
+                layout: column
+                gap: 14
+                padding: 0
+                cards:
+                  - type: custom:glass-popup-header
+                    name: More
+                    icon: mdi:dots-horizontal-circle-outline
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-security
+                    entity: alarm_control_panel.hub_security
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-alarms
+                    title: Alarms
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-room-card
+                    layout: compact
+                    name: Alarm ringing
+                    image: glass:demo/alarm-morning.jpg
+                    status: info
+                    info:
+                      - text: Try it – ring the Kids' room alarm
+                    tap_action:
+                      action: perform-action
+                      perform_action: input_boolean.turn_on
+                      target:
+                        entity_id: input_boolean.glass_alarm_1_ringing
+                    entities:
+                      - entity: input_boolean.glass_alarm_1_ringing
+                        icon: mdi:alarm-bell
+                        name: Ring
+                    view_layout:
+                      height: auto
             show_header: false
