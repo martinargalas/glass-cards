@@ -24,6 +24,8 @@ On a wide card the recordings are a column on the left and the picture is on the
 
 Without Frigate the card shows the live picture and the camera's entities only.
 
+The card has no connection settings of its own – no Frigate address, no password, no RTSP link it opens itself. The recordings come through Home Assistant's Frigate integration (which also plays them through its own proxy, so the browser never reaches Frigate directly), and the live picture through WebRTC Camera and go2rtc.
+
 **For the liquid glass (WebGL) on the picture:** a browser with WebGL. Without it the other materials work as usual.
 
 ## Add the card
@@ -116,7 +118,7 @@ cameras:
     poster: image.front_door_snapshot
 ```
 
-`url`, `entity`, `streams`, `poster`, `poster_remote`, `title`, `mode`, `media`, `server`, `ui`, `muted`, `background`, `intersection`, `style`, `shortcuts`, `ptz` and `digital_ptz` work as in [WebRTC Camera's documentation](https://github.com/AlexxIT/WebRTC). The card sets `ui: false` and `muted: true` unless you set them, and uses the camera's picture as the `poster`.
+`url`, `entity`, `streams`, `poster`, `poster_remote`, `title`, `mode`, `media`, `server`, `ui`, `muted`, `background`, `intersection`, `style`, `shortcuts`, `ptz` and `digital_ptz` work as in [WebRTC Camera's documentation](https://github.com/AlexxIT/WebRTC). The card sets `ui: false`, `muted: true` and `digital_ptz: false` unless you set them, and uses the camera's picture as the `poster`. (`digital_ptz` is WebRTC Camera's own zoom: the card zooms the picture itself, see [Full screen and zoom](#full-screen-and-zoom), and the two would fight over the fingers.)
 
 **Keep passwords out of the dashboard.** A dashboard's settings reach every browser that opens it. Rather than `url: rtsp://user:password@…`, name the stream in go2rtc's config (it can read the password from there) and give the card just the name. When Frigate restreams your cameras, its go2rtc has them under their names: `server: http://frigate:5000/live/mse/` with `url: front_door` plays them without any password in the dashboard.
 
@@ -138,7 +140,7 @@ Each camera has its own; switching cameras switches them. `controls: overlay` pu
 
 ## Full screen and zoom
 
-The button in the picture's corner (on a recording, at the end of its controls) shows the picture full screen; the same button or Esc goes back. On an iPhone, Safari can only show a video full screen, so you get its own player there. `show_fullscreen: false` hides the button.
+The button in the picture's corner (on a recording, at the end of its controls) shows the picture full screen; the same button or Esc goes back. Full screen shows the whole picture, live or a recording, fitted to the screen. On an iPhone, Safari can only show a video full screen, so you get its own player there. `show_fullscreen: false` hides the button.
 
 The picture zooms – live and a recording alike:
 
@@ -146,7 +148,7 @@ The picture zooms – live and a recording alike:
 - **touch:** two fingers zoom in, one finger moves around once zoomed;
 - **a double tap or double click** zooms in, or back out.
 
-Another recording, live or another camera starts from the whole picture again. `zoom: false` turns it off (then two fingers zoom the page, as the browser does).
+It works in the card as well as full screen. Another recording, live or another camera starts from the whole picture again. `zoom: false` turns it off (then two fingers zoom the page, as the browser does).
 
 ## Recordings
 
@@ -154,13 +156,15 @@ The recordings come from Frigate's review items – its *alerts* and *detections
 
 Above the recordings is a switch: **All · Alerts · Detections**. It changes only what this screen shows. `severity` sets what the card starts with (`all`, `alert` or `detection`) and `show_severity: false` hides the switch. With Frigate before 0.14 there are no alerts or detections, so there is no switch either.
 
+While a recording plays, swipe the picture left for the one before it (older) or right for the one after it (newer). Not while zoomed in: then one finger moves around.
+
 `all_cameras: true` lists every camera's recordings together, each with its camera's name; a tap switches to that camera.
 
 ![A recording playing in place of the live picture, on a tablet, with the cameras switched in the card (show_switcher)](../images/camera/recording.webp)
 
 ## Time line
 
-`show_timeline: true` adds a time line under the picture: the recordings as marks (alerts in orange) and the stretches Frigate recorded in grey. Tap it to play from that moment, drag it or use ‹ › to go back in time, **1 h / 6 h / 24 h** to zoom. When nothing was recorded in view it offers the latest recording.
+`show_timeline: true` adds a time line under the picture: the recordings as marks (alerts in orange) and the stretches Frigate recorded in grey. Tap it to play from that moment, drag or swipe it or use ‹ › to go back in time, **1 h / 6 h / 24 h** to zoom. When nothing was recorded in view it offers the latest recording.
 
 ## Layout
 
