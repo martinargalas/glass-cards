@@ -45,10 +45,15 @@ All the others' work Glass Cards build on: [Credits](credits.md).
 **On the dashboard**
 
 - The **dock** at the bottom opens the pop-ups: lights, blinds, weather, energy, heating,
-  security, cleaning. They slide over the dashboard; ✕ or the back button closes them.
+  security, cleaning and more. They slide over the dashboard; ✕ or the back button closes them.
 - Tap the light bulbs on the room cards. The photos turn from grey to colour when something is on.
 - In **Lights**, pick a scene – the room's lights follow.
 - Drag a blind's bar, or the brightness bar of a light.
+- In **Security**, arm the alarm with the [Security](cards/security.md) card and watch the countdown;
+  the [Camera](cards/camera.md) beside it plays the cameras and their recordings – tap one, pinch to zoom,
+  swipe to the next.
+- In **More**, the [Alarms](cards/alarms.md) card lists the alarm clocks, and **Ring an alarm** makes one ring:
+  [Alarm ringing](cards/alarm-ring.md) comes up over the dashboard – Snooze it, or slide to stop.
 - **Running now** lists everything that is on (on a phone, under the rooms). Switch one off from there.
 - Open it on your phone: the same dashboard rearranges itself for the small screen, and the
   pop-ups have a phone layout of their own.
