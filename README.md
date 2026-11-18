@@ -18,7 +18,7 @@
 | --- | --- |
 | ![](docs/images/popup-energy.webp) | ![](docs/images/studio.webp) |
 
-Glass Cards is a set of 27 cards and a full-screen dashboard for Home Assistant, in a liquid
+Glass Cards is a set of 30 cards and a full-screen dashboard for Home Assistant, in a liquid
 glass look: panels that really refract the wallpaper, soft tiles, a dark sidebar like the Home
 app – or, for older tablets, the same look at almost no cost.
 
@@ -42,8 +42,8 @@ app – or, for older tablets, the same look at almost no cost.
 | [Calendar](docs/cards/calendar.md) | [Appliance](docs/cards/appliance.md) | [Chart](docs/cards/chart.md) | [Pop-up header](docs/cards/popup-header.md) |
 | [Running now](docs/cards/now.md) | [Room map](docs/cards/room-map.md) | [Automation switch](docs/cards/automation.md) | [Divider](docs/cards/divider.md) |
 | [Notifications](docs/cards/notifications.md) | [Alarms](docs/cards/alarms.md) | [Sun and shading](docs/cards/sun-shading.md) | |
-| [Camera](docs/cards/camera.md) | | [Value grid](docs/cards/value-grid.md) | |
-| [Security](docs/cards/security.md) | [Alarm ringing](docs/cards/alarm-ring.md) | | |
+| [Camera](docs/cards/camera.md) | [Alarm ringing](docs/cards/alarm-ring.md) | [Value grid](docs/cards/value-grid.md) | |
+| [Security](docs/cards/security.md) | | | |
 
 ## Install
 
