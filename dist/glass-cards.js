@@ -6254,10 +6254,16 @@ void main() {
 
   float cx = min(coord.x, 1.0 - coord.x);
   float cy = min(coord.y, 1.0 - coord.y);
-  refr += n * exp(-max(cx, cy) * minRes * 0.3) * u_corner;
+  // corners bend a little more – a rectangle's only: a circle or a pill has none, and the boost
+  // at its diagonals would square it off
+  float cornered = 1.0 - smoothstep(0.6, 0.95, r / max(min(b.x, b.y), 1.0));
+  refr += n * exp(-max(cx, cy) * minRes * 0.3) * u_corner * cornered;
 
   vec2 perp = vec2(-n.y, n.x);
   refr += perp * sin(d / minRes * 25.0) * u_ripple * rimF;
+  // the offsets are in picture UV: as many px across as down (a tall picture – a phone – would
+  // bend twice as far down as across, and a round button would look taller than wide)
+  refr *= sqrt(u_bgRect.z * u_bgRect.w) / u_bgRect.zw;
 
   // chromatic dispersion: red bends a little more, blue a little less
   vec3 col = vec3(
@@ -6302,6 +6308,10 @@ void main() {
   float alongX = 1.0 - smoothstep(0.0, 1.0, abs(coord.x - 0.5) * 2.0);
   float alongY = 1.0 - smoothstep(0.0, 1.0, abs(coord.y - 0.5) * 2.0);
   float side = smoothstep(0.25, 0.95, abs(sn.x));          // 1 on the sides, 0 top/bottom
+  // a circle has no sides: dark sides and light top / bottom would make it read taller than
+  // wide (on a light picture the light line vanishes) – the same edge all round
+  float circ = (1.0 - cornered) * smoothstep(0.8, 0.98, min(b.x, b.y) / max(b.x, b.y));
+  side = mix(side, 0.5, circ);
   float darkW = u_rimW * 1.0;
   float darkLine = 1.0 - smoothstep(darkW - u_px, darkW + u_px, d);
   float darkShade = exp(-max(d - darkW, 0.0) / 4.0) * (1.0 - darkLine);
@@ -6313,7 +6323,7 @@ void main() {
   float wOff = darkW * smoothstep(0.3, 0.85, abs(sn.x));
   float lineW = u_rimW * 1.5;
   float core = smoothstep(wOff - u_px, wOff + u_px, d) * (1.0 - smoothstep(wOff + lineW - u_px, wOff + lineW + u_px, d));
-  float whiteW = mix(0.55, 1.0, alongX) * (1.0 - smoothstep(0.55, 0.98, abs(sn.x)));
+  float whiteW = mix(mix(0.55, 1.0, alongX) * (1.0 - smoothstep(0.55, 0.98, abs(sn.x))), 0.45, circ);
   float tintBand = exp(-max(d - lineW, 0.0) / 6.0) * (1.0 - core);
   // glow takes its hue from the wallpaper behind, always light (towards white)
   vec3 envG = bg(uv).rgb;
