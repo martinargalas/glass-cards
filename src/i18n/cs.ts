@@ -2055,6 +2055,7 @@ export const cs: Dict = {
         "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up": "Camera – živý obraz a záznamy z Frigate, zoom a swipe: v pop-upu Security",
   "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up": "Alarms – budíky s jejich dny, reproduktory a zvukem: v novém pop-upu More",
   "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up": "Alarm ringing – odložení a posunutí pro vypnutí přes celý dashboard, ve dne i v noci: zazvoňte z pop-upu More",
+  "Full calendar – your calendars in full on a photo of the month: add events, move them with a finger and change them. Try it in the More pop-up": "Full calendar – vaše kalendáře v celé velikosti na fotce měsíce: přidávejte události, přesouvejte je prstem a upravujte je. Vyzkoušejte v pop-upu More",
   "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups": "Security – režimy alarmu, odpočet a klávesnice: v pop-upech Security a More",
   "Agenda": "Agenda",
   "Nothing planned": "Nic naplánováno",

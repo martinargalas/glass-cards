@@ -8,4 +8,5 @@ export const DEMO_NEWS: string[] = [
   "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up",
   "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up",
   "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups",
+  "Full calendar – your calendars in full on a photo of the month: add events, move them with a finger and change them. Try it in the More pop-up",
 ];

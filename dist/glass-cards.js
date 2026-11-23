@@ -2572,6 +2572,7 @@ const Uu = {
   "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up": "Camera – živý obraz a záznamy z Frigate, zoom a swipe: v pop-upu Security",
   "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up": "Alarms – budíky s jejich dny, reproduktory a zvukem: v novém pop-upu More",
   "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up": "Alarm ringing – odložení a posunutí pro vypnutí přes celý dashboard, ve dne i v noci: zazvoňte z pop-upu More",
+  "Full calendar – your calendars in full on a photo of the month: add events, move them with a finger and change them. Try it in the More pop-up": "Full calendar – vaše kalendáře v celé velikosti na fotce měsíce: přidávejte události, přesouvejte je prstem a upravujte je. Vyzkoušejte v pop-upu More",
   "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups": "Security – režimy alarmu, odpočet a klávesnice: v pop-upech Security a More",
   Agenda: "Agenda",
   "Nothing planned": "Nic naplánováno",
@@ -4826,6 +4827,7 @@ const Uu = {
   "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up": "Camera – Live-Bild und Frigate-Aufnahmen, Zoom und Wischen: im Security-Pop-up",
   "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up": "Alarms – Ihre Wecker mit Tagen, Lautsprechern und Ton: im neuen More-Pop-up",
   "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up": "Alarm ringing – Schlummern und zum Ausschalten schieben über dem ganzen Dashboard, bei Tag und Nacht: aus dem More-Pop-up klingeln lassen",
+  "Full calendar – your calendars in full on a photo of the month: add events, move them with a finger and change them. Try it in the More pop-up": "Full calendar – Ihre Kalender in voller Größe auf einem Foto des Monats: Termine hinzufügen, mit dem Finger verschieben und ändern. Probieren Sie es im More-Pop-up",
   "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups": "Security – Modi der Alarmanlage, Countdown und Tastenfeld: in den Pop-ups Security und More",
   Agenda: "Agenda",
   "Nothing planned": "Nichts geplant",
@@ -41786,7 +41788,8 @@ const lu = [
   "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up",
   "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up",
   "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up",
-  "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups"
+  "Security – the alarm's modes, the countdown and a keypad: in the Security and More pop-ups",
+  "Full calendar – your calendars in full on a photo of the month: add events, move them with a finger and change them. Try it in the More pop-up"
 ];
 async function At(n) {
   const [e, t] = await Promise.all([
@@ -46295,7 +46298,7 @@ function xu() {
 }
 xu();
 window.addEventListener("location-changed", () => setTimeout(xu, 0));
-const ku = "1.11.5", eh = {
+const ku = "1.11.6", eh = {
   version: ku,
   GlassElement: F,
   lit: { LitElement: He, html: p, css: ee, svg: j, nothing: g },
