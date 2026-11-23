@@ -193,6 +193,8 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
     _settled: { state: true },
     _confirm: { state: true },
     _w: { state: true },
+    _mOpen: { state: true },
+    _mp: { state: true },
   };
   declare _view: View;
   declare _cursor: Date;
@@ -836,6 +838,123 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
     this._hidden = next;
   }
 
+  /* ---------- a phone's day: its week above it, pulled down into the whole month ---------- */
+
+  /** the month pulled open (a reactive state) */
+  declare _mOpen?: boolean;
+  /** while the strip is pulled: how far open it is (0 the week, 1 the month) */
+  declare _mp?: number;
+  private _mg?: { x: number; y: number; p0: number; rows: number; moved: boolean; el: HTMLElement; id: number };
+  /** the strip was dragged: the click after it picks no day */
+  private _mDragged = false;
+  private static readonly ROW = 46;
+
+  private _mDown = (e: PointerEvent) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    const el = e.currentTarget as HTMLElement;
+    this._mDragged = false;
+    // captured: the pull goes on below the strip; a tap is found where it was (_mUp)
+    this._mg = { x: e.clientX, y: e.clientY, p0: this._mOpen ? 1 : 0, rows: Number(el.dataset.rows) || 6, moved: false, el, id: e.pointerId };
+    el.setPointerCapture?.(e.pointerId);
+  };
+  private _mMove = (e: PointerEvent) => {
+    const g = this._mg;
+    if (!g) return;
+    const dx = e.clientX - g.x;
+    const dy = e.clientY - g.y;
+    if (!g.moved) {
+      if (Math.abs(dy) < 8 || Math.abs(dy) < Math.abs(dx)) return;
+      g.moved = true;
+    }
+    const span = (g.rows - 1) * GlassCalendarView.ROW;
+    this._mp = Math.max(0, Math.min(1, g.p0 + dy / span));
+  };
+  private _mUp = (e: PointerEvent) => {
+    const g = this._mg;
+    this._mg = undefined;
+    if (!g) return;
+    const dx = e.clientX - g.x;
+    if (g.moved) {
+      // let go: past a third of the way, it goes on; otherwise back
+      const p = this._mp ?? g.p0;
+      const open = g.p0 ? p > 0.66 : p > 0.33;
+      if (open !== !!this._mOpen) haptic("selection");
+      this._mOpen = open;
+      this._mp = undefined;
+      this._mDragged = true;
+    } else if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(e.clientY - g.y) * 1.5) {
+      // across: a week (the month open: a month) before or after
+      haptic("selection");
+      const d = this._cursor;
+      const step = dx < 0 ? 1 : -1;
+      this._cursor = this._mOpen ? new Date(d.getFullYear(), d.getMonth() + step, Math.min(d.getDate(), new Date(d.getFullYear(), d.getMonth() + step + 1, 0).getDate())) : addDays(d, step * 7);
+      this._mDragged = true;
+    } else if (Math.abs(dx) < 10 && Math.abs(e.clientY - g.y) < 10) {
+      // a tap (the capture sends its click to the strip): the day or the handle under it
+      const hit = (this.renderRoot as ShadowRoot).elementFromPoint(e.clientX, e.clientY)?.closest<HTMLElement>(".mc, .grab");
+      if (hit?.classList.contains("grab")) this._mToggle();
+      else if (hit?.dataset.day) this._mPick(localDate(hit.dataset.day));
+      // the click that may still reach the button does nothing more
+      this._mDragged = !!hit;
+    }
+  };
+  private _mPick(d: Date) {
+    haptic("selection");
+    this._cursor = d;
+    this._mOpen = false;
+  }
+  private _mCancel = () => {
+    this._mg = undefined;
+    this._mp = undefined;
+  };
+  private _mToggle() {
+    haptic("selection");
+    this._mOpen = !this._mOpen;
+  }
+
+  /** the strip: the weekdays, then the month's weeks in a window one week tall (pulled: all) */
+  private _mStrip(lang: string) {
+    const hass = this._hass!;
+    const today = startOfDay(new Date());
+    const c = this._cursor;
+    const [from] = this._span("month", c, hass);
+    const last = new Date(c.getFullYear(), c.getMonth() + 1, 0);
+    const rows = Math.ceil((Math.round((last.getTime() - from.getTime()) / 86400000) + 1) / 7);
+    const row = Math.floor(Math.round((startOfDay(c).getTime() - from.getTime()) / 86400000) / 7);
+    const R = GlassCalendarView.ROW;
+    const p = this._mp ?? (this._mOpen ? 1 : 0);
+    const we = (this._config.weekends ?? "tint") === "tint";
+    const days = Array.from({ length: rows * 7 }, (_, i) => addDays(from, i));
+    const pick = (d: Date) => (this._mDragged ? (this._mDragged = false) : this._mPick(d));
+    return html`<div
+      class="mstrip ${this._mp !== undefined ? "pulling" : ""} ${p > 0.5 ? "open" : ""}"
+      data-rows=${rows}
+      @pointerdown=${this._mDown}
+      @pointermove=${this._mMove}
+      @pointerup=${this._mUp}
+      @pointercancel=${this._mCancel}
+    >
+      <div class="wd7">${days.slice(0, 7).map((d) => html`<small class=${this._dayOff(d) ? "off" : ""}>${new Intl.DateTimeFormat(lang, { weekday: "narrow" }).format(d)}</small>`)}</div>
+      <div class="mwin" style="height:${R + p * (rows - 1) * R}px">
+        <div class="mgrid" style="transform:translateY(${-row * R * (1 - p)}px)">
+          ${days.map((d) => {
+            const other = d.getMonth() !== c.getMonth();
+            const off = this._dayOff(d);
+            return html`<button
+              class="dh mc ${sameDay(d, today) ? "is-today" : ""} ${sameDay(d, c) ? "picked" : ""} ${off ? "off" : ""} ${we && isWeekend(d) ? "we" : ""} ${other ? "other" : ""}"
+              title=${off ?? ""}
+              data-day=${ymd(d)}
+              @click=${() => pick(d)}
+            >
+              <b>${d.getDate()}</b><i class=${this._on(d).length ? "has" : ""}></i>
+            </button>`;
+          })}
+        </div>
+      </div>
+      <button class="grab" title=${this._mOpen ? tr("Show the week") : tr("Show the month")} @click=${() => (this._mDragged ? (this._mDragged = false) : this._mToggle())}><i></i></button>
+    </div>`;
+  }
+
   /** a swipe across the view: the one before / after */
   private _sw?: { x: number; y: number };
   /** a swipe just moved the view: the click after it adds nothing */
@@ -1085,21 +1204,10 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
     const pend = this._pending();
     const tf = (x: Date) => new Intl.DateTimeFormat(lang, { hour: "numeric", minute: "2-digit", hour12: h12 }).format(x);
     const cols = `grid-template-columns: 52px repeat(${n}, minmax(0, 1fr))`;
-    // a phone's day: the week above it, a tap picks the day
+    // a phone's day: the week above it – pulled down, the whole month; a tap picks the day
     const strip =
       n === 1 && this._w < 720
-        ? (() => {
-            const [ws] = this._span("week", this._cursor, hass);
-            return html`<div class="days strip">
-              ${Array.from({ length: 7 }, (_, i) => addDays(ws, i)).map((d) => {
-                const off = this._dayOff(d);
-                const has = this._on(d).length > 0;
-                return html`<button class="dh ${sameDay(d, today) ? "is-today" : ""} ${sameDay(d, this._cursor) ? "picked" : ""} ${off ? "off" : ""} ${weCls(d)}" @click=${() => (haptic("selection"), (this._cursor = d))}>
-                  <small>${new Intl.DateTimeFormat(lang, { weekday: "narrow" }).format(d)}</small><b>${d.getDate()}</b><i class=${has ? "has" : ""}></i>
-                </button>`;
-              })}
-            </div>`;
-          })()
+        ? this._mStrip(lang)
         : nothing;
     return html`${strip}${n > 1
         ? html`<div class="days" style=${cols}>
@@ -1926,8 +2034,76 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
       .frame.dark .dh.picked:not(.is-today) b {
         background: rgba(255, 255, 255, 0.24);
       }
-      .days.strip {
+      /* a phone's day: the week, pulled down into the month (as Outlook's) */
+      .mstrip {
+        border-bottom: 1px solid var(--cv-line);
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      .wd7,
+      .mgrid {
+        display: grid;
         grid-template-columns: repeat(7, minmax(0, 1fr));
+      }
+      .wd7 {
+        padding-top: 6px;
+        text-align: center;
+      }
+      .wd7 small {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--cv-soft);
+      }
+      .wd7 small.off {
+        color: #d70015;
+      }
+      .mwin {
+        overflow: hidden;
+        transition: height 0.32s cubic-bezier(0.2, 0.9, 0.3, 1);
+      }
+      .mgrid {
+        grid-auto-rows: 46px;
+        transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1);
+      }
+      .mstrip.pulling .mwin,
+      .mstrip.pulling .mgrid {
+        transition: none;
+      }
+      .dh.mc {
+        justify-content: center;
+        padding: 0;
+        height: 46px;
+        box-sizing: border-box;
+      }
+      .dh.mc.we {
+        background: none;
+      }
+      .dh.mc.other b {
+        opacity: 0.4;
+      }
+      .grab {
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 18px;
+        padding: 0;
+        border: 0;
+        background: none;
+        cursor: grab;
+      }
+      .grab i {
+        width: 36px;
+        height: 4px;
+        border-radius: 2px;
+        background: color-mix(in srgb, var(--cv-text) 28%, transparent);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .mwin,
+        .mgrid {
+          transition: none;
+        }
       }
       .dh i {
         width: 4px;

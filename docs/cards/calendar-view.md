@@ -66,7 +66,9 @@ Other calendars as their integration allows. The buttons show only where the cal
 
 ![The day on a phone](../images/calendar-view/phone.webp "phone")
 
-A month doesn't fit a phone, so a phone offers **Day** and **Agenda** (`phone_views`). The day shows its week above it: tap a day to open it. On a small phone the views not picked show only their icon. An event opens from the bottom of the screen.
+The Month view doesn't fit a phone, so a phone offers **Day** and **Agenda** (`phone_views`). The day shows its week above it: tap a day to open it, swipe it for the week before or after. **Pull it down** (or tap the handle under it) and it opens into the whole month – tap a day, and it folds back to its week; swipe the month for the month before or after. On a small phone the views not picked show only their icon. An event opens from the bottom of the screen.
+
+![The month pulled down over the day](../images/calendar-view/phone-month.webp "phone")
 
 ## Weekends
 

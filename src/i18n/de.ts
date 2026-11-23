@@ -2066,6 +2066,8 @@ export const de: Dict = {
   "Glass full calendar – add, edit and drag events": "Großer Glass-Kalender – Termine hinzufügen, bearbeiten und verschieben",
   "Home Assistant's calendar": "Kalender von Home Assistant",
   "New event": "Neuer Termin",
+  "Show the week": "Woche zeigen",
+  "Show the month": "Monat zeigen",
   "Edit event": "Termin bearbeiten",
   "All day": "Ganztägig",
   "Starts": "Beginn",
