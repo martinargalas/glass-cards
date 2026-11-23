@@ -173,6 +173,22 @@ export const CALENDAR_PARTS: PartDef[] = [
   text("more", ".more, .empty", "Notes", "Text"),
 ];
 
+export const CALENDAR_VIEW_PARTS: PartDef[] = [
+  text("title", ".title", "Title", "Header"),
+  text("switches", ".seg .item span", "Switch labels", "Header", ".seg .item.on span"),
+  icon("switches", ".seg .item ha-icon", "Switch icons", "Header", ".seg .item.on ha-icon"),
+  text("weekdays", ".wd, .dh small", "Weekdays", "Calendar"),
+  text("days", ".num span, .dh b", "Day numbers", "Calendar"),
+  text("hours", ".hours span, .alldays .lbl", "Hours", "Calendar"),
+  text("days_off", ".num small, .offname, .agenda h3 small", "Days off", "Calendar"),
+  text("agenda", ".agenda h3", "Agenda days", "Calendar"),
+  text("events", ".ev span, .block b, .row-ev .what b", "Events", "Calendar"),
+  text("event_times", ".ev b, .block small, .row-ev .when", "Event times", "Calendar"),
+  always(text("detail_title", ".sheet h3", "Detail title", "Detail")),
+  always(text("detail", ".sheet .line", "Detail lines", "Detail")),
+  always(icon("detail", ".sheet .line ha-icon", "Detail icons", "Detail")),
+];
+
 export const CLOCK_WEATHER_PARTS: PartDef[] = [
   text("time", ".time, .ampm", "Time", "Clock"),
   text("date", ".date", "Date under the time", "Clock"),

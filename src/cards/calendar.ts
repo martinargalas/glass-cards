@@ -11,6 +11,7 @@ import { hour12, language } from "../core/settings";
 import { pressHandlers, runAction, type ActionKind } from "../core/actions";
 import { CALENDAR_PARTS } from "../core/card-parts";
 import { surface } from "../core/styles";
+import { openCalendarView, type GlassCalendarView } from "./calendar-view";
 
 /**
  * Upcoming events from one or more calendars, grouped by day.
@@ -26,6 +27,9 @@ import { surface } from "../core/styles";
  *       color: blue
  *     - entity: calendar.work
  *       color: orange
+ *   tap_opens: glass   # a tap: glass – the calendars in full (default), ha – Home Assistant's calendar
+ *   calendar_view: { days_off: [calendar.holidays] }   # a tap opens the calendars in full
+ *                        # (glass-calendar-view): its settings; tap_action of your own instead
  *
  * Events come from HA's calendar API, fetched when the card appears, when a
  * calendar entity changes state (an event starts or ends), every 15 minutes and
@@ -48,6 +52,11 @@ interface CalendarConfig extends BaseCardConfig {
   hide_empty?: boolean;
   fit?: boolean;
   tap_action?: ActionConfig;
+  /** a tap (with no tap_action of its own): the calendars in full – glass-calendar-view's settings */
+  calendar_view?: Record<string, unknown>;
+  /** what a tap opens (with no tap_action of its own): glass – the calendars in full over the
+   *  dashboard (default); ha – Home Assistant's own calendar */
+  tap_opens?: "glass" | "ha";
 }
 
 interface ApiEvent {
@@ -90,6 +99,12 @@ class GlassCalendar extends GlassElement<CalendarConfig> {
   declare _error?: string;
 
   private _sources: Required<Pick<CalendarSource, "entity" | "color">>[] = [];
+  /** the calendars in full, opened from here: it follows Home Assistant's states */
+  private _full?: GlassCalendarView;
+  protected override forwardHass(hass: HomeAssistant) {
+    if (this._full?.isConnected) this._full.hass = hass;
+    else this._full = undefined;
+  }
   private _timer?: number;
   private _midnight?: number;
   private _loading = false;
@@ -228,10 +243,17 @@ class GlassCalendar extends GlassElement<CalendarConfig> {
       groups.get(k)!.events.push(e);
     }
 
-    const target = { entity: this._sources[0]?.entity, tap_action: c.tap_action ?? { action: "navigate", navigation_path: "/calendar" } };
+    // a tap: the calendars in full over the dashboard (glass-calendar-view), unless the card has
+    // a tap_action of its own
+    const target = { entity: this._sources[0]?.entity, tap_action: c.tap_action ?? (c.tap_opens === "ha" ? { action: "navigate", navigation_path: "/calendar" } : { action: "none" }) };
     const h = pressHandlers(
       () => target,
-      (kind: ActionKind) => runAction(this, hass, target, kind),
+      (kind: ActionKind) => {
+        if (kind === "tap" && !c.tap_action && c.tap_opens !== "ha") {
+          const cals = c.calendars ?? c.entities;
+          this._full = openCalendarView(this, hass, { ...(cals ? { calendars: cals } : {}), ...(c.calendar_view ?? {}) } as never);
+        } else runAction(this, hass, target, kind);
+      },
     );
 
     this.toggleAttribute("fit", !!c.fit);

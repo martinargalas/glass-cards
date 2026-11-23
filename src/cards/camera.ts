@@ -1195,7 +1195,11 @@ class GlassCamera extends GlassElement<CameraConfig> {
   private _zoomEl(): HTMLElement | null {
     const el = this.renderRoot.querySelector<HTMLElement>(".stage > video.clip, .stage > .live");
     // a player card sits in a display:contents holder, which has no box to scale: the card itself
-    return el && getComputedStyle(el).display === "contents" ? ((el.firstElementChild as HTMLElement | null) ?? el) : el;
+    const card = el && getComputedStyle(el).display === "contents" ? ((el.firstElementChild as HTMLElement | null) ?? el) : el;
+    // WebRTC Camera: the picture inside it (as its own zoom does). It stops the stream once less
+    // than 3/4 of the card is in view (IntersectionObserver on the card): a card scaled past the
+    // picture's edges would be "out of view" and show its loading picture
+    return card?.shadowRoot?.querySelector<HTMLElement>(".ptz-transform") ?? card;
   }
 
   private _applyZoom() {
@@ -1242,8 +1246,9 @@ class GlassCamera extends GlassElement<CameraConfig> {
     if (this._config.zoom === false) return;
     // a wheel counting lines or pages (Firefox): in px, as the others
     const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1);
-    if (this._z.s <= 1.001 && dy > 0) return;
+    // the wheel over the picture is the picture's: never the page behind it (zoomed out too)
     e.preventDefault();
+    if (this._z.s <= 1.001 && dy > 0) return;
     const p = this._local(e);
     this._zoomBy(Math.exp(-dy * (e.ctrlKey ? 0.01 : 0.0015)), p.x, p.y);
   };
@@ -1286,6 +1291,11 @@ class GlassCamera extends GlassElement<CameraConfig> {
     passive: false,
     handleEvent: (e: TouchEvent) => {
       const t = e.touches;
+      // zoomed in, or two fingers on it: the gesture is the picture's – a Bubble Card pop-up
+      // around it must not slide with it (it starts on touchstart, follows touchmove on the page)
+      if (this._config.zoom !== false && (t.length > 1 || this._z.s > 1.001 || this._pinch) && e.type !== "touchend" && e.type !== "touchcancel") e.stopPropagation();
+      // nor does the page behind scroll under a finger on the picture (Safari without touch-action)
+      if (this._config.zoom !== false && e.type === "touchmove" && e.cancelable) e.preventDefault();
       if (e.type === "touchstart") this._swipeStart(t.length === 1 ? t[0].clientX : NaN, t.length === 1 ? t[0].clientY : NaN, e.target);
       else if (e.type === "touchmove" && t.length === 1 && this._swipeMove(t[0].clientX, t[0].clientY)) e.preventDefault();
       else if (e.type === "touchend" && !t.length && e.changedTouches.length) this._swipeEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
@@ -1738,9 +1748,11 @@ class GlassCamera extends GlassElement<CameraConfig> {
         isolation: isolate;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
       }
-      /* zoom: pinch is ours (scrolling the page stays the browser's); zoomed, one finger moves it */
+      /* zoom: every gesture on the picture is the card's – the page (a pop-up) behind it does not
+         scroll: a pinch starts with one finger, and a page already scrolling would take it */
       .stage.can-zoom {
-        touch-action: pan-x pan-y;
+        touch-action: none;
+        overscroll-behavior: contain;
       }
       .stage.can-zoom:fullscreen {
         touch-action: none;

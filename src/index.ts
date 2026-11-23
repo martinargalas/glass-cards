@@ -20,6 +20,7 @@ import "./cards/room-card";
 import "./cards/clock-weather";
 import "./cards/divider";
 import "./cards/calendar";
+import "./cards/calendar-view";
 import "./cards/radar";
 import "./cards/air-quality";
 import "./cards/thermostat";

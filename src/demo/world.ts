@@ -73,6 +73,11 @@ const LIVE: Record<string, DemoState> = {
 };
 
 export const WORLD: Record<string, DemoState> = { ...HOME, ...LIVE };
+// the family calendar a local one (add, change, delete), utilities as Google's (add, delete)
+{
+  const fam = WORLD["calendar.family"];
+  if (Array.isArray(fam)) WORLD["calendar.family"] = [fam[0], { ...fam[1], supported_features: 7 }];
+}
 
 type Ctx = { set: (id: string, s: DemoState) => void; get: (id: string) => HassEntity | undefined; data: Record<string, any> };
 
@@ -256,16 +261,79 @@ export function demoForecast(type: string) {
   });
 }
 
+interface CalEv {
+  summary: string;
+  start: { date?: string; dateTime?: string };
+  end: { date?: string; dateTime?: string };
+  location?: string;
+  description?: string;
+  uid: string;
+  rrule?: string;
+  recurrence_id?: string;
+}
+
+/* what a visitor did to the demo's calendars (the calendar view adds, changes and deletes):
+   kept until the page reloads */
+const CAL_ADDED: Record<string, CalEv[]> = {};
+/** deleted: an event's uid, or uid|recurrence_id for one day of a repeating one */
+const CAL_GONE = new Set<string>();
+/** changed: the same keys, the event as it is now */
+const CAL_CHANGED = new Map<string, Partial<CalEv>>();
+/** a repeating event's days from this time on deleted (or moved to a new series) */
+const CAL_UNTIL = new Map<string, number>();
+let calSeq = 0;
+
+const p2 = (n: number) => String(n).padStart(2, "0");
+const ymdOf = (d: Date) => `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}`;
+const localDay = (s: string) => {
+  const [y, m, d] = s.split("-").map(Number);
+  return new Date(y, m - 1, d);
+};
+const timeOf = (w: { date?: string; dateTime?: string }) => (w.dateTime ? Date.parse(w.dateTime) : localDay(w.date!).getTime());
+/** a repeating event's day, as Home Assistant names it: 20261122 or 20261122T173000 */
+const ridOf = (d: Date, allDay: boolean) => ymdOf(d).replace(/-/g, "") + (allDay ? "" : `T${p2(d.getHours())}${p2(d.getMinutes())}00`);
+const ridTime = (r: string) => new Date(+r.slice(0, 4), +r.slice(4, 6) - 1, +r.slice(6, 8), +(r.slice(9, 11) || 0), +(r.slice(11, 13) || 0)).getTime();
+
+/** a repeating event's days in the window (daily, weekly, monthly, yearly) */
+function expand(e: CalEv, from: number, to: number): CalEv[] {
+  const freq = /FREQ=(\w+)/.exec(e.rrule ?? "")?.[1];
+  if (!freq) return [e];
+  const allDay = !e.start.dateTime;
+  const s0 = new Date(timeOf(e.start));
+  const len = timeOf(e.end) - s0.getTime();
+  const days = Math.round(len / 86400000);
+  const until = CAL_UNTIL.get(e.uid) ?? Infinity;
+  const out: CalEv[] = [];
+  for (let i = 0; i < 800; i++) {
+    const d = new Date(s0);
+    if (freq === "DAILY") d.setDate(d.getDate() + i);
+    else if (freq === "WEEKLY") d.setDate(d.getDate() + 7 * i);
+    else if (freq === "MONTHLY") d.setMonth(d.getMonth() + i);
+    else d.setFullYear(d.getFullYear() + i);
+    const t = d.getTime();
+    if (t >= to || t >= until) break;
+    const end = allDay ? new Date(d.getFullYear(), d.getMonth(), d.getDate() + days) : new Date(t + len);
+    if (end.getTime() <= from) continue;
+    out.push({
+      ...e,
+      start: allDay ? { date: ymdOf(d) } : { dateTime: d.toISOString() },
+      end: allDay ? { date: ymdOf(end) } : { dateTime: end.toISOString() },
+      recurrence_id: ridOf(d, allDay),
+    });
+  }
+  return out;
+}
+
 /** Calendar events in the asked window, as HA's calendar API returns them. */
 export function demoCalendar(id: string, from: number, to: number) {
   const day = (d: number, h?: number, m = 0) => {
     const t = new Date();
     t.setDate(t.getDate() + d);
-    if (h === undefined) return { date: `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}` };
+    if (h === undefined) return { date: ymdOf(t) };
     t.setHours(h, m, 0, 0);
     return { dateTime: t.toISOString() };
   };
-  const events =
+  const base: Omit<CalEv, "uid">[] =
     id === "calendar.utilities"
       ? [
           { summary: "Paper and plastic", start: day(1), end: day(2) },
@@ -274,14 +342,47 @@ export function demoCalendar(id: string, from: number, to: number) {
       : id === "calendar.holidays"
         ? [{ summary: "Holiday", start: day(5), end: day(6) }]
         : [
-          { summary: "Swimming lesson", start: day(0, 17, 30), end: day(0, 18, 30), location: "City pool" },
+          { summary: "Swimming lesson", start: day(0, 17, 30), end: day(0, 18, 30), location: "City pool", rrule: "FREQ=WEEKLY" },
           { summary: "Dinner with Jamie", start: day(0, 19, 30), end: day(0, 22, 0) },
           { summary: "Dentist", start: day(1, 9, 0), end: day(1, 9, 45), location: "Main Street 12" },
           { summary: "Grandma's birthday", start: day(2), end: day(3) },
           { summary: "Car service", start: day(3, 8, 0), end: day(3, 10, 0) },
         ];
-  return events.filter((e) => {
-    const s = Date.parse(e.start.dateTime ?? `${e.start.date}T00:00:00`);
-    return s < to && s + 86400000 > from;
+  const all = [...base.map((e, i) => ({ ...e, uid: `${id}-${i}` })), ...(CAL_ADDED[id] ?? [])];
+  return all
+    .flatMap((e) => expand(e, from, to))
+    .filter((e) => !CAL_GONE.has(e.uid) && !(e.recurrence_id && CAL_GONE.has(`${e.uid}|${e.recurrence_id}`)))
+    .map((e) => ({ ...e, ...(CAL_CHANGED.get(e.recurrence_id ? `${e.uid}|${e.recurrence_id}` : e.uid) ?? {}) }))
+    .filter((e) => timeOf(e.start) < to && timeOf(e.end) > from);
+}
+
+/** calendar/event/create, update and delete on a demo calendar: kept in the page */
+export function demoCalendarWrite(msg: Record<string, unknown>) {
+  const id = String(msg.entity_id);
+  const uid = String(msg.uid ?? "");
+  const rid = msg.recurrence_id ? String(msg.recurrence_id) : undefined;
+  const future = msg.recurrence_range === "THISANDFUTURE" && !!rid;
+  const ev = (msg.event ?? {}) as Record<string, string | undefined>;
+  const when = (v?: string) => (v && v.length > 10 ? { dateTime: new Date(v).toISOString() } : { date: v });
+  const conv = (): Omit<CalEv, "uid"> => ({
+    summary: ev.summary ?? "",
+    start: when(ev.dtstart),
+    end: when(ev.dtend),
+    location: ev.location,
+    description: ev.description,
+    rrule: ev.rrule,
   });
+  const key = rid ? `${uid}|${rid}` : uid;
+  if (msg.type === "calendar/event/create") (CAL_ADDED[id] ??= []).push({ ...conv(), uid: `demo-${++calSeq}` });
+  else if (msg.type === "calendar/event/delete") {
+    if (future) CAL_UNTIL.set(uid, ridTime(rid!));
+    else CAL_GONE.add(key);
+  } else if (msg.type === "calendar/event/update") {
+    // this day and the ones after it: the old series ends, a new one starts
+    if (future) {
+      CAL_UNTIL.set(uid, ridTime(rid!));
+      (CAL_ADDED[id] ??= []).push({ ...conv(), uid: `demo-${++calSeq}` });
+    } else CAL_CHANGED.set(key, { ...conv(), rrule: rid ? undefined : ev.rrule });
+  }
+  return null;
 }

@@ -59,6 +59,18 @@ Above the preview:
 - **Background** – the wallpaper behind the preview, as on the device.
 - **Day / night** – follow the dashboard's setting, or force day or night to tune the night look.
 
+### When it doesn't fit the window
+
+At a larger scale, or on a tall phone, part of the dashboard is out of view. Besides the scroll bars and the mouse wheel:
+
+| | |
+| --- | --- |
+| **Drag the empty area** around the dashboard | The cursor turns into a hand there: drag to move the preview |
+| **Hold Space and drag** | Anywhere, over the cards too – no card is picked or moved meanwhile |
+| **The middle mouse button** | Drag anywhere |
+
+On a touch screen, move it with a finger as any page.
+
 ## Picking, adding, moving
 
 - **Pick** a card by clicking it in the preview or in the structure. Its settings open on the right.

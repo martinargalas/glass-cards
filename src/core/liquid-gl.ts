@@ -263,7 +263,10 @@ export function wallpaperUrl(url: string | undefined): string | undefined {
   if (!m) return url;
   // the bundle's own address in a variable: Vite would turn `new URL(…, import.meta.url)` into a lookup of files beside the source
   const bundle = import.meta.url;
-  return new URL(m[1].includes("/") ? `./${m[1].replace("/", "-")}` : `./wallpaper-${m[1]}.jpg`, bundle).href;
+  const u = new URL(m[1].includes("/") ? `./${m[1].replace("/", "-")}` : `./wallpaper-${m[1]}.jpg`, bundle);
+  // the bundle's own ?v= / ?hacstag= on its files too: a new version's pictures, not the cached ones
+  u.search = new URL(bundle).search;
+  return u.href;
 }
 export const assetUrl = wallpaperUrl;
 

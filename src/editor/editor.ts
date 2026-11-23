@@ -402,6 +402,7 @@ export const NEW_CARDS: [string, string, string, string][] = [
   ["custom:glass-clock-weather", "Clock and weather", "mdi:weather-partly-cloudy", "Time, current weather and forecast"],
   ["custom:glass-date-header", "Date and name day", "mdi:calendar-today", "Today's date and more lines of text"],
   ["custom:glass-calendar", "Calendar", "mdi:calendar-month-outline", "Upcoming events by day"],
+  ["custom:glass-calendar-view", "Full calendar", "mdi:calendar-blank-multiple", "Full-size calendar – add, edit and drag events"],
   ["custom:glass-divider", "Divider", "mdi:minus", "Rounded separator line"],
   ["custom:glass-tabs", "Tabs", "mdi:tab", "Switch that picks which cards of a panel show"],
   ["custom:glass-now", "Running now", "mdi:play-circle-outline", "Everything that is on, switched off with one tap"],

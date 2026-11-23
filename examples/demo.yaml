@@ -232,6 +232,8 @@ views:
                 styles:
                   chip_padding: 0 12px 0 10px
               - type: custom:glass-calendar
+                calendar_view:
+                  days_off: [calendar.holidays]
                 days: 14
                 max_events: 6
                 calendars:
@@ -1657,6 +1659,8 @@ views:
                 name: Soon
                 line: false
               - type: custom:glass-calendar
+                calendar_view:
+                  days_off: [calendar.holidays]
                 days: 14
                 max_events: 2
                 calendars:

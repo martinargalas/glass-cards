@@ -148,7 +148,7 @@ The picture zooms – live and a recording alike:
 - **touch:** two fingers zoom in, one finger moves around once zoomed;
 - **a double tap or double click** zooms in, or back out.
 
-It works in the card as well as full screen. Another recording, live or another camera starts from the whole picture again. `zoom: false` turns it off (then two fingers zoom the page, as the browser does).
+It works in the card as well as full screen. A gesture on the picture stays on the picture: the page or the pop-up behind it doesn't scroll, and in a Bubble Card pop-up moving a zoomed picture (or two fingers on it) doesn't slide the pop-up. Another recording, live or another camera starts from the whole picture again. `zoom: false` turns it off (then two fingers zoom the page, as the browser does).
 
 ## Recordings
 

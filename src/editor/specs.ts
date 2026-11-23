@@ -2,7 +2,7 @@ import { PRESETS, knownPopups, trackList } from "../core/layout";
 import { t } from "./i18n";
 import { tr } from "../i18n";
 import { MATERIALS } from "../core/materials";
-import { AIR_QUALITY_PARTS, ALARM_RING_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, CAMERA_PARTS, SECURITY_PARTS, BLIND_PARTS, CALENDAR_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
+import { AIR_QUALITY_PARTS, ALARM_RING_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, CAMERA_PARTS, SECURITY_PARTS, BLIND_PARTS, CALENDAR_PARTS, CALENDAR_VIEW_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
 import { ANIMATION_FIELD, COLOR_FIELD, CONTROL_GLASS_FIELD, ICON_FIELD, TEXT_FIELD, TINT_FIELD, GLASS_FIELD, YAML, actionFields, expandable, grid, part, select, type Credit, type EditorSpec, type Schema, foreignCards, hasDock } from "./editor";
 
 const ALIGN: [string, string][] = [
@@ -1066,7 +1066,7 @@ export const dividerSpec: EditorSpec = {
 export const calendarSpec: EditorSpec = {
   credits: [ATOMIC_CALENDAR],
   parts: CALENDAR_PARTS,
-  defaults: { days: 5, max_events: 6, show_location: false, show_title: false, hide_empty: false },
+  defaults: { days: 5, max_events: 6, show_location: false, show_title: false, hide_empty: false, tap_opens: "glass" },
   form: [
     grid(
       { name: "days", selector: { number: { min: 1, max: 31, mode: "box" } } },
@@ -1075,6 +1075,13 @@ export const calendarSpec: EditorSpec = {
     grid({ name: "show_location", selector: { boolean: {} } }, { name: "hide_empty", selector: { boolean: {} } }),
     { name: "fit", selector: { boolean: {} } },
     grid({ name: "show_title", selector: { boolean: {} } }, { name: "title", selector: { text: {} } }),
+    {
+      ...select("tap_opens", [
+        ["glass", "Glass full calendar – add, edit and drag events"],
+        ["ha", "Home Assistant's calendar"],
+      ]),
+      label: "A tap opens",
+    },
     expandable("Actions and advanced", [{ name: "tap_action", selector: { ui_action: {} } }, GLASS_FIELD, YAML("styles")]),
   ],
   lists: [
@@ -1084,6 +1091,135 @@ export const calendarSpec: EditorSpec = {
       label: (l) => l.name ?? shortId(l.entity) ?? "Calendar",
       create: () => ({ entity: "" }),
       item: () => [{ name: "entity", selector: { entity: { domain: "calendar" } } }, COLOR_FIELD()],
+    },
+  ],
+};
+
+const VIEW_OPTIONS = [
+  ["month", "Month"],
+  ["week", "Week"],
+  ["day", "Day"],
+  ["agenda", "Agenda"],
+].map(([value, label]) => ({ value, label }));
+
+export const calendarViewSpec: EditorSpec = {
+  parts: CALENDAR_VIEW_PARTS,
+  defaults: { image: "months", hemisphere: "auto", agenda_days: 30, close: true, weekends: "tint", views: ["month", "week", "day", "agenda"], phone_views: ["day", "agenda"] },
+  form: (c) => [
+    {
+      custom: "section",
+      key: "view",
+      title: "What it shows",
+      open: true,
+      schema: [
+        { custom: "hint", text: "Your calendars in full: a month, a week, a day or the agenda. Without calendars listed below it shows every calendar of Home Assistant. The Calendar card opens it with a tap." },
+        {
+          ...select("view", [
+            ["", "Default (month; a phone: day)"],
+            ["month", "Month"],
+            ["week", "Week"],
+            ["day", "Day"],
+            ["agenda", "Agenda"],
+          ]),
+          label: "Starts with",
+        },
+        {
+          name: "views",
+          label: "Views on a tablet / computer",
+          helper: "Default all four",
+          selector: { select: { multiple: true, mode: "list", options: VIEW_OPTIONS } },
+        },
+        {
+          name: "phone_views",
+          label: "Views on a phone",
+          helper: "Default Day and Agenda – a month doesn't fit a phone",
+          selector: { select: { multiple: true, mode: "list", options: VIEW_OPTIONS } },
+        },
+        {
+          ...select("weekends", [
+            ["tint", "Shaded"],
+            ["plain", "Like other days"],
+            ["hide", "Hidden – the week and the month without them"],
+          ]),
+          label: "Weekends",
+        },
+        { name: "days_off", label: "Days off", helper: "Calendars whose all-day events tint their day instead of showing as events – public holidays, your vacation", selector: { entity: { domain: "calendar", multiple: true } } },
+        { name: "agenda_days", label: "Agenda: days ahead", selector: { number: { min: 7, max: 120, mode: "box" } } },
+        { name: "height", label: "Height on the dashboard", helper: "Default 640px", selector: { text: {} } },
+        { name: "close", label: "Close button in a pop-up", helper: "In a Bubble Card pop-up: ✕ closes the pop-up", selector: { boolean: {} } },
+      ],
+    },
+    {
+      custom: "section",
+      key: "look",
+      title: "Look",
+      schema: [
+        ...part(
+          "Background",
+          {
+            ...select("image", [
+              ["months", "A photo for each month"],
+              ["glass:hills-day", "One for all: Hills"],
+              ["glass:green-hills-day", "One for all: Green hills"],
+              ["glass:dunes-day", "One for all: Dunes"],
+              ["glass:sea-day", "One for all: Sea"],
+              ["glass:pastel-waves-day", "One for all: Pastel waves"],
+              ["glass:grey-waves-day", "One for all: Grey waves"],
+              ["glass:steel-waves-day", "One for all: Steel waves"],
+              ["custom", "One for all: a picture of your own"],
+            ]),
+            label: "Picture",
+          },
+          ...(c.image === "custom" ? [{ name: "image_url", label: "Your picture", helper: "/local/photo.jpg (a file in config/www) or https://…", selector: { text: {} } }] : []),
+          ...(c.image === "months" || !c.image
+            ? [
+                {
+                  ...select("hemisphere", [
+                    ["auto", "By Home Assistant's location"],
+                    ["north", "Northern"],
+                    ["south", "Southern"],
+                  ]),
+                  label: "Hemisphere",
+                  helper: "Which photos fit the season: July is summer in the north, winter in the south",
+                },
+              ]
+            : []),
+          {
+            type: "expandable",
+            name: "images",
+            title: "A picture of your own for some months",
+            schema: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => ({
+              name: String(i + 1),
+              label: m,
+              selector: { text: {} },
+            })),
+          },
+        ),
+        ...part(
+          "Header",
+          grid({ ...select("controls_glass", [["", "Default"], ...MATERIALS]), label: "Switches' material" }, { ...COLOR_FIELD("controls_color"), label: "Their colour" }),
+          { ...COLOR_FIELD("picked_color"), label: "The picked one", helper: "Default dark grey (sunk in at night)" },
+        ),
+        ...part(
+          "Calendar",
+          grid({ ...select("panel_glass", [["", "Default"], ...MATERIALS]), label: "Material" }, { ...COLOR_FIELD("panel_color"), label: "Colour" }),
+          { ...COLOR_FIELD("today_color"), label: "Today", helper: "The date's circle and the line at the time now (default red)" },
+        ),
+        ...part(
+          "Detail",
+          grid({ ...select("sheet_glass", [["", "As the calendar"], ...MATERIALS]), label: "Material" }, { ...COLOR_FIELD("sheet_color"), label: "Colour" }),
+          { custom: "hint", text: "An event's detail and the form that adds or changes one" },
+        ),
+      ],
+    },
+  ],
+  lists: [
+    {
+      name: "calendars",
+      title: "Calendars",
+      label: (l) => l.name ?? shortId(l.entity) ?? "Calendar",
+      create: () => ({ entity: "" }),
+      item: () => [{ name: "entity", selector: { entity: { domain: "calendar" } } }, { name: "name", selector: { text: {} } }, COLOR_FIELD()],
     },
   ],
 };

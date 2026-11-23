@@ -765,9 +765,105 @@ export class GlassStudio extends LitElement {
     return undefined;
   }
 
+  /* ── moving the preview around when it doesn't fit: Space + drag (anywhere), a drag on the empty
+     area around the dashboard, or the middle mouse button ── */
+  private _overStage = false;
+  private _space = false;
+  private _panning?: { id: number; x: number; y: number; sl: number; st: number; moved: boolean };
+  private _panned = false;
+
+  /** The preview scrolls (more than fits the window): the empty area offers to move it. */
+  private _panCheck() {
+    const st = this.renderRoot.querySelector<HTMLElement>("main.stage");
+    if (!st) return;
+    st.classList.toggle("can-pan", st.scrollWidth > st.clientWidth + 1 || st.scrollHeight > st.clientHeight + 1);
+  }
+
+  /** Space held over the preview: every drag in it moves it (no card is picked or moved). */
+  private _onSpace = (e: KeyboardEvent) => {
+    if (e.code !== "Space" && e.key !== " ") return;
+    const typing = (e.composedPath()[0] as HTMLElement)?.matches?.("input, textarea, select, [contenteditable], ha-code-editor, .cm-content");
+    if (typing || !this.isConnected) return;
+    const st = this.renderRoot.querySelector<HTMLElement>("main.stage");
+    if (e.type === "keydown") {
+      if (!this._overStage && !this._space) return;
+      // not a click on a focused button, not the page scrolling
+      e.preventDefault();
+      this._space = true;
+      st?.classList.add("space");
+    } else if (this._space) {
+      e.preventDefault();
+      this._space = false;
+      st?.classList.remove("space");
+    }
+  };
+  private _onBlur = () => {
+    this._space = false;
+    this.renderRoot.querySelector("main.stage")?.classList.remove("space");
+  };
+
+  /** The empty area: the stage itself, around the dashboard (not the dashboard, its bar or a "+"). */
+  private _emptyAt(e: Event) {
+    const first = e.composedPath()[0] as Element;
+    return first instanceof HTMLElement && (first.matches("main.stage") || first.matches(".stage-inner"));
+  }
+
+  private _pan = {
+    // capture: before the preview picks or moves a card
+    capture: true,
+    handleEvent: (e: Event) => {
+      const st = e.currentTarget as HTMLElement;
+      if (e.type === "click") {
+        // the click that ends a move is not a pick
+        if (this._panned) {
+          e.stopPropagation();
+          e.preventDefault();
+          this._panned = false;
+        }
+        return;
+      }
+      if (e.type === "mousedown") {
+        // the middle button: no browser autoscroll (its own round cursor)
+        if ((e as MouseEvent).button === 1) e.preventDefault();
+        return;
+      }
+      const pe = e as PointerEvent;
+      if (e.type === "pointerdown") {
+        if (pe.pointerType === "touch") return;
+        const scrolls = st.scrollWidth > st.clientWidth + 1 || st.scrollHeight > st.clientHeight + 1;
+        const want = pe.button === 1 || (pe.button === 0 && (this._space || (scrolls && this._emptyAt(e))));
+        if (!want || !scrolls) return;
+        e.stopPropagation();
+        e.preventDefault();
+        this._panning = { id: pe.pointerId, x: pe.clientX, y: pe.clientY, sl: st.scrollLeft, st: st.scrollTop, moved: false };
+        st.setPointerCapture?.(pe.pointerId);
+        st.classList.add("panning");
+        return;
+      }
+      const p = this._panning;
+      if (!p || pe.pointerId !== p.id) return;
+      e.stopPropagation();
+      if (e.type === "pointermove") {
+        const dx = pe.clientX - p.x;
+        const dy = pe.clientY - p.y;
+        if (Math.abs(dx) + Math.abs(dy) > 3) p.moved = true;
+        st.scrollLeft = p.sl - dx;
+        st.scrollTop = p.st - dy;
+        return;
+      }
+      // up / cancel
+      this._panned = p.moved;
+      this._panning = undefined;
+      st.releasePointerCapture?.(pe.pointerId);
+      st.classList.remove("panning");
+    },
+  };
+
   private _onPreviewClick = (e: Event) => {
     // the lines between the layout's columns / rows: the dashboard drags them itself
     if (e.composedPath().some((n) => (n as Element).classList?.contains("grid-grip") || (n as Element).classList?.contains("flex-grip"))) return;
+    // a card's own control meant for the editor (data-studio-live, e.g. Alarm ringing's Try it): it works here
+    if (e.composedPath().some((n) => (n as Element).hasAttribute?.("data-studio-live"))) return;
     // design mode: a click picks the card instead of switching a light
     e.stopPropagation();
     e.preventDefault();
@@ -1110,6 +1206,7 @@ export class GlassStudio extends LitElement {
 
   protected override updated() {
     this._syncDemo();
+    this._panCheck();
     if (!this._demoChecked && this.hass?.user?.is_admin && typeof (this.hass as any).callWS === "function") {
       this._demoChecked = true;
       void this._checkDemo();
@@ -3100,6 +3197,9 @@ export class GlassStudio extends LitElement {
     window.addEventListener("pointermove", this._onWinMove);
     window.addEventListener("pointerup", this._onWinUp);
     window.addEventListener("pointerdown", this._onWinDown, true);
+    window.addEventListener("keydown", this._onSpace, true);
+    window.addEventListener("keyup", this._onSpace, true);
+    window.addEventListener("blur", this._onBlur);
     window.addEventListener("glass-preview-dark", this._onPreviewDark);
     this._syncDemo();
   }
@@ -3112,6 +3212,9 @@ export class GlassStudio extends LitElement {
     if (this._popOpen) this._closePopup();
     window.removeEventListener("pointerup", this._onWinUp);
     window.removeEventListener("pointerdown", this._onWinDown, true);
+    window.removeEventListener("keydown", this._onSpace, true);
+    window.removeEventListener("keyup", this._onSpace, true);
+    window.removeEventListener("blur", this._onBlur);
     window.removeEventListener("glass-preview-dark", this._onPreviewDark);
     this._autoScroll(undefined);
     this._syncDemo();
@@ -3267,7 +3370,18 @@ export class GlassStudio extends LitElement {
               @dblclick=${() => this._resetPane(this._wide ? "yaml" : "insp")}
             ></div>`}
         ${this._hideTree ? nothing : html`<aside class="left">${this._tree()}</aside>`}
-        <main class="stage ${this._wire ? "wired" : ""}">
+        <main
+          class="stage ${this._wire ? "wired" : ""}"
+          @pointerdown=${this._pan}
+          @pointermove=${this._pan}
+          @pointerup=${this._pan}
+          @pointercancel=${this._pan}
+          @mousedown=${this._pan}
+          @click=${this._pan}
+          @pointerenter=${() => ((this._overStage = true), this._panCheck())}
+          @pointerleave=${() => (this._overStage = false)}
+          @scroll=${() => this._panCheck()}
+        >
           ${this._wire ? nothing : html`<div class="stage-bar">
           ${this._sizeBar()}
                 <label class="fast" title=${t("On: the preview with glass as on the device – slower to redraw")}>
@@ -3811,6 +3925,22 @@ export class GlassStudio extends LitElement {
     }
     .stage {
       user-select: none;
+    }
+    /* it doesn't fit: the empty area around the dashboard moves it (a hand); Space – anywhere */
+    .stage.can-pan {
+      cursor: grab;
+    }
+    .stage.can-pan > .stage-bar,
+    .stage.can-pan .stage-inner > * {
+      cursor: auto;
+    }
+    .stage.space,
+    .stage.space * {
+      cursor: grab !important;
+    }
+    .stage.panning,
+    .stage.panning * {
+      cursor: grabbing !important;
     }
     .stage.wired .stage-inner {
       display: none;

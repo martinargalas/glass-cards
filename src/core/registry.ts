@@ -1,4 +1,5 @@
 import type { BaseCardConfig, HomeAssistant } from "./types";
+import { syncLang, tr } from "../i18n";
 
 export interface CardMeta {
   name: string;
@@ -20,8 +21,22 @@ export function registerCard(tag: string, cls: CustomElementConstructor, meta: C
   if (!customElements.get(tag)) customElements.define(tag, cls);
   window.customCards = window.customCards || [];
   if (!window.customCards.some((c) => c.type === tag)) {
-    const description = meta.requires ? `${meta.description} Requires ${meta.requires} (HACS).` : meta.description;
-    window.customCards.push({ type: tag, name: meta.name, description, preview: meta.preview ?? false });
+    // in the HA user's language when HA's card picker reads them (getters: the language is
+    // known only once Home Assistant is up, long after the cards are defined)
+    const user = () => syncLang((document.querySelector("home-assistant") as unknown as { hass?: HomeAssistant } | null)?.hass);
+    window.customCards.push({
+      type: tag,
+      get name() {
+        user();
+        return tr(meta.name);
+      },
+      get description() {
+        user();
+        const d = tr(meta.description);
+        return meta.requires ? `${d} ${tr("Requires {card} (HACS).", { card: meta.requires })}` : d;
+      },
+      preview: meta.preview ?? false,
+    });
   }
 }
 

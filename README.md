@@ -18,7 +18,7 @@
 | --- | --- |
 | ![](docs/images/popup-energy.webp) | ![](docs/images/studio.webp) |
 
-Glass Cards is a set of 30 cards and a full-screen dashboard for Home Assistant, in a liquid
+Glass Cards is a set of 31 cards and a full-screen dashboard for Home Assistant, in a liquid
 glass look: panels that really refract the wallpaper, soft tiles, a dark sidebar like the Home
 app – or, for older tablets, the same look at almost no cost.
 
@@ -39,7 +39,7 @@ app – or, for older tablets, the same look at almost no cost.
 | [Clock and weather](docs/cards/clock-weather.md) | [Lights](docs/cards/light.md) | [Air quality](docs/cards/air-quality.md) | [Panel](docs/cards/panel.md) |
 | [Status bar](docs/cards/status-bar.md) | [Thermostat](docs/cards/thermostat.md) | [Radar](docs/cards/radar.md) | [Tabs](docs/cards/tabs.md) |
 | [People](docs/cards/people.md) | [Blind](docs/cards/blind.md) | [Period bar](docs/cards/period-bar.md) | [Dock](docs/cards/dock.md) |
-| [Calendar](docs/cards/calendar.md) | [Appliance](docs/cards/appliance.md) | [Chart](docs/cards/chart.md) | [Pop-up header](docs/cards/popup-header.md) |
+| [Calendar](docs/cards/calendar.md) · [view](docs/cards/calendar-view.md) | [Appliance](docs/cards/appliance.md) | [Chart](docs/cards/chart.md) | [Pop-up header](docs/cards/popup-header.md) |
 | [Running now](docs/cards/now.md) | [Room map](docs/cards/room-map.md) | [Automation switch](docs/cards/automation.md) | [Divider](docs/cards/divider.md) |
 | [Notifications](docs/cards/notifications.md) | [Alarms](docs/cards/alarms.md) | [Sun and shading](docs/cards/sun-shading.md) | |
 | [Camera](docs/cards/camera.md) | [Alarm ringing](docs/cards/alarm-ring.md) | [Value grid](docs/cards/value-grid.md) | |

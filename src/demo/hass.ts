@@ -1,6 +1,6 @@
 import type { ActionConfig, HassEntity, HomeAssistant } from "../core/types";
 import { MOWER_GEO } from "./home.generated";
-import { EFFECTS, WORLD, demoCalendar, demoForecast, demoHistory, demoStatistics, type DemoState } from "./world";
+import { EFFECTS, WORLD, demoCalendar, demoCalendarWrite, demoForecast, demoHistory, demoStatistics, type DemoState } from "./world";
 import { DEMO_POPUPS, DEMO_POPUPS_URL } from "./dashboard";
 
 /**
@@ -416,6 +416,8 @@ export function demoHass(base?: Partial<HomeAssistant>): HomeAssistant & { demo:
         const list = ((msg.statistic_ids as string[]) ?? []).filter((id) => all[id]);
         return Object.fromEntries(list.map((id) => [id, demoStatistics(id, all[id], Date.parse(String(msg.start_time)), msg.end_time ? Date.parse(String(msg.end_time)) : Date.now(), String(msg.period ?? "hour"))])) as T;
       }
+      // the calendar view adds, changes and deletes the demo calendars' events
+      if (typeof msg.type === "string" && msg.type.startsWith("calendar/event/") && states[String(msg.entity_id)]) return demoCalendarWrite(msg) as T;
       // the demo's pop-ups: HA's own copy when it has one (edited in Dashboard Studio), else the bundled one
       // the mower's lawn (glass-room-map asks Mammotion for it); no job on, so no route yet
       if (msg.type === "call_service" && msg.domain === "mammotion") {

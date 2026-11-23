@@ -22,6 +22,12 @@ const files = readdirSync(demoFrom);
 for (const f of files) copyFileSync(new URL(f, demoFrom), new URL(`demo-${f}`, to));
 console.log(`demo photos: ${files.length} → dist/demo-*`);
 
+// the Calendar view's photo of each month (calendar-photos/01.webp → calendar-01.webp: glass:calendar/01.webp)
+const calFrom = new URL("../calendar-photos/", import.meta.url);
+const cals = readdirSync(calFrom).filter((f) => f.endsWith(".webp"));
+for (const f of cals) copyFileSync(new URL(f, calFrom), new URL(`calendar-${f}`, to));
+console.log(`calendar photos: ${cals.length} → dist/calendar-*`);
+
 // the alarm's sounds (sounds/<name>.mp3 → sound-<name>.mp3): the Glass alarm's default melody
 const soundsFrom = new URL("../sounds/", import.meta.url);
 const sounds = readdirSync(soundsFrom).filter((f) => f.endsWith(".mp3"));

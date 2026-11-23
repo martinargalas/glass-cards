@@ -12,6 +12,7 @@ import { ALARM_RING_PARTS } from "../core/card-parts";
 import { language } from "../core/settings";
 import { clockParts, managedAlarms, managedHelpers, snoozeAlarm, stopAlarm, updateBlueprint } from "../core/alarm-model";
 import { matPart } from "./alarms";
+import { inEditor, layerFor } from "../core/overlay";
 
 /**
  * An alarm ringing: the time, its name, Snooze (a tap) and Stop (a slide – never by accident).
@@ -109,30 +110,10 @@ interface Ringing {
   sample?: boolean;
 }
 
-/** Where the copy over the page goes: an open dialog the card is in (Dashboard Studio, HA's card
- *  editor – they sit in the browser's top layer, over anything in the page), else the page. */
 /** the one copy over the page (the card can sit in several views) */
 let onPage: Element | undefined;
 
-function layerFor(el: Element): Element {
-  let n: Node | null = el;
-  for (let i = 0; n && i < 60; i++) {
-    if ((n as Element).localName === "dialog" && (n as HTMLDialogElement).open) return n as Element;
-    n = (n as Element).parentNode ?? ((n as unknown as ShadowRoot).host ?? null);
-  }
-  return document.body;
-}
 
-/** Inside an editor: HA's card dialog or Glass Dashboard Studio. */
-function inEditor(el: Element): boolean {
-  let n: Node | null = el;
-  for (let i = 0; n && i < 60; i++) {
-    const name = (n as Element).localName;
-    if (name === "hui-card-preview" || name === "hui-dialog-edit-card" || name === "hui-card-element-editor" || name === "glass-studio" || name === "hui-card-picker") return true;
-    n = (n as Element).parentNode ?? ((n as unknown as ShadowRoot).host ?? null);
-  }
-  return false;
-}
 
 class GlassAlarmRing extends GlassElement<RingConfig> {
   static override parts = ALARM_RING_PARTS;
@@ -379,8 +360,14 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
     const how = popup ? tr("Opens the pop-up {hash} when an alarm rings", { hash }) : tr("Shows over the dashboard when an alarm rings");
     return html`<div class="placeholder">
       <ha-icon .icon=${"mdi:alarm-bell"}></ha-icon>
-      <span><b>${tr("Alarm ringing")}</b><small>${how} · ${tr("invisible until then")}</small></span>
-      <button @click=${() => this._trySample(true)}>${tr("Try it")}</button>
+      <span
+        ><span class="head"
+          ><b>${tr("Alarm ringing")}</b>
+          <!-- data-studio-live: Dashboard Studio lets a click on it through (else a click picks the
+               card); beside the name, not at the right end, where the studio puts ⋮ and delete -->
+          <button data-studio-live @click=${() => this._trySample(true)}>${tr("Try it")}</button></span
+        ><small>${how} · ${tr("invisible until then")}</small></span
+      >
     </div>`;
   }
 
@@ -491,7 +478,7 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
         --mdc-icon-size: 26px;
         flex: none;
       }
-      .placeholder span {
+      .placeholder > span {
         flex: 1;
         min-width: 0;
         display: flex;
@@ -503,13 +490,20 @@ class GlassAlarmRing extends GlassElement<RingConfig> {
         font-size: 12px;
         opacity: 0.7;
       }
+      .placeholder .head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-direction: row;
+      }
       .placeholder button {
         flex: none;
         border: 0;
         border-radius: 999px;
-        padding: 8px 14px;
+        padding: 2px 10px;
         font: inherit;
-        font-size: 13px;
+        font-size: 12px;
+        line-height: 18px;
         font-weight: 600;
         cursor: pointer;
         color: #fff;
