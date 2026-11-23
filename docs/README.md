@@ -35,7 +35,7 @@ YAML is there for when you want to copy, share or fine-tune.
 | [Status bar](cards/status-bar.md) | Small chips with values: power, hot water, the alarm… |
 | [People](cards/people.md) | Who is home, where the others are, their phones' battery |
 | [Calendar](cards/calendar.md) | Upcoming events, grouped by day |
-| [Calendar view](cards/calendar-view.md) | The calendars in full – month, week, day, agenda – on a photo of the month under liquid glass; add, change and delete events |
+| [Full calendar](cards/calendar-view.md) | A full-size calendar – month, week, day, agenda – on a photo of the month: add, change, drag and delete events |
 | [Running now](cards/now.md) | Everything that is on in the home, switched off with one tap |
 | [Notifications](cards/notifications.md) | Messages from automations and alerts, in one pill |
 | [Camera](cards/camera.md) | The live picture and Frigate's recordings: a tap plays one in its place; the camera's light and night vision under it |

@@ -1,8 +1,8 @@
-# Calendar view
+# Full calendar
 
 `custom:glass-calendar-view`
 
-Your calendars in full: a month, a week, a day or the agenda – add, change and delete events – on a photo of the month – on frosted glass, with switches of real liquid glass. It opens when you tap the [Calendar](calendar.md) card, or it can sit in a pop-up or a view of its own.
+A full-size calendar: a month, a week, a day or the agenda of your calendars – add events, change them, drag them to another time and delete them. It sits on a photo of the month, on frosted glass, with switches of real liquid glass. It opens when you tap the [Calendar](calendar.md) card, or it can sit in a pop-up or a view of its own.
 
 ![The month on a tablet](../images/calendar-view/month.webp)
 
@@ -18,7 +18,7 @@ Your calendars in full: a month, a week, a day or the agenda – add, change and
   ```
 
   A `tap_action` of the Calendar card's own replaces this.
-- **As a card** – in the Dashboard Studio (or *Add card* in Home Assistant) pick **Glass – calendar view**: in a Bubble Card pop-up, or a view of its own. In a pop-up it has a ✕ that closes the pop-up (`close: false` to leave it out). With no calendars set it shows every calendar of Home Assistant.
+- **As a card** – in the Dashboard Studio (or *Add card* in Home Assistant) pick **Full calendar**: in a Bubble Card pop-up, or a view of its own. In a pop-up it has a ✕ that closes the pop-up (`close: false` to leave it out). With no calendars set it shows every calendar of Home Assistant.
 
 ## The views
 
@@ -37,11 +37,20 @@ The views, the calendars and ‹ Today › are segmented switches: one track of 
 
 ### Add, change, delete
 
-**+** at the top adds an event – or tap where it should be: a day of the month (its number opens the day instead), a free time in the week or the day (at that half hour), or the *all day* row (an all-day event). A new event is half an hour long. Pick its calendar, the name, when, whether it repeats (every day, week, month or year), where, and notes.
+**+** at the top adds an event – or tap where it should be: a day of the month (its number opens the day instead), a free time in the week or the day (at that half hour), or the *all day* row (an all-day event). A new event is half an hour long: a dashed outline in its calendar's colour shows where it will be, and on a tablet or a computer its form opens beside it. Pick its calendar, the name, when, whether it repeats (every day, week, month or year), where, and notes – the outline follows what you set. The dates and times have pickers of their own: a month to tap a day in, and wheels for the time.
 
-**Drag an event** to move it: in the week or the day to another time or day (by half hours), in the month to another day. With a mouse, just drag; with a finger, hold it a moment until it lifts. A dashed outline shows where it was. **Its bottom-right corner** (↘) makes it longer or shorter, by half hours. Dragging never moves the page or the Bubble Card pop-up it sits in. A repeating event moves just that day.
+![Adding an event](../images/calendar-view/add.webp)
 
-Tap an event and **Edit** or **Delete** it. A repeating event asks whether it's just this one or this one and the ones after it.
+**Tap an event** – as in Outlook, it gets a ring in its colour and its detail opens beside it (on a phone, from the bottom): when, which calendar, where, its notes and whether it repeats. Now:
+
+- **drag it** to move it – in the week or the day to another time or day, in the month to another day. It lifts while it moves, a dashed outline shows where it was, and it settles where you drop it;
+- **drag its top or bottom handle** to start it earlier or end it later.
+
+Times snap to the half hours. Dragging never scrolls the page or the Bubble Card pop-up it sits in. A repeating event moves just that day.
+
+![A picked event: its handles and its detail](../images/calendar-view/pick.webp)
+
+In the detail, **Edit** or **Delete** the event. A repeating event asks whether it's just this one or this one and the ones after it.
 
 What you can do depends on the calendar – Home Assistant says it:
 
@@ -75,7 +84,7 @@ By default each month has its own photo: snow in sunlight for January, blossom f
 | --- | --- |
 | `months` (default) | A photo for each month |
 | `glass:hills-day` | One of the cards' wallpapers for every month (`glass:dunes-day`, `glass:sea-day`, `glass:pastel-waves-day`…) |
-| `/local/photo.jpg`, `https://…` | A picture of your own for every month |
+| `custom` with `image_url: /local/photo.jpg` | A picture of your own for every month (as the editor writes it); `image: /local/photo.jpg` or `https://…` does the same |
 
 A picture of your own for some months, the others as `image` sets them:
 
@@ -86,7 +95,13 @@ images:
   7: /local/holiday-2025.jpg
 ```
 
-The calendar itself sits on frosted glass – light by day, dark in dark mode, and light on any screen. The switches are the real liquid glass (WebGL). `panel_glass: liquid-gl` puts the calendar on it too, at a cost on weaker tablets. In dark mode the photo dims.
+In the card's editor, **Background** picks it: *A photo for each month*, one of the cards' wallpapers, or *A picture of your own* (`image: custom` with `image_url`).
+
+The calendar itself sits on frosted glass – light by day, dark at night (it follows the dashboard's day and night), and light on any screen. The switches are the real liquid glass (WebGL), dark liquid glass at night; the picked item is a graphite pill by day, sunk into the glass at night. In the dark the photo dims.
+
+### Appearance
+
+As every card, the **Appearance** tab sets each part: the material and colour of the switches (`controls_glass`, `controls_color`) and of their picked item (`picked_color`), of the calendar (`panel_glass`, `panel_color`) and of an event's detail and form (`sheet_glass`, `sheet_color`), the colour of today (`today_color`), and the fonts and icons of the header, the calendar and the detail. `panel_glass: liquid-gl` puts the calendar on real liquid glass too, at a cost on weaker tablets.
 
 ## Options
 
@@ -95,10 +110,11 @@ The calendar itself sits on frosted glass – light by day, dark in dark mode, a
 | --- | --- | --- |
 | `calendars` | (Src \| string)[] | the calendars: an entity or { entity, name, color } (default: every calendar of Home Assistant) |
 | `days_off` | string[] | calendars whose all-day events tint their day instead of showing as events – public holidays, your vacation |
-| `view` | View | what it starts with: month, week, day or agenda (default month; a phone: day) |
+| `view` | View | what it starts with: month, week, day or agenda (default week; a phone: day) |
 | `views` | View[] | the views offered on a wide screen (default month, week, day, agenda) |
 | `phone_views` | View[] | the views offered on a phone (default day, agenda) |
-| `image` | string | months (default): a photo for each month; or one picture for all – glass:hills-day (a wallpaper of the cards), /local/x.jpg, https://… |
+| `image` | string | months (default): a photo for each month; one picture for all – glass:hills-day (a wallpaper of the cards); custom: image_url |
+| `image_url` | string | image: custom – a picture of your own for every month: /local/x.jpg, https://… |
 | `images` | map of string | a picture of your own for a month: { 12: /local/xmas.jpg } |
 | `hemisphere` | "auto" \| "north" \| "south" | which photos fit the season: auto (Home Assistant's location, default), north or south |
 | `weekends` | "tint" \| "plain" \| "hide" | weekends: tint (default) – a shade on Saturday and Sunday; plain; hide – the week and the month without them |
@@ -116,6 +132,10 @@ Materials and colours of the card's parts – set them in the card's **Appearanc
 | `panel_color` | string | Colour of the panel (a tint of its material). |
 | `controls_glass` | material | the switches' track – views, calendars, ‹ Today › (default liquid-gl; dark-liquid-gl in dark mode); the picked item is a solid pill in it |
 | `controls_color` | string | Colour of the controls (a tint of its material). |
+| `picked_color` | string | the picked item in the switches (default dark grey by day, sunk in at night) |
+| `sheet_glass` | material | an event's detail and the event form (default as the panel) |
+| `sheet_color` | string | Colour of the sheet (a tint of its material). |
+| `today_color` | string | today and the time now: the date's circle, the line (default red) |
 <!-- /options -->
 
 ---

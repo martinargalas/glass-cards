@@ -2061,7 +2061,7 @@ export const de: Dict = {
   "Full calendar": "Großer Kalender",
   "Full-size calendar – add, edit and drag events": "Kalender in voller Größe – Termine hinzufügen, bearbeiten und verschieben",
   "Your calendars in full: a month, a week, a day or the agenda. Without calendars listed below it shows every calendar of Home Assistant. The Calendar card opens it with a tap.": "Ihre Kalender ganz: Monat, Woche, Tag oder Agenda. Ohne unten gewählte Kalender zeigt sie alle Kalender von Home Assistant. Die Kalender-Karte öffnet sie mit einem Tippen.",
-  "Default (month; a phone: day)": "Standard (Monat; Handy: Tag)",
+  "Default (week; a phone: day)": "Standard (Woche; Handy: Tag)",
   "A tap opens": "Tippen öffnet",
   "Glass full calendar – add, edit and drag events": "Großer Glass-Kalender – Termine hinzufügen, bearbeiten und verschieben",
   "Home Assistant's calendar": "Kalender von Home Assistant",

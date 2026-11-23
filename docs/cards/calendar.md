@@ -23,7 +23,7 @@ calendars:
 
 ## Tap it
 
-A tap opens the [Calendar view](calendar-view.md) over the dashboard: the month, the week, a day or the agenda of the same calendars, on a photo of the month. Its settings go under `calendar_view`. For Home Assistant's own calendar instead, set **A tap opens** in the card's editor to *Home Assistant's calendar* (`tap_opens: ha`); a `tap_action` of your own replaces both.
+A tap opens the [Full calendar](calendar-view.md) over the dashboard: the month, the week, a day or the agenda of the same calendars, on a photo of the month. Its settings go under `calendar_view`. For Home Assistant's own calendar instead, set **A tap opens** in the card's editor to *Home Assistant's calendar* (`tap_opens: ha`); a `tap_action` of your own replaces both.
 
 ```yaml
 calendar_view:

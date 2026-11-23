@@ -1655,6 +1655,20 @@ views:
                           - entity: input_boolean.glass_alarm_1_ringing
                             icon: mdi:alarm-bell
                             name: Ring
+              - type: custom:glass-divider
+                name: Calendar
+                icon: mdi:calendar-month
+                margin: 0
+                line: false
+              - type: custom:glass-calendar-view
+                height: 680px
+                close: false
+                days_off: [calendar.holidays]
+                calendars:
+                  - entity: calendar.family
+                    color: blue
+                  - entity: calendar.utilities
+                    color: orange
             show_header: false
       - type: grid
         cards:
@@ -3370,6 +3384,22 @@ views:
                       - entity: input_boolean.glass_alarm_1_ringing
                         icon: mdi:alarm-bell
                         name: Ring
+                    view_layout:
+                      height: auto
+                  - type: custom:glass-divider
+                    name: Calendar
+                    icon: mdi:calendar-month
+                    margin: 0
+                    line: false
+                  - type: custom:glass-calendar-view
+                    height: 600px
+                    close: false
+                    days_off: [calendar.holidays]
+                    calendars:
+                      - entity: calendar.family
+                        color: blue
+                      - entity: calendar.utilities
+                        color: orange
                     view_layout:
                       height: auto
             show_header: false

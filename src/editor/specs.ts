@@ -1115,7 +1115,7 @@ export const calendarViewSpec: EditorSpec = {
         { custom: "hint", text: "Your calendars in full: a month, a week, a day or the agenda. Without calendars listed below it shows every calendar of Home Assistant. The Calendar card opens it with a tap." },
         {
           ...select("view", [
-            ["", "Default (month; a phone: day)"],
+            ["", "Default (week; a phone: day)"],
             ["month", "Month"],
             ["week", "Week"],
             ["day", "Day"],

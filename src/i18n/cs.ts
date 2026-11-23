@@ -2061,7 +2061,7 @@ export const cs: Dict = {
   "Full calendar": "Velký kalendář",
   "Full-size calendar – add, edit and drag events": "Kalendář přes celou plochu – přidávání, úpravy a přetahování událostí",
   "Your calendars in full: a month, a week, a day or the agenda. Without calendars listed below it shows every calendar of Home Assistant. The Calendar card opens it with a tap.": "Vaše kalendáře celé: měsíc, týden, den nebo agenda. Bez kalendářů vybraných níže ukáže všechny kalendáře Home Assistantu. Karta Kalendář ho otevře klepnutím.",
-  "Default (month; a phone: day)": "Výchozí (měsíc; na telefonu den)",
+  "Default (week; a phone: day)": "Výchozí (týden; na telefonu den)",
   "A tap opens": "Klepnutí otevře",
   "Glass full calendar – add, edit and drag events": "Velký Glass kalendář – přidávání, úpravy a přetahování událostí",
   "Home Assistant's calendar": "Kalendář Home Assistantu",

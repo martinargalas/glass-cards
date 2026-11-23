@@ -49,7 +49,7 @@ interface ViewConfig extends BaseCardConfig {
   calendars?: (Src | string)[];
   /** calendars whose all-day events tint their day instead of showing as events – public holidays, your vacation */
   days_off?: string[];
-  /** what it starts with: month, week, day or agenda (default month; a phone: day) */
+  /** what it starts with: month, week, day or agenda (default week; a phone: day) */
   view?: View;
   /** the views offered on a wide screen (default month, week, day, agenda) */
   views?: View[];
@@ -429,6 +429,24 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
     this._form = { cal: cal.entity, title: "", allDay, sd: ymd(s), st: hm(s), ed: ymd(allDay ? s : e), et: hm(e), location: "", description: "", rrule: "", scope: "one" };
   }
 
+  /** the event being added: where it will be – drawn in the calendar while its form is open */
+  private _pending() {
+    const f = this._form;
+    if (!f || f.ev) return undefined;
+    const start = f.allDay ? localDate(f.sd) : new Date(`${f.sd}T${f.st}`);
+    const end = f.allDay ? addDays(localDate(f.ed), 1) : new Date(`${f.ed}T${f.et}`);
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) return undefined;
+    const color = this._cals.find((c) => c.entity === f.cal)?.color ?? "#888";
+    return { start, end, allDay: f.allDay, color, title: f.title.trim() || tr("New event") };
+  }
+  /** the event being added, as a pill on a day of the month or the all-day row */
+  private _pendingPill(d: Date, lang: string, h12: boolean | undefined, allDayRow = false) {
+    const p = this._pending();
+    if (!p || (allDayRow && !p.allDay) || d < startOfDay(p.start) || d >= (p.allDay ? p.end : new Date(Math.max(p.end.getTime(), p.start.getTime() + 1)))) return nothing;
+    const t = p.allDay ? "" : new Intl.DateTimeFormat(lang, { hour: "numeric", minute: "2-digit", hour12: h12 }).format(p.start);
+    return html`<div class="ev pending sel ${p.allDay ? "all" : ""}" style="--c:${p.color}">${t ? html`<b>${t}</b>` : nothing}<span>${p.title}</span></div>`;
+  }
+
   private _edit(ev: Ev) {
     haptic("selection");
     const last = ev.allDay ? addDays(ev.end, -1) : ev.end;
@@ -550,6 +568,7 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
   /** the detail next to its event, as Outlook's: right of it, else left, else under it */
   /** the picked event the phone's detail would cover: the time line scrolled to show it (once) */
   private _shownSel?: string;
+  private _shownPend?: string;
   private _placePop() {
     const dock = this.renderRoot.querySelector<HTMLElement>(".detail.dock .sheet");
     if (dock && this._detail && this._shownSel !== this._detail.id) {
@@ -562,6 +581,17 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
       }
     }
     if (!this._detail) this._shownSel = undefined;
+    // the event being added: the time line scrolled to it once
+    const pend = this.renderRoot.querySelector<HTMLElement>(".timeline .pending");
+    const key = this._form && !this._form.ev ? `${this._form.sd}T${this._form.st}` : undefined;
+    if (pend && key && this._shownPend !== key) {
+      this._shownPend = key;
+      const tl = this.renderRoot.querySelector<HTMLElement>(".timeline")!;
+      const r = pend.getBoundingClientRect();
+      const t = tl.getBoundingClientRect();
+      if (r.top < t.top || r.bottom > t.bottom) tl.scrollBy({ top: r.top - t.top - t.height / 3 });
+    }
+    if (!key) this._shownPend = undefined;
     const pop = this.renderRoot.querySelector<HTMLElement>(".pop");
     const frame = this.renderRoot.querySelector<HTMLElement>(".frame");
     const sel = this.renderRoot.querySelector<HTMLElement>(".sel");
@@ -841,12 +871,12 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
       }
     }
     const views = this._views();
-    if (!this._view || !views.includes(this._view)) this._view = this._config?.view && views.includes(this._config.view) ? this._config.view : views[0];
+    if (!this._view || !views.includes(this._view)) this._view = this._config?.view && views.includes(this._config.view) ? this._config.view : views.includes("week") ? "week" : views[0];
   }
 
   protected override updated(changed: PropertyValues) {
     super.updated(changed);
-    if (this._detail) requestAnimationFrame(() => this._placePop());
+    if (this._detail || this._form) requestAnimationFrame(() => this._placePop());
     void this._fetch();
     // the time line: scrolled to the morning (or now) once per day shown
     const tl = this.renderRoot.querySelector<HTMLElement>(".timeline");
@@ -1004,7 +1034,7 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
           @click=${() => (this._dragged || this._dismiss() ? undefined : this._canAdd() && !this._swiped ? this._newEvent(this._startOn(d)) : this._openDay(d))}
         >
           <div class="num"><span class="open ${sameDay(d, today) ? "today" : ""}" @click=${open}>${d.getDate()}</span>${off ? html`<small title=${off}>${off}</small>` : nothing}</div>
-          ${evs.slice(0, max).map((e) => this._evPill(e, lang, h12))}
+          ${this._pendingPill(d, lang, h12)} ${evs.slice(0, max).map((e) => this._evPill(e, lang, h12))}
           ${evs.length > max ? html`<div class="more" @click=${open}>+${evs.length - max}</div>` : nothing}
         </div>`;
       })}
@@ -1052,6 +1082,8 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
     const today = startOfDay(new Date());
     const now = new Date();
     const hours = Array.from({ length: 24 }, (_, h) => new Intl.DateTimeFormat(lang, { hour: "numeric", hour12: h12 }).format(new Date(2024, 0, 1, h)));
+    const pend = this._pending();
+    const tf = (x: Date) => new Intl.DateTimeFormat(lang, { hour: "numeric", minute: "2-digit", hour12: h12 }).format(x);
     const cols = `grid-template-columns: 52px repeat(${n}, minmax(0, 1fr))`;
     // a phone's day: the week above it, a tap picks the day
     const strip =
@@ -1086,12 +1118,12 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
           // a day off (a holiday): its name in the row too – a day shows it, as the month does
           const off = this._dayOff(d);
           return html`<div class="ad ${weCls(d)} ${off ? "off" : ""}" data-day=${ymd(d)} @click=${() => !this._dragged && !this._dismiss() && this._canAdd() && this._newEvent(d, true)}>
-            ${off ? html`<span class="offname" title=${off}>${off}</span>` : nothing}
+            ${off ? html`<span class="offname" title=${off}>${off}</span>` : nothing} ${this._pendingPill(d, lang, h12, true)}
             ${this._on(d).filter((e) => e.allDay || e.end.getTime() - e.start.getTime() >= 86400000).map((e) => this._evPill(e, lang, h12))}
           </div>`;
         })}
       </div>
-      <div class="timeline" @scroll=${() => this._detail && this._placePop()}>
+      <div class="timeline" @scroll=${() => (this._detail || this._form) && this._placePop()}>
         <div class="tgrid" style="${cols};height:${24 * HOUR}px">
           <div class="hours">${hours.map((h, i) => html`<span style="top:${i * HOUR}px">${i ? h : ""}</span>`)}</div>
           ${days.map((d) => {
@@ -1112,7 +1144,11 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
                 ? html`<i class="ghost" style="top:${((was.start.getTime() - day0) / 3600000) * HOUR}px;height:${Math.max(18, ((was.end.getTime() - was.start.getTime()) / 3600000) * HOUR - 2)}px"></i>`
                 : nothing;
             return html`<div class="col ${sameDay(d, today) ? "is-today" : ""} ${weCls(d)}" data-day=${ymd(d)} @click=${(x: MouseEvent) => !this._dragged && !this._dismiss() && this._slot(d, x)}>
-              ${ghost}
+              ${ghost} ${pend && !pend.allDay && sameDay(pend.start, d)
+                ? html`<div class="block pending sel" style="--c:${pend.color};top:${((pend.start.getTime() - day0) / 3600000) * HOUR}px;height:${Math.max(18, (Math.min(24, (pend.end.getTime() - day0) / 3600000) - (pend.start.getTime() - day0) / 3600000) * HOUR - 2)}px;left:2px;width:calc(100% - 4px)">
+                    <b>${pend.title}</b><small>${tf(pend.start)} – ${tf(pend.end)}</small>
+                  </div>`
+                : nothing}
               ${placed.map(({ e, l }) => {
                 const a = Math.max(0, (e.start.getTime() - day0) / 3600000);
                 const b = Math.min(24, (e.end.getTime() - day0) / 3600000);
@@ -1277,8 +1313,10 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
               ></glass-time-wheels>
             </div>`
           : nothing;
-    return html`<div class="scrim" @click=${() => (this._form = undefined)}>
-      <div class="sheet form ${panel?.cls ?? ""}" style="--c:${color};${panel?.style ?? ""}" @click=${(x: Event) => x.stopPropagation()}>
+    // a new event on a wide screen: the form beside where it will be (placed once drawn, _placePop)
+    const side = !f.ev && this._w >= 720 && this._view !== "agenda";
+    return html`<div class="scrim ${side ? "beside" : ""}" @click=${() => (this._form = undefined)}>
+      <div class="sheet form ${side ? "pop" : ""} ${panel?.cls ?? ""}" style="--c:${color};${panel?.style ?? ""}${side ? ";visibility:hidden" : ""}" @click=${(x: Event) => x.stopPropagation()}>
         <div class="bar">
           <button class="link" @click=${() => (this._form = undefined)}>${tr("Cancel")}</button>
           <h3>${f.ev ? tr("Edit event") : tr("New event")}</h3>
@@ -2091,6 +2129,49 @@ export class GlassCalendarView extends GlassElement<ViewConfig> {
         position: absolute;
         width: 320px;
       }
+      .sheet.form.pop {
+        width: 400px;
+        max-height: calc(100% - 16px);
+      }
+      /* beside the new event: the calendar stays clear to see where it goes */
+      .scrim.beside {
+        background: transparent;
+      }
+      /* the event being added: dashed, in its calendar's colour, where it will be */
+      .pending {
+        pointer-events: none;
+        outline: 1.5px dashed var(--c);
+        outline-offset: -1.5px;
+        animation: pend 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      }
+      /* half an hour is one line: the name, then when */
+      .block.pending {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 6px;
+        white-space: nowrap;
+      }
+      .block.pending b {
+        flex-shrink: 0;
+      }
+      .ev.pending {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      @keyframes pend {
+        from {
+          opacity: 0;
+          transform: scale(0.92);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .pending {
+          animation: none;
+        }
+      }
       .detail.dock .sheet {
         width: 100%;
         border-radius: 24px 24px 0 0;
@@ -2702,6 +2783,13 @@ export function openCalendarView(from: Element, hass: HomeAssistant | undefined,
   el.setConfig({ type: "custom:glass-calendar-view", ...config, overlay: true });
   if (hass) el.hass = hass;
   layerFor(from).append(el);
+  // a finger's tap opened it: the click that follows lands on the view just drawn under it (a
+  // day of the month) – it must not add an event there
+  const swallow = (x: Event) => {
+    if (x.composedPath().includes(el)) (x.stopPropagation(), x.preventDefault());
+  };
+  window.addEventListener("click", swallow, { capture: true, once: true });
+  setTimeout(() => window.removeEventListener("click", swallow, { capture: true }), 600);
   return el;
 }
 
