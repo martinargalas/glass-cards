@@ -168,9 +168,7 @@ You can also use each half on its own: `show: player` for a player without the l
 
 `layout: screen` turns the player into a full-screen view made for the effect: the cover large over a slowly drifting blurred copy of itself, the song in big type, and the time and date in the corner (`clock: false` hides them). When nothing is playing, it shows a large clock instead. After five seconds without a touch the buttons and the cursor fade away; a touch brings them back, with play / pause as the largest button.
 
-![The screensaver](../images/media/screen.webp)
-
-![The screensaver after a touch](../images/media/screen-touch.webp)
+![The screensaver, right after a touch](../images/media/screen-touch.webp)
 
 ![On a phone](../images/media/screen-phone.webp "phone")
 
