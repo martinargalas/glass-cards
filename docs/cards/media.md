@@ -2,44 +2,46 @@
 
 `custom:glass-media`
 
-A player for your speakers, made first for **[Music Assistant](https://music-assistant.io)** – and for **YouTube Music added to Music Assistant** as a music source. It works with any `media_player` of Home Assistant too: Sonos, Plex, a Chromecast…
+The media player card brings your music onto the dashboard the way a good music app would. The cover of the song that's playing lies blurred under the glass and tints the whole card with its colours, the buttons and bars are real liquid glass on top of it, and the text switches between dark and white so it always reads well. Below the player sits your library – playlists, albums and artists in rows – so you can start something new without leaving the dashboard.
 
-The cover lies blurred under the glass and lights it with its colours; the buttons and bars are real liquid glass over it, and the text turns dark or white to read on whatever cover plays. Under the player is your **library** – playlists, albums and artists in rows, as a music app shows them – and a search through all of YouTube Music.
+The card is built first and foremost for **[Music Assistant](https://music-assistant.io)**, including YouTube Music added to it, but it plays just as well with Plex or any other player in Home Assistant.
 
-![The player, a cover's colours under the glass](../images/media/card-1.webp)
-
-**Good for:** the speakers of a room, a pop-up with the player on one side and the library on the other, a phone's whole screen, a small tile, a kiosk's screensaver.
+![The player, tinted by the cover](../images/media/card-1.webp)
 
 ## Quick start
 
 ```yaml
 type: custom:glass-media
-entity: media_player.living_room     # a Music Assistant player
-entities:                            # more players: the card shows the one playing
+entity: media_player.living_room     # the player
+entities:                            # more players – the card shows the one that's playing
   - media_player.kitchen
   - media_player.bathroom
 ```
 
-In the Dashboard Studio (or *Add card* in Home Assistant) pick **Media player**.
+You can also add it in Dashboard Studio, or with *Add card* in Home Assistant – look for **Media player**.
 
-## Music Assistant
+## What it can play
 
-The card is made for Music Assistant's players – a Sonos, a Chromecast, AirPlay, Sendspin… played by Music Assistant:
+The card works with three kinds of players. What you get – the library, search, grouping – depends on which one you use.
 
-- **The library** is Music Assistant's: your playlists, albums, artists, radio – whatever its music sources bring in. **Add YouTube Music to Music Assistant** (Settings → Music providers) and your YouTube Music library and playlists are in the card, and they play on any of your speakers.
-- **The search** searches through Music Assistant: its sources' whole catalogues – all of YouTube Music.
-- **Grouping**: Music Assistant's players group with each other in the card.
-- **Pause, next, the song's time** follow what Music Assistant says – also where it says it its own way (a Sonos on Music Assistant's stream says *idle* when paused: the card still shows the song paused, with play to go on).
+### Music Assistant – recommended
 
-That's all through Home Assistant – nothing to set up in the card.
+If your speakers play through Music Assistant – Sonos, Chromecast, Sendspin, AirPlay and the rest – you get everything the card can do. All you need is the **Music Assistant integration in Home Assistant**; there's nothing extra to set up in the card.
 
-### Music Assistant's address and token (optional)
+- **Your library** is Music Assistant's: playlists, albums, artists and radio from every music source you've added to it.
+- **YouTube Music** – add it to Music Assistant (Settings → Music providers → YouTube Music) and your YouTube Music library shows up in the card and plays on any of your speakers.
+- **Search** goes through Music Assistant, so it searches the whole catalogue of your sources – all of YouTube Music, for example.
+- **Grouping** works between speakers of the same kind, see [Playing in more rooms](#playing-in-more-rooms).
 
-Home Assistant passes on Music Assistant's library, but not everything. With Music Assistant's **address and a token** the card asks Music Assistant itself for the rest:
+The card also understands Music Assistant's quirks. A Sonos playing Music Assistant's stream, for instance, reports *idle* when you pause it – the card still shows the song as paused, with the play button ready, instead of jumping to "nothing playing".
 
-- **its home** – the rows its own app opens with: *Top picks for you*, *Listen again*, your mixes, albums for you, played lately – first in the library, YouTube Music's marked;
-- **every playlist and album opens** (hold it, or right-click): its cover, a play button and **all its tracks**; a tap on a track plays the playlist on from that track;
-- **each player's kind** after its name (Sonos, Chromecast, AirPlay…, as Music Assistant names it), and next / previous greyed when the queue holds one song.
+#### Music Assistant's address and token (optional)
+
+Home Assistant passes most of Music Assistant on to the card, but not all of it. If you give the card Music Assistant's address and a token, it can ask Music Assistant directly and you also get:
+
+- **Music Assistant's home** at the top of the library – *Top picks for you*, *Listen again*, your mixes and albums for you, just like in Music Assistant's own app;
+- **every playlist and album with all its tracks** – tap a track and the playlist plays on from there;
+- **each player's kind** (Sonos, Chromecast, AirPlay…) next to its name in the list of players.
 
 ```yaml
 music_assistant_url: http://192.168.1.10:8095
@@ -48,198 +50,51 @@ music_assistant_token: eyJhbGciOi…   # Music Assistant → Settings → profil
 
 ![The library with Music Assistant's home](../images/media/library-open.webp)
 
-> **⚠ The token is readable.** It's stored in the dashboard's configuration in plain text, and the browser sends it to Music Assistant itself. Anyone who can open the dashboard's settings – or read the network traffic of a dashboard on plain `http` – can read it and control your Music Assistant with it. Fill it in only if that's fine with you, on a network you trust. Without it the card works all the same – only without the rows of Music Assistant's home and the playlists' tracks. (This is on purpose: it saves installing an integration just for the card.)
+> **⚠ Please read this before you add the token.** The token is stored in the dashboard's configuration as plain text, and your browser sends it straight to Music Assistant. Anyone who can open the dashboard's settings – or listen to the network traffic of a dashboard opened over plain `http` – can read it and use it to control your Music Assistant. Only fill it in if you're comfortable with that and you trust the network. The card works fine without it; you just won't see Music Assistant's home rows and the tracks of every playlist. This is a deliberate trade-off: it saves you from installing a separate integration just for this card.
 
-The browser talks to Music Assistant directly, so it must reach that address – and a dashboard opened over `https` can't reach Music Assistant on plain `http`.
+Because the browser talks to Music Assistant directly, it has to be able to reach that address. Note that a dashboard opened over `https` can't reach Music Assistant on plain `http`.
 
-## Layouts
+### Sonos with YouTube Music
 
-One card, laid out for where it is – a tablet's pop-up, a phone, a corner of a dashboard.
+Sonos speakers can play your YouTube Music too, and there are two ways to set it up:
 
-**A tablet: the player and its library side by side** – two cards (`show: player` and `show: library`), see [below](#a-player-and-its-library-side-by-side):
+**1. Hearted playlists in the Sonos app** – the quick one. Heart a YouTube Music playlist in the Sonos app (it lands in *My Sonos*) and it appears in the card's library for your Sonos speakers. It starts quickly and reliably, because Sonos plays it through its own YouTube Music service. The catch is that you only get the playlists you've hearted by hand. You don't need Music Assistant for this – the Sonos integration in Home Assistant is enough.
 
-![Player on the left, library on the right](../images/media/popup.webp)
+**2. Through Music Assistant** – the complete one. Add both the Sonos and the YouTube Music providers to Music Assistant, and your whole YouTube Music library and search are available on your Sonos speakers. For everything to play smoothly – pause, the song's progress, grouping – keep the **Sonos integration in Home Assistant** as well, next to Music Assistant's. Each speaker then exists twice in Home Assistant, and the card pairs them up on its own: the controls go through Music Assistant, while the speaker's own entity keeps the card informed.
 
-**A phone** – one card (`show: all`), the library a sheet over the player from its handle; `fill_height: true` stretches it down to the dock:
+### Plex
 
-| | |
-| --- | --- |
-| ![On a phone](../images/media/phone.webp "phone") | ![The library over it](../images/media/phone-library.webp "phone") |
+Plex works through Home Assistant's Plex integration: the library shows what you played and added recently, your playlists and the music library. Home Assistant's Plex integration has no shuffle or repeat, so the card doesn't show them either – if you play Plex through Music Assistant (with Plex as one of its music sources), you get both.
 
-**The library over the card** (`show: all`, default) – open while nothing plays; while something does, the handle on top brings it up and it slides away again by itself:
+### Other Home Assistant players
 
-| | |
-| --- | --- |
-| ![The player](../images/media/card-2.webp) | ![The library over it](../images/media/library-open.webp) |
+Any `media_player` in Home Assistant works – a TV, an AV receiver, a Chromecast without Music Assistant. The card shows only the controls the player supports, so an Apple TV gets no shuffle and a radio no progress bar. If the player can browse its media, that's the library; if it can't, the library lists its sources (radio stations – inputs such as HDMI are left out).
 
-**Only the player** (`show: player`) or **only the library** (`show: library`) – each a card of its own:
+#### YouTube Music without Music Assistant
 
-![Only the player](../images/media/player-only.webp)
-
-![Only the library](../images/media/library-only.webp)
-
-**A tile** (`layout: tile`) and **a screensaver** (`layout: screen`) – [below](#tile).
-
-## The cover's colours
-
-Each cover lights the card its own way – the same card, four songs:
-
-| | |
-| --- | --- |
-| ![](../images/media/card-1.webp) | ![](../images/media/card-2.webp) |
-| ![](../images/media/card-3.webp) | ![](../images/media/card-4.webp) |
-
-Wider, the cover moves to the left:
-
-![A wider card](../images/media/wide-1.webp)
-
-At night the cover dims and the glass turns dark:
-
-| | |
-| --- | --- |
-| ![](../images/media/card-1.night.webp) | ![](../images/media/card-3.night.webp) |
-
-![A wider card at night](../images/media/wide-2.night.webp)
-
-The text and the buttons' icons take the colour that reads on the cover – dark on a light one, white on a dark one. A pause dims the cover; the colours stay.
-
-**Material with the cover** (`art_glass`) chooses the glass the cover lights, whatever the hour:
-
-| `art_glass` | |
-| --- | --- |
-| *(not set)* | light liquid glass by day, dark at night; in a panel, as the panel |
-| `liquid` | light liquid glass with the cover's colours, dark text |
-| `dark-liquid` | dark liquid glass with the cover's colours, white text |
-
-`art_background: false` leaves the cover out: the card is the plain glass of the dashboard.
-
-## Controls
-
-- **Play / pause** – the solid button in the middle. It shows what you pressed at once, while the player gets there (some, as Plex, take a few seconds).
-- **Previous, next, shuffle, repeat** – when the player can (Home Assistant says it). Shuffle and repeat light up when on; repeat goes *all → one → off*. On a narrow card they step aside first.
-- **The progress bar** – tap or drag to jump in the song.
-- **The volume bar** – drag it; the speaker icon on it mutes, a second tap brings the volume back (a player that can't mute goes to 0 and back).
-- A tap on the cover shows the **visualizer** in its place (below); a hold opens Home Assistant's more-info (`hold_action`). With `visualizer: false` the tap is `tap_action` again (more-info by default).
-
-## Visualizer
-
-A tap on the cover turns it into the cover's own colours moving to the music; another tap brings the cover back. Swipe it sideways for another look:
-
-| Look | |
-| --- | --- |
-| Ring | blocks round the middle, stacked out by the sound – each the colour of the cover under it; a strong beat throws one out |
-| Bars | bars up and down from a middle line, the lows in the middle – each a column of the cover |
-| Orbit | the cover in a round that breathes with the sound, its light behind, dots of its colours in orbit |
-
-The browser remembers it (on or off, which look) for every media card on it.
-
-Home Assistant never hands the card the sound itself – a Sonos plays it, not the browser – so the visualizer plays its own: a beat, a snare, hi-hats and a melody, seeded by the song (the same song always moves the same way) and set by where in the song it is: it follows a seek, rests on a pause, starts quietly and fades out at the end. It is a plain canvas (no liquid glass, no WebGL): a fraction of a millisecond a frame, a few frames a second when paused, none when out of sight.
-
-## Keyboard media keys
-
-With `media_keys: true` the media keys of a computer's keyboard – play / pause, next, previous – play on the card's player (the one it shows, through its queue as its own buttons do), also with the browser minimised, Home Assistant in a tab behind or the card in a closed pop-up. The system's own controls show the song with its cover and work too: macOS' Control Center, Windows' media flyout.
-
-A browser sends media keys only to a page that plays sound, so the tab plays a loop of silence (a speaker shows on it). Browsers let that start only after a first click or key on the page: after loading Home Assistant, click anywhere once. The keys go to whatever started playing last – Spotify or a YouTube tab started after takes them over. With more than one such card, the keys go to the one touched last. Chrome, Edge and Firefox; Safari is stricter about sound and may not.
-
-## More players
-
-`entity` and `entities` are the players the card switches between:
-
-- it shows the one **playing**; paused, it stays on it (play is at hand) and moves to another only when that one starts playing later;
-- with more than one, **a tap on the player's name** (▾) lists them – each with its cover and what it plays, bars moving by the one that plays. The one you pick stays until another starts playing after it.
-
-![The players to pick from](../images/media/players.webp)
-
-## Speakers – grouping
-
-The button at the right of the volume bar lists the speakers to group with the one shown: tick one and it plays the same, untick it and it leaves. Each has its own volume bar; the button shows how many play along (`+1`).
-
-![Speakers to group](../images/media/speakers.webp)
-
-The list offers only speakers that can join the one shown: those of **the same integration** that can group – Sonos with Sonos, Music Assistant's players with each other (a TV or a radio gets no tick). It lists all of them in the home, not only the card's `entities`. `speakers: false` leaves the button out.
-
-## At rest – the library
-
-With nothing playing the card opens its **library**: the rows of what the player can browse, as a music app shows them – what you played, what's new, playlists, favourites, radio, albums, artists. Artists are round, albums and playlists square; one without a cover gets a coloured tile with its icon.
-
-![At rest: the library](../images/media/rest.webp)
-
-- **Swipe a row** sideways, the library up and down (with a mouse: drag). On a tablet it never moves the Bubble Card pop-up it's in.
-- **All ›** opens the whole row; an **artist** opens their albums.
-- **A tap on a cover** plays it: a spinner on the cover and on play until the player plays it, and the card stays on that player meanwhile.
-- While something plays, the library slides up to a **handle** at the top of the card – tap it to bring it back. It slides away again after `library_close` seconds without a touch (default 8, `0` = it stays).
-
-What the rows are depends on the player – Home Assistant's media browser:
-
-| Player | The library |
-| --- | --- |
-| **Music Assistant** | Its library (with YouTube Music in it: yours too); with [the token](#music-assistants-address-and-token-optional) its home's rows first |
-| **Sonos** | Its favourites (*My Sonos*): playlists and albums from all its services – YouTube Music, Spotify… |
-| **Plex** | Recently played and added, playlists, the music library |
-| **YouTube Music** (integration) | Your home: mixes, new releases, playlists for you… – see [YouTube Music](#youtube-music) |
-| a player that can't browse | its sources (radio stations, inputs left out) |
-
-Your own covers come first (`favorites`), in rows of their own by `row`:
-
-```yaml
-favorites:
-  - name: Morning radio
-    image: /local/covers/radio.jpg
-    row: Radio
-    media_content_id: http://radio.example/stream.mp3
-    media_content_type: music
-  - name: Kitchen jazz
-    source: Jazz FM          # or a source of the player
-```
-
-`library_sections` picks the rows, in its order, by their titles. `library: false` turns the library off.
-
-## Tile
-
-`layout: tile` – one pill: the cover, what plays and play / pause. **The pill itself is the volume**: drag along it.
-
-![Tile](../images/media/tile.webp)
-
-## Screen – a screensaver
-
-`layout: screen` – the player as the whole view, for the effect: the cover big over itself blurred and slowly drifting, the song in large type, the time and the date (`clock: false` leaves them out). Nothing playing: a large clock. Left untouched for 5 seconds, the buttons and the cursor fade out; the song, its bar and the time stay. A touch brings them back.
-
-![Screen – as a screensaver](../images/media/screen.webp)
-
-A touch – the buttons back, play / pause the largest:
-
-![Screen – touched](../images/media/screen-touch.webp)
-
-| | |
-| --- | --- |
-| ![On a phone](../images/media/screen-phone.webp "phone") | ![At night](../images/media/screen-phone.night.webp "phone") |
-
-Put it alone on a dashboard of its own (a panel view). A kiosk app that shows a dashboard as its screensaver then shows what plays.
+With the [YouTube Music Player](https://github.com/KoljaWindeler/ytube_music_player) integration (HACS) you can use YouTube Music's library for your speakers:
 
 ```yaml
 type: custom:glass-media
-entity: media_player.living_room
-entities: [media_player.living_room, media_player.kitchen]   # it shows the one playing
-layout: screen
+entity: media_player.kitchen
+entities: [media_player.living_room, media_player.bathroom]
+library_from: media_player.ytube_music_player   # YouTube Music's library for these speakers
 ```
 
-## A player and its library side by side
+Tapping a playlist tells YouTube Music to play it on the speaker you picked; next, pause and the rest then go to YouTube Music, which holds the queue. To sign the integration in, follow [ytmusicapi's browser setup](https://ytmusicapi.readthedocs.io/en/stable/setup/browser.html) and copy the resulting `browser.json` to `/config/.storage/header_ytube_music_player.json`. Be aware that YouTube sometimes refuses to hand out a song's stream (`self decoded url return 403` in the log) – the speaker then has nothing to play. That's between the integration and YouTube; Music Assistant is the more dependable way.
 
-A pop-up as the demo's **Music**: the player on the left on the dark glass of the side panel, the library on the right, a search in the header. Two cards with the same players: `show: player` and `show: library`.
 
-![Player on the left, library on the right](../images/media/popup.webp)
+## Layouts
 
-![The same at night](../images/media/popup.night.webp)
+The same card adapts to where you put it.
 
-| `show` | |
-| --- | --- |
-| `all` (default) | the player with its library (the sheet) |
-| `player` | the player alone – it fills its side: the cover and controls on top, the volume at the bottom |
-| `library` | the library alone, always open – its player's name on top (▾ picks another) |
+### A tablet: the player and its library side by side
 
-**The two cards are linked by themselves**: cards with the same players share the player picked – pick another on the left and the library on the right is that player's; a tap in the library plays on it.
+On a tablet you can split a pop-up in two – the player on the left, the library on the right and a search in the header, as in the demo's **Music** pop-up. It takes two cards with the same players, one with `show: player` and one with `show: library`. They link up by themselves: pick a different player on the left and the library on the right follows, and anything you tap in the library plays on that player. In a panel, the cover tints the whole panel right up to its rounded edges.
 
-In a panel the cover lights **the whole panel**, to its rounded edges – not a card inside it.
+![The player on the left, the library on the right](../images/media/popup.webp)
+
+The pop-up's YAML:
 
 ```yaml
 type: custom:bubble-card
@@ -251,9 +106,8 @@ cards:
   - type: custom:glass-popup-header
     name: Music
     icon: mdi:music-note
-    search: true                      # the search field – it searches the library below
+    search: true                      # a search field that searches the library below
     search_placeholder: Search music
-    # the search field starts right above the library: the left side's width
     title_width: calc(max(340px, calc((100cqw - 22px) * 0.36 / 1.36)) - 20px)
   - type: custom:glass-panel
     glass: none
@@ -264,7 +118,7 @@ cards:
     height: 624px
     cards:
       - type: custom:glass-panel
-        role: sidebar                 # the side panel's (dark) glass
+        role: sidebar                 # the side panel's dark glass
         padding: 22
         view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }
         cards:
@@ -279,70 +133,144 @@ cards:
         view_layout: { grow: 1, basis: 0px }
 ```
 
-On a phone one card with `show: all` does both: the library opens from its handle.
 
-![On a phone](../images/media/phone.webp "phone")
+### A phone
 
-### Search
+On a phone one card does both jobs. With `fill_height: true` it fills the screen down to the dock: the cover as large as it fits and the volume at the bottom. The library slides up over the player from the handle at the top.
 
-`search: true` on the [pop-up header](popup-header.md) puts a search field in it, linked to the library in the same pop-up (nothing to set). As you type the library turns into a grid:
+| | |
+| --- | --- |
+| ![The player on a phone](../images/media/phone.webp "phone") | ![The library over it](../images/media/phone-library.webp "phone") |
 
-- **In the library** – what matches in the rows already loaded, at once (no matter capitals or accents);
-- **Search results** – once the typing pauses, what the player's own search finds: YouTube Music's whole catalogue, or any player Home Assistant can search (`media_player.search_media` – Music Assistant…).
+### The library over the card
 
-✕, Esc or an empty field bring the rows back; closing the pop-up empties it.
+By default (`show: all`) the library lives on top of the player. While nothing is playing it stays open; once music plays it slides up to a small handle, and a tap on the handle brings it back. It tucks itself away again after a few seconds without a touch (`library_close`, 8 seconds by default, `0` keeps it open). If you'd rather have it permanently below the player, use `library_layout: below`.
 
-![Search](../images/media/popup-search.webp)
+| | |
+| --- | --- |
+| ![The player](../images/media/card-2.webp) | ![The library over it](../images/media/library-open.webp) |
 
-> **In the web demo** the search finds only what's in the library already – there's no YouTube Music behind it.
+### Just the player, or just the library
 
-## YouTube Music
+You can also use each half on its own: `show: player` for a player without the library, `show: library` for a library card that's always open, with the player's name at the top to switch players.
 
-**The way to go: YouTube Music in Music Assistant.** Add it in Music Assistant (Settings → Music providers → YouTube Music) and it's simply part of Music Assistant's library, search and home in the card – playing on any of Music Assistant's speakers, a Sonos too. Nothing to set in the card; with [the token](#music-assistants-address-and-token-optional) its mixes and playlists open with all their tracks.
+| | |
+| --- | --- |
+| ![Only the player](../images/media/player-only.webp) | ![Only the library](../images/media/library-only.webp) |
 
-**Without Music Assistant** – with the [YouTube Music Player](https://github.com/KoljaWindeler/ytube_music_player) integration (HACS) the card shows your YouTube Music – and plays it **on your speakers**, a Sonos too:
+### A tile
+
+`layout: tile` shrinks the player to a single pill with the cover, what's playing and play / pause. The pill itself is the volume control – just drag along it.
+
+![Tile](../images/media/tile.webp)
+
+### A screensaver
+
+`layout: screen` turns the player into a full-screen view made for the effect: the cover large over a slowly drifting blurred copy of itself, the song in big type, and the time and date in the corner (`clock: false` hides them). When nothing is playing, it shows a large clock instead. After five seconds without a touch the buttons and the cursor fade away; a touch brings them back, with play / pause as the largest button.
+
+![The screensaver](../images/media/screen.webp)
+
+![The screensaver after a touch](../images/media/screen-touch.webp)
+
+![On a phone](../images/media/screen-phone.webp "phone")
+
+Put the card on its own in a dashboard (a panel view) and point your kiosk app's screensaver at that dashboard – whenever music plays, the screensaver shows it.
 
 ```yaml
 type: custom:glass-media
-entity: media_player.kitchen          # the speakers…
-entities: [media_player.living_room, media_player.bathroom]
-library_from: media_player.ytube_music_player   # …and YouTube Music's library for them
+entity: media_player.living_room
+entities: [media_player.kitchen]
+layout: screen
 ```
 
-- The library is YouTube Music's (your home: mixes, new releases, playlists for you…), whichever speaker is picked; the search searches all of YouTube Music.
-- A tap tells YouTube Music to play **on the speaker picked** (it switches its speaker to it) and plays it.
-- The speaker shows what YouTube Music plays: the title, artist, cover and position come from YouTube Music (the speaker itself knows only the stream's address); **next, previous, pause, seek, shuffle and repeat go to YouTube Music** – it holds the queue. The volume is the speaker's.
-- YouTube Music needn't be one of the card's players.
+## Playing music
 
-**Setting the integration up** – sign-in goes through your browser's headers (its OAuth no longer works):
+### The controls
 
-1. On music.youtube.com, signed in, open the browser's developer tools → **Network**, filter `browse` and click e.g. Library.
-2. Copy the `browse` request's **request headers** (Chrome: *Headers* → *Request Headers*, all of it).
-3. Make the headers file with [ytmusicapi](https://ytmusicapi.readthedocs.io/en/stable/setup/browser.html) – pasted from the clipboard, as a terminal cuts long lines:
-   ```bash
-   pbpaste > headers.txt && uvx --from ytmusicapi ytmusicapi browser < headers.txt; rm headers.txt
-   ```
-4. Copy `browser.json` to `/config/.storage/header_ytube_music_player.json` (the integration's name in it) and reload the integration.
+Play / pause is the solid button in the middle; it reacts the moment you press it, even if the player itself takes a few seconds to follow (Plex does). Previous, next, shuffle and repeat appear when the player supports them – shuffle and repeat light up when they're on, and repeat cycles through *all → one → off*. You can tap or drag the progress bar to jump in the song, and drag the volume bar to change the volume; the speaker icon on it mutes and unmutes.
 
-> If the playlists stay at *loading* and the log says `JSONDecodeError`, take `content-encoding` out of the headers file – Chrome adds it, and YouTube then refuses the requests.
+A tap on the cover opens the visualizer, and holding it opens Home Assistant's more-info dialog (`hold_action`).
 
-The headers are your Google sign-in: keep the file to yourself. When they expire, the library stays empty again – make a new file.
+### The cover's colours
 
-> **It plays only when YouTube lets it.** The integration fetches each song's stream from YouTube and hands it to the speaker; when YouTube refuses (the log says `self decoded url return 403`), the speaker gets nothing it can play – a Sonos answers `UPnP Error 714: Illegal MIME-Type` – and the card's spinner runs out. The library and the search work all the same. That's the integration and YouTube, not the card.
+Every cover tints the card its own way – here's the same card with four different songs:
 
-**On a Sonos the sure way is Sonos itself** – it plays YouTube Music through its own service: heart a playlist in the Sonos app (*My Sonos*) and it's in the card's library for the Sonos speakers (leave `library_from` out). Only the ones you hearted, but they always play – as an automation playing a Sonos favourite does.
+| | |
+| --- | --- |
+| ![](../images/media/card-1.webp) | ![](../images/media/card-2.webp) |
+| ![](../images/media/card-3.webp) | ![](../images/media/card-4.webp) |
 
-### Playlists and albums
+On a wider card the cover moves to the left:
 
-**Hold a playlist or an album** (or right-click it) and it opens: its cover, name and a play button for the shown player, then its tracks. A tap on a track plays it – with [Music Assistant's token](#music-assistants-address-and-token-optional) on a Music Assistant player (or a speaker's twin) the playlist plays on from that track, else the track alone. A tap on the cover itself still plays it.
+![A wider card](../images/media/wide-1.webp)
 
-The list of players marks each one's kind after its name – Sonos, Chromecast, AirPlay, Sendspin… as Music Assistant names it, or Home Assistant's mark for a player that isn't Music Assistant's. With the token it's Music Assistant's own word; without it the card guesses from the device's maker.
+At night the cover dims and the glass turns dark (switch the page to night mode to see it). When you pause, the cover dims a little but the colours stay. `art_glass` lets you choose the glass yourself – `liquid` (light, dark text) or `dark-liquid` (dark, white text) – and `art_background: false` leaves the cover out altogether.
 
-## Sonos, Music Assistant, Plex
+### The visualizer
 
-- **Sonos** – each speaker a player; grouping in the card; the library is its favourites.
-- **Music Assistant** – its players group with each other (as far as their kind allows); its library and search in the card.
-- **Plex** (Plexamp) – Home Assistant's Plex integration has no shuffle or repeat, so the card shows none. Played through Music Assistant (Plex as its music source) it has both.
+Tap the cover and it turns into the cover's own colours moving to the music; tap again for the cover. Swipe sideways to switch between three looks: **Ring** (blocks around the centre pushed out by the beat), **Bars** (bars up and down from a middle line) and **Orbit** (the cover breathing in a circle with dots of its colours around it). Your browser remembers your choice for every media card.
+
+Home Assistant never gives the card the actual sound – the speaker plays it, not the browser – so the visualizer composes its own: a beat, hi-hats and a melody based on the song, following where you are in it. It pauses when you pause and takes almost no power. If you'd rather the tap did something else, set `visualizer: false` and the cover uses `tap_action` instead.
+
+## The library
+
+The library shows what the player can browse, in rows just like a music app: what you've played, what's new, playlists, albums, artists and radio. Artists are round, albums and playlists square.
+
+- **Swipe a row** sideways and the library up and down (with a mouse, drag). Inside a Bubble Card pop-up it never drags the pop-up along.
+- **All ›** opens the whole row, and an artist opens their albums.
+- **Tap a cover** to play it. A spinner shows until the player starts, and the card stays on that player meanwhile.
+- **Hold a playlist or an album** (or right-click it) to open it: its cover, a play button and its tracks. Tap a track to play it – with [Music Assistant's token](#music-assistants-address-and-token-optional) the playlist then plays on from that track.
+
+### Search
+
+If you turn on `search: true` in the [pop-up header](popup-header.md), you get a search field that's linked to the library in the same pop-up – there's nothing else to set. As you type, the library turns into a grid: first what matches in the rows already loaded, then, once you pause, what the player's own search finds (Music Assistant searches all of YouTube Music, for example). ✕, Esc or an empty field bring the rows back.
+
+![Search](../images/media/popup-search.webp)
+
+> In the web demo the search only finds what's already in the demo's library.
+
+### Your own rows
+
+You can add covers of your own – a radio stream, a favourite playlist – and they come first, grouped into rows by `row`:
+
+```yaml
+favorites:
+  - name: Morning radio
+    image: /local/covers/radio.jpg
+    row: Radio
+    media_content_id: http://radio.example/stream.mp3
+    media_content_type: music
+  - name: Kitchen jazz
+    source: Jazz FM          # or one of the player's sources
+```
+
+`library_sections` lets you pick which rows to show and in what order (by their titles), and `library: false` turns the library off.
+
+## Playing in more rooms
+
+### Switching between players
+
+List more players in `entities` and the card shows the one that's playing. When you pause, it stays on that player so play is right at hand, and it only moves on when another player starts. A tap on the player's name (▾) lists them all, each with its cover and what it plays; the one you pick stays until another one starts playing after it.
+
+![The players to pick from](../images/media/players.webp)
+
+### Grouping speakers
+
+The button to the right of the volume bar lets you group speakers, so they all play the same thing. Tick a speaker and it joins, untick it and it leaves; each one keeps its own volume bar, and the button shows how many play along (`+1`).
+
+![Speakers to group](../images/media/speakers.webp)
+
+You can only group players of the same kind – Sonos with Sonos, Chromecast with Chromecast – because that's what the speakers themselves can do. The card offers exactly those, from your whole home, not just the card's `entities`. `speakers: false` hides the button.
+
+When you look at a speaker that's silent while others are playing together, the card offers to bring it along: a bar at the top shows what's playing and where, with a **Join** button that adds this speaker to the group.
+
+![Join the speakers that are playing](../images/media/rest.webp)
+
+## Keyboard media keys
+
+With `media_keys: true` you can control the card's player with your computer keyboard's media keys – play / pause, next and previous – even when the browser is minimised, Home Assistant is in a background tab or the card sits in a closed pop-up. Your system's own media controls (Control Center on macOS, the media flyout on Windows) show the song with its cover and work too.
+
+Browsers only send media keys to a page that plays sound, so the tab plays a loop of silence (you'll see a speaker on it) – and browsers only allow that after you've clicked the page once, so click anywhere after Home Assistant loads. If you start Spotify or a YouTube video afterwards, it takes the keys over. This works in Chrome, Edge and Firefox; Safari is stricter and may not.
 
 ## Options
 
@@ -353,6 +281,7 @@ The list of players marks each one's kind after its name – Sonos, Chromecast, 
 | `entities` | string[] | more players: the card shows the one playing (a tap on the name picks another) |
 | `name` | string | Name |
 | `layout` | "card" \| "tile" \| "screen" | card (default), tile – one pill; screen – the whole screen (a kiosk's screensaver) |
+| `clock` | boolean | layout screen: the time and the date (default true) |
 | `show` | "all" \| "player" \| "library" | all (default): the player with its library; player: the player alone; library: the library alone, as a card of its own (beside the player, as in a pop-up's two sides) |
 | `speakers` | boolean | the button of the speakers to group with the one shown (default true) |
 | `library` | boolean | show: all – the player's library (playlists, albums, artists in rows): open while nothing plays, a handle on top while it does (default true) |

@@ -2349,4 +2349,10 @@ export const cs: Dict = {
   "Fold away": "Sbalitelný",
   "The title a header with an arrow: the cards hidden until it's tapped": "Název jako hlavička se šipkou: karty schované, dokud na ni neklepneš",
   "Open to start": "Na začátku rozbalený",
+  "What's new in Glass Cards": "Co je nového v Glass Cards",
+  "New in Glass Cards {version}": "Nové v Glass Cards {version}",
+  "Add them in Dashboard Studio, or with Add card in Home Assistant.": "Přidáš je v Dashboard Studiu nebo přes Přidat kartu v Home Assistantu.",
+  "Got it": "Rozumím",
+  "Your calendars in full on a photo of the month – add events, drag them with a finger and change them.": "Tvoje kalendáře v plné velikosti na fotce měsíce – přidávej události, přetahuj je prstem a upravuj je.",
+  "Made for Music Assistant: the cover lights the glass, your library and a search, speakers to group – and a screensaver.": "Dělaný pro Music Assistant: obal prosvítí sklo, tvoje knihovna a hledání, reproduktory do skupiny – a spořič obrazovky.",
 };

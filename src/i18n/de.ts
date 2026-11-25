@@ -2349,4 +2349,10 @@ export const de: Dict = {
   "Fold away": "Einklappbar",
   "The title a header with an arrow: the cards hidden until it's tapped": "Der Titel als Kopfzeile mit Pfeil: die Karten verborgen, bis man darauf tippt",
   "Open to start": "Anfangs geöffnet",
+  "What's new in Glass Cards": "Neu in Glass Cards",
+  "New in Glass Cards {version}": "Neu in Glass Cards {version}",
+  "Add them in Dashboard Studio, or with Add card in Home Assistant.": "Füge sie im Dashboard Studio hinzu oder mit Karte hinzufügen in Home Assistant.",
+  "Got it": "Verstanden",
+  "Your calendars in full on a photo of the month – add events, drag them with a finger and change them.": "Deine Kalender in voller Größe auf einem Foto des Monats – Termine hinzufügen, mit dem Finger verschieben und ändern.",
+  "Made for Music Assistant: the cover lights the glass, your library and a search, speakers to group – and a screensaver.": "Gemacht für Music Assistant: das Cover leuchtet durchs Glas, deine Bibliothek und eine Suche, Lautsprecher zum Gruppieren – und ein Bildschirmschoner.",
 };

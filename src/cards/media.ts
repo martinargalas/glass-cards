@@ -179,6 +179,8 @@ interface MediaConfig extends BaseCardConfig {
   name?: string;
   /** card (default), tile – one pill; screen – the whole screen (a kiosk's screensaver) */
   layout?: "card" | "tile" | "screen";
+  /** layout screen: the time and the date (default true) */
+  clock?: boolean;
   /** all (default): the player with its library; player: the player alone; library: the library alone,
    *  as a card of its own (beside the player, as in a pop-up's two sides) */
   show?: "all" | "player" | "library";
@@ -480,6 +482,12 @@ function heldOrAsTold(st: HassEntity, m: SteadyMem, id: string, title: string | 
   // a Sonos with nothing on it: what it said before is no blink to ride out any more
   if (sonos && !LOADED.has(st.state)) m.last = undefined;
   return st;
+}
+
+/** A picture's address as a CSS url() – its quotes, backslashes and line breaks escaped, so an
+ *  address from a player's attributes can't end the url() and add CSS of its own. */
+function cssUrl(u: string): string {
+  return `url("${String(u).replace(/["\\\n\r\f]/g, (c) => encodeURIComponent(c))}")`;
 }
 
 /** Where in the song MA's stream to a speaker began (a resume, a seek): the speaker counts from there. */
@@ -1206,7 +1214,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
                   ? [a.media_title, a.media_artist].filter(Boolean).join(" · ")
                   : tr("Nothing playing");
           return html`<button class="prow ${id === main ? "in" : ""}" role="option" aria-selected=${id === main ? "true" : "false"} @click=${() => this._choose(id)}>
-            <i class="pic" style=${url ? `background-image:url("${url}")` : ""}>${url ? nothing : html`<ha-icon .icon=${icon}></ha-icon>`}</i>
+            <i class="pic" style=${url ? `background-image:${cssUrl(url)}` : ""}>${url ? nothing : html`<ha-icon .icon=${icon}></ha-icon>`}</i>
             <span class="ptxt"><span class="sname"><span class="nm">${a.friendly_name ?? id}</span>${this._kindBadge(id)}</span><span class="psub">${what}</span></span>
             ${st?.state === "playing" ? html`<i class="eq ${id === main ? "main" : ""}" aria-hidden="true"><b></b><b></b><b></b></i>` : nothing}
             ${id === main ? html`<ha-icon class="chk" .icon=${"mdi:check"}></ha-icon>` : nothing}
@@ -1593,7 +1601,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
 
   private _art_(st: HassEntity | undefined, cls: string) {
     const url = this._artUrl(st);
-    return html`<div class="art ${cls} ${url ? "" : "none"}" style=${url ? `background-image:url("${url}")` : ""}>
+    return html`<div class="art ${cls} ${url ? "" : "none"}" style=${url ? `background-image:${cssUrl(url)}` : ""}>
       ${url ? nothing : html`<ha-icon .icon=${st?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note"}></ha-icon>`}
     </div>`;
   }
@@ -2191,7 +2199,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
       </div>
       <div class="rows det" @scroll=${keep} @pointerdown=${mv.down} @pointermove=${mv.move} @pointerup=${mv.up} @pointercancel=${mv.up}>
         <div class="det-hero">
-          ${pk.image ? html`<i class="det-bg" style=${`background-image:url("${pk.image}")`}></i>` : nothing}
+          ${pk.image ? html`<i class="det-bg" style=${`background-image:${cssUrl(pk.image)}`}></i>` : nothing}
           <i class="det-cov cov ${pk.image ? "" : "tile"}" style="--h:${[...pk.name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7)}">
             <ha-icon .icon=${KIND_ICON[pk.kind ?? ""] ?? "mdi:playlist-music"}></ha-icon>
             ${pk.image ? html`<img src=${pk.image} alt="" draggable="false" @error=${(e: Event) => ((e.currentTarget as HTMLElement).hidden = true)} />` : nothing}
@@ -2211,7 +2219,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
               : tracks.map(
                   (t) =>
                     html`<button class="trk" @click=${() => (haptic("light"), void this._start(t))}>
-                      ${t.image || pk.kind !== "album" ? html`<i class="tcov" style=${t.image ? `background-image:url("${t.image}")` : ""}></i>` : nothing}
+                      ${t.image || pk.kind !== "album" ? html`<i class="tcov" style=${t.image ? `background-image:${cssUrl(t.image)}` : ""}></i>` : nothing}
                       <span class="ttxt"><span class="tn">${t.name}</span>${t.sub ? html`<span class="ts">${t.sub}</span>` : nothing}</span>
                       ${t.dur ? html`<span class="td">${fmt(t.dur)}</span>` : nothing}
                     </button>`,
@@ -2714,7 +2722,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
       @pointermove=${this._wake}
       @pointerdown=${this._wake}
     >
-      <div class="sbg">${keyed(url ?? "", html`<i class="sbgi ${url ? "" : "none"}" style=${url ? `background-image:url("${url}")` : ""}></i>`)}</div>
+      <div class="sbg">${keyed(url ?? "", html`<i class="sbgi ${url ? "" : "none"}" style=${url ? `background-image:${cssUrl(url)}` : ""}></i>`)}</div>
       <div class="sshade"></div>
       <div class="shead">
         ${clock && !idle ? html`<div class="sclock"><b>${time}</b><span>${date}</span></div>` : html`<span></span>`}
@@ -2799,7 +2807,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
     const url = this._artUrl(st);
     if (this._config.art_background === false || !url) return nothing;
     // a pause dims the art (the colours of the text and buttons stay: see _tone)
-    const bg = html`<i class="bg ${st?.state === "playing" ? "" : "idle"}" style=${`background-image:url("${url}")`}></i>`;
+    const bg = html`<i class="bg ${st?.state === "playing" ? "" : "idle"}" style=${`background-image:${cssUrl(url)}`}></i>`;
     // in a panel (a pop-up's side): the light of the art fills the whole panel, to its edges
     return this.hasAttribute("in-panel") ? html`<div class="bgclip">${bg}</div>` : bg;
   }

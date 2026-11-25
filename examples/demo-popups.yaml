@@ -2920,6 +2920,7 @@ views:
                     music_assistant_url: http://music-assistant.demo.invalid:8095   # the demo's own Music Assistant
                     music_assistant_token: demo
                     show: all
+                    fill_height: true
                     view_layout:
                       height: auto
             show_header: false
