@@ -2855,6 +2855,8 @@ const _g = {
   "Your own covers: the first row of the library": "Vlastní obaly: první řádek knihovny",
   "Music Assistant": "Music Assistant",
   "It shows the one playing; a tap on the player's name picks another": "Ukazuje ten, který hraje; klepnutím na název přehrávače vybereš jiný",
+  "Move to the one playing": "Přepnout na ten, který hraje",
+  "Off: always the player above – another one only while you picked it": "Vypnuto: vždy přehrávač výše – jiný jen když si ho vybereš",
   "The button by the volume: speakers of the same kind to play along": "Tlačítko u hlasitosti: reproduktory stejného druhu, které budou hrát s ním",
   "The player's playlists, albums and artists in rows – open while nothing plays, a handle on top while it does": "Playlisty, alba a interpreti přehrávače v řádcích – otevřená, když nic nehraje, při přehrávání úchyt nahoře",
   "Opened while something plays (0 = it stays open)": "Otevřená během přehrávání (0 = zůstane otevřená)",
@@ -5208,6 +5210,8 @@ const _g = {
   "Your own covers: the first row of the library": "Eigene Cover: die erste Zeile der Bibliothek",
   "Music Assistant": "Music Assistant",
   "It shows the one playing; a tap on the player's name picks another": "Sie zeigt den, der spielt; ein Tipp auf den Namen des Players wählt einen anderen",
+  "Move to the one playing": "Zu dem wechseln, der spielt",
+  "Off: always the player above – another one only while you picked it": "Aus: immer der Player oben – ein anderer nur, wenn du ihn wählst",
   "The button by the volume: speakers of the same kind to play along": "Die Taste neben der Lautstärke: Lautsprecher derselben Art, die mitspielen",
   "The player's playlists, albums and artists in rows – open while nothing plays, a handle on top while it does": "Playlists, Alben und Künstler des Players in Zeilen – offen, solange nichts spielt, beim Abspielen ein Griff oben",
   "Opened while something plays (0 = it stays open)": "Beim Abspielen geöffnet (0 = bleibt offen)",
@@ -18751,7 +18755,7 @@ const Ef = {
   ]
 }, Vf = {
   parts: Xu,
-  defaults: { layout: "card", show: "all", art_background: !0, speakers: !0, library: !0, library_layout: "sheet", library_close: 8, visualizer: !0, clock: !0 },
+  defaults: { layout: "card", show: "all", art_background: !0, speakers: !0, library: !0, library_layout: "sheet", library_close: 8, visualizer: !0, clock: !0, follow_playing: !0 },
   form: (o) => {
     const e = o.layout === "tile", t = o.layout === "screen", a = e || t ? "player" : o.show ?? "all", i = a !== "library", s = !e && !t && (a === "library" || a === "all" && o.library !== !1);
     return [
@@ -18767,6 +18771,12 @@ const Ef = {
             label: "More players",
             helper: "It shows the one playing; a tap on the player's name picks another",
             selector: { entity: { domain: "media_player", multiple: !0 } }
+          },
+          {
+            name: "follow_playing",
+            label: "Move to the one playing",
+            helper: "Off: always the player above – another one only while you picked it",
+            selector: { boolean: {} }
           },
           A(
             { name: "name", label: "Name", selector: { text: {} } },
@@ -38911,7 +38921,7 @@ function Fy(o) {
   if (t === "album") return `ytmusic://album/${e}`;
   if (t === "artist") return `ytmusic://artist/${e}`;
 }
-const Ke = /* @__PURE__ */ new Map(), Pm = "glass-media-players", qo = /* @__PURE__ */ new Map();
+const Ke = /* @__PURE__ */ new Map(), Hy = 5 * 6e4, Pm = "glass-media-players", qo = /* @__PURE__ */ new Map();
 try {
   const o = JSON.parse(localStorage.getItem(Pm) ?? "{}");
   for (const [e, t] of Object.entries(o))
@@ -38927,11 +38937,11 @@ function qi() {
   } catch {
   }
 }
-const Hy = /* @__PURE__ */ new Set(["media_next_track", "media_previous_track", "shuffle_set", "repeat_set", "media_play", "media_pause", "media_seek"]), Wi = new EventTarget(), Mt = /* @__PURE__ */ new Map(), nt = /* @__PURE__ */ new Map(), Em = 36e5, Kl = new EventTarget(), Kh = /* @__PURE__ */ new Map(), zs = /* @__PURE__ */ new Map(), Lm = 4e3, Wo = 2e4;
+const Gy = /* @__PURE__ */ new Set(["media_next_track", "media_previous_track", "shuffle_set", "repeat_set", "media_play", "media_pause", "media_seek"]), Wi = new EventTarget(), Mt = /* @__PURE__ */ new Map(), nt = /* @__PURE__ */ new Map(), Em = 36e5, Kl = new EventTarget(), Kh = /* @__PURE__ */ new Map(), zs = /* @__PURE__ */ new Map(), Lm = 4e3, Wo = 2e4;
 function Vh(o, ...e) {
   return o && e.some((t) => Date.now() - (zs.get(t) ?? 0) < Wo) ? Wo : 8e3;
 }
-const Gy = 8e3, Yh = 1500;
+const Uy = 8e3, Yh = 1500;
 function ur(o, e = !1) {
   if (!o) return o;
   const t = o.entity_id;
@@ -38941,7 +38951,7 @@ function ur(o, e = !1) {
   if (n && ((o.state === "playing" || o.state === "buffering") && r || o.state === "off" || o.state === "unavailable" || s && s !== n.title || i - n.at > Em) && nt.delete(t), Ne.has(o.state)) {
     a.idle = void 0;
     const c = a.last?.attributes.media_title;
-    if (a.last && s && c && s !== c && !((zs.get(t) ?? 0) > a.replacedAt) && i - a.replacedAt < Gy) {
+    if (a.last && s && c && s !== c && !((zs.get(t) ?? 0) > a.replacedAt) && i - a.replacedAt < Uy) {
       let h = a.pending;
       if ((!h || h.title !== s) && (h = a.pending = { title: s, since: i }), i - h.since < Yh)
         return window.setTimeout(() => Kl.dispatchEvent(new Event("check")), Yh + 50), a.last;
@@ -38950,7 +38960,7 @@ function ur(o, e = !1) {
   }
   const l = Date.parse(o.last_changed) || i;
   if (e) {
-    const c = Uy(o, a, t, s, l, i);
+    const c = Ky(o, a, t, s, l, i);
     if (c) return c;
   } else if (o.state === "idle" && a.last && i - a.lastAt < Lm) {
     if (!a.idle) {
@@ -38961,9 +38971,9 @@ function ur(o, e = !1) {
     }
     return { ...a.last, attributes: { ...a.last.attributes, media_position: a.idle.pos, media_position_frozen: !0 } };
   }
-  return Ky(o, a, t, s, l, i, e);
+  return Vy(o, a, t, s, l, i, e);
 }
-function Uy(o, e, t, a, i, s) {
+function Ky(o, e, t, a, i, s) {
   const n = (zs.get(t) ?? 0) > i - 5e3 && s - (zs.get(t) ?? 0) < Wo;
   if (o.state === "idle" && e.last && s - i < (n ? Wo : Lm)) {
     const r = e.last.attributes.media_title;
@@ -38980,7 +38990,7 @@ function Uy(o, e, t, a, i, s) {
     return { ...e.last, attributes: { ...e.last.attributes, media_position: e.idle.pos, media_position_frozen: !0 } };
   }
 }
-function Ky(o, e, t, a, i, s, n) {
+function Vy(o, e, t, a, i, s, n) {
   let r = nt.get(t);
   if (!r && o.state === "idle" && a) {
     const l = o.attributes, c = Number(l.media_duration), d = Number(l.media_position), h = Date.parse(l.media_position_updated_at ?? "");
@@ -39007,7 +39017,7 @@ function Ha(o) {
   return `url("${String(o).replace(/["\\\n\r\f]/g, (e) => encodeURIComponent(e))}")`;
 }
 const mr = /* @__PURE__ */ new Map(), Zh = /* @__PURE__ */ new Map();
-function Vy(o) {
+function Yy(o) {
   let e = Zh.get(o);
   return e || (e = new Promise((t) => {
     const a = new Image();
@@ -39244,6 +39254,10 @@ const Ct = (o) => ({
   }
   _pickMain(e) {
     const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (l) => Date.parse(e[l]?.last_changed ?? "") || 0, i = (l) => Ne.has(e[l]?.state ?? "") || Mt.has(l) || nt.has(l), s = new Set(this._ids.map((l) => e[l]?.attributes.remote_player_id).filter(Boolean)), n = Ke.get(this._linkKey) ?? this._chosen;
+    if (this._config.follow_playing === !1) {
+      const l = n && n.id !== this._ids[0] && this._ids.includes(n.id) && (this._busy(n) || i(n.id) || Date.now() - n.at < Hy);
+      return this._shown = l ? n.id : this._ids[0];
+    }
     if (n && this._ids.includes(n.id)) {
       if (this._busy(n)) return this._shown = n.id;
       const l = this._ids.find((c) => c !== n.id && !s.has(c) && e[c]?.state === "playing" && a(c) > n.at && !i(n.id));
@@ -39454,7 +39468,7 @@ const Ct = (o) => ({
         this._color = void 0, this._light = void 0;
         return;
       }
-      Vy(e).then((t) => {
+      Yy(e).then((t) => {
         this._art === e && (this._color = t?.color, this._light = t?.light, this.requestUpdate());
       });
     }
@@ -39469,7 +39483,7 @@ const Ct = (o) => ({
     return (t ? i * this._light * 0.7 + (1 - i) * 0.15 : i * this._light + (1 - i) * 0.92) > 0.58 ? "ink-dark" : "ink-light";
   }
   _call(e, t = {}, a = this._main()) {
-    if (a === this._main() && Hy.has(e) && (a = this._queueVia(a) ?? a), e === "media_previous_track" || e === "media_next_track") for (const i of [this._main(), a]) zs.set(i, Date.now());
+    if (a === this._main() && Gy.has(e) && (a = this._queueVia(a) ?? a), e === "media_previous_track" || e === "media_next_track") for (const i of [this._main(), a]) zs.set(i, Date.now());
     this._hass?.callService("media_player", e, {
       entity_id: a,
       ...t
@@ -43187,7 +43201,7 @@ ce("glass-media", Vl, {
   name: "Glass – media player",
   description: "What plays with its album art, the controls, a liquid glass volume bar and the speakers to group."
 });
-const Yy = ["day", "week", "month", "year"], Zy = "period", As = (o) => o.group || Zy, Gt = (o) => !!o.offset_entity, Jy = [
+const Zy = ["day", "week", "month", "year"], Jy = "period", As = (o) => o.group || Jy, Gt = (o) => !!o.offset_entity, Xy = [
   ["day", ["day", "den", "dny", "dni", "tag", "jour", "día", "dia", "dzie"]],
   // i18n-ok
   ["week", ["week", "týd", "tyd", "woche", "sem", "tydz", "týž"]],
@@ -43197,18 +43211,18 @@ const Yy = ["day", "week", "month", "year"], Zy = "period", As = (o) => o.group 
   ["year", ["year", "rok", "jahr", "an", "año", "ano"]]
   // i18n-ok
 ];
-function Xy(o, e) {
+function Qy(o, e) {
   if (!o) return;
   if (e?.[o]) return e[o];
   const t = o.trim().toLowerCase();
-  return Jy.find(([, a]) => a.some((i) => t.startsWith(i)))?.[0];
+  return Xy.find(([, a]) => a.some((i) => t.startsWith(i)))?.[0];
 }
 function uo(o, e, t = ["day", "month", "year"]) {
   if (Gt(e)) {
     const r = Number(o?.states[e.offset_entity]?.state), l = e.select_entity ? o?.states[e.select_entity]?.state : void 0;
-    return { kind: Xy(l, e.kinds) ?? "day", offset: Number.isFinite(r) ? Math.min(0, r) : 0 };
+    return { kind: Qy(l, e.kinds) ?? "day", offset: Number.isFinite(r) ? Math.min(0, r) : 0 };
   }
-  const [a, i] = (Ma(As(e)) ?? "").split(":"), s = Yy.includes(a) ? a : t[0] ?? "day", n = Number(i);
+  const [a, i] = (Ma(As(e)) ?? "").split(":"), s = Zy.includes(a) ? a : t[0] ?? "day", n = Number(i);
   return { kind: s, offset: Number.isFinite(n) ? Math.min(0, Math.round(n)) : 0 };
 }
 function gr(o, e) {
@@ -43218,11 +43232,11 @@ function Ms(o, e = /* @__PURE__ */ new Date()) {
   const t = new Date(e.getFullYear(), e.getMonth(), e.getDate());
   return o.kind === "day" ? t.setDate(t.getDate() + o.offset) : o.kind === "week" ? t.setDate(t.getDate() - (t.getDay() + 6) % 7 + 7 * o.offset) : o.kind === "month" ? (t.setDate(1), t.setMonth(t.getMonth() + o.offset)) : t.setFullYear(t.getFullYear() + o.offset, 0, 1), t;
 }
-function Qy(o, e = /* @__PURE__ */ new Date()) {
+function ev(o, e = /* @__PURE__ */ new Date()) {
   const t = Ms(o, e);
   return o.kind === "day" ? t.setDate(t.getDate() + 1) : o.kind === "week" ? t.setDate(t.getDate() + 7) : o.kind === "month" ? t.setMonth(t.getMonth() + 1) : t.setFullYear(t.getFullYear() + 1), t;
 }
-function ev(o) {
+function tv(o) {
   const e = new Date(Date.UTC(o.getFullYear(), o.getMonth(), o.getDate()));
   return e.setUTCDate(e.getUTCDate() + 4 - (e.getUTCDay() || 7)), Math.ceil(((e.getTime() - Date.UTC(e.getUTCFullYear(), 0, 1)) / 864e5 + 1) / 7);
 }
@@ -43233,14 +43247,14 @@ function Qh(o, e, t = !1, a = /* @__PURE__ */ new Date()) {
     const s = i.toLocaleDateString(e, { day: "numeric", month: "numeric" });
     return `${Xh(i.toLocaleDateString(e, { weekday: t ? "short" : "long" }))} ${s}`;
   }
-  if (o.kind === "week") return v(t ? "W{n}" : "Week {n}", { n: ev(i) });
+  if (o.kind === "week") return v(t ? "W{n}" : "Week {n}", { n: tv(i) });
   if (o.kind === "month") {
     const s = Xh(i.toLocaleDateString(e, { month: t && i.getFullYear() !== a.getFullYear() ? "short" : "long" })).replace(/\.$/, "");
     return i.getFullYear() === a.getFullYear() ? s : `${s} ${i.getFullYear()}`;
   }
   return String(i.getFullYear());
 }
-function tv(o, e) {
+function av(o, e) {
   return v({ day: "Day", week: "Week", month: "Month", year: "Year" }[o]);
 }
 const ep = (o) => !!o && o !== "none";
@@ -43306,7 +43320,7 @@ const ei = class ei extends F {
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = uo(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, tv($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${Qh(n, a)}</span><span class="short">${Qh(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), z = p`<span class="gap"></span>`, S = fr(e.bar_glass, e.bar_color, "frosted"), M = fr(e.buttons_glass, e.buttons_color, "dark"), k = h ? M : fr(e.now_glass, e.now_color, "home");
+    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = uo(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, av($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${Qh(n, a)}</span><span class="short">${Qh(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), z = p`<span class="gap"></span>`, S = fr(e.bar_glass, e.bar_color, "frosted"), M = fr(e.buttons_glass, e.buttons_color, "dark"), k = h ? M : fr(e.now_glass, e.now_color, "home");
     return this._btn = M, p`<div class="bar lbar ${S.cls || "control"} ${e.spread ? "spread" : ""}" style=${S.style}>
         ${e.spread ? g : z}
         ${x("now") ? p`<button class="now ${h ? "on" : ""} ${k.cls}" style=${k.style} aria-label=${e.now_label ?? v("Now")} @click=${() => this._now()}>
@@ -43622,22 +43636,22 @@ function Da(o, e) {
   for (const [a, i] of Object.entries(e)) t[a] = wt(i) && wt(t[a]) ? Da(t[a], i) : i;
   return t;
 }
-function av(o, e = /* @__PURE__ */ new Date()) {
-  const t = Ms(o, e), a = Qy(o, e), i = Math.round((a.getTime() - t.getTime()) / 864e5), s = { day: "day", week: "isoWeek", month: "month", year: "year" }, n = { graph_span: `${i}d`, span: { start: s[o.kind] } };
+function iv(o, e = /* @__PURE__ */ new Date()) {
+  const t = Ms(o, e), a = ev(o, e), i = Math.round((a.getTime() - t.getTime()) / 864e5), s = { day: "day", week: "isoWeek", month: "month", year: "year" }, n = { graph_span: `${i}d`, span: { start: s[o.kind] } };
   if (o.offset < 0) {
     const r = Ms({ ...o, offset: 0 }, e).getTime() - t.getTime();
     n.span.offset = `-${Math.round(r / 36e5)}h`;
   }
   return n;
 }
-const iv = {
+const sv = {
   day: ["1h", "hour", "d. M. HH:mm"],
   week: ["1d", "day", "d. M. yyyy"],
   month: ["1d", "day", "d. M. yyyy"],
   year: ["1month", "month", "M / yyyy"]
 };
-function sv(o, e) {
-  const [t, a, i] = iv[e], s = Array.isArray(o.series) ? o.series.map((n) => wt(n) ? wt(n.statistics) ? { ...n, statistics: { period: a, ...n.statistics } } : wt(n.group_by) ? { ...n, group_by: { duration: t, ...n.group_by } } : n : n) : o.series;
+function ov(o, e) {
+  const [t, a, i] = sv[e], s = Array.isArray(o.series) ? o.series.map((n) => wt(n) ? wt(n.statistics) ? { ...n, statistics: { period: a, ...n.statistics } } : wt(n.group_by) ? { ...n, group_by: { duration: t, ...n.group_by } } : n : n) : o.series;
   return Da({ ...o, series: s }, { apex_config: Da({ tooltip: { x: { format: i } } }, wt(o.apex_config) ? o.apex_config : {}) });
 }
 function br(o, e) {
@@ -43646,8 +43660,8 @@ function br(o, e) {
   const a = getComputedStyle(t).color.match(/[\d.]+/g);
   return t.remove(), a && a.length >= 3 ? [Number(a[0]), Number(a[1]), Number(a[2])] : void 0;
 }
-const Zl = (o) => `#${o.map((e) => Math.round(e).toString(16).padStart(2, "0")).join("")}`, ov = (o) => Zl(o.map((e) => e + (255 - e) * 0.25));
-function nv(o, e, t) {
+const Zl = (o) => `#${o.map((e) => Math.round(e).toString(16).padStart(2, "0")).join("")}`, nv = (o) => Zl(o.map((e) => e + (255 - e) * 0.25));
+function rv(o, e, t) {
   const a = br(Y(e.color) ?? "var(--glass-chart-color, #ff9f0a)", t) ?? [255, 159, 10], i = (Array.isArray(o.series) ? o.series : []).map((c) => {
     if (!wt(c)) return c;
     const d = typeof c.color == "string" ? Y(c.color) : void 0;
@@ -43664,7 +43678,7 @@ function nv(o, e, t) {
     },
     fill: {
       type: e.gradient === !1 ? "solid" : "gradient",
-      gradient: { type: "vertical", shade: "light", shadeIntensity: 0, gradientToColors: s.map(ov), inverseColors: !1, opacityFrom: 1, opacityTo: 0.85, stops: [0, 100] }
+      gradient: { type: "vertical", shade: "light", shadeIntensity: 0, gradientToColors: s.map(nv), inverseColors: !1, opacityFrom: 1, opacityTo: 0.85, stops: [0, 100] }
     },
     xaxis: { labels: { show: !!e.time, datetimeUTC: !1 }, axisBorder: { show: !1 }, axisTicks: { show: !1 }, tooltip: { enabled: !1 }, crosshairs: { show: !1 } },
     ...e.values === !1 ? { yaxis: { labels: { show: !1 } } } : {},
@@ -43678,7 +43692,7 @@ function nv(o, e, t) {
   };
   return Da({ header: { show: !1 }, series: i }, { ...o, series: i, apex_config: Da(l, wt(o.apex_config) ? o.apex_config : {}) });
 }
-function rv(o) {
+function lv(o) {
   const e = o?.el, t = e?.querySelector(".apexcharts-yaxis-annotations line"), a = e ? [...e.querySelectorAll(".apexcharts-bar-area")] : [];
   if (!t || !a.length) return;
   let i = 1 / 0, s = -1 / 0;
@@ -43688,8 +43702,8 @@ function rv(o) {
   }
   Number.isFinite(i) && (t.setAttribute("x1", String(Math.min(i, Number(t.getAttribute("x1"))))), t.setAttribute("x2", String(Math.max(s, Number(t.getAttribute("x2"))))));
 }
-window.glassChartZeroLine = rv;
-const tp = "EVAL:(chart) => window.glassChartZeroLine && window.glassChartZeroLine(chart)", lv = `
+window.glassChartZeroLine = lv;
+const tp = "EVAL:(chart) => window.glassChartZeroLine && window.glassChartZeroLine(chart)", cv = `
 ha-card { background: none !important; border: 0 !important; box-shadow: none !important; color: inherit !important;
   -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
 .apexcharts-text, .apexcharts-tooltip, .apexcharts-tooltip-title { font-family: var(--g-font) !important; }
@@ -43744,15 +43758,15 @@ ha-card { background: none !important; border: 0 !important; box-shadow: none !i
     if (a !== this._key || !this._card) {
       this._key = a;
       const i = t ? e[t.kind] : void 0;
-      let s = t ? sv(Da(Da(e.card, av(t)), wt(i) ? i : {}), t.kind) : { ...e.card };
-      e.look !== "apex" && (s = nv(s, e, this)), this._card = ws(s, this._hass), this._style(this._card);
+      let s = t ? ov(Da(Da(e.card, iv(t)), wt(i) ? i : {}), t.kind) : { ...e.card };
+      e.look !== "apex" && (s = rv(s, e, this)), this._card = ws(s, this._hass), this._style(this._card);
     }
     return this._card;
   }
   /** The glass CSS and the `fonts` of its parts into the chart card's shadow root (once it has one). */
   _style(e) {
     if (this._config.look === "apex") return;
-    this._sheet ??= new CSSStyleSheet(), this._sheet.replaceSync(lv + Fp(ll, this._config.fonts));
+    this._sheet ??= new CSSStyleSheet(), this._sheet.replaceSync(cv + Fp(ll, this._config.fonts));
     const t = this._sheet;
     let a = 0;
     const i = () => {
@@ -44307,7 +44321,7 @@ const ip = {
   mowing: "Mowing",
   unavailable: "Unavailable",
   unknown: "Unknown"
-}, cv = (o) => Array.isArray(o) ? o : [o], dv = { vacuum: ["cleaning", "paused", "returning"], mower: ["mowing", "paused", "returning"] }, hv = ["on", "charging", "recharging", "charging_mid_mission"], pv = (o) => o >= 95 ? "mdi:battery" : o < 5 ? "mdi:battery-outline" : `mdi:battery-${Math.round(o / 10) * 10}`, rn = class rn extends F {
+}, dv = (o) => Array.isArray(o) ? o : [o], hv = { vacuum: ["cleaning", "paused", "returning"], mower: ["mowing", "paused", "returning"] }, pv = ["on", "charging", "recharging", "charging_mid_mission"], uv = (o) => o >= 95 ? "mdi:battery" : o < 5 ? "mdi:battery-outline" : `mdi:battery-${Math.round(o / 10) * 10}`, rn = class rn extends F {
   constructor() {
     super(), new le(this, ".list");
   }
@@ -44386,7 +44400,7 @@ const ip = {
     return Rc(this._hass, e);
   }
   _charging(e) {
-    return hv.includes(this._hass?.states[e.charging ?? ""]?.state ?? "");
+    return pv.includes(this._hass?.states[e.charging ?? ""]?.state ?? "");
   }
   _call(e, t, a) {
     W(), this._hass?.callService(e, t, { entity_id: a });
@@ -44404,7 +44418,7 @@ const ip = {
     !t || !e.select || this._sel === e.select || (W("selection"), Cs(t, e.select));
   }
   _item(e, t) {
-    const a = t.states[e.entity], i = this._type(e), s = e.name ?? a?.attributes.friendly_name ?? e.entity, n = this._config.active_color ?? "orange", r = a?.state ?? "unavailable", l = i === "vacuum" ? ["cleaning", "returning"].includes(r) : i === "mower" ? ["mowing", "returning"].includes(r) : this._washer(e) === "run", c = !!(this._config.select_group && e.select), d = c && this._sel === e.select, h = this._num(e.battery), u = this._num(e.progress), m = this._charging(e) && !(h >= 100), f = !m && (dv[i] ?? []).includes(r), b = m ? h : f ? u : i === "washer" ? this._cycle(e) : NaN;
+    const a = t.states[e.entity], i = this._type(e), s = e.name ?? a?.attributes.friendly_name ?? e.entity, n = this._config.active_color ?? "orange", r = a?.state ?? "unavailable", l = i === "vacuum" ? ["cleaning", "returning"].includes(r) : i === "mower" ? ["mowing", "returning"].includes(r) : this._washer(e) === "run", c = !!(this._config.select_group && e.select), d = c && this._sel === e.select, h = this._num(e.battery), u = this._num(e.progress), m = this._charging(e) && !(h >= 100), f = !m && (hv[i] ?? []).includes(r), b = m ? h : f ? u : i === "washer" ? this._cycle(e) : NaN;
     let y = ip[r] ? v(ip[r]) : r;
     if (m) y = `${v("Charging")}${Number.isFinite(h) ? ` · ${Math.round(h)} %` : ""}`;
     else if (i === "mower" && r === "paused" && Number.isFinite(u)) y = `${v("Resume")} · ${Math.round(u)} %`;
@@ -44446,7 +44460,7 @@ const ip = {
           <span class="lstate">${y}</span>
         </div>
         ${f && Number.isFinite(h) ? p`<span class="batt" title=${`${v("Battery")} ${Math.round(h)} %`}>
-              <ha-icon .icon=${pv(h)}></ha-icon>${Math.round(h)} %
+              <ha-icon .icon=${uv(h)}></ha-icon>${Math.round(h)} %
             </span>` : g}
       </div>
       <div class="tray ${M?.cls ?? ""}" style=${M?.style ?? ""}>${this._tray(e, a, i)}</div>
@@ -44522,7 +44536,7 @@ const ip = {
               ${this._holdBtn("mdi:chevron-down", v("Back"), d.down)}
             </div>` : g}`;
     }
-    const s = e.stages ?? lm, n = oi(i), r = this._washer(e), l = r === "run" || r === "pause", c = r === "off" ? -1 : s.findIndex((d) => cv(d.state).map(oi).includes(n));
+    const s = e.stages ?? lm, n = oi(i), r = this._washer(e), l = r === "run" || r === "pause", c = r === "off" ? -1 : s.findIndex((d) => dv(d.state).map(oi).includes(n));
     return p`<div class="stages">
       ${s.map((d, h) => {
       const u = c < 0 ? "" : h < c ? "done" : h === c && (l || r === "done") ? "cur" : "", m = cm(d), f = this._seg(u === "cur");
@@ -45078,7 +45092,7 @@ function Ga(o, e, t) {
   const a = o ?? (Fo(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: Fo(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
 }
-function uv(o) {
+function mv(o) {
   if (!o || o.length < 3) return;
   const [e, t, a] = o, i = e.vacuum.x * (t.vacuum.y - a.vacuum.y) - e.vacuum.y * (t.vacuum.x - a.vacuum.x) + (t.vacuum.x * a.vacuum.y - a.vacuum.x * t.vacuum.y);
   if (!i) return;
@@ -45091,7 +45105,7 @@ function uv(o) {
 const ac = 22, ic = 256 * 2 ** ac, Zi = ([o, e]) => {
   const t = Math.sin(e * Math.PI / 180);
   return [(o + 180) / 360 * ic, (0.5 - Math.log((1 + t) / (1 - t)) / (4 * Math.PI)) * ic];
-}, mv = {
+}, gv = {
   esri: { url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", max: 18 },
   cuzk: { url: "https://ags.cuzk.gov.cz/arcgis1/rest/services/ORTOFOTO_WM/MapServer/tile/{z}/{y}/{x}", max: 20 }
 };
@@ -45120,7 +45134,7 @@ function _r(o, e) {
   }
 }
 const yr = /* @__PURE__ */ new Map();
-function gv(o, e) {
+function fv(o, e) {
   let t = yr.get(e);
   return t || (t = o.callWS({
     type: "call_service",
@@ -45132,7 +45146,7 @@ function gv(o, e) {
     yr.delete(e);
   }), yr.set(e, t)), t;
 }
-function fv(o) {
+function bv(o) {
   let [e, t, a, i] = [1 / 0, 1 / 0, -1 / 0, -1 / 0];
   for (const [c, d] of o) [e, t, a, i] = [Math.min(e, c), Math.min(t, d), Math.max(a, c), Math.max(i, d)];
   const s = (c, d) => {
@@ -45266,7 +45280,7 @@ const ln = class ln extends F {
     for (const t of ["pointerdown", "pointermove", "touchstart", "touchmove", "mousedown", "mousemove"]) this.renderRoot.addEventListener(t, e);
   }
   updated(e) {
-    super.updated(e), this._busy && this._picked.length && (this._picked = []), this._lawn && !this._geo && this._hass && gv(this._hass, this._config.entity).then((i) => i && (this._geo = i));
+    super.updated(e), this._busy && this._picked.length && (this._picked = []), this._lawn && !this._geo && this._hass && fv(this._hass, this._config.entity).then((i) => i && (this._geo = i));
     const t = this._lawn && Gi.includes(this._hass?.states[this._config.entity]?.state ?? "");
     if (t && !this._poll && (this._hass.callService("mammotion", "fetch_mow_path", {}, { entity_id: this._config.entity }).catch(() => {
     }), this._loadJob(), this._poll = window.setInterval(() => this._loadJob(), 3e4)), this._lawn) {
@@ -45312,7 +45326,7 @@ const ln = class ln extends F {
   }
   /** Rooms from the Roomba+ map picture, in its pixels. */
   _rooms() {
-    const e = this._hass.states[this._config.map], t = e?.attributes.rooms ?? {}, a = uv(e?.attributes.calibration_points), [i, s] = this._size ?? [0, 0];
+    const e = this._hass.states[this._config.map], t = e?.attributes.rooms ?? {}, a = mv(e?.attributes.calibration_points), [i, s] = this._size ?? [0, 0];
     return { shapes: Object.keys(t).map((r) => ({ key: r, name: this._name(r), pts: a && t[r].outline ? t[r].outline.map(a) : [] })), view: a && i ? [0, 0, i, s] : void 0, url: e?.attributes.entity_picture };
   }
   /** Zones of the lawn: each one picked through its area switch (matched by the zone's hash). */
@@ -45343,7 +45357,7 @@ const ln = class ln extends F {
   }
   /** Esri satellite tiles under the view, at the zoom closest to the screen's own sharpness (drawn from the view's corner). */
   _tiles([e, t, a, i]) {
-    const s = window.devicePixelRatio || 1, n = Math.round(ac - Math.log2(a / (this._box[0] * s))), r = mv[this._config.tiles ?? "esri"] ?? { url: this._config.tiles, max: 19 }, l = this._config.max_zoom ?? r.max;
+    const s = window.devicePixelRatio || 1, n = Math.round(ac - Math.log2(a / (this._box[0] * s))), r = gv[this._config.tiles ?? "esri"] ?? { url: this._config.tiles, max: 19 }, l = this._config.max_zoom ?? r.max;
     if (n > l + 1) return;
     const c = Math.max(12, Math.min(l, n)), d = 256 * 2 ** (ac - c), h = [];
     for (let u = Math.floor(t / d); u * d < t + i; u++)
@@ -45546,7 +45560,7 @@ const ln = class ln extends F {
       const [i, s] = a.pts[0], n = `${a.key}|${a.pts.length}|${(a.pts[1][0] - i).toFixed(2)}|${(a.pts[1][1] - s).toFixed(2)}`;
       let r = this._spots.get(n);
       if (!r) {
-        const [u, m, f] = fv(a.pts);
+        const [u, m, f] = bv(a.pts);
         r = [u - i, m - s, f], this._spots.set(n, r);
       }
       const [l, c, d] = [r[0] + i, r[1] + s, r[2]], h = d / t;
@@ -47416,11 +47430,11 @@ const cc = (o) => {
 function Go(o, e, t) {
   return o === e ? t : Array.isArray(o) ? o.map((a) => Go(a, e, t)) : o && typeof o == "object" ? Object.fromEntries(Object.entries(o).map(([a, i]) => [a, Go(i, e, t)])) : o;
 }
-const Om = (o) => ({ ...o, glass_demo: { v: Ho, sum: cc(o), news: Rm.length } }), bv = { [Et]: "Glass demo", [vt]: "Glass demo – newest" };
+const Om = (o) => ({ ...o, glass_demo: { v: Ho, sum: cc(o), news: Rm.length } }), _v = { [Et]: "Glass demo", [vt]: "Glass demo – newest" };
 async function Ts(o) {
   return o.callWS({ type: "lovelace/dashboards/list" });
 }
-async function Ds(o, e, t = bv[e] ?? "Glass demo") {
+async function Ds(o, e, t = _v[e] ?? "Glass demo") {
   const a = await Ts(o), i = Vt(e), s = { ...Go(structuredClone(tu), Qi, i), title: t }, n = { ...structuredClone(mn), title: `${t} – pop-ups` };
   for (const [r, l, c] of [
     [i, n, !1],
@@ -47439,7 +47453,7 @@ async function Bm(o) {
   const e = await Ts(o);
   return e.some((t) => t.url_path === Et) ? (e.some((t) => t.url_path === Qi) || (await o.callWS({ type: "lovelace/dashboards/create", url_path: Qi, title: "Glass demo – pop-ups", icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Pa(o, Qi, Om(structuredClone(mn)))), Et) : (await Ds(o, Et), Et);
 }
-async function _v(o, e) {
+async function yv(o, e) {
   const [t, a] = await Promise.all([Pt(o, e).catch(() => {
   }), Pt(o, Vt(e)).catch(() => {
   })]);
@@ -47451,24 +47465,24 @@ async function jm(o, e) {
   const t = await Ts(o).catch(() => []), a = { updated: [], outdated: [] }, i = t.some((s) => s.url_path === vt);
   for (const s of [Et, vt]) {
     if (!t.some((r) => r.url_path === s)) continue;
-    const n = await _v(o, s).catch(() => {
+    const n = await yv(o, s).catch(() => {
     });
     n?.outdated && (n.changed ? (s !== Et || !i) && a.outdated.push(n) : s !== e && (await Ds(o, s), a.updated.push(s)));
   }
   return a;
 }
-let yv;
-function vv(o) {
-  return yv ??= jm(o).catch(() => {
+let vv;
+function wv(o) {
+  return vv ??= jm(o).catch(() => {
   });
 }
-async function wv(o) {
+async function xv(o) {
   return await Ds(o, vt), vt;
 }
-async function xv(o, e) {
+async function kv(o, e) {
   return await Ds(o, e), e;
 }
-async function kv(o, e) {
+async function $v(o, e) {
   const t = await Ts(o);
   let a = 1;
   for (; t.some((c) => c.url_path === `glass-demo-mine-${a}`); ) a++;
@@ -47479,7 +47493,7 @@ async function kv(o, e) {
   };
   return r?.views?.length && (await o.callWS({ type: "lovelace/dashboards/create", url_path: Vt(i), title: `${s} – pop-ups`, icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Pa(o, Vt(i), { ...l(r), title: `${s} – pop-ups` })), await o.callWS({ type: "lovelace/dashboards/create", url_path: i, title: s, icon: "mdi:creation-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Pa(o, i, { ...Go(l(n), Vt(e), Vt(i)), title: s }), await Ds(o, e), i;
 }
-async function $v(o, e) {
+async function Sv(o, e) {
   const t = await Ts(o);
   for (const a of [e, Vt(e)]) {
     const i = t.find((s) => s.url_path === a);
@@ -47501,13 +47515,13 @@ function dp(o) {
     (a.cards ?? []).forEach((n, r) => t(n, ["views", i, "cards", r], s)), (a.sections ?? []).forEach((n, r) => (n.cards ?? []).forEach((l, c) => t(l, ["views", i, "sections", r, "cards", c], s)));
   }), e;
 }
-function Sv(o, e, t) {
+function zv(o, e, t) {
   const a = structuredClone(o);
   let i = a;
   for (const s of e.slice(0, -1)) i = i[s] ??= {};
   return i[e[e.length - 1]] = t, a;
 }
-const zv = 5;
+const Av = 5;
 function Wc() {
   return new Promise((o, e) => {
     const t = indexedDB.open("glass-studio", 1);
@@ -47525,19 +47539,19 @@ async function qm(o, e) {
   try {
     const t = await Im(o), i = (await Wc()).transaction("backups", "readwrite").objectStore("backups");
     i.add({ url: o ?? "", time: Date.now(), config: e });
-    for (const s of t.slice(zv - 1)) i.delete(s.id);
+    for (const s of t.slice(Av - 1)) i.delete(s.id);
   } catch (t) {
     console.warn("glass-studio: backup", t);
   }
 }
-async function Av(o) {
+async function Mv(o) {
   try {
     return (await Im(o))[0];
   } catch {
     return;
   }
 }
-async function Mv(o) {
+async function Cv(o) {
   (await Wc()).transaction("backups", "readwrite").objectStore("backups").delete(o);
 }
 const dc = "glass-wallpaper";
@@ -47554,14 +47568,14 @@ const dc = "glass-wallpaper";
   };
   t();
 })();
-const Cv = ["header", "top", "left", "main"];
+const Tv = ["header", "top", "left", "main"];
 let hp = !1;
-class Tv extends HTMLElement {
+class Dv extends HTMLElement {
   connectedCallback() {
     this.style.display = "contents";
   }
 }
-customElements.get("glass-overlay-view") || customElements.define("glass-overlay-view", Tv);
+customElements.get("glass-overlay-view") || customElements.define("glass-overlay-view", Dv);
 const dn = class dn extends F {
   constructor() {
     super(), this._areas = {}, this._pvBar = [], this._grid = {
@@ -47582,7 +47596,7 @@ const dn = class dn extends F {
     }, this._stale = !1, this._onPvScroll = () => _t(), this._fitWidth = 0, this._themeProps = [], this._wallpaperTries = 0, this._mode = pe.mode;
   }
   set hass(e) {
-    this._realHass = e, super.hass = this._rawConfig?.demo ? Mc(e) : e, this._rawConfig?.demo && e?.user?.is_admin && typeof e.callWS == "function" && !this._inEditor() && vv(e);
+    this._realHass = e, super.hass = this._rawConfig?.demo ? Mc(e) : e, this._rawConfig?.demo && e?.user?.is_admin && typeof e.callWS == "function" && !this._inEditor() && wv(e);
   }
   get hass() {
     return super.hass;
@@ -47646,7 +47660,7 @@ const dn = class dn extends F {
    */
   _areasFor(e) {
     const t = Zt(this._config, e), a = Qs(t.look), i = Le(t.glass ?? a?.glass), s = {};
-    for (const c of Cv) t[c] && (s[c] = t[c]);
+    for (const c of Tv) t[c] && (s[c] = t[c]);
     for (const [c, d] of Object.entries(t.areas ?? {})) s[gn(c)] = d;
     const n = i, r = (c, d) => {
       const h = a?.sidebar && (a.sidebar_areas?.[e] ?? ["left"]).includes(c) ? a.sidebar : n, u = `${h}|${JSON.stringify(d ?? null)}`, m = this._cache.get(`${e}|${c}`);
@@ -48143,8 +48157,8 @@ const Ui = "glass-home", di = [
   { name: "Garage", re: /garage|gar[aá][zž]/i, icon: "mdi:garage" },
   // i18n-ok
   { name: "Garden", re: /garden|yard|terrace|zahrad|terasa|garten|terrasse/i, icon: "mdi:flower-outline" }
-], Dv = (o) => `https://images.unsplash.com/${o}?w=1100&q=80&auto=format&fit=crop`, Fm = ["unavailable", "unknown"];
-function Pv(o) {
+], Pv = (o) => `https://images.unsplash.com/${o}?w=1100&q=80&auto=format&fit=crop`, Fm = ["unavailable", "unknown"];
+function Ev(o) {
   const e = /* @__PURE__ */ new Map();
   for (const t of Object.values(o.entities ?? {})) {
     if (t.hidden || t.entity_category || !o.states[t.entity_id]) continue;
@@ -48163,7 +48177,7 @@ function Hm(o, e, t) {
     ...i.slice(0, 1).map((h) => ({ entity: h, icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" } })),
     ...s.slice(0, 1).map((h) => ({ entity: h, icon: "mdi:radiator", active_states: ["heat", "cool", "heat_cool", "auto"] })),
     ...n.slice(0, 1).map((h) => ({ entity: h, icon: Ja(o, h) === "tv" ? "mdi:television" : "mdi:speaker", active: { state_not: ["off", "standby", "idle", "unavailable", "unknown"] } }))
-  ], c = di.find((h) => h.re.test(e.name) || v(h.name) === e.name), d = e.picture || (c?.image ? Dv(c.image) : void 0);
+  ], c = di.find((h) => h.re.test(e.name) || v(h.name) === e.name), d = e.picture || (c?.image ? Pv(c.image) : void 0);
   return {
     type: "custom:glass-room-card",
     name: e.name,
@@ -48177,7 +48191,7 @@ function Hm(o, e, t) {
     ...a.length ? { image_entities: a.slice(0, 2) } : {}
   };
 }
-function Ev(o) {
+function Lv(o) {
   const e = Object.keys(o.states).filter((r) => {
     const l = o.entities?.[r];
     if (l?.hidden || l?.entity_category || Fm.includes(o.states[r].state)) return !1;
@@ -48196,7 +48210,7 @@ function Ev(o) {
     });
   return di.filter((r) => a.has(r)).map((r) => Hm(o, { name: v(r.name) }, a.get(r))).filter((r) => !!r);
 }
-function Lv(o) {
+function Rv(o) {
   return {
     type: "custom:bubble-card",
     card_type: "pop-up",
@@ -48250,10 +48264,10 @@ function Lv(o) {
     ]
   };
 }
-function Rv(o, e) {
-  const t = Object.keys(o.states), a = t.find((y) => ht(y) === "weather"), i = t.filter((y) => ht(y) === "person").map((y) => ({ entity: y })), s = t.filter((y) => ht(y) === "calendar").slice(0, 4).map((y) => ({ entity: y })), n = Pv(o);
+function Nv(o, e) {
+  const t = Object.keys(o.states), a = t.find((y) => ht(y) === "weather"), i = t.filter((y) => ht(y) === "person").map((y) => ({ entity: y })), s = t.filter((y) => ht(y) === "calendar").slice(0, 4).map((y) => ({ entity: y })), n = Ev(o);
   let r = Object.values(o.areas ?? {}).map((y) => Hm(o, y, n.get(y.area_id) ?? [])).filter((y) => !!y);
-  r.length || (r = Ev(o));
+  r.length || (r = Lv(o));
   const l = r.findIndex((y) => di[0].re.test(y.name) || y.name === v(di[0].name)), c = l >= 0 ? l : r.reduce((y, _, x) => _.entities.length > (r[y]?.entities.length ?? -1) ? x : y, -1), d = r.map((y, _) => _ === c && r.length > 2 ? { ...y, view_layout: { span: 2 } } : y), h = [
     {
       type: "custom:glass-panel",
@@ -48300,7 +48314,7 @@ function Rv(o, e) {
       a ? { type: "custom:glass-clock-weather", variant: "compact", weather: a, glass: "none", view_layout: { grow: 1 }, ...e ? { tap_action: { action: "navigate", navigation_path: "#weather" } } : {} } : { type: "custom:glass-date-header", align: "start", view_layout: { grow: 1 } },
       ...i.length ? [{ type: "custom:glass-people", people: i, size: 34, gap: 6, view_layout: { shrink: 0 } }] : []
     ]
-  }, m = e && a ? [Lv(a)] : [], f = m.length ? [{ type: "custom:glass-dock", items: [{ icon: "mdi:weather-partly-cloudy", link: "#weather" }], indicator: "dot", bare: !0, fade: !0 }] : [], b = { type: "markdown", content: v("No lights, blinds or thermostats found yet. Add some to Home Assistant, then add this dashboard again in Dashboard Studio.") };
+  }, m = e && a ? [Rv(a)] : [], f = m.length ? [{ type: "custom:glass-dock", items: [{ icon: "mdi:weather-partly-cloudy", link: "#weather" }], indicator: "dot", bare: !0, fade: !0 }] : [], b = { type: "markdown", content: v("No lights, blinds or thermostats found yet. Add some to Home Assistant, then add this dashboard again in Dashboard Studio.") };
   return {
     title: "Glass",
     views: [
@@ -48372,30 +48386,30 @@ function Rv(o, e) {
     ]
   };
 }
-async function Nv(o) {
+async function Ov(o) {
   return customElements.get("bubble-card") ? !0 : (await o.callWS({ type: "lovelace/resources" }).catch(() => [])).some((t) => /bubble-card/i.test(t.url));
 }
-async function Ov(o) {
+async function Bv(o) {
   if ((await o.callWS({ type: "lovelace/dashboards/list" })).some((a) => a.url_path === Ui)) return Ui;
-  const t = Rv(o, await Nv(o));
+  const t = Nv(o, await Ov(o));
   return await o.callWS({ type: "lovelace/dashboards/create", url_path: Ui, title: "Glass", icon: "mdi:home-variant-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Pa(o, Ui, t), Ui;
 }
 const pp = "glass-cards-starter";
-function Bv() {
+function jv() {
   return document.querySelector("home-assistant")?.hass;
 }
-function jv(o) {
+function Iv(o) {
   history.pushState(null, "", o), window.dispatchEvent(new CustomEvent("location-changed", { detail: { replace: !1 } }));
 }
-async function Iv() {
+async function qv() {
   const o = import.meta.url.split("?")[0];
   return fetch(o, { method: "HEAD", cache: "no-store" }).then((e) => e.headers.get("last-modified") ?? "").catch(() => "");
 }
-async function qv() {
+async function Wv() {
   let o;
-  for (let a = 0; a < 40 && !(o = Bv())?.user; a++) await new Promise((i) => setTimeout(i, 500));
+  for (let a = 0; a < 40 && !(o = jv())?.user; a++) await new Promise((i) => setTimeout(i, 500));
   if (!o?.user?.is_admin) return;
-  const e = await Iv(), t = () => o.callWS({ type: "frontend/set_user_data", key: pp, value: { at: (/* @__PURE__ */ new Date()).toISOString(), install: e } }).catch(() => {
+  const e = await qv(), t = () => o.callWS({ type: "frontend/set_user_data", key: pp, value: { at: (/* @__PURE__ */ new Date()).toISOString(), install: e } }).catch(() => {
   });
   if (!new URLSearchParams(location.search).has("glass-setup")) {
     const [a, i] = await Promise.all([
@@ -48406,9 +48420,9 @@ async function qv() {
     ]);
     if (!a || !i || i.some((s) => /glass/i.test(`${s.url_path} ${s.title ?? ""}`)) || a.value && a.value.install === e) return;
   }
-  vi(o), Wv(o, t);
+  vi(o), Fv(o, t);
 }
-function Wv(o, e) {
+function Fv(o, e) {
   const t = document.createElement("glass-starter-offer"), a = t.attachShadow({ mode: "open" });
   a.innerHTML = `
     <style>
@@ -48447,7 +48461,7 @@ function Wv(o, e) {
       for (const c of [...r, n]) c.disabled = !0;
       try {
         const c = await Bm(o);
-        await e(), t.remove(), jv(`/${c}/0`);
+        await e(), t.remove(), Iv(`/${c}/0`);
       } catch (c) {
         for (const d of [...r, n]) d.disabled = !1;
         s.textContent = `${v("The dashboard could not be created:")} ${c?.message ?? c}`;
@@ -50120,7 +50134,7 @@ const hn = class hn extends Ye {
         if (i !== e.card || e.newView) {
           const s = t.get(e.url) ?? { base: e.base, next: e.full };
           let n, r = e.path;
-          if (e.newView ? (n = structuredClone(s.next), n.views = [...n.views ?? [], { title: "Glass", path: "glass", type: "panel", cards: [a] }], r = ["views", n.views.length - 1, "cards", 0]) : n = Sv(s.next, e.path, a), t.set(e.url, { base: s.base, next: n }), !await this._write(t)) return;
+          if (e.newView ? (n = structuredClone(s.next), n.views = [...n.views ?? [], { title: "Glass", path: "glass", type: "panel", cards: [a] }], r = ["views", n.views.length - 1, "cards", 0]) : n = zv(s.next, e.path, a), t.set(e.url, { base: s.base, next: n }), !await this._write(t)) return;
           this._host = { ...e, full: n, base: JSON.stringify(n), path: r, card: i, newView: !1, hits: dp(n) }, e.url !== null && this._config.__sources?.[e.url] && this._attachSources({ [e.url]: n });
         } else {
           if (!t.size) {
@@ -50141,14 +50155,14 @@ const hn = class hn extends Ye {
   async _restore() {
     const e = this._host;
     if (!e || e.mode === "yaml") return;
-    const t = await Av(e.url);
+    const t = await Mv(e.url);
     if (!t) {
       this._notice = { kind: "warn", text: w("No earlier version of this dashboard is kept in this browser.") };
       return;
     }
     if (confirm(`${w("Put back the version saved over at")} ${new Date(t.time).toLocaleString()}? ${w("Changes not saved here are lost.")}`))
       try {
-        await Pa(this.hass, e.url, t.config), await Mv(t.id), this._past = [], await this.openDashboard(e.url, e.which), this._notice = { kind: "ok", text: w("The earlier version is back") };
+        await Pa(this.hass, e.url, t.config), await Cv(t.id), this._past = [], await this.openDashboard(e.url, e.which), this._notice = { kind: "ok", text: w("The earlier version is back") };
       } catch (a) {
         this._notice = { kind: "error", text: `${w("Saving failed:")} ${a?.message ?? a}` };
       }
@@ -50204,7 +50218,7 @@ const hn = class hn extends Ye {
   async _addStarter() {
     this._busy = !0;
     try {
-      const e = await Ov(this.hass);
+      const e = await Bv(this.hass);
       this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(e), this._notice = { kind: "ok", text: w("The dashboard is in the sidebar as “Glass”. Rooms without lights, blinds or a temperature were left out.") };
     } catch (e) {
       this._busy = !1, this._notice = { kind: "error", text: `${w("The dashboard could not be created:")} ${e?.message ?? e}` };
@@ -50241,13 +50255,13 @@ const hn = class hn extends Ye {
       this._busy = !0;
       try {
         if (t === "newest") {
-          const a = await wv(this.hass);
+          const a = await xv(this.hass);
           this._busy = !1, await this._showDemo(a, w("The newest demo is in the sidebar as “Glass demo – newest”. Yours stays as it is."));
         } else if (t === "replace") {
-          const a = await xv(this.hass, e.url);
+          const a = await kv(this.hass, e.url);
           this._busy = !1, await this._showDemo(a, w("The demo is the newest one now."));
         } else {
-          const a = await kv(this.hass, e.url);
+          const a = await $v(this.hass, e.url);
           this._busy = !1, await this._showDemo(e.url, w("Yours is kept as “{name}” in the sidebar; this is the newest demo now.", { name: a === "glass-demo-mine-1" ? "Glass demo – mine" : `Glass demo – mine ${a.slice(15)}` }));
         }
       } catch (a) {
@@ -50260,7 +50274,7 @@ const hn = class hn extends Ye {
     if (confirm(w("Delete “Glass demo – newest” and its pop-ups from Home Assistant?"))) {
       this._busy = !0;
       try {
-        await $v(this.hass, vt), this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(this._dashList?.some((e) => e.url === Et) ? Et : null), this._notice = { kind: "ok", text: w("“Glass demo – newest” was removed. Your own dashboards weren't touched.") };
+        await Sv(this.hass, vt), this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(this._dashList?.some((e) => e.url === Et) ? Et : null), this._notice = { kind: "ok", text: w("“Glass demo – newest” was removed. Your own dashboards weren't touched.") };
       } catch (e) {
         this._busy = !1, this._notice = { kind: "error", text: `${e?.message ?? e}` };
       }
@@ -51886,7 +51900,7 @@ function Ym() {
 }
 Ym();
 window.addEventListener("location-changed", () => setTimeout(Ym, 0));
-const bp = "glass-cards-version", Fv = "https://glass.argalas.org/docs/cards/", Hv = [
+const bp = "glass-cards-version", Hv = "https://glass.argalas.org/docs/cards/", Gv = [
   {
     version: "1.11.7",
     items: [
@@ -51910,7 +51924,7 @@ function kr(o, e) {
   for (let i = 0; i < 3; i++) if ((t[i] ?? 0) !== (a[i] ?? 0)) return (t[i] ?? 0) > (a[i] ?? 0);
   return !1;
 }
-async function Gv(o) {
+async function Uv(o) {
   if (!/^\d+\.\d+\.\d+$/.test(o)) return;
   let e;
   for (let n = 0; n < 40 && !(e = document.querySelector("home-assistant")?.hass)?.user; n++) await new Promise((r) => setTimeout(r, 500));
@@ -51922,14 +51936,14 @@ async function Gv(o) {
   });
   if (!a) return void i();
   if (!kr(o, a)) return;
-  const s = Hv.filter((n) => kr(n.version, a) && !kr(n.version, o)).flatMap((n) => n.items);
+  const s = Gv.filter((n) => kr(n.version, a) && !kr(n.version, o)).flatMap((n) => n.items);
   if (!s.length) return void i();
-  vi(e), Uv(o, s, i);
+  vi(e), Kv(o, s, i);
 }
 function ma(o) {
   return o.replace(/[&<>"']/g, (e) => `&#${e.charCodeAt(0)};`);
 }
-function Uv(o, e, t) {
+function Kv(o, e, t) {
   if (document.querySelector("glass-whats-new")) return;
   const a = document.createElement("glass-whats-new"), i = a.attachShadow({ mode: "open" });
   i.innerHTML = `
@@ -51960,7 +51974,7 @@ function Uv(o, e, t) {
       </div>
       <div class="items">
         ${e.map(
-    (n) => `<a class="item" href="${Fv}${n.doc}" target="_blank" rel="noopener"><ha-icon icon="${n.icon}"></ha-icon><span><strong>${ma(v(n.name))}</strong><small>${ma(v(n.text))}</small></span></a>`
+    (n) => `<a class="item" href="${Hv}${n.doc}" target="_blank" rel="noopener"><ha-icon icon="${n.icon}"></ha-icon><span><strong>${ma(v(n.name))}</strong><small>${ma(v(n.text))}</small></span></a>`
   ).join("")}
       </div>
       <button class="ok">${ma(v("Got it"))}</button>
@@ -51970,7 +51984,7 @@ function Uv(o, e, t) {
   };
   i.querySelector(".close").addEventListener("click", s), i.querySelector(".ok").addEventListener("click", s), document.body.appendChild(a);
 }
-const mc = "1.11.7", _p = {
+const mc = "1.11.8", _p = {
   version: mc,
   GlassElement: F,
   lit: { LitElement: Ye, html: p, css: ee, svg: j, nothing: g },
@@ -51986,10 +52000,10 @@ const mc = "1.11.7", _p = {
   /** The made-up demo home (src/demo): a hass for pages without HA, and its changes. */
   demo: { hass: Mc, onChange: Ac, setState: v0 }
 };
-function Kv() {
+function Vv() {
   const o = (e, t) => (e.querySelectorAll("hui-error-card").forEach((a) => t.push(a)), e.querySelectorAll("*").forEach((a) => a.shadowRoot && o(a.shadowRoot, t)), t);
   for (const e of o(document, []))
     JSON.stringify(e._config ?? e.config ?? {}).includes("custom:glass-") && e.dispatchEvent(new CustomEvent("ll-rebuild", { bubbles: !0, composed: !0 }));
 }
 T0();
-window.GlassCards || (window.GlassCards = _p, requestAnimationFrame(Kv), window.dispatchEvent(new CustomEvent("glass-cards-ready", { detail: _p })), qv(), Gv(mc), console.info(`%c GLASS-CARDS %c ${mc} `, "background:#0a84ff;color:#fff;border-radius:4px 0 0 4px;padding:2px 4px", "background:#fff;color:#0a84ff;border-radius:0 4px 4px 0;padding:2px 4px"));
+window.GlassCards || (window.GlassCards = _p, requestAnimationFrame(Vv), window.dispatchEvent(new CustomEvent("glass-cards-ready", { detail: _p })), Wv(), Uv(mc), console.info(`%c GLASS-CARDS %c ${mc} `, "background:#0a84ff;color:#fff;border-radius:4px 0 0 4px;padding:2px 4px", "background:#fff;color:#0a84ff;border-radius:0 4px 4px 0;padding:2px 4px"));
