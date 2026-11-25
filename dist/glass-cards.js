@@ -51888,7 +51888,7 @@ Ym();
 window.addEventListener("location-changed", () => setTimeout(Ym, 0));
 const bp = "glass-cards-version", Fv = "https://glass.argalas.org/docs/cards/", Hv = [
   {
-    version: "1.12.0",
+    version: "1.11.7",
     items: [
       {
         name: "Full calendar",
@@ -51970,7 +51970,7 @@ function Uv(o, e, t) {
   };
   i.querySelector(".close").addEventListener("click", s), i.querySelector(".ok").addEventListener("click", s), document.body.appendChild(a);
 }
-const mc = "1.12.0", _p = {
+const mc = "1.11.7", _p = {
   version: mc,
   GlassElement: F,
   lit: { LitElement: Ye, html: p, css: ee, svg: j, nothing: g },

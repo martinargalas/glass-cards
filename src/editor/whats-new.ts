@@ -15,7 +15,7 @@ const DOCS = "https://glass.argalas.org/docs/cards/";
 /** The news of each version: what an update brings, newest last. */
 const NEWS: { version: string; items: { name: string; text: string; doc: string; icon: string }[] }[] = [
   {
-    version: "1.12.0",
+    version: "1.11.7",
     items: [
       {
         name: "Full calendar",
