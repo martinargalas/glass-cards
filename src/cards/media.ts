@@ -176,6 +176,9 @@ interface MediaConfig extends BaseCardConfig {
   entity?: string;
   /** more players: the card shows the one playing (a tap on the name picks another) */
   entities?: string[];
+  /** with more players: move to the one that starts playing (default true); false: always `entity`
+   *  – one picked by hand stays while something is on it */
+  follow_playing?: boolean;
   name?: string;
   /** card (default), tile – one pill; screen – the whole screen (a kiosk's screensaver) */
   layout?: "card" | "tile" | "screen";
@@ -282,6 +285,8 @@ interface Chosen {
   twinFrom?: string;
 }
 const picks = new Map<string, Chosen>();
+/** follow_playing: false – how long a speaker picked by hand stays without anything on it */
+const FOLLOW_OFF_MS = 5 * 60000;
 /**
  * The player last picked and last shown, per set of players – remembered by the browser, so a card
  * made again (a pop-up opened again, the page reloaded) comes back to the player you used last.
@@ -863,6 +868,12 @@ class GlassMedia extends GlassElement<MediaConfig> {
     // the one to move to – it plays the same thing
     const relays = new Set(this._ids.map((id) => s[id]?.attributes.remote_player_id).filter(Boolean));
     const ch = picks.get(this._linkKey) ?? this._chosen;
+    // its own player first (a kitchen's tablet: the kitchen): another one only while picked by hand
+    // – started from the library, something on it, or picked a moment ago (to look around)
+    if (this._config.follow_playing === false) {
+      const keep = ch && ch.id !== this._ids[0] && this._ids.includes(ch.id) && (this._busy(ch) || loaded(ch.id) || Date.now() - ch.at < FOLLOW_OFF_MS);
+      return (this._shown = keep ? ch.id : this._ids[0]);
+    }
     if (ch && this._ids.includes(ch.id)) {
       // started from the library: it stays on that player while it gets there (on the way it
       // may say off, idle – YouTube Music switches its speaker off and on)

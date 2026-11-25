@@ -250,6 +250,8 @@ favorites:
 
 List more players in `entities` and the card shows the one that's playing. When you pause, it stays on that player so play is right at hand, and it only moves on when another player starts. A tap on the player's name (▾) lists them all, each with its cover and what it plays; the one you pick stays until another one starts playing after it.
 
+A tablet that lives in one room can stay with that room's speaker instead: with `follow_playing: false` the card always shows `entity`. You can still pick another player by hand – it stays while something plays on it, then the card goes back to its own.
+
 ![The players to pick from](../images/media/players.webp)
 
 ### Grouping speakers
@@ -277,6 +279,7 @@ Browsers only send media keys to a page that plays sound, so the tab plays a loo
 | --- | --- | --- |
 | `entity` | string | the player |
 | `entities` | string[] | more players: the card shows the one playing (a tap on the name picks another) |
+| `follow_playing` | boolean | with more players: move to the one that starts playing (default true); false: always `entity` – one picked by hand stays while something is on it |
 | `name` | string | Name |
 | `layout` | "card" \| "tile" \| "screen" | card (default), tile – one pill; screen – the whole screen (a kiosk's screensaver) |
 | `clock` | boolean | layout screen: the time and the date (default true) |

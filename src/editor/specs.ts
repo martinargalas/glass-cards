@@ -1929,7 +1929,7 @@ export const thermostatSpec: EditorSpec = {
 
 export const mediaSpec: EditorSpec = {
   parts: MEDIA_PARTS,
-  defaults: { layout: "card", show: "all", art_background: true, speakers: true, library: true, library_layout: "sheet", library_close: 8, visualizer: true, clock: true },
+  defaults: { layout: "card", show: "all", art_background: true, speakers: true, library: true, library_layout: "sheet", library_close: 8, visualizer: true, clock: true, follow_playing: true },
   form: (c) => {
     const tile = c.layout === "tile";
     const screen = c.layout === "screen";
@@ -1949,6 +1949,12 @@ export const mediaSpec: EditorSpec = {
             label: "More players",
             helper: "It shows the one playing; a tap on the player's name picks another",
             selector: { entity: { domain: "media_player", multiple: true } },
+          },
+          {
+            name: "follow_playing",
+            label: "Move to the one playing",
+            helper: "Off: always the player above – another one only while you picked it",
+            selector: { boolean: {} },
           },
           grid(
             { name: "name", label: "Name", selector: { text: {} } },

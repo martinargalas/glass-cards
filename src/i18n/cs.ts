@@ -2338,6 +2338,8 @@ export const cs: Dict = {
   "Your own covers: the first row of the library": "Vlastní obaly: první řádek knihovny",
   "Music Assistant": "Music Assistant",
   "It shows the one playing; a tap on the player's name picks another": "Ukazuje ten, který hraje; klepnutím na název přehrávače vybereš jiný",
+  "Move to the one playing": "Přepnout na ten, který hraje",
+  "Off: always the player above – another one only while you picked it": "Vypnuto: vždy přehrávač výše – jiný jen když si ho vybereš",
   "The button by the volume: speakers of the same kind to play along": "Tlačítko u hlasitosti: reproduktory stejného druhu, které budou hrát s ním",
   "The player's playlists, albums and artists in rows – open while nothing plays, a handle on top while it does": "Playlisty, alba a interpreti přehrávače v řádcích – otevřená, když nic nehraje, při přehrávání úchyt nahoře",
   "Opened while something plays (0 = it stays open)": "Otevřená během přehrávání (0 = zůstane otevřená)",

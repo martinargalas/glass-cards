@@ -2338,6 +2338,8 @@ export const de: Dict = {
   "Your own covers: the first row of the library": "Eigene Cover: die erste Zeile der Bibliothek",
   "Music Assistant": "Music Assistant",
   "It shows the one playing; a tap on the player's name picks another": "Sie zeigt den, der spielt; ein Tipp auf den Namen des Players wählt einen anderen",
+  "Move to the one playing": "Zu dem wechseln, der spielt",
+  "Off: always the player above – another one only while you picked it": "Aus: immer der Player oben – ein anderer nur, wenn du ihn wählst",
   "The button by the volume: speakers of the same kind to play along": "Die Taste neben der Lautstärke: Lautsprecher derselben Art, die mitspielen",
   "The player's playlists, albums and artists in rows – open while nothing plays, a handle on top while it does": "Playlists, Alben und Künstler des Players in Zeilen – offen, solange nichts spielt, beim Abspielen ein Griff oben",
   "Opened while something plays (0 = it stays open)": "Beim Abspielen geöffnet (0 = bleibt offen)",
