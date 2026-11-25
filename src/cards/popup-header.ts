@@ -14,6 +14,7 @@ import { haptic, runAction } from "../core/actions";
 import type { ActionConfig } from "../core/types";
 import { conditionEntities, evalCondition, type Condition } from "../core/conditions";
 import { POPUP_HEADER_PARTS } from "../core/card-parts";
+import { sendSearch } from "../core/search-bus";
 
 /**
  * Header for a pop-up whose own header is hidden (Bubble Card `show_header: false`):
@@ -33,6 +34,9 @@ import { POPUP_HEADER_PARTS } from "../core/card-parts";
  *                                                                #   active, light otherwise
  *       align: start          # optional: in the left part, right after the name (default: right)
  *       confirm: true         # optional: ask first – the button turns into ✕ and ✓ for a few seconds
+ *   search: true           # optional: a search field – what's typed searches the library of a
+ *                          #   media player card in the same pop-up
+ *   search_placeholder: Hledat hudbu
  *   close: false           # optional: no close button (e.g. a second row of buttons on a phone)
  *   bar_glass: frosted     # optional materials (core/materials), each *_color tints it:
  *   icon_glass: liquid     #   the bar, the icon's circle, the chosen / not chosen buttons
@@ -48,6 +52,10 @@ interface PopupHeaderConfig extends BaseCardConfig {
   cards?: BaseCardConfig[];
   title_width?: string;
   close?: boolean;
+  /** a search field: what's typed searches the library of a media player card in the same pop-up */
+  search?: boolean;
+  /** the search field's text (default Search) */
+  search_placeholder?: string;
   buttons?: { name?: string; icon?: string; tap_action?: ActionConfig; active?: Condition; align?: "start" | "end"; confirm?: boolean }[];
   bar_glass?: Material;
   bar_color?: string;
@@ -78,7 +86,9 @@ try {
 class GlassPopupHeader extends GlassElement<PopupHeaderConfig> {
   static override wrapTile = true;
   static override parts = POPUP_HEADER_PARTS;
-  static override properties = { ...GlassElement.properties, _ask: { state: true } };
+  static override properties = { ...GlassElement.properties, _ask: { state: true }, _q: { state: true } };
+  /** what's typed in the search field */
+  declare _q: string;
   /** the button waiting for ✓ (index in `buttons`), -1 none */
   declare _ask: number;
   private _askTimer?: number;
@@ -86,6 +96,55 @@ class GlassPopupHeader extends GlassElement<PopupHeaderConfig> {
   constructor() {
     super();
     this._ask = -1;
+    this._q = "";
+  }
+
+  private _search(text: string) {
+    this._q = text;
+    sendSearch(this, text);
+  }
+
+  /** The pop-up closed (its #hash gone): the search starts empty next time. */
+  private _onLoc = () => {
+    if (!location.hash && this._q) this._search("");
+  };
+
+  override connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener("location-changed", this._onLoc);
+    window.addEventListener("popstate", this._onLoc);
+  }
+
+  private _searchField() {
+    const clear = () => {
+      haptic("selection");
+      this._search("");
+      this.renderRoot.querySelector<HTMLInputElement>(".search input")?.focus();
+    };
+    return html`<label class="search ${this._config.title_width ? "wide" : ""}">
+      <ha-icon icon="mdi:magnify"></ha-icon>
+      <input
+        type="text"
+        enterkeyhint="search"
+        autocomplete="off"
+        spellcheck="false"
+        .value=${this._q}
+        placeholder=${this._config.search_placeholder ?? tr("Search")}
+        aria-label=${tr("Search")}
+        @input=${(e: Event) => this._search((e.target as HTMLInputElement).value)}
+        @keydown=${(e: KeyboardEvent) => {
+          // typing is for the field – never Home Assistant's keyboard shortcuts
+          e.stopPropagation();
+          if (e.key === "Escape") clear();
+          if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+        }}
+      />
+      ${this._q
+        ? html`<button class="clr" aria-label=${tr("Clear")} @click=${(e: Event) => (e.preventDefault(), clear())}>
+            <ha-icon icon="mdi:close-circle"></ha-icon>
+          </button>`
+        : nothing}
+    </label>`;
   }
 
   static getConfigElement() {
@@ -134,6 +193,7 @@ class GlassPopupHeader extends GlassElement<PopupHeaderConfig> {
   /** As Bubble Card closes a pop-up: drop the #hash and tell the frontend the location changed. */
   private _close() {
     haptic();
+    if (this._q) this._search("");
     if (!location.hash) return;
     history.replaceState(history.state, "", location.href.split("#")[0]);
     window.dispatchEvent(new CustomEvent("location-changed", { detail: { replace: true } }));
@@ -148,6 +208,8 @@ class GlassPopupHeader extends GlassElement<PopupHeaderConfig> {
 
   override disconnectedCallback() {
     super.disconnectedCallback();
+    window.removeEventListener("location-changed", this._onLoc);
+    window.removeEventListener("popstate", this._onLoc);
     clearTimeout(this._askTimer);
     this._ask = -1;
   }
@@ -201,7 +263,7 @@ class GlassPopupHeader extends GlassElement<PopupHeaderConfig> {
     const ico = mat(c.icon_glass, undefined, "liquid");
     const icoBg = has(c.icon_background) ? (ico.cls ? matTint(c.icon_background, 70) : `background:${cssColor(c.icon_background)};`) : "";
     const close = mat(c.close_glass, c.close_color, "frosted");
-    return html`<div class="bar ${bar.cls || "lbar control"} ${plain ? "plain" : ""}" style=${bar.style}>
+    return html`<div class="bar ${bar.cls || "lbar control"} ${plain ? "plain" : ""} ${c.search ? "searching" : ""}" style=${bar.style}>
         ${plain
           ? nothing
           : html`<span class="title" style=${c.title_width ? `width:${c.title_width}` : ""}>
@@ -213,6 +275,7 @@ class GlassPopupHeader extends GlassElement<PopupHeaderConfig> {
               ${c.name ? html`<span class="name">${c.name}</span>` : nothing}
             </span>`}
         <div class="mid">
+          ${c.search ? this._searchField() : nothing}
           ${this._buttons(c.buttons?.filter((b) => b.align === "start"))}
           ${c.buttons?.some((b) => b.align === "start") ? html`<span class="spacer"></span>` : nothing}
           ${this._children}
@@ -300,6 +363,101 @@ class GlassPopupHeader extends GlassElement<PopupHeaderConfig> {
       }
       .spacer {
         flex: 1;
+      }
+      /* the search field: a light pill on the bar, concentric with it */
+      .mid > .search {
+        flex: 0 1 440px;
+        min-width: 120px;
+        margin: 0 10px 0 18px;
+      }
+      /* lined up with the content under it (title_width): it takes that column's width */
+      .mid > .search.wide {
+        flex: 1 1 auto;
+      }
+      /* a phone: the search field takes the whole bar – the title gives way */
+      @container (max-width: 560px) {
+        .bar.searching .title {
+          display: none;
+        }
+        .bar.searching .mid > .search {
+          flex: 1 1 auto;
+          min-width: 0;
+          margin: 0 4px 0 4px;
+        }
+      }
+      .search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: calc(var(--h) - 20px);
+        padding: 0 6px 0 14px;
+        border-radius: 999px;
+        box-sizing: border-box;
+        color: var(--glass-home-text, #1c1c1e);
+        /* a field to type in, not a button: lighter, sunk into the bar */
+        background: var(--glass-search-bg, rgba(255, 255, 255, 0.58));
+        box-shadow:
+          inset 0 1px 3px rgba(0, 0, 0, 0.1),
+          inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+        cursor: text;
+        transition: box-shadow 0.2s ease, background 0.2s ease;
+      }
+      .search:focus-within {
+        background: var(--glass-search-bg-focus, rgba(255, 255, 255, 0.78));
+        box-shadow:
+          inset 0 1px 3px rgba(0, 0, 0, 0.1),
+          inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+      }
+      :host([dark]) .search {
+        color: var(--glass-home-text, #fff);
+        background: var(--glass-search-bg-dark, rgba(0, 0, 0, 0.24));
+        box-shadow:
+          inset 0 1px 3px rgba(0, 0, 0, 0.35),
+          inset 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+      }
+      :host([dark]) .search:focus-within {
+        background: rgba(0, 0, 0, 0.34);
+      }
+      .search > ha-icon {
+        flex: none;
+        --mdc-icon-size: 20px;
+        display: flex;
+        opacity: 0.6;
+      }
+      .search input {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        outline: none;
+        background: none;
+        font: inherit;
+        font-size: 15px;
+        color: inherit;
+      }
+      .search input::placeholder {
+        color: inherit;
+        opacity: 0.55;
+      }
+      .clr {
+        flex: none;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: none;
+        color: inherit;
+        opacity: 0.55;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .clr ha-icon {
+        --mdc-icon-size: 18px;
+        display: flex;
       }
       /* no name or icon (a row of buttons only): the buttons share the bar evenly */
       .plain {

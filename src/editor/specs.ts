@@ -2,7 +2,7 @@ import { PRESETS, knownPopups, trackList } from "../core/layout";
 import { t } from "./i18n";
 import { tr } from "../i18n";
 import { MATERIALS } from "../core/materials";
-import { AIR_QUALITY_PARTS, ALARM_RING_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, CAMERA_PARTS, SECURITY_PARTS, BLIND_PARTS, CALENDAR_PARTS, CALENDAR_VIEW_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
+import { AIR_QUALITY_PARTS, ALARM_RING_PARTS, ALARMS_PARTS, AUTOMATION_PARTS, CAMERA_PARTS, SECURITY_PARTS, BLIND_PARTS, CALENDAR_PARTS, CALENDAR_VIEW_PARTS, CLOCK_WEATHER_PARTS, DATE_HEADER_PARTS, DIVIDER_PARTS, DOCK_PARTS, HEAT_PUMP_PARTS, LIGHT_PARTS, MEDIA_PARTS, NOTIFICATIONS_PARTS, NOW_PARTS, PANEL_PARTS, PEOPLE_PARTS, CHART_PARTS, PERIOD_PARTS, POPUP_HEADER_PARTS, RADAR_PARTS, ROOM_PARTS, STATUS_PARTS, THERMOSTAT_PARTS } from "../core/card-parts";
 import { ANIMATION_FIELD, COLOR_FIELD, CONTROL_GLASS_FIELD, ICON_FIELD, TEXT_FIELD, TINT_FIELD, GLASS_FIELD, YAML, actionFields, expandable, grid, part, select, type Credit, type EditorSpec, type Schema, foreignCards, hasDock } from "./editor";
 
 const ALIGN: [string, string][] = [
@@ -781,6 +781,12 @@ export const clockWeatherSpec: EditorSpec = {
 const PANEL_LAYOUT = (c: Record<string, any>): Schema[] => {
   const layout = c.layout ?? "column";
   return [
+    grid({ name: "title", label: "Title", selector: { text: {} } }, { name: "icon", label: "Icon", selector: { icon: {} } }),
+    ...(c.title || c.collapsible ? [{ name: "description", label: "Description", helper: "A short line under the title: what the cards below are for", selector: { text: {} } }] : []),
+    grid(
+      { name: "collapsible", label: "Fold away", helper: "The title a header with an arrow: the cards hidden until it's tapped", selector: { boolean: {} } },
+      ...(c.collapsible ? [{ name: "open", label: "Open to start", selector: { boolean: {} } }] : []),
+    ),
     grid(
       select("layout", [
         ["column", "Column"],
@@ -1513,6 +1519,13 @@ export const popupHeaderSpec: EditorSpec = {
       schema: [
         grid({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
         { name: "close", label: "Close button", selector: { boolean: {} } },
+        {
+          name: "search",
+          label: "Search field",
+          helper: "What's typed searches the library of a media player card in the same pop-up",
+          selector: { boolean: {} },
+        },
+        ...(c.search ? [{ name: "search_placeholder", label: "Search field text", selector: { text: {} } }] : []),
         { name: "title_width", label: "Where the cards start", helper: "e.g. 352px or 30cqw – in line with the content under a side panel", selector: { text: {} } },
       ],
     },
@@ -1912,6 +1925,202 @@ export const thermostatSpec: EditorSpec = {
     { custom: "section", key: "actions", title: "Actions", schema: actionFields(c, ["tap_action", "hold_action", "double_tap_action"]) },
     { custom: "section", key: "advanced", title: "Advanced", schema: [CONTROL_GLASS_FIELD, YAML("styles")] },
   ],
+};
+
+export const mediaSpec: EditorSpec = {
+  parts: MEDIA_PARTS,
+  defaults: { layout: "card", show: "all", art_background: true, speakers: true, library: true, library_layout: "sheet", library_close: 8, visualizer: true, clock: true },
+  form: (c) => {
+    const tile = c.layout === "tile";
+    const screen = c.layout === "screen";
+    const show = tile || screen ? "player" : (c.show ?? "all");
+    const hasPlayer = show !== "library";
+    const hasLibrary = !tile && !screen && (show === "library" || (show === "all" && c.library !== false));
+    return [
+      {
+        custom: "section",
+        key: "player",
+        title: "Player",
+        open: true,
+        schema: [
+          { name: "entity", label: "Player", selector: { entity: { domain: "media_player" } } },
+          {
+            name: "entities",
+            label: "More players",
+            helper: "It shows the one playing; a tap on the player's name picks another",
+            selector: { entity: { domain: "media_player", multiple: true } },
+          },
+          grid(
+            { name: "name", label: "Name", selector: { text: {} } },
+            {
+              ...select("layout", [
+                ["card", "Card – cover, controls and volume"],
+                ["tile", "Tile – one pill, drag it for the volume"],
+                ["screen", "Screen – the whole screen, for a screensaver"],
+              ]),
+              label: "Layout",
+            },
+          ),
+          ...(screen ? [{ name: "clock", label: "Time and date", selector: { boolean: {} } }] : []),
+          ...(tile || screen
+            ? []
+            : [
+                {
+                  ...select("show", [
+                    ["all", "All – the player with its library"],
+                    ["player", "The player alone"],
+                    ["library", "The library alone"],
+                  ]),
+                  label: "Show",
+                  helper: "Two cards with the same players are linked: a player picked in one shows in the other – the player on one side of a pop-up, its library on the other",
+                },
+                {
+                  name: "fill_height",
+                  label: "Fill the screen's height",
+                  helper: "The card reaches down to the dock (glass-dock, Bubble Card's buttons) or the screen's bottom – a phone's whole screen for the player and its library",
+                  selector: { boolean: {} },
+                },
+              ]),
+        ],
+      },
+      ...(hasPlayer
+        ? [
+            {
+              custom: "section",
+              key: "controls",
+              title: "Controls",
+              schema: [
+                ...(tile ? [] : [{ name: "speakers", label: "Speakers to group", helper: "The button by the volume: speakers of the same kind to play along", selector: { boolean: {} } }]),
+                ...(tile
+                  ? []
+                  : [
+                      {
+                        name: "visualizer",
+                        label: "Visualizer",
+                        helper: "A tap on the cover shows its colours moving to the music, a swipe another look – off: the tap action",
+                        selector: { boolean: {} },
+                      },
+                    ]),
+                {
+                  name: "media_keys",
+                  label: "Keyboard media keys",
+                  helper: "Play / pause, next and previous on a computer's keyboard play on this player – also with the window minimised or the pop-up closed. The tab plays silence for it (a speaker on the tab); after loading, one click on the page",
+                  selector: { boolean: {} },
+                },
+              ],
+            },
+          ]
+        : []),
+      ...(tile || screen || show === "player"
+        ? []
+        : [
+            {
+              custom: "section",
+              key: "library",
+              title: "Library",
+              schema: [
+                ...(show === "all"
+                  ? [
+                      {
+                        name: "library",
+                        label: "Library",
+                        helper: "The player's playlists, albums and artists in rows – open while nothing plays, a handle on top while it does",
+                        selector: { boolean: {} },
+                      },
+                    ]
+                  : []),
+                ...(show === "all" && c.library !== false
+                  ? [
+                      grid(
+                        {
+                          ...select("library_layout", [
+                            ["sheet", "A sheet over the player, its handle on top"],
+                            ["below", "Below the player"],
+                          ]),
+                          label: "Library layout",
+                        },
+                        {
+                          name: "library_close",
+                          label: "Hide the library after",
+                          helper: "Opened while something plays (0 = it stays open)",
+                          selector: { number: { min: 0, max: 120, mode: "box", unit_of_measurement: "s" } },
+                        },
+                      ),
+                    ]
+                  : []),
+                ...(hasLibrary
+                  ? [
+                      {
+                        name: "library_from",
+                        label: "Library from",
+                        helper: "Another player's library for the other players – YouTube Music on a Sonos: a tap plays it through that player on the one picked",
+                        selector: { entity: { domain: "media_player" } },
+                      },
+                      { ...YAML("library_sections"), label: "Library rows", helper: "Which rows, in this order (their titles); empty: all of them, played and new first" },
+                      { ...YAML("favorites"), label: "Favorites", helper: "Your own covers: the first row of the library" },
+                    ]
+                  : []),
+              ],
+            },
+          ]),
+      {
+        custom: "section",
+        key: "music_assistant",
+        title: "Music Assistant",
+        schema: [
+          {
+            custom: "hint",
+            text: "Optional. With Music Assistant's address and a token the card talks to Music Assistant itself: the rows of its home (your mixes, top picks), every playlist and album opens to its tracks, a track plays the playlist on from there, the kind of each player. The token is stored in the dashboard's configuration in plain text – anyone who can open the dashboard's settings, or read the network traffic of a dashboard on plain http, can read it and control Music Assistant with it. Fill it in only if that's fine with you.",
+          },
+          grid(
+            {
+              name: "music_assistant_url",
+              label: "Music Assistant address",
+              helper: "e.g. http://192.168.1.10:8095 – the browser must reach it (a dashboard on https can't reach plain http)",
+              selector: { text: { type: "url" } },
+            },
+            {
+              name: "music_assistant_token",
+              label: "Music Assistant token",
+              helper: "Made in Music Assistant: Settings → profile → tokens",
+              selector: { text: { type: "password" } },
+            },
+          ),
+        ],
+      },
+      {
+        custom: "section",
+        key: "look",
+        title: "Look",
+        schema: [
+          ...(screen ? [] : [GLASS_FIELD, ...part("Card", { name: "art_background", label: "Blurred cover behind the glass", selector: { boolean: {} } })]),
+          ...(screen || c.art_background === false
+            ? []
+            : part(
+                "Card",
+                {
+                  ...select("art_glass", [
+                    ["", "Automatic – light by day, dark at night"],
+                    ["liquid", "Liquid glass – the cover's colours"],
+                    ["dark-liquid", "Dark liquid glass – the cover's colours"],
+                  ]),
+                  label: "Material with the cover",
+                  helper: "The glass the blurred cover lights; in a panel (a pop-up's side) the whole panel",
+                },
+              )),
+          ...part(
+            "Buttons",
+            grid(
+              { ...select("controls_glass", [["", "Default"], ...MATERIALS]), label: "Buttons and bars material", helper: "Default: liquid glass (WebGL) over the blurred cover; dark at night" },
+              { ...COLOR_FIELD("controls_color"), label: "Buttons colour" },
+            ),
+          ),
+        ],
+      },
+      ...(hasPlayer ? [{ custom: "section", key: "actions", title: "Actions", schema: actionFields(c, ["tap_action", "hold_action"]) }] : []),
+      { custom: "section", key: "advanced", title: "Advanced", schema: [YAML("styles")] },
+    ];
+  },
 };
 
 export const lightSpec: EditorSpec = {

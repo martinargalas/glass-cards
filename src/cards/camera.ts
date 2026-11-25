@@ -1,4 +1,5 @@
 import { tr } from "../i18n";
+import { roomToDock } from "../core/dock-space";
 import { css, html, nothing, type PropertyValues } from "lit";
 import { GlassElement } from "../core/glass-element";
 import type { BaseCardConfig, HassEntity, HomeAssistant } from "../core/types";
@@ -301,18 +302,6 @@ function demoRecs(list: { i: number; cam: string }[]): Rec[] {
       out.push({ id: `demo-${cam}-${n}`, cam: i, fcam: cam, start, end: start + len, labels, alert, thumb: demoFile(`event-${cam}-${n}.jpg`), clip: "" });
     }
   return out.sort((a, b) => b.start - a.start);
-}
-
-/** The glass dock on screen (through shadow roots), if any. */
-function findDock(root: Document | ShadowRoot, depth = 0): Element | undefined {
-  for (const el of root.querySelectorAll("*")) {
-    if (el.localName === "glass-dock") return el;
-    if (el.shadowRoot && depth < 12) {
-      const d = findDock(el.shadowRoot, depth + 1);
-      if (d) return d;
-    }
-  }
-  return undefined;
 }
 
 class GlassCamera extends GlassElement<CameraConfig> {
@@ -831,14 +820,7 @@ class GlassCamera extends GlassElement<CameraConfig> {
   };
   private _onFill = () => {
     if (this._config?.height !== "fill" || !this.isConnected) return;
-    const top = this.getBoundingClientRect().top;
-    let bottom = window.innerHeight - 16;
-    const dock = findDock(document);
-    if (dock) {
-      const r = dock.getBoundingClientRect();
-      if (r.height && r.top > top) bottom = Math.min(bottom, r.top - 16);
-    }
-    const h = Math.max(320, Math.round(bottom - top));
+    const h = roomToDock(this);
     if (h !== this._fillH) this._fillH = h;
   };
 

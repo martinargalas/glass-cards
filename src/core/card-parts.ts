@@ -266,3 +266,12 @@ export const CHART_PARTS: PartDef[] = [
   text("time", ".apexcharts-xaxis-label", "Time labels", "Text"),
   text("tooltip", ".apexcharts-tooltip, .apexcharts-tooltip-title", "Tooltip", "Text"),
 ].map(always);
+
+export const MEDIA_PARTS: PartDef[] = [
+  text("title", ".title", "Title", "Text"),
+  text("sub", ".sub", "Artist", "Text"),
+  text("times", ".times", "Times", "Text"),
+  text("volume", ".vval, .sname", "Volume", "Volume"),
+  icon("buttons", ".cbtn:not(.main) ha-icon", "Button icons", "Buttons", ".cbtn.on ha-icon"),
+  icon("play", ".cbtn.main ha-icon", "Play icon", "Buttons"),
+];

@@ -32,6 +32,7 @@ import "./cards/camera";
 import "./cards/security";
 import "./cards/automation-parts";
 import "./cards/light";
+import "./cards/media";
 import "./cards/period-bar";
 import "./cards/chart";
 import "./cards/popup-header";

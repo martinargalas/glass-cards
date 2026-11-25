@@ -27,6 +27,21 @@ cards:
 
 How each card inside takes its room (`view_layout: grow / basis / span…`) is explained in [Layout → Panels](../layout.md#panels).
 
+## Sections that fold away
+
+`collapsible: true` turns the title into a header with an arrow: the cards stay hidden until it's tapped (`open: true` – open to start). `description` adds a short line under the title – what the cards below are for. A pop-up of many parts stays short: each folds away, as the demo's **More** pop-up.
+
+```yaml
+type: custom:glass-panel
+glass: none
+collapsible: true
+title: Alarms
+icon: mdi:alarm
+description: Wake-up alarms – their times, days and sound
+cards:
+  - type: custom:glass-alarms
+```
+
 ## Tips
 
 - `glass: none` – an invisible panel, just for arranging.
@@ -59,6 +74,9 @@ How each card inside takes its room (`view_layout: grow / basis / span…`) is e
 | `justify` | string | Main axis distribution |
 | `title` | string | Title |
 | `icon` | string | Icon |
+| `description` | string | a short line under the title: what the cards below are for |
+| `collapsible` | boolean | the title a header that folds the cards away – closed to start (`open: true`: open) |
+| `open` | boolean | collapsible: open to start |
 | `height` | string | Height |
 | `role` | "panel" \| "sidebar" | A top-level surface wherever the panel sits (e.g. inside a pop-up layout): `panel` takes the look's panel glass, `sidebar` the look's side-column material (Apple Home: dark liquid). |
 | `bar` | boolean | The material of the liquid glass bars (thermostat, light, period bar) instead of a tile. |

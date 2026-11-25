@@ -28,6 +28,21 @@ cards:
 
 Needs [Bubble Card](https://github.com/Clooos/Bubble-Card) by [Clooos](https://github.com/Clooos). Set the pop-up's own header off (`show_header: false`) and put this card first.
 
+## Search
+
+`search: true` puts a search field in the header. What's typed searches the library of a [media player](media.md) card in the same pop-up – the two find each other, nothing to link. `search_placeholder` is its text; ✕ or Esc empties it, and so does closing the pop-up. On a phone (a header narrower than 560 px) the field takes the whole bar and the title gives way.
+
+```yaml
+type: custom:glass-popup-header
+name: Music
+icon: mdi:music-note
+search: true
+search_placeholder: Search music
+title_width: calc(max(340px, calc((100cqw - 22px) * 0.36 / 1.36)) - 20px)   # right above the library
+```
+
+With `title_width` the field starts where the content under it starts (e.g. the library beside a side panel) and takes that column's width. See [A player and its library side by side](media.md#a-player-and-its-library-side-by-side).
+
 
 ## Options
 
@@ -39,6 +54,8 @@ Needs [Bubble Card](https://github.com/Clooos/Bubble-Card) by [Clooos](https://g
 | `cards` | BaseCardConfig[] | Cards (YAML) |
 | `title_width` | string | Where the cards start – e.g. 352px or 30cqw – in line with the content under a side panel |
 | `close` | boolean | Close button |
+| `search` | boolean | a search field: what's typed searches the library of a media player card in the same pop-up |
+| `search_placeholder` | string | the search field's text (default Search) |
 | `buttons` | { name?: string; icon?: string; tap_action?: action; active?: condition; align?: "start" \| "end"; confirm?: boolean }[] | Buttons (name, icon, tap_action) |
 
 #### Look

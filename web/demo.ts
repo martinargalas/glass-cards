@@ -9,7 +9,7 @@ import "./ha-runtime";
 import "./editor-shims";
 import "../src/index";
 import { DEMO_DASHBOARD } from "../src/demo/dashboard";
-import { demoHass } from "../src/demo/hass";
+import { demoHass, onDemoChange } from "../src/demo/hass";
 import { openStudio } from "../src/editor/studio";
 
 type Dash = HTMLElement & { setConfig(c: unknown): void; hass: unknown };
@@ -145,3 +145,47 @@ window.addEventListener("pointerup", () => {
   window.addEventListener("click", eat, { capture: true, once: true });
   setTimeout(() => window.removeEventListener("click", eat, true), 100); // none came: nothing to eat later
 });
+
+// The screensaver player of the More pop-up (#screensaver): the media card's layout: screen over
+// the whole page – as a kiosk shows a dashboard of its own. Esc, ✕ or back closes it.
+let saver: HTMLElement | undefined;
+function screensaver(open: boolean) {
+  if (!open) {
+    saver?.remove();
+    saver = undefined;
+    root.style.display = "";
+    return;
+  }
+  if (saver) return;
+  history.replaceState(null, "", location.pathname + location.search + "#screensaver");
+  saver = document.createElement("div");
+  saver.style.cssText = "position:fixed;inset:0;z-index:2147483000;background:#000";
+  const card = document.createElement("glass-media") as Dash;
+  card.setConfig({
+    type: "custom:glass-media",
+    entity: "media_player.living_room_speaker",
+    entities: ["media_player.kitchen_speaker", "media_player.bathroom_speaker"],
+    layout: "screen",
+  });
+  const feed = () => (card.hass = demoHass(haBase() as any));
+  feed();
+  const off = onDemoChange(feed);
+  card.style.cssText = "display:block;height:100%";
+  const close = document.createElement("button");
+  close.textContent = "✕";
+  close.setAttribute("aria-label", "Close");
+  close.style.cssText =
+    "position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;z-index:2;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:18px;cursor:pointer;backdrop-filter:blur(12px)";
+  close.onclick = () => go(location.pathname + location.search);
+  saver.append(card, close);
+  document.body.appendChild(saver);
+  // the dashboard away meanwhile: the screen takes the whole page (not up to the dashboard's dock)
+  root.style.display = "none";
+  const was = saver;
+  const gone = new MutationObserver(() => !was.isConnected && (off(), gone.disconnect()));
+  gone.observe(document.body, { childList: true });
+}
+const onHash = () => screensaver(location.hash === "#screensaver");
+window.addEventListener("location-changed", onHash);
+window.addEventListener("popstate", onHash);
+window.addEventListener("keydown", (e) => e.key === "Escape" && saver && go(location.pathname + location.search));

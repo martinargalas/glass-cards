@@ -53,6 +53,7 @@ YAML is there for when you want to copy, share or fine-tune.
 | [Alarm ringing](cards/alarm-ring.md) | The alarm when it rings: Snooze and slide to stop, over the dashboard or in a pop-up, on a morning or a night photo under liquid glass |
 | [Appliance](cards/appliance.md) | Washers, robot vacuums and mowers as bars with their controls |
 | [Room map](cards/room-map.md) | Pick rooms or lawn zones on a robot's map and clean or mow just those |
+| [Media player](cards/media.md) | Made for Music Assistant (and YouTube Music in it), any player too: the cover lights the glass, grouping, the library in rows, search, a player and its library side by side, a screensaver |
 
 **Climate and energy**
 

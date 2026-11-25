@@ -2,6 +2,10 @@ import type { ActionConfig, HassEntity, HomeAssistant } from "../core/types";
 import { MOWER_GEO } from "./home.generated";
 import { EFFECTS, WORLD, demoCalendar, demoCalendarWrite, demoForecast, demoHistory, demoStatistics, type DemoState } from "./world";
 import { DEMO_POPUPS, DEMO_POPUPS_URL } from "./dashboard";
+import { MEDIA_STATES, browseDemoMedia, demoMaCommand, demoMediaService } from "./media";
+
+// the demo's Music Assistant, at its address only (http://music-assistant.demo.invalid:8095)
+(globalThis as { __glassMaDemo?: unknown }).__glassMaDemo = demoMaCommand;
 
 /**
  * Demo mode: a made-up home the cards run on, inside any Home Assistant (`demo: true`
@@ -34,7 +38,7 @@ function put(id: string, s: DemoState) {
     last_updated: old ? at : startedAt,
   };
 }
-for (const [id, s] of Object.entries(WORLD)) put(id, s);
+for (const [id, s] of Object.entries({ ...WORLD, ...MEDIA_STATES })) put(id, s);
 
 let pending = 0;
 function changed() {
@@ -133,6 +137,11 @@ async function callService(domain: string, service: string, data?: ServiceData, 
       const [dm, sv] = String(x.service ?? x.action ?? "").split(".");
       if (dm && sv) void callService(dm, sv, { ...(x.data ?? {}), ...(x.entity_id ? { entity_id: x.entity_id } : {}) }, x.target);
     }
+    return;
+  }
+  // the demo's speakers and YouTube Music: play, group, the library's picks
+  if (domain === "media_player" && demoMediaService(service, list, d, (id) => states[id], put)) {
+    changed();
     return;
   }
   if (domain === "script" && WORLD_EFFECTS[`script.${service}`]) {
@@ -395,10 +404,12 @@ export function demoHass(base?: Partial<HomeAssistant>): HomeAssistant & { demo:
     formatEntityState: formatter(base, lang),
     localize: base?.localize ?? ((k: string) => k),
     // a service for real entities only (not the demo's) goes to Home Assistant
-    callService: async (domain: string, service: string, data?: ServiceData, target?: Attrs) => {
+    callService: async (domain: string, service: string, data?: ServiceData, target?: Attrs, notifyOnError?: boolean, returnResponse?: boolean) => {
       const raw = target?.entity_id ?? data?.entity_id;
       const named = (Array.isArray(raw) ? raw : raw ? [raw] : []) as string[];
-      if (base?.callService && named.length && named.every((id) => !states[id])) return base.callService(domain, service, data, target);
+      // a real entity's service: as asked (a search's answer comes back with returnResponse)
+      if (base?.callService && named.length && named.every((id) => !states[id]))
+        return (base.callService as any)(domain, service, data, target, notifyOnError, returnResponse);
       return callService(domain, service, data, target);
     },
     callWS: async <T>(msg: Record<string, unknown>): Promise<T> => {
@@ -415,6 +426,11 @@ export function demoHass(base?: Partial<HomeAssistant>): HomeAssistant & { demo:
       if (msg.type === "recorder/statistics_during_period") {
         const list = ((msg.statistic_ids as string[]) ?? []).filter((id) => all[id]);
         return Object.fromEntries(list.map((id) => [id, demoStatistics(id, all[id], Date.parse(String(msg.start_time)), msg.end_time ? Date.parse(String(msg.end_time)) : Date.now(), String(msg.period ?? "hour"))])) as T;
+      }
+      // the demo's YouTube Music library
+      if (msg.type === "media_player/browse_media") {
+        const node = browseDemoMedia(msg);
+        if (node) return node as T;
       }
       // the calendar view adds, changes and deletes the demo calendars' events
       if (typeof msg.type === "string" && msg.type.startsWith("calendar/event/") && states[String(msg.entity_id)]) return demoCalendarWrite(msg) as T;

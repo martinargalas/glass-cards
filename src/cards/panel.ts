@@ -28,6 +28,8 @@ import { PANEL_PARTS } from "../core/card-parts";
  *   justify: space-between # main axis
  *   title: Obývák          # optional heading with a separator line (inside a panel: a room card name)
  *   icon: mdi:sofa
+ *   description: …         # optional: a short line under the title
+ *   collapsible: true      # the title a header to fold the cards away (closed to start; open: true)
  *   masonry: true          # grid: cards as tall as their content, packed without gaps
  *   masonry_fill: true     # … stretched so every column ends at the panel's bottom
  *   min_column_width: 180  # grid: as many columns as fit at this width, instead of `columns`
@@ -70,6 +72,12 @@ interface PanelConfig extends BaseCardConfig {
   justify?: string;
   title?: string;
   icon?: string;
+  /** a short line under the title: what the cards below are for */
+  description?: string;
+  /** the title a header that folds the cards away – closed to start (`open: true`: open) */
+  collapsible?: boolean;
+  /** collapsible: open to start */
+  open?: boolean;
   height?: string;
   /**
    * A top-level surface wherever the panel sits (e.g. inside a pop-up layout): `panel` takes
@@ -452,21 +460,39 @@ class GlassPanel extends GlassElement<PanelConfig> {
     // home tiles bring their own backing – no legibility shading behind them
     const tiles = resolveGlass(c.tile_glass ?? settings.tile_glass ?? c.glass) === "home";
     return html`<div class="panel surface ${bare ? "transparent" : ""} ${c.bar && !c.glass ? "barglass" : ""} ${bare && tiles ? "tiles" : ""}" style="padding:${pad};${c.height ? `height:${screenUnits(c.height)};` : ""}">
-      ${c.title || c.icon
-        ? html`<div class="title">
-            ${c.icon ? html`<ha-icon .icon=${c.icon}></ha-icon>` : nothing}${c.title ? html`<span>${c.title}</span>` : nothing}<i></i>
-          </div>`
-        : nothing}
-      <div
+      ${c.collapsible
+        ? html`<button class="fold ${this._isOpen ? "open" : ""}" aria-expanded=${this._isOpen ? "true" : "false"} @click=${this._toggle}>
+            ${c.icon ? html`<ha-icon .icon=${c.icon}></ha-icon>` : nothing}
+            <span class="ftxt"><b>${c.title ?? ""}</b>${c.description ? html`<small>${c.description}</small>` : nothing}</span>
+            <ha-icon class="chev" .icon=${"mdi:chevron-down"}></ha-icon>
+          </button>`
+        : c.title || c.icon
+          ? html`<div class="title">
+              ${c.icon ? html`<ha-icon .icon=${c.icon}></ha-icon>` : nothing}<span class="ttxt">${c.title ? html`<span>${c.title}</span>` : nothing}${c.description ? html`<small>${c.description}</small>` : nothing}</span><i></i>
+            </div>`
+          : nothing}
+      ${c.collapsible && !this._isOpen
+        ? nothing
+        : html`<div
         class="body ${c.scroll && layout === "row" ? "scroll" : ""} ${layout !== "grid" && !c.scroll && c.height && this._children.length === 1 ? "lone" : ""}"
         style="${body}${masonry ? "column-gap" : "gap"}:${c.gap ?? 16}px;--grip-gap:${c.gap ?? 16}px;${this._gripsOn() || this._flexGripsOn() ? "position:relative;" : ""}align-items:${c.align ?? "stretch"};justify-content:${c.justify ?? "start"};${c.item_width !== undefined ? `--item-width:${typeof c.item_width === "number" ? `${c.item_width}px` : screenUnits(c.item_width)};` : ""}"
       >
         ${this._children.length || !this._inEditor()
           ? visibleChildren(this._children, this._hass)
           : html`<div class="empty">${tr("Empty panel – add a card")}</div>`}${this._grips()}${this._flexGrips()}
-      </div>
+      </div>`}
     </div>`;
   }
+
+  /** collapsible: open now (the user's tap, else `open`) */
+  private _opened?: boolean;
+  private get _isOpen(): boolean {
+    return this._opened ?? !!this._config?.open;
+  }
+  private _toggle = () => {
+    this._opened = !this._isOpen;
+    this.requestUpdate();
+  };
 
   /** In an editor (HA's card dialog or the large editor) an empty panel stays visible, to drop or add cards into. */
   private _inEditor(): boolean {
@@ -642,6 +668,68 @@ class GlassPanel extends GlassElement<PanelConfig> {
       }
       .title ha-icon {
         --mdc-icon-size: 22px;
+      }
+      .ttxt {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .title small,
+      .fold small {
+        font-size: 13px;
+        font-weight: 400;
+        opacity: 0.72;
+        letter-spacing: 0;
+      }
+      /* collapsible: the title a header that folds the cards away */
+      .fold {
+        all: unset;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 14px 18px;
+        border-radius: 22px;
+        cursor: pointer;
+        color: var(--g-text, #fff);
+        text-shadow: var(--g-text-shadow);
+        background: color-mix(in srgb, var(--g-text, #fff) 9%, transparent);
+        transition: background 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .fold:hover {
+        background: color-mix(in srgb, var(--g-text, #fff) 14%, transparent);
+      }
+      .fold:focus-visible {
+        outline: 2px solid color-mix(in srgb, var(--g-text, #fff) 60%, transparent);
+      }
+      .fold > ha-icon:first-child {
+        --mdc-icon-size: 24px;
+        flex: none;
+      }
+      .ftxt {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .ftxt b {
+        font-size: 17px;
+        font-weight: 600;
+      }
+      .fold .chev {
+        --mdc-icon-size: 24px;
+        flex: none;
+        opacity: 0.8;
+        transition: transform 0.25s ease;
+      }
+      .fold.open .chev {
+        transform: rotate(180deg);
+      }
+      .fold.open {
+        margin-bottom: 14px;
       }
       .title i {
         flex: 1;

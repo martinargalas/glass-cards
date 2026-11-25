@@ -410,6 +410,7 @@ export const NEW_CARDS: [string, string, string, string][] = [
   ["custom:glass-automation", "Automation switch", "mdi:robot-outline", "An automation on / off, and for how long a switch-off lasts"],
   ["custom:glass-sun-shading", "Sun and shading", "mdi:sun-compass", "The sun over a compass with your windows, the light and the shading decision"],
   ["custom:glass-value-grid", "Value grid", "mdi:table-cog", "Numbers with − / + in a table, a column per season or mode"],
+  ["custom:glass-media", "Media player", "mdi:music-circle-outline", "What plays with its cover, controls, volume and speakers"],
   ["custom:glass-light", "Lights", "mdi:lightbulb-group-outline", "Scenes and a brightness bar per light"],
   ["custom:glass-blind", "Blind", "mdi:blinds-horizontal", "Position and tilt of a blind, roller or gate"],
   ["custom:glass-thermostat", "Thermostat", "mdi:thermostat", "Room temperature, set point and its history"],

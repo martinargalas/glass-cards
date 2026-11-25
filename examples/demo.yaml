@@ -1679,6 +1679,8 @@ views:
                     link: "#blinds"
                   - icon: mdi:weather-partly-cloudy
                     link: "#weather"
+                  - icon: mdi:music-note
+                    link: "#media"
                   - icon: mdi:solar-power-variant
                     link: "#energy"
                   - icon: mdi:radiator
@@ -1724,6 +1726,8 @@ views:
                 link: "#blinds"
               - icon: mdi:weather-partly-cloudy
                 link: "#weather"
+              - icon: mdi:music-note
+                link: "#media"
               - icon: mdi:solar-power-variant
                 link: "#energy"
               - icon: mdi:radiator
