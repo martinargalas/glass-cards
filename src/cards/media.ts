@@ -504,6 +504,8 @@ function heldOrAsTold(st: HassEntity, m: SteadyMem, id: string, title: string | 
 const artLoad = new Map<string, "ok" | "fail" | Promise<void>>();
 /** a programme's channel found by a TV guide's search (played from a recording), by its title */
 const channelFound = new Map<string, { name: string; picture?: string } | null>();
+/** an app's icon by its bundle id (an Apple TV's app: YouTube, Plex), from the App Store */
+const appIcons = new Map<string, string | null | Promise<void>>();
 /** each loaded picture's width / height (a TV's 16:9 frame, a 2:3 poster) */
 const artRatio = new Map<string, number>();
 const artWaiters = new Set<() => void>();
@@ -796,6 +798,12 @@ class GlassMedia extends GlassElement<MediaConfig> {
       const under = [ch?.name, a.media_artist, a.media_title && a.media_series_title, a.app_name, a.source, v.attributes.friendly_name];
       attrs.media_artist = under.find((x) => x && x !== attrs.media_title);
       attrs.glass_tv = true;
+      // the app it plays in (an Apple TV's: YouTube, SledovaniTV) – for its small icon
+      const set = this._tvSet(id);
+      const app = [v, ...(set?.sources ?? []).map((x) => this._hass?.states[typeof x === "string" ? x : x.entity])].find(
+        (x) => x && LOADED.has(x.state) && typeof x.attributes.app_id === "string",
+      )?.attributes.app_id;
+      if (app) attrs.glass_app = app;
     }
     for (const k of keys) if (k in a && !(tv && (k === "media_title" || k === "media_artist"))) attrs[k] = a[k];
     // what the queue can do (next, previous, shuffle, repeat) is the source's – on the TV, play and
@@ -1382,6 +1390,28 @@ class GlassMedia extends GlassElement<MediaConfig> {
     >`;
   }
 
+  /** An app's icon by its bundle id (com.google.ios.youtube), from the App Store – once looked up. */
+  private _appIcon(app: unknown): string | undefined {
+    if (typeof app !== "string" || !/^[\w-]+(\.[\w-]+){2,}$/.test(app)) return undefined;
+    const got = appIcons.get(app);
+    if (typeof got === "string") return got;
+    if (got !== undefined) return undefined;
+    const country = String((this._hass as any)?.config?.country ?? "us").toLowerCase();
+    const look = (c: string) =>
+      fetch(`https://itunes.apple.com/lookup?bundleId=${encodeURIComponent(app)}&country=${c}`)
+        .then((r) => r.json())
+        .then((d) => (d?.results?.[0]?.artworkUrl100 as string | undefined) ?? (d?.results?.[0]?.artworkUrl60 as string | undefined));
+    appIcons.set(
+      app,
+      look(country)
+        .then((u) => u ?? (country === "us" ? undefined : look("us")))
+        .then((u) => void appIcons.set(app, u ?? null))
+        .catch(() => void appIcons.set(app, null))
+        .then(() => this.requestUpdate()),
+    );
+    return undefined;
+  }
+
   /** The card's players to pick from: each with its art (or icon), name and what it does. */
   private _players(main: string) {
     const hass = this._hass!;
@@ -1403,7 +1433,12 @@ class GlassMedia extends GlassElement<MediaConfig> {
                   ? [a.media_title, a.media_artist].filter(Boolean).join(" · ")
                   : tr("Nothing playing");
           return html`<button class="prow ${id === main ? "in" : ""}" role="option" aria-selected=${id === main ? "true" : "false"} @click=${() => this._choose(id)}>
-            <i class="pic" style=${url ? `background-image:${cssUrl(url)}` : ""}>${url ? nothing : html`<ha-icon .icon=${icon}></ha-icon>`}</i>
+            <i class="pic" style=${url ? `background-image:${cssUrl(url)}` : ""}
+              >${url ? nothing : html`<ha-icon .icon=${icon}></ha-icon>`}${(() => {
+                const ai = this._appIcon(a.glass_app);
+                return ai ? html`<img class="appi" src=${ai} alt="" />` : nothing;
+              })()}</i
+            >
             <span class="ptxt"><span class="sname"><span class="nm">${a.friendly_name ?? id}</span>${this._kindBadge(id)}</span><span class="psub">${what}</span></span>
             ${st?.state === "playing" ? html`<i class="eq ${id === main ? "main" : ""}" aria-hidden="true"><b></b><b></b><b></b></i>` : nothing}
             ${id === main ? html`<ha-icon class="chk" .icon=${"mdi:check"}></ha-icon>` : nothing}
@@ -3294,18 +3329,23 @@ class GlassMedia extends GlassElement<MediaConfig> {
    */
   private _marquee() {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    for (const el of this.renderRoot.querySelectorAll<HTMLElement>(".title, .sub:not(.subw), .sartist, .salbum, .who > span")) {
+    for (const el of this.renderRoot.querySelectorAll<HTMLElement>(".title:not(.who), .sub:not(.subw), .sartist, .salbum, .who > span")) {
       const text = el.textContent ?? "";
       const was = marquees.get(el);
-      const w = el.clientWidth;
-      if (was && was.text === text && was.w === w) continue;
+      // its room: the parent's width (its own shrinks as the indent grows, when it sizes to its text)
+      const room = el.parentElement?.clientWidth ?? 0;
+      if (was && was.text === text && was.w === room) continue;
       was?.anim?.cancel();
       el.classList.remove("mq");
+      el.style.width = "";
+      const w = el.clientWidth;
       const dist = el.scrollWidth - w;
       if (!w || dist < 3) {
-        marquees.set(el, { text, w });
+        marquees.set(el, { text, w: room });
         continue;
       }
+      // held at its width while its text drifts
+      el.style.width = `${w}px`;
       el.classList.add("mq");
       const wait = 2000, end = 1000, back = 600, run = (dist / MARQUEE_PX_S) * 1000;
       const T = wait + run + end + back;
@@ -3320,7 +3360,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
         ],
         { duration: T, iterations: Infinity },
       );
-      marquees.set(el, { text, w, anim });
+      marquees.set(el, { text, w: room, anim });
     }
   }
 
@@ -4414,6 +4454,18 @@ class GlassMedia extends GlassElement<MediaConfig> {
         display: grid;
         place-items: center;
         color: var(--g-text-2);
+      }
+      .prow .pic {
+        position: relative;
+      }
+      .prow .pic .appi {
+        position: absolute;
+        right: -4px;
+        bottom: -4px;
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
       }
       .prow .pic ha-icon {
         --mdc-icon-size: 22px;
