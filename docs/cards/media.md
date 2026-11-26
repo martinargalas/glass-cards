@@ -270,6 +270,8 @@ When you look at a speaker that's silent while others are playing together, the 
 
 A Sonos soundbar connected to the TV over HDMI only tells Home Assistant that it plays *TV Audio*. If you list the devices connected to the TV in `tv_sources`, the card shows what's actually on instead: the film, episode, video or game, with its picture, the time and play / pause. The volume still belongs to the soundbar.
 
+In Dashboard Studio it's the **Soundbar on the TV** section: add the soundbar, pick the TV, then its devices – each with the TV's input from a list. In YAML:
+
 ```yaml
 tv_sources:
   - speaker: media_player.living_room

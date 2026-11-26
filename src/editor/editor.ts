@@ -46,7 +46,7 @@ export interface ListSpec {
   name: string;
   title: string;
   /** Schema for one item; may depend on the item (e.g. menu action → YAML). */
-  item: (item: Record<string, any>) => Schema[];
+  item: (item: Record<string, any>, parent?: Record<string, any>) => Schema[];
   label: (item: Record<string, any>, index: number) => string;
   create: () => Record<string, any>;
   /** Values the card uses when a key is missing; shown in the form, never written. */
@@ -1063,7 +1063,10 @@ export class GlassCardEditor extends LitElement {
   }
 
   /** A list of the card's config, or – with `src` – one nested in an item of another list. */
-  private _list(spec: ListSpec, src?: { items: Record<string, any>[]; set: (next: Record<string, any>[]) => void; id: string; title?: string }): TemplateResult {
+  private _list(
+    spec: ListSpec,
+    src?: { items: Record<string, any>[]; set: (next: Record<string, any>[]) => void; id: string; title?: string; parent?: Record<string, any> },
+  ): TemplateResult {
     const items: Record<string, any>[] = src ? src.items : (this._config?.[spec.name] ?? spec.initial?.(this._config ?? {}) ?? []);
     const set = src ? src.set : (next: Record<string, any>[]) => this._emit({ ...this._config, [spec.name]: next });
     const okey = src?.id ?? spec.name;
@@ -1083,10 +1086,10 @@ export class GlassCardEditor extends LitElement {
           </div>
           ${open === i
             ? html`<div class="item-body">
-                ${this._form({ ...spec.defaults, ...item }, spec.item(item), (v) =>
+                ${this._form({ ...spec.defaults, ...item }, spec.item(item, src?.parent), (v) =>
                   set(items.map((x, k) => (k === i ? withoutDefaults(stripEmpty(v), item, spec.defaults) : x))),
                 )}
-                ${/"(tap|hold)_action"/.test(JSON.stringify(spec.item(item))) || item.tap_action?.action === "menu" || item.hold_action?.action === "menu"
+                ${/"(tap|hold)_action"/.test(JSON.stringify(spec.item(item, src?.parent))) || item.tap_action?.action === "menu" || item.hold_action?.action === "menu"
                   ? (["tap_action", "hold_action"] as const).map((k) =>
                       this._menu(item, k, `${spec.name}:${i}`, (next) => set(items.map((x, j) => (j === i ? next : x)))),
                     )
@@ -1113,7 +1116,9 @@ export class GlassCardEditor extends LitElement {
     const item = parent[i];
     if (!item) return nothing;
     return this._list(spec, {
-      items: item[spec.name] ?? [],
+      // an item written short (just an entity id) as the form edits it
+      items: ((item[spec.name] ?? []) as unknown[]).map((x) => (typeof x === "string" ? { entity: x } : (x as Record<string, any>))),
+      parent: item,
       set: (next) => this._emit({ ...this._config, [key]: parent.map((x, k) => (k === i ? stripEmpty({ ...x, [spec.name]: next.length ? next : undefined }) : x)) }),
       id: `${key}:${i}:${spec.name}`,
       title,

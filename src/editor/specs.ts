@@ -1929,6 +1929,35 @@ export const thermostatSpec: EditorSpec = {
 
 export const mediaSpec: EditorSpec = {
   parts: MEDIA_PARTS,
+  lists: [
+    {
+      name: "tv_sources",
+      title: "Soundbars",
+      label: (t) => (t.speaker ? shortId(t.speaker) : tr("The card's player")),
+      create: () => ({ sources: [] }),
+      item: () => [
+        { name: "speaker", label: "Soundbar", helper: "Empty: the card's player", selector: { entity: { domain: "media_player" } } },
+        {
+          name: "tv",
+          label: "TV",
+          helper: "Optional: with it, only the devices on the input shown count – an Apple TV paused behind the PlayStation stays hidden",
+          selector: { entity: { domain: "media_player" } },
+        },
+      ],
+    },
+    {
+      name: "sources",
+      title: "Devices on the TV",
+      label: (s) => [shortId(s.entity) || tr("Device"), s.input].filter(Boolean).join(" · "),
+      create: () => ({ entity: "" }),
+      item: (_s, parent) => [
+        { name: "entity", label: "Device", helper: "An Apple TV, a PlayStation – or Plex, YouTube on it", selector: { entity: { domain: "media_player" } } },
+        parent?.tv
+          ? { name: "input", label: "The TV's input", helper: "Where the device is plugged in, as the TV calls it", selector: { state: { entity_id: parent.tv, attribute: "source" } } }
+          : { name: "input", label: "The TV's input", helper: "As the TV entity calls it (its source) – pick the TV above for a list", selector: { text: {} } },
+      ],
+    },
+  ],
   defaults: { layout: "card", show: "all", art_background: true, speakers: true, library: true, library_layout: "sheet", library_close: 8, visualizer: true, clock: true, follow_playing: true },
   form: (c) => {
     const tile = c.layout === "tile";
@@ -2123,21 +2152,40 @@ export const mediaSpec: EditorSpec = {
           ),
         ],
       },
+      ...(hasPlayer
+        ? [
+            {
+              custom: "section",
+              key: "tv",
+              title: "Soundbar on the TV",
+              secondary: c.tv_sources?.length ? "" : "Optional",
+              schema: [
+                {
+                  custom: "hint",
+                  text: "While a soundbar plays the TV's sound, the card shows what plays on the TV – an Apple TV's app, a film in Plex, a PlayStation's game – instead of \"TV Audio\".",
+                },
+                { custom: "list", list: "tv_sources" },
+                {
+                  custom: "hint",
+                  text: "Its devices: put Plex or YouTube before the Apple TV they run on – they only tell better what it plays (the poster, the video), never on their own.",
+                },
+                // each soundbar's devices
+                ...(c.tv_sources ?? []).map((t: any, i: number) => ({
+                  custom: "list",
+                  list: "sources",
+                  at: ["tv_sources", i],
+                  title: `${tr("Devices on the TV")} – ${t.speaker ? shortId(t.speaker) : tr("the card's player")}`,
+                })),
+              ],
+            },
+          ]
+        : []),
       ...(hasPlayer ? [{ custom: "section", key: "actions", title: "Actions", schema: actionFields(c, ["tap_action", "hold_action"]) }] : []),
       {
         custom: "section",
         key: "advanced",
         title: "Advanced",
         schema: [
-          ...(hasPlayer
-            ? [
-                {
-                  ...YAML("tv_sources"),
-                  label: "TV sources",
-                  helper: "A soundbar on the TV: - speaker: its player, tv: the TV (optional), sources: - entity: Apple TV, input: the TV's input… – what plays on the TV shows while the soundbar plays its sound",
-                },
-              ]
-            : []),
           YAML("styles"),
         ],
       },
