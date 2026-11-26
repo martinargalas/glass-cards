@@ -2338,6 +2338,8 @@ export const cs: Dict = {
   "Your own covers: the first row of the library": "Vlastní obaly: první řádek knihovny",
   "Music Assistant": "Music Assistant",
   "It shows the one playing; a tap on the player's name picks another": "Ukazuje ten, který hraje; klepnutím na název přehrávače vybereš jiný",
+  "TV sources": "Zdroje z TV",
+  "A soundbar on the TV: - speaker: its player, sources: [Apple TV, PlayStation…] – the first one playing shows while it plays the TV's sound": "Soundbar u TV: - speaker: jeho přehrávač, sources: [Apple TV, PlayStation…] – ukáže se první, který hraje, když soundbar hraje zvuk z TV",
   "Move to the one playing": "Přepnout na ten, který hraje",
   "Off: always the player above – another one only while you picked it": "Vypnuto: vždy přehrávač výše – jiný jen když si ho vybereš",
   "The button by the volume: speakers of the same kind to play along": "Tlačítko u hlasitosti: reproduktory stejného druhu, které budou hrát s ním",

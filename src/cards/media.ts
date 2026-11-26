@@ -209,6 +209,9 @@ interface MediaConfig extends BaseCardConfig {
   library_from?: string;
   /** which rows of the library, in this order (their titles); default: all, played and new first */
   library_sections?: string[];
+  /** a speaker on a TV's HDMI (a Sonos soundbar): what the TV plays, from these players – the first
+   *  one playing (or paused), in this order – while the speaker plays the TV's sound */
+  tv_sources?: { speaker?: string; sources: string[] }[];
   /** Music Assistant's own address (`http://…:8095`) – with a token, the card talks to Music Assistant
    *  itself: its home's rows, every playlist's tracks, each player's kind (optional) */
   music_assistant_url?: string;
@@ -689,6 +692,11 @@ class GlassMedia extends GlassElement<MediaConfig> {
       "media_position",
       "media_position_updated_at",
       "media_content_id",
+      "media_content_type",
+      "media_series_title",
+      "media_season",
+      "media_episode",
+      "app_name",
       "shuffle",
       "repeat",
     ];
@@ -737,9 +745,19 @@ class GlassMedia extends GlassElement<MediaConfig> {
     if (!st || !v) return st;
     const a = v.attributes;
     const attrs: Record<string, unknown> = { ...st.attributes };
-    for (const k of keys) if (k in a) attrs[k] = a[k];
-    // what the queue can do (next, previous, shuffle, repeat) is the source's
-    const q = F.NEXT | F.PREVIOUS | F.SHUFFLE | F.REPEAT | F.SEEK;
+    const tv = via !== undefined && via === this._tvVia(id);
+    if (tv) {
+      // the TV's: none of the speaker's own "TV Audio" – what plays there, or which device it is
+      for (const k of keys) delete attrs[k];
+      attrs.media_title = a.media_title ?? a.media_series_title ?? a.app_name ?? v.attributes.friendly_name;
+      attrs.media_artist =
+        a.media_artist ?? (a.media_title && a.media_series_title ? a.media_series_title : undefined) ?? a.app_name ?? v.attributes.friendly_name;
+      attrs.glass_tv = true;
+    }
+    for (const k of keys) if (k in a && !(tv && (k === "media_title" || k === "media_artist"))) attrs[k] = a[k];
+    // what the queue can do (next, previous, shuffle, repeat) is the source's – on the TV, play and
+    // pause too (a PlayStation has none: no button)
+    const q = F.NEXT | F.PREVIOUS | F.SHUFFLE | F.REPEAT | F.SEEK | (tv ? F.PAUSE | F.PLAY : 0);
     attrs.supported_features = ((Number(st.attributes.supported_features) || 0) & ~q) | ((Number(a.supported_features) || 0) & q);
     // a twin between two songs is idle for a moment: the speaker's state then
     let state = LOADED.has(v.state) ? v.state : st.state;
@@ -773,7 +791,28 @@ class GlassMedia extends GlassElement<MediaConfig> {
     const s = this._hass?.states;
     if (!s) return undefined;
     const cands = [...this._ids, ...(this._config.library_from ? [this._config.library_from] : [])];
-    return cands.find((c) => c !== id && s[c]?.attributes.remote_player_id === id && ACTIVE.has(s[c]?.state ?? ""));
+    return cands.find((c) => c !== id && s[c]?.attributes.remote_player_id === id && ACTIVE.has(s[c]?.state ?? "")) ?? this._tvVia(id);
+  }
+
+  /**
+   * A soundbar playing the TV's sound (its input: TV, HDMI): the player that plays on the TV – the
+   * first of its tv_sources playing or paused (an Apple TV, Plex on it, a PlayStation). Its title,
+   * picture and time show; play, pause and skips go to it; the volume stays the speaker's.
+   */
+  private _tvVia(id: string): string | undefined {
+    const list = this._config.tv_sources;
+    const s = this._hass?.states;
+    if (!list?.length || !s) return undefined;
+    const st = s[id];
+    const a = st?.attributes ?? {};
+    if (!LOADED.has(st?.state ?? "") || !(a.app_id === "tv" || /^(tv|hdmi)/i.test(String(a.source ?? "")))) return undefined;
+    // its own list – by the speaker, or by its twin (the Sonos' own entity and Music Assistant's)
+    const tw = this._twins.get(id);
+    const set = list.find((t) => {
+      const sp = t.speaker ?? this._ids[0];
+      return sp === id || sp === tw || this._twins.get(sp) === id;
+    });
+    return set?.sources?.find((x) => LOADED.has(s[x]?.state ?? ""));
   }
 
   /**
@@ -1612,7 +1651,9 @@ class GlassMedia extends GlassElement<MediaConfig> {
 
   private _art_(st: HassEntity | undefined, cls: string) {
     const url = this._artUrl(st);
-    return html`<div class="art ${cls} ${url ? "" : "none"}" style=${url ? `background-image:${cssUrl(url)}` : ""}>
+    // the TV's picture (a film's poster, a video's frame): whole, not cut to a square
+    const fit = url && st?.attributes.glass_tv ? "fit" : "";
+    return html`<div class="art ${cls} ${fit} ${url ? "" : "none"}" style=${url ? `background-image:${cssUrl(url)}` : ""}>
       ${url ? nothing : html`<ha-icon .icon=${st?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note"}></ha-icon>`}
     </div>`;
   }
@@ -3330,6 +3371,11 @@ class GlassMedia extends GlassElement<MediaConfig> {
         place-items: center;
         color: var(--g-text-2);
         background-color: color-mix(in srgb, var(--g-text) 8%, transparent);
+      }
+      .art.fit {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: rgba(0, 0, 0, 0.32);
       }
       .art.square {
         aspect-ratio: 1;

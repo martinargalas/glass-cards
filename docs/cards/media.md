@@ -266,6 +266,21 @@ When you look at a speaker that's silent while others are playing together, the 
 
 ![Join the speakers that are playing](../images/media/rest.webp)
 
+### A soundbar on the TV
+
+A Sonos soundbar connected to the TV over HDMI only tells Home Assistant that it plays *TV Audio*. If you list the devices connected to the TV in `tv_sources`, the card shows what's actually on instead: the film, episode, video or game, with its picture, the time and play / pause. The volume still belongs to the soundbar.
+
+```yaml
+tv_sources:
+  - speaker: media_player.living_room
+    sources:
+      - media_player.plex_apple_tv     # Plex on the Apple TV: the film's poster, the episode
+      - media_player.apple_tv          # the Apple TV itself: the app and what it plays
+      - media_player.playstation_5     # the game
+```
+
+Each soundbar gets its own list. The card shows the first device that plays or is paused, in the order you list them, so put the richest one first: Plex knows the film and its poster, while the Apple TV knows only what the app tells it. Music from Music Assistant on the soundbar always comes first – the list only matters while the soundbar plays the TV's sound. Posters and video frames show whole, without being cut to a square.
+
 ## Keyboard media keys
 
 With `media_keys: true` you can control the card's player with your computer keyboard's media keys – play / pause, next and previous – even when the browser is minimised, Home Assistant is in a background tab or the card sits in a closed pop-up. Your system's own media controls (Control Center on macOS, the media flyout on Windows) show the song with its cover and work too.
@@ -291,6 +306,7 @@ Browsers only send media keys to a page that plays sound, so the tab plays a loo
 | `favorites` | Pick[] | your own covers, the first row of the library |
 | `library_from` | string | the library of another player for the others (YouTube Music for a Sonos): a tap plays it through that player on the one picked |
 | `library_sections` | string[] | which rows of the library, in this order (their titles); default: all, played and new first |
+| `tv_sources` | { speaker?: string; sources: string[] }[] | a speaker on a TV's HDMI (a Sonos soundbar): what the TV plays, from these players – the first one playing (or paused), in this order – while the speaker plays the TV's sound |
 | `music_assistant_url` | string | Music Assistant's own address (`http://…:8095`) – with a token, the card talks to Music Assistant itself: its home's rows, every playlist's tracks, each player's kind (optional) |
 | `music_assistant_token` | string | a token made in Music Assistant (Settings → profile → tokens) – stored in the dashboard in plain text: anyone who can read the dashboard's configuration can read it (optional, see the docs) |
 | `media_keys` | boolean | the keyboard's media keys (play / pause, next, previous) play on this card's player – also with the window minimised or the card in a closed pop-up (default false) |

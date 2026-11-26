@@ -2124,7 +2124,23 @@ export const mediaSpec: EditorSpec = {
         ],
       },
       ...(hasPlayer ? [{ custom: "section", key: "actions", title: "Actions", schema: actionFields(c, ["tap_action", "hold_action"]) }] : []),
-      { custom: "section", key: "advanced", title: "Advanced", schema: [YAML("styles")] },
+      {
+        custom: "section",
+        key: "advanced",
+        title: "Advanced",
+        schema: [
+          ...(hasPlayer
+            ? [
+                {
+                  ...YAML("tv_sources"),
+                  label: "TV sources",
+                  helper: "A soundbar on the TV: - speaker: its player, sources: [Apple TV, PlayStation…] – the first one playing shows while it plays the TV's sound",
+                },
+              ]
+            : []),
+          YAML("styles"),
+        ],
+      },
     ];
   },
 };
