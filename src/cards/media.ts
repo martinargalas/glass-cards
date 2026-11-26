@@ -876,9 +876,9 @@ class GlassMedia extends GlassElement<MediaConfig> {
     // that device plays – never on its own (Plex may say "playing" for hours after you closed it)
     const detail = (x: { entity: string; input?: string }, i: number) => !!x.input && pool.slice(i + 1).some((y) => y.input === x.input);
     const details = pool.filter(detail).map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
-    // only what plays now: paused, or an app left in the background (it keeps its last video as
-    // "paused"), is nothing playing
-    const on = pool.filter((x, i) => !detail(x, i)).map((x) => x.entity).filter((x) => s[x]?.state === "playing");
+    // what an app on screen plays or holds paused (YouTube paused: still YouTube) – the home screen
+    // or an app's own menu (idle, or nothing in it) is nothing playing
+    const on = pool.filter((x, i) => !detail(x, i)).map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
     if (!on.length) return undefined;
     // what's on the TV: the one that changed last – started, paused, another app (Plex keeps saying
     // "playing" long after you moved on to another app or the PlayStation, but it doesn't change)

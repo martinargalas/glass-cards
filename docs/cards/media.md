@@ -283,7 +283,7 @@ tv_sources:
         input: PS5
 ```
 
-Each soundbar gets its own list. Of the devices that play or are paused, the card follows the one that changed last – you started, paused or switched something on it. When a device listed before it plays the same thing, that one shows instead, so put the richest one first: Plex knows the film and its poster, while the Apple TV knows only what the app tells it. An Apple TV with only an app open and nothing in it counts as nothing playing.
+Each soundbar gets its own list. Of the devices that play or are paused, the card follows the one that changed last – you started, paused or switched something on it. When a device listed before it plays the same thing, that one shows instead, so put the richest one first: Plex knows the film and its poster, while the Apple TV knows only what the app tells it. A paused video still shows; an Apple TV on its home screen, or with only an app's menu open, counts as nothing playing.
 
 Devices don't always say when you've moved on – a PlayStation may report the same game for an hour, and Plex may keep saying it plays long after you closed it. If your TV is in Home Assistant, add it as `tv` and give each device the `input` the TV calls it (its `source`, as the TV entity shows it). The card then only looks at the devices on the input that's on screen, and on any other input – an app of the TV itself, like Netflix – it shows the TV. Music from Music Assistant on the soundbar always comes first: the list only matters while the soundbar plays the TV's sound.
 
