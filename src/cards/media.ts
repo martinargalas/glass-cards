@@ -794,8 +794,13 @@ class GlassMedia extends GlassElement<MediaConfig> {
       // live TV in an app (SledovaniTV): which channel shows it now, by a TV guide in Home Assistant
       const ch = a.media_title ? this._channelOf(String(a.media_title)) : undefined;
       if (ch?.picture) attrs.glass_logo = ch.picture;
+      // the app it plays in, told by the device (an Apple TV: "Plex") – Plex's own player only names itself
+      const set0 = this._tvSet(id);
+      const appSt = [v, ...(set0?.sources ?? []).map((x) => this._hass?.states[typeof x === "string" ? x : x.entity])].find(
+        (x) => x && LOADED.has(x.state) && typeof x.attributes.app_name === "string",
+      );
       // under it: the channel, the series, the app – never the title again (only an app: the device)
-      const under = [ch?.name, a.media_artist, a.media_title && a.media_series_title, a.app_name, a.source, v.attributes.friendly_name];
+      const under = [ch?.name, a.media_artist, a.media_title && a.media_series_title, a.app_name ?? appSt?.attributes.app_name, a.source, v.attributes.friendly_name];
       attrs.media_artist = under.find((x) => x && x !== attrs.media_title);
       attrs.glass_tv = true;
       // the app it plays in (an Apple TV's: YouTube, SledovaniTV) – for its small icon
@@ -3344,7 +3349,8 @@ class GlassMedia extends GlassElement<MediaConfig> {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     for (const el of this.renderRoot.querySelectorAll<HTMLElement>(".mqi")) {
       const box = el.parentElement;
-      if (!box) continue;
+      // the player's name after what plays (a tap picks another player): it stays put
+      if (!box || el.closest(".subw")) continue;
       const text = el.textContent ?? "";
       const room = box.clientWidth;
       const was = marquees.get(el);
@@ -4422,7 +4428,8 @@ class GlassMedia extends GlassElement<MediaConfig> {
         text-overflow: ellipsis;
       }
       .subw .who {
-        flex: 0 1 auto;
+        flex: none;
+        max-width: 60%;
       }
       .subw .who ha-icon {
         --mdc-icon-size: 16px;

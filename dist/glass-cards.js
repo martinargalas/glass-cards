@@ -5579,7 +5579,7 @@ const vn = {
     box-shadow: 0 0 0 2px var(--glass-select-ring, rgba(255, 255, 255, 0.9));
     transition: box-shadow 0.25s ease;
   }
-`, we = ee`
+`, xe = ee`
   /* a card that has no tile of its own, given its own glass (GlassElement.tile) */
   .surface.own-glass {
     padding: var(--glass-tile-padding, 14px);
@@ -6627,8 +6627,8 @@ function Mc(o) {
   if (o instanceof HTMLVideoElement) {
     const { r: b, fit: y } = Lr(o, !0), _ = o.videoWidth, x = o.videoHeight;
     if (!_ || !x || !b.width) return;
-    const S = y === "contain" ? Math.min(b.width / _, b.height / x) : y === "fill" ? 0 : Math.max(b.width / _, b.height / x), z = S ? _ * S : b.width, M = S ? x * S : b.height;
-    return { url: "", video: o, rect: { x: b.x + (b.width - z) / 2, y: b.y + (b.height - M) / 2, w: z, h: M } };
+    const z = y === "contain" ? Math.min(b.width / _, b.height / x) : y === "fill" ? 0 : Math.max(b.width / _, b.height / x), S = z ? _ * z : b.width, A = z ? x * z : b.height;
+    return { url: "", video: o, rect: { x: b.x + (b.width - S) / 2, y: b.y + (b.height - A) / 2, w: S, h: A } };
   }
   const e = getComputedStyle(o), t = e.backgroundImage.match(/url\(["']?(.*?)["']?\)/);
   if (!t) return;
@@ -6850,7 +6850,7 @@ class Lg {
     let m;
     const f = this.styled.get(e);
     s.video && f && performance.now() - f.at < 500 ? m = f.shade : (m = this.contrast(e, this.edgeLight(e, l, s.rect) ?? 0, a.contrast), this.styled.set(e, { at: performance.now(), shade: m })), this.canvas.width < h && (this.canvas.width = h), this.canvas.height < u && (this.canvas.height = u), r.viewport(0, 0, h, u), r.clearColor(0, 0, 0, 0), r.clear(r.COLOR_BUFFER_BIT), r.uniform1i(this.loc.u_bg, 0), r.uniform2f(this.loc.u_size, l.width, l.height), r.uniform2f(this.loc.u_origin, l.x, l.y), r.uniform4f(this.loc.u_bgRect, s.rect.x, s.rect.y, s.rect.w, s.rect.h);
-    const b = (S, z) => r.uniform1f(this.loc[S], z), y = i ? ao(e)?.rect.w : void 0, _ = y ? y / s.rect.w : 1;
+    const b = (z, S) => r.uniform1f(this.loc[z], S), y = i ? ao(e)?.rect.w : void 0, _ = y ? y / s.rect.w : 1;
     b("u_radius", a.radius * c), b("u_edgeI", a.edgeIntensity * _), b("u_rimI", a.rimIntensity * _), b("u_baseI", a.baseIntensity * _), b("u_edgeD", a.edgeDistance), b("u_rimD", a.rimDistance), b("u_baseD", a.baseDistance), b("u_corner", a.cornerBoost * _), b("u_ripple", a.ripple), b("u_tint", a.tint), b("u_disp", a.dispersion * (i && i !== kt() ? 0.3 : 1)), b("u_spec", a.specular), b("u_rimL", a.rimLight), b("u_rimW", a.rimWidth * c), b("u_dark", a.dark), b("u_sq", a.squircle), b("u_shL", a.shapeLeft * c), r.uniform4f(this.loc.u_blob, a.blobX * c, a.blobY * c, a.blobR * c, a.blobK * c), b("u_shade", m), b("u_tintA", a.tintA ?? 0), r.uniform3f(this.loc.u_tintC, (a.tintR ?? 255) / 255, (a.tintG ?? 255) / 255, (a.tintB ?? 255) / 255), b("u_px", 1 / d), r.drawArrays(r.TRIANGLE_STRIP, 0, 4), t.width !== h && (t.width = h), t.height !== u && (t.height = u);
     const x = t.getContext("2d");
     return x.clearRect(0, 0, h, u), x.drawImage(this.canvas, 0, this.canvas.height - u, h, u, 0, 0, h, u), !0;
@@ -6894,12 +6894,12 @@ function Ng(o, e, t, a) {
   const c = l.getContext("2d"), d = c.createImageData(n, r), h = o / 2, u = e / 2, m = Math.min(t, h, u);
   for (let b = 0; b < r; b++)
     for (let y = 0; y < n; y++) {
-      const _ = (y + 0.5) / Rs - h, x = (b + 0.5) / Rs - u, S = Math.abs(_) - (h - m), z = Math.abs(x) - (u - m), M = Math.max(S, 0), k = Math.max(z, 0), C = -(Math.min(Math.max(S, z), 0) + Math.hypot(M, k) - m);
+      const _ = (y + 0.5) / Rs - h, x = (b + 0.5) / Rs - u, z = Math.abs(_) - (h - m), S = Math.abs(x) - (u - m), A = Math.max(z, 0), k = Math.max(S, 0), C = -(Math.min(Math.max(z, S), 0) + Math.hypot(A, k) - m);
       let T = 0, P = 0;
-      if (M > 0 && k > 0) {
-        const G = Math.hypot(M, k) || 1;
-        T = M / G * Math.sign(_), P = k / G * Math.sign(x);
-      } else S > z ? T = Math.sign(_) : P = Math.sign(x);
+      if (A > 0 && k > 0) {
+        const G = Math.hypot(A, k) || 1;
+        T = A / G * Math.sign(_), P = k / G * Math.sign(x);
+      } else z > S ? T = Math.sign(_) : P = Math.sign(x);
       const N = Math.min(1, Math.max(0, 1 - C / a)), E = 1 - Math.sqrt(1 - N * N), L = (b * n + y) * 4;
       d.data[L] = 128 + Math.round(127 * E * T), d.data[L + 1] = 128 + Math.round(127 * E * P), d.data[L + 2] = 128, d.data[L + 3] = 255;
     }
@@ -7071,8 +7071,8 @@ const Xa = class Xa {
     if (!a || !i || a === t.w && i === t.h) return !1;
     t.w = a, t.h = i;
     const s = Math.min(parseFloat(getComputedStyle(e).borderTopLeftRadius) || 24, a / 2, i / 2), n = Math.max(6, Math.min(30, Math.min(a, i) / 3)), r = this.strength ?? Math.round(Math.min(56, n * 1.9)), l = parseFloat(getComputedStyle(this.host).getPropertyValue("--glass-liquid-dispersion")), c = Number.isNaN(l) ? 1 : l, d = `<feImage href="${Ng(a, i, s, n)}" x="0" y="0" width="${a}" height="${i}" preserveAspectRatio="none" result="map"/>`, h = (y, _) => `<feDisplacementMap in="SourceGraphic" in2="map" scale="${(r * y).toFixed(1)}" xChannelSelector="R" yChannelSelector="G" result="${_}"/>`, u = (y, _, x) => {
-      const S = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
-      return S[_ * 5 + _] = 1, `<feColorMatrix in="${y}" type="matrix" values="${S.join(" ")}" result="${x}"/>`;
+      const z = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
+      return z[_ * 5 + _] = 1, `<feColorMatrix in="${y}" type="matrix" values="${z.join(" ")}" result="${x}"/>`;
     }, m = 0.08 * c, f = c > 0 ? `${d}${h(1, "dr")}${h(1 - m, "dg")}${h(1 - m * 2, "db")}${u("dr", 0, "r")}${u("dg", 1, "g")}${u("db", 2, "b")}<feBlend in="r" in2="g" mode="screen" result="rg"/><feBlend in="rg" in2="b" mode="screen"/>` : `${d}${h(1, "out")}`;
     return t.markup = `<filter id="${t.id}" x="0" y="0" width="${a}" height="${i}" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">${f}</filter>`, e.style.setProperty("backdrop-filter", `url(#${t.id}) blur(var(--glass-liquid-blur, 6px)) saturate(var(--glass-liquid-saturate, 115%)) brightness(var(--glass-liquid-brightness, 1.06))`), !0;
   }
@@ -7361,7 +7361,7 @@ const ss = class ss extends Ye {
     return 3;
   }
 };
-ss.properties = { _config: { state: !0 } }, ss.styles = [Sc, we], ss.wrapTile = !1;
+ss.properties = { _config: { state: !0 } }, ss.styles = [Sc, xe], ss.wrapTile = !1;
 let F = ss;
 function Qp(o) {
   for (const e of o.querySelectorAll("*"))
@@ -12726,8 +12726,8 @@ function wd(o, e, t, a) {
   const n = 10 * 6e4, r = parseFloat(e.state), l = Number.isFinite(r), c = /outdoor|outside/.test(o);
   if (l && e.attributes.state_class === "total_increasing") {
     const d = /pv|solar|generation|production|export/.test(o), h = (_, x) => {
-      const S = new Date(_).getHours() + new Date(_).getMinutes() / 60;
-      return (d ? Math.max(0, Math.sin((S - 6) / 14 * Math.PI)) ** 1.4 : 0.3 + 0.55 * Math.exp(-(((S - 7.5) / 1.3) ** 2)) + 0.9 * Math.exp(-(((S - 19) / 2) ** 2))) * (0.85 + ka(o, x) * 0.3);
+      const z = new Date(_).getHours() + new Date(_).getMinutes() / 60;
+      return (d ? Math.max(0, Math.sin((z - 6) / 14 * Math.PI)) ** 1.4 : 0.3 + 0.55 * Math.exp(-(((z - 7.5) / 1.3) ** 2)) + 0.9 * Math.exp(-(((z - 19) / 2) ** 2))) * (0.85 + ka(o, x) * 0.3);
     };
     let u = 0;
     for (let _ = 0; _ < 1440; _ += 10) u += h(new Date(t).setHours(0, _, 0, 0), 0) / 0.85 / 1.15;
@@ -13631,13 +13631,13 @@ function pu(o, e, t, a) {
   o.preventDefault(), o.stopPropagation();
   const i = o.currentTarget, s = i.parentElement, n = getComputedStyle(s), r = (e === "columns" ? n.gridTemplateColumns : n.gridTemplateRows).split(/\s+/).map(parseFloat);
   if (r.some(Number.isNaN) || t + 1 >= r.length) return;
-  const l = n.gridTemplateColumns.split(/\s+/).map(parseFloat), c = l.reduce((x, S) => x + S, 0) + (parseFloat(n.columnGap) || 0) * (l.length - 1) + parseFloat(n.paddingLeft) + parseFloat(n.paddingRight), d = s.getBoundingClientRect().width / (c || 1) || 1;
+  const l = n.gridTemplateColumns.split(/\s+/).map(parseFloat), c = l.reduce((x, z) => x + z, 0) + (parseFloat(n.columnGap) || 0) * (l.length - 1) + parseFloat(n.paddingLeft) + parseFloat(n.paddingRight), d = s.getBoundingClientRect().width / (c || 1) || 1;
   i.setPointerCapture(o.pointerId), i.classList.add("on");
   const h = e === "columns" ? o.clientX : o.clientY, [u, m] = [r[t], r[t + 1]], f = 40;
   let b = r;
   const y = (x) => {
-    const S = ((e === "columns" ? x.clientX : x.clientY) - h) / d, z = Math.max(f - u, Math.min(m - f, S));
-    b = r.map((M, k) => k === t ? u + z : k === t + 1 ? m - z : M), s.style.setProperty(e === "columns" ? "grid-template-columns" : "grid-template-rows", b.map((M) => `${M.toFixed(1)}px`).join(" "));
+    const z = ((e === "columns" ? x.clientX : x.clientY) - h) / d, S = Math.max(f - u, Math.min(m - f, z));
+    b = r.map((A, k) => k === t ? u + S : k === t + 1 ? m - S : A), s.style.setProperty(e === "columns" ? "grid-template-columns" : "grid-template-rows", b.map((A) => `${A.toFixed(1)}px`).join(" "));
   }, _ = () => {
     i.removeEventListener("pointermove", y), i.removeEventListener("pointerup", _), i.removeEventListener("pointercancel", _), i.classList.remove("on"), b !== r && a(b);
   };
@@ -14738,8 +14738,8 @@ const Zo = class Zo extends Ye {
                 ${this._form(
         m,
         [
-          A({ name: "icon", selector: { icon: {} } }, { name: "name", selector: { text: {} } }),
-          A({ name: "perform_action", selector: { text: {} } }, { name: "entity", selector: { entity: {} } }),
+          M({ name: "icon", selector: { icon: {} } }, { name: "name", selector: { text: {} } }),
+          M({ name: "perform_action", selector: { text: {} } }, { name: "entity", selector: { entity: {} } }),
           V("data"),
           { name: "tap_action", selector: { ui_action: {} } },
           V("active"),
@@ -14831,8 +14831,8 @@ const Zo = class Zo extends Ye {
     const { cards: i, set: s } = a ?? this._areaCards(e.name), n = `cards:${e.name}`, r = this._config?.type === "custom:glass-panel" || e.name.endsWith("#panel"), l = this._open[n] ?? -1, c = (_) => (x) => {
       if (ca?.editor !== this) return;
       x.preventDefault(), x.stopPropagation();
-      const S = x.currentTarget.getBoundingClientRect();
-      this._setDrop({ key: n, i: x.clientY > S.top + S.height / 2 ? _ + 1 : _ });
+      const z = x.currentTarget.getBoundingClientRect();
+      this._setDrop({ key: n, i: x.clientY > z.top + z.height / 2 ? _ + 1 : _ });
     }, d = (_) => {
       ca?.editor === this && (_.preventDefault(), _.stopPropagation(), this._drop(n, this._dropAt?.key === n ? this._dropAt.i : i.length, i, s));
     }, h = this._open[`menu:${n}`] ?? -1, u = (_) => this._dropAt?.key === n && this._dropAt.i === _ ? "drop-before" : "", m = (_, x) => p`<div
@@ -14844,8 +14844,8 @@ const Zo = class Zo extends Ye {
         class="item-head"
         draggable="true"
         title=${w("Drag to move")}
-        @dragstart=${(S) => {
-      S.stopPropagation(), ca = { editor: this, key: n, i: x, card: _, remove: () => s(i.filter((z, M) => M !== x)) }, S.dataTransfer?.setData("text/plain", JSON.stringify(_)), S.dataTransfer && (S.dataTransfer.effectAllowed = "move");
+        @dragstart=${(z) => {
+      z.stopPropagation(), ca = { editor: this, key: n, i: x, card: _, remove: () => s(i.filter((S, A) => A !== x)) }, z.dataTransfer?.setData("text/plain", JSON.stringify(_)), z.dataTransfer && (z.dataTransfer.effectAllowed = "move");
     }}
         @dragend=${() => {
       ca = void 0, this._setDrop(void 0);
@@ -14854,15 +14854,15 @@ const Zo = class Zo extends Ye {
       >
         <ha-icon class="grip" .icon=${"mdi:drag-vertical"}></ha-icon>
         ${(() => {
-      const S = Be(_);
-      return p`<ha-icon .icon=${S.icon}></ha-icon>
+      const z = Be(_);
+      return p`<ha-icon .icon=${z.icon}></ha-icon>
             <span class="item-text">
-              <span class="item-label">${S.title}</span>
-              ${S.sub ? p`<span class="item-sub">${S.sub}</span>` : g}
+              <span class="item-label">${z.title}</span>
+              ${z.sub ? p`<span class="item-sub">${z.sub}</span>` : g}
             </span>
-            ${S.badges.map((z) => p`<span class="badge">${z}</span>`)}`;
+            ${z.badges.map((S) => p`<span class="badge">${S}</span>`)}`;
     })()}
-        <span class="tools" @click=${(S) => S.stopPropagation()}>
+        <span class="tools" @click=${(z) => z.stopPropagation()}>
           <button title=${w("Move up")} ?disabled=${x === 0} @click=${() => s(Wt(i, x, x - 1))}>▲</button>
           <button title=${w("Move down")} ?disabled=${x === i.length - 1} @click=${() => s(Wt(i, x, x + 1))}>▼</button>
           <span class="more">
@@ -14878,27 +14878,27 @@ const Zo = class Zo extends Ye {
                   </button>
                   <button
                     @click=${() => {
-      va({ card: structuredClone(_), cut: !0 }), s(i.filter((S, z) => z !== x));
+      va({ card: structuredClone(_), cut: !0 }), s(i.filter((z, S) => S !== x));
     }}
                   >
                     <ha-icon .icon=${"mdi:content-cut"}></ha-icon>${w("Cut (paste it in another panel)")}
                   </button>
                 </span>` : g}
           </span>
-          <button title=${w("Remove")} class="del" @click=${() => s(i.filter((S, z) => z !== x))}>✕</button>
+          <button title=${w("Remove")} class="del" @click=${() => s(i.filter((z, S) => S !== x))}>✕</button>
         </span>
       </div>
       ${l === x ? p`<div class="item-body">
             <div class="devices">
               <span class="devices-title">${w("Devices")}</span>
               ${si.map(
-      (S) => p`<div class="device">
+      (z) => p`<div class="device">
                   <label class="device-on">
                     <input
                       type="checkbox"
-                      .checked=${ya(_, S)}
-                      @change=${(z) => s(i.map((M, k) => k === x ? yu(M, S, z.target.checked) : M))}
-                    />${w(fa[S])}
+                      .checked=${ya(_, z)}
+                      @change=${(S) => s(i.map((A, k) => k === x ? yu(A, z, S.target.checked) : A))}
+                    />${w(fa[z])}
                   </label>
                   <input
                     class="device-order"
@@ -14906,9 +14906,9 @@ const Zo = class Zo extends Ye {
                     step="1"
                     placeholder=${w("Order")}
                     title=${w("Order among the cards next to it (lower first, empty = as listed)")}
-                    ?disabled=${!ya(_, S)}
-                    .value=${ro(_, S)}
-                    @change=${(z) => s(i.map((M, k) => k === x ? vu(M, S, z.target.value) : M))}
+                    ?disabled=${!ya(_, z)}
+                    .value=${ro(_, z)}
+                    @change=${(S) => s(i.map((A, k) => k === x ? vu(A, z, S.target.value) : A))}
                   />
                 </div>`
     )}
@@ -14918,23 +14918,23 @@ const Zo = class Zo extends Ye {
                 placeholder=${w("Group")}
                 title=${w("The group in which this card picks its id")}
                 .value=${_.view_layout?.select?.group ?? ""}
-                @change=${(S) => s(i.map((z, M) => M === x ? Rd(z, "group", S.target.value) : z))}
+                @change=${(z) => s(i.map((S, A) => A === x ? Rd(S, "group", z.target.value) : S))}
               />
               <input
                 class="device-order"
                 placeholder=${w("View id")}
                 title=${w("Which of the switch's views a tap on this card shows")}
                 .value=${_.view_layout?.select?.id ?? ""}
-                @change=${(S) => s(i.map((z, M) => M === x ? Rd(z, "id", S.target.value) : z))}
+                @change=${(z) => s(i.map((S, A) => A === x ? Rd(S, "id", z.target.value) : S))}
               />
             </div>
-            ${r ? this._visibility(_, (S) => s(i.map((z, M) => M === x ? Q0(z, S) : z))) : g}
+            ${r ? this._visibility(_, (z) => s(i.map((S, A) => A === x ? Q0(S, z) : S))) : g}
             <hui-card-element-editor
               .hass=${this.hass}
               .lovelace=${this.lovelace}
               .value=${_}
-              @config-changed=${(S) => {
-      S.stopPropagation(), S.detail?.config && s(i.map((z, M) => M === x ? S.detail.config : z));
+              @config-changed=${(z) => {
+      z.stopPropagation(), z.detail?.config && s(i.map((S, A) => A === x ? z.detail.config : S));
     }}
             ></hui-card-element-editor>
           </div>` : g}
@@ -14953,20 +14953,20 @@ const Zo = class Zo extends Ye {
       ${t ? g : p`<div class="list-title">${w(e.title)}</div>`}
       ${e.hint ? p`<div class="list-hint">${w(e.hint)}</div>` : g}
       ${b.map(
-      ([_, x, S]) => p`${_ ? p`<div class="group-title">${w(_)} <small>${S.length}</small></div>` : g}
-          ${x ? p`<div class="list-hint">${w(x)}</div>` : g} ${S.map(({ c: z, i: M }) => m(z, M))}`
+      ([_, x, z]) => p`${_ ? p`<div class="group-title">${w(_)} <small>${z.length}</small></div>` : g}
+          ${x ? p`<div class="list-hint">${w(x)}</div>` : g} ${z.map(({ c: S, i: A }) => m(S, A))}`
     )}
       ${y ? p`<div class="picker">
             ${zu.map(
-      ([_, x, S, z]) => p`<button
+      ([_, x, z, S]) => p`<button
                 class="pick"
                 ?disabled=${!xu(_)}
                 @click=${() => {
         s([...i, rl(_, this.hass)]), this._open = { ...this._open, [n]: i.length, [`pick:${e.name}`]: 0 };
       }}
               >
-                <ha-icon .icon=${S}></ha-icon>
-                <span><b>${w(x)}</b><small>${ku(_) ?? w(z)}</small></span>
+                <ha-icon .icon=${z}></ha-icon>
+                <span><b>${w(x)}</b><small>${ku(_) ?? w(S)}</small></span>
               </button>`
     )}
             <button class="pick other" @click=${() => this._open = { ...this._open, [`pick:${e.name}`]: 0 }}>${w("Cancel")}</button>
@@ -15057,9 +15057,9 @@ const Zo = class Zo extends Ye {
       { value: "solid", label: w("Solid (fastest)") },
       { value: "none", label: w("None (no glass)") },
       { value: "home", label: w("Home (Apple Home look)") }
-    ], b = (k, $, C = !1) => f(k, C).filter((T) => !$ || !T.value || $.includes(T.value)), y = (k, $, C = !1) => w(f($, C).find((T) => T.value === (k ?? ($ ? "" : "liquid")))?.label ?? k ?? ""), _ = t.look ?? "liquid", x = to(_), S = ["glass", "tile_glass", "control_glass"].some((k) => t[k] !== void 0 && t[k] !== x[k]) || fi(t).some(
+    ], b = (k, $, C = !1) => f(k, C).filter((T) => !$ || !T.value || $.includes(T.value)), y = (k, $, C = !1) => w(f($, C).find((T) => T.value === (k ?? ($ ? "" : "liquid")))?.label ?? k ?? ""), _ = t.look ?? "liquid", x = to(_), z = ["glass", "tile_glass", "control_glass"].some((k) => t[k] !== void 0 && t[k] !== x[k]) || fi(t).some(
       ([, k]) => k.some(($) => $ && ($.tile_glass !== void 0 || $.control_glass !== void 0 || $.glass !== void 0 && $.glass !== "none"))
-    ), z = S ? "custom" : _, M = this._open.night === 1;
+    ), S = z ? "custom" : _, A = this._open.night === 1;
     if (e === "wallpaper")
       return p`<div class="list-hint">${w("Behind every card, glass or not. An image URL, e.g. /local/wallpapers/day.jpg, or one that comes with the cards, e.g. glass:hills-day; empty = the HA theme's.")}</div>
         ${this._form({ wallpaper: t.wallpaper ?? "" }, [{ name: "wallpaper", selector: { text: {} } }], (k) => this._emit({ ...t, wallpaper: k.wallpaper || void 0 }))}`;
@@ -15074,19 +15074,19 @@ const Zo = class Zo extends Ye {
           return E ? `${w(E === "mobile" ? "Mobile" : E === "tablet" ? "Tablet" : "Desktop")}: ${N}` : N;
         })
       );
-      return M ? p`<div class="list-hint">${w("The look is picked by day; at night change the levels below.")}</div>` : p`<div class="looks">
+      return A ? p`<div class="list-hint">${w("The look is picked by day; at night change the levels below.")}</div>` : p`<div class="looks">
         <div class="list-hint">${w("Look – picks the glass for panels, cards and buttons at once, on the dashboard and in its pop-ups (the pop-up window itself is Bubble Card's). Fine-tune each of them below. Panels with their own glass setting are switched to the look; panels without glass stay without.")}</div>
         <div class="look-row">
           ${yf.map(
-        ([$, C]) => p`<button class="look ${z === C ? "on" : ""}" @click=${() => z !== C && this._emit(wf(t, C, S))}>
+        ([$, C]) => p`<button class="look ${S === C ? "on" : ""}" @click=${() => S !== C && this._emit(wf(t, C, z))}>
                 ${w($)}
               </button>`
       )}
           <button
-            class="look ${S ? "on" : ""}"
-            ?disabled=${!S && !t.custom_look}
+            class="look ${z ? "on" : ""}"
+            ?disabled=${!z && !t.custom_look}
             title=${w("Change a level below to customise the look; pick a look to reset it.")}
-            @click=${() => !S && t.custom_look && this._emit(kf(t))}
+            @click=${() => !z && t.custom_look && this._emit(kf(t))}
           >
             ${w("Custom")}
           </button>
@@ -15356,7 +15356,7 @@ const Zo = class Zo extends Ye {
       if (T === ".") return !1;
       const P = n.flatMap((H, te) => H.map((I, ae) => I === T ? [te, ae] : null).filter(Boolean)), N = Math.min(...P.map((H) => H[0])), E = Math.max(...P.map((H) => H[0])), L = Math.min(...P.map((H) => H[1])), G = Math.max(...P.map((H) => H[1]));
       return P.length !== (E - N + 1) * (G - L + 1);
-    }), _ = [.../* @__PURE__ */ new Set([...yt, "right", ...We(n).filter((T) => T !== ".")])], x = { header: 280, top: 30, left: 200, main: 210, right: 160 }, S = (T) => x[T] ?? [...T].reduce((P, N) => (P * 31 + N.charCodeAt(0)) % 360, 7), z = (T) => T === "." ? "" : `--hue:${S(T)}`, M = (T) => w(T === "." ? "Empty" : Dt[T]?.[0] ?? T), k = (T) => T === l ? "side" : T === "minmax(0, 1fr)" || T === "1fr" ? "fill" : T === "auto" ? "auto" : /^\d+px$/.test(T) ? "px" : "other", $ = (T) => T === "minmax(0, 1fr)" || T === "1fr" ? "fill" : T === "auto" ? "auto" : /^\d+px$/.test(T) ? "px" : "other", C = (T, P, N) => {
+    }), _ = [.../* @__PURE__ */ new Set([...yt, "right", ...We(n).filter((T) => T !== ".")])], x = { header: 280, top: 30, left: 200, main: 210, right: 160 }, z = (T) => x[T] ?? [...T].reduce((P, N) => (P * 31 + N.charCodeAt(0)) % 360, 7), S = (T) => T === "." ? "" : `--hue:${z(T)}`, A = (T) => w(T === "." ? "Empty" : Dt[T]?.[0] ?? T), k = (T) => T === l ? "side" : T === "minmax(0, 1fr)" || T === "1fr" ? "fill" : T === "auto" ? "auto" : /^\d+px$/.test(T) ? "px" : "other", $ = (T) => T === "minmax(0, 1fr)" || T === "1fr" ? "fill" : T === "auto" ? "auto" : /^\d+px$/.test(T) ? "px" : "other", C = (T, P, N) => {
       const E = T === "w" ? k(P) : $(P);
       return p`<span class="gsize">
         <select
@@ -15396,7 +15396,7 @@ const Zo = class Zo extends Ye {
       <div class="wstep"><b>2</b><span>${w("Pick an area, then click or drag over the cells it should cover.")}</span></div>
       <div class="palette">
         ${_.map(
-      (T) => p`<button class="chip ${this._paint === T ? "on" : ""}" style=${z(T)} @click=${() => (this._paint = T, this.requestUpdate())}>${M(T)}</button>`
+      (T) => p`<button class="chip ${this._paint === T ? "on" : ""}" style=${S(T)} @click=${() => (this._paint = T, this.requestUpdate())}>${A(T)}</button>`
     )}
         <button class="chip empty ${this._paint === "." ? "on" : ""}" @click=${() => (this._paint = ".", this.requestUpdate())}>${w("Empty")}</button>
         <span class="new-area">
@@ -15417,18 +15417,18 @@ const Zo = class Zo extends Ye {
       (T, P) => T.map(
         (N, E) => p`<div
               class="gcell ${N === "." ? "empty" : ""}"
-              style=${z(N)}
+              style=${S(N)}
               @pointerdown=${(L) => {
           L.preventDefault(), this._painting = !0, b(P, E);
         }}
               @pointerenter=${() => this._painting && b(P, E)}
             >
-              ${(P === 0 || n[P - 1][E] !== N) && (E === 0 || T[E - 1] !== N) ? p`<span>${M(N)}</span>` : g}
+              ${(P === 0 || n[P - 1][E] !== N) && (E === 0 || T[E - 1] !== N) ? p`<span>${A(N)}</span>` : g}
             </div>`
       )
     )}
       </div>
-      ${y.length ? p`<div class="gwarn">⚠ ${w("Each area has to be one rectangle:")} ${y.map(M).join(", ")}</div>` : g}
+      ${y.length ? p`<div class="gwarn">⚠ ${w("Each area has to be one rectangle:")} ${y.map(A).join(", ")}</div>` : g}
       <div class="wstep"><b>3</b><span>${w("Column widths")}</span></div>
       <div class="gsizes" style="grid-template-columns:repeat(${s}, minmax(0, 1fr))">
         ${h.map((T, P) => C("w", T, (N) => m(n, h.map((E, L) => L === P ? N : E))))}
@@ -15442,7 +15442,7 @@ const Zo = class Zo extends Ye {
       <ha-expansion-panel outlined class="sub" .header=${w("Advanced (CSS grid)")}>
         ${this._form(
       { ...i },
-      [{ name: "areas", selector: { text: { multiline: !0 } } }, A({ name: "columns", selector: { text: {} } }, { name: "rows", selector: { text: {} } })],
+      [{ name: "areas", selector: { text: { multiline: !0 } } }, M({ name: "columns", selector: { text: {} } }, { name: "rows", selector: { text: {} } })],
       (T) => t({ ...i, ...T })
     )}
       </ha-expansion-panel>
@@ -15612,7 +15612,7 @@ const Zo = class Zo extends Ye {
           ${this._form(
       this._sizeDraft ?? { width: String(i.width), height: String(i.height) },
       [
-        A(
+        M(
           { name: "width", label: "Width", helper: "e.g. 50% or 240", selector: { text: {} } },
           { name: "height", label: "Height", helper: "e.g. 200 (px)", selector: { text: {} } }
         )
@@ -15659,7 +15659,7 @@ const Zo = class Zo extends Ye {
     const s = typeof this.spec.form == "function" ? [] : (this.spec.lists ?? []).filter((d) => !a.has(d.name));
     let n = this.noCards ? this.spec.tabs?.filter((d) => !d.cards?.length || d.form?.length) : this.spec.tabs;
     if (!n?.length) {
-      const { content: d, look: h, adv: u } = rf(t, this._shownParts()), m = (x) => x.some((S) => S.name === "glass" || Array.isArray(S.schema) && m(S.schema)), f = this.spec.noGlass || m(h) ? h : [{ ...ve, group: "Card" }, ...h], b = p`
+      const { content: d, look: h, adv: u } = rf(t, this._shownParts()), m = (x) => x.some((z) => z.name === "glass" || Array.isArray(z.schema) && m(z.schema)), f = this.spec.noGlass || m(h) ? h : [{ ...we, group: "Card" }, ...h], b = p`
         ${s.map((x) => this._list(x))} ${(this.spec.cards ?? []).map((x) => this._cardList(x))}
         ${s.length || this.spec.cards?.length ? p`<div class="list-title settings-title">${w("Settings")}</div>` : g}
         ${e(d)} ${this._sizeForm()}
@@ -15673,13 +15673,13 @@ const Zo = class Zo extends Ye {
       const _ = Math.min(this._open.tab ?? 0, y.length - 1);
       return p`<div class="tabs" role="tablist">
           ${y.map(
-        ([x, S], z) => p`<button
+        ([x, z], S) => p`<button
               role="tab"
-              class="tab ${z === _ ? "on" : ""}"
-              aria-selected=${z === _ ? "true" : "false"}
-              @click=${() => this._tab(z)}
+              class="tab ${S === _ ? "on" : ""}"
+              aria-selected=${S === _ ? "true" : "false"}
+              @click=${() => this._tab(S)}
             >
-              <ha-icon .icon=${S}></ha-icon><span>${w(x)}</span>
+              <ha-icon .icon=${z}></ha-icon><span>${w(x)}</span>
             </button>`
       )}
         </div>
@@ -16631,7 +16631,7 @@ function kf(o) {
     });
   return t;
 }
-const ve = {
+const we = {
   name: "glass",
   selector: {
     select: {
@@ -16640,15 +16640,15 @@ const ve = {
     }
   }
 };
-({ ...ve });
+({ ...we });
 const ia = {
-  ...ve,
+  ...we,
   name: "control_glass",
   selector: {
     select: {
-      ...ve.selector.select,
+      ...we.selector.select,
       // on a control liquid and dark-liquid are CSS; the WebGL ones are their own options
-      options: ve.selector.select.options.flatMap(
+      options: we.selector.select.options.flatMap(
         (o) => o.value === "liquid" ? [fe("liquid", "Liquid glass (CSS)"), fe("dark-liquid", "Dark liquid glass (CSS)"), fe("liquid-gl", "Liquid glass (WebGL)"), fe("dark-liquid-gl", "Dark liquid glass (WebGL)")] : o.value === "dark-liquid" ? [] : [o]
       )
     }
@@ -16727,7 +16727,7 @@ const Sf = [
 function pt(o, e = ["tap_action", "hold_action", "double_tap_action"]) {
   return e.filter((t) => o?.[t]?.action !== "menu").map((t) => ({ name: t, selector: { ui_action: {} } }));
 }
-const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ type: "expandable", name: "", flatten: !0, title: o, schema: e }), D = (o, e) => ({
+const M = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ type: "expandable", name: "", flatten: !0, title: o, schema: e }), D = (o, e) => ({
   name: o,
   selector: { select: { mode: "dropdown", options: e.map(([t, a]) => fe(t, a)) } }
 }), U = [
@@ -17147,7 +17147,7 @@ const Mf = {
       helper: "A sensor whose state is today's names – from a name day integration (HACS) or a template of your own. Shown as “Name day: …”.",
       selector: { entity: {} }
     },
-    A({ name: "title", selector: { text: {} } }, { name: "join", selector: { text: {} } }),
+    M({ name: "title", selector: { text: {} } }, { name: "join", selector: { text: {} } }),
     _e("Advanced", [V("date_format"), V("styles")])
   ],
   lists: [
@@ -17159,7 +17159,7 @@ const Mf = {
       item: () => [
         { name: "entity", selector: { entity: {} } },
         { name: "text", selector: { text: {} } },
-        A({ name: "icon", selector: { icon: {} } }, { name: "precision", selector: { number: { min: 0, max: 4, mode: "box" } } }),
+        M({ name: "icon", selector: { icon: {} } }, { name: "precision", selector: { number: { min: 0, max: 4, mode: "box" } } }),
         V("visible")
       ]
     }
@@ -17189,12 +17189,12 @@ const Mf = {
           ...e === "pills" ? [
             { name: "detail", label: "Attribute on the right", helper: "e.g. last_changed – times are shown relative", selector: { text: {} } }
           ] : [],
-          A(
+          M(
             { name: "size", label: "Size", selector: { number: { min: 24, max: 64, mode: "box", unit_of_measurement: "px" } } },
             { name: "gap", label: "Gap", selector: { number: { min: 0, max: 40, mode: "box", unit_of_measurement: "px" } } }
           ),
-          A({ ...D("align", ks), label: "Alignment" }, { name: "wrap", label: "Wrap to more rows", selector: { boolean: {} } }),
-          ...o.wrap !== !1 ? [A({ name: "pack", label: "Fill the rows", selector: { boolean: {} } }, { name: "pack_animation", label: "Animate", selector: { boolean: {} } })] : []
+          M({ ...D("align", ks), label: "Alignment" }, { name: "wrap", label: "Wrap to more rows", selector: { boolean: {} } }),
+          ...o.wrap !== !1 ? [M({ name: "pack", label: "Fill the rows", selector: { boolean: {} } }, { name: "pack_animation", label: "Animate", selector: { boolean: {} } })] : []
         ]
       },
       { custom: "section", key: "items", title: "Chips", open: !0, schema: [{ custom: "list", list: "items" }] },
@@ -17213,7 +17213,7 @@ const Mf = {
               expanded: !0,
               schema: [
                 { name: "entity", selector: { entity: {} } },
-                A(
+                M(
                   { name: "hours", label: "Hours", selector: { number: { min: 1, max: 168, mode: "box", unit_of_measurement: "h" } } },
                   { name: "smoothing", label: "Smoothing", selector: { number: { min: 0, max: 12, mode: "box" } } }
                 ),
@@ -17228,18 +17228,18 @@ const Mf = {
         key: "look",
         title: "Look",
         schema: [
-          { ...ve, group: "Card" },
+          { ...we, group: "Card" },
           { ...Sa("glass_tint", "Glass color"), group: "Card" },
           { ...ia, group: "Buttons" },
           ...e === "pills" ? [
             ...O(
               "Pill",
-              A({ ...D("pill_glass", [["", "Control glass (default)"], ...U]), label: "Pill material" }, { ...B("pill_color"), label: "Pill colour" }),
+              M({ ...D("pill_glass", [["", "Control glass (default)"], ...U]), label: "Pill material" }, { ...B("pill_color"), label: "Pill colour" }),
               { name: "pill_height", label: "Pill height", selector: { number: { min: 32, max: 80, mode: "box", unit_of_measurement: "px" } } }
             ),
             ...O(
               "Icon",
-              A(
+              M(
                 { ...D("icon_glass", [["", "Control glass (default)"], ...U]), label: "Icon material when off" },
                 { ...D("icon_on_glass", [["", "Same as when off"], ...U]), label: "Icon material when on" }
               ),
@@ -17260,7 +17260,7 @@ const Mf = {
       defaults: { hide_unavailable: !0, format: "state" },
       item: (o) => [
         { name: "entity", selector: { entity: {} } },
-        A(
+        M(
           { name: "icon", selector: { icon: {} } },
           D("format", [
             ["state", "State (default)"],
@@ -17273,12 +17273,12 @@ const Mf = {
           ])
         ),
         { name: "text", selector: { text: {} } },
-        A(
+        M(
           { name: "precision", selector: { number: { min: 0, max: 4, mode: "box" } } },
           { name: "unit", selector: { text: {} } }
         ),
-        A(B("color"), Eu),
-        A({ name: "abs", selector: { boolean: {} } }, { name: "hide_unavailable", selector: { boolean: {} } }),
+        M(B("color"), Eu),
+        M({ name: "abs", selector: { boolean: {} } }, { name: "hide_unavailable", selector: { boolean: {} } }),
         _e("Several entities at once", [
           { name: "entities", selector: { entity: { multiple: !0 } } },
           D("aggregate", [
@@ -17296,7 +17296,7 @@ const Mf = {
             title: "Second value under it (figures)",
             schema: [
               { name: "entity", selector: { entity: {} } },
-              A({ name: "text", selector: { text: {} } }, { name: "unit", selector: { text: {} } }),
+              M({ name: "text", selector: { text: {} } }, { name: "unit", selector: { text: {} } }),
               { name: "precision", selector: { number: { min: 0, max: 4, mode: "box" } } }
             ]
           },
@@ -17312,11 +17312,11 @@ const Mf = {
   parts: Uu,
   defaults: { size: 44, gap: 12, show_location: "away", align: "end", show_battery: !0, show_name: !1, battery_style: "ring" },
   form: [
-    A(
+    M(
       { name: "size", selector: { number: { min: 28, max: 80, mode: "box", unit_of_measurement: "px" } } },
       { name: "gap", selector: { number: { min: 0, max: 40, mode: "box", unit_of_measurement: "px" } } }
     ),
-    A(
+    M(
       D("show_location", [
         ["away", "Only when away"],
         ["always", "Always"],
@@ -17324,12 +17324,12 @@ const Mf = {
       ]),
       D("align", ks)
     ),
-    A({ name: "show_name", selector: { boolean: {} } }, { name: "show_battery", selector: { boolean: {} } }),
+    M({ name: "show_name", selector: { boolean: {} } }, { name: "show_battery", selector: { boolean: {} } }),
     D("battery_style", [
       ["text", "Icon and percent"],
       ["ring", "Ring around the photo"]
     ]),
-    _e("Advanced", [ve, Sa("glass_tint", "Glass color"), ia, V("styles")])
+    _e("Advanced", [we, Sa("glass_tint", "Glass color"), ia, V("styles")])
   ],
   lists: [
     {
@@ -17340,7 +17340,7 @@ const Mf = {
       item: (o) => [
         { name: "entity", selector: { entity: { filter: { domain: "person" } } } },
         { name: "name", selector: { text: {} } },
-        A(
+        M(
           { name: "battery", selector: { entity: { filter: { domain: "sensor" } } } },
           { name: "battery_state", selector: { entity: { filter: { domain: "sensor" } } } }
         ),
@@ -17352,11 +17352,11 @@ const Mf = {
   ]
 }, Of = ["image-full", "compact"], Bf = ["image-left", "image-right"], Vd = (o) => [
   { name: "entity", selector: { entity: {} } },
-  A({ name: "icon", selector: { icon: {} } }, { name: "icon_active", selector: { icon: {} } }),
-  A(B("active_color"), Eu),
+  M({ name: "icon", selector: { icon: {} } }, { name: "icon_active", selector: { icon: {} } }),
+  M(B("active_color"), Eu),
   { name: "active_states", selector: { text: { multiple: !0 } } },
   { name: "label", selector: { text: {} } },
-  A({ name: "badge", selector: { text: {} } }, B("badge_color")),
+  M({ name: "badge", selector: { text: {} } }, B("badge_color")),
   V("state_icons"),
   V("active"),
   V("washer"),
@@ -17389,9 +17389,9 @@ const Mf = {
         title: "Room",
         open: !0,
         schema: [
-          A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+          M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
           // the tiles with a bar always show the name; the others only when asked
-          ...t ? [] : [A({ name: "show_name", label: "Show the name", selector: { boolean: {} } }, ...o.image && !i ? [] : [{ name: "show_icon", label: "Show the icon", selector: { boolean: {} } }])],
+          ...t ? [] : [M({ name: "show_name", label: "Show the name", selector: { boolean: {} } }, ...o.image && !i ? [] : [{ name: "show_icon", label: "Show the icon", selector: { boolean: {} } }])],
           {
             name: "fill_area",
             label: "Fill in from an area",
@@ -17409,7 +17409,7 @@ const Mf = {
         schema: [
           { custom: "tiles", name: "layout", default: "stacked", options: Zd },
           ...e === "image-full" ? [
-            A(
+            M(
               { ...D("bar", [
                 ["full", "One bar"],
                 ["split", "Name and buttons apart"]
@@ -17430,8 +17430,8 @@ const Mf = {
               ["end", "Right"]
             ]), label: "Buttons" }
           ] : [],
-          ...a ? [A(s("rows", 1, 6, "Rows of buttons"), s("button_gap", 0, 40, "Gap", "px"))] : [],
-          ...!t && !a && !i ? [A(s("columns", 1, 6, "Buttons in a row"), s("button_gap", 0, 40, "Gap", "px"))] : []
+          ...a ? [M(s("rows", 1, 6, "Rows of buttons"), s("button_gap", 0, 40, "Gap", "px"))] : [],
+          ...!t && !a && !i ? [M(s("columns", 1, 6, "Buttons in a row"), s("button_gap", 0, 40, "Gap", "px"))] : []
         ]
       },
       {
@@ -17442,7 +17442,7 @@ const Mf = {
         open: !0,
         schema: [
           { custom: "list", list: "entities" },
-          A(s("max_entities", 1, 8, `${w("At most")} (${w("empty")} = ${r})`), s("button_size", 24, 80, "Button size (empty = automatic)", "px")),
+          M(s("max_entities", 1, 8, `${w("At most")} (${w("empty")} = ${r})`), s("button_size", 24, 80, "Button size (empty = automatic)", "px")),
           { name: "active_color", label: "Colour when on", helper: "For every button that doesn't set its own.", selector: { ui_color: { include_none: !0 } } },
           ...t ? [{ custom: "hint", text: "Contextual buttons appear left of the others only while they are on – music, a player." }, { custom: "list", list: "contextual" }] : []
         ]
@@ -17474,7 +17474,7 @@ const Mf = {
               }
             },
             ...t ? [] : [
-              A(
+              M(
                 { name: "image_opacity", label: "Opacity", selector: { number: { min: 0.1, max: 1, step: 0.05, mode: "slider" } } },
                 { name: "image_fade", label: "Fade-out", selector: { number: { min: 0, max: 100, step: 5, mode: "slider", unit_of_measurement: "%" } } }
               )
@@ -17522,7 +17522,7 @@ const Mf = {
         title: "Advanced",
         schema: [
           // the low strip is all bar: its material is the bar's, below
-          ...e === "compact" ? [] : [ve, Sa("glass_tint", "Glass color")],
+          ...e === "compact" ? [] : [we, Sa("glass_tint", "Glass color")],
           ...t ? [
             {
               helper: "Empty = as set on the panel or the dashboard (liquid glass).",
@@ -17571,8 +17571,8 @@ const Mf = {
       create: () => ({ entity: "" }),
       item: () => [
         { name: "entity", selector: { entity: {} } },
-        A({ name: "icon", selector: { icon: {} } }, { name: "attribute", selector: { text: {} } }),
-        A({ name: "unit", selector: { text: {} } }, { name: "precision", selector: { number: { min: 0, max: 4, mode: "box" } } }),
+        M({ name: "icon", selector: { icon: {} } }, { name: "attribute", selector: { text: {} } }),
+        M({ name: "unit", selector: { text: {} } }, { name: "precision", selector: { number: { min: 0, max: 4, mode: "box" } } }),
         { name: "text", selector: { text: {} } },
         V("visible")
       ]
@@ -17625,14 +17625,14 @@ const qf = {
       key: "show",
       title: "Show",
       schema: [
-        A(
+        M(
           { name: "show_clock", selector: { boolean: {} } },
           { name: "show_weather", selector: { boolean: {} } },
           { name: "show_icon", selector: { boolean: {} } },
           { name: "show_temperature", selector: { boolean: {} } },
           { name: "show_condition", selector: { boolean: {} } }
         ),
-        A(
+        M(
           D("now_style", [
             ["block", "Big icon and temperature"],
             ["line", "One line"]
@@ -17649,7 +17649,7 @@ const qf = {
       secondary: o.show_clock === !1 ? "Hidden" : "",
       schema: [
         D("clock_align", ks),
-        A({ name: "show_seconds", selector: { boolean: {} } }, { name: "show_date", selector: { boolean: {} } })
+        M({ name: "show_seconds", selector: { boolean: {} } }, { name: "show_date", selector: { boolean: {} } })
       ]
     },
     {
@@ -17657,7 +17657,7 @@ const qf = {
       key: "forecast",
       title: "Forecast",
       schema: [
-        A(
+        M(
           { name: "hourly_forecast", selector: { number: { min: 0, max: 24, mode: "box", unit_of_measurement: "h" } } },
           { name: "daily_forecast", selector: { number: { min: 0, max: 10, mode: "box" } } }
         ),
@@ -17667,7 +17667,7 @@ const qf = {
           ["columns", "Columns"]
         ]),
         { name: "show_precipitation", selector: { boolean: {} } },
-        A({ name: "rain_nowcast", label: "Rain in the next two hours", selector: { boolean: {} } }, { name: "rain_bars", selector: { boolean: {} } })
+        M({ name: "rain_nowcast", label: "Rain in the next two hours", selector: { boolean: {} } }, { name: "rain_bars", selector: { boolean: {} } })
       ]
     },
     {
@@ -17702,11 +17702,11 @@ const qf = {
       key: "look",
       title: "Look",
       schema: [
-        { ...ve, group: "Card" },
+        { ...we, group: "Card" },
         ...o.glass === "none" ? [] : [{ ...Sa("glass_tint", "Glass color"), group: "Card" }],
         ...O(
           "Icon",
-          A(
+          M(
             D("icon_style", [
               ["flat", "Original"],
               ["realistic", "Realistic (experimental)"],
@@ -17717,7 +17717,7 @@ const qf = {
         ),
         ...O(
           "Forecast",
-          A(
+          M(
             {
               ...D("bar_style", [
                 ["temperature", "By temperature"],
@@ -17727,13 +17727,13 @@ const qf = {
             },
             { ...B("bar_color"), label: "Bar colour" }
           ),
-          A({ ...B("track_color"), label: "Track colour" }, { ...B("precip_color"), label: "Precipitation colour" })
+          M({ ...B("track_color"), label: "Track colour" }, { ...B("precip_color"), label: "Precipitation colour" })
         ),
         ...O("Rain", { ...B("rain_color"), label: "Rain bars colour" }),
         ...O(
           "Dividers",
           { name: "dividers", selector: { boolean: {} } },
-          A({ ...B("divider_color"), label: "Divider colour" }, { name: "divider_size", label: "Divider thickness", selector: { number: { min: 1, max: 6, mode: "box", unit_of_measurement: "px" } } })
+          M({ ...B("divider_color"), label: "Divider colour" }, { name: "divider_size", label: "Divider thickness", selector: { number: { min: 1, max: 6, mode: "box", unit_of_measurement: "px" } } })
         )
       ]
     },
@@ -17743,13 +17743,13 @@ const qf = {
 }, Jd = (o) => {
   const e = o.layout ?? "column";
   return [
-    A({ name: "title", label: "Title", selector: { text: {} } }, { name: "icon", label: "Icon", selector: { icon: {} } }),
+    M({ name: "title", label: "Title", selector: { text: {} } }, { name: "icon", label: "Icon", selector: { icon: {} } }),
     ...o.title || o.collapsible ? [{ name: "description", label: "Description", helper: "A short line under the title: what the cards below are for", selector: { text: {} } }] : [],
-    A(
+    M(
       { name: "collapsible", label: "Fold away", helper: "The title a header with an arrow: the cards hidden until it's tapped", selector: { boolean: {} } },
       ...o.collapsible ? [{ name: "open", label: "Open to start", selector: { boolean: {} } }] : []
     ),
-    A(
+    M(
       D("layout", [
         ["column", "Column"],
         ["row", "Line"],
@@ -17760,7 +17760,7 @@ const qf = {
     ...e === "grid" ? [
       // own widths / heights set the count themselves: the plain count only without them
       ...st(o.column_widths).length && st(o.row_heights).length ? [] : [
-        A(
+        M(
           ...[
             st(o.column_widths).length ? void 0 : { name: "columns", selector: { number: { min: 1, max: 8, mode: "box" } } },
             st(o.row_heights).length || o.masonry ? void 0 : { name: "rows", selector: { number: { min: 1, max: 8, mode: "box" } } }
@@ -17769,7 +17769,7 @@ const qf = {
       ],
       // masonry: rows come from the cards' heights – no row settings
       { name: "masonry", selector: { boolean: {} } },
-      A(
+      M(
         ...[
           { name: "column_widths", label: "Column widths", helper: "e.g. 2 1 (shares), 60% 40% or 300px 1 – sets the number of columns; empty = Columns, all the same", selector: { text: {} } },
           o.masonry ? void 0 : { name: "row_heights", label: "Row heights", helper: "as the columns, e.g. 1 2 or 200px 1 – sets the number of rows", selector: { text: {} } }
@@ -17785,8 +17785,8 @@ const qf = {
       ...o.masonry ? [{ name: "masonry_fill", label: "Stretch the cards to the panel's height", helper: "Each column's cards share the room left below them", selector: { boolean: {} } }] : [],
       { name: "min_column_width", selector: { number: { min: 80, max: 800, mode: "box", unit_of_measurement: "px" } } }
     ] : [],
-    ...e === "row" ? [{ name: "wrap", selector: { boolean: {} } }, A({ name: "scroll", selector: { boolean: {} } }, { name: "item_width", selector: { text: {} } })] : [],
-    A(
+    ...e === "row" ? [{ name: "wrap", selector: { boolean: {} } }, M({ name: "scroll", selector: { boolean: {} } }, { name: "item_width", selector: { text: {} } })] : [],
+    M(
       D("align", [
         ["stretch", "Stretch"],
         ["start", "Start"],
@@ -17802,7 +17802,7 @@ const qf = {
       ])
     ),
     _e("More", [
-      A({ name: "title", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+      M({ name: "title", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
       { name: "padding", selector: { text: {} } },
       D("role", [
         ["", "Normal (inside another panel: a tile)"],
@@ -17885,7 +17885,7 @@ const qf = {
           key: "device",
           title: "Devices",
           open: !0,
-          form: [A(D("layout", Gd), { name: "breakpoint", selector: { number: { min: 300, max: 2e3, mode: "box", unit_of_measurement: "px" } } })],
+          form: [M(D("layout", Gd), { name: "breakpoint", selector: { number: { min: 300, max: 2e3, mode: "box", unit_of_measurement: "px" } } })],
           summary: (o) => `${w(Gd.find(([e]) => e === (o.layout ?? "auto"))[1])} · ${w("mobile below")} ${o.breakpoint ?? 700} px`
         },
         {
@@ -17899,12 +17899,12 @@ const qf = {
           key: "sizes",
           title: "Sizes and spacing",
           form: [
-            A({ name: "left_width", selector: { text: {} } }, { name: "gap", selector: { number: { min: 0, max: 60, mode: "box", unit_of_measurement: "px" } } }),
-            A(
+            M({ name: "left_width", selector: { text: {} } }, { name: "gap", selector: { number: { min: 0, max: 60, mode: "box", unit_of_measurement: "px" } } }),
+            M(
               { name: "column_widths", label: "Column widths", helper: "Each layout column from the left, e.g. 340px 1 (1 = the rest), 30% 1 or 300px 1 300px – or drag the lines between areas in the preview", selector: { text: {} } },
               { name: "row_heights", label: "Row heights", helper: "Each layout row from the top, e.g. 120px 1 – rows left out keep their own height", selector: { text: {} } }
             ),
-            A({ name: "padding", selector: { text: {} } }, { name: "offset", selector: { text: {} } }),
+            M({ name: "padding", selector: { text: {} } }, { name: "offset", selector: { text: {} } }),
             { name: "dock_space", selector: { number: { min: 0, max: 200, mode: "box", unit_of_measurement: "px" } } }
           ],
           summary: (o) => Kd(o, ["left_width", "column_widths", "row_heights", "padding", "offset", "dock_space"], { gap: 22 })
@@ -17938,7 +17938,7 @@ const qf = {
           title: "Day and night",
           open: !0,
           day: !0,
-          form: [A(D("appearance", Ud), { name: "time_tint", selector: { boolean: {} } })],
+          form: [M(D("appearance", Ud), { name: "time_tint", selector: { boolean: {} } })],
           summary: (o) => w(Ud.find(([e]) => e === (o.appearance ?? "auto"))[1])
         },
         { key: "background", title: "Background", open: !0, blocks: ["wallpaper"], summary: (o) => o.wallpaper ? String(o.wallpaper).split("/").pop() : w("HA theme") },
@@ -17998,10 +17998,10 @@ const qf = {
   parts: tm,
   defaults: { width: "92%", thickness: 4, opacity: 0.55, margin: 8, line: !0 },
   form: [
-    A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+    M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
     { name: "line", selector: { boolean: {} } },
-    A({ name: "width", selector: { text: {} } }, { name: "thickness", selector: { number: { min: 1, max: 12, mode: "box", unit_of_measurement: "px" } } }),
-    A(
+    M({ name: "width", selector: { text: {} } }, { name: "thickness", selector: { number: { min: 1, max: 12, mode: "box", unit_of_measurement: "px" } } }),
+    M(
       { name: "opacity", selector: { number: { min: 0, max: 1, step: 0.05, mode: "slider" } } },
       { name: "margin", selector: { number: { min: 0, max: 40, mode: "box", unit_of_measurement: "px" } } }
     )
@@ -18011,13 +18011,13 @@ const qf = {
   parts: Vu,
   defaults: { days: 5, max_events: 6, show_location: !1, show_title: !1, hide_empty: !1, tap_opens: "glass" },
   form: [
-    A(
+    M(
       { name: "days", selector: { number: { min: 1, max: 31, mode: "box" } } },
       { name: "max_events", selector: { number: { min: 1, max: 30, mode: "box" } } }
     ),
-    A({ name: "show_location", selector: { boolean: {} } }, { name: "hide_empty", selector: { boolean: {} } }),
+    M({ name: "show_location", selector: { boolean: {} } }, { name: "hide_empty", selector: { boolean: {} } }),
     { name: "fit", selector: { boolean: {} } },
-    A({ name: "show_title", selector: { boolean: {} } }, { name: "title", selector: { text: {} } }),
+    M({ name: "show_title", selector: { boolean: {} } }, { name: "title", selector: { text: {} } }),
     {
       ...D("tap_opens", [
         ["glass", "Glass full calendar – add, edit and drag events"],
@@ -18025,7 +18025,7 @@ const qf = {
       ]),
       label: "A tap opens"
     },
-    _e("Actions and advanced", [{ name: "tap_action", selector: { ui_action: {} } }, ve, V("styles")])
+    _e("Actions and advanced", [{ name: "tap_action", selector: { ui_action: {} } }, we, V("styles")])
   ],
   lists: [
     {
@@ -18134,17 +18134,17 @@ const qf = {
         ),
         ...O(
           "Header",
-          A({ ...D("controls_glass", [["", "Default"], ...U]), label: "Switches' material" }, { ...B("controls_color"), label: "Their colour" }),
+          M({ ...D("controls_glass", [["", "Default"], ...U]), label: "Switches' material" }, { ...B("controls_color"), label: "Their colour" }),
           { ...B("picked_color"), label: "The picked one", helper: "Default dark grey (sunk in at night)" }
         ),
         ...O(
           "Calendar",
-          A({ ...D("panel_glass", [["", "Default"], ...U]), label: "Material" }, { ...B("panel_color"), label: "Colour" }),
+          M({ ...D("panel_glass", [["", "Default"], ...U]), label: "Material" }, { ...B("panel_color"), label: "Colour" }),
           { ...B("today_color"), label: "Today", helper: "The date's circle and the line at the time now (default red)" }
         ),
         ...O(
           "Detail",
-          A({ ...D("sheet_glass", [["", "As the calendar"], ...U]), label: "Material" }, { ...B("sheet_color"), label: "Colour" }),
+          M({ ...D("sheet_glass", [["", "As the calendar"], ...U]), label: "Material" }, { ...B("sheet_color"), label: "Colour" }),
           { custom: "hint", text: "An event's detail and the form that adds or changes one" }
         )
       ]
@@ -18186,10 +18186,10 @@ const qf = {
           ["clouds", "Clouds by density on a dark map"],
           ["rain", "Precipitation only on a dark map"]
         ]),
-        A({ name: "zoom", selector: { number: { min: 3, max: 10, mode: "box" } } }, { name: "height", selector: { number: { min: 120, max: 900, mode: "box", unit_of_measurement: "px" } } }),
+        M({ name: "zoom", selector: { number: { min: 3, max: 10, mode: "box" } } }, { name: "height", selector: { number: { min: 120, max: 900, mode: "box", unit_of_measurement: "px" } } }),
         { name: "title", selector: { text: {} } },
-        A({ name: "satellite", selector: { boolean: {} } }, { name: "radar", selector: { boolean: {} } }),
-        A({ name: "labels", selector: { boolean: {} } }, { name: "borders", label: "Country borders", selector: { boolean: {} } })
+        M({ name: "satellite", selector: { boolean: {} } }, { name: "radar", selector: { boolean: {} } }),
+        M({ name: "labels", selector: { boolean: {} } }, { name: "borders", label: "Country borders", selector: { boolean: {} } })
       ]
     },
     {
@@ -18198,7 +18198,7 @@ const qf = {
       title: "Providers",
       schema: [
         { custom: "hint", text: "The satellite is EUMETSAT, the forecast DWD ICON-EU. DWD radar covers Germany and its borders only." },
-        A(
+        M(
           {
             ...D("radar_provider", [
               ["rainviewer", "RainViewer (worldwide)"],
@@ -18222,8 +18222,8 @@ const qf = {
       key: "animation",
       title: "Animation and forecast",
       schema: [
-        A({ name: "frames", selector: { number: { min: 1, max: 13, mode: "box" } } }, { name: "speed", selector: { number: { min: 250, max: 3e3, mode: "box", unit_of_measurement: "ms" } } }),
-        A({ name: "autoplay", selector: { boolean: {} } }, { name: "show_forecast", label: "Show the forecast", selector: { boolean: {} } }),
+        M({ name: "frames", selector: { number: { min: 1, max: 13, mode: "box" } } }, { name: "speed", selector: { number: { min: 250, max: 3e3, mode: "box", unit_of_measurement: "ms" } } }),
+        M({ name: "autoplay", selector: { boolean: {} } }, { name: "show_forecast", label: "Show the forecast", selector: { boolean: {} } }),
         ...o.show_forecast === !1 ? [] : [{ name: "forecast", label: "Forecast hours", selector: { number: { min: 0, max: 12, mode: "box", unit_of_measurement: "h" } } }],
         { name: "satellite_delay", selector: { number: { min: 0, max: 120, mode: "box", unit_of_measurement: "min" } } }
       ]
@@ -18234,7 +18234,7 @@ const qf = {
       title: "Place",
       schema: [
         { custom: "hint", text: "Empty = home from Home Assistant." },
-        A({ name: "latitude", selector: { number: { step: "any", mode: "box" } } }, { name: "longitude", selector: { number: { step: "any", mode: "box" } } }),
+        M({ name: "latitude", selector: { number: { step: "any", mode: "box" } } }, { name: "longitude", selector: { number: { step: "any", mode: "box" } } }),
         { name: "marker", selector: { boolean: {} } }
       ]
     },
@@ -18243,10 +18243,10 @@ const qf = {
       key: "look",
       title: "Look",
       schema: [
-        { ...ve, group: "Card" },
-        ...O("Controls", A({ ...D("controls_glass", [["", "Default"], ...U]), label: "Controls material" }, { ...B("controls_color"), label: "Controls colour" })),
-        ...O("Controls", A({ ...D("play_glass", [["", "Default"], ...U]), label: "Play button material" }, { ...B("play_color"), label: "Play button colour" })),
-        ...O("Controls", A({ ...D("tab_glass", [["", "Default"], ...U]), label: "Chosen tab material" }, { ...B("tab_color"), label: "Chosen tab colour" })),
+        { ...we, group: "Card" },
+        ...O("Controls", M({ ...D("controls_glass", [["", "Default"], ...U]), label: "Controls material" }, { ...B("controls_color"), label: "Controls colour" })),
+        ...O("Controls", M({ ...D("play_glass", [["", "Default"], ...U]), label: "Play button material" }, { ...B("play_color"), label: "Play button colour" })),
+        ...O("Controls", M({ ...D("tab_glass", [["", "Default"], ...U]), label: "Chosen tab material" }, { ...B("tab_color"), label: "Chosen tab colour" })),
         ...O("Timeline", { ...B("timeline_color"), label: "Timeline colour" }),
         ...O("Radar", { name: "radar_opacity", selector: { number: { min: 0.2, max: 1, step: 0.05, mode: "slider" } } }),
         ...O("Home marker", { ...B("marker_color"), label: "Marker colour" })
@@ -18265,7 +18265,7 @@ const qf = {
       open: !0,
       schema: [
         { name: "entity", selector: { entity: { domain: "sensor" } } },
-        A({ name: "name", selector: { text: {} } }, { name: "title", selector: { text: {} } })
+        M({ name: "name", selector: { text: {} } }, { name: "title", selector: { text: {} } })
       ]
     },
     {
@@ -18308,17 +18308,17 @@ const qf = {
       key: "look",
       title: "Look",
       schema: [
-        { ...ve, group: "Card" },
-        ...O("Index tile", A({ ...D("hero_glass", [["", "Default"], ...U]), label: "Index tile material" }, { ...B("hero_color"), label: "Index tile colour" })),
+        { ...we, group: "Card" },
+        ...O("Index tile", M({ ...D("hero_glass", [["", "Default"], ...U]), label: "Index tile material" }, { ...B("hero_color"), label: "Index tile colour" })),
         ...O(
           "Index tile",
-          A(
+          M(
             { name: "image_fade", label: "Picture fading into the tile", selector: { boolean: {} } },
             { name: "edge_fade", label: "Soft edges top, left and right", selector: { boolean: {} } },
             { name: "name_backdrop", label: "Band under the name", selector: { boolean: {} } }
           )
         ),
-        ...O("Pollutant tiles", A({ ...D("tiles_glass", [["", "Default"], ...U]), label: "Pollutant tiles material" }, { ...B("tiles_color"), label: "Pollutant tiles colour" })),
+        ...O("Pollutant tiles", M({ ...D("tiles_glass", [["", "Default"], ...U]), label: "Pollutant tiles material" }, { ...B("tiles_color"), label: "Pollutant tiles colour" })),
         ...O(
           "Levels",
           {
@@ -18354,7 +18354,7 @@ const qf = {
   label: "Period group (without helpers)",
   helper: "Only for two independent period bars on one screen; the bar and its charts share it. Not used with helpers.",
   selector: { text: {} }
-}, Vf = A(
+}, Vf = M(
   {
     name: "periods",
     selector: { select: { multiple: !0, options: [{ value: "day", label: "Day" }, { value: "week", label: "Week" }, { value: "month", label: "Month" }, { value: "year", label: "Year" }] } }
@@ -18372,7 +18372,7 @@ const qf = {
       { name: "current_entity", selector: { entity: { domain: "input_boolean" } } },
       V("kinds")
     ]),
-    A({ name: "now_label", selector: { text: {} } }, { name: "compact", selector: { boolean: {} } }),
+    M({ name: "now_label", selector: { text: {} } }, { name: "compact", selector: { boolean: {} } }),
     { name: "spread", selector: { boolean: {} } },
     {
       name: "parts",
@@ -18383,11 +18383,11 @@ const qf = {
       key: "look",
       title: "Look",
       schema: [
-        ...O("Bar", A({ ...D("bar_glass", [["", "Default"], ...U]), label: "Bar material" }, { ...B("bar_color"), label: "Bar colour" })),
+        ...O("Bar", M({ ...D("bar_glass", [["", "Default"], ...U]), label: "Bar material" }, { ...B("bar_color"), label: "Bar colour" })),
         ...O(
           "Buttons",
-          A({ ...D("buttons_glass", [["", "Default"], ...U]), label: "Arrows and drop-down material" }, { ...B("buttons_color"), label: "Arrows and drop-down colour" }),
-          A({ ...D("now_glass", [["", "Default"], ...U]), label: '"Now" button material' }, { ...B("now_color"), label: '"Now" button colour' })
+          M({ ...D("buttons_glass", [["", "Default"], ...U]), label: "Arrows and drop-down material" }, { ...B("buttons_color"), label: "Arrows and drop-down colour" }),
+          M({ ...D("now_glass", [["", "Default"], ...U]), label: '"Now" button material' }, { ...B("now_color"), label: '"Now" button colour' })
         )
       ]
     },
@@ -18406,11 +18406,11 @@ const qf = {
       key: "look",
       title: "Look",
       schema: [
-        A(D("look", [["glass", "Glass"], ["apex", "apexcharts as it is"]]), { ...B("color"), label: "Column colour" }),
-        A({ name: "height", selector: { number: { min: 60, max: 600, step: 2, unit_of_measurement: "px", mode: "box" } } }, { name: "column_width", selector: { number: { min: 10, max: 100, unit_of_measurement: "%", mode: "slider" } } }),
-        A({ name: "radius", selector: { number: { min: 0, max: 20, unit_of_measurement: "px", mode: "slider" } } }, { name: "gradient", selector: { boolean: {} } }),
-        A({ name: "glow", selector: { boolean: {} } }, { name: "zero_line", selector: { boolean: {} } }),
-        A({ name: "values", selector: { boolean: {} } }, { name: "time", selector: { boolean: {} } }),
+        M(D("look", [["glass", "Glass"], ["apex", "apexcharts as it is"]]), { ...B("color"), label: "Column colour" }),
+        M({ name: "height", selector: { number: { min: 60, max: 600, step: 2, unit_of_measurement: "px", mode: "box" } } }, { name: "column_width", selector: { number: { min: 10, max: 100, unit_of_measurement: "%", mode: "slider" } } }),
+        M({ name: "radius", selector: { number: { min: 0, max: 20, unit_of_measurement: "px", mode: "slider" } } }, { name: "gradient", selector: { boolean: {} } }),
+        M({ name: "glow", selector: { boolean: {} } }, { name: "zero_line", selector: { boolean: {} } }),
+        M({ name: "values", selector: { boolean: {} } }, { name: "time", selector: { boolean: {} } }),
         { name: "grid", selector: { boolean: {} } }
       ]
     },
@@ -18433,7 +18433,7 @@ const qf = {
       title: "Header",
       open: !0,
       schema: [
-        A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
         { name: "close", label: "Close button", selector: { boolean: {} } },
         {
           name: "search",
@@ -18457,12 +18457,12 @@ const qf = {
       key: "look",
       title: "Look",
       schema: [
-        ...O("Bar", A({ ...D("bar_glass", [["", "Default"], ...U]), label: "Background material" }, { ...B("bar_color"), label: "Bar colour" })),
-        ...O("Icon", A({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material" }, { ...B("icon_background"), label: "Icon background" })),
-        ...O("Buttons", A({ ...D("buttons_glass", [["", "Default"], ...U]), label: "Chosen buttons material" }, { ...B("buttons_color"), label: "Chosen buttons colour" })),
+        ...O("Bar", M({ ...D("bar_glass", [["", "Default"], ...U]), label: "Background material" }, { ...B("bar_color"), label: "Bar colour" })),
+        ...O("Icon", M({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material" }, { ...B("icon_background"), label: "Icon background" })),
+        ...O("Buttons", M({ ...D("buttons_glass", [["", "Default"], ...U]), label: "Chosen buttons material" }, { ...B("buttons_color"), label: "Chosen buttons colour" })),
         // "not chosen": only buttons with an `active` condition are ever chosen or not
-        ...(o.buttons ?? []).some((e) => e?.active !== void 0) ? O("Buttons", A({ ...D("off_glass", [["", "Default"], ...U]), label: "Not chosen buttons material" }, { ...B("off_color"), label: "Not chosen buttons colour" })) : [],
-        ...O("Close button", A({ ...D("close_glass", [["", "Default"], ...U]), label: "Close button material" }, { ...B("close_color"), label: "Close button colour" }))
+        ...(o.buttons ?? []).some((e) => e?.active !== void 0) ? O("Buttons", M({ ...D("off_glass", [["", "Default"], ...U]), label: "Not chosen buttons material" }, { ...B("off_color"), label: "Not chosen buttons colour" })) : [],
+        ...O("Close button", M({ ...D("close_glass", [["", "Default"], ...U]), label: "Close button material" }, { ...B("close_color"), label: "Close button colour" }))
       ]
     },
     { custom: "section", key: "advanced", title: "Advanced", schema: [V("styles")] }
@@ -18475,8 +18475,8 @@ const qf = {
       create: () => ({ name: "", icon: "mdi:gesture-tap" }),
       defaults: { align: "end" },
       item: (o) => [
-        A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
-        A(
+        M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M(
           {
             ...D("align", [
               ["end", "Right"],
@@ -18504,7 +18504,7 @@ const qf = {
         open: !0,
         schema: [
           { name: "entity", selector: { entity: { domain: ["vacuum", "lawn_mower", "sensor", "binary_sensor", "switch"] } } },
-          A(
+          M(
             {
               ...D("kind", [
                 ["", "From the entity"],
@@ -18524,10 +18524,10 @@ const qf = {
         key: "status",
         title: "Status",
         schema: t === "washer" ? [
-          A(a("machine", "Machine state"), a("remaining", "Time left")),
-          A(a("completion", "Ends at"), a("power", "Power", ["switch", "binary_sensor", "sensor"]))
+          M(a("machine", "Machine state"), a("remaining", "Time left")),
+          M(a("completion", "Ends at"), a("power", "Power", ["switch", "binary_sensor", "sensor"]))
         ] : [
-          A(a("battery", "Battery"), a("progress", "Progress")),
+          M(a("battery", "Battery"), a("progress", "Progress")),
           a("charging", "Charging", ["binary_sensor", "sensor"]),
           ...t === "vacuum" ? [V("room_names")] : []
         ]
@@ -18539,7 +18539,7 @@ const qf = {
           title: "Controls",
           secondary: "Optional",
           schema: t === "vacuum" ? [i("start", "Start", "Instead of vacuum.start (e.g. a script)")] : [
-            A(i("pause", "Pause", "Instead of lawn_mower.pause"), i("resume", "Resume", "Instead of lawn_mower.start_mowing")),
+            M(i("pause", "Pause", "Instead of lawn_mower.pause"), i("resume", "Resume", "Instead of lawn_mower.start_mowing")),
             i("stop", "End the job", "Instead of mammotion.cancel_job"),
             { custom: "hint", text: "Nudge buttons: shown while it stands paused out on the lawn; held, they keep pressing." },
             {
@@ -18562,7 +18562,7 @@ const qf = {
         secondary: o.select_group ? "" : "Optional",
         schema: [
           { custom: "hint", text: 'A tap on the bar picks its id in the group: cards in a panel show for it with the visibility condition "Picked in a group".' },
-          A({ name: "select_group", label: "Group", selector: { text: {} } }, { name: "select", label: "Id", selector: { text: {} } }),
+          M({ name: "select_group", label: "Group", selector: { text: {} } }, { name: "select", label: "Id", selector: { text: {} } }),
           { name: "picked_first", label: "Picked at first", selector: { boolean: {} } }
         ]
       },
@@ -18578,12 +18578,12 @@ const qf = {
         title: "Look",
         schema: [
           ...O("Bars", { ...ia, label: "Material of the controls" }),
-          ...O("Bars", A({ ...D("bar_glass", [["", "Default"], ...U]), label: "Bar material" }, { ...B("bar_color"), label: "Bar colour" })),
-          ...O("Bars", A({ ...D("picked_glass", [["", "Default"], ...U]), label: "Picked bar material" }, { ...B("picked_color"), label: "Picked bar colour" })),
-          ...O("Bars", A({ ...B("active_color"), label: "Colour at work" }, { ...B("fill_color"), label: "Fill colour" })),
+          ...O("Bars", M({ ...D("bar_glass", [["", "Default"], ...U]), label: "Bar material" }, { ...B("bar_color"), label: "Bar colour" })),
+          ...O("Bars", M({ ...D("picked_glass", [["", "Default"], ...U]), label: "Picked bar material" }, { ...B("picked_color"), label: "Picked bar colour" })),
+          ...O("Bars", M({ ...B("active_color"), label: "Colour at work" }, { ...B("fill_color"), label: "Fill colour" })),
           ...O(
             "Bars",
-            A(
+            M(
               {
                 ...D("fill_style", [
                   ["fade", "Fading"],
@@ -18596,12 +18596,12 @@ const qf = {
               { name: "fill_strength", label: "Fill strength (%)", selector: { number: { min: 5, max: 100, step: 1, mode: "slider" } } }
             )
           ),
-          ...O("Icon", A({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material when idle" }, { ...D("icon_on_glass", [["", "Default"], ...U]), label: "Icon material at work" })),
+          ...O("Icon", M({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material when idle" }, { ...D("icon_on_glass", [["", "Default"], ...U]), label: "Icon material at work" })),
           ...O("Icon", { ...B("icon_background"), label: "Icon background" }),
           ...O("Icon", ct("bar", "Icon colour and size (idle / at work)", !0)),
-          ...O("Drawer", A({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" })),
-          ...O("Drawer", A({ ...D("buttons_glass", [["", "Default"], ...U]), label: "Buttons material" }, { ...B("buttons_color"), label: "Buttons colour" })),
-          ...O("Drawer", A({ ...D("current_glass", [["", "Default"], ...U]), label: "Lit button material" }, { ...B("current_color"), label: "Lit button colour" })),
+          ...O("Drawer", M({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" })),
+          ...O("Drawer", M({ ...D("buttons_glass", [["", "Default"], ...U]), label: "Buttons material" }, { ...B("buttons_color"), label: "Buttons colour" })),
+          ...O("Drawer", M({ ...D("current_glass", [["", "Default"], ...U]), label: "Lit button material" }, { ...B("current_color"), label: "Lit button colour" })),
           ...O("Drawer", ct("buttons", "Button icons (lit = active)", !0)),
           ...O("Text", tt("name", "Name (picked bar = active)", !0), tt("state", "State (picked bar = active)", !0)),
           ...O("Battery", tt("battery", "Battery text"), ct("battery", "Battery icon"))
@@ -18620,7 +18620,7 @@ const qf = {
             { name: "run_above", label: "Running above", selector: { number: { min: 0, max: 3e3, mode: "box", unit_of_measurement: "W" } } },
             V("stages")
           ] : [],
-          { ...ve, group: "Card" },
+          { ...we, group: "Card" },
           V("styles")
         ]
       }
@@ -18636,7 +18636,7 @@ const qf = {
       open: !0,
       schema: [
         { custom: "hint", text: 'Picks one id in the group. Cards in a panel show for it with the visibility condition "Picked in a group".' },
-        A({ name: "group", label: "Group", selector: { text: {} } }, { name: "default", label: "Picked at first", selector: { text: {} } }),
+        M({ name: "group", label: "Group", selector: { text: {} } }, { name: "default", label: "Picked at first", selector: { text: {} } }),
         { custom: "list", list: "tabs" }
       ]
     },
@@ -18645,8 +18645,8 @@ const qf = {
       key: "look",
       title: "Look",
       schema: [
-        ...O("Tabs", A({ ...D("tabs_glass", [["", "Default"], ...U]), label: "Tabs material" }, { ...B("tabs_color"), label: "Tabs colour" })),
-        ...O("Tabs", A({ ...D("tab_glass", [["", "Default"], ...U]), label: "Chosen tab material" }, { ...B("tab_color"), label: "Chosen tab colour" })),
+        ...O("Tabs", M({ ...D("tabs_glass", [["", "Default"], ...U]), label: "Tabs material" }, { ...B("tabs_color"), label: "Tabs colour" })),
+        ...O("Tabs", M({ ...D("tab_glass", [["", "Default"], ...U]), label: "Chosen tab material" }, { ...B("tab_color"), label: "Chosen tab colour" })),
         ...O("Tabs", tt("tab", "Tab text", !0), ct("tab", "Tab icons", !0))
       ]
     }
@@ -18657,7 +18657,7 @@ const qf = {
       title: "Tabs",
       label: (o) => o.name ?? o.id ?? "Tab",
       create: () => ({ id: "" }),
-      item: () => [{ name: "id", selector: { text: {} } }, A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } })]
+      item: () => [{ name: "id", selector: { text: {} } }, M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } })]
     }
   ]
 }, eb = {
@@ -18692,7 +18692,7 @@ const qf = {
         title: "Map",
         schema: e ? [
           { name: "satellite", label: "Aerial picture under the zones", selector: { boolean: {} } },
-          A({ name: "tiles", label: "Aerial picture", helper: "esri (default), cuzk, or a {z}/{y}/{x} URL", selector: { text: {} } }, { name: "max_zoom", selector: { number: { min: 12, max: 21, mode: "box" } } })
+          M({ name: "tiles", label: "Aerial picture", helper: "esri (default), cuzk, or a {z}/{y}/{x} URL", selector: { text: {} } }, { name: "max_zoom", selector: { number: { min: 12, max: 21, mode: "box" } } })
         ] : [{ name: "picture", label: "The robot's own map picture", selector: { boolean: {} } }]
       },
       {
@@ -18704,7 +18704,7 @@ const qf = {
           // the setting bars: a mower's (settings); the choices: only when there are some
           ...e && o.settings ? O(
             "Settings",
-            A({ ...D("settings_glass", [["", "Default"], ...U]), label: "Setting bars material" }, { ...B("settings_color"), label: "Setting bars colour" }),
+            M({ ...D("settings_glass", [["", "Default"], ...U]), label: "Setting bars material" }, { ...B("settings_color"), label: "Setting bars colour" }),
             { ...B("settings_fill_color"), label: "Setting bars fill colour" },
             tt("setting", "Setting value text"),
             ct("setting", "Setting icons"),
@@ -18712,21 +18712,21 @@ const qf = {
           ) : [],
           ...o.options?.length ? O(
             "Choices",
-            A({ ...D("options_glass", [["", "Default"], ...U]), label: "Choices material" }, { ...B("options_color"), label: "Choices colour" }),
+            M({ ...D("options_glass", [["", "Default"], ...U]), label: "Choices material" }, { ...B("options_color"), label: "Choices colour" }),
             tt("option_name", "Choice name text"),
             tt("option", "Choice value text"),
             ct("option", "Choice icons"),
             ct("chevron", "Chevron icon"),
             tt("menu", "Menu text", !0)
           ) : [],
-          ...O("Rooms", A({ ...D("rooms_glass", [["", "Default"], ...U]), label: "Room pills material" }, { ...B("rooms_color"), label: "Room pills colour" })),
-          ...O("Rooms", A({ ...D("picked_glass", [["", "Default"], ...U]), label: "Picked pill material" }, { ...B("picked_color"), label: "Picked pill colour" })),
+          ...O("Rooms", M({ ...D("rooms_glass", [["", "Default"], ...U]), label: "Room pills material" }, { ...B("rooms_color"), label: "Room pills colour" })),
+          ...O("Rooms", M({ ...D("picked_glass", [["", "Default"], ...U]), label: "Picked pill material" }, { ...B("picked_color"), label: "Picked pill colour" })),
           ...O("Rooms", tt("room", "Room pill text", !0), ct("room", "Robot icon in a pill")),
-          ...O("Button", A({ ...D("button_glass", [["", "Default"], ...U]), label: "Clean button material" }, { ...B("button_color"), label: "Clean button colour" })),
+          ...O("Button", M({ ...D("button_glass", [["", "Default"], ...U]), label: "Clean button material" }, { ...B("button_color"), label: "Clean button colour" })),
           ...O("Button", tt("button", "Button text"), ct("button", "Button icon"))
         ]
       },
-      { custom: "section", key: "advanced", title: "Advanced", schema: [{ name: "service", selector: { text: {} } }, { ...ve, group: "Card" }] }
+      { custom: "section", key: "advanced", title: "Advanced", schema: [{ name: "service", selector: { text: {} } }, { ...we, group: "Card" }] }
     ];
   }
 }, tb = {
@@ -18741,7 +18741,7 @@ const qf = {
       schema: [
         { name: "entity", selector: { entity: { domain: ["climate", "sensor"] } } },
         { name: "temperature_entity", selector: { entity: { domain: "sensor" } } },
-        A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
         { name: "show_name", selector: { boolean: {} } }
       ]
     },
@@ -18751,7 +18751,7 @@ const qf = {
       title: "Layout",
       open: !0,
       schema: [
-        A(
+        M(
           {
             ...D("controls", [
               ["bottom", "Controls under the graph"],
@@ -18771,13 +18771,13 @@ const qf = {
       title: "Graph",
       open: o.graph !== !1,
       schema: [
-        A(
+        M(
           { name: "graph", selector: { boolean: {} } },
           { name: "hours", selector: { number: { min: 1, max: 168, mode: "box", unit_of_measurement: "h" } } }
         ),
         ...o.graph === !1 ? [] : [
           { name: "graph_entities", selector: { entity: { multiple: !0 } } },
-          A(
+          M(
             { name: "min_range", selector: { number: { min: 0, max: 20, step: 0.5, mode: "box" } } },
             { name: "smoothing", selector: { number: { min: 0, max: 12, mode: "box" } } }
           ),
@@ -18801,11 +18801,11 @@ const qf = {
       key: "look",
       title: "Look",
       schema: [
-        ve,
-        ...O("Bar", A({ ...D("pill_glass", [["", "Default"], ...U]), label: "Bar (pill) material" }, { ...B("pill_color"), label: "Bar colour" })),
-        ...O("Icon", A({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material when off" }, { ...D("icon_on_glass", [["", "Default"], ...U]), label: "Icon material when on" })),
+        we,
+        ...O("Bar", M({ ...D("pill_glass", [["", "Default"], ...U]), label: "Bar (pill) material" }, { ...B("pill_color"), label: "Bar colour" })),
+        ...O("Icon", M({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material when off" }, { ...D("icon_on_glass", [["", "Default"], ...U]), label: "Icon material when on" })),
         ...O("Icon", { ...B("icon_background"), label: "Icon background" }),
-        ...O("− / + buttons", A({ ...D("buttons_glass", [["", "Default"], ...U]), label: "− / + buttons material" }, { ...B("buttons_color"), label: "Buttons colour" }))
+        ...O("− / + buttons", M({ ...D("buttons_glass", [["", "Default"], ...U]), label: "− / + buttons material" }, { ...B("buttons_color"), label: "Buttons colour" }))
       ]
     },
     { custom: "section", key: "actions", title: "Actions", schema: pt(o, ["tap_action", "hold_action", "double_tap_action"]) },
@@ -18863,7 +18863,7 @@ const qf = {
             helper: "Off: always the player above – another one only while you picked it",
             selector: { boolean: {} }
           },
-          A(
+          M(
             { name: "name", label: "Name", selector: { text: {} } },
             {
               ...D("layout", [
@@ -18933,7 +18933,7 @@ const qf = {
               }
             ] : [],
             ...a === "all" && o.library !== !1 ? [
-              A(
+              M(
                 {
                   ...D("library_layout", [
                     ["sheet", "A sheet over the player, its handle on top"],
@@ -18971,7 +18971,7 @@ const qf = {
             custom: "hint",
             text: "Optional. With Music Assistant's address and a token the card talks to Music Assistant itself: the rows of its home (your mixes, top picks), every playlist and album opens to its tracks, a track plays the playlist on from there, the kind of each player. The token is stored in the dashboard's configuration in plain text – anyone who can open the dashboard's settings, or read the network traffic of a dashboard on plain http, can read it and control Music Assistant with it. Fill it in only if that's fine with you."
           },
-          A(
+          M(
             {
               name: "music_assistant_url",
               label: "Music Assistant address",
@@ -18992,7 +18992,7 @@ const qf = {
         key: "look",
         title: "Look",
         schema: [
-          ...t ? [] : [ve, ...O("Card", { name: "art_background", label: "Blurred cover behind the glass", selector: { boolean: {} } })],
+          ...t ? [] : [we, ...O("Card", { name: "art_background", label: "Blurred cover behind the glass", selector: { boolean: {} } })],
           ...t || o.art_background === !1 ? [] : O(
             "Card",
             {
@@ -19007,7 +19007,7 @@ const qf = {
           ),
           ...O(
             "Buttons",
-            A(
+            M(
               { ...D("controls_glass", [["", "Default"], ...U]), label: "Buttons and bars material", helper: "Default: liquid glass (WebGL) over the blurred cover; dark at night" },
               { ...B("controls_color"), label: "Buttons colour" }
             )
@@ -19061,8 +19061,8 @@ const qf = {
       title: "Card",
       open: !0,
       schema: [
-        A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
-        A(
+        M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M(
           {
             ...D("layout", [
               ["bars", "Bars – brightness slider"],
@@ -19099,11 +19099,11 @@ const qf = {
       key: "look",
       title: "Look",
       schema: [
-        ...O("Bar", A({ ...D("pill_glass", [["", "Default"], ...U]), label: "Bar (pill) material" }, { ...B("pill_color"), label: "Bar colour" })),
-        ...O("Icon", A({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material when off" }, { ...D("icon_on_glass", [["", "Default"], ...U]), label: "Icon material when on" })),
+        ...O("Bar", M({ ...D("pill_glass", [["", "Default"], ...U]), label: "Bar (pill) material" }, { ...B("pill_color"), label: "Bar colour" })),
+        ...O("Icon", M({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material when off" }, { ...D("icon_on_glass", [["", "Default"], ...U]), label: "Icon material when on" })),
         ...O(
           "Bar",
-          A(
+          M(
             {
               ...D("fill_style", [
                 ["fade", "Fading"],
@@ -19115,7 +19115,7 @@ const qf = {
             },
             { name: "fill_strength", label: "Fill strength (%)", selector: { number: { min: 5, max: 100, step: 1, mode: "slider" } } }
           ),
-          A(
+          M(
             {
               ...D("fill_source", [
                 ["light", "The light's own colour"],
@@ -19127,11 +19127,11 @@ const qf = {
           )
         ),
         ...O("Icon", { ...B("icon_background"), label: "Icon background" }),
-        ...O("Modes", A({ ...D("modes_glass", [["", "Default"], ...U]), label: "Picked mode material" }, { ...B("modes_color"), label: "Picked mode colour" })),
-        ...O("Presets", A({ ...D("presets_glass", [["", "Default"], ...U]), label: "Picked preset material" }, { ...B("presets_color"), label: "Picked preset colour" })),
+        ...O("Modes", M({ ...D("modes_glass", [["", "Default"], ...U]), label: "Picked mode material" }, { ...B("modes_color"), label: "Picked mode colour" })),
+        ...O("Presets", M({ ...D("presets_glass", [["", "Default"], ...U]), label: "Picked preset material" }, { ...B("presets_color"), label: "Picked preset colour" })),
         // scene buttons: only when it has scenes (its own or a light's)
-        ...Bn(o) ? O("Scenes", A({ ...D("scenes_glass", [["", "Default"], ...U]), label: "Scene buttons material" }, { ...B("scenes_color"), label: "Scene buttons colour" })) : [],
-        ...O("Drawer", A({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" }))
+        ...Bn(o) ? O("Scenes", M({ ...D("scenes_glass", [["", "Default"], ...U]), label: "Scene buttons material" }, { ...B("scenes_color"), label: "Scene buttons colour" })) : [],
+        ...O("Drawer", M({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" }))
       ]
     },
     {
@@ -19139,7 +19139,7 @@ const qf = {
       key: "advanced",
       title: "Advanced",
       schema: [
-        ...O("Card", { ...ve, label: "Tile material" }),
+        ...O("Card", { ...we, label: "Tile material" }),
         ...O("Buttons", { ...ia, label: "Bars and buttons material" }),
         V("styles")
       ]
@@ -19153,7 +19153,7 @@ const qf = {
       create: () => ({ entity: "" }),
       item: (o) => [
         { name: "entity", selector: { entity: { domain: ["light", "switch", "scene"] } } },
-        A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
         { name: "presets", selector: { entity: { domain: "select" } } },
         _e("Several lights as one", [
           { custom: "hint", text: "On while any is on; a tap switches all of them." },
@@ -19174,7 +19174,7 @@ const qf = {
       create: () => ({ entity: "" }),
       item: () => [
         { name: "entity", selector: { entity: { domain: "scene" } } },
-        A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
         { name: "image", label: "Photo", helper: "URL, e.g. /local/scenes/evening.jpg", selector: { text: {} } }
       ]
     }
@@ -19202,8 +19202,8 @@ const sb = {
       key: "show",
       title: "Show",
       schema: [
-        A({ name: "show_animation", label: "Animation", selector: { boolean: {} } }, { name: "show_modes", label: "Heating mode", selector: { boolean: {} } }),
-        A({ name: "show_dhw_setpoint", label: "Hot water − / +", selector: { boolean: {} } }, { name: "show_settings", label: "Settings drawer", selector: { boolean: {} } })
+        M({ name: "show_animation", label: "Animation", selector: { boolean: {} } }, { name: "show_modes", label: "Heating mode", selector: { boolean: {} } }),
+        M({ name: "show_dhw_setpoint", label: "Hot water − / +", selector: { boolean: {} } }, { name: "show_settings", label: "Settings drawer", selector: { boolean: {} } })
       ]
     },
     {
@@ -19263,13 +19263,13 @@ const sb = {
       key: "look",
       title: "Look",
       schema: [
-        ...O("Modes", A({ ...D("modes_glass", [["", "Default"], ...U]), label: "Modes' track material" }, { ...B("modes_color"), label: "Track colour" })),
-        ...O("Modes", A({ ...D("active_glass", [["", "Default"], ...U]), label: "Picked mode material" }, { ...B("active_color"), label: "Picked mode colour" })),
-        ...O("− / + buttons", A({ ...D("buttons_glass", [["", "Default"], ...U]), label: "− / + buttons material" }, { ...B("buttons_color"), label: "Buttons colour" })),
-        ...O("Diagram", A({ ...B("outside_color"), label: "Outside node" }, { ...B("heating_color"), label: "Heating node" })),
-        ...O("Diagram", A({ ...B("dhw_color"), label: "Hot water node" }, { ...B("rod_color"), label: "Heating rod" })),
+        ...O("Modes", M({ ...D("modes_glass", [["", "Default"], ...U]), label: "Modes' track material" }, { ...B("modes_color"), label: "Track colour" })),
+        ...O("Modes", M({ ...D("active_glass", [["", "Default"], ...U]), label: "Picked mode material" }, { ...B("active_color"), label: "Picked mode colour" })),
+        ...O("− / + buttons", M({ ...D("buttons_glass", [["", "Default"], ...U]), label: "− / + buttons material" }, { ...B("buttons_color"), label: "Buttons colour" })),
+        ...O("Diagram", M({ ...B("outside_color"), label: "Outside node" }, { ...B("heating_color"), label: "Heating node" })),
+        ...O("Diagram", M({ ...B("dhw_color"), label: "Hot water node" }, { ...B("rod_color"), label: "Heating rod" })),
         ...O("Diagram", { ...B("idle_color"), label: "Idle nodes" }),
-        ve
+        we
       ]
     },
     _e("Advanced", [V("styles")])
@@ -19294,10 +19294,10 @@ const sb = {
           ]),
           label: "Kind"
         },
-        A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
         { name: "percent_only", label: "Percentages only", helper: "The bars show only the percentage", selector: { boolean: {} } },
         { name: "show_title", label: "Show the title – icon, name and state", helper: "Off, and with the pause button hidden too, the card is just its bars", selector: { boolean: {} } },
-        ...O("Bars", A({ ...B("active_color"), label: o.kind === "gate" ? "Colour when open" : "Colour when down" })),
+        ...O("Bars", M({ ...B("active_color"), label: o.kind === "gate" ? "Colour when open" : "Colour when down" })),
         ...O("Pause button", { ...B("pause_color"), label: "Pause ring colour" })
       ]
     },
@@ -19345,7 +19345,7 @@ const sb = {
       secondary: o.pause ? "" : "Optional",
       schema: [
         { custom: "hint", text: "The room's automation pause: shown with the time left as a ring." },
-        A(
+        M(
           { name: "pause", selector: { entity: { domain: ["switch", "input_boolean"] } } },
           { name: "pause_duration", selector: { number: { min: 60, max: 86400, mode: "box", unit_of_measurement: "s" } } }
         ),
@@ -19358,11 +19358,11 @@ const sb = {
       title: "Look",
       schema: [
         ...O("Bars", { ...ia, label: "Material of the bars" }),
-        ...O("Bars", A({ ...D("bar_glass", [["", "Default"], ...U]), label: "Position bar material" }, { ...B("bar_color"), label: "Position bar colour" })),
-        ...O("Bars", A({ ...D("slats_glass", [["", "Default"], ...U]), label: "Slats bar material" }, { ...B("slats_color"), label: "Slats bar colour" })),
+        ...O("Bars", M({ ...D("bar_glass", [["", "Default"], ...U]), label: "Position bar material" }, { ...B("bar_color"), label: "Position bar colour" })),
+        ...O("Bars", M({ ...D("slats_glass", [["", "Default"], ...U]), label: "Slats bar material" }, { ...B("slats_color"), label: "Slats bar colour" })),
         ...O(
           "Bars",
-          A(
+          M(
             {
               ...D("fill_style", [
                 ["fade", "Fading"],
@@ -19378,26 +19378,26 @@ const sb = {
         ),
         ...O("Icon", { name: "show_icon", label: "Show the icon on the bar", selector: { boolean: {} } }),
         ...O("Bars", { name: "show_bar_text", label: "Show the state on the bar", helper: "Off: the state and percentage go under the name", selector: { boolean: {} } }),
-        ...O("Icon", A({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material when up" }, { ...D("icon_on_glass", [["", "Default"], ...U]), label: "Icon material when down" })),
+        ...O("Icon", M({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material when up" }, { ...D("icon_on_glass", [["", "Default"], ...U]), label: "Icon material when down" })),
         ...O("Icon", { ...B("icon_background"), label: "Icon background" }),
-        ...O("Drawer", A({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" })),
-        ...O("Pause button", A({ ...D("pause_glass", za), label: "Pause button material" }, { ...B("pause_button_color"), label: "Pause button colour" })),
-        ...O("Quick choices", A({ ...D("positions_glass", za), label: "Position buttons material" }, { ...D("tilts_glass", za), label: "Tilt buttons material" })),
+        ...O("Drawer", M({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" })),
+        ...O("Pause button", M({ ...D("pause_glass", za), label: "Pause button material" }, { ...B("pause_button_color"), label: "Pause button colour" })),
+        ...O("Quick choices", M({ ...D("positions_glass", za), label: "Position buttons material" }, { ...D("tilts_glass", za), label: "Tilt buttons material" })),
         ...O("Quick choices", { ...B("choices_color"), label: "Quick choice buttons' colour" })
       ]
     },
-    { custom: "section", key: "advanced", title: "Advanced", schema: [{ ...ve, group: "Card" }, V("styles")] }
+    { custom: "section", key: "advanced", title: "Advanced", schema: [{ ...we, group: "Card" }, V("styles")] }
   ],
   lists: [
     { name: "positions", title: "Positions", label: (o) => o.name ?? o.icon ?? "Position", create: () => ({ name: "", value: 50 }), item: () => lm },
     { name: "tilts", title: "Slats", label: (o) => o.name ?? "Tilt", create: () => ({ name: "", value: 50 }), item: () => nb, initial: () => cm() }
   ]
 }, lm = [
-  A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+  M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
   { name: "script", label: "Script", helper: "Run instead of setting a value", selector: { entity: { domain: "script" } } },
   { name: "value", label: "Value", selector: { number: { min: 0, max: 100, mode: "slider", unit_of_measurement: "%" } } }
 ], nb = [
-  A({ name: "name", selector: { text: {} } }, { name: "icon", helper: "Empty = the slats drawn as this tilt sets them", selector: { icon: {} } }),
+  M({ name: "name", selector: { text: {} } }, { name: "icon", helper: "Empty = the slats drawn as this tilt sets them", selector: { icon: {} } }),
   ...lm.slice(1)
 ], cm = () => [
   { name: v("Close"), value: 0 },
@@ -19408,11 +19408,11 @@ const sb = {
   key: "titles",
   title: "Title",
   schema: [
-    A({ name: "title", label: "Title", helper: o, selector: { text: {} } }, { name: "show_title", label: "Show the title", selector: { boolean: {} } })
+    M({ name: "title", label: "Title", helper: o, selector: { text: {} } }, { name: "show_title", label: "Show the title", selector: { boolean: {} } })
   ]
 }), lb = {
   name: "sheet_glass",
-  selector: { select: { mode: "dropdown", options: [{ value: "", label: "Its own glass" }, ...ve.selector.select.options.filter((o) => o.value)] } }
+  selector: { select: { mode: "dropdown", options: [{ value: "", label: "Its own glass" }, ...we.selector.select.options.filter((o) => o.value)] } }
 }, cb = "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays… An alarm on weekdays doesn't ring on them, an alarm with a weekend day rings on them as on a weekend (each alarm can turn that off in its settings). Events with a time – a meeting at 6:00 – don't count.", db = {
   parts: Bu,
   defaults: { display: "modal", style: "photo", snooze: 10 },
@@ -19462,11 +19462,11 @@ const sb = {
         },
         ...o.style !== "simple" ? [
           { name: "image", label: "Photo", helper: "Empty = the cards' own morning photo", selector: { text: {} } },
-          A({ ...D("panel_glass", [["", "Default"], ...U]), label: "Glass over the photo" }, { ...B("panel_color"), label: "Its colour" }),
+          M({ ...D("panel_glass", [["", "Default"], ...U]), label: "Glass over the photo" }, { ...B("panel_color"), label: "Its colour" }),
           { name: "night_image", label: "Photo at night", helper: "While the sun is below the horizon (sun.sun). Empty = the cards' own night photo, none = the day photo all the time", selector: { text: {} } },
-          ...o.night_image !== "none" ? [A({ ...D("night_panel_glass", [["", "Default"], ...U]), label: "Glass at night" }, { ...B("night_panel_color"), label: "Its colour" })] : []
+          ...o.night_image !== "none" ? [M({ ...D("night_panel_glass", [["", "Default"], ...U]), label: "Glass at night" }, { ...B("night_panel_color"), label: "Its colour" })] : []
         ] : [],
-        A({ ...D("controls_glass", [["", "Default"], ...U]), label: "Buttons' material" }, { ...B("controls_color"), label: "Buttons' colour" })
+        M({ ...D("controls_glass", [["", "Default"], ...U]), label: "Buttons' material" }, { ...B("controls_color"), label: "Buttons' colour" })
       ]
     }
   ]
@@ -19528,15 +19528,15 @@ const sb = {
       key: "look",
       title: "Look",
       schema: [
-        ...O("Alarms", A({ ...D("list_glass", [["", "Default"], ...U]), label: "Alarms' group material" }, { ...B("list_color"), label: "Alarms' group colour" })),
+        ...O("Alarms", M({ ...D("list_glass", [["", "Default"], ...U]), label: "Alarms' group material" }, { ...B("list_color"), label: "Alarms' group colour" })),
         ...O("Alarms", { ...B("days_color"), label: "Days it rings on" }),
-        ...O("Switches", A({ ...D("switch_glass", [["", "Plain track"], ...U]), label: "Switch material when off" }, { ...B("switch_color"), label: "Switch colour when on" })),
-        ...O("+ button", A({ ...D("add_glass", [["", "Default"], ...U]), label: "+ button material" }, { ...B("add_color"), label: "+ button colour" })),
-        ...O("Settings window", A({ ...lb, label: "Window material" }, { ...B("sheet_color"), label: "Window colour" })),
-        ...O("Settings window", A({ ...D("controls_glass", [["", "Default"], ...U]), label: "Controls' material" }, { ...B("controls_color"), label: "Controls' colour" }))
+        ...O("Switches", M({ ...D("switch_glass", [["", "Plain track"], ...U]), label: "Switch material when off" }, { ...B("switch_color"), label: "Switch colour when on" })),
+        ...O("+ button", M({ ...D("add_glass", [["", "Default"], ...U]), label: "+ button material" }, { ...B("add_color"), label: "+ button colour" })),
+        ...O("Settings window", M({ ...lb, label: "Window material" }, { ...B("sheet_color"), label: "Window colour" })),
+        ...O("Settings window", M({ ...D("controls_glass", [["", "Default"], ...U]), label: "Controls' material" }, { ...B("controls_color"), label: "Controls' colour" }))
       ]
     },
-    { custom: "section", key: "advanced", title: "Advanced", schema: [{ ...ve, group: "Card" }, V("styles")] }
+    { custom: "section", key: "advanced", title: "Advanced", schema: [{ ...we, group: "Card" }, V("styles")] }
   ]
 }, pb = {
   kind: "requires",
@@ -19560,16 +19560,16 @@ const sb = {
     helper: o ? "An image's URL or a camera / image entity" : "An image's URL or a camera / image entity – default: the camera's own picture",
     selector: { text: {} }
   },
-  A(
+  M(
     { name: "mode", label: "Ways to play (in order)", helper: "webrtc,mse,hls,mjpeg", selector: { text: {} } },
     { name: "media", label: "Media", helper: "video,audio (microphone: talk back)", selector: { text: {} } }
   ),
-  A(
+  M(
     { name: "server", label: "go2rtc server", helper: "Default: the WebRTC integration's", selector: { text: {} } },
     { name: "intersection", label: "Plays when this much is seen", helper: "0–1, default 0.75; 0 = always", selector: { number: { min: 0, max: 1, step: 0.05, mode: "box" } } }
   ),
-  A({ name: "muted", label: "Muted", selector: { boolean: {} } }, { name: "ui", label: "Its own controls", selector: { boolean: {} } }),
-  A({ name: "background", label: "Plays when not seen", selector: { boolean: {} } }, { name: "poster_remote", label: "Poster from go2rtc", selector: { boolean: {} } }),
+  M({ name: "muted", label: "Muted", selector: { boolean: {} } }, { name: "ui", label: "Its own controls", selector: { boolean: {} } }),
+  M({ name: "background", label: "Plays when not seen", selector: { boolean: {} } }, { name: "poster_remote", label: "Poster from go2rtc", selector: { boolean: {} } }),
   { name: "title", label: "Its title", selector: { text: {} } },
   { custom: "hint", text: "Pan / tilt, shortcuts, digital zoom, more streams and its CSS – in YAML, as in its documentation." },
   V("ptz"),
@@ -19591,7 +19591,7 @@ const sb = {
       ]),
       label: "Layout"
     },
-    A(
+    M(
       { name: "labels", label: "Names on the header's buttons", helper: "Off: round icons only (a phone)", selector: { boolean: {} } },
       { ...D("align", [["start", "At the start"], ["end", "At the end"], ["stretch", "Across the whole width"]]), label: "Header's buttons" }
     ),
@@ -19601,7 +19601,7 @@ const sb = {
       helper: "The #hash of a Bubble Card pop-up with the keypad (layout: keypad). Empty: over the screen",
       selector: { text: {} }
     },
-    A({ name: "name", selector: { text: {} } }, { ...D("keypad", [["ask", "When an action needs it (over the screen)"], ["auto", "Whenever a code is needed (in the card)"], ["always", "Always"], ["never", "Never"]]), label: "Keypad" }),
+    M({ name: "name", selector: { text: {} } }, { ...D("keypad", [["ask", "When an action needs it (over the screen)"], ["auto", "Whenever a code is needed (in the card)"], ["always", "Always"], ["never", "Never"]]), label: "Keypad" }),
     {
       name: "modes",
       label: "Arm buttons",
@@ -19619,16 +19619,16 @@ const sb = {
         }
       }
     },
-    A(
+    M(
       { name: "keyboard", label: "Physical keypad types into it", helper: "A USB / Bluetooth keypad or keyboard: digits, Enter, Backspace, Esc", selector: { boolean: {} } },
       { name: "close_popup", label: "Close the pop-up when it's over", helper: "In a Bubble Card pop-up: closes once the alarm is disarmed or armed", selector: { boolean: {} } }
     ),
-    A(
+    M(
       { name: "show_sensors", label: "Open and bypassed sensors", helper: "Under the state: what's open, what started it", selector: { boolean: {} } },
       { name: "drawer", label: "Sensors' drawer", helper: "A bar that says what's open; a tap shows every sensor", selector: { boolean: {} } }
     ),
     { name: "sensors", label: "Sensors", helper: "Default: Alarmo's sensors of this alarm", selector: { entity: { multiple: !0, domain: "binary_sensor" } } },
-    A(
+    M(
       { ...D("drawer_style", [["pill", "A pill with an arrow"], ["bar", "A bar with a round button"]]), label: "Drawer's bar" },
       { ...D("sensor_items", [["list", "Rows"], ["pills", "Pills"]]), label: "Sensors in the drawer" }
     ),
@@ -19637,23 +19637,23 @@ const sb = {
       key: "look",
       title: "Look",
       schema: [
-        { ...ve, group: "Card" },
+        { ...we, group: "Card" },
         { ...Sa("glass_tint", "Glass color"), group: "Card" },
         { ...ia, group: "Buttons" },
-        ...O("Bar", A({ ...D("bar_glass", [["", "Control glass (default)"], ...U]), label: "Bar material" }, { ...B("bar_color"), label: "Bar colour" })),
-        ...O("Mode buttons", A({ ...D("buttons_glass", [["", "Default"], ...U]), label: "Buttons' material" }, { ...B("buttons_color"), label: "Buttons' colour" })),
+        ...O("Bar", M({ ...D("bar_glass", [["", "Control glass (default)"], ...U]), label: "Bar material" }, { ...B("bar_color"), label: "Bar colour" })),
+        ...O("Mode buttons", M({ ...D("buttons_glass", [["", "Default"], ...U]), label: "Buttons' material" }, { ...B("buttons_color"), label: "Buttons' colour" })),
         ...O(
           "Round button, Arm anyway",
-          A({ ...D("actions_glass", [["", "Control glass (default)"], ...U]), label: "Material" }, { ...B("actions_color"), label: "Colour" })
+          M({ ...D("actions_glass", [["", "Control glass (default)"], ...U]), label: "Material" }, { ...B("actions_color"), label: "Colour" })
         ),
         ...O(
           "Header: the button in force",
-          A({ ...D("active_glass", [["", "Dark (default)"], ...U]), label: "Material" }, { ...B("active_color"), label: "Colour" })
+          M({ ...D("active_glass", [["", "Dark (default)"], ...U]), label: "Material" }, { ...B("active_color"), label: "Colour" })
         ),
-        ...O("Keypad", A({ ...D("keys_glass", [["", "Control glass (default)"], ...U]), label: "Keys' material" }, { ...B("keys_color"), label: "Keys' colour" })),
-        ...O("Sensors' drawer", A({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" })),
-        ...O("Sensors", A({ ...D("sensors_glass", [["", "Control glass (default)"], ...U]), label: "Pills' material" }, { ...B("sensors_color"), label: "Pills' colour" })),
-        ...O("Message", A({ ...D("message_glass", [["", "Default"], ...U]), label: "Message material" }, { ...B("message_color"), label: "Message colour" }))
+        ...O("Keypad", M({ ...D("keys_glass", [["", "Control glass (default)"], ...U]), label: "Keys' material" }, { ...B("keys_color"), label: "Keys' colour" })),
+        ...O("Sensors' drawer", M({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" })),
+        ...O("Sensors", M({ ...D("sensors_glass", [["", "Control glass (default)"], ...U]), label: "Pills' material" }, { ...B("sensors_color"), label: "Pills' colour" })),
+        ...O("Message", M({ ...D("message_glass", [["", "Default"], ...U]), label: "Message material" }, { ...B("message_color"), label: "Message colour" }))
       ]
     },
     _e("Advanced", [V("styles")])
@@ -19695,12 +19695,12 @@ const sb = {
           ]),
           label: "Layout"
         },
-        A(
+        M(
           { ...D("aspect_ratio", [["16/9", "16 : 9"], ["4/3", "4 : 3"], ["1/1", "1 : 1"], ["9/16", "9 : 16 (doorbell)"]]), label: "Picture shape" },
           { ...D("fit", [["cover", "Fill (crop the edges)"], ["contain", "Whole picture"]]), label: "Picture fit" }
         ),
         { ...D("controls", [["below", "Under the picture"], ["overlay", "On the picture"]]), label: "Camera's entities" },
-        A(
+        M(
           ...o.layout === "stacked" ? [] : [{ name: "list_width", label: "Recordings' column", helper: "Default as a dashboard's left side: minmax(320px, 0.36fr)", selector: { text: {} } }],
           { name: "list_columns", label: "Thumbnails in a row", helper: "Empty = as many as fit", selector: { number: { min: 1, max: 6, mode: "box" } } }
         ),
@@ -19722,17 +19722,17 @@ const sb = {
       key: "parts",
       title: "Parts",
       schema: [
-        A({ name: "show_live", label: "Live picture", selector: { boolean: {} } }, { name: "show_events", label: "Recordings", selector: { boolean: {} } }),
-        A(
+        M({ name: "show_live", label: "Live picture", selector: { boolean: {} } }, { name: "show_events", label: "Recordings", selector: { boolean: {} } }),
+        M(
           { name: "show_switcher", label: "Camera switch", helper: "Default: only when no camera is switched elsewhere (its `active`, e.g. a pop-up header's buttons)", selector: { boolean: {} } },
           { name: "show_controls", label: "Camera's entities", selector: { boolean: {} } }
         ),
-        A({ name: "show_detections", label: "What it sees now", selector: { boolean: {} } }, { name: "show_timeline", label: "Time line", selector: { boolean: {} } }),
-        A(
+        M({ name: "show_detections", label: "What it sees now", selector: { boolean: {} } }, { name: "show_timeline", label: "Time line", selector: { boolean: {} } }),
+        M(
           { name: "show_severity", label: "Alerts / detections switch", helper: "Above the recordings: All · Alerts · Detections", selector: { boolean: {} } },
           { name: "show_fullscreen", label: "Full-screen button", selector: { boolean: {} } }
         ),
-        A({ name: "zoom", label: "Zoom into the picture", helper: "Mouse wheel or two fingers; a double tap back", selector: { boolean: {} } })
+        M({ name: "zoom", label: "Zoom into the picture", helper: "Mouse wheel or two fingers; a double tap back", selector: { boolean: {} } })
       ]
     },
     {
@@ -19741,11 +19741,11 @@ const sb = {
       title: "Recordings (Frigate)",
       schema: [
         { custom: "hint", text: "Recordings come from the Frigate integration (HACS) – Frigate's own cameras find them by themselves." },
-        A(
+        M(
           { ...D("severity", [["all", "Alerts and detections"], ["alert", "Alerts only"], ["detection", "Detections only"]]), label: "Which" },
           { name: "hours", label: "Hours back", selector: { number: { min: 1, max: 720, mode: "box" } } }
         ),
-        A(
+        M(
           { name: "return_after", label: "Back to live after (s)", helper: "After a recording ended or was paused; 0 = stay", selector: { number: { min: 0, max: 600, mode: "box" } } },
           { name: "all_cameras", label: "Every camera's recordings", selector: { boolean: {} } }
         )
@@ -19756,22 +19756,22 @@ const sb = {
       key: "look",
       title: "Look",
       schema: [
-        ...O("Recordings", A({ ...D("list_glass", [["", "Default"], ...U]), label: "Recordings' material" }, { ...B("list_color"), label: "Recordings' colour" })),
-        ...O("Recordings", A({ ...D("label_glass", [["", "Default"], ...U]), label: "Labels' material" }, { ...B("label_color"), label: "Labels' colour" })),
-        ...O("Recordings", A({ ...B("alert_color"), label: "Alerts' colour" }, { ...B("selected_color"), label: "The one playing" })),
-        ...O("On the picture", A({ ...D("badge_glass", [["", "Default"], ...U]), label: "Live / time material" }, { ...B("badge_color"), label: "Live / time colour" })),
-        ...O("On the picture", A({ ...D("seen_glass", [["", "Default"], ...U]), label: "What it sees – material" }, { ...B("seen_color"), label: "What it sees – colour" })),
-        ...O("Player", A({ ...D("player_glass", [["", "Default"], ...U]), label: "Player's material" }, { ...B("player_color"), label: "Player's colour" })),
-        ...O("Cameras", A({ ...D("switcher_glass", [["", "Default"], ...U]), label: "Camera switch material" }, { ...B("switcher_color"), label: "Camera switch colour" })),
-        ...O("Camera's entities", A({ ...D("controls_glass", [["", "Default"], ...U]), label: "Pills' material" }, { ...B("controls_color"), label: "Pills' colour" })),
-        ...O("Time line", A({ ...D("timeline_glass", [["", "Default"], ...U]), label: "Time line material" }, { ...B("timeline_color"), label: "Time line colour" }))
+        ...O("Recordings", M({ ...D("list_glass", [["", "Default"], ...U]), label: "Recordings' material" }, { ...B("list_color"), label: "Recordings' colour" })),
+        ...O("Recordings", M({ ...D("label_glass", [["", "Default"], ...U]), label: "Labels' material" }, { ...B("label_color"), label: "Labels' colour" })),
+        ...O("Recordings", M({ ...B("alert_color"), label: "Alerts' colour" }, { ...B("selected_color"), label: "The one playing" })),
+        ...O("On the picture", M({ ...D("badge_glass", [["", "Default"], ...U]), label: "Live / time material" }, { ...B("badge_color"), label: "Live / time colour" })),
+        ...O("On the picture", M({ ...D("seen_glass", [["", "Default"], ...U]), label: "What it sees – material" }, { ...B("seen_color"), label: "What it sees – colour" })),
+        ...O("Player", M({ ...D("player_glass", [["", "Default"], ...U]), label: "Player's material" }, { ...B("player_color"), label: "Player's colour" })),
+        ...O("Cameras", M({ ...D("switcher_glass", [["", "Default"], ...U]), label: "Camera switch material" }, { ...B("switcher_color"), label: "Camera switch colour" })),
+        ...O("Camera's entities", M({ ...D("controls_glass", [["", "Default"], ...U]), label: "Pills' material" }, { ...B("controls_color"), label: "Pills' colour" })),
+        ...O("Time line", M({ ...D("timeline_glass", [["", "Default"], ...U]), label: "Time line material" }, { ...B("timeline_color"), label: "Time line colour" }))
       ]
     },
     {
       custom: "section",
       key: "advanced",
       title: "Advanced",
-      schema: [{ ...ve, group: "Card" }, V("styles")]
+      schema: [{ ...we, group: "Card" }, V("styles")]
     },
     {
       custom: "section",
@@ -19788,7 +19788,7 @@ const sb = {
       create: () => ({ camera: "" }),
       item: () => [
         { name: "camera", label: "Camera", selector: { entity: { domain: "camera" } } },
-        A({ name: "name", label: "Name", selector: { text: {} } }, { name: "icon", label: "Icon", selector: { icon: {} } }),
+        M({ name: "name", label: "Name", selector: { text: {} } }, { name: "icon", label: "Icon", selector: { icon: {} } }),
         { custom: "hint", text: "Entities under the picture (a light, night vision…) – as the status bar's pills: an entity, or { entity, dropdown: true, rules: … }." },
         V("items"),
         { custom: "hint", text: "Optional: shown while a condition holds (switched elsewhere, e.g. a pop-up header's buttons) – { entity: input_boolean.camera_1, state: on }." },
@@ -19811,7 +19811,7 @@ const sb = {
       open: !0,
       schema: [
         { name: "entity", label: "Automation", helper: "Or any switch / input_boolean", selector: { entity: { domain: ["automation", "switch", "input_boolean"] } } },
-        A({ name: "icon", selector: { icon: {} } }, { name: "show_state", label: "On / Off beside the switch", selector: { boolean: {} } }),
+        M({ name: "icon", selector: { icon: {} } }, { name: "show_state", label: "On / Off beside the switch", selector: { boolean: {} } }),
         ...O("Switch", { ...B("color"), label: "Colour when on" })
       ]
     },
@@ -19832,7 +19832,7 @@ const sb = {
           text: "Three helpers of your own: a dropdown (input_select) with how long – e.g. 1 hour, Until tomorrow, Until a time, For good – a date and time when it comes back, and a time for “until a time”. The card shows and sets them; switching back on is a small automation in HA. See the documentation: Automation cards."
         },
         { name: "pause_for", label: "How long (input_select)", selector: { entity: { domain: "input_select" } } },
-        A(
+        M(
           { name: "resume_at", label: "Comes back at (input_datetime)", selector: { entity: { domain: "input_datetime" } } },
           { name: "pause_until", label: "Time for “until” (input_datetime)", selector: { entity: { domain: "input_datetime" } } }
         )
@@ -19851,13 +19851,13 @@ const sb = {
       title: "What it shows",
       open: !0,
       schema: [
-        A({ name: "sun", label: "Sun", selector: { entity: { domain: "sun" } } }, { name: "light", label: "Light outside (lx)", selector: { entity: { domain: "sensor" } } }),
-        A(
+        M({ name: "sun", label: "Sun", selector: { entity: { domain: "sun" } } }, { name: "light", label: "Light outside (lx)", selector: { entity: { domain: "sensor" } } }),
+        M(
           { name: "shading", label: "Shading decision", helper: "A sensor: open / min / mid / max", selector: { entity: {} } },
           { name: "target_tilt", label: "Target tilt", selector: { entity: {} } }
         ),
-        A({ name: "show_compass", label: "Compass", selector: { boolean: {} } }, { name: "show_details", label: "Text beside it", selector: { boolean: {} } }),
-        A({ name: "title", label: "Title", helper: "Empty = Current state", selector: { text: {} } }, { name: "show_title", label: "Show the title", selector: { boolean: {} } })
+        M({ name: "show_compass", label: "Compass", selector: { boolean: {} } }, { name: "show_details", label: "Text beside it", selector: { boolean: {} } }),
+        M({ name: "title", label: "Title", helper: "Empty = Current state", selector: { text: {} } }, { name: "show_title", label: "Show the title", selector: { boolean: {} } })
       ]
     },
     {
@@ -19870,14 +19870,14 @@ const sb = {
           custom: "hint",
           text: "The sun's directions (azimuth) in which it shines into the room: 90° east, 180° south, 270° west. Inside this range the automation shades fully – also with a low sun, when the light sensor alone can't be relied on. Drawn on the compass as a sector."
         },
-        A(
+        M(
           { name: "azimuth_from", label: "From (°)", selector: { number: { min: 0, max: 360, step: 1, mode: "slider", unit_of_measurement: "°" } } },
           { name: "azimuth_to", label: "To (°)", selector: { number: { min: 0, max: 360, step: 1, mode: "slider", unit_of_measurement: "°" } } }
         ),
         _e("When the sun is high", [
           { custom: "hint", text: "A high sun only glances off the glass from the side (a roof overhang, a balcony): above this height a narrower range applies. Leave empty if not needed." },
           { name: "azimuth_high_above", label: "Above (° of height)", selector: { number: { min: 0, max: 90, mode: "slider", unit_of_measurement: "°" } } },
-          A(
+          M(
             { name: "azimuth_high_from", label: "From (°)", selector: { number: { min: 0, max: 360, mode: "slider", unit_of_measurement: "°" } } },
             { name: "azimuth_high_to", label: "To (°)", selector: { number: { min: 0, max: 360, mode: "slider", unit_of_measurement: "°" } } }
           )
@@ -19890,17 +19890,17 @@ const sb = {
       key: "look",
       title: "Look",
       schema: [
-        A(
+        M(
           ...O("Compass", { ...D("compass_glass", [["watch", "Watch face (glass, glare)"], ...za]), label: "Compass material" }),
           { ...D("sun_style", [["icon", "Realistic sun"], ["dot", "Dot"]]), label: "Sun" }
         ),
-        A({ name: "show_letters", label: "Cardinal points (N E S W)", selector: { boolean: {} } }, { name: "show_ticks", label: "Ticks", selector: { boolean: {} } }),
-        A(
+        M({ name: "show_letters", label: "Cardinal points (N E S W)", selector: { boolean: {} } }, { name: "show_ticks", label: "Ticks", selector: { boolean: {} } }),
+        M(
           { ...D("layout", [["side", "Text beside the compass"], ["below", "Text under the compass"]]), label: "Layout" },
           { name: "size", label: "Compass size", selector: { number: { min: 80, max: 240, mode: "slider", unit_of_measurement: "px" } } }
         ),
         { name: "ring_width", label: "Light ring width", selector: { number: { min: 2, max: 14, mode: "slider" } } },
-        ...O("Compass", A({ ...B("band_color"), label: "Shading azimuth colour" }, { ...B("light_color"), label: "Light ring colour" })),
+        ...O("Compass", M({ ...B("band_color"), label: "Shading azimuth colour" }, { ...B("light_color"), label: "Light ring colour" })),
         ...O("Compass", { ...B("sun_color"), label: "Sun colour (dot)" })
       ]
     },
@@ -19930,8 +19930,8 @@ const sb = {
           custom: "hint",
           text: "Numbers (input_number) in a table with − / + on each. Columns are modes – e.g. Strong sun and Weak sun – rows the levels (Min, Medium, Max). The current column is marked: by its months, or by a sensor's state. The automation reads the numbers itself; the card only shows and sets them. See the documentation: Automation cards."
         },
-        A({ name: "title", label: "Title", selector: { text: {} } }, { name: "unit", label: "Unit", helper: "e.g. %", selector: { text: {} } }),
-        A({ name: "show_title", label: "Show the title", selector: { boolean: {} } }, { name: "show_months", label: "Months on the card", selector: { boolean: {} } })
+        M({ name: "title", label: "Title", selector: { text: {} } }, { name: "unit", label: "Unit", helper: "e.g. %", selector: { text: {} } }),
+        M({ name: "show_title", label: "Show the title", selector: { boolean: {} } }, { name: "show_months", label: "Months on the card", selector: { boolean: {} } })
       ]
     },
     {
@@ -19966,8 +19966,8 @@ const sb = {
       key: "look",
       title: "Look",
       schema: [
-        ...O("Fields", A({ ...D("current_glass", za), label: "Current column's fields material" }, { ...D("field_glass", za), label: "Other fields material" })),
-        ...O("Fields", A({ ...B("active_color"), label: "Current column colour" }, { ...B("cell_color"), label: "Other fields' colour" }))
+        ...O("Fields", M({ ...D("current_glass", za), label: "Current column's fields material" }, { ...D("field_glass", za), label: "Other fields material" })),
+        ...O("Fields", M({ ...B("active_color"), label: "Current column colour" }, { ...B("cell_color"), label: "Other fields' colour" }))
       ]
     },
     { custom: "section", key: "advanced", title: "Advanced", schema: [V("styles")] }
@@ -19979,12 +19979,12 @@ const sb = {
       label: (o) => o.name ?? "Column",
       create: () => ({ name: "" }),
       item: () => [
-        A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
-        A(
+        M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M(
           { name: "months_from", label: "From month (input_number)", selector: { entity: { domain: ["input_number", "number"] } } },
           { name: "months_to", label: "To month (input_number)", selector: { entity: { domain: ["input_number", "number"] } } }
         ),
-        A(
+        M(
           { name: "from_month", label: "Or fixed: from month", selector: { number: { min: 1, max: 12, mode: "box" } } },
           { name: "to_month", label: "to month", selector: { number: { min: 1, max: 12, mode: "box" } } }
         ),
@@ -20008,15 +20008,15 @@ const sb = {
   parts: Fu,
   defaults: { indicator: "pill", inline: !1, bare: !1, scroll: !1, fade: !1 },
   form: [
-    A(
+    M(
       D("indicator", [
         ["pill", "Dark segment under the open one"],
         ["dot", "White dot under the open one"]
       ]),
       { name: "bare", selector: { boolean: {} } }
     ),
-    A({ name: "fade", selector: { boolean: {} } }, { name: "scroll", selector: { boolean: {} } }),
-    A({ name: "inline", selector: { boolean: {} } }, { name: "columns", selector: { number: { min: 1, max: 12, mode: "box" } } }),
+    M({ name: "fade", selector: { boolean: {} } }, { name: "scroll", selector: { boolean: {} } }),
+    M({ name: "inline", selector: { boolean: {} } }, { name: "columns", selector: { number: { min: 1, max: 12, mode: "box" } } }),
     _e("Advanced", [{ name: "group", label: "Page group (buttons with an id pick in it)", selector: { text: {} } }, { name: "align", selector: { text: {} } }, V("styles")])
   ],
   lists: [
@@ -20026,8 +20026,8 @@ const sb = {
       label: (o) => o.name ?? o.id ?? o.link ?? o.icon ?? "Button",
       create: () => ({ icon: "mdi:circle-outline", link: "#" }),
       item: (o) => [
-        A({ name: "icon", selector: { icon: {} } }, { name: "name", selector: { text: {} } }),
-        A(zf("link"), { name: "home", selector: { boolean: {} } }),
+        M({ name: "icon", selector: { icon: {} } }, { name: "name", selector: { text: {} } }),
+        M(zf("link"), { name: "home", selector: { boolean: {} } }),
         { name: "id", label: "Page id (with the dock's page group)", selector: { text: {} } },
         _e("Actions", pt(o, ["tap_action"]))
       ]
@@ -20060,7 +20060,7 @@ const sb = {
         schema: [
           { custom: "hint", text: "Lights that are on are counted in one row: “4 lights · Living room 2 · Bathroom”. Its button switches off one room or all." },
           { custom: "list", list: "lights" },
-          A({ name: "light_icon", label: "Icon", selector: { icon: {} } }, B("light_color"))
+          M({ name: "light_icon", label: "Icon", selector: { icon: {} } }, B("light_color"))
         ]
       },
       {
@@ -20079,7 +20079,7 @@ const sb = {
         key: "look",
         title: "Look",
         schema: [
-          A(
+          M(
             { group: "Rows", ...D("density", [
               ["compact", "Compact"],
               ["normal", "Normal"],
@@ -20101,7 +20101,7 @@ const sb = {
       label: (o) => o.name ?? "Room",
       create: () => ({ name: "", entities: [] }),
       item: () => [
-        A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
         { name: "entities", label: "Lights", helper: "A light group counts its members.", selector: { entity: { multiple: !0 } } }
       ]
     },
@@ -20120,14 +20120,14 @@ const sb = {
             ["vacuum", "Robot vacuum"]
           ]),
           { name: "entity", selector: { entity: {} } },
-          A(
+          M(
             { name: "name", selector: { text: {} } },
             { name: "room", helper: e === "vacuum" ? "Text, or the entity of the room it is in" : void 0, selector: { text: {} } }
           ),
-          A({ name: "icon", selector: { icon: {} } }, B("color")),
+          M({ name: "icon", selector: { icon: {} } }, B("color")),
           ...e === "entity" ? [{ name: "detail", helper: "A value after the room, e.g. a CPU load.", selector: { entity: {} } }] : [],
           ...e === "washer" ? [{ name: "completion", helper: "Empty = found from the job state's name.", selector: { entity: {} } }] : [],
-          ...t ? [A({ name: "progress", selector: { entity: {} } }, { name: "time_left", selector: { entity: {} } }), ...e === "mower" ? [{ name: "area", selector: { entity: {} } }] : []] : [],
+          ...t ? [M({ name: "progress", selector: { entity: {} } }, { name: "time_left", selector: { entity: {} } }), ...e === "mower" ? [{ name: "area", selector: { entity: {} } }] : []] : [],
           ...e === "entity" ? [_e("When it counts as on and how it switches off", [V("active"), V("off_action")])] : [],
           _e("Actions", pt(o, ["tap_action"]))
         ];
@@ -20139,7 +20139,7 @@ const sb = {
   defaults: { entity: "sensor.glass_notifications", place: "between", size: 36, snooze: 3600 },
   form: [
     { name: "entity", selector: { entity: { filter: { domain: "sensor" } } } },
-    A(
+    M(
       D("place", [
         ["between", "In the row, after the status chips"],
         ["block", "A line of its own"],
@@ -20157,7 +20157,7 @@ const sb = {
       label: (o) => o.title ?? o.id ?? "Alert",
       create: () => ({ id: `alert_${Date.now().toString(36)}`, level: "warning", condition: { entity: "", state: "on" } }),
       item: () => [
-        A(
+        M(
           { name: "id", selector: { text: {} } },
           D("level", [
             ["info", "Info"],
@@ -20165,7 +20165,7 @@ const sb = {
             ["alert", "Alert"]
           ])
         ),
-        A({ name: "title", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
+        M({ name: "title", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
         { name: "message", selector: { text: {} } },
         V("condition")
       ]
@@ -20639,11 +20639,11 @@ const ns = class ns extends F {
     if ((i.hide_unavailable ?? !0) && i.entity && !i.entities && gi(s)) return g;
     const n = i.text?.includes("{changed}") ? ih(s?.last_changed, a, be(a)) || "–" : "", r = xa(a, n ? { ...i, text: i.text.replace("{changed}", n) } : i), l = i.icon === "dot", c = l ? void 0 : i.icon ?? s?.attributes.icon, d = Pr(i.animation), h = Y(i.icon_color ?? i.color), u = Ot(i), f = Ze(() => u, (_, x) => Se(this, a, Ot(i), _, x)), b = !r.text;
     if (this._config.layout === "pills") {
-      const _ = h ? je(i.icon_color ?? i.color) : void 0, { icon_background: x, pill_color: S } = this._config, z = this._config.icons?.icon_on?.color, M = this._config.icons?.icon?.color, k = this._config.pill_glass ?? (S && S !== "none" ? "frosted" : void 0), $ = _ ? this._config.icon_on_glass ?? this._config.icon_glass : this._config.icon_glass, C = !!x, T = x === "none", P = _ && !C, N = _ ? z && z !== "none" ? Y(z) : C ? h : void 0 : M && M !== "none" ? Y(M) : void 0, E = $ ? `${C ? T ? "" : `${re(x)};` : P ? `${re(i.icon_color ?? i.color, 70)};` : ""}${N ? `color:${N};` : ""}` : `${C ? T ? "--bg:transparent;" : `--bg:${je(x)};--sheen:${wi};` : P ? `--bg:${_};--accent:${h};` : ""}${N ? `--fg:${N};` : ""}`, L = i.dropdown ? s?.attributes.options ?? [] : [], G = (I) => i.option_names?.[I] ?? I, H = i.dropdown && L.length && i.entity, te = H && this._menu === t;
+      const _ = h ? je(i.icon_color ?? i.color) : void 0, { icon_background: x, pill_color: z } = this._config, S = this._config.icons?.icon_on?.color, A = this._config.icons?.icon?.color, k = this._config.pill_glass ?? (z && z !== "none" ? "frosted" : void 0), $ = _ ? this._config.icon_on_glass ?? this._config.icon_glass : this._config.icon_glass, C = !!x, T = x === "none", P = _ && !C, N = _ ? S && S !== "none" ? Y(S) : C ? h : void 0 : A && A !== "none" ? Y(A) : void 0, E = $ ? `${C ? T ? "" : `${re(x)};` : P ? `${re(i.icon_color ?? i.color, 70)};` : ""}${N ? `color:${N};` : ""}` : `${C ? T ? "--bg:transparent;" : `--bg:${je(x)};--sheen:${wi};` : P ? `--bg:${_};--accent:${h};` : ""}${N ? `--fg:${N};` : ""}`, L = i.dropdown ? s?.attributes.options ?? [] : [], G = (I) => i.option_names?.[I] ?? I, H = i.dropdown && L.length && i.entity, te = H && this._menu === t;
       return p`<div class="pill-wrap">
         <div
         class="pill ${k ? `mat mat-${k}` : "control"} ${H ? "has-drop" : ""}"
-        style=${k && S && S !== "none" ? re(S) : ""}
+        style=${k && z && z !== "none" ? re(z) : ""}
         role=${H ? g : "button"}
         tabindex=${H ? g : "0"}
         data-i=${t}
@@ -20775,7 +20775,7 @@ const ns = class ns extends F {
 };
 ns.parts = qu, ns.properties = { ...F.properties, _menu: { state: !0 } }, ns.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   ke,
   Ac,
@@ -21196,16 +21196,16 @@ const Jo = class Jo extends F {
   _person(e) {
     const t = this._hass, a = t.states[e.entity];
     if (!a) return p`<div class="person control missing">${e.entity}</div>`;
-    const i = this._config, s = a.state === "home", n = gi(a), r = e.driving && t.states[e.driving]?.state === "on", l = !s && a.state !== "not_home" ? this._zone(t, a.state) : void 0, c = r ? "mdi:car" : n ? "mdi:help" : s ? "mdi:home-variant" : e.zone_icons?.[a.state] ?? l?.attributes.icon ?? (a.state === "not_home" ? "mdi:home-export-outline" : "mdi:map-marker"), d = r ? "red" : n ? "gray" : s ? "blue" : "green", h = t.formatEntityState ? t.formatEntityState(a) : a.state, u = (i.battery_style ?? "ring") === "ring", m = i.show_location ?? (u ? "never" : "away"), f = !n && (m === "always" || m === "away" && !s), b = e.battery ? t.states[e.battery] : void 0, y = b && !gi(b) ? Number(b.state) : NaN, _ = e.battery_state ? t.states[e.battery_state]?.state?.toLowerCase() : "", x = _ === "charging" || _ === "full" || _ === "on", S = y <= 20 ? "red" : y <= 40 ? "yellow" : "green", z = e.picture ?? a.attributes.entity_picture, M = e.name ?? a.attributes.friendly_name ?? e.entity, k = { entity: e.entity, tap_action: e.tap_action ?? { action: "more-info" }, hold_action: e.hold_action }, $ = Ze(
+    const i = this._config, s = a.state === "home", n = gi(a), r = e.driving && t.states[e.driving]?.state === "on", l = !s && a.state !== "not_home" ? this._zone(t, a.state) : void 0, c = r ? "mdi:car" : n ? "mdi:help" : s ? "mdi:home-variant" : e.zone_icons?.[a.state] ?? l?.attributes.icon ?? (a.state === "not_home" ? "mdi:home-export-outline" : "mdi:map-marker"), d = r ? "red" : n ? "gray" : s ? "blue" : "green", h = t.formatEntityState ? t.formatEntityState(a) : a.state, u = (i.battery_style ?? "ring") === "ring", m = i.show_location ?? (u ? "never" : "away"), f = !n && (m === "always" || m === "away" && !s), b = e.battery ? t.states[e.battery] : void 0, y = b && !gi(b) ? Number(b.state) : NaN, _ = e.battery_state ? t.states[e.battery_state]?.state?.toLowerCase() : "", x = _ === "charging" || _ === "full" || _ === "on", z = y <= 20 ? "red" : y <= 40 ? "yellow" : "green", S = e.picture ?? a.attributes.entity_picture, A = e.name ?? a.attributes.friendly_name ?? e.entity, k = { entity: e.entity, tap_action: e.tap_action ?? { action: "more-info" }, hold_action: e.hold_action }, $ = Ze(
       () => k,
       (H) => Se(this, t, k, H)
-    ), C = (i.show_battery ?? !0) && !Number.isNaN(y), T = C && u, P = C && !u, N = !(i.show_name || f || P), E = i.size ?? 44, L = Math.max(0, Math.min(100, y)), G = [M, h, C ? `${Math.round(y)} %${x ? " ⚡" : ""}` : ""].filter(Boolean).join(" · ");
+    ), C = (i.show_battery ?? !0) && !Number.isNaN(y), T = C && u, P = C && !u, N = !(i.show_name || f || P), E = i.size ?? 44, L = Math.max(0, Math.min(100, y)), G = [A, h, C ? `${Math.round(y)} %${x ? " ⚡" : ""}` : ""].filter(Boolean).join(" · ");
     return p`<div
       class="person control glass ${N ? "round" : ""}"
       role="button"
       title=${G}
       tabindex="0"
-      aria-label=${M}
+      aria-label=${A}
       @pointerdown=${$.down}
       @pointermove=${$.move}
       @pointerup=${$.up}
@@ -21213,15 +21213,15 @@ const Jo = class Jo extends F {
       @keydown=${$.key}
       @contextmenu=${$.context}
     >
-      <div class="avatar ${T ? "ring" : ""} ${T && x ? "charging" : ""}" style=${T ? `--ring:${Y(S)}` : ""}>
+      <div class="avatar ${T ? "ring" : ""} ${T && x ? "charging" : ""}" style=${T ? `--ring:${Y(z)}` : ""}>
         ${T ? N ? this._ring(E + 7, L, 2.5) : this._ring(E, L) : g}
-        ${z ? p`<img src=${z} alt="" loading="lazy" />` : p`<span class="initials">${M.slice(0, 1)}</span>`}
+        ${S ? p`<img src=${S} alt="" loading="lazy" />` : p`<span class="initials">${A.slice(0, 1)}</span>`}
         <span class="badge" style="--badge:${Y(d)}"><ha-icon .icon=${c}></ha-icon></span>
       </div>
       ${i.show_name || f || P ? p`<div class="info">
-            ${i.show_name ? p`<span class="name">${M}</span>` : g}
+            ${i.show_name ? p`<span class="name">${A}</span>` : g}
             ${P ? p`<span class="battery"
-                  ><ha-icon .icon=${Db(y, x)} style="color:${Y(S)}"></ha-icon>${Math.round(y)}%</span
+                  ><ha-icon .icon=${Db(y, x)} style="color:${Y(z)}"></ha-icon>${Math.round(y)}%</span
                 >` : g}
             ${f ? p`<span class="loc">${h}</span>` : g}
           </div>` : g}
@@ -21266,7 +21266,7 @@ const Jo = class Jo extends F {
 };
 Jo.parts = Uu, Jo.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   ee`
       :host {
@@ -22009,28 +22009,28 @@ const qc = (o) => {
         "tap"
       );
       if (h === "washer") {
-        const M = Ic(e, { entity: c.entity });
-        if (M === "off") continue;
+        const A = Ic(e, { entity: c.entity });
+        if (A === "off") continue;
         const k = oi(d.state), $ = gm.find(
           (N) => (Array.isArray(N.state) ? N.state : [N.state]).includes(k)
         ), C = Date.parse(
           e.states[c.completion ?? this._completionId(c) ?? ""]?.state ?? ""
-        ), T = M === "pause" ? v("Paused") : M === "done" ? v("Washing done") : $ ? fm($) : v("Washing"), P = M === "run" && Number.isFinite(C) && C > Date.now() ? `${v("done at")} ${l.format(new Date(C))}` : "";
+        ), T = A === "pause" ? v("Paused") : A === "done" ? v("Washing done") : $ ? fm($) : v("Washing"), P = A === "run" && Number.isFinite(C) && C > Date.now() ? `${v("done at")} ${l.format(new Date(C))}` : "";
         a.push({
           key: c.entity,
           icon: c.icon ?? "mdi:washing-machine",
           color: Y(c.color ?? "blue") ?? "#0a84ff",
           title: m,
           sub: [u, T, P].filter(Boolean).join(" · "),
-          stateIcon: M === "pause" ? "mdi:pause" : M === "done" ? "mdi:check" : $?.icon ?? "mdi:washing-machine",
+          stateIcon: A === "pause" ? "mdi:pause" : A === "done" ? "mdi:check" : $?.icon ?? "mdi:washing-machine",
           stateLabel: T,
           tap: f
         });
         continue;
       }
       if (h === "mower" || h === "vacuum") {
-        const M = h === "mower" ? jb : qb;
-        if (!(c.active ? ge(c.active, e, c.entity) : M.includes(d.state)))
+        const A = h === "mower" ? jb : qb;
+        if (!(c.active ? ge(c.active, e, c.entity) : A.includes(d.state)))
           continue;
         const [k, $] = (h === "mower" ? Ib : Wb)[d.state] ?? ["mdi:dots-horizontal", ""], C = $ ? v($) : d.state, T = parseFloat(Ci(e.states[c.progress ?? ""]) ?? ""), P = parseFloat(Ci(e.states[c.time_left ?? ""]) ?? ""), N = Ci(e.states[c.area ?? ""]), E = u ?? (N && !/not working/i.test(N) ? N : void 0);
         a.push({
@@ -22070,9 +22070,9 @@ const qc = (o) => {
       }
       const b = c.entity.split(".")[0];
       if (!(c.active ? ge(c.active, e, c.entity) : b === "media_player" ? Nb.includes(d.state) : b === "sensor" ? !Bb.includes(d.state) : Ob.includes(d.state))) continue;
-      const _ = c.detail ? e.states[c.detail] : void 0, x = Ci(_), S = b === "media_player" ? [d.attributes.media_title, d.attributes.app_name].find(
-        (M) => typeof M == "string" && M
-      ) : void 0, z = c.off_action;
+      const _ = c.detail ? e.states[c.detail] : void 0, x = Ci(_), z = b === "media_player" ? [d.attributes.media_title, d.attributes.app_name].find(
+        (A) => typeof A == "string" && A
+      ) : void 0, S = c.off_action;
       a.push({
         key: c.entity,
         icon: c.icon ?? d.attributes.icon ?? "mdi:power",
@@ -22080,14 +22080,14 @@ const qc = (o) => {
         title: m,
         sub: [
           u,
-          S,
+          z,
           x ? `${x}${_?.attributes.unit_of_measurement ? ` ${_.attributes.unit_of_measurement}` : ""}` : ""
         ].filter(Boolean).join(" · "),
-        off: z === !1 || z === void 0 && b === "sensor" ? void 0 : z ? () => {
+        off: S === !1 || S === void 0 && b === "sensor" ? void 0 : S ? () => {
           W("light"), Se(
             this,
             e,
-            { entity: c.entity, tap_action: z },
+            { entity: c.entity, tap_action: S },
             "tap"
           );
         } : () => this._off([c.entity]),
@@ -22138,7 +22138,7 @@ const qc = (o) => {
 };
 Xo.parts = Hu, Xo.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   ee`
       :host {
@@ -22368,9 +22368,9 @@ const Qo = class Qo extends F {
     e.style.boxShadow = "none";
     const y = (_) => {
       if (!e.isConnected) return;
-      const x = Math.min(1, (_ - u) / h), S = m(Math.min(1, x / 0.55)), z = f(Math.max(0, (x - 0.5) / 0.5));
-      if (b("shape-left", r * (1 - z)), b("blob-x", c + (l - c) * S), b("blob-y", s / 2), b("blob-r", d * (0.35 + 0.65 * Math.min(1, S)) * (1 - z) + n * z), b("blob-k", 14), this._btnsGlass.refresh(), x < 1) return requestAnimationFrame(y);
-      for (const M of ["shape-left", "blob-x", "blob-y", "blob-r", "blob-k"]) e.style.removeProperty(`--glass-liquid-${M}`);
+      const x = Math.min(1, (_ - u) / h), z = m(Math.min(1, x / 0.55)), S = f(Math.max(0, (x - 0.5) / 0.5));
+      if (b("shape-left", r * (1 - S)), b("blob-x", c + (l - c) * z), b("blob-y", s / 2), b("blob-r", d * (0.35 + 0.65 * Math.min(1, z)) * (1 - S) + n * S), b("blob-k", 14), this._btnsGlass.refresh(), x < 1) return requestAnimationFrame(y);
+      for (const A of ["shape-left", "blob-x", "blob-y", "blob-r", "blob-k"]) e.style.removeProperty(`--glass-liquid-${A}`);
       e.style.boxShadow = "", this._btnsGlass.refresh();
     };
     requestAnimationFrame(y);
@@ -22487,7 +22487,7 @@ const Qo = class Qo extends F {
       animation: e.animation ?? Gb(s)
     }, c = ko(l, e.rules, i, e.entity), d = Pr(c.animation), h = je(c.color), u = Y(c.color), m = Ot(c), f = Ze(
       () => m,
-      (x, S) => Se(this, i, m, x, S)
+      (x, z) => Se(this, i, m, x, z)
     ), b = c.name ?? s?.attributes.friendly_name ?? c.entity, y = c.label ? xa(i, { entity: c.entity, text: c.label }).text : "", _ = (c.artwork ?? !1) && r && n === "media_player" ? s?.attributes.entity_picture : void 0;
     return p`<div class="slot ${a}">
       <div
@@ -22537,7 +22537,7 @@ const Qo = class Qo extends F {
   }
   /** image-full and compact: photo, then a strip with name, status and up to three (two) buttons. */
   _renderTile(e, t, a, i) {
-    const s = this._hass, n = e.layout === "compact", r = e.entities ?? [], l = r.filter((z) => ge(z.visible, s, z.entity)).slice(0, e.max_entities ?? (n ? 2 : 3)), c = this._imageUrl(e.image), d = Tg(this) ?? s.states["sun.sun"]?.state === "below_horizon", h = this._status(e, r, [...l, ...e.contextual ?? []]), u = e.bar === "split", m = e.bar_glass ?? this._inherited("bar_glass") ?? pe.bar_glass ?? "liquid", f = !!(e.bar_tint ?? this._inherited("bar_tint")), b = `${m === "liquid" || m === "dark-liquid" ? "liq" : ""} mat-${m} ${f ? "bar-tinted" : ""}`, y = e.buttons === "top-center" || e.buttons === "top-end", _ = (e.contextual ?? []).filter((z) => z.visible ? ge(z.visible, s, z.entity) : jt(z, s.states[z.entity], s)).slice(0, 2).map((z) => ({ ...z, visible: void 0, artwork: z.artwork ?? z.entity.startsWith("media_player.") })), x = l.length || _.length ? p`<div class="entities">${_.map((z, M) => this._button(z, 100 + M, "ctx"))}${l.map((z, M) => this._button(z, M))}</div>` : void 0, S = c ? p`<div class="pic ${t ? "" : "off"}" style="background-image:url('${c}');background-position:${e.image_position ?? "center"}"></div>` : p`<div class="pic none"><ha-icon .icon=${e.icon ?? "mdi:home"}></ha-icon></div>`;
+    const s = this._hass, n = e.layout === "compact", r = e.entities ?? [], l = r.filter((S) => ge(S.visible, s, S.entity)).slice(0, e.max_entities ?? (n ? 2 : 3)), c = this._imageUrl(e.image), d = Tg(this) ?? s.states["sun.sun"]?.state === "below_horizon", h = this._status(e, r, [...l, ...e.contextual ?? []]), u = e.bar === "split", m = e.bar_glass ?? this._inherited("bar_glass") ?? pe.bar_glass ?? "liquid", f = !!(e.bar_tint ?? this._inherited("bar_tint")), b = `${m === "liquid" || m === "dark-liquid" ? "liq" : ""} mat-${m} ${f ? "bar-tinted" : ""}`, y = e.buttons === "top-center" || e.buttons === "top-end", _ = (e.contextual ?? []).filter((S) => S.visible ? ge(S.visible, s, S.entity) : jt(S, s.states[S.entity], s)).slice(0, 2).map((S) => ({ ...S, visible: void 0, artwork: S.artwork ?? S.entity.startsWith("media_player.") })), x = l.length || _.length ? p`<div class="entities">${_.map((S, A) => this._button(S, 100 + A, "ctx"))}${l.map((S, A) => this._button(S, A))}</div>` : void 0, z = c ? p`<div class="pic ${t ? "" : "off"}" style="background-image:url('${c}');background-position:${e.image_position ?? "center"}"></div>` : p`<div class="pic none"><ha-icon .icon=${e.icon ?? "mdi:home"}></ha-icon></div>`;
     return n ? p`<div
         class="surface tile cmp ${b} ${t ? "lit" : ""} ${d ? "night" : ""} ${e.tap_action ? "clickable" : ""}"
         style="${e.button_size ? `--btn-fixed:${e.button_size}px;` : ""}"
@@ -22547,7 +22547,7 @@ const Qo = class Qo extends F {
         @pointercancel=${a.cancel}
         @contextmenu=${a.context}
       >
-        ${S}
+        ${z}
         <div class="txt">
           <span class="nm">${e.name ?? ""}${e.tap_action ? p`<i class="chev"></i>` : g}</span>
           ${h ? p`<span class="st">${h}</span>` : g}
@@ -22562,7 +22562,7 @@ const Qo = class Qo extends F {
       @pointercancel=${a.cancel}
       @contextmenu=${a.context}
     >
-      ${S}
+      ${z}
       ${y && x ? p`<div class="topbtns ${e.buttons === "top-end" ? "end" : ""}"><div class="btns ${b}">${x}</div></div>` : g}
       <div class="bar ${u ? "split" : ""}">
         <div class="strip ${b}">
@@ -22593,12 +22593,12 @@ const Qo = class Qo extends F {
       (E) => Se(this, e, s, E)
     ), r = (E) => (L) => {
       L.composedPath().some((G) => G.classList?.contains("btn")) || E(L);
-    }, l = Pr(t.animation), c = (t.info ?? []).map((E) => ({ i: E, t: xa(e, E) })).filter(({ t: E }) => E.available && E.text), d = Y(t.icons?.icon?.color), h = { stacked: "top", "image-bottom": "bottom", "image-left": "left", "image-right": "right", "image-background": "bg" }[t.layout ?? "stacked"] ?? "top", u = h === "left" || h === "right", m = h === "bg", f = (u || m) && !!t.show_name && !!t.name, b = this._imageUrl(t.image), y = t.image_on !== void 0 ? ge(t.image_on, e) : t.image_color === "active" ? t.image_entities?.length ? t.image_entities.some((E) => jt({ entity: E }, e.states[E], e)) : a.some((E) => jt(E, e.states[E.entity], e)) : !0, _ = t.rows ?? Math.max(1, Math.min(a.length, 2)), x = Math.ceil(a.length / _), S = t.button_gap, z = u ? `--cols:${x};--rows:${_};grid-auto-flow:column${S !== void 0 ? `;--bgap:${S}px` : ""}` : m ? "" : `grid-template-columns:repeat(${i}, 1fr)${S !== void 0 ? `;gap:${S}px` : ""}`, M = this._bgCols, k = m && this._fitRows ? this._fitRows * M : a.length, $ = Math.max(1, Math.ceil(a.length / Math.max(1, k)));
+    }, l = Pr(t.animation), c = (t.info ?? []).map((E) => ({ i: E, t: xa(e, E) })).filter(({ t: E }) => E.available && E.text), d = Y(t.icons?.icon?.color), h = { stacked: "top", "image-bottom": "bottom", "image-left": "left", "image-right": "right", "image-background": "bg" }[t.layout ?? "stacked"] ?? "top", u = h === "left" || h === "right", m = h === "bg", f = (u || m) && !!t.show_name && !!t.name, b = this._imageUrl(t.image), y = t.image_on !== void 0 ? ge(t.image_on, e) : t.image_color === "active" ? t.image_entities?.length ? t.image_entities.some((E) => jt({ entity: E }, e.states[E], e)) : a.some((E) => jt(E, e.states[E.entity], e)) : !0, _ = t.rows ?? Math.max(1, Math.min(a.length, 2)), x = Math.ceil(a.length / _), z = t.button_gap, S = u ? `--cols:${x};--rows:${_};grid-auto-flow:column${z !== void 0 ? `;--bgap:${z}px` : ""}` : m ? "" : `grid-template-columns:repeat(${i}, 1fr)${z !== void 0 ? `;gap:${z}px` : ""}`, A = this._bgCols, k = m && this._fitRows ? this._fitRows * A : a.length, $ = Math.max(1, Math.ceil(a.length / Math.max(1, k)));
     this._page >= $ && (this._page = 0);
-    const C = $ > 1 ? a.slice(this._page * k, this._page * k + k) : a, T = $ > 1 ? this._page * k : 0, P = Math.max(1, Math.ceil(C.length / M)), N = (E) => a.slice(E * k, E * k + k).some((L) => jt(L, e.states[L.entity], e));
+    const C = $ > 1 ? a.slice(this._page * k, this._page * k + k) : a, T = $ > 1 ? this._page * k : 0, P = Math.max(1, Math.ceil(C.length / A)), N = (E) => a.slice(E * k, E * k + k).some((L) => jt(L, e.states[L.entity], e));
     return p`<div
-      class="surface room pos-${h} ${u ? "side" : ""} ${u && f ? "named" : ""} ${S !== void 0 && u ? "fixed-gap" : ""} ${b ? "has-image" : ""} ${t.tap_action ? "clickable" : ""}"
-      style="--btn-max:52px;${t.button_size ? `--btn-fixed:${t.button_size}px;` : ""}${m ? `--bg-rows:${P};--bg-cols:${Math.max(1, Math.min(M, C.length))};--bg-align:${{ spread: "space-between", start: "start", center: "center", end: "end" }[t.button_align ?? "spread"] ?? "space-between"};--bg-pad:${M > 3 ? "7px" : "0px"};` : ""}"
+      class="surface room pos-${h} ${u ? "side" : ""} ${u && f ? "named" : ""} ${z !== void 0 && u ? "fixed-gap" : ""} ${b ? "has-image" : ""} ${t.tap_action ? "clickable" : ""}"
+      style="--btn-max:52px;${t.button_size ? `--btn-fixed:${t.button_size}px;` : ""}${m ? `--bg-rows:${P};--bg-cols:${Math.max(1, Math.min(A, C.length))};--bg-align:${{ spread: "space-between", start: "start", center: "center", end: "end" }[t.button_align ?? "spread"] ?? "space-between"};--bg-pad:${A > 3 ? "7px" : "0px"};` : ""}"
       @pointerdown=${r(n.down)}
       @pointermove=${r(n.move)}
       @pointerup=${r(n.up)}
@@ -22637,7 +22637,7 @@ const Qo = class Qo extends F {
           </div>` : g}
       ${a.length ? p`<div
             class="entities"
-            style=${z}
+            style=${S}
             @pointerdown=${(E) => this._swipeX = E.clientX}
             @pointerup=${(E) => {
       const L = this._swipeX === void 0 ? 0 : E.clientX - this._swipeX;
@@ -22651,7 +22651,7 @@ const Qo = class Qo extends F {
 };
 Qo.parts = Iu, Qo.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   Ac,
   ee`
@@ -24253,51 +24253,51 @@ const gh = {
     </div>`;
   }
   _forecastRows(e, t, a, i) {
-    const s = this._config, n = Date.now(), r = this._forecasts, c = (r?.[a] ?? (a === "daily" && (r?.twice_daily ?? r?.hourly) ? mh(r.twice_daily ?? r.hourly) : [])).filter((z) => new Date(z.datetime).getTime() > (a === "hourly" ? n : n - 864e5)).slice(0, i);
+    const s = this._config, n = Date.now(), r = this._forecasts, c = (r?.[a] ?? (a === "daily" && (r?.twice_daily ?? r?.hourly) ? mh(r.twice_daily ?? r.hourly) : [])).filter((S) => new Date(S.datetime).getTime() > (a === "hourly" ? n : n - 864e5)).slice(0, i);
     if (!c.length) return g;
-    const d = c.flatMap((z) => [z.temperature, z.templow ?? z.temperature]), h = Math.min(...d), u = Math.max(...d), m = Math.max(1, u - h), f = (z) => (z - h) / m * 100, b = a === "hourly" ? new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: Ce(e) }) : new Intl.DateTimeFormat(t, { weekday: "short" });
+    const d = c.flatMap((S) => [S.temperature, S.templow ?? S.temperature]), h = Math.min(...d), u = Math.max(...d), m = Math.max(1, u - h), f = (S) => (S - h) / m * 100, b = a === "hourly" ? new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: Ce(e) }) : new Intl.DateTimeFormat(t, { weekday: "short" });
     if (s.forecast_style === "text")
       return p`<div class="forecast-text">
         ${c.map(
-        (z) => p`<div class="row"><span>${uh(b.format(new Date(z.datetime)))}</span><span class="t">${z.templow !== void 0 ? p`${Math.round(z.templow)}° / ` : g}${Math.round(z.temperature)}°</span></div>`
+        (S) => p`<div class="row"><span>${uh(b.format(new Date(S.datetime)))}</span><span class="t">${S.templow !== void 0 ? p`${Math.round(S.templow)}° / ` : g}${Math.round(S.temperature)}°</span></div>`
       )}
       </div>`;
     const y = this._mono, _ = y || this._config.bar_style === "single";
     if (s.forecast_style === "columns")
       return p`<div class="forecast-cols" style="grid-template-columns:repeat(${c.length},1fr)">
-        ${c.map((z) => {
-        const M = new Date(z.datetime), k = z.is_daytime === void 0 ? a === "hourly" && this._isNight(e, M) : !z.is_daytime, $ = Y(s.icons?.forecast?.color ?? s.icons?.weather?.color);
+        ${c.map((S) => {
+        const A = new Date(S.datetime), k = S.is_daytime === void 0 ? a === "hourly" && this._isNight(e, A) : !S.is_daytime, $ = Y(s.icons?.forecast?.color ?? s.icons?.weather?.color);
         return p`<div class="col">
-            <span class="when">${uh(b.format(M))}</span>
+            <span class="when">${uh(b.format(A))}</span>
             <span class="mini-icon"
-              >${y || s.icon_style === "mdi" ? p`<ha-icon class="mdi" .icon=${Un(z.condition, k)} style=${$ ? `color:${$}` : ""}></ha-icon>` : Fn(z.condition, k)}</span
+              >${y || s.icon_style === "mdi" ? p`<ha-icon class="mdi" .icon=${Un(S.condition, k)} style=${$ ? `color:${$}` : ""}></ha-icon>` : Fn(S.condition, k)}</span
             >
-            <span class="t">${z.templow !== void 0 ? p`${Math.round(z.templow)}° / ` : g}${Math.round(z.temperature)}°</span>
+            <span class="t">${S.templow !== void 0 ? p`${Math.round(S.templow)}° / ` : g}${Math.round(S.temperature)}°</span>
           </div>`;
       })}
       </div>`;
-    const x = s.show_precipitation ?? !1, S = e.states[s.weather]?.attributes.temperature_unit ?? "°C";
+    const x = s.show_precipitation ?? !1, z = e.states[s.weather]?.attributes.temperature_unit ?? "°C";
     return p`<div class="forecast ${x ? "with-precip" : ""}">
-      ${c.map((z) => {
-      const M = new Date(z.datetime), k = z.is_daytime === void 0 ? a === "hourly" && this._isNight(e, M) : !z.is_daytime, $ = z.templow ?? z.temperature, C = z.precipitation_probability ?? (z.precipitation ? void 0 : 0), T = x && ((z.precipitation ?? 0) > 0 || (z.precipitation_probability ?? 0) >= 20);
+      ${c.map((S) => {
+      const A = new Date(S.datetime), k = S.is_daytime === void 0 ? a === "hourly" && this._isNight(e, A) : !S.is_daytime, $ = S.templow ?? S.temperature, C = S.precipitation_probability ?? (S.precipitation ? void 0 : 0), T = x && ((S.precipitation ?? 0) > 0 || (S.precipitation_probability ?? 0) >= 20);
       return p`<div class="row">
-          <span class="when">${b.format(M)}</span>
+          <span class="when">${b.format(A)}</span>
           <span class="mini-icon"
-            >${y ? p`<ha-icon class="mdi" .icon=${Un(z.condition, k)}></ha-icon>` : Fn(z.condition, k)}</span
+            >${y ? p`<ha-icon class="mdi" .icon=${Un(S.condition, k)}></ha-icon>` : Fn(S.condition, k)}</span
           >
-          <span class="t lo">${Math.round($)}${S}</span>
+          <span class="t lo">${Math.round($)}${z}</span>
           <span class="bar">
-            ${z.templow !== void 0 ? p`<i
+            ${S.templow !== void 0 ? p`<i
                   class="range"
-                  style="left:${f($)}%;width:${Math.max(4, f(z.temperature) - f($))}%;background:${_ ? "var(--glass-bar-mono, currentColor)" : `linear-gradient(90deg,${Vn($)},${Vn(z.temperature)})`}"
+                  style="left:${f($)}%;width:${Math.max(4, f(S.temperature) - f($))}%;background:${_ ? "var(--glass-bar-mono, currentColor)" : `linear-gradient(90deg,${Vn($)},${Vn(S.temperature)})`}"
                 ></i>` : p`<i
                   class="dot"
-                  style="left:calc(10px + (100% - 20px) * ${f(z.temperature) / 100});background:${_ ? "var(--glass-bar-mono, currentColor)" : Vn(z.temperature)}"
+                  style="left:calc(10px + (100% - 20px) * ${f(S.temperature) / 100});background:${_ ? "var(--glass-bar-mono, currentColor)" : Vn(S.temperature)}"
                 ></i>`}
           </span>
-          <span class="t hi">${Math.round(z.temperature)}${S}</span>
+          <span class="t hi">${Math.round(S.temperature)}${z}</span>
           ${x ? p`<span class="precip ${T ? "" : "dry"}"
-                >${T ? C !== void 0 && C > 0 ? `${C}%` : `${z.precipitation} mm` : ""}</span
+                >${T ? C !== void 0 && C > 0 ? `${C}%` : `${S.precipitation} mm` : ""}</span
               >` : g}
         </div>`;
     })}
@@ -24336,7 +24336,7 @@ const gh = {
 };
 ls.parts = Zu, ls.properties = { ...F.properties, _forecasts: { state: !0 }, _nowcast: { state: !0 } }, ls.styles = [
   F.styles,
-  we,
+  xe,
   Yb,
   ym,
   ee`
@@ -25555,7 +25555,7 @@ const h_ = [
 };
 en.properties = { _open: { state: !0 } }, en.styles = [
   Sc,
-  we,
+  xe,
   ee`
     :host {
       font-family: var(--glass-font, var(--paper-font-body1_-_font-family, Roboto, system-ui, sans-serif));
@@ -26230,22 +26230,22 @@ function yh(o) {
   const e = o.hass, t = o.helpers, a = o.draft ? { ...__(), ...o.draft } : Dm(e, t), i = { ...a, days: a.days ? new Set(a.days) : void 0, players: [...a.players] };
   let s = !1, n = "", r = !1, l = !1, c = !!i.sound && !vh(i.sound, o.sounds);
   const d = (k) => {
-    k(), z.update();
+    k(), S.update();
   }, h = (k) => d(() => {
     const $ = new Set(i.days ?? []);
     $.has(k) ? $.delete(k) : $.add(k), i.days = $.size ? $ : void 0;
   }), u = async () => {
     if (!s) {
-      s = !0, n = "", z.update();
+      s = !0, n = "", S.update();
       try {
-        o.onSave ? await o.onSave(i) : await f_(e, t, i, a), z.close();
+        o.onSave ? await o.onSave(i) : await f_(e, t, i, a), S.close();
       } catch (k) {
-        n = k?.message ?? String(k), s = !1, z.update();
+        n = k?.message ?? String(k), s = !1, S.update();
       }
     }
-  }, m = o.players ?? Object.keys(e.states).filter((k) => k.startsWith("media_player.") && e.states[k].state !== "unavailable").sort((k, $) => Di(e, k).localeCompare(Di(e, $))), f = [{ name: Sm(Qt()), url: Qt() }, ...o.sounds ?? []], b = o.controlsMat, y = b?.cls ?? "", _ = b?.style ?? "", x = (k, $, C) => p`<button class="chip ${y} ${$ ? "cur" : ""}" style=${_} aria-pressed=${$} @click=${C}>${k}</button>`, S = (k, $, C, T, P) => p`<button class="opt ${C ? "cur" : ""}" role="checkbox" aria-checked=${C} @click=${T}>
+  }, m = o.players ?? Object.keys(e.states).filter((k) => k.startsWith("media_player.") && e.states[k].state !== "unavailable").sort((k, $) => Di(e, k).localeCompare(Di(e, $))), f = [{ name: Sm(Qt()), url: Qt() }, ...o.sounds ?? []], b = o.controlsMat, y = b?.cls ?? "", _ = b?.style ?? "", x = (k, $, C) => p`<button class="chip ${y} ${$ ? "cur" : ""}" style=${_} aria-pressed=${$} @click=${C}>${k}</button>`, z = (k, $, C, T, P) => p`<button class="opt ${C ? "cur" : ""}" role="checkbox" aria-checked=${C} @click=${T}>
       <ha-icon .icon=${k}></ha-icon><span>${$}${P ? p`<small>${P}</small>` : g}</span><ha-icon class="tick" .icon=${"mdi:check"}></ha-icon>
-    </button>`, z = u_({
+    </button>`, S = u_({
     title: o.title,
     dark: o.dark,
     accent: o.accent,
@@ -26302,8 +26302,8 @@ function yh(o) {
             ${i.players.length || l ? g : p`<div class="note">${v("None picked: the alarm only runs its automation's actions")}</div>`}` : g}
       ${t.sound ? p`<div class="label">${v("Sound")}</div>
             <div class="list ${y}" style=${_}>
-              ${f.map((k) => S("mdi:music-note", k.name, !c && (i.sound || Qt()) === k.url, () => d(() => (c = !1, i.sound = k.url))))}
-              ${S("mdi:link-variant", v("Your own"), c, () => d(() => c = !0), v("An address: https://…, /local/… or media-source://…"))}
+              ${f.map((k) => z("mdi:music-note", k.name, !c && (i.sound || Qt()) === k.url, () => d(() => (c = !1, i.sound = k.url))))}
+              ${z("mdi:link-variant", v("Your own"), c, () => d(() => c = !0), v("An address: https://…, /local/… or media-source://…"))}
             </div>
             ${c ? p`<input
                   class="field ${y}"
@@ -26313,26 +26313,26 @@ function yh(o) {
                   maxlength="255"
                   @input=${(k) => i.sound = k.target.value.trim()}
                 />` : g}` : g}
-      ${o.onDelete ? p`<button class="danger ${r ? "sure" : ""}" @click=${() => M()}>${v(r ? "Tap again to delete it with its helpers and automation" : "Delete the alarm")}</button>` : g}
+      ${o.onDelete ? p`<button class="danger ${r ? "sure" : ""}" @click=${() => A()}>${v(r ? "Tap again to delete it with its helpers and automation" : "Delete the alarm")}</button>` : g}
       ${n ? p`<div class="note" style="color:#ff453a">${n}</div>` : g}
     `,
-    actions: () => p`<button class="secondary" @click=${() => z.close()}>${v("Cancel")}</button
+    actions: () => p`<button class="secondary" @click=${() => S.close()}>${v("Cancel")}</button
         ><button class="primary" ?disabled=${s} @click=${u}>${s ? "…" : v("Done")}</button>`
-  }), M = async () => {
+  }), A = async () => {
     if (!(!o.onDelete || s)) {
       if (!r) {
-        r = !0, z.update();
+        r = !0, S.update();
         return;
       }
-      s = !0, z.update();
+      s = !0, S.update();
       try {
-        await o.onDelete(), z.close();
+        await o.onDelete(), S.close();
       } catch (k) {
-        n = String(k?.message ?? k), s = !1, z.update();
+        n = String(k?.message ?? k), s = !1, S.update();
       }
     }
   };
-  return z;
+  return S;
 }
 const __ = () => ({ name: "", hours: 7, minutes: 0, days: new Set($s), skip: !0, players: [], sound: "" }), Di = (o, e) => o.states[e]?.attributes.friendly_name ?? e, vh = (o, e) => !o || o === Qt() || /sound-birds\.mp3$/.test(o) || !!e?.some((t) => t.url === o), jo = (o) => !!o && o !== "none";
 function ot(o, e, t) {
@@ -26508,7 +26508,7 @@ const an = class an extends F {
 };
 an.parts = Ou, an.styles = [
   F.styles,
-  we,
+  xe,
   ee`
       :host {
         display: block;
@@ -27513,16 +27513,16 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
         <div class="tgrid" style="${f};height:${24 * Ge}px">
           <div class="hours">${h.map((y, _) => p`<span style="top:${_ * Ge}px">${_ ? y : ""}</span>`)}</div>
           ${r.map((y) => {
-      const _ = this._on(y).filter(($) => !$.allDay && $.end.getTime() - $.start.getTime() < 864e5), x = [], S = _.map(($) => {
+      const _ = this._on(y).filter(($) => !$.allDay && $.end.getTime() - $.start.getTime() < 864e5), x = [], z = _.map(($) => {
         let C = x.findIndex((T) => T <= $.start.getTime());
         return C < 0 && (C = x.push(0) - 1), x[C] = $.end.getTime(), { e: $, l: C };
-      }), z = y.getTime(), M = this._drag && this._dg?.on ? this._evs?.find(($) => $.id === this._drag.id) : void 0, k = M && !M.allDay && Re(M.start, y) ? p`<i class="ghost" style="top:${(M.start.getTime() - z) / 36e5 * Ge}px;height:${Math.max(18, (M.end.getTime() - M.start.getTime()) / 36e5 * Ge - 2)}px"></i>` : g;
+      }), S = y.getTime(), A = this._drag && this._dg?.on ? this._evs?.find(($) => $.id === this._drag.id) : void 0, k = A && !A.allDay && Re(A.start, y) ? p`<i class="ghost" style="top:${(A.start.getTime() - S) / 36e5 * Ge}px;height:${Math.max(18, (A.end.getTime() - A.start.getTime()) / 36e5 * Ge - 2)}px"></i>` : g;
       return p`<div class="col ${Re(y, c) ? "is-today" : ""} ${l(y)}" data-day=${Ee(y)} @click=${($) => !this._dragged && !this._dismiss() && this._slot(y, $)}>
-              ${k} ${u && !u.allDay && Re(u.start, y) ? p`<div class="block pending sel" style="--c:${u.color};top:${(u.start.getTime() - z) / 36e5 * Ge}px;height:${Math.max(18, (Math.min(24, (u.end.getTime() - z) / 36e5) - (u.start.getTime() - z) / 36e5) * Ge - 2)}px;left:2px;width:calc(100% - 4px)">
+              ${k} ${u && !u.allDay && Re(u.start, y) ? p`<div class="block pending sel" style="--c:${u.color};top:${(u.start.getTime() - S) / 36e5 * Ge}px;height:${Math.max(18, (Math.min(24, (u.end.getTime() - S) / 36e5) - (u.start.getTime() - S) / 36e5) * Ge - 2)}px;left:2px;width:calc(100% - 4px)">
                     <b>${u.title}</b><small>${m(u.start)} – ${m(u.end)}</small>
                   </div>` : g}
-              ${S.map(({ e: $, l: C }) => {
-        const T = Math.max(0, ($.start.getTime() - z) / 36e5), P = Math.min(24, ($.end.getTime() - z) / 36e5), N = this._cals[$.cal], E = 100 / x.length, L = this._drag?.id === $.id && this._dg?.on, G = this._canEdit($), H = this._detail?.id === $.id, te = (I) => new Intl.DateTimeFormat(e, { hour: "numeric", minute: "2-digit", hour12: i }).format(I);
+              ${z.map(({ e: $, l: C }) => {
+        const T = Math.max(0, ($.start.getTime() - S) / 36e5), P = Math.min(24, ($.end.getTime() - S) / 36e5), N = this._cals[$.cal], E = 100 / x.length, L = this._drag?.id === $.id && this._dg?.on, G = this._canEdit($), H = this._detail?.id === $.id, te = (I) => new Intl.DateTimeFormat(e, { hour: "numeric", minute: "2-digit", hour12: i }).format(I);
         return p`<button
                   class="block ${L ? "dragging" : ""} ${this._settled === $.id ? "settle" : ""} ${H ? "sel" : ""} ${G ? "can-drag" : ""}"
                   style="--c:${N.color};top:${T * Ge}px;height:${Math.max(18, (P - T) * Ge - 2)}px;left:calc(${L ? 0 : C * E}% + 2px);width:calc(${L ? 100 : E}% - 4px)"
@@ -27542,7 +27542,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
                       ></span>` : g}
                 </button>`;
       })}
-              ${Re(y, d) ? p`<i class="now" style="top:${(d.getTime() - z) / 36e5 * Ge}px"></i>` : g}
+              ${Re(y, d) ? p`<i class="now" style="top:${(d.getTime() - S) / 36e5 * Ge}px"></i>` : g}
             </div>`;
     })}
         </div>
@@ -27611,8 +27611,8 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
                 .hour12=${!!c}
                 .step=${5}
                 @change=${(x) => {
-      const S = `${ta(x.detail.hours)}:${ta(x.detail.minutes)}`;
-      _ === "s" ? this._moveStart(this._form.sd, S) : this._set({ et: S });
+      const z = `${ta(x.detail.hours)}:${ta(x.detail.minutes)}`;
+      _ === "s" ? this._moveStart(this._form.sd, z) : this._set({ et: z });
     }}
               ></glass-time-wheels>
             </div>` : g, y = !e.ev && this._w >= 720 && this._view !== "agenda";
@@ -29293,7 +29293,7 @@ const Sh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
 };
 ds.parts = Vu, ds.properties = { ...F.properties, _events: { state: !0 }, _error: { state: !0 } }, ds.styles = [
   F.styles,
-  we,
+  xe,
   ee`
       :host {
         display: block;
@@ -29499,30 +29499,30 @@ function R_(o, e) {
       const c = l.getContext("2d", { willReadFrequently: !0 });
       c.filter = `blur(${Math.max(2, Math.round(l.width / 140))}px)`, c.drawImage(r, 0, 0), c.filter = "none";
       const d = c.getImageData(0, 0, l.width, l.height), h = d.data, u = new Uint32Array(256);
-      for (let z = 0; z < h.length; z += 4) u[h[z]]++;
-      const m = h.length / 4, f = (z) => {
-        let M = 0;
-        for (let k = 0; k < 256; k++) if ((M += u[k]) >= m * z) return k;
+      for (let S = 0; S < h.length; S += 4) u[h[S]]++;
+      const m = h.length / 4, f = (S) => {
+        let A = 0;
+        for (let k = 0; k < 256; k++) if ((A += u[k]) >= m * S) return k;
         return 255;
       }, b = o.replace(/&time=[^&]*/, "");
       let y = Mh.get(b);
       if (!y) {
-        const z = Math.min(f(0.1) + 10, 150);
-        y = { lo: z, hi: Math.max(z + 45, f(0.995)) }, Mh.set(b, y);
+        const S = Math.min(f(0.1) + 10, 150);
+        y = { lo: S, hi: Math.max(S + 45, f(0.995)) }, Mh.set(b, y);
       }
-      const { lo: _, hi: x } = y, S = new Uint8ClampedArray(256 * 4);
-      for (let z = 0; z < 256; z++) {
-        const M = Math.max(0, Math.min(1, (z - _) / (x - _)));
+      const { lo: _, hi: x } = y, z = new Uint8ClampedArray(256 * 4);
+      for (let S = 0; S < 256; S++) {
+        const A = Math.max(0, Math.min(1, (S - _) / (x - _)));
         let k = 1;
-        for (; k < t.length - 1 && t[k][0] < M; ) k++;
-        const [$, C] = t[k - 1], [T, P] = t[k], N = T > $ ? (M - $) / (T - $) : 0;
-        for (let E = 0; E < 4; E++) S[z * 4 + E] = (C[E] + (P[E] - C[E]) * N) * (E === 3 ? 255 : 1);
+        for (; k < t.length - 1 && t[k][0] < A; ) k++;
+        const [$, C] = t[k - 1], [T, P] = t[k], N = T > $ ? (A - $) / (T - $) : 0;
+        for (let E = 0; E < 4; E++) z[S * 4 + E] = (C[E] + (P[E] - C[E]) * N) * (E === 3 ? 255 : 1);
       }
-      for (let z = 0; z < h.length; z += 4) {
-        const M = h[z] * 4;
-        h[z] = S[M], h[z + 1] = S[M + 1], h[z + 2] = S[M + 2], h[z + 3] = S[M + 3];
+      for (let S = 0; S < h.length; S += 4) {
+        const A = h[S] * 4;
+        h[S] = z[A], h[S + 1] = z[A + 1], h[S + 2] = z[A + 2], h[S + 3] = z[A + 3];
       }
-      c.putImageData(d, 0, 0), l.toBlob((z) => z ? s(URL.createObjectURL(z)) : n(new Error("blob")), "image/png");
+      c.putImageData(d, 0, 0), l.toBlob((S) => S ? s(URL.createObjectURL(S)) : n(new Error("blob")), "image/png");
     }, r.src = o;
   }), Ni.set(a, i), Ni.size > 40) {
     const [s, n] = Ni.entries().next().value;
@@ -29759,12 +29759,12 @@ const hs = class hs extends F {
     this._ready = M_(this._frames.length);
     const f = Lt(e, this);
     this.toggleAttribute("light", !f && this._style !== "satellite");
-    const b = Math.min(i, 7), y = a.radar_color ?? 2, _ = (I) => (ae, q, Z) => `https://server.arcgisonline.com/ArcGIS/rest/services/${I}/MapServer/tile/${Z}/${q}/${ae}`, x = (I) => (ae, q, Z) => `https://basemaps.cartocdn.com/${I}/${Z}/${ae}/${q}.png`, S = a.map_provider ?? "esri", z = S === "carto" ? x(f ? "dark_nolabels" : "light_nolabels") : S === "osm" ? (I, ae, q) => `https://tile.openstreetmap.org/${q}/${I}/${ae}.png` : _(f ? "Canvas/World_Dark_Gray_Base" : "Canvas/World_Light_Gray_Base"), M = h ? _("Reference/World_Boundaries_and_Places") : S === "carto" ? x(f ? "dark_only_labels" : "light_only_labels") : S === "osm" ? void 0 : _(f ? "Canvas/World_Dark_Gray_Reference" : "Canvas/World_Light_Gray_Reference"), k = Jn(a.controls_glass, a.controls_color, "liquid"), $ = Jn(a.play_glass, a.play_color, "liquid"), C = Jn(a.tab_glass, a.tab_color, "liquid"), T = (I, ae) => I.map(
+    const b = Math.min(i, 7), y = a.radar_color ?? 2, _ = (I) => (ae, q, Z) => `https://server.arcgisonline.com/ArcGIS/rest/services/${I}/MapServer/tile/${Z}/${q}/${ae}`, x = (I) => (ae, q, Z) => `https://basemaps.cartocdn.com/${I}/${Z}/${ae}/${q}.png`, z = a.map_provider ?? "esri", S = z === "carto" ? x(f ? "dark_nolabels" : "light_nolabels") : z === "osm" ? (I, ae, q) => `https://tile.openstreetmap.org/${q}/${I}/${ae}.png` : _(f ? "Canvas/World_Dark_Gray_Base" : "Canvas/World_Light_Gray_Base"), A = h ? _("Reference/World_Boundaries_and_Places") : z === "carto" ? x(f ? "dark_only_labels" : "light_only_labels") : z === "osm" ? void 0 : _(f ? "Canvas/World_Dark_Gray_Reference" : "Canvas/World_Light_Gray_Reference"), k = Jn(a.controls_glass, a.controls_color, "liquid"), $ = Jn(a.play_glass, a.play_color, "liquid"), C = Jn(a.tab_glass, a.tab_color, "liquid"), T = (I, ae) => I.map(
       (q) => p`<img class=${ae} crossorigin="anonymous" src=${q.url} style="left:${q.left}px;top:${q.top}px;width:${q.size}px;height:${q.size}px" alt="" draggable="false" @load=${this._composeSoon} />`
     ), P = this._frames, N = P[this._idx], E = Ce(e), L = (I) => new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: E }).format(new Date(I * 1e3)), G = N ? Math.round((Date.now() / 1e3 - N.time) / 60) : 0, H = Math.max(1, Math.round(-G / 60)), te = N?.fc ? v("forecast in {n} h", { n: H }) : G < 5 ? v("now") : v("{n} min ago", { n: G });
     return p`<canvas class="glass-src" aria-hidden="true"></canvas>
       <div class="pan">
-      ${h && !u ? g : p`<div class="base ${S}">${T(Qn(l.x, l.y, i, i, c, d, z), "t")}</div>`}
+      ${h && !u ? g : p`<div class="base ${z}">${T(Qn(l.x, l.y, i, i, c, d, S), "t")}</div>`}
       ${P.map(
       (I, ae) => p`<div class="frame-layer ${ae === this._idx ? "on" : ae === this._prev ? "prev" : ""}">
           ${h ? u ? (() => {
@@ -29794,7 +29794,7 @@ const hs = class hs extends F {
       const I = `url("https://view.eumetsat.int/geoserver/wms?service=WMS&version=1.3.0&request=GetMap&styles=&crs=EPSG:3857&format=image/png&transparent=true&layers=osmgray:ne_10m_admin_0_boundary_lines_land${this._box(l.x, l.y, l.size)}")`;
       return p`<div class="borders" style="-webkit-mask-image:${I};mask-image:${I}"></div>`;
     })()}
-      ${a.labels === !1 || !M ? g : p`<div class="labels">${T(Qn(l.x, l.y, i, Math.min(i, 13), c, d, M), "t")}</div>`}
+      ${a.labels === !1 || !A ? g : p`<div class="labels">${T(Qn(l.x, l.y, i, Math.min(i, 13), c, d, A), "t")}</div>`}
       ${a.marker === !1 ? g : p`<i class="marker" style="${Io(a.marker_color) ? `--mk:${Y(a.marker_color)};` : ""}left:${c / 2 + (s.x - n.x) * r}px;top:${d / 2 + (s.y - n.y) * r}px"></i>`}
       </div>
       <div class="zoom ${k.cls}" style=${k.style} @click=${(I) => I.stopPropagation()}>
@@ -29819,7 +29819,7 @@ const hs = class hs extends F {
     )}
               </div>` : g}` : g}
       <span class="attr"
-        >${h ? "EUMETSAT · " : ""}${a.radar !== !1 ? a.radar_provider === "dwd" ? "DWD · " : "RainViewer · " : ""}${!h && S === "carto" ? "© OpenStreetMap · CARTO" : !h && S === "osm" ? "© OpenStreetMap" : "Esri"}</span
+        >${h ? "EUMETSAT · " : ""}${a.radar !== !1 ? a.radar_provider === "dwd" ? "DWD · " : "RainViewer · " : ""}${!h && z === "carto" ? "© OpenStreetMap · CARTO" : !h && z === "osm" ? "© OpenStreetMap" : "Esri"}</span
       >
     `;
   }
@@ -29837,7 +29837,7 @@ hs.parts = Qu, hs.properties = {
   _view: { state: !0 }
 }, hs.styles = [
   F.styles,
-  we,
+  xe,
   ee`
       :host {
         display: block;
@@ -30614,8 +30614,8 @@ const Th = (o, e) => {
     if (!e || !t) return g;
     if (!t.states[e.entity]) return p`<div class="frame surface"><div class="missing">${e.entity}?</div></div>`;
     const i = (y) => parseFloat(t.states[y]?.state ?? ""), s = (y) => (Math.round(y * 10) / 10).toLocaleString(yi()), n = i(e.entity), r = !Number.isNaN(n), l = Th(r ? n : 0, e.limits), c = r ? zs.indexOf(l) : 0, d = e.image ?? e.images?.[c] ?? V_[c], h = (y) => Y(e.level_colors?.[zs.indexOf(y)]) ?? y.color, u = (y, _, x) => {
-      const S = y ?? (_ && _ !== "none" ? x : void 0);
-      return S ? { cls: `mat mat-${S}`, style: re(_ && _ !== "none" ? _ : void 0) } : { cls: "", style: "" };
+      const z = y ?? (_ && _ !== "none" ? x : void 0);
+      return z ? { cls: `mat mat-${z}`, style: re(_ && _ !== "none" ? _ : void 0) } : { cls: "", style: "" };
     }, m = u(e.hero_glass, e.hero_color, "frosted"), f = u(e.tiles_glass, e.tiles_color, "liquid"), b = `lv-${e.level_style ?? "dot"}`;
     return p`<div class="frame surface">
       ${e.title ? p`<div class="title">${e.title}</div>` : g}
@@ -30635,11 +30635,11 @@ const Th = (o, e) => {
         </div>
         <div class="small">
           ${this._pollutants().map((y) => {
-      const _ = i(y.entity), x = !Number.isNaN(_), S = Th(x ? _ : 0, y.limits);
-      return p`<div class="tile ${f.cls} ${x ? b : ""}" style="--c:${x ? h(S) : "#8e8e93"};${f.style}">
+      const _ = i(y.entity), x = !Number.isNaN(_), z = Th(x ? _ : 0, y.limits);
+      return p`<div class="tile ${f.cls} ${x ? b : ""}" style="--c:${x ? h(z) : "#8e8e93"};${f.style}">
               <span class="label">${this._meta(y, t.states[y.entity]).name}</span>
               <span class="val">${x ? s(_) : "–"}</span>
-              <span class="lvl"><i class="dot"></i>${x ? v(S.en) : ""}</span>
+              <span class="lvl"><i class="dot"></i>${x ? v(z.en) : ""}</span>
             </div>`;
     })}
         </div>
@@ -30649,7 +30649,7 @@ const Th = (o, e) => {
 };
 sn.parts = Xu, sn.styles = [
   F.styles,
-  we,
+  xe,
   K_,
   ee`
       :host {
@@ -31031,20 +31031,20 @@ const li = dm(class extends hm {
   _graph() {
     const e = this._config;
     if (e.graph === !1) return g;
-    const t = Date.now(), a = t - (e.hours ?? 24) * 3600 * 1e3, i = this._lineEntity, s = Math.max(0, Math.min(12, Math.round(e.smoothing ?? 1))), n = i ? ml(this._series[i] ?? [], a, t, Ch, s) : [], r = e.graph_entities.map((M) => {
-      const k = this._series[M] ?? [], $ = this._hass.states[M];
-      return M.startsWith("binary_sensor.") || ($ ? Number.isNaN(parseFloat($.state)) && !Number.isNaN(Bo($.state)) : !1) ? { spans: Tb(k, a, t) } : { values: ml(k, a, t, Ch, s) };
-    }), l = [...n, ...r.flatMap((M) => M.values ?? [])].filter((M) => M !== void 0);
+    const t = Date.now(), a = t - (e.hours ?? 24) * 3600 * 1e3, i = this._lineEntity, s = Math.max(0, Math.min(12, Math.round(e.smoothing ?? 1))), n = i ? ml(this._series[i] ?? [], a, t, Ch, s) : [], r = e.graph_entities.map((A) => {
+      const k = this._series[A] ?? [], $ = this._hass.states[A];
+      return A.startsWith("binary_sensor.") || ($ ? Number.isNaN(parseFloat($.state)) && !Number.isNaN(Bo($.state)) : !1) ? { spans: Tb(k, a, t) } : { values: ml(k, a, t, Ch, s) };
+    }), l = [...n, ...r.flatMap((A) => A.values ?? [])].filter((A) => A !== void 0);
     if (!l.length) return p`<div class="graph"></div>`;
     let c = Math.min(...l), d = Math.max(...l);
     const h = Math.max(e.min_range ?? 2, d - c), u = (c + d) / 2;
     c = u - h / 2, d = u + h / 2;
-    const m = c - h * 0.18, f = d + h * 0.12, b = gl(n, m, f), y = Y(e.graph_color), _ = 3600 * 1e3, x = this._hover !== void 0 ? Math.min(Math.floor(t / _) * _, Math.max(Math.ceil(a / _) * _, Math.round((a + this._hover * (t - a)) / _) * _)) : void 0, S = x !== void 0 ? (x - a) / (t - a) : void 0, z = S !== void 0 && b ? Cb(n, S) : void 0;
-    return this._hoverInfo = z !== void 0 ? { v: z, t: x } : void 0, p`<div
+    const m = c - h * 0.18, f = d + h * 0.12, b = gl(n, m, f), y = Y(e.graph_color), _ = 3600 * 1e3, x = this._hover !== void 0 ? Math.min(Math.floor(t / _) * _, Math.max(Math.ceil(a / _) * _, Math.round((a + this._hover * (t - a)) / _) * _)) : void 0, z = x !== void 0 ? (x - a) / (t - a) : void 0, S = z !== void 0 && b ? Cb(n, z) : void 0;
+    return this._hoverInfo = S !== void 0 ? { v: S, t: x } : void 0, p`<div
       class="graph ${y ? "colored" : ""}"
       style=${y ? `--glass-graph-color:${y}` : ""}
-      @pointermove=${(M) => this._track(M)}
-      @pointerdown=${(M) => this._track(M)}
+      @pointermove=${(A) => this._track(A)}
+      @pointerdown=${(A) => this._track(A)}
     >
       <div class="plot">
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
@@ -31056,13 +31056,13 @@ const li = dm(class extends hm {
           </linearGradient>
         </defs>
         ${r.map(
-      (M) => M.spans ? M.spans.map(([k, $]) => j`<rect class="span" x=${k} y="0" width=${$ - k} height="100"></rect>`) : j`<path class="extra" d=${gl(M.values, m, f)}></path>`
+      (A) => A.spans ? A.spans.map(([k, $]) => j`<rect class="span" x=${k} y="0" width=${$ - k} height="100"></rect>`) : j`<path class="extra" d=${gl(A.values, m, f)}></path>`
     )}
         ${b ? j`<path class="area" d=${`${b}L100,100L0,100Z`}></path>` : g}
       </svg>
       ${b ? p`<svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="line" d=${b}></path></svg>` : g}
       </div>
-      ${z !== void 0 ? p`<i class="marker" style="left:${S * 100}%;top:${100 - (z - m) / (f - m) * 100}%"></i>` : g}
+      ${S !== void 0 ? p`<i class="marker" style="left:${z * 100}%;top:${100 - (S - m) / (f - m) * 100}%"></i>` : g}
     </div>`;
   }
   render() {
@@ -31076,7 +31076,7 @@ const li = dm(class extends hm {
       (K) => Se(this, t, b, K)
     ), x = (K) => (oe) => {
       oe.composedPath().some((ze) => ["set", "toggle"].some((J) => ze.classList?.contains(J))) || K(oe);
-    }, S = a?.attributes.temperature, z = this._pending ?? S, M = this._graph();
+    }, z = a?.attributes.temperature, S = this._pending ?? z, A = this._graph();
     let k;
     const $ = this._lineEntity;
     if (e.min_max && $ && this._series[$]?.length) {
@@ -31116,12 +31116,12 @@ const li = dm(class extends hm {
               <button class=${this._hit === -1 ? "hit" : ""} aria-label="−" @click=${() => this._step(-1)}><ha-icon icon="mdi:minus"></ha-icon></button>
               ${li(
       this._pending,
-      p`<span class="sp ${this._pending !== void 0 ? "pending" : ""}">${typeof z == "number" ? s.format(z) : "–"}</span>`
+      p`<span class="sp ${this._pending !== void 0 ? "pending" : ""}">${typeof S == "number" ? s.format(S) : "–"}</span>`
     )}
               <button class=${this._hit === 1 ? "hit" : ""} aria-label="+" @click=${() => this._step(1)}><ha-icon icon="mdi:plus"></ha-icon></button>
             </div>` : g}
       </div>`}
-      ${M}
+      ${A}
     </div>`;
   }
   getCardSize() {
@@ -31133,7 +31133,7 @@ const li = dm(class extends hm {
 };
 on.parts = ju, on.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   aa,
   ee`
@@ -31693,7 +31693,7 @@ const Z_ = [
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = (J, ye) => J ? v(J) : ye, i = (J, ye = 1) => J === void 0 ? "–" : J.toLocaleString(yi(), { maximumFractionDigits: ye }), s = this._ids, n = this._st("climate"), r = this._st("water_heater"), l = this._st("compressor")?.state === "on", c = (J) => ["on", "true", "heating"].includes(String(this._st(J)?.state).toLowerCase()), d = this._st("pump")?.state === "on", h = s.dhw_active ? c("dhw_active") : !1, u = s.heating_active ? c("heating_active") : s.pump ? d && !h : l && n?.attributes.hvac_action === "heating", m = this._st("frost")?.state === "on", f = c("rod"), b = "hp", y = (J, ye) => J && J !== "none" ? Y(J) ?? ye : ye, _ = y(e.outside_color, J_), x = y(e.heating_color, Dh), S = y(e.dhw_color, Dh), z = y(e.rod_color, X_), M = e.show_animation !== !1, k = p`<div class="scheme">
+    const a = (J, ye) => J ? v(J) : ye, i = (J, ye = 1) => J === void 0 ? "–" : J.toLocaleString(yi(), { maximumFractionDigits: ye }), s = this._ids, n = this._st("climate"), r = this._st("water_heater"), l = this._st("compressor")?.state === "on", c = (J) => ["on", "true", "heating"].includes(String(this._st(J)?.state).toLowerCase()), d = this._st("pump")?.state === "on", h = s.dhw_active ? c("dhw_active") : !1, u = s.heating_active ? c("heating_active") : s.pump ? d && !h : l && n?.attributes.hvac_action === "heating", m = this._st("frost")?.state === "on", f = c("rod"), b = "hp", y = (J, ye) => J && J !== "none" ? Y(J) ?? ye : ye, _ = y(e.outside_color, J_), x = y(e.heating_color, Dh), z = y(e.dhw_color, Dh), S = y(e.rod_color, X_), A = e.show_animation !== !1, k = p`<div class="scheme">
       <svg viewBox="0 0 ${Oi} ${dt}" aria-hidden="true">
         <defs>
           <filter id="${b}-h" x="-300%" y="-300%" width="700%" height="700%">
@@ -31717,9 +31717,9 @@ const Z_ = [
         <path class="pipe" d=${qa.out}></path>
         <path class="pipe" d=${qa.heat}></path>
         ${s.dhw || r ? j`<path class="pipe" d=${qa.dhw}></path>` : g}
-        ${M && l ? this._beam(qa.out, ir.out, _, b) : g}
-        ${M && u ? this._beam(qa.heat, ir.heat, x, b) : g}
-        ${M && h && (s.dhw || r) ? this._beam(qa.dhw, ir.dhw, S, b) : g}
+        ${A && l ? this._beam(qa.out, ir.out, _, b) : g}
+        ${A && u ? this._beam(qa.heat, ir.heat, x, b) : g}
+        ${A && h && (s.dhw || r) ? this._beam(qa.dhw, ir.dhw, z, b) : g}
       </svg>
       ${this._node(qo, l ? _ : void 0, "mdi:weather-windy", this._st("outside") ? `${i(this._num("outside"))}°` : "", v("Outside"))}
       ${m ? p`<span
@@ -31730,8 +31730,8 @@ const Z_ = [
           ></span>` : g}
 
       ${this._node(Hc, u ? x : void 0, "mdi:radiator", this._st("supply") ? `${i(this._num("supply"))}°` : "", v("Heating supply"), u ? "pulse" : "")}
-      ${this._node(bt, f ? z : l ? x : void 0, "mdi:pump", "", `${v("Heat pump")}: ${a(sy[this._st("phase")?.state ?? ""], this._st("phase")?.state ?? "")}${f ? v(" · heating rod") : ""}`, d && M ? "pump spin" : "pump")}
-      ${s.dhw || r ? this._node(Za, h ? S : void 0, "mdi:water-boiler", this._st("dhw") || r?.attributes.current_temperature !== void 0 ? `${i(this._num("dhw") ?? Number(r?.attributes.current_temperature))}°` : "", v("Hot water"), h ? "pulse" : "") : g}
+      ${this._node(bt, f ? S : l ? x : void 0, "mdi:pump", "", `${v("Heat pump")}: ${a(sy[this._st("phase")?.state ?? ""], this._st("phase")?.state ?? "")}${f ? v(" · heating rod") : ""}`, d && A ? "pump spin" : "pump")}
+      ${s.dhw || r ? this._node(Za, h ? z : void 0, "mdi:water-boiler", this._st("dhw") || r?.attributes.current_temperature !== void 0 ? `${i(this._num("dhw") ?? Number(r?.attributes.current_temperature))}°` : "", v("Hot water"), h ? "pulse" : "") : g}
 
     </div>`, $ = [];
     this._st("frost")?.state === "on" && $.push(p`<span class="chip warn"><ha-icon icon="mdi:snowflake-alert"></ha-icon>${v("Frost protection")}</span>`);
@@ -31841,7 +31841,7 @@ const Z_ = [
       ["pressure", v("Pressure"), "bar"],
       ["flow", v("Flow"), "m³/h"]
     ].filter(([J]) => this._st(J)), ze = `${e.idle_color && e.idle_color !== "none" ? `--hp-idle:${Y(e.idle_color)};` : ""}`;
-    return p`<div class="frame ${M ? "" : "still"} ${this.tile}" style=${ze}>
+    return p`<div class="frame ${A ? "" : "still"} ${this.tile}" style=${ze}>
       ${e.name ? p`<div class="title">${e.name}</div>` : g} ${k}
       ${$.length ? p`<div class="chips">${$}</div>` : g}
       ${ae !== g || he !== g ? p`<div class="rows">${ae} ${he}</div>` : g}
@@ -31867,7 +31867,7 @@ const Z_ = [
 };
 nn.parts = Wu, nn.styles = [
   F.styles,
-  we,
+  xe,
   ee`
       :host {
         display: block;
@@ -32464,7 +32464,7 @@ const ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
     ]), m = this._can(Ph, "current_position"), f = this._can(Eh), b = (e.tilts ?? cm()).map((Z, he, Ie) => ({
       ...Z,
       deg: no(typeof Z.value == "number" ? Z.value : he / Math.max(1, Ie.length - 1) * 100)
-    })), y = e.percent_only === !0, _ = c === void 0 ? "–" : y && m ? `${c} %` : c >= 99 ? v("cover.is_open") : c <= 1 ? v("cover.is_closed") : `${v("Partially open")} · ${c} %`, x = n && !(y && m) ? v(s ? n === "closing" ? "cover.closing" : "cover.opening" : n === "closing" ? "Closing" : "Opening") : "", S = 15, z = 2 * Math.PI * S, M = (c ?? 100) < 99, k = s ? c ?? 0 : 100 - (c ?? 100), $ = k > 1, C = this._target(), T = C === void 0 ? void 0 : s ? C : 100 - C, P = i === "blind" && e.slats !== "none", N = d === void 0 || !M && this._drag?.bar !== "tilt" ? "–" : y ? `${d} %` : d >= 90 ? v("cover.is_open") : d <= 10 ? v("cover.is_closed") : `${v("Partially open")} · ${d} %`, E = (Z, he) => p`<button class="mode mat-${e.positions_glass ?? "none"}" style=${re(e.choices_color)} title=${he.name ?? ""} aria-label=${he.name ?? ""} @click=${() => this._choose(Z, he)}>
+    })), y = e.percent_only === !0, _ = c === void 0 ? "–" : y && m ? `${c} %` : c >= 99 ? v("cover.is_open") : c <= 1 ? v("cover.is_closed") : `${v("Partially open")} · ${c} %`, x = n && !(y && m) ? v(s ? n === "closing" ? "cover.closing" : "cover.opening" : n === "closing" ? "Closing" : "Opening") : "", z = 15, S = 2 * Math.PI * z, A = (c ?? 100) < 99, k = s ? c ?? 0 : 100 - (c ?? 100), $ = k > 1, C = this._target(), T = C === void 0 ? void 0 : s ? C : 100 - C, P = i === "blind" && e.slats !== "none", N = d === void 0 || !A && this._drag?.bar !== "tilt" ? "–" : y ? `${d} %` : d >= 90 ? v("cover.is_open") : d <= 10 ? v("cover.is_closed") : `${v("Partially open")} · ${d} %`, E = (Z, he) => p`<button class="mode mat-${e.positions_glass ?? "none"}" style=${re(e.choices_color)} title=${he.name ?? ""} aria-label=${he.name ?? ""} @click=${() => this._choose(Z, he)}>
       <ha-icon .icon=${he.icon ?? "mdi:circle-small"}></ha-icon>
     </button>`, L = (Z, he) => {
       const Ie = this._value(Z), $t = he.value !== void 0 && Ie !== void 0 && Math.abs(Ie - he.value) <= 2;
@@ -32488,8 +32488,8 @@ const ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
               @click=${() => (W("light"), t.callService("switch", "toggle", { entity_id: e.pause }))}
             >
               ${l !== void 0 ? j`<svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
-                    <circle cx="18" cy="18" r=${S} class="track"></circle>
-                    <circle cx="18" cy="18" r=${S} class="left" stroke-dasharray="${z * l} ${z}"></circle>
+                    <circle cx="18" cy="18" r=${z} class="track"></circle>
+                    <circle cx="18" cy="18" r=${z} class="left" stroke-dasharray="${S * l} ${S}"></circle>
                   </svg>` : g}
               <ha-icon icon=${l !== void 0 ? "mdi:play" : "mdi:pause"}></ha-icon>
             </button>` : g}
@@ -32532,7 +32532,7 @@ const ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
         </div>
         ${P ? p`<div class="tray ${te ? te.cls : ""}" style=${te ? te.style : ""}>
           <div
-            class="bar thin ${H ? H.cls : ""} ${this._drag?.bar === "tilt" ? "drag" : ""} ${!M && this._drag?.bar !== "tilt" ? "idle" : ""} fill-${e.fill_style ?? "fade"}"
+            class="bar thin ${H ? H.cls : ""} ${this._drag?.bar === "tilt" ? "drag" : ""} ${!A && this._drag?.bar !== "tilt" ? "idle" : ""} fill-${e.fill_style ?? "fade"}"
             style="${H ? `${H.style};` : ""}--pct:${d ?? 0};--fill-a:${e.fill_strength ?? 34}"
             role="slider"
             aria-label=${v("Slats")}
@@ -32565,7 +32565,7 @@ const ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
 };
 ps.parts = Nu, ps.properties = { ...F.properties, _drag: { state: !0 } }, ps.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   aa,
   ee`
@@ -33341,7 +33341,7 @@ const us = class us extends F {
 };
 us.parts = Bu, us.properties = { ...F.properties, preview: { type: Boolean } }, us.styles = [
   F.styles,
-  we,
+  xe,
   ee`
       :host {
         display: block;
@@ -34496,29 +34496,29 @@ const ms = class ms extends F {
       }
       const C = k.currentTarget.getBoundingClientRect();
       this._openAt($.from + (k.clientX - C.left) / C.width * $.span);
-    }, S = (k) => {
+    }, z = (k) => {
       W("selection");
       const $ = Math.min(a, s + k * n * 0.8);
       this._end = $ >= a - 60 ? void 0 : $, this._cover = void 0;
-    }, z = l[0], M = !c.length && !(this._cover?.segs ?? []).some(([k, $]) => $ >= i && k <= s);
+    }, S = l[0], A = !c.length && !(this._cover?.segs ?? []).some(([k, $]) => $ >= i && k <= s);
     return p`<div class="timeline ${m.cls || "control still"}" style=${m.style}>
-      <button class="nav" title=${v("Earlier")} @click=${() => S(-1)}><ha-icon .icon=${"mdi:chevron-left"}></ha-icon></button>
+      <button class="nav" title=${v("Earlier")} @click=${() => z(-1)}><ha-icon .icon=${"mdi:chevron-left"}></ha-icon></button>
       <div class="track" @pointerdown=${y} @pointermove=${_} @pointerup=${x} @pointercancel=${() => this._tlDrag = void 0}>
         ${(this._cover?.segs ?? []).map(([k, $]) => $ < i || k > s ? g : p`<i class="cov" style="left:${r(k)};width:calc(${r($)} - ${r(k)})"></i>`)}
         ${c.map((k) => p`<i class="mark ${k.alert ? "alert" : ""}" style="left:${r(k.start)};width:max(3px, calc(${r(k.end ?? a)} - ${r(k.start)}))" title=${`${this._time(k.start)} ${k.labels.map(nr).join(", ")}`}></i>`)}
         ${h.map((k) => p`<span class="tick" style="left:${r(k)}">${u(k)}</span>`)}
         ${b !== void 0 && b >= i && b <= s ? p`<i class="ph" style="left:${r(b)}"></i>` : g}
-        ${M ? p`<span class="tl-empty"
-              >${z && z.start < i ? p`<button
+        ${A ? p`<span class="tl-empty"
+              >${S && S.start < i ? p`<button
                     @pointerdown=${(k) => k.stopPropagation()}
                     @pointerup=${(k) => k.stopPropagation()}
-                    @click=${(k) => (k.stopPropagation(), W("selection"), this._show(z.start))}
+                    @click=${(k) => (k.stopPropagation(), W("selection"), this._show(S.start))}
                   >
-                    ${v("Latest: {when}", { when: `${this._day(z.start)} ${this._time(z.start)}` })}
+                    ${v("Latest: {when}", { when: `${this._day(S.start)} ${this._time(S.start)}` })}
                   </button>` : v("Nothing recorded here")}</span
             >` : g}
       </div>
-      <button class="nav" title=${v("Later")} ?disabled=${this._end === void 0} @click=${() => S(1)}><ha-icon .icon=${"mdi:chevron-right"}></ha-icon></button>
+      <button class="nav" title=${v("Later")} ?disabled=${this._end === void 0} @click=${() => z(1)}><ha-icon .icon=${"mdi:chevron-right"}></ha-icon></button>
       <span class="zoom">
         ${this._end !== void 0 ? p`<button @click=${() => (this._end = void 0, this._cover = void 0)}>${v("Now")}</button>` : g}
         ${[1, 6, 24].map((k) => p`<button class=${k === this._span ? "on" : ""} @click=${() => (this._span = k, this._cover = void 0)}>${k} h</button>`)}
@@ -34610,7 +34610,7 @@ ms.parts = am, ms.properties = {
   _fs: { state: !0 }
 }, ms.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   ee`
       :host {
@@ -35913,8 +35913,8 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
    *  the others light; a countdown in it; a code opens the keypad over the screen. */
   _header(e) {
     const t = e.state, a = this._modes(e), i = (t === "arming" || t === "pending" || t === "triggered" ? String(e.attributes.arm_mode ?? "") : t).replace(/^armed_/, ""), s = It(this._config.buttons_glass, this._config.buttons_color), n = It(this._config.active_glass, this._config.active_color), r = this._config.align === "stretch", l = r && this._width >= (a.length + 1) * 92, c = (u) => r ? l || u : this._config.labels !== !1 && (this._hl === 0 || this._hl === 1 && u), d = (u, m, f, b, y, _ = "") => {
-      const x = c(b), S = b ? n : s;
-      return p`<button class="hb ${x ? "" : "round"} ${b ? "sel" : "off"} ${r && (l || b) ? "grow" : ""} ${_} ${S.cls}" style=${S.style} title=${f} aria-label=${f} @click=${y}>
+      const x = c(b), z = b ? n : s;
+      return p`<button class="hb ${x ? "" : "round"} ${b ? "sel" : "off"} ${r && (l || b) ? "grow" : ""} ${_} ${z.cls}" style=${z.style} title=${f} aria-label=${f} @click=${y}>
         ${b && !x && this._cd ? p`<span class="hs">${Math.ceil(this._secsLeft())}</span>` : p`<ha-icon .icon=${m}></ha-icon>`}${x ? p`<span>${b && this._cd ? `${Math.ceil(this._secsLeft())} s` : f}</span>` : g}${_.includes("not-ready") ? p`<i class="dot"></i>` : g}
       </button>`;
     }, h = t === "disarmed";
@@ -36022,10 +36022,10 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
     const i = a.state, s = ua[i] ?? { label: i, icon: "mdi:shield-outline", tone: "off" }, n = e.name ?? a.attributes.friendly_name ?? e.entity, r = a.attributes, l = Object.keys(r.open_sensors ?? {}), c = Object.keys(r.bypassed_sensors ?? {}), d = this._modes(a), h = It(e.buttons_glass, e.buttons_color), u = It(e.actions_glass, e.actions_color), m = It(e.message_glass, e.message_color), f = e.show_sensors !== !1;
     let b = g;
     i === "pending" || i === "triggered" ? b = l.length && f ? v("{sensors} – enter the code", { sensors: this._names(l) }) : v(i === "pending" ? "Disarm before the time runs out" : "Enter the code to stop it") : i === "arming" ? b = v("Leave now – it arms when the time runs out") : i.startsWith("armed_") && c.length && f ? b = v("Without {sensors}", { sensors: this._names(c) }) : r.changed_by && (b = v("By {name}", { name: r.changed_by }));
-    const y = this._keypadShown() && !this._onDemand() ? this._keypad(a) : g, _ = i === "pending" || i === "triggered", x = i === "disarmed" ? "off" : String(r.arm_mode ?? i).replace(/^armed_/, ""), S = i === "arming" && this._alarmo !== void 0, z = this._msg ? p`<div class="detail msg-line ${this._msg.tone} ${m.cls}" style=${m.style}>
+    const y = this._keypadShown() && !this._onDemand() ? this._keypad(a) : g, _ = i === "pending" || i === "triggered", x = i === "disarmed" ? "off" : String(r.arm_mode ?? i).replace(/^armed_/, ""), z = i === "arming" && this._alarmo !== void 0, S = this._msg ? p`<div class="detail msg-line ${this._msg.tone} ${m.cls}" style=${m.style}>
           <span>${this._msg.text}</span>
           ${this._blocked ? p`<button class="link ${u.cls}" style=${u.style} @click=${() => this._arm(this._blocked.mode, !0)}>${v("Arm anyway")}</button>` : g}
-        </div>` : p`<div class="detail">${b === g ? " " : b}</div>`, M = (k, $, C, T, P = "") => p`<button class="mode ${h.cls || "control"} ${x === k ? "now" : ""} ${P}" style=${h.style} title=${C} aria-label=${C} @click=${T}>
+        </div>` : p`<div class="detail">${b === g ? " " : b}</div>`, A = (k, $, C, T, P = "") => p`<button class="mode ${h.cls || "control"} ${x === k ? "now" : ""} ${P}" style=${h.style} title=${C} aria-label=${C} @click=${T}>
         <ha-icon .icon=${$}></ha-icon><span>${C}</span>${P.includes("not-ready") ? p`<i class="dot"></i>` : g}
       </button>`;
     return p`<div class="frame surface tone-${s.tone} state-${i}">
@@ -36034,15 +36034,15 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
         <div class="txt">
           <div class="name">${n}</div>
           <div class="state" title=${v(s.label)}>${v(s.label)}</div>
-          ${z}
+          ${S}
         </div>
       </div>
       ${_ || i === "unavailable" ? g : p`<div class="modes" style="--n:${d.length + 1}">
             ${d.map((k) => {
       const $ = i === "disarmed" && this._ready && !this._ready.includes(`armed_${k}`);
-      return S && x === k ? M(k, "mdi:fast-forward", v("Arm now"), () => this._skip(), "skip") : M(k, At[k].icon, v(At[k].label), () => this._modeTap(k, a), `${$ ? "not-ready" : ""} ${this._armAfter === k ? "pick" : ""}`);
+      return z && x === k ? A(k, "mdi:fast-forward", v("Arm now"), () => this._skip(), "skip") : A(k, At[k].icon, v(At[k].label), () => this._modeTap(k, a), `${$ ? "not-ready" : ""} ${this._armAfter === k ? "pick" : ""}`);
     })}
-            ${M("off", "mdi:shield-off-outline", v("Off"), () => this._offTap(a))}
+            ${A("off", "mdi:shield-off-outline", v("Off"), () => this._offTap(a))}
           </div>`}
       ${y}
       ${_ ? g : this._drawerEl(a)}
@@ -36074,7 +36074,7 @@ gs.parts = im, gs.properties = {
   _armAfter: { state: !0 }
 }, gs.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   aa,
   ke,
@@ -37292,12 +37292,12 @@ const Hh = {
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = (M) => M ? t.states[M] : void 0, i = a(e.sun ?? "sun.sun"), s = a(e.light), n = a(e.shading)?.state, r = (M) => e.labels?.[M] ?? (Hh[M] ? v(Hh[M]) : M), l = a(e.target_tilt)?.state, c = n !== "open" && l && !Number.isNaN(parseFloat(l)) ? Math.round(parseFloat(l)) : void 0, d = Number(i?.attributes.elevation), h = Number(i?.attributes.azimuth), u = Number.isFinite(d) && Number.isFinite(h), m = u && d > (e.horizon ?? 0), f = u ? this._band(d) : void 0, b = !!f && m && (h - f[0] + 360) % 360 <= (f[1] - f[0] + 360) % 360, y = s ? parseFloat(s.state) : NaN, _ = a(e.shading)?.attributes[e.thresholds_attribute ?? "prahy_lux"], x = (M) => Math.round(M).toLocaleString(yi()), S = e.show_compass !== !1 && u, z = e.show_details !== !1;
+    const a = (A) => A ? t.states[A] : void 0, i = a(e.sun ?? "sun.sun"), s = a(e.light), n = a(e.shading)?.state, r = (A) => e.labels?.[A] ?? (Hh[A] ? v(Hh[A]) : A), l = a(e.target_tilt)?.state, c = n !== "open" && l && !Number.isNaN(parseFloat(l)) ? Math.round(parseFloat(l)) : void 0, d = Number(i?.attributes.elevation), h = Number(i?.attributes.azimuth), u = Number.isFinite(d) && Number.isFinite(h), m = u && d > (e.horizon ?? 0), f = u ? this._band(d) : void 0, b = !!f && m && (h - f[0] + 360) % 360 <= (f[1] - f[0] + 360) % 360, y = s ? parseFloat(s.state) : NaN, _ = a(e.shading)?.attributes[e.thresholds_attribute ?? "prahy_lux"], x = (A) => Math.round(A).toLocaleString(yi()), z = e.show_compass !== !1 && u, S = e.show_details !== !1;
     return p`<div class=${Wo()}>
       ${e.show_title === !1 ? g : p`<span class="gtitle">${e.title ?? v("Current state")}</span>`}
       <div class="sky ${e.layout === "below" ? "below" : ""}" style="--size:${e.size ?? 124}px;--band:${Y(e.band_color ?? "orange") ?? "transparent"};--lux:${Y(e.light_color ?? "amber") ?? "transparent"}">
-        ${S ? this._dial(d, h, m, f, b, Number.isFinite(y) ? y : void 0, _) : g}
-        ${z ? p`<div class="skytext">
+        ${z ? this._dial(d, h, m, f, b, Number.isFinite(y) ? y : void 0, _) : g}
+        ${S ? p`<div class="skytext">
               ${n ? p`<span class="dec">${r(n)}</span>` : g}
               ${c !== void 0 ? p`<span class="v2">${v("target tilt")} ${c} %</span>` : g}
               ${u ? p`<span class="v2 gap">${v("Sun")} ${m ? `${Math.round(d)}°` : v("below horizon")} · ${Math.round(h)}°</span>` : g}
@@ -37317,8 +37317,8 @@ const Hh = {
       const [$, C] = i, [T, P] = d($, 40), [N, E] = d(C, 40), L = ((C - $) % 360 + 360) % 360 > 180 ? 1 : 0;
       f = `M50,50 L${T},${P} A40,40 0 ${L} 1 ${N},${E} Z`;
     }
-    const b = ($) => Math.min(100, Math.sqrt(Math.max(0, $) / 1e5) * 100), y = n !== void 0 ? b(n) : void 0, _ = this._config, x = _.compass_glass ?? "watch", S = Math.min(14, Math.max(2, _.ring_width ?? 9)), z = _.sun_style === "dot", M = y !== void 0 && r && typeof r == "object" ? Object.entries(r).filter(([, $]) => Number.isFinite(Number($))).map(([$, C]) => ({ k: $, pct: b(Number(C)), hit: n >= Number(C) })) : [], k = y !== void 0 ? 40 - S / 2 : 40;
-    return p`<div class="dialwrap ${x === "watch" ? "watch" : "mat"} ${x === "none" ? "outline" : ""}" style="--rw:${S};--fd:${k * 2};--sun:${Y(_.sun_color ?? "yellow") ?? "transparent"}">
+    const b = ($) => Math.min(100, Math.sqrt(Math.max(0, $) / 1e5) * 100), y = n !== void 0 ? b(n) : void 0, _ = this._config, x = _.compass_glass ?? "watch", z = Math.min(14, Math.max(2, _.ring_width ?? 9)), S = _.sun_style === "dot", A = y !== void 0 && r && typeof r == "object" ? Object.entries(r).filter(([, $]) => Number.isFinite(Number($))).map(([$, C]) => ({ k: $, pct: b(Number(C)), hit: n >= Number(C) })) : [], k = y !== void 0 ? 40 - z / 2 : 40;
+    return p`<div class="dialwrap ${x === "watch" ? "watch" : "mat"} ${x === "none" ? "outline" : ""}" style="--rw:${z};--fd:${k * 2};--sun:${Y(_.sun_color ?? "yellow") ?? "transparent"}">
       ${x !== "watch" && x !== "none" ? p`<div class="face mat-${x}"></div>` : g}
       <svg viewBox="0 0 100 100" aria-hidden="true">
         <defs>
@@ -37330,9 +37330,9 @@ const Hh = {
             <stop offset="0" stop-color="#fff" stop-opacity="0.2"></stop>
             <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
           </linearGradient>
-          <clipPath id="bk-in"><circle cx=${50} cy=${50} r=${40 - S / 2}></circle></clipPath>
+          <clipPath id="bk-in"><circle cx=${50} cy=${50} r=${40 - z / 2}></circle></clipPath>
         </defs>
-        <circle class="dial ${y !== void 0 ? "ringed" : ""}" cx=${50} cy=${50} r=${y !== void 0 ? 40 - S / 2 : 40}></circle>
+        <circle class="dial ${y !== void 0 ? "ringed" : ""}" cx=${50} cy=${50} r=${y !== void 0 ? 40 - z / 2 : 40}></circle>
         ${f ? j`<path class="band ${s ? "lit" : ""}" d=${f} clip-path="url(#bk-in)"></path>` : g}
         ${(_.show_ticks === !1 ? [] : Array.from({ length: 12 }, ($, C) => C * 30)).filter(($) => $ % 90).map(($) => {
       const [C, T] = d($, 29), [P, N] = d($, 32);
@@ -37344,14 +37344,14 @@ const Hh = {
     })}
         ${y !== void 0 ? j`<circle class="lux-track" cx=${50} cy=${50} r=${40}></circle>
               <circle class="lux" cx=${50} cy=${50} r=${40} pathLength="100" stroke-dasharray="${y} 100" transform="rotate(-90 ${50} ${50})"></circle>
-              ${M.map(({ k: $, pct: C, hit: T }) => {
-      const [P, N] = d(C * 3.6, 37), [E, L] = d(C * 3.6, 40 + S / 2);
+              ${A.map(({ k: $, pct: C, hit: T }) => {
+      const [P, N] = d(C * 3.6, 37), [E, L] = d(C * 3.6, 40 + z / 2);
       return j`<line class="lvl ${T ? "hit" : ""}" x1=${P} y1=${N} x2=${E} y2=${L}><title>${$}</title></line>`;
     })}` : g}
         ${x === "watch" ? j`<ellipse class="glare" cx=${44} cy=${50 - 40 * 0.5} rx=${40 * 0.78} ry=${40 * 0.48} clip-path="url(#bk-in)"></ellipse>` : g}
-        ${a && z ? j`<circle class="sundot" cx=${u} cy=${m} r="5"></circle>` : g}
+        ${a && S ? j`<circle class="sundot" cx=${u} cy=${m} r="5"></circle>` : g}
       </svg>
-      ${a && !z ? p`${xl}<span class="sun3d" style="left:${u}%;top:${m}%">${_m("sunny")}</span>` : g}
+      ${a && !S ? p`${xl}<span class="sun3d" style="left:${u}%;top:${m}%">${_m("sunny")}</span>` : g}
     </div>`;
   }
 };
@@ -37751,7 +37751,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
       () => _,
       // tap switches the light, hold opens its details – never both
       (K) => K === "tap" ? this._switch(e) : Se(this, t, _, K)
-    ), S = e.presets ? t.states[e.presets] : void 0, z = S?.attributes.options ?? [], M = (e.preset_options?.length ? e.preset_options : z).map((K) => typeof K == "string" ? { option: K } : K).filter((K) => z.includes(K.option)), k = n !== void 0 ? e.levels ?? [] : [], $ = (K) => this._hass?.callService("light", "turn_on", { entity_id: e.entity, ...K }), C = n !== void 0, T = (K) => this._slide(e.entity, l, K, e.levels ?? []);
+    ), z = e.presets ? t.states[e.presets] : void 0, S = z?.attributes.options ?? [], A = (e.preset_options?.length ? e.preset_options : S).map((K) => typeof K == "string" ? { option: K } : K).filter((K) => S.includes(K.option)), k = n !== void 0 ? e.levels ?? [] : [], $ = (K) => this._hass?.callService("light", "turn_on", { entity_id: e.entity, ...K }), C = n !== void 0, T = (K) => this._slide(e.entity, l, K, e.levels ?? []);
     let P = g;
     const N = ji(this._config.presets_glass, this._config.presets_color, "liquid"), E = (K) => p`<div class="seg">
         ${K.map(
@@ -37789,8 +37789,8 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
       })}
       </div>`;
     }
-    const L = String(S?.state ?? "").toLowerCase(), G = M.map((K) => K.option).filter((K) => L === K.toLowerCase() || L.startsWith(`${K.toLowerCase()} `)).sort((K, oe) => oe.length - K.length)[0], H = M.length ? E(
-      M.map((K) => ({
+    const L = String(z?.state ?? "").toLowerCase(), G = A.map((K) => K.option).filter((K) => L === K.toLowerCase() || L.startsWith(`${K.toLowerCase()} `)).sort((K, oe) => oe.length - K.length)[0], H = A.length ? E(
+      A.map((K) => ({
         cur: K.option === G,
         icon: K.icon,
         label: K.name ?? K.option,
@@ -37925,7 +37925,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
 };
 rn.parts = Ru, rn.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   aa,
   ee`
@@ -38670,7 +38670,7 @@ class Ry {
     const m = 0.75 + 0.25 * Ue(a * 1.7 + this.seed);
     let b = !c && (this.four || s === 0 || s === 2) ? Math.exp(-i * 11) * m : 0;
     !c && !this.four && s === 2 && i > 0.5 && (b = Math.max(b, Math.exp(-(i - 0.5) * 12) * 0.8));
-    const y = Math.floor(t * 4), _ = t * 4 - y, S = n % 4 === 3 && s === 3 ? Math.exp(-_ * 9) * (0.6 + 0.4 * (y % 4) / 3) : s % 2 === 1 ? Math.exp(-i * 12) * m : 0, z = d ? 4 : 2, M = Math.floor(t * z), k = t * z - M, $ = Math.exp(-k * (M % 2 ? 9 : 18)) * (0.55 + 0.45 * Ue(M + this.seed * 2)), C = 8, T = new Float32Array(C);
+    const y = Math.floor(t * 4), _ = t * 4 - y, z = n % 4 === 3 && s === 3 ? Math.exp(-_ * 9) * (0.6 + 0.4 * (y % 4) / 3) : s % 2 === 1 ? Math.exp(-i * 12) * m : 0, S = d ? 4 : 2, A = Math.floor(t * S), k = t * S - A, $ = Math.exp(-k * (A % 2 ? 9 : 18)) * (0.55 + 0.45 * Ue(A + this.seed * 2)), C = 8, T = new Float32Array(C);
     for (let P = 0; P < C; P++) {
       const N = 0.42 + 0.4 * (P / (C - 1)) + (d ? 0.08 : 0) - (c ? 0.15 : 0);
       let E = 0;
@@ -38683,7 +38683,7 @@ class Ry {
       T[P] = E;
     }
     for (let P = 0; P < et; P++) {
-      const N = P / (et - 1), E = N * (C - 1), L = Math.floor(E), G = E - L, H = T[L] * (1 - G) + T[Math.min(C - 1, L + 1)] * G, te = 0.85 + 0.3 * Ys(e * 7 + P * 1.3, this.seed + P), I = Math.max(0, 1 - N / 0.22) * (0.08 + 1.15 * b), ae = Math.exp(-((N - 0.45) ** 2) / 0.03) * S * 0.85, q = N ** 1.2 * $ * 0.6;
+      const N = P / (et - 1), E = N * (C - 1), L = Math.floor(E), G = E - L, H = T[L] * (1 - G) + T[Math.min(C - 1, L + 1)] * G, te = 0.85 + 0.3 * Ys(e * 7 + P * 1.3, this.seed + P), I = Math.max(0, 1 - N / 0.22) * (0.08 + 1.15 * b), ae = Math.exp(-((N - 0.45) ** 2) / 0.03) * z * 0.85, q = N ** 1.2 * $ * 0.6;
       this.target[P] = Math.min(1, (I + ae + q + H * (0.85 - 0.3 * N)) * h * te);
     }
     this.kick = b * h;
@@ -38701,21 +38701,21 @@ class Ry {
   drawRing(e, t, a) {
     const i = this.dpr, s = this.cv.width / i, n = this.cv.height / i, r = s / 2, l = n / 2, c = this.size, d = 56, h = c * 0.2 * (1 + this.kick * 0.07), u = c * 0.046, m = u * 0.2, f = this.px();
     e.imageSmoothingEnabled = !1;
-    const b = (y, _, x, S, z, M, k) => {
+    const b = (y, _, x, z, S, A, k) => {
       const $ = Math.cos(y), C = Math.sin(y), T = r + C * _, P = l - $ * _;
-      e.globalAlpha = k, e.setTransform(i * $, i * C, -i * C, i * $, i * T, i * P), e.drawImage(f, Math.max(0, Math.min(ie - 1, z)), Math.max(0, Math.min(ie - 1, M)), 1, 1, -x / 2, -S / 2, x, S);
+      e.globalAlpha = k, e.setTransform(i * $, i * C, -i * C, i * $, i * T, i * P), e.drawImage(f, Math.max(0, Math.min(ie - 1, S)), Math.max(0, Math.min(ie - 1, A)), 1, 1, -x / 2, -z / 2, x, z);
     };
     for (let y = 0; y < d; y++) {
-      const _ = this.rot + y / d * rt, x = Math.min(1, this.bandAt(_ - this.rot) * (0.7 + 0.6 * Ys(y * 0.83 + a * 0.5, this.seed + 7))), S = 1 + x * 5, z = Math.floor(S), M = x * u * 1.3 + this.kick * u * 0.8;
-      for (let k = 0; k <= z && k < 7; k++) {
-        const $ = k < z ? 1 : S - z;
+      const _ = this.rot + y / d * rt, x = Math.min(1, this.bandAt(_ - this.rot) * (0.7 + 0.6 * Ys(y * 0.83 + a * 0.5, this.seed + 7))), z = 1 + x * 5, S = Math.floor(z), A = x * u * 1.3 + this.kick * u * 0.8;
+      for (let k = 0; k <= S && k < 7; k++) {
+        const $ = k < S ? 1 : z - S;
         if ($ < 0.08) continue;
-        const C = h + M + k * (u + m), T = rt * C / d * 0.84, P = 0.16 + k * 0.055, N = Math.floor((0.5 + Math.sin(_) * P) * ie), E = Math.floor((0.5 - Math.cos(_) * P) * ie);
+        const C = h + A + k * (u + m), T = rt * C / d * 0.84, P = 0.16 + k * 0.055, N = Math.floor((0.5 + Math.sin(_) * P) * ie), E = Math.floor((0.5 - Math.cos(_) * P) * ie);
         b(_, C, T, u, N, E, (k === 0 ? 0.95 : 1 - k * 0.09) * Math.min(1, $ * 1.4) * (0.7 + 0.3 * this.energy));
       }
       this.track.playing && !this.calm.matches && this.kick > 0.55 && this.lastKick <= 0.55 && x > 0.55 && Ue(y + a * 13.7) > 0.86 && this.flying.push({
         th: _,
-        r: h + M + z * (u + m),
+        r: h + A + S * (u + m),
         v: c * (0.25 + 0.3 * Ue(y + a)),
         life: 1,
         sx: Math.floor((0.5 + Math.sin(_) * 0.45) * ie),
@@ -38738,15 +38738,15 @@ class Ry {
   drawBars(e, t) {
     const a = this.dpr, i = this.cv.width / a, s = this.cv.height / a, n = this.size, r = 8, l = r * 2 + 1, c = n * 0.86, d = c / l, h = d * 0.7, u = i / 2 - c / 2, m = s / 2, f = n * 0.66, b = this.px();
     e.setTransform(a, 0, 0, a, 0, 0), e.imageSmoothingEnabled = !0;
-    const y = (_, x, S, z) => {
-      e.beginPath(), e.roundRect ? e.roundRect(_, x, S, z, Math.min(S / 2, z / 2)) : e.rect(_, x, S, z);
+    const y = (_, x, z, S) => {
+      e.beginPath(), e.roundRect ? e.roundRect(_, x, z, S, Math.min(z / 2, S / 2)) : e.rect(_, x, z, S);
     };
     for (let _ = 0; _ < l; _++) {
-      const x = Math.abs(_ - r), S = Math.floor((x / (r + 1)) ** 1.4 * et), z = Math.max(S + 1, Math.floor(((x + 1) / (r + 1)) ** 1.4 * et));
-      let M = 0;
-      for (let L = S; L < z && L < et; L++) M = Math.max(M, this.bands[L]);
-      M = Math.min(1, M * (_ < r ? 0.92 + 0.08 * Math.sin(this.rot * 7 + _) : 1));
-      const k = Math.max(h, M * f * (0.55 + 0.45 * Math.max(this.energy, 0.2))), $ = u + _ * d + (d - h) / 2, C = Math.min(ie - 1, Math.floor((_ + 0.5) / l * ie));
+      const x = Math.abs(_ - r), z = Math.floor((x / (r + 1)) ** 1.4 * et), S = Math.max(z + 1, Math.floor(((x + 1) / (r + 1)) ** 1.4 * et));
+      let A = 0;
+      for (let L = z; L < S && L < et; L++) A = Math.max(A, this.bands[L]);
+      A = Math.min(1, A * (_ < r ? 0.92 + 0.08 * Math.sin(this.rot * 7 + _) : 1));
+      const k = Math.max(h, A * f * (0.55 + 0.45 * Math.max(this.energy, 0.2))), $ = u + _ * d + (d - h) / 2, C = Math.min(ie - 1, Math.floor((_ + 0.5) / l * ie));
       e.save(), e.globalAlpha = 0.95, y($, m - k / 2, h, k), e.clip(), e.drawImage(b, C, 0, 1, ie, $, m - k / 2, h, k), e.restore();
       const P = (this.peaks[_] = Math.max(this.peaks[_] - t * 0.55, k / f)) * f / 2 + h * 0.55, N = h * 0.38;
       e.globalAlpha = 0.85;
@@ -38763,14 +38763,14 @@ class Ry {
     e.drawImage(this.art.glow, -h / 2, -h / 2, h, h), e.restore();
     const u = 72, m = [];
     for (let _ = 0; _ < u; _++) {
-      const x = _ / u * rt, S = (this.bandAt(x) + this.bandAt(x + rt / u) + this.bandAt(x - rt / u)) / 3, z = d * (1 + S * 0.42 * (0.4 + 0.6 * this.energy));
-      m.push([r + Math.sin(x) * z, l - Math.cos(x) * z]);
+      const x = _ / u * rt, z = (this.bandAt(x) + this.bandAt(x + rt / u) + this.bandAt(x - rt / u)) / 3, S = d * (1 + z * 0.42 * (0.4 + 0.6 * this.energy));
+      m.push([r + Math.sin(x) * S, l - Math.cos(x) * S]);
     }
     const f = () => {
       e.beginPath();
       for (let _ = 0; _ <= u; _++) {
-        const x = m[_ % u], S = m[(_ + 1) % u], z = (x[0] + S[0]) / 2, M = (x[1] + S[1]) / 2;
-        _ === 0 ? e.moveTo(z, M) : e.quadraticCurveTo(x[0], x[1], z, M);
+        const x = m[_ % u], z = m[(_ + 1) % u], S = (x[0] + z[0]) / 2, A = (x[1] + z[1]) / 2;
+        _ === 0 ? e.moveTo(S, A) : e.quadraticCurveTo(x[0], x[1], S, A);
       }
       e.closePath();
     };
@@ -38781,13 +38781,13 @@ class Ry {
       e.drawImage(b, (b.naturalWidth - _) / 2, (b.naturalHeight - _) / 2, _, _, r - y / 2, l - y / 2, y, y);
     } else e.drawImage(this.art.px, 0, 0, ie, ie, r - y / 2, l - y / 2, y, y);
     e.restore(), f(), e.lineWidth = 1.2, e.strokeStyle = "rgba(255,255,255,0.35)", e.stroke(), e.imageSmoothingEnabled = !1;
-    for (const [_, x, S, z] of [
+    for (const [_, x, z, S] of [
       [36, 1.3, 1, 0.03],
       [24, 1.56, -0.7, 0.022]
     ])
-      for (let M = 0; M < _; M++) {
-        const k = M / _ * rt + this.rot * S, $ = this.bandAt(k - this.rot * S), C = d * x + $ * d * 0.28 * this.energy, T = c * z * (0.55 + $ * 1.3), P = r + Math.sin(k) * C, N = l - Math.cos(k) * C, E = Math.max(0, Math.min(ie - 1, Math.floor((0.5 + Math.sin(k) * 0.42) * ie))), L = Math.max(0, Math.min(ie - 1, Math.floor((0.5 - Math.cos(k) * 0.42) * ie)));
-        e.globalAlpha = Math.min(1, (0.5 + 0.8 * $) * (0.55 + 0.45 * this.energy) * (0.8 + 0.2 * Ys(M + t, this.seed))), e.save(), e.beginPath(), e.arc(P, N, T / 2, 0, rt), e.clip(), e.drawImage(a, E, L, 1, 1, P - T / 2, N - T / 2, T, T), e.restore();
+      for (let A = 0; A < _; A++) {
+        const k = A / _ * rt + this.rot * z, $ = this.bandAt(k - this.rot * z), C = d * x + $ * d * 0.28 * this.energy, T = c * S * (0.55 + $ * 1.3), P = r + Math.sin(k) * C, N = l - Math.cos(k) * C, E = Math.max(0, Math.min(ie - 1, Math.floor((0.5 + Math.sin(k) * 0.42) * ie))), L = Math.max(0, Math.min(ie - 1, Math.floor((0.5 - Math.cos(k) * 0.42) * ie)));
+        e.globalAlpha = Math.min(1, (0.5 + 0.8 * $) * (0.55 + 0.45 * this.energy) * (0.8 + 0.2 * Ys(A + t, this.seed))), e.save(), e.beginPath(), e.arc(P, N, T / 2, 0, rt), e.clip(), e.drawImage(a, E, L, 1, 1, P - T / 2, N - T / 2, T, T), e.restore();
       }
     e.globalAlpha = 1;
   }
@@ -39029,7 +39029,7 @@ function Xh() {
   }
   Zl.dispatchEvent(new Event("change"));
 }
-const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, qi = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), xe = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), Jy = 32, mr = /* @__PURE__ */ new WeakMap(), ft = (o) => !!o?.attributes.mass_player_type;
+const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, qi = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), ve = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), Jy = 32, mr = /* @__PURE__ */ new WeakMap(), ft = (o) => !!o?.attributes.mass_player_type;
 function Xy(o) {
   const e = o.media_content_id;
   if (!e) return;
@@ -39066,7 +39066,7 @@ function gr(o, e = !1) {
   let a = Qh.get(t);
   a || Qh.set(t, a = { lastAt: 0, replacedAt: 0 });
   const i = Date.now(), s = o.attributes.media_title, n = nt.get(t), r = Date.parse(o.last_changed) > n?.at;
-  if (n && ((o.state === "playing" || o.state === "buffering") && r || o.state === "off" || o.state === "unavailable" || s && s !== n.title || i - n.at > Im) && nt.delete(t), xe.has(o.state)) {
+  if (n && ((o.state === "playing" || o.state === "buffering") && r || o.state === "off" || o.state === "unavailable" || s && s !== n.title || i - n.at > Im) && nt.delete(t), ve.has(o.state)) {
     a.idle = void 0;
     const c = a.last?.attributes.media_title;
     if (a.last && s && c && s !== c && !((As.get(t) ?? 0) > a.replacedAt) && i - a.replacedAt < tv) {
@@ -39129,7 +39129,7 @@ function iv(o, e, t, a, i, s, n) {
       media_position_updated_at: new Date(r.at).toISOString(),
       media_position_frozen: !0
     }
-  } : (n && !xe.has(o.state) && (e.last = void 0), o);
+  } : (n && !ve.has(o.state) && (e.last = void 0), o);
 }
 const fr = /* @__PURE__ */ new Map(), br = /* @__PURE__ */ new Map(), Xs = /* @__PURE__ */ new Map(), Wm = /* @__PURE__ */ new Map(), Xl = /* @__PURE__ */ new Set();
 function ap(o) {
@@ -39325,7 +39325,7 @@ const Tt = (o) => ({
       if (b) {
         c = !0;
         const y = gr(this.stateOf(b), t);
-        r && y && y.attributes.media_title === r.title ? s = y : y && xe.has(y.state) ? (this._twinLast.set(b, y), s = y) : y && Date.now() - Date.parse(y.last_changed) < ep(this._kind(e) === "sonos", e, b) && (s = this._twinLast.get(b));
+        r && y && y.attributes.media_title === r.title ? s = y : y && ve.has(y.state) ? (this._twinLast.set(b, y), s = y) : y && Date.now() - Date.parse(y.last_changed) < ep(this._kind(e) === "sonos", e, b) && (s = this._twinLast.get(b));
       }
     }
     if (a && !s && c && a.state === "playing") {
@@ -39339,21 +39339,23 @@ const Tt = (o) => ({
     if (!a || !s) return a;
     const d = s.attributes, h = { ...a.attributes }, u = i !== void 0 && i === this._tvVia(e);
     if (u) {
-      for (const S of n) delete h[S];
+      for (const A of n) delete h[A];
       h.media_title = d.media_title ?? d.media_series_title ?? d.app_name ?? d.source ?? s.attributes.friendly_name;
       const b = d.media_title ? this._channelOf(String(d.media_title)) : void 0;
       b?.picture && (h.glass_logo = b.picture);
-      const y = [b?.name, d.media_artist, d.media_title && d.media_series_title, d.app_name, d.source, s.attributes.friendly_name];
-      h.media_artist = y.find((S) => S && S !== h.media_title), h.glass_tv = !0;
-      const _ = this._tvSet(e), x = [s, ...(_?.sources ?? []).map((S) => this._hass?.states[typeof S == "string" ? S : S.entity])].find(
-        (S) => S && xe.has(S.state) && typeof S.attributes.app_id == "string"
+      const y = this._tvSet(e), _ = [s, ...(y?.sources ?? []).map((A) => this._hass?.states[typeof A == "string" ? A : A.entity])].find(
+        (A) => A && ve.has(A.state) && typeof A.attributes.app_name == "string"
+      ), x = [b?.name, d.media_artist, d.media_title && d.media_series_title, d.app_name ?? _?.attributes.app_name, d.source, s.attributes.friendly_name];
+      h.media_artist = x.find((A) => A && A !== h.media_title), h.glass_tv = !0;
+      const z = this._tvSet(e), S = [s, ...(z?.sources ?? []).map((A) => this._hass?.states[typeof A == "string" ? A : A.entity])].find(
+        (A) => A && ve.has(A.state) && typeof A.attributes.app_id == "string"
       )?.attributes.app_id;
-      x && (h.glass_app = x);
+      S && (h.glass_app = S);
     }
     for (const b of n) b in d && !(u && (b === "media_title" || b === "media_artist")) && (h[b] = d[b]);
     const m = ne.NEXT | ne.PREVIOUS | ne.SHUFFLE | ne.REPEAT | ne.SEEK | (u ? ne.PAUSE | ne.PLAY : 0);
     h.supported_features = (Number(a.attributes.supported_features) || 0) & ~m | (Number(d.supported_features) || 0) & m;
-    let f = xe.has(s.state) ? s.state : a.state;
+    let f = ve.has(s.state) ? s.state : a.state;
     return c && r && s.attributes.media_title === r.title ? (f = r.resume ? "playing" : "paused", h.media_position = r.pos, h.media_position_updated_at = new Date(r.at).toISOString()) : c && f === "playing" && a.state !== "playing" && Date.parse(a.last_changed) > Date.parse(s.last_changed) && Date.now() - Date.parse(a.last_changed) > 12e3 && (f = "paused"), { ...a, state: f, attributes: h };
   }
   /** Whose library shows: the shown player's – or library_from's for the other players. */
@@ -39377,7 +39379,7 @@ const Tt = (o) => ({
     const t = this._config.tv_sources, a = this._hass?.states;
     if (!t?.length || !a) return;
     const i = a[e], s = i?.attributes ?? {};
-    if (!xe.has(i?.state ?? "") || !(s.app_id === "tv" || /^(tv|hdmi)/i.test(String(s.source ?? "")))) return;
+    if (!ve.has(i?.state ?? "") || !(s.app_id === "tv" || /^(tv|hdmi)/i.test(String(s.source ?? "")))) return;
     const n = this._twins.get(e);
     return t.find((r) => {
       const l = r.speaker ?? this._ids[0];
@@ -39394,7 +39396,7 @@ const Tt = (o) => ({
       if (!f.length) return a.tv;
       i = f;
     }
-    const r = (f, b) => !!f.input && i.slice(b + 1).some((y) => y.input === f.input), l = i.filter(r).map((f) => f.entity).filter((f) => xe.has(t[f]?.state ?? "")), c = i.filter((f, b) => !r(f, b)).map((f) => f.entity).filter((f) => xe.has(t[f]?.state ?? ""));
+    const r = (f, b) => !!f.input && i.slice(b + 1).some((y) => y.input === f.input), l = i.filter(r).map((f) => f.entity).filter((f) => ve.has(t[f]?.state ?? "")), c = i.filter((f, b) => !r(f, b)).map((f) => f.entity).filter((f) => ve.has(t[f]?.state ?? ""));
     if (!c.length) return;
     const d = (f) => Date.parse(t[f].last_changed) || 0, h = c.reduce((f, b) => d(b) > d(f) ? b : f);
     if (!t[h].attributes.media_title && !t[h].attributes.media_series_title) return;
@@ -39470,7 +39472,7 @@ const Tt = (o) => ({
     const t = this._twins.get(e), a = this._hass?.states, i = t ? a?.[t] : void 0, s = a?.[e];
     if (!i || !s || !i.attributes.media_title || i.attributes.app_id !== "music_assistant" && i.attributes.source !== "Music Assistant Queue") return;
     const n = /^https?:/.test(String(s.attributes.media_content_id ?? "")), r = this._twinLast.has(t) && Date.now() - Date.parse(i.last_changed) < ep(this._kind(e) === "sonos", e, t), l = Mt.get(e);
-    return !!l && l.title === i.attributes.media_title && s.state !== "playing" || (n ? xe.has(i.state) || xe.has(s.state) || r : i.state === "playing" || xe.has(i.state) && s.state !== "playing") ? t ?? void 0 : void 0;
+    return !!l && l.title === i.attributes.media_title && s.state !== "playing" || (n ? ve.has(i.state) || ve.has(s.state) || r : i.state === "playing" || ve.has(i.state) && s.state !== "playing") ? t ?? void 0 : void 0;
   }
   /** The player shown: the one playing (a group's leader), else the first. */
   _main() {
@@ -39481,7 +39483,7 @@ const Tt = (o) => ({
     return a !== t && (Fo.set(this._linkKey, a), Wi()), a;
   }
   _pickMain(e) {
-    const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (l) => Date.parse(e[l]?.last_changed ?? "") || 0, i = (l) => xe.has(e[l]?.state ?? "") || Mt.has(l) || nt.has(l), s = new Set(this._ids.map((l) => e[l]?.attributes.remote_player_id).filter(Boolean)), n = Ke.get(this._linkKey) ?? this._chosen;
+    const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (l) => Date.parse(e[l]?.last_changed ?? "") || 0, i = (l) => ve.has(e[l]?.state ?? "") || Mt.has(l) || nt.has(l), s = new Set(this._ids.map((l) => e[l]?.attributes.remote_player_id).filter(Boolean)), n = Ke.get(this._linkKey) ?? this._chosen;
     if (this._config.follow_playing === !1) {
       const l = n && n.id !== this._ids[0] && this._ids.includes(n.id) && (this._busy(n) || i(n.id) || Date.now() - n.at < Qy);
       return this._shown = l ? n.id : this._ids[0];
@@ -39493,7 +39495,7 @@ const Tt = (o) => ({
     }
     const r = t?.attributes.remote_player_id;
     if (t && r && e[r]?.state === "playing") return t.entity_id;
-    if (t && (qi.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && xe.has(gr(t, !0)?.state ?? ""))) {
+    if (t && (qi.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && ve.has(gr(t, !0)?.state ?? ""))) {
       const l = this._ids.find(
         (c) => c !== t.entity_id && !s.has(c) && e[c]?.state === "playing" && a(c) > a(t.entity_id) && !i(t.entity_id)
       );
@@ -39652,7 +39654,7 @@ const Tt = (o) => ({
     return this._loadKinds(), p`<div class="scrim" @click=${() => (this._pickOpen = !1, this.requestUpdate())}></div>
       <div class="spks plist" role="listbox">
         ${this._ids.map((a) => {
-      const i = this._tvSet(a) ? this._shownState(a) : t.states[a], s = i?.attributes ?? {}, n = i && xe.has(i.state) && s.media_title ? this._artUrl(i) : void 0, r = s.device_class === "tv" ? "mdi:television" : s.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker", l = !i || i.state === "unavailable" ? v("Unavailable") : i.state === "off" ? v("Off") : xe.has(i.state) && s.media_title ? [s.media_title, s.media_artist].filter(Boolean).join(" · ") : v("Nothing playing");
+      const i = this._tvSet(a) ? this._shownState(a) : t.states[a], s = i?.attributes ?? {}, n = i && ve.has(i.state) && s.media_title ? this._artUrl(i) : void 0, r = s.device_class === "tv" ? "mdi:television" : s.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker", l = !i || i.state === "unavailable" ? v("Unavailable") : i.state === "off" ? v("Off") : ve.has(i.state) && s.media_title ? [s.media_title, s.media_artist].filter(Boolean).join(" · ") : v("Nothing playing");
       return p`<button class="prow ${a === e ? "in" : ""}" role="option" aria-selected=${a === e ? "true" : "false"} @click=${() => this._choose(a)}>
             <i class="pic" style=${n ? `background-image:${ma(n)}` : ""}
               >${n ? g : p`<ha-icon .icon=${r}></ha-icon>`}${(() => {
@@ -39733,7 +39735,7 @@ const Tt = (o) => ({
    */
   _tone(e) {
     if (this._light === void 0 || this._config.art_background === !1 || !this._artUrl(e)) return "";
-    const t = this._artDark(), a = !xe.has(e?.state ?? ""), i = t ? a ? 0.18 : 0.4 : a ? 0.25 : 0.55;
+    const t = this._artDark(), a = !ve.has(e?.state ?? ""), i = t ? a ? 0.18 : 0.4 : a ? 0.25 : 0.55;
     return (t ? i * this._light * 0.7 + (1 - i) * 0.15 : i * this._light + (1 - i) * 0.92) > 0.58 ? "ink-dark" : "ink-light";
   }
   _call(e, t = {}, a = this._main()) {
@@ -40024,20 +40026,20 @@ const Tt = (o) => ({
         await Promise.all(
           c.slice(0, 10).map(async (b) => {
             const _ = ((await this._browse(e, b.media_content_id, b.media_content_type).catch(() => {
-            }))?.children ?? []).filter((M) => !Zs.has(M.media_content_type)), x = _.filter((M) => M.can_expand && !M.can_play), S = x.length === _.length ? x : x.filter((M) => M.media_class === "directory" && /recommend|doporu/i.test(M.title));
-            for (const M of S)
+            }))?.children ?? []).filter((A) => !Zs.has(A.media_content_type)), x = _.filter((A) => A.can_expand && !A.can_play), z = x.length === _.length ? x : x.filter((A) => A.media_class === "directory" && /recommend|doporu/i.test(A.title));
+            for (const A of z)
               d.push({
-                title: M.title,
-                cid: M.media_content_id,
-                ctype: M.media_content_type
+                title: A.title,
+                cid: A.media_content_id,
+                ctype: A.media_content_type
               });
-            const z = _.filter((M) => !S.includes(M));
-            z.length && h.push({
+            const S = _.filter((A) => !z.includes(A));
+            S.length && h.push({
               title: b.title,
-              items: await this._picks(z.slice(0, 30)),
+              items: await this._picks(S.slice(0, 30)),
               cid: b.media_content_id,
               ctype: b.media_content_type,
-              total: z.length
+              total: S.length
             });
           })
         );
@@ -40530,13 +40532,13 @@ const Tt = (o) => ({
     const t = this._playingElsewhere(e.entity_id).filter((i) => {
       if (!this._tvSet(i.entity_id)) return !0;
       const s = this._shownState(i.entity_id);
-      return !!s && xe.has(s.state) && !!s.attributes.media_title;
+      return !!s && ve.has(s.state) && !!s.attributes.media_title;
     });
     if (!t.length) return g;
     const a = this._busyOn(e.entity_id);
     return p`<div class="joins">
       ${t.map((i) => {
-      const s = !!this._tvSet(i.entity_id), n = s && this._shownState(i.entity_id) || i, l = xe.has(n.state) && !!n.attributes.media_title ? this._artUrl(n) : void 0, c = s ? this._appIcon(n.attributes.glass_app) : void 0;
+      const s = !!this._tvSet(i.entity_id), n = s && this._shownState(i.entity_id) || i, l = ve.has(n.state) && !!n.attributes.media_title ? this._artUrl(n) : void 0, c = s ? this._appIcon(n.attributes.glass_app) : void 0;
       return p`<button class="joinbar" @click=${() => this._joinTo(e.entity_id, i.entity_id)} ?disabled=${a}>
           ${l ? p`<i class="jpic"><img src=${l} alt="" />${c ? p`<img class="appi" src=${c} alt="" />` : g}</i>` : p`<ha-icon icon=${s ? "mdi:television" : "mdi:speaker-multiple"}></ha-icon>`}
           <span class="jt">
@@ -40636,7 +40638,7 @@ const Tt = (o) => ({
   }
   /** layout: screen – the whole screen: the cover big over itself blurred, the song, the time. */
   _screen(e) {
-    const t = this._config, a = this._main(), i = e?.attributes ?? {}, s = this._isPlaying(e), n = !s && !xe.has(e?.state ?? ""), r = n ? void 0 : this._artUrl(e), l = t.name ?? i.friendly_name ?? a, c = i.media_title ?? i.media_series_title ?? "", d = i.media_artist ?? i.media_album_artist ?? i.app_name ?? i.source ?? "", h = i.media_album_name && i.media_album_name !== c ? i.media_album_name : "", u = /* @__PURE__ */ new Date(), m = be(this._hass), f = u.toLocaleTimeString(m, { hour: "numeric", minute: "2-digit", hour12: Ce(this._hass) }), b = u.toLocaleDateString(m, { weekday: "long", day: "numeric", month: "long" }), y = t.clock !== !1;
+    const t = this._config, a = this._main(), i = e?.attributes ?? {}, s = this._isPlaying(e), n = !s && !ve.has(e?.state ?? ""), r = n ? void 0 : this._artUrl(e), l = t.name ?? i.friendly_name ?? a, c = i.media_title ?? i.media_series_title ?? "", d = i.media_artist ?? i.media_album_artist ?? i.app_name ?? i.source ?? "", h = i.media_album_name && i.media_album_name !== c ? i.media_album_name : "", u = /* @__PURE__ */ new Date(), m = be(this._hass), f = u.toLocaleTimeString(m, { hour: "numeric", minute: "2-digit", hour12: Ce(this._hass) }), b = u.toLocaleDateString(m, { weekday: "long", day: "numeric", month: "long" }), y = t.clock !== !1;
     return p`<div
       class="screen ink-light ${s ? "playing" : ""} ${n ? "rest" : ""} ${this._calm ? "calm" : ""}"
       style=${this._color ? `--sc:${this._color}` : ""}
@@ -40676,7 +40678,7 @@ const Tt = (o) => ({
     return p`<div class="frame surface tilef ${l ? "playing" : ""} ${this._tone(e)}">
       ${this._bg(e)}
       <div
-        class="lbar tile ${a !== void 0 ? "slides" : ""} ${xe.has(e?.state ?? "") || this._drag.has(`vol|${t}`) ? "lit" : ""}"
+        class="lbar tile ${a !== void 0 ? "slides" : ""} ${ve.has(e?.state ?? "") || this._drag.has(`vol|${t}`) ? "lit" : ""}"
         style="--pct:${Math.round((a ?? 0) * 100)}"
         @pointerdown=${n?.down}
         @pointermove=${n?.move}
@@ -40749,7 +40751,7 @@ const Tt = (o) => ({
     ) : g}`;
   }
   _card(e) {
-    const t = this._main(), [a, i, s] = this._what(e), n = this._config.name ?? e?.attributes.friendly_name ?? t, r = this._volume(t), l = r !== void 0 ? this._volEvents(t) : void 0, c = this._isMuted(e) && !this._drag.has(`vol|${t}`) && !this._pending.has(t), d = this._config.speakers === !1 ? [] : this._speakerIds().filter((x) => x !== t), h = e?.attributes.group_members ?? [], u = d.filter((x) => this._inGroup(t, x, h)).length, m = this._isPlaying(e), f = this._ctl(), b = !m && !xe.has(e?.state ?? "");
+    const t = this._main(), [a, i, s] = this._what(e), n = this._config.name ?? e?.attributes.friendly_name ?? t, r = this._volume(t), l = r !== void 0 ? this._volEvents(t) : void 0, c = this._isMuted(e) && !this._drag.has(`vol|${t}`) && !this._pending.has(t), d = this._config.speakers === !1 ? [] : this._speakerIds().filter((x) => x !== t), h = e?.attributes.group_members ?? [], u = d.filter((x) => this._inGroup(t, x, h)).length, m = this._isPlaying(e), f = this._ctl(), b = !m && !ve.has(e?.state ?? "");
     this._handleTpl = g;
     const y = this._below, _ = y ? g : this._sheet(t, b, r !== void 0 || d.length ? 54 : 12);
     return p`<div class="frame surface cardf ${m ? "playing" : ""} ${b ? "rest" : ""} ${y ? "stacked" : ""} ${this._fillH ? "filled" : ""} ${this._tone(e)}">
@@ -40867,7 +40869,7 @@ const Tt = (o) => ({
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches)
       for (const e of this.renderRoot.querySelectorAll(".mqi")) {
         const t = e.parentElement;
-        if (!t) continue;
+        if (!t || e.closest(".subw")) continue;
         const a = e.textContent ?? "", i = t.clientWidth, s = mr.get(e);
         if (s && s.text === a && s.w === i) continue;
         s?.anim?.cancel(), t.classList.remove("mq");
@@ -40893,7 +40895,7 @@ const Tt = (o) => ({
   /** The media keys: what plays on the shown player, for the system's controls (macOS, Windows). */
   mediaKeyInfo() {
     const e = this._shownState();
-    if (!e || !xe.has(e.state)) return;
+    if (!e || !ve.has(e.state)) return;
     const t = e.attributes;
     return {
       title: t.media_title ?? t.media_series_title,
@@ -40947,7 +40949,7 @@ const Tt = (o) => ({
 };
 ln.parts = om, ln.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   aa,
   ee`
@@ -41903,7 +41905,8 @@ ln.parts = om, ln.styles = [
         text-overflow: ellipsis;
       }
       .subw .who {
-        flex: 0 1 auto;
+        flex: none;
+        max-width: 60%;
       }
       .subw .who ha-icon {
         --mdc-icon-size: 16px;
@@ -43719,18 +43722,18 @@ const ei = class ei extends F {
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = go(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, hv($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${np(n, a)}</span><span class="short">${np(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), S = p`<span class="gap"></span>`, z = vr(e.bar_glass, e.bar_color, "frosted"), M = vr(e.buttons_glass, e.buttons_color, "dark"), k = h ? M : vr(e.now_glass, e.now_color, "home");
-    return this._btn = M, p`<div class="bar lbar ${z.cls || "control"} ${e.spread ? "spread" : ""}" style=${z.style}>
-        ${e.spread ? g : S}
+    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = go(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, hv($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${np(n, a)}</span><span class="short">${np(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), z = p`<span class="gap"></span>`, S = vr(e.bar_glass, e.bar_color, "frosted"), A = vr(e.buttons_glass, e.buttons_color, "dark"), k = h ? A : vr(e.now_glass, e.now_color, "home");
+    return this._btn = A, p`<div class="bar lbar ${S.cls || "control"} ${e.spread ? "spread" : ""}" style=${S.style}>
+        ${e.spread ? g : z}
         ${x("now") ? p`<button class="now ${h ? "on" : ""} ${k.cls}" style=${k.style} aria-label=${e.now_label ?? v("Now")} @click=${() => this._now()}>
               <span class="now-text">${e.now_label ?? v("Now")}</span><ha-icon class="now-icon" icon="mdi:calendar-today"></ha-icon>
             </button>` : g}
-        ${e.spread ? S : g}
+        ${e.spread ? z : g}
         ${x("nav") ? this._nav(l, c, h, y, i) : g}
-        ${e.spread ? S : g}
+        ${e.spread ? z : g}
         ${m.length > 1 && x("kind") ? p`<button
-              class="drop ${this._open ? "open" : ""} ${M.cls}"
-              style=${M.style}
+              class="drop ${this._open ? "open" : ""} ${A.cls}"
+              style=${A.style}
               aria-label=${v("Choose period")}
               aria-haspopup="listbox"
               aria-expanded=${this._open ? "true" : "false"}
@@ -44829,23 +44832,23 @@ const dp = {
       const $ = this._washer(e), C = t.states[e.remaining ?? ""], T = C && !["unavailable", "unknown"].includes(C.state) ? `${C.state}${C.attributes.unit_of_measurement ? ` ${C.attributes.unit_of_measurement}` : ""}` : "";
       y = $ === "run" ? `${v("Running")}${T ? ` · ${v("left")} ${T}` : ""}` : v($ === "pause" ? "Paused" : $ === "done" ? "Washing done" : "Off");
     }
-    const _ = Ot({ entity: e.entity, tap_action: { action: "none" }, hold_action: e.hold_action ?? { action: "more-info" } }), x = this._config, S = d ? Gi(x.picked_glass, x.picked_color, "liquid") : Gi(x.bar_glass, x.bar_color, "frosted"), z = this._icon(l, n), M = Gi(x.tray_glass, x.tray_color, "flat"), k = Ze(
+    const _ = Ot({ entity: e.entity, tap_action: { action: "none" }, hold_action: e.hold_action ?? { action: "more-info" } }), x = this._config, z = d ? Gi(x.picked_glass, x.picked_color, "liquid") : Gi(x.bar_glass, x.bar_color, "frosted"), S = this._icon(l, n), A = Gi(x.tray_glass, x.tray_color, "flat"), k = Ze(
       () => _,
       // the icon shows, it doesn't start anything – the drawer's buttons do; hold for details
       ($) => Se(this, t, _, $)
     );
     return p`<div class="item">
       <div
-        class="lbar ${S ? S.cls : "control"} ${l ? "on" : ""} ${m && Number.isFinite(b) ? "charging" : ""} ${c ? "pick" : ""} ${d ? "sel" : ""} fill-${x.fill_style ?? "fade"}"
+        class="lbar ${z ? z.cls : "control"} ${l ? "on" : ""} ${m && Number.isFinite(b) ? "charging" : ""} ${c ? "pick" : ""} ${d ? "sel" : ""} fill-${x.fill_style ?? "fade"}"
         role=${c ? "button" : g}
         aria-pressed=${c ? d ? "true" : "false" : g}
         @click=${() => this._select(e)}
-        style="${S ? `${S.style};` : ""}--fill:${Y(is(x.fill_color) ? x.fill_color : n)};--fill-a:${x.fill_strength ?? 34};--pct:${Number.isFinite(b) ? Math.min(100, Math.max(0, Math.round(b))) : 0}">
+        style="${z ? `${z.style};` : ""}--fill:${Y(is(x.fill_color) ? x.fill_color : n)};--fill-a:${x.fill_strength ?? 34};--pct:${Number.isFinite(b) ? Math.min(100, Math.max(0, Math.round(b))) : 0}">
         ${Number.isFinite(b) ? p`<i class="fill"></i>` : g}
         <div
-          class="btn ${z.cls}"
+          class="btn ${S.cls}"
           role="button"
-          style=${z.style}
+          style=${S.style}
           @pointerdown=${k.down}
           @pointermove=${k.move}
           @pointerup=${k.up}
@@ -44862,7 +44865,7 @@ const dp = {
               <ha-icon .icon=${xv(h)}></ha-icon>${Math.round(h)} %
             </span>` : g}
       </div>
-      <div class="tray ${M?.cls ?? ""}" style=${M?.style ?? ""}>${this._tray(e, a, i)}</div>
+      <div class="tray ${A?.cls ?? ""}" style=${A?.style ?? ""}>${this._tray(e, a, i)}</div>
     </div>`;
   }
   /** The button on the bar: own material / backing / symbol colours (icon_*), else the control glass lit while at work. */
@@ -44955,7 +44958,7 @@ const dp = {
 };
 cn.properties = { ...F.properties, _sel: { state: !0 } }, cn.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   aa,
   ee`
@@ -45558,8 +45561,8 @@ function zv(o) {
   }, n = (c, d) => {
     let h = 1 / 0;
     for (let u = 0, m = o.length - 1; u < o.length; m = u++) {
-      const [f, b] = o[m], [y, _] = o[u], [x, S] = [y - f, _ - b], z = Math.max(0, Math.min(1, ((c - f) * x + (d - b) * S) / (x * x + S * S || 1)));
-      h = Math.min(h, Math.hypot(c - f - z * x, d - b - z * S));
+      const [f, b] = o[m], [y, _] = o[u], [x, z] = [y - f, _ - b], S = Math.max(0, Math.min(1, ((c - f) * x + (d - b) * z) / (x * x + z * z || 1)));
+      h = Math.min(h, Math.hypot(c - f - S * x, d - b - S * z));
     }
     return h;
   };
@@ -45780,43 +45783,43 @@ const dn = class dn extends F {
     const c = e ? this._hass.states[e] : void 0, d = l.locked ?? this._num(e, l.live);
     if (!e || !c || d === void 0) return g;
     if (l.locked !== void 0) {
-      const M = Number(c.attributes.min ?? 0), k = Number(c.attributes.max ?? 100), $ = Ga(this._config.settings_glass, this._config.settings_color, "home");
-      return p`<div class="step locked ${$.cls}" title=${l.lockedLabel ?? a} style="${$.style};--pct:${(d - M) / (k - M || 1) * 100}">
+      const A = Number(c.attributes.min ?? 0), k = Number(c.attributes.max ?? 100), $ = Ga(this._config.settings_glass, this._config.settings_color, "home");
+      return p`<div class="step locked ${$.cls}" title=${l.lockedLabel ?? a} style="${$.style};--pct:${(d - A) / (k - A || 1) * 100}">
         <i class="sfill"></i>
         <button aria-label="−" disabled><ha-icon icon="mdi:minus"></ha-icon></button>
         <span class="sv"><ha-icon icon="mdi:lock-outline"></ha-icon>${s(d)}</span>
         <button aria-label="+" disabled><ha-icon icon="mdi:plus"></ha-icon></button>
       </div>`;
     }
-    const h = Number(c.attributes.min ?? 0), u = Number(c.attributes.max ?? 100), m = Number(c.attributes.step) || i, f = (M) => Math.min(u, Math.max(h, Number(M.toFixed(2)))), b = (M) => {
-      M !== Number(c.state) && (this._pending.set(e, { v: M, at: Date.now() }), this._hass.callService("number", "set_value", { value: M }, { entity_id: e }).catch(() => this._pending.delete(e)), window.setTimeout(() => this.requestUpdate(), 8100));
-    }, y = (M) => {
+    const h = Number(c.attributes.min ?? 0), u = Number(c.attributes.max ?? 100), m = Number(c.attributes.step) || i, f = (A) => Math.min(u, Math.max(h, Number(A.toFixed(2)))), b = (A) => {
+      A !== Number(c.state) && (this._pending.set(e, { v: A, at: Date.now() }), this._hass.callService("number", "set_value", { value: A }, { entity_id: e }).catch(() => this._pending.delete(e)), window.setTimeout(() => this.requestUpdate(), 8100));
+    }, y = (A) => {
       const k = this._num(e, l.live);
-      let $ = Math.round((k + M) / i) * i;
+      let $ = Math.round((k + A) / i) * i;
       n && ($ = $ > u ? $ - 360 : $ < h ? $ + 360 : $), $ = f($), $ !== k && (W("selection"), this._drag = { ...this._drag, [e]: $ });
-    }, _ = (M) => (k) => {
+    }, _ = (A) => (k) => {
       if (clearTimeout(this._rep), clearInterval(this._rep), k.type === "pointerdown") {
-        y(M), this._rep = window.setTimeout(() => this._rep = window.setInterval(() => y(M), 70), 400);
+        y(A), this._rep = window.setTimeout(() => this._rep = window.setInterval(() => y(A), 70), 400);
         return;
       }
       if (!(e in this._drag)) return;
       const { [e]: $, ...C } = this._drag;
       this._drag = C, b($);
-    }, x = (M) => {
-      const k = M.currentTarget;
-      if (M.type === "pointerdown") k.setPointerCapture(M.pointerId);
-      else if (!k.hasPointerCapture(M.pointerId)) return;
-      const $ = k.parentElement.getBoundingClientRect(), C = Math.min(1, Math.max(0, (M.clientX - $.left) / $.width));
+    }, x = (A) => {
+      const k = A.currentTarget;
+      if (A.type === "pointerdown") k.setPointerCapture(A.pointerId);
+      else if (!k.hasPointerCapture(A.pointerId)) return;
+      const $ = k.parentElement.getBoundingClientRect(), C = Math.min(1, Math.max(0, (A.clientX - $.left) / $.width));
       let T = f(Math.round((h + C * (u - h)) / m) * m);
-      if (r && Math.abs(T - Math.round(T / r) * r) <= r / 5 && (T = Math.round(T / r) * r), M.type === "pointerup" || M.type === "pointercancel") {
-        k.releasePointerCapture(M.pointerId);
+      if (r && Math.abs(T - Math.round(T / r) * r) <= r / 5 && (T = Math.round(T / r) * r), A.type === "pointerup" || A.type === "pointercancel") {
+        k.releasePointerCapture(A.pointerId);
         const { [e]: P, ...N } = this._drag;
-        this._drag = N, M.type === "pointerup" && b(P ?? T);
+        this._drag = N, A.type === "pointerup" && b(P ?? T);
         return;
       }
       this._drag[e] !== T && (e in this._drag && W("selection"), this._drag = { ...this._drag, [e]: T });
-    }, S = (d - h) / (u - h || 1) * 100, z = Ga(this._config.settings_glass, this._config.settings_color, "home");
-    return p`<div class="step ${e in this._drag ? "drag" : ""} ${z.cls}" title=${a} style="${z.style};--pct:${S}">
+    }, z = (d - h) / (u - h || 1) * 100, S = Ga(this._config.settings_glass, this._config.settings_color, "home");
+    return p`<div class="step ${e in this._drag ? "drag" : ""} ${S.cls}" title=${a} style="${S.style};--pct:${z}">
       <i class="sfill"></i>
       <button aria-label="−" @pointerdown=${_(-i)} @pointerup=${_(-i)} @pointercancel=${_(-i)} @pointerleave=${_(-i)}><ha-icon icon="mdi:minus"></ha-icon></button>
       <span class="sv" @pointerdown=${x} @pointermove=${x} @pointerup=${x} @pointercancel=${x}>
@@ -45874,14 +45877,14 @@ const dn = class dn extends F {
     if (i === void 0 || !s.length) return g;
     let [n, r, l, c] = [1 / 0, 1 / 0, -1 / 0, -1 / 0];
     for (const [k, $] of s) [n, r, l, c] = [Math.min(n, k), Math.min(r, $), Math.max(l, k), Math.max(c, $)];
-    const [d, h, u] = [(n + l) / 2, (r + c) / 2, Math.hypot(l - n, c - r) / 2], m = (i + 90) * Math.PI / 180, [f, b] = [Math.sin(m), -Math.cos(m)], [y, _] = [-b, f], x = (this._num(this._config.settings?.spacing) ?? 25) / 100 * a, S = x * Math.max(1, Math.ceil(7 * t / x)), z = [];
-    for (let k = -Math.floor(u / S) * S; k <= u; k += S) {
+    const [d, h, u] = [(n + l) / 2, (r + c) / 2, Math.hypot(l - n, c - r) / 2], m = (i + 90) * Math.PI / 180, [f, b] = [Math.sin(m), -Math.cos(m)], [y, _] = [-b, f], x = (this._num(this._config.settings?.spacing) ?? 25) / 100 * a, z = x * Math.max(1, Math.ceil(7 * t / x)), S = [];
+    for (let k = -Math.floor(u / z) * z; k <= u; k += z) {
       const [$, C] = [d + y * k, h + _ * k];
-      z.push(j`<line x1=${$ - f * u} y1=${C - b * u} x2=${$ + f * u} y2=${C + b * u}></line>`);
+      S.push(j`<line x1=${$ - f * u} y1=${C - b * u} x2=${$ + f * u} y2=${C + b * u}></line>`);
     }
-    const M = (k) => k.map(($) => $.map((C) => C.toFixed(1)).join(",")).join(" ");
-    return j`<clipPath id="mow-zones">${e.map((k) => j`<polygon points=${M(k.pts)}></polygon>`)}</clipPath>
-      <g class="stripes" clip-path="url(#mow-zones)">${z}</g>`;
+    const A = (k) => k.map(($) => $.map((C) => C.toFixed(1)).join(",")).join(" ");
+    return j`<clipPath id="mow-zones">${e.map((k) => j`<polygon points=${A(k.pts)}></polygon>`)}</clipPath>
+      <g class="stripes" clip-path="url(#mow-zones)">${S}</g>`;
   }
   /** The zones of the running job (from when it was started here); empty = all. */
   _jobKeys() {
@@ -46030,8 +46033,8 @@ const dn = class dn extends F {
             ${this._labels(r, this._box ? Math.max(k.view[2] / this._box[0], k.view[3] / this._box[1]) : 1)}
           </svg>` : g}`;
     }
-    const c = this._picked.length, d = this._recharging(), h = d ? v("Continue") : s ? v("End and dock") : i ? c ? v("Mow selected ({n})", { n: c }) : v("Mow all") : c ? v("Clean selected ({n})", { n: c }) : v("Clean all"), u = e.settings, m = this._liveIds(e), f = s ? this._routeAngle() : void 0, b = this._num(u?.angle), y = f !== void 0 && b !== void 0 && Math.abs((f - b + 270) % 180 - 90) <= 5, _ = s ? y ? b : f ?? b : void 0, x = Ga(e.rooms_glass, e.rooms_color, "home"), S = Ga(e.picked_glass, e.picked_color, "frosted"), z = Ga(e.button_glass, e.button_color, "dark"), M = `${Go(e.accent_color) ? `--rm-accent:${Y(e.accent_color)};` : ""}${Go(e.settings_fill_color) ? `--rm-fill:${Y(e.settings_fill_color)};` : ""}`;
-    return p`<div class="wrap ${this.tile}" style=${M}>
+    const c = this._picked.length, d = this._recharging(), h = d ? v("Continue") : s ? v("End and dock") : i ? c ? v("Mow selected ({n})", { n: c }) : v("Mow all") : c ? v("Clean selected ({n})", { n: c }) : v("Clean all"), u = e.settings, m = this._liveIds(e), f = s ? this._routeAngle() : void 0, b = this._num(u?.angle), y = f !== void 0 && b !== void 0 && Math.abs((f - b + 270) % 180 - 90) <= 5, _ = s ? y ? b : f ?? b : void 0, x = Ga(e.rooms_glass, e.rooms_color, "home"), z = Ga(e.picked_glass, e.picked_color, "frosted"), S = Ga(e.button_glass, e.button_color, "dark"), A = `${Go(e.accent_color) ? `--rm-accent:${Y(e.accent_color)};` : ""}${Go(e.settings_fill_color) ? `--rm-fill:${Y(e.settings_fill_color)};` : ""}`;
+    return p`<div class="wrap ${this.tile}" style=${A}>
       <div class="map ${i ? "lawn" : e.picture ? "" : "rooms-drawn"} ${this._busy ? "busy" : ""}">${l}</div>
       ${e.options?.length ? p`<div class="tune">${e.options.map((k) => this._option(k))}</div>` : g}
       ${i && u ? p`<div class="tune">
@@ -46046,14 +46049,14 @@ const dn = class dn extends F {
         <div class="pills">
         ${r.map(
       (k) => p`<button
-            class="room-pill ${this._picked.includes(k.key) ? `on ${S.cls}` : x.cls} ${this._cur === k.key ? "cur" : ""}"
-            style=${this._picked.includes(k.key) ? S.style : x.style}
+            class="room-pill ${this._picked.includes(k.key) ? `on ${z.cls}` : x.cls} ${this._cur === k.key ? "cur" : ""}"
+            style=${this._picked.includes(k.key) ? z.style : x.style}
             ?disabled=${this._busy} @click=${() => this._toggle(k.key)}>
             ${this._picked.includes(k.key) ? p`<span class="n">${this._picked.indexOf(k.key) + 1}</span>` : g}${this._cur === k.key ? p`<ha-icon class="here" icon=${this._lawn ? "mdi:robot-mower" : "mdi:robot-vacuum"}></ha-icon>` : g}${k.name}
           </button>`
     )}
         </div>
-        <button class="go ${z.cls}" style=${z.style} ?disabled=${n} @click=${() => this._clean()}>
+        <button class="go ${S.cls}" style=${S.style} ?disabled=${n} @click=${() => this._clean()}>
           <ha-icon .icon=${s && !d ? "mdi:home-import-outline" : "mdi:play"}></ha-icon>
           <span>${h}</span>
         </button>
@@ -46077,7 +46080,7 @@ dn.properties = {
   _menu: { state: !0 }
 }, dn.styles = [
   F.styles,
-  we,
+  xe,
   Oe,
   ee`
       :host {
@@ -46943,7 +46946,7 @@ const hn = class hn extends F {
 hn.parts = em, hn.styles = [
   F.styles,
   zc,
-  we,
+  xe,
   Gp,
   ee`
       :host {
@@ -47328,7 +47331,7 @@ const gp = { alert: 3, warning: 2, info: 1 }, fp = { info: "mdi:information-outl
     const e = this._config;
     if (!e || !this._hass) return g;
     const t = this._notes();
-    for (const x of this._gone) t.some((S) => S.id === x) || this._gone.delete(x);
+    for (const x of this._gone) t.some((z) => z.id === x) || this._gone.delete(x);
     let a = t.filter((x) => !this._gone.has(x.id));
     const i = this._shownTop;
     if (i && !this._exiting && !this._gone.has(i.id) && !this._leaving.includes(i.id) && !a.some((x) => x.id === i.id) && (this._exiting = i, setTimeout(() => {
@@ -47344,7 +47347,7 @@ const gp = { alert: 3, warning: 2, info: 1 }, fp = { info: "mdi:information-outl
     const f = this._fromAbove ? "up" : "down", b = f === "up" ? "down" : "up", y = a.length > 2 ? [f, b] : a.length > 1 ? [f] : [], _ = (x) => p`<div
       class="item ${x.level} ${this._leaving.includes(x.id) || this._exiting?.id === x.id ? "lift" : ""} ${r.has(n(x)) ? "drop" : ""}"
     >
-      <button class="x" aria-label=${v("Dismiss")} @click=${(S) => this._dismiss(x, S)}>
+      <button class="x" aria-label=${v("Dismiss")} @click=${(z) => this._dismiss(x, z)}>
         <ha-icon icon="mdi:close"></ha-icon>
       </button>
       ${this._row(x, !1)}
@@ -47352,7 +47355,7 @@ const gp = { alert: 3, warning: 2, info: 1 }, fp = { info: "mdi:information-outl
     return e.place === "overlay" ? (this._floatTpl = p`<div class="wrap overlay ${l && a.length === 1 ? "leave" : ""}">
         <div class="list sheet">${ts(a, (x) => n(x), _)}</div>
       </div>`, g) : (this._floatTpl = this._open ? p`<div class="list float" style="--maxw:${this._maxw ?? 420}px">${ts(a, (x) => n(x), _)}</div>` : void 0, p`<div class="wrap ${d ? "block" : "between"} ${l ? a.length === 1 ? "leave" : "advance" : ""}" style="--h:${e.size ?? 36}px;${h}${u}">
-      ${y.map((x, S) => p`<span class="back ${m} ${x} ${S === 0 ? "next" : ""}" aria-hidden="true"></span>`)}
+      ${y.map((x, z) => p`<span class="back ${m} ${x} ${z === 0 ? "next" : ""}" aria-hidden="true"></span>`)}
       <button class="pill ${m} ${s.level}" @click=${() => (W("selection"), this._open = !this._open)} aria-expanded=${this._open}>
         <span class="x" role="button" aria-label=${v("Dismiss")} @click=${(x) => this._dismiss(s, x)}>
           <ha-icon icon="mdi:close"></ha-icon>
@@ -48093,18 +48096,18 @@ const pn = class pn extends F {
     let b = f.length ? f : Yt(m.areas.map((L) => `"${L}"`));
     const y = Object.keys(s).filter((L) => this._areas[L]?.length), _ = We(b), x = Math.max(1, ...b.map((L) => L.length));
     for (const L of y) _.includes(L) || (b = [...b, Array(x).fill(L)]);
-    let S = a.grid?.columns ?? (f.length ? `repeat(${x}, minmax(0, 1fr))` : m.columns(u)), z = a.grid?.rows ?? (f.length ? "" : m.rows);
-    const M = st(a.column_widths);
-    if (M.length) {
-      const L = tl(S);
-      S = Array.from({ length: x }, (G, H) => M[H] ? el(M[H]) : L[H] ?? "minmax(0, 1fr)").join(" ");
+    let z = a.grid?.columns ?? (f.length ? `repeat(${x}, minmax(0, 1fr))` : m.columns(u)), S = a.grid?.rows ?? (f.length ? "" : m.rows);
+    const A = st(a.column_widths);
+    if (A.length) {
+      const L = tl(z);
+      z = Array.from({ length: x }, (G, H) => A[H] ? el(A[H]) : L[H] ?? "minmax(0, 1fr)").join(" ");
     }
-    const k = st(a.row_heights), $ = tl(z), C = b.map((L, G) => k[G] ? el(k[G]) : $[G] ?? "auto"), T = b.length;
+    const k = st(a.row_heights), $ = tl(S), C = b.map((L, G) => k[G] ? el(k[G]) : $[G] ?? "auto"), T = b.length;
     this._keepEmpty = this._preview && f.length > 0;
     const P = (L) => L !== "." && (this._keepEmpty || !!this._areas[L]?.length), N = b.map((L, G) => L.some(P) ? G : -1).filter((L) => L >= 0);
-    b = N.map((L) => b[L]), k.length && (z = N.map((L) => C[L]).join(" "));
+    b = N.map((L) => b[L]), k.length && (S = N.map((L) => C[L]).join(" "));
     let E = !0;
-    e === "mobile" && !this._config.responsive?.mobile?.grid && (b = We(b).filter(P).map((L) => [L]), S = "minmax(0, 1fr)", z = "", E = !1), this._grid = { columns: S, rows: z, template: b, rowIdx: N, rowCount: T, resizable: E }, this.requestUpdate();
+    e === "mobile" && !this._config.responsive?.mobile?.grid && (b = We(b).filter(P).map((L) => [L]), z = "minmax(0, 1fr)", S = "", E = !1), this._grid = { columns: z, rows: S, template: b, rowIdx: N, rowCount: T, resizable: E }, this.requestUpdate();
   }
   watchedEntities() {
     return ["sun.sun"];
@@ -49348,9 +49351,9 @@ const un = class un extends Ye {
       if (h && u) return { list: [...l, h.key], i: h.list.length, into: this._box(c), label: `${w("Into")} ${i(l)}` };
       const m = l.slice(0, -1), f = l[l.length - 1], b = this._parentLayout(l), y = b === "row" || b === "grid", _ = (e.clientX - c.left) / c.width, x = (e.clientY - c.top) / c.height;
       if (!h && b !== "grid") {
-        const M = y ? x < 0.25 ? "before" : x > 0.75 ? "after" : "" : _ < 0.25 ? "before" : _ > 0.75 ? "after" : "";
-        if (M) {
-          const k = M === "after", $ = y ? this._box(new DOMRect(c.left, (k ? c.bottom : c.top) - 2, c.width, 4)) : this._box(new DOMRect((k ? c.right : c.left) - 2, c.top, 4, c.height));
+        const A = y ? x < 0.25 ? "before" : x > 0.75 ? "after" : "" : _ < 0.25 ? "before" : _ > 0.75 ? "after" : "";
+        if (A) {
+          const k = A === "after", $ = y ? this._box(new DOMRect(c.left, (k ? c.bottom : c.top) - 2, c.width, 4)) : this._box(new DOMRect((k ? c.right : c.left) - 2, c.top, 4, c.height));
           return {
             list: m,
             i: f,
@@ -49360,8 +49363,8 @@ const un = class un extends Ye {
           };
         }
       }
-      const S = y ? _ > 0.5 : x > 0.5, z = y ? this._box(new DOMRect((S ? c.right : c.left) - 2, c.top, 4, c.height)) : this._box(new DOMRect(c.left, (S ? c.bottom : c.top) - 2, c.width, 4));
-      return { list: m, i: S ? f + 1 : f, line: z, anchor: d, after: S, label: `${w(S ? "After" : "Before")} ${i(l)}` };
+      const z = y ? _ > 0.5 : x > 0.5, S = y ? this._box(new DOMRect((z ? c.right : c.left) - 2, c.top, 4, c.height)) : this._box(new DOMRect(c.left, (z ? c.bottom : c.top) - 2, c.width, 4));
+      return { list: m, i: z ? f + 1 : f, line: S, anchor: d, after: z, label: `${w(z ? "After" : "Before")} ${i(l)}` };
     }
     const n = this._areaAt(e);
     if (n) {
@@ -49441,8 +49444,8 @@ const un = class un extends Ye {
     if (i === "masonry") {
       const f = a.flatMap((b, y) => b && e.clientX >= b.left && e.clientX <= b.right ? [{ r: b, k: y }] : []).sort((b, y) => b.r.top - y.r.top);
       if (f.length) {
-        const b = f.filter((M) => M.r.top + M.r.height / 2 < e.clientY), y = b[b.length - 1], _ = f[b.length], x = (y ?? _).r, S = y && _ ? (y.r.bottom + _.r.top) / 2 : y ? y.r.bottom + 8 : _.r.top - 8, z = this._box(new DOMRect(x.left + x.width / 2, S, 0, 0));
-        return { list: t, i: y ? y.k + 1 : _.k, x: z.x, y: z.y };
+        const b = f.filter((A) => A.r.top + A.r.height / 2 < e.clientY), y = b[b.length - 1], _ = f[b.length], x = (y ?? _).r, z = y && _ ? (y.r.bottom + _.r.top) / 2 : y ? y.r.bottom + 8 : _.r.top - 8, S = this._box(new DOMRect(x.left + x.width / 2, z, 0, 0));
+        return { list: t, i: y ? y.k + 1 : _.k, x: S.x, y: S.y };
       }
       i = "grid";
     }
@@ -49479,8 +49482,8 @@ const un = class un extends Ye {
     }, f = d ? h : u;
     if (f) return { list: r, i: f > 0 ? l + 1 : l, ...m(d ? "x" : "y", f) };
     if (c === "grid" && u > 0 && i) {
-      const y = i(), _ = y.flatMap(($, C) => $ && C !== l && $.top >= n.bottom - 1 ? [{ s: $, k: C }] : []), x = Math.min(..._.map(($) => $.s.top)), S = _.filter(($) => Math.abs($.s.top - x) < 4).sort(($, C) => $.s.left - C.s.left), z = S.find(($) => $.s.right > n.left + 1), M = z ? z.k : S.length ? S[S.length - 1].k + 1 : y.length, k = this._box(new DOMRect(n.left + n.width / 2, n.bottom, 0, 0));
-      return { list: r, i: M, x: k.x, y: k.y, below: !0 };
+      const y = i(), _ = y.flatMap(($, C) => $ && C !== l && $.top >= n.bottom - 1 ? [{ s: $, k: C }] : []), x = Math.min(..._.map(($) => $.s.top)), z = _.filter(($) => Math.abs($.s.top - x) < 4).sort(($, C) => $.s.left - C.s.left), S = z.find(($) => $.s.right > n.left + 1), A = S ? S.k : z.length ? z[z.length - 1].k + 1 : y.length, k = this._box(new DOMRect(n.left + n.width / 2, n.bottom, 0, 0));
+      return { list: r, i: A, x: k.x, y: k.y, below: !0 };
     }
     const b = d ? u : h;
     if (b && c !== "grid")
@@ -49917,10 +49920,10 @@ const un = class un extends Ye {
     if (r.show_header !== !1 && !JSON.stringify(f).includes('"custom:glass-popup-header"')) {
       const x = document.createElement("div");
       x.className = "pop-head", x.style.cssText = "display:flex;align-items:center;gap:10px;font-size:20px;font-weight:600";
-      const S = document.createElement("ha-icon");
-      S.icon = n.icon ?? "mdi:window-maximize";
-      const z = document.createElement("span");
-      z.textContent = n.name ?? e, x.append(S, z), c.appendChild(x);
+      const z = document.createElement("ha-icon");
+      z.icon = n.icon ?? "mdi:window-maximize";
+      const S = document.createElement("span");
+      S.textContent = n.name ?? e, x.append(z, S), c.appendChild(x);
     }
     for (const x of b) c.appendChild(x);
     if (!b.length) {
@@ -50124,30 +50127,30 @@ const un = class un extends Ye {
             @click=${(_) => _.stopPropagation()}
             @pointerdown=${(_) => {
       _.stopPropagation(), _.preventDefault();
-      const x = _.currentTarget.parentElement.getBoundingClientRect(), S = this._spanOf(e);
-      this._rz = { path: t, x: _.clientX, y: _.clientY, w: x.width, h: x.height, span: S.span, rows: S.rows, cols: this._gridCols(t) || 3 }, window.addEventListener("pointermove", this._onResizeMove), window.addEventListener("pointerup", this._onResizeUp);
+      const x = _.currentTarget.parentElement.getBoundingClientRect(), z = this._spanOf(e);
+      this._rz = { path: t, x: _.clientX, y: _.clientY, w: x.width, h: x.height, span: z.span, rows: z.rows, cols: this._gridCols(t) || 3 }, window.addEventListener("pointermove", this._onResizeMove), window.addEventListener("pointerup", this._onResizeUp);
     }}
           ></span>${s.span > 1 || s.rows > 1 ? p`<span class="wspan">${s.span}×${s.rows}</span>` : g}` : g, l = Be(e), c = lt(e), d = Me(t, this._sel), h = e.name ? String(e.name) : l.title, u = this._wdrag && Me(this._wdrag.path, t), m = (_) => `wbox ${_} ${d ? "on" : ""} ${u ? "dragging" : ""}`, f = (_) => {
       if (_.button !== 0) return;
       _.stopPropagation();
-      const x = _.currentTarget, S = x.getBoundingClientRect();
-      this._wpress = { path: t, label: h, x: _.clientX, y: _.clientY, el: x, dx: _.clientX - S.left, dy: _.clientY - S.top, w: S.width, h: S.height };
+      const x = _.currentTarget, z = x.getBoundingClientRect();
+      this._wpress = { path: t, label: h, x: _.clientX, y: _.clientY, el: x, dx: _.clientX - z.left, dy: _.clientY - z.top, w: z.width, h: z.height };
     }, b = (_) => {
       _.stopPropagation(), this._dragged || (this._sel = t);
     }, y = p`<span class="wtools">
       ${this._menuBtn(t, "plain")}
       <button title=${w("Remove")} @pointerdown=${(_) => _.stopPropagation()} @click=${(_) => {
       _.stopPropagation();
-      const x = _.currentTarget.getBoundingClientRect(), S = this._box(x);
-      this._del = { path: t, x: S.x + 20, y: S.y + 30, label: h };
+      const x = _.currentTarget.getBoundingClientRect(), z = this._box(x);
+      this._del = { path: t, x: z.x + 20, y: z.y + 30, label: h };
     }}><ha-icon .icon=${"mdi:delete-outline"}></ha-icon></button>
     </span>`;
     if (c) {
-      const _ = e.layout ?? "column", x = e.columns ?? 3, S = _ === "grid" ? `display:grid;grid-template-columns:repeat(${i === "mobile" && e.responsive?.mobile?.columns ? e.responsive.mobile.columns : x},minmax(0,1fr))` : `display:flex;flex-direction:${_ === "row" ? "row" : "column"}`;
+      const _ = e.layout ?? "column", x = e.columns ?? 3, z = _ === "grid" ? `display:grid;grid-template-columns:repeat(${i === "mobile" && e.responsive?.mobile?.columns ? e.responsive.mobile.columns : x},minmax(0,1fr))` : `display:flex;flex-direction:${_ === "row" ? "row" : "column"}`;
       return p`<div class=${m("wpanel")} style=${n} data-path=${JSON.stringify(t)} data-layout=${_} @pointerdown=${f} @click=${b}>
         <div class="whead"><ha-icon .icon=${"mdi:view-dashboard-outline"}></ha-icon>${h}<small>${w(_ === "grid" ? "Grid" : _ === "row" ? "Line" : "Column")}${_ === "grid" ? ` ${x}` : ""}</small>${y}</div>
-        <div class="wbody" style=${S}>
-          ${c.list.map((z, M) => this._wireBox(z, [...t, c.key, M], _))}
+        <div class="wbody" style=${z}>
+          ${c.list.map((S, A) => this._wireBox(S, [...t, c.key, A], _))}
           ${this._wireAdd([...t, c.key], c.list.length)}
         </div>
         ${r}
@@ -50239,8 +50242,8 @@ const un = class un extends Ye {
     if (!a || Ct(JSON.parse(a.dataset.path), t)) return;
     const i = JSON.parse(a.dataset.path), s = a.getBoundingClientRect(), n = a.classList.contains("warea"), r = n ? void 0 : X(this._config, i), l = r && lt(r), c = e.clientX > s.left + 16 && e.clientX < s.right - 16 && e.clientY > s.top + 16 && e.clientY < s.bottom - 16;
     if (n || l && c) {
-      const x = n ? i : [...i, l.key], S = (X(this._config, x) ?? []).length;
-      return { list: x, i: S, into: this._box(s), label: `${w("Into")} ${n ? w(Dt[String(i[i.length - 1])]?.[0] ?? "") : r.name ?? Be(r).title}` };
+      const x = n ? i : [...i, l.key], z = (X(this._config, x) ?? []).length;
+      return { list: x, i: z, into: this._box(s), label: `${w("Into")} ${n ? w(Dt[String(i[i.length - 1])]?.[0] ?? "") : r.name ?? Be(r).title}` };
     }
     const d = i.slice(0, -1), h = i[i.length - 1], u = X(this._config, d.slice(0, -1)), m = Array.isArray(u) ? "column" : u?.layout ?? "column", f = m === "row" || m === "grid", b = f ? e.clientX > s.left + s.width / 2 : e.clientY > s.top + s.height / 2, y = f ? this._box(new DOMRect((b ? s.right : s.left) - 2, s.top, 4, s.height)) : this._box(new DOMRect(s.left, (b ? s.bottom : s.top) - 2, s.width, 4)), _ = r?.name ?? (r ? Be(r).title : "");
     return { list: d, i: b ? h + 1 : h, line: y, label: `${w(b ? "After" : "Before")} ${_}` };
@@ -52393,7 +52396,7 @@ const yc = "1.11.10", Sp = {
   format: { displayText: xa, computeValue: nu },
   colors: { cssColor: Y, tint: je },
   actions: { pressHandlers: Ze, runAction: Se, withDefaults: Ot },
-  styles: { tokens: Sc, surface: we, control: Oe, animations: Ac },
+  styles: { tokens: Sc, surface: xe, control: Oe, animations: Ac },
   LiquidController: le,
   settings: pe,
   /** The made-up demo home (src/demo): a hass for pages without HA, and its changes. */
