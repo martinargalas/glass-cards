@@ -39234,10 +39234,12 @@ const Tt = (o) => ({
     if (!a || !s) return a;
     const d = s.attributes, h = { ...a.attributes }, u = i !== void 0 && i === this._tvVia(e);
     if (u) {
-      for (const y of n) delete h[y];
+      for (const _ of n) delete h[_];
       h.media_title = d.media_title ?? d.media_series_title ?? d.app_name ?? d.source ?? s.attributes.friendly_name;
-      const b = [d.media_artist, d.media_title && d.media_series_title, d.app_name, d.source, s.attributes.friendly_name];
-      h.media_artist = b.find((y) => y && y !== h.media_title), h.glass_tv = !0;
+      const b = d.media_title ? this._channelOf(String(d.media_title)) : void 0;
+      b?.picture && !h.entity_picture && (h.entity_picture = b.picture);
+      const y = [b?.name, d.media_artist, d.media_title && d.media_series_title, d.app_name, d.source, s.attributes.friendly_name];
+      h.media_artist = y.find((_) => _ && _ !== h.media_title), h.glass_tv = !0;
     }
     for (const b of n) b in d && !(u && (b === "media_title" || b === "media_artist")) && (h[b] = d[b]);
     const m = ne.NEXT | ne.PREVIOUS | ne.SHUFFLE | ne.REPEAT | ne.SEEK | (u ? ne.PAUSE | ne.PLAY : 0);
@@ -39287,6 +39289,24 @@ const Tt = (o) => ({
       return _.some((z) => x.some((S) => S.includes(z) || z.includes(S)));
     };
     return h.slice(0, h.indexOf(m)).find(b) ?? m;
+  }
+  /**
+   * The channel showing a programme now, by a TV guide in Home Assistant (an EPG integration: a
+   * sensor per channel with its channel_name and current_title) – the app tells only the programme.
+   */
+  _channelOf(e) {
+    const t = this._hass?.states;
+    if (!t) return;
+    const a = (s) => s.toLowerCase().replace(/\(.*?\)|\[.*?\]/g, " ").replace(/[^\p{L}\p{N}]+/gu, " ").trim(), i = a(e);
+    if (!(i.length < 3))
+      for (const s of Object.values(t)) {
+        const n = s.attributes;
+        if (typeof n.channel_name != "string" || typeof n.current_title != "string") continue;
+        const r = a(n.current_title);
+        if (r.length < 3 || !(r === i || Math.min(r.length, i.length) >= 6 && (r.startsWith(i) || i.startsWith(r)))) continue;
+        const l = [n.entity_picture, n.logo_url].find((c) => typeof c == "string" && /^(https?:|\/)/.test(c));
+        return { name: n.channel_name, picture: l };
+      }
   }
   async _twin(e) {
     if (this._twins.has(e)) return this._twins.get(e) ?? void 0;

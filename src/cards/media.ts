@@ -779,8 +779,11 @@ class GlassMedia extends GlassElement<MediaConfig> {
       // the TV's: none of the speaker's own "TV Audio" – what plays there, or which device it is
       for (const k of keys) delete attrs[k];
       attrs.media_title = a.media_title ?? a.media_series_title ?? a.app_name ?? a.source ?? v.attributes.friendly_name;
+      // live TV in an app (SledovaniTV): which channel shows it now, by a TV guide in Home Assistant
+      const ch = a.media_title ? this._channelOf(String(a.media_title)) : undefined;
+      if (ch?.picture && !attrs.entity_picture) attrs.entity_picture = ch.picture;
       // under it: the channel, the series, the app – never the title again (only an app: the device)
-      const under = [a.media_artist, a.media_title && a.media_series_title, a.app_name, a.source, v.attributes.friendly_name];
+      const under = [ch?.name, a.media_artist, a.media_title && a.media_series_title, a.app_name, a.source, v.attributes.friendly_name];
       attrs.media_artist = under.find((x) => x && x !== attrs.media_title);
       attrs.glass_tv = true;
     }
@@ -875,6 +878,32 @@ class GlassMedia extends GlassElement<MediaConfig> {
       return a.some((w) => b.some((v) => v.includes(w) || w.includes(v)));
     };
     return on.slice(0, on.indexOf(lead)).find(same) ?? lead;
+  }
+
+  /**
+   * The channel showing a programme now, by a TV guide in Home Assistant (an EPG integration: a
+   * sensor per channel with its channel_name and current_title) – the app tells only the programme.
+   */
+  private _channelOf(title: string): { name: string; picture?: string } | undefined {
+    const s = this._hass?.states;
+    if (!s) return undefined;
+    const norm = (t: string) =>
+      t
+        .toLowerCase()
+        .replace(/\(.*?\)|\[.*?\]/g, " ")
+        .replace(/[^\p{L}\p{N}]+/gu, " ")
+        .trim();
+    const want = norm(title);
+    if (want.length < 3) return undefined;
+    for (const e of Object.values(s)) {
+      const a = e.attributes;
+      if (typeof a.channel_name !== "string" || typeof a.current_title !== "string") continue;
+      const now = norm(a.current_title);
+      if (now.length < 3 || !(now === want || (Math.min(now.length, want.length) >= 6 && (now.startsWith(want) || want.startsWith(now))))) continue;
+      const logo = [a.entity_picture, a.logo_url].find((u) => typeof u === "string" && /^(https?:|\/)/.test(u)) as string | undefined;
+      return { name: a.channel_name, picture: logo };
+    }
+    return undefined;
   }
 
   /**
