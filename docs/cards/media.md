@@ -189,6 +189,8 @@ Play / pause is the solid button in the middle; it reacts the moment you press i
 
 A tap on the cover opens the visualizer, and holding it opens Home Assistant's more-info dialog (`hold_action`).
 
+A title or an artist too long for the card drifts slowly to its end, glides back and waits a moment before it drifts again.
+
 ### The cover's colours
 
 Every cover tints the card its own way – here's the same card with four different songs:
@@ -286,6 +288,11 @@ tv_sources:
 ```
 
 Each soundbar gets its own list. Of the devices that play or are paused, the card follows the one that changed last – you started, paused or switched something on it. When a device listed before it plays the same thing, that one shows instead, so put the richest one first: Plex knows the film and its poster, while the Apple TV knows only what the app tells it. A paused video still shows; an Apple TV on its home screen, or with only an app's menu open, counts as nothing playing. In the list of players, the soundbar shows what plays on the TV, with the small icon of the Apple TV's app (looked up in the App Store by the app's id).
+
+Pictures from the TV that aren't square – a film's poster, a game's banner – show whole over a blurred copy of themselves. Two sources get more help:
+
+- **Live TV in an app** (SledovaniTV and the like) tells only the programme. With a TV guide in Home Assistant – the [EPG integration](https://github.com/jerod33/ha-epg), a sensor per channel with its `channel_name` and `current_title` – the card finds which channel shows it, recordings too, and names it under the programme – with the channel's logo over the picture when the channel's sensor has the logo as its picture.
+- **YouTube on an Apple TV** gives no picture of its own. Add [YouTube on TV](https://github.com/jorgediez/ha-youtube-on-tv) as a device listed above the Apple TV and the video's thumbnail shows, cut to a square.
 
 Devices don't always say when you've moved on – a PlayStation may report the same game for an hour, and Plex may keep saying it plays long after you closed it. If your TV is in Home Assistant, add it as `tv` and give each device the `input` the TV calls it (its `source`, as the TV entity shows it). The card then only looks at the devices on the input that's on screen, and on any other input – an app of the TV itself, like Netflix – it shows the TV. Music from Music Assistant on the soundbar always comes first: the list only matters while the soundbar plays the TV's sound.
 
