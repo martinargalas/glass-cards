@@ -710,6 +710,12 @@ class GlassMedia extends GlassElement<MediaConfig> {
     const sonos = this._kind(id) === "sonos";
     const st = steady(this.stateOf(id), sonos);
     const via = this._via(id);
+    // the TV's sound, but none of its devices plays: nothing playing (not the soundbar's "TV Audio")
+    if (!via && st && this._tvSet(id)) {
+      const attrs: Record<string, unknown> = { ...st.attributes };
+      for (const k of ["media_title", "media_artist", "media_album_name", "entity_picture", "entity_picture_local", "media_duration", "media_position", "app_name"]) delete attrs[k];
+      return { ...st, state: "idle", attributes: attrs } as HassEntity;
+    }
     let v = via ? this.stateOf(via) : undefined;
     const keys = [
       "media_title",
@@ -835,7 +841,8 @@ class GlassMedia extends GlassElement<MediaConfig> {
    * before it playing the same (Plex: the poster). Its title,
    * picture and time show; play, pause and skips go to it; the volume stays the speaker's.
    */
-  private _tvVia(id: string): string | undefined {
+  /** The speaker's tv_sources while it plays the TV's sound (its input: TV, HDMI). */
+  private _tvSet(id: string) {
     const list = this._config.tv_sources;
     const s = this._hass?.states;
     if (!list?.length || !s) return undefined;
@@ -844,11 +851,16 @@ class GlassMedia extends GlassElement<MediaConfig> {
     if (!LOADED.has(st?.state ?? "") || !(a.app_id === "tv" || /^(tv|hdmi)/i.test(String(a.source ?? "")))) return undefined;
     // its own list – by the speaker, or by its twin (the Sonos' own entity and Music Assistant's)
     const tw = this._twins.get(id);
-    const set = list.find((t) => {
+    return list.find((t) => {
       const sp = t.speaker ?? this._ids[0];
       return sp === id || sp === tw || this._twins.get(sp) === id;
     });
-    if (!set) return undefined;
+  }
+
+  private _tvVia(id: string): string | undefined {
+    const s = this._hass?.states;
+    const set = this._tvSet(id);
+    if (!set || !s) return undefined;
     let pool = (set.sources ?? []).map((x) => (typeof x === "string" ? { entity: x } : x)).filter((x) => x?.entity);
     // the TV knows which input is on screen (an LG: "PS5", "Apple TV"): only the devices on it – a
     // PlayStation may say for an hour it plays the same game, an Apple TV stays paused behind it
@@ -864,7 +876,9 @@ class GlassMedia extends GlassElement<MediaConfig> {
     // that device plays – never on its own (Plex may say "playing" for hours after you closed it)
     const detail = (x: { entity: string; input?: string }, i: number) => !!x.input && pool.slice(i + 1).some((y) => y.input === x.input);
     const details = pool.filter(detail).map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
-    const on = pool.filter((x, i) => !detail(x, i)).map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
+    // only what plays now: paused, or an app left in the background (it keeps its last video as
+    // "paused"), is nothing playing
+    const on = pool.filter((x, i) => !detail(x, i)).map((x) => x.entity).filter((x) => s[x]?.state === "playing");
     if (!on.length) return undefined;
     // what's on the TV: the one that changed last – started, paused, another app (Plex keeps saying
     // "playing" long after you moved on to another app or the PlayStation, but it doesn't change)
@@ -2734,6 +2748,8 @@ class GlassMedia extends GlassElement<MediaConfig> {
   /** Music elsewhere in the house, each with Join (a speaker at rest). */
   private _joinBars(st: HassEntity | undefined) {
     if (!st || st.state === "unavailable") return nothing;
+    // a soundbar on the TV's sound: joining would take it from the TV
+    if (this._tvSet(st.entity_id)) return nothing;
     const joins = this._playingElsewhere(st.entity_id);
     if (!joins.length) return nothing;
     const busy = this._busyOn(st.entity_id);
