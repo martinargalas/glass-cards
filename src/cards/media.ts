@@ -259,6 +259,9 @@ const supports = (st: HassEntity | undefined, f: number) => !!st && ((Number(st.
 const ACTIVE = new Set(["playing", "paused", "buffering", "on"]);
 /** Something is on it – playing or paused: the art at full strength, the look unchanged by a pause. */
 const LOADED = new Set(["playing", "paused", "buffering"]);
+/** A line too long to show: how fast it drifts, and its drift now (by the element). */
+const MARQUEE_PX_S = 32;
+const marquees = new WeakMap<HTMLElement, { text: string; w: number; anim?: Animation }>();
 const isMA = (st?: HassEntity) => !!st?.attributes.mass_player_type;
 
 /** An item of YouTube Music's library (the YouTube Music Player integration) as Music Assistant's
@@ -3280,8 +3283,45 @@ class GlassMedia extends GlassElement<MediaConfig> {
     if (this._config?.library_from && this._hass && !this._twins.has(this._main())) void this._twin(this._main());
     this._fitPanel();
     this._syncViz();
+    this._marquee();
     if (this._config?.media_keys) mediaKeysOn(this), mediaKeysUpdate(this);
     else mediaKeysOff(this);
+  }
+
+  /**
+   * A line too long for its place drifts slowly to its end, glides quickly back, waits a moment and
+   * drifts again (the title, the artist, a player's name) – its indent moves, so the element stays.
+   */
+  private _marquee() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    for (const el of this.renderRoot.querySelectorAll<HTMLElement>(".title, .sub:not(.subw), .sartist, .salbum, .who > span")) {
+      const text = el.textContent ?? "";
+      const was = marquees.get(el);
+      const w = el.clientWidth;
+      if (was && was.text === text && was.w === w) continue;
+      was?.anim?.cancel();
+      el.classList.remove("mq");
+      const dist = el.scrollWidth - w;
+      if (!w || dist < 3) {
+        marquees.set(el, { text, w });
+        continue;
+      }
+      el.classList.add("mq");
+      const wait = 2000, end = 1000, back = 600, run = (dist / MARQUEE_PX_S) * 1000;
+      const T = wait + run + end + back;
+      const at = (ms: number) => ms / T;
+      const anim = el.animate(
+        [
+          { textIndent: "0px", offset: 0 },
+          { textIndent: "0px", offset: at(wait), easing: "linear" },
+          { textIndent: `${-dist}px`, offset: at(wait + run) },
+          { textIndent: `${-dist}px`, offset: at(wait + run + end), easing: "cubic-bezier(.4,0,.2,1)" },
+          { textIndent: "0px", offset: 1 },
+        ],
+        { duration: T, iterations: Infinity },
+      );
+      marquees.set(el, { text, w, anim });
+    }
   }
 
   /** The media keys: what plays on the shown player, for the system's controls (macOS, Windows). */
@@ -3728,6 +3768,9 @@ class GlassMedia extends GlassElement<MediaConfig> {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+      .mq {
+        text-overflow: clip !important;
       }
       .sub {
         font-size: 13px;
