@@ -708,8 +708,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
    * playing YouTube Music's stream knows only the stream's address: the title, artist, cover,
    * position and modes come from YouTube Music; the volume stays the speaker's).
    */
-  private _shownState(): HassEntity | undefined {
-    const id = this._main();
+  private _shownState(id = this._main()): HassEntity | undefined {
     const sonos = this._kind(id) === "sonos";
     const st = steady(this.stateOf(id), sonos);
     const via = this._via(id);
@@ -1390,7 +1389,8 @@ class GlassMedia extends GlassElement<MediaConfig> {
     return html`<div class="scrim" @click=${() => ((this._pickOpen = false), this.requestUpdate())}></div>
       <div class="spks plist" role="listbox">
         ${this._ids.map((id) => {
-          const st = hass.states[id];
+          // a soundbar on the TV: what plays there (its picture, title), not its "TV Audio"
+          const st = this._tvSet(id) ? this._shownState(id) : hass.states[id];
           const a = st?.attributes ?? {};
           const url = this._artUrl(st);
           const icon = a.device_class === "tv" ? "mdi:television" : a.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker";

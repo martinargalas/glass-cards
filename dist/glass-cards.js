@@ -39181,8 +39181,8 @@ const Tt = (o) => ({
    * playing YouTube Music's stream knows only the stream's address: the title, artist, cover,
    * position and modes come from YouTube Music; the volume stays the speaker's).
    */
-  _shownState() {
-    const e = this._main(), t = this._kind(e) === "sonos", a = mr(this.stateOf(e), t), i = this._via(e);
+  _shownState(e = this._main()) {
+    const t = this._kind(e) === "sonos", a = mr(this.stateOf(e), t), i = this._via(e);
     if (!i && a && this._tvSet(e)) {
       const b = { ...a.attributes };
       for (const y of ["media_title", "media_artist", "media_album_name", "entity_picture", "entity_picture_local", "media_duration", "media_position", "app_name"]) delete b[y];
@@ -39536,7 +39536,7 @@ const Tt = (o) => ({
     return this._loadKinds(), p`<div class="scrim" @click=${() => (this._pickOpen = !1, this.requestUpdate())}></div>
       <div class="spks plist" role="listbox">
         ${this._ids.map((a) => {
-      const i = t.states[a], s = i?.attributes ?? {}, n = this._artUrl(i), r = s.device_class === "tv" ? "mdi:television" : s.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker", l = !i || i.state === "unavailable" ? v("Unavailable") : i.state === "off" ? v("Off") : Te.has(i.state) && s.media_title ? [s.media_title, s.media_artist].filter(Boolean).join(" · ") : v("Nothing playing");
+      const i = this._tvSet(a) ? this._shownState(a) : t.states[a], s = i?.attributes ?? {}, n = this._artUrl(i), r = s.device_class === "tv" ? "mdi:television" : s.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker", l = !i || i.state === "unavailable" ? v("Unavailable") : i.state === "off" ? v("Off") : Te.has(i.state) && s.media_title ? [s.media_title, s.media_artist].filter(Boolean).join(" · ") : v("Nothing playing");
       return p`<button class="prow ${a === e ? "in" : ""}" role="option" aria-selected=${a === e ? "true" : "false"} @click=${() => this._choose(a)}>
             <i class="pic" style=${n ? `background-image:${ma(n)}` : ""}>${n ? g : p`<ha-icon .icon=${r}></ha-icon>`}</i>
             <span class="ptxt"><span class="sname"><span class="nm">${s.friendly_name ?? a}</span>${this._kindBadge(a)}</span><span class="psub">${l}</span></span>
