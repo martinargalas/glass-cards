@@ -2876,7 +2876,7 @@ const Sg = {
   "Made for Music Assistant: the cover lights the glass, your library and a search, speakers to group – and a screensaver.": "Dělaný pro Music Assistant: obal prosvítí sklo, tvoje knihovna a hledání, reproduktory do skupiny – a spořič obrazovky.",
   "Soundbar on the TV": "Soundbar u TV",
   "While a soundbar plays the TV's sound, the card shows what plays on the TV – an Apple TV's app, a film in Plex, a PlayStation's game – instead of \"TV Audio\".": "Když soundbar hraje zvuk z TV, karta místo „TV Audio“ ukáže, co na TV běží – aplikaci na Apple TV, film v Plexu, hru na PlayStationu.",
-  "Its devices: put Plex or YouTube before the Apple TV they run on – they only tell better what it plays (the poster, the video), never on their own.": "Zařízení: Plex nebo YouTube dej před Apple TV, na které běží – jen upřesní, co hraje (plakát, video), samy se nikdy neukážou.",
+  "Order matters: if an app on the Apple TV has its own player in Home Assistant (Plex, YouTube), put it above the Apple TV. The card then takes the poster or the video's picture from it – but only while the Apple TV itself plays.": "Na pořadí záleží: když má aplikace na Apple TV vlastní přehrávač v Home Assistantu (Plex, YouTube), dej ho nad Apple TV. Karta si z něj vezme plakát nebo náhled videa – ale jen když Apple TV opravdu hraje.",
   "Devices on the TV": "Zařízení na TV",
   "the card's player": "přehrávač karty",
   "The card's player": "Přehrávač karty",
@@ -5246,7 +5246,7 @@ const Sg = {
   "Made for Music Assistant: the cover lights the glass, your library and a search, speakers to group – and a screensaver.": "Gemacht für Music Assistant: das Cover leuchtet durchs Glas, deine Bibliothek und eine Suche, Lautsprecher zum Gruppieren – und ein Bildschirmschoner.",
   "Soundbar on the TV": "Soundbar am TV",
   "While a soundbar plays the TV's sound, the card shows what plays on the TV – an Apple TV's app, a film in Plex, a PlayStation's game – instead of \"TV Audio\".": "Während eine Soundbar den Ton des TVs spielt, zeigt die Karte statt „TV Audio“, was auf dem TV läuft – die App eines Apple TV, einen Film in Plex, ein Spiel der PlayStation.",
-  "Its devices: put Plex or YouTube before the Apple TV they run on – they only tell better what it plays (the poster, the video), never on their own.": "Ihre Geräte: Plex oder YouTube vor das Apple TV, auf dem sie laufen – sie sagen nur genauer, was es spielt (Poster, Video), nie allein.",
+  "Order matters: if an app on the Apple TV has its own player in Home Assistant (Plex, YouTube), put it above the Apple TV. The card then takes the poster or the video's picture from it – but only while the Apple TV itself plays.": "Die Reihenfolge zählt: Hat eine App auf dem Apple TV einen eigenen Player in Home Assistant (Plex, YouTube), setze ihn über das Apple TV. Die Karte nimmt dann das Poster oder das Bild des Videos von ihm – aber nur, während das Apple TV selbst spielt.",
   "Devices on the TV": "Geräte am TV",
   "the card's player": "Player der Karte",
   "The card's player": "Player der Karte",
@@ -19002,7 +19002,7 @@ const If = {
             { custom: "list", list: "tv_sources" },
             {
               custom: "hint",
-              text: "Its devices: put Plex or YouTube before the Apple TV they run on – they only tell better what it plays (the poster, the video), never on their own."
+              text: "Order matters: if an app on the Apple TV has its own player in Home Assistant (Plex, YouTube), put it above the Apple TV. The card then takes the poster or the video's picture from it – but only while the Apple TV itself plays."
             },
             // each soundbar's devices
             ...(o.tv_sources ?? []).map((n, r) => ({

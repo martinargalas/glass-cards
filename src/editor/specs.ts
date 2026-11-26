@@ -2167,7 +2167,7 @@ export const mediaSpec: EditorSpec = {
                 { custom: "list", list: "tv_sources" },
                 {
                   custom: "hint",
-                  text: "Its devices: put Plex or YouTube before the Apple TV they run on – they only tell better what it plays (the poster, the video), never on their own.",
+                  text: "Order matters: if an app on the Apple TV has its own player in Home Assistant (Plex, YouTube), put it above the Apple TV. The card then takes the poster or the video's picture from it – but only while the Apple TV itself plays.",
                 },
                 // each soundbar's devices
                 ...(c.tv_sources ?? []).map((t: any, i: number) => ({

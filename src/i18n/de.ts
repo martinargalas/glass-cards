@@ -2359,7 +2359,7 @@ export const de: Dict = {
   "Made for Music Assistant: the cover lights the glass, your library and a search, speakers to group – and a screensaver.": "Gemacht für Music Assistant: das Cover leuchtet durchs Glas, deine Bibliothek und eine Suche, Lautsprecher zum Gruppieren – und ein Bildschirmschoner.",
   "Soundbar on the TV": "Soundbar am TV",
   "While a soundbar plays the TV's sound, the card shows what plays on the TV – an Apple TV's app, a film in Plex, a PlayStation's game – instead of \"TV Audio\".": "Während eine Soundbar den Ton des TVs spielt, zeigt die Karte statt „TV Audio“, was auf dem TV läuft – die App eines Apple TV, einen Film in Plex, ein Spiel der PlayStation.",
-  "Its devices: put Plex or YouTube before the Apple TV they run on – they only tell better what it plays (the poster, the video), never on their own.": "Ihre Geräte: Plex oder YouTube vor das Apple TV, auf dem sie laufen – sie sagen nur genauer, was es spielt (Poster, Video), nie allein.",
+  "Order matters: if an app on the Apple TV has its own player in Home Assistant (Plex, YouTube), put it above the Apple TV. The card then takes the poster or the video's picture from it – but only while the Apple TV itself plays.": "Die Reihenfolge zählt: Hat eine App auf dem Apple TV einen eigenen Player in Home Assistant (Plex, YouTube), setze ihn über das Apple TV. Die Karte nimmt dann das Poster oder das Bild des Videos von ihm – aber nur, während das Apple TV selbst spielt.",
   "Devices on the TV": "Geräte am TV",
   "the card's player": "Player der Karte",
   "The card's player": "Player der Karte",
