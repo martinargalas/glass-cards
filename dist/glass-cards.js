@@ -41906,7 +41906,7 @@ ln.parts = om, ln.styles = [
       }
       .subw .who {
         flex: none;
-        max-width: 60%;
+        max-width: none;
       }
       .subw .who ha-icon {
         --mdc-icon-size: 16px;
