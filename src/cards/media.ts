@@ -1799,7 +1799,8 @@ class GlassMedia extends GlassElement<MediaConfig> {
       return html`<div class="art ${cls} logoplate"><img class="chlogo big" src=${logo} alt="" /></div>`;
     // the TV's picture not square (a 16:9 frame, a 2:3 poster): whole, over a blur of itself
     const r = url ? (artRatio.get(url) ?? 1) : 1;
-    const fit = url && st?.attributes.glass_tv && (r > 1.15 || r < 0.87) ? "fit" : "";
+    // live TV with its channel's logo: the programme cut to the square, the logo over it
+    const fit = url && st?.attributes.glass_tv && !st?.attributes.glass_logo && (r > 1.15 || r < 0.87) ? "fit" : "";
     return html`<div class="art ${cls} ${fit} ${url ? "" : "none"}" style=${url ? (fit ? `--art:${cssUrl(url)}` : `background-image:${cssUrl(url)}`) : ""}>
       ${url ? nothing : wait ? html`<i class="spin" aria-hidden="true"></i>` : html`<ha-icon .icon=${icon}></ha-icon>`}
       ${url && logo ? html`<img class="chlogo" src=${logo} alt="" />` : nothing}
