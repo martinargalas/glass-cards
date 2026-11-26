@@ -499,6 +499,8 @@ function heldOrAsTold(st: HassEntity, m: SteadyMem, id: string, title: string | 
  * as it comes), and one that fails (an Apple TV's art gone with its pause) shows as none.
  */
 const artLoad = new Map<string, "ok" | "fail" | Promise<void>>();
+/** a programme's channel found by a TV guide's search (played from a recording), by its title */
+const channelFound = new Map<string, { name: string; picture?: string } | null>();
 /** each loaded picture's width / height (a TV's 16:9 frame, a 2:3 poster) */
 const artRatio = new Map<string, number>();
 const artWaiters = new Set<() => void>();
@@ -858,7 +860,11 @@ class GlassMedia extends GlassElement<MediaConfig> {
       if (!here.length) return set.tv;
       pool = here;
     }
-    const on = pool.map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
+    // listed before a device on the same input (Plex before the Apple TV): it only tells better what
+    // that device plays – never on its own (Plex may say "playing" for hours after you closed it)
+    const detail = (x: { entity: string; input?: string }, i: number) => !!x.input && pool.slice(i + 1).some((y) => y.input === x.input);
+    const details = pool.filter(detail).map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
+    const on = pool.filter((x, i) => !detail(x, i)).map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
     if (!on.length) return undefined;
     // what's on the TV: the one that changed last – started, paused, another app (Plex keeps saying
     // "playing" long after you moved on to another app or the PlayStation, but it doesn't change)
@@ -877,7 +883,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
       const b = words(lead);
       return a.some((w) => b.some((v) => v.includes(w) || w.includes(v)));
     };
-    return on.slice(0, on.indexOf(lead)).find(same) ?? lead;
+    return [...details, ...on.slice(0, on.indexOf(lead))].find(same) ?? lead;
   }
 
   /**
@@ -895,6 +901,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
         .trim();
     const want = norm(title);
     if (want.length < 3) return undefined;
+    const alike = (t: string) => t.length >= 3 && (t === want || (Math.min(t.length, want.length) >= 6 && (t.startsWith(want) || want.startsWith(t))));
     for (const e of Object.values(s)) {
       const a = e.attributes;
       if (typeof a.channel_name !== "string" || typeof a.current_title !== "string") continue;
@@ -902,10 +909,31 @@ class GlassMedia extends GlassElement<MediaConfig> {
       const ended = Date.parse(String(a.current_stop ?? "").replace(" ", "T")) < Date.now();
       const onAir = ended && typeof a.next_title === "string" ? a.next_title : a.current_title;
       const now = norm(onAir);
-      if (now.length < 3 || !(now === want || (Math.min(now.length, want.length) >= 6 && (now.startsWith(want) || want.startsWith(now))))) continue;
+      if (!alike(now)) continue;
       const logo = [a.entity_picture, a.logo_url].find((u) => typeof u === "string" && /^(https?:|\/)/.test(u)) as string | undefined;
       return { name: a.channel_name, picture: logo };
     }
+    // not on air now (played from a recording): the guide's own search, once per title – what it
+    // aired before (an EPG integration with an epg/search command)
+    const got = channelFound.get(want);
+    if (got !== undefined) return got ?? undefined;
+    channelFound.set(want, null);
+    const q = title.replace(/\(.*?\)|\[.*?\]/g, " ").trim();
+    this._hass
+      ?.callWS<{ results?: { channel_id?: string; title?: string; start?: string }[] }>({ type: "epg/search", query: q, days: 1 })
+      .then((r) => {
+        const now = Date.now();
+        const hit = (r?.results ?? [])
+          .filter((x) => x.title && alike(norm(x.title)) && Date.parse(String(x.start ?? "").replace(" ", "T")) <= now)
+          .pop();
+        if (!hit?.channel_id) return;
+        const sensor = Object.values(this._hass?.states ?? {}).find((e) => String(e.attributes.channel_id) === String(hit.channel_id) && typeof e.attributes.channel_name === "string");
+        if (!sensor) return;
+        const pic = [sensor.attributes.entity_picture, sensor.attributes.logo_url].find((u) => typeof u === "string" && /^(https?:|\/)/.test(u)) as string | undefined;
+        channelFound.set(want, { name: sensor.attributes.channel_name, picture: pic });
+        this.requestUpdate();
+      })
+      .catch(() => undefined);
     return undefined;
   }
 
