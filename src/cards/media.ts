@@ -812,7 +812,15 @@ class GlassMedia extends GlassElement<MediaConfig> {
       const sp = t.speaker ?? this._ids[0];
       return sp === id || sp === tw || this._twins.get(sp) === id;
     });
-    return set?.sources?.find((x) => LOADED.has(s[x]?.state ?? ""));
+    const on = (set?.sources ?? []).filter((x) => LOADED.has(s[x]?.state ?? ""));
+    const started = (x: string) => Date.parse(s[x].last_changed) || 0;
+    const heard = (x: string) => Date.parse(s[x].last_updated) || 0;
+    // left behind: another one started playing after it last said anything (Plex keeps saying
+    // "playing" for a while after you moved on to another app or the PlayStation)
+    const fresh = on.filter((x) => !on.some((y) => y !== x && s[y].state === "playing" && started(y) > heard(x)));
+    const pool = fresh.length ? fresh : on;
+    // playing first, in the order given – a paused one only when none plays
+    return pool.find((x) => s[x].state === "playing") ?? pool[0];
   }
 
   /**

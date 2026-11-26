@@ -39245,11 +39245,11 @@ const Tt = (o) => ({
     if (!t?.length || !a) return;
     const i = a[e], s = i?.attributes ?? {};
     if (!Pe.has(i?.state ?? "") || !(s.app_id === "tv" || /^(tv|hdmi)/i.test(String(s.source ?? "")))) return;
-    const n = this._twins.get(e);
-    return t.find((l) => {
-      const c = l.speaker ?? this._ids[0];
-      return c === e || c === n || this._twins.get(c) === e;
-    })?.sources?.find((l) => Pe.has(a[l]?.state ?? ""));
+    const n = this._twins.get(e), l = (t.find((m) => {
+      const f = m.speaker ?? this._ids[0];
+      return f === e || f === n || this._twins.get(f) === e;
+    })?.sources ?? []).filter((m) => Pe.has(a[m]?.state ?? "")), c = (m) => Date.parse(a[m].last_changed) || 0, d = (m) => Date.parse(a[m].last_updated) || 0, h = l.filter((m) => !l.some((f) => f !== m && a[f].state === "playing" && c(f) > d(m))), u = h.length ? h : l;
+    return u.find((m) => a[m].state === "playing") ?? u[0];
   }
   async _twin(e) {
     if (this._twins.has(e)) return this._twins.get(e) ?? void 0;
