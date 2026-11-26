@@ -204,8 +204,8 @@ interface MediaConfig extends BaseCardConfig {
   fill_height?: boolean;
   /** your own covers, the first row of the library */
   favorites?: Pick[];
-  /** the library of another player for the others (YouTube Music for a Sonos): a tap plays it
-   *  through that player on the one picked */
+  /** the library of another player for the others (YouTube Music Player's for Chromecast
+   *  speakers): a tap plays it through that player on the one picked */
   library_from?: string;
   /** which rows of the library, in this order (their titles); default: all, played and new first */
   library_sections?: string[];

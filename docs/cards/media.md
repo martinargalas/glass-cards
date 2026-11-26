@@ -70,18 +70,22 @@ Plex works through Home Assistant's Plex integration: the library shows what you
 
 Any `media_player` in Home Assistant works – a TV, an AV receiver, a Chromecast without Music Assistant. The card shows only the controls the player supports, so an Apple TV gets no shuffle and a radio no progress bar. If the player can browse its media, that's the library; if it can't, the library lists its sources (radio stations – inputs such as HDMI are left out).
 
-#### YouTube Music without Music Assistant
+#### YouTube Music on Chromecast speakers, without Music Assistant
 
-With the [YouTube Music Player](https://github.com/KoljaWindeler/ytube_music_player) integration (HACS) you can use YouTube Music's library for your speakers:
+> **Using Sonos, or speakers in Music Assistant?** This isn't for you – add YouTube Music to Music Assistant instead (see [Music Assistant](#music-assistant--recommended) and [Sonos with YouTube Music](#sonos-with-youtube-music)).
+
+The [YouTube Music Player](https://github.com/KoljaWindeler/ytube_music_player) integration (HACS) plays YouTube Music on players Home Assistant itself can send a stream to – mainly Google Cast speakers and displays (Nest, Chromecast) through Home Assistant's Cast integration. The card then takes the library from it, for those speakers:
 
 ```yaml
 type: custom:glass-media
-entity: media_player.kitchen
-entities: [media_player.living_room, media_player.bathroom]
+entity: media_player.kitchen_nest
+entities: [media_player.living_room_nest, media_player.bathroom_nest]
 library_from: media_player.ytube_music_player   # YouTube Music's library for these speakers
 ```
 
-Tapping a playlist tells YouTube Music to play it on the speaker you picked; next, pause and the rest then go to YouTube Music, which holds the queue. To sign the integration in, follow [ytmusicapi's browser setup](https://ytmusicapi.readthedocs.io/en/stable/setup/browser.html) and copy the resulting `browser.json` to `/config/.storage/header_ytube_music_player.json`. Be aware that YouTube sometimes refuses to hand out a song's stream (`self decoded url return 403` in the log) – the speaker then has nothing to play. That's between the integration and YouTube; Music Assistant is the more dependable way.
+Tapping a playlist tells YouTube Music to play it on the speaker you picked; next, pause and the rest then go to YouTube Music, which holds the queue. Sonos usually can't play the stream it hands over, and a speaker that belongs to Music Assistant is Music Assistant's to play – so for those, Music Assistant's own YouTube Music is the way.
+
+To sign the integration in, follow [ytmusicapi's browser setup](https://ytmusicapi.readthedocs.io/en/stable/setup/browser.html) and copy the resulting `browser.json` to `/config/.storage/header_ytube_music_player.json`. Be aware that YouTube sometimes refuses to hand out a song's stream (`self decoded url return 403` in the log) – the speaker then has nothing to play. That's between the integration and YouTube; Music Assistant is the more dependable way.
 
 
 ## Layouts
@@ -333,7 +337,7 @@ Browsers only send media keys to a page that plays sound, so the tab plays a loo
 | `library_close` | number | opened while something plays: down again after this many seconds without a touch (default 8; 0 = stays) |
 | `library_layout` | "sheet" \| "below" | show: all – the library as a sheet over the player (default, its handle on top), or below it |
 | `favorites` | Pick[] | your own covers, the first row of the library |
-| `library_from` | string | the library of another player for the others (YouTube Music for a Sonos): a tap plays it through that player on the one picked |
+| `library_from` | string | the library of another player for the others (YouTube Music Player's for Chromecast speakers): a tap plays it through that player on the one picked |
 | `library_sections` | string[] | which rows of the library, in this order (their titles); default: all, played and new first |
 | `tv_sources` | { speaker?: string; tv?: string; sources: (string \| { entity: string; input?: string })[] }[] | a speaker on a TV's HDMI (a Sonos soundbar): what the TV plays, from these players – the first one playing (or paused), in this order – while the speaker plays the TV's sound |
 | `music_assistant_url` | string | Music Assistant's own address (`http://…:8095`) – with a token, the card talks to Music Assistant itself: its home's rows, every playlist's tracks, each player's kind (optional) |
