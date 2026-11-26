@@ -39237,7 +39237,7 @@ const Tt = (o) => ({
       for (const _ of n) delete h[_];
       h.media_title = d.media_title ?? d.media_series_title ?? d.app_name ?? d.source ?? s.attributes.friendly_name;
       const b = d.media_title ? this._channelOf(String(d.media_title)) : void 0;
-      b?.picture && !h.entity_picture && (h.entity_picture = b.picture);
+      b?.picture && (h.glass_logo = b.picture);
       const y = [b?.name, d.media_artist, d.media_title && d.media_series_title, d.app_name, d.source, s.attributes.friendly_name];
       h.media_artist = y.find((_) => _ && _ !== h.media_title), h.glass_tv = !0;
     }
@@ -39747,9 +39747,13 @@ const Tt = (o) => ({
     return i ? [i, [s, a].filter(Boolean).join(" · "), s] : [a, qi.has(e.state) && s ? s : v("Nothing playing")];
   }
   _art_(e, t) {
-    const a = this._artUrl(e), i = !a && this._artWaits(e), s = e?.attributes.glass_tv || e?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note", n = a ? Bm.get(a) ?? 1 : 1, r = a && e?.attributes.glass_tv && (n > 1.15 || n < 0.87) ? "fit" : "";
-    return p`<div class="art ${t} ${r} ${a ? "" : "none"}" style=${a ? r ? `--art:${ma(a)}` : `background-image:${ma(a)}` : ""}>
+    const a = this._artUrl(e), i = !a && this._artWaits(e), s = e?.attributes.glass_tv || e?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note", n = t === "square" ? e?.attributes.glass_logo : void 0;
+    if (n && !a && !i)
+      return p`<div class="art ${t} logoplate"><img class="chlogo big" src=${n} alt="" /></div>`;
+    const r = a ? Bm.get(a) ?? 1 : 1, l = a && e?.attributes.glass_tv && (r > 1.15 || r < 0.87) ? "fit" : "";
+    return p`<div class="art ${t} ${l} ${a ? "" : "none"}" style=${a ? l ? `--art:${ma(a)}` : `background-image:${ma(a)}` : ""}>
       ${a ? g : i ? p`<i class="spin" aria-hidden="true"></i>` : p`<ha-icon .icon=${s}></ha-icon>`}
+      ${a && n ? p`<img class="chlogo" src=${n} alt="" />` : g}
     </div>`;
   }
   _press(e, t) {
@@ -40920,6 +40924,7 @@ nn.parts = tm, nn.styles = [
       }
 
       .art {
+        position: relative;
         background-size: cover;
         background-position: center;
         display: grid;
@@ -40945,6 +40950,30 @@ nn.parts = tm, nn.styles = [
       .art.fit::after {
         inset: 0;
         background-size: contain;
+      }
+      .art .chlogo {
+        position: absolute;
+        left: 8%;
+        bottom: 8%;
+        z-index: 1;
+        max-width: 34%;
+        max-height: 16%;
+        padding: 6px 9px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        object-fit: contain;
+      }
+      .art.logoplate {
+        background: linear-gradient(160deg, #fff, #e9edf2);
+      }
+      .art .chlogo.big {
+        position: static;
+        max-width: 62%;
+        max-height: 40%;
+        padding: 0;
+        background: none;
+        box-shadow: none;
       }
       .art .spin {
         width: clamp(22px, 14cqw, 40px);

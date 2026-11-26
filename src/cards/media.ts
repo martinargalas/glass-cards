@@ -781,7 +781,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
       attrs.media_title = a.media_title ?? a.media_series_title ?? a.app_name ?? a.source ?? v.attributes.friendly_name;
       // live TV in an app (SledovaniTV): which channel shows it now, by a TV guide in Home Assistant
       const ch = a.media_title ? this._channelOf(String(a.media_title)) : undefined;
-      if (ch?.picture && !attrs.entity_picture) attrs.entity_picture = ch.picture;
+      if (ch?.picture) attrs.glass_logo = ch.picture;
       // under it: the channel, the series, the app – never the title again (only an app: the device)
       const under = [ch?.name, a.media_artist, a.media_title && a.media_series_title, a.app_name, a.source, v.attributes.friendly_name];
       attrs.media_artist = under.find((x) => x && x !== attrs.media_title);
@@ -1764,11 +1764,17 @@ class GlassMedia extends GlassElement<MediaConfig> {
     // a film's poster, a video's frame: cut to the square like any cover; on its way: a spinner
     const wait = !url && this._artWaits(st);
     const icon = st?.attributes.glass_tv || st?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note";
+    // the channel's logo (live TV, by a TV guide): a badge on the programme's picture – or, with none,
+    // the logo itself on a light plate
+    const logo = cls === "square" ? (st?.attributes.glass_logo as string | undefined) : undefined;
+    if (logo && !url && !wait)
+      return html`<div class="art ${cls} logoplate"><img class="chlogo big" src=${logo} alt="" /></div>`;
     // the TV's picture not square (a 16:9 frame, a 2:3 poster): whole, over a blur of itself
     const r = url ? (artRatio.get(url) ?? 1) : 1;
     const fit = url && st?.attributes.glass_tv && (r > 1.15 || r < 0.87) ? "fit" : "";
     return html`<div class="art ${cls} ${fit} ${url ? "" : "none"}" style=${url ? (fit ? `--art:${cssUrl(url)}` : `background-image:${cssUrl(url)}`) : ""}>
       ${url ? nothing : wait ? html`<i class="spin" aria-hidden="true"></i>` : html`<ha-icon .icon=${icon}></ha-icon>`}
+      ${url && logo ? html`<img class="chlogo" src=${logo} alt="" />` : nothing}
     </div>`;
   }
 
@@ -3479,6 +3485,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
       }
 
       .art {
+        position: relative;
         background-size: cover;
         background-position: center;
         display: grid;
@@ -3504,6 +3511,30 @@ class GlassMedia extends GlassElement<MediaConfig> {
       .art.fit::after {
         inset: 0;
         background-size: contain;
+      }
+      .art .chlogo {
+        position: absolute;
+        left: 8%;
+        bottom: 8%;
+        z-index: 1;
+        max-width: 34%;
+        max-height: 16%;
+        padding: 6px 9px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        object-fit: contain;
+      }
+      .art.logoplate {
+        background: linear-gradient(160deg, #fff, #e9edf2);
+      }
+      .art .chlogo.big {
+        position: static;
+        max-width: 62%;
+        max-height: 40%;
+        padding: 0;
+        background: none;
+        box-shadow: none;
       }
       .art .spin {
         width: clamp(22px, 14cqw, 40px);
