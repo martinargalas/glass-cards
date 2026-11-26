@@ -494,6 +494,33 @@ function heldOrAsTold(st: HassEntity, m: SteadyMem, id: string, title: string | 
 
 /** A picture's address as a CSS url() – its quotes, backslashes and line breaks escaped, so an
  *  address from a player's attributes can't end the url() and add CSS of its own. */
+/**
+ * Pictures loaded before they show: a cover appears whole once it's there (never drawn row by row
+ * as it comes), and one that fails (an Apple TV's art gone with its pause) shows as none.
+ */
+const artLoad = new Map<string, "ok" | "fail" | Promise<void>>();
+const artWaiters = new Set<() => void>();
+function artReady(url: string): "ok" | "fail" | "wait" {
+  const got = artLoad.get(url);
+  if (got === "ok" || got === "fail") return got;
+  if (!got) {
+    const img = new Image();
+    const done = (r: "ok" | "fail") => {
+      artLoad.set(url, r);
+      for (const w of artWaiters) w();
+    };
+    artLoad.set(
+      url,
+      new Promise<void>((res) => {
+        img.onload = () => (done("ok"), res());
+        img.onerror = () => (done("fail"), res());
+      }),
+    );
+    img.src = url;
+  }
+  return "wait";
+}
+
 function cssUrl(u: string): string {
   return `url("${String(u).replace(/["\\\n\r\f]/g, (c) => encodeURIComponent(c))}")`;
 }
@@ -1329,6 +1356,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
 
   override connectedCallback() {
     super.connectedCallback();
+    artWaiters.add(this._artWake);
     this._syncTick();
     pickBus.addEventListener("pick", this._onPick);
     searchBus.addEventListener("search", this._onSearch);
@@ -1354,6 +1382,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
 
   override disconnectedCallback() {
     super.disconnectedCallback();
+    artWaiters.delete(this._artWake);
     clearInterval(this._clockT);
     this._clockT = undefined;
     clearTimeout(this._calmT);
@@ -1384,11 +1413,25 @@ class GlassMedia extends GlassElement<MediaConfig> {
   }
 
   private _artUrl(st?: HassEntity): string | undefined {
+    const p = this._artRaw(st);
+    // only once loaded: whole, never drawn as it comes
+    return p && artReady(p) === "ok" ? p : undefined;
+  }
+
+  private _artRaw(st?: HassEntity): string | undefined {
     const p = (st?.attributes.entity_picture_local ?? st?.attributes.entity_picture) as string | undefined;
     // HA's own proxy (/api/media_player_proxy/…) is on the page's origin: the WebGL glass and
     // the colour can read it
     return p || undefined;
   }
+
+  /** A picture on its way: a spinner where it will be. */
+  private _artWaits(st?: HassEntity): boolean {
+    const p = this._artRaw(st);
+    return !!p && artReady(p) === "wait";
+  }
+
+  private _artWake = () => this.requestUpdate();
 
   private _syncArt() {
     const url = this._artUrl(this._shownState());
@@ -1659,10 +1702,11 @@ class GlassMedia extends GlassElement<MediaConfig> {
 
   private _art_(st: HassEntity | undefined, cls: string) {
     const url = this._artUrl(st);
-    // the TV's picture (a film's poster, a video's frame): whole, not cut to a square
-    const fit = url && st?.attributes.glass_tv ? "fit" : "";
-    return html`<div class="art ${cls} ${fit} ${url ? "" : "none"}" style=${url ? `background-image:${cssUrl(url)}` : ""}>
-      ${url ? nothing : html`<ha-icon .icon=${st?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note"}></ha-icon>`}
+    // a film's poster, a video's frame: cut to the square like any cover; on its way: a spinner
+    const wait = !url && this._artWaits(st);
+    const icon = st?.attributes.glass_tv || st?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note";
+    return html`<div class="art ${cls} ${url ? "" : "none"}" style=${url ? `background-image:${cssUrl(url)}` : ""}>
+      ${url ? nothing : wait ? html`<i class="spin" aria-hidden="true"></i>` : html`<ha-icon .icon=${icon}></ha-icon>`}
     </div>`;
   }
 
@@ -3380,10 +3424,22 @@ class GlassMedia extends GlassElement<MediaConfig> {
         color: var(--g-text-2);
         background-color: color-mix(in srgb, var(--g-text) 8%, transparent);
       }
-      .art.fit {
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-color: rgba(0, 0, 0, 0.32);
+      .art .spin {
+        width: clamp(22px, 14cqw, 40px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 3px solid color-mix(in srgb, var(--g-text) 22%, transparent);
+        border-top-color: var(--g-text);
+        animation: artspin 0.9s linear infinite;
+      }
+      .art.round .spin {
+        width: 18px;
+        border-width: 2px;
+      }
+      @keyframes artspin {
+        to {
+          transform: rotate(360deg);
+        }
       }
       .art.square {
         aspect-ratio: 1;
