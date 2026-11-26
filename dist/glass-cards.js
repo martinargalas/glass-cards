@@ -41979,6 +41979,7 @@ ln.parts = om, ln.styles = [
         text-overflow: ellipsis;
       }
       .ptxt .sname {
+        padding-left: 0;
         font-size: 15px;
         font-weight: 600;
         display: flex;
