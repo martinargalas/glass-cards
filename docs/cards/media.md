@@ -272,6 +272,20 @@ When you look at a speaker that's silent while others are playing together, the 
 
 A Sonos soundbar connected to the TV over HDMI only tells Home Assistant that it plays *TV Audio*. If you list the devices connected to the TV in `tv_sources`, the card shows what's actually on instead: the film, episode, video or game, with its picture, the time and play / pause. The volume still belongs to the soundbar.
 
+What the card can tell depends on what Home Assistant knows about each device:
+
+| Device or app | What you need in Home Assistant | What the card shows |
+| --- | --- | --- |
+| Sonos soundbar | the Sonos integration (Music Assistant's player of it works too) | that it plays the TV's sound – its volume stays in the card |
+| The TV | its integration, e.g. LG webOS | which input is on screen, so only the device on it counts (optional, but recommended) |
+| Apple TV | the Apple TV integration | the app, the title and, when the app gives one, the picture; play / pause |
+| Plex, Infuse on the Apple TV | the Plex integration – it adds a player for each Plex app (Plex for Apple TV, Infuse) | the film's or episode's poster and its title |
+| YouTube on the Apple TV | [YouTube on TV](https://github.com/jorgediez/ha-youtube-on-tv) | the video's thumbnail and its channel |
+| Live TV (SledovaniTV and the like) | a TV guide: the [EPG integration](https://github.com/jerod33/ha-epg) | the channel the programme is on (and its logo, see below) |
+| PlayStation 5 | the PlayStation Network integration | the game and its cover |
+
+> So far this has been tested with a Sonos Arc Ultra on an LG webOS TV, with an Apple TV 4K (Plex, Infuse, YouTube, SledovaniTV) and a PlayStation 5 plugged into the TV. Other soundbars, TVs and devices should work the same way when their integration reports what plays – if one doesn't, please [open an issue](https://github.com/martinargalas/glass-cards/issues).
+
 In Dashboard Studio it's the **Soundbar on the TV** section: add the soundbar, pick the TV, then its devices – each with the TV's input from a list. In YAML:
 
 ```yaml
