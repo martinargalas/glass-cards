@@ -39414,7 +39414,7 @@ const Tt = (o) => ({
   }
   /** The player's name – with more than one player, a tap on it lists them to pick from. */
   _who(e, t = "") {
-    return this._ids.length < 2 ? p`<span class=${t}>${e}</span>` : p`<button
+    return this._ids.length < 2 ? p`<span class=${t}><span class="mqi">${e}</span></span>` : p`<button
       class="who ${t}"
       aria-haspopup="listbox"
       aria-expanded=${this._pickOpen ? "true" : "false"}
@@ -39423,7 +39423,7 @@ const Tt = (o) => ({
       a.stopPropagation(), W("selection"), this._pickOpen = !this._pickOpen, this._open = !1, this.requestUpdate();
     }}
     >
-      <span>${e}</span><ha-icon .icon=${"mdi:chevron-down"}></ha-icon>
+      <span><span class="mqi">${e}</span></span><ha-icon .icon=${"mdi:chevron-down"}></ha-icon>
     </button>`;
   }
   /** The cards with the same players share what was picked. */
@@ -40556,7 +40556,7 @@ const Tt = (o) => ({
       c,
       p`<div class="stxt">
                     <div class="stitle">${c || l}</div>
-                    ${d ? p`<div class="sartist">${d}</div>` : g} ${h ? p`<div class="salbum">${h}</div>` : g}
+                    ${d ? p`<div class="sartist"><span class="mqi">${d}</span></div>` : g} ${h ? p`<div class="salbum"><span class="mqi">${h}</span></div>` : g}
                   </div>`
     )}
                 <div class="sctl">${this._progBar(e, a)}
@@ -40593,8 +40593,8 @@ const Tt = (o) => ({
           ${this._art_(e, "round")}
         </div>
         <div class="txt">
-          <span class="title">${i}</span>
-          <span class="sub">${this._drag.has(`vol|${t}`) ? `${v("Volume")} ${Math.round((a ?? 0) * 100)} %` : s}</span>
+          <span class="title"><span class="mqi">${i}</span></span>
+          <span class="sub"><span class="mqi">${this._drag.has(`vol|${t}`) ? `${v("Volume")} ${Math.round((a ?? 0) * 100)} %` : s}</span></span>
         </div>
         ${e && e.state !== "unavailable" && (ue(e, ne.PLAY) || ue(e, ne.PAUSE) || ue(e, ne.TURN_ON)) ? this._btn(this._playIcon(e), v(l ? "Pause" : "Play"), () => this._playPause(e), this._busyOn(e.entity_id) ? "main busy" : "main") : g}
       </div>
@@ -40654,8 +40654,8 @@ const Tt = (o) => ({
               ${this._artArea(e, a)}
               <div class="info">
                 <div class="txt">
-                  ${this._ids.length > 1 && s === void 0 ? this._who(a, "title") : p`<span class="title">${a}</span>`}
-                  ${this._ids.length > 1 && s !== void 0 ? p`<span class="sub subw">${s ? p`<span class="by">${s} ·</span>` : g}${this._who(n)}</span>` : p`<span class="sub">${i}</span>`}
+                  ${this._ids.length > 1 && s === void 0 ? this._who(a, "title") : p`<span class="title"><span class="mqi">${a}</span></span>`}
+                  ${this._ids.length > 1 && s !== void 0 ? p`<span class="sub subw">${s ? p`<span class="by">${s} ·</span>` : g}${this._who(n)}</span>` : p`<span class="sub"><span class="mqi">${i}</span></span>`}
                 </div>
                 ${this._progBar(e, t)}
                 <div class="ctrls">${this._ctrls(e, t)}                </div>
@@ -40761,27 +40761,29 @@ const Tt = (o) => ({
    */
   _marquee() {
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches)
-      for (const e of this.renderRoot.querySelectorAll(".title:not(.who), .sub:not(.subw), .sartist, .salbum, .who > span")) {
-        const t = e.textContent ?? "", a = mr.get(e), i = e.parentElement?.clientWidth ?? 0;
-        if (a && a.text === t && a.w === i) continue;
-        a?.anim?.cancel(), e.classList.remove("mq"), e.style.width = "";
-        const s = e.clientWidth, n = e.scrollWidth - s;
-        if (!s || n < 3) {
-          mr.set(e, { text: t, w: i });
+      for (const e of this.renderRoot.querySelectorAll(".mqi")) {
+        const t = e.parentElement;
+        if (!t) continue;
+        const a = e.textContent ?? "", i = t.clientWidth, s = mr.get(e);
+        if (s && s.text === a && s.w === i) continue;
+        s?.anim?.cancel(), t.classList.remove("mq");
+        const n = Math.ceil(e.getBoundingClientRect().width - i);
+        if (!i || n < 3) {
+          mr.set(e, { text: a, w: i });
           continue;
         }
-        e.style.width = `${s}px`, e.classList.add("mq");
+        t.classList.add("mq");
         const r = 2e3, l = 1e3, c = 600, d = n / Zy * 1e3, h = r + d + l + c, u = (f) => f / h, m = e.animate(
           [
-            { textIndent: "0px", offset: 0 },
-            { textIndent: "0px", offset: u(r), easing: "linear" },
-            { textIndent: `${-n}px`, offset: u(r + d) },
-            { textIndent: `${-n}px`, offset: u(r + d + l), easing: "cubic-bezier(.4,0,.2,1)" },
-            { textIndent: "0px", offset: 1 }
+            { transform: "translateX(0)", offset: 0 },
+            { transform: "translateX(0)", offset: u(r), easing: "linear" },
+            { transform: `translateX(${-n}px)`, offset: u(r + d) },
+            { transform: `translateX(${-n}px)`, offset: u(r + d + l), easing: "cubic-bezier(.4,0,.2,1)" },
+            { transform: "translateX(0)", offset: 1 }
           ],
           { duration: h, iterations: 1 / 0 }
         );
-        mr.set(e, { text: t, w: i, anim: m });
+        mr.set(e, { text: a, w: i, anim: m });
       }
   }
   /** The media keys: what plays on the shown player, for the system's controls (macOS, Windows). */
@@ -41194,8 +41196,17 @@ rn.parts = sm, rn.styles = [
         overflow: hidden;
         text-overflow: ellipsis;
       }
+      /* a line too long: its text drifts inside (see _marquee) */
+      .mqi {
+        white-space: nowrap;
+      }
       .mq {
         text-overflow: clip !important;
+        text-align: start !important;
+      }
+      .mq > .mqi {
+        display: inline-block;
+        will-change: transform;
       }
       .sub {
         font-size: 13px;

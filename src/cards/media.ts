@@ -1119,7 +1119,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
 
   /** The player's name – with more than one player, a tap on it lists them to pick from. */
   private _who(name: string, cls = "") {
-    if (this._ids.length < 2) return html`<span class=${cls}>${name}</span>`;
+    if (this._ids.length < 2) return html`<span class=${cls}><span class="mqi">${name}</span></span>`;
     return html`<button
       class="who ${cls}"
       aria-haspopup="listbox"
@@ -1133,7 +1133,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
         this.requestUpdate();
       }}
     >
-      <span>${name}</span><ha-icon .icon=${"mdi:chevron-down"}></ha-icon>
+      <span><span class="mqi">${name}</span></span><ha-icon .icon=${"mdi:chevron-down"}></ha-icon>
     </button>`;
   }
 
@@ -3004,7 +3004,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
                   title,
                   html`<div class="stxt">
                     <div class="stitle">${title || pname}</div>
-                    ${artist ? html`<div class="sartist">${artist}</div>` : nothing} ${album ? html`<div class="salbum">${album}</div>` : nothing}
+                    ${artist ? html`<div class="sartist"><span class="mqi">${artist}</span></div>` : nothing} ${album ? html`<div class="salbum"><span class="mqi">${album}</span></div>` : nothing}
                   </div>`,
                 )}
                 <div class="sctl">${this._progBar(st, id)}
@@ -3048,8 +3048,8 @@ class GlassMedia extends GlassElement<MediaConfig> {
           ${this._art_(st, "round")}
         </div>
         <div class="txt">
-          <span class="title">${t1}</span>
-          <span class="sub">${this._drag.has(`vol|${id}`) ? `${tr("Volume")} ${Math.round((vol ?? 0) * 100)} %` : t2}</span>
+          <span class="title"><span class="mqi">${t1}</span></span>
+          <span class="sub"><span class="mqi">${this._drag.has(`vol|${id}`) ? `${tr("Volume")} ${Math.round((vol ?? 0) * 100)} %` : t2}</span></span>
         </div>
         ${
           st && st.state !== "unavailable" && (supports(st, F.PLAY) || supports(st, F.PAUSE) || supports(st, F.TURN_ON))
@@ -3160,11 +3160,11 @@ class GlassMedia extends GlassElement<MediaConfig> {
               ${this._artArea(st, t1)}
               <div class="info">
                 <div class="txt">
-                  ${this._ids.length > 1 && by === undefined ? this._who(t1, "title") : html`<span class="title">${t1}</span>`}
+                  ${this._ids.length > 1 && by === undefined ? this._who(t1, "title") : html`<span class="title"><span class="mqi">${t1}</span></span>`}
                   ${
                     this._ids.length > 1 && by !== undefined
                       ? html`<span class="sub subw">${by ? html`<span class="by">${by} ·</span>` : nothing}${this._who(pname)}</span>`
-                      : html`<span class="sub">${t2}</span>`
+                      : html`<span class="sub"><span class="mqi">${t2}</span></span>`
                   }
                 </div>
                 ${this._progBar(st, id)}
@@ -3329,34 +3329,31 @@ class GlassMedia extends GlassElement<MediaConfig> {
    */
   private _marquee() {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    for (const el of this.renderRoot.querySelectorAll<HTMLElement>(".title:not(.who), .sub:not(.subw), .sartist, .salbum, .who > span")) {
+    for (const el of this.renderRoot.querySelectorAll<HTMLElement>(".mqi")) {
+      const box = el.parentElement;
+      if (!box) continue;
       const text = el.textContent ?? "";
+      const room = box.clientWidth;
       const was = marquees.get(el);
-      // its room: the parent's width (its own shrinks as the indent grows, when it sizes to its text)
-      const room = el.parentElement?.clientWidth ?? 0;
       if (was && was.text === text && was.w === room) continue;
       was?.anim?.cancel();
-      el.classList.remove("mq");
-      el.style.width = "";
-      const w = el.clientWidth;
-      const dist = el.scrollWidth - w;
-      if (!w || dist < 3) {
+      box.classList.remove("mq");
+      const dist = Math.ceil(el.getBoundingClientRect().width - room);
+      if (!room || dist < 3) {
         marquees.set(el, { text, w: room });
         continue;
       }
-      // held at its width while its text drifts
-      el.style.width = `${w}px`;
-      el.classList.add("mq");
+      box.classList.add("mq");
       const wait = 2000, end = 1000, back = 600, run = (dist / MARQUEE_PX_S) * 1000;
       const T = wait + run + end + back;
       const at = (ms: number) => ms / T;
       const anim = el.animate(
         [
-          { textIndent: "0px", offset: 0 },
-          { textIndent: "0px", offset: at(wait), easing: "linear" },
-          { textIndent: `${-dist}px`, offset: at(wait + run) },
-          { textIndent: `${-dist}px`, offset: at(wait + run + end), easing: "cubic-bezier(.4,0,.2,1)" },
-          { textIndent: "0px", offset: 1 },
+          { transform: "translateX(0)", offset: 0 },
+          { transform: "translateX(0)", offset: at(wait), easing: "linear" },
+          { transform: `translateX(${-dist}px)`, offset: at(wait + run) },
+          { transform: `translateX(${-dist}px)`, offset: at(wait + run + end), easing: "cubic-bezier(.4,0,.2,1)" },
+          { transform: "translateX(0)", offset: 1 },
         ],
         { duration: T, iterations: Infinity },
       );
@@ -3809,8 +3806,17 @@ class GlassMedia extends GlassElement<MediaConfig> {
         overflow: hidden;
         text-overflow: ellipsis;
       }
+      /* a line too long: its text drifts inside (see _marquee) */
+      .mqi {
+        white-space: nowrap;
+      }
       .mq {
         text-overflow: clip !important;
+        text-align: start !important;
+      }
+      .mq > .mqi {
+        display: inline-block;
+        will-change: transform;
       }
       .sub {
         font-size: 13px;
