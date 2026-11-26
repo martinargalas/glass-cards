@@ -52364,7 +52364,7 @@ function aw(o, e, t) {
   };
   i.querySelector(".close").addEventListener("click", s), i.querySelector(".ok").addEventListener("click", s), document.body.appendChild(a);
 }
-const yc = "1.11.8", Sp = {
+const yc = "1.11.9", Sp = {
   version: yc,
   GlassElement: F,
   lit: { LitElement: Ye, html: p, css: ee, svg: j, nothing: g },
