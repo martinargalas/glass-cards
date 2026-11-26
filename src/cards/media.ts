@@ -211,7 +211,7 @@ interface MediaConfig extends BaseCardConfig {
   library_sections?: string[];
   /** a speaker on a TV's HDMI (a Sonos soundbar): what the TV plays, from these players – the first
    *  one playing (or paused), in this order – while the speaker plays the TV's sound */
-  tv_sources?: { speaker?: string; sources: string[] }[];
+  tv_sources?: { speaker?: string; tv?: string; sources: (string | { entity: string; input?: string })[] }[];
   /** Music Assistant's own address (`http://…:8095`) – with a token, the card talks to Music Assistant
    *  itself: its home's rows, every playlist's tracks, each player's kind (optional) */
   music_assistant_url?: string;
@@ -499,6 +499,8 @@ function heldOrAsTold(st: HassEntity, m: SteadyMem, id: string, title: string | 
  * as it comes), and one that fails (an Apple TV's art gone with its pause) shows as none.
  */
 const artLoad = new Map<string, "ok" | "fail" | Promise<void>>();
+/** each loaded picture's width / height (a TV's 16:9 frame, a 2:3 poster) */
+const artRatio = new Map<string, number>();
 const artWaiters = new Set<() => void>();
 function artReady(url: string): "ok" | "fail" | "wait" {
   const got = artLoad.get(url);
@@ -512,7 +514,7 @@ function artReady(url: string): "ok" | "fail" | "wait" {
     artLoad.set(
       url,
       new Promise<void>((res) => {
-        img.onload = () => (done("ok"), res());
+        img.onload = () => (artRatio.set(url, img.naturalWidth / (img.naturalHeight || 1)), done("ok"), res());
         img.onerror = () => (done("fail"), res());
       }),
     );
@@ -776,9 +778,9 @@ class GlassMedia extends GlassElement<MediaConfig> {
     if (tv) {
       // the TV's: none of the speaker's own "TV Audio" – what plays there, or which device it is
       for (const k of keys) delete attrs[k];
-      attrs.media_title = a.media_title ?? a.media_series_title ?? a.app_name ?? v.attributes.friendly_name;
+      attrs.media_title = a.media_title ?? a.media_series_title ?? a.app_name ?? a.source ?? v.attributes.friendly_name;
       // under it: the channel, the series, the app – never the title again (only an app: the device)
-      const under = [a.media_artist, a.media_title && a.media_series_title, a.app_name, v.attributes.friendly_name];
+      const under = [a.media_artist, a.media_title && a.media_series_title, a.app_name, a.source, v.attributes.friendly_name];
       attrs.media_artist = under.find((x) => x && x !== attrs.media_title);
       attrs.glass_tv = true;
     }
@@ -841,7 +843,19 @@ class GlassMedia extends GlassElement<MediaConfig> {
       const sp = t.speaker ?? this._ids[0];
       return sp === id || sp === tw || this._twins.get(sp) === id;
     });
-    const on = (set?.sources ?? []).filter((x) => LOADED.has(s[x]?.state ?? ""));
+    if (!set) return undefined;
+    let pool = (set.sources ?? []).map((x) => (typeof x === "string" ? { entity: x } : x)).filter((x) => x?.entity);
+    // the TV knows which input is on screen (an LG: "PS5", "Apple TV"): only the devices on it – a
+    // PlayStation may say for an hour it plays the same game, an Apple TV stays paused behind it
+    const tv = set.tv ? s[set.tv] : undefined;
+    const input = tv && ACTIVE.has(tv.state) ? String(tv.attributes.source ?? "").toLowerCase() : "";
+    if (input && pool.some((x) => x.input)) {
+      const here = pool.filter((x) => x.input?.toLowerCase() === input);
+      // another input (an app of the TV itself: Netflix, YouTube): the TV is what plays
+      if (!here.length) return set.tv;
+      pool = here;
+    }
+    const on = pool.map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
     if (!on.length) return undefined;
     // what's on the TV: the one that changed last – started, paused, another app (Plex keeps saying
     // "playing" long after you moved on to another app or the PlayStation, but it doesn't change)
@@ -1718,7 +1732,10 @@ class GlassMedia extends GlassElement<MediaConfig> {
     // a film's poster, a video's frame: cut to the square like any cover; on its way: a spinner
     const wait = !url && this._artWaits(st);
     const icon = st?.attributes.glass_tv || st?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note";
-    return html`<div class="art ${cls} ${url ? "" : "none"}" style=${url ? `background-image:${cssUrl(url)}` : ""}>
+    // the TV's picture not square (a 16:9 frame, a 2:3 poster): whole, over a blur of itself
+    const r = url ? (artRatio.get(url) ?? 1) : 1;
+    const fit = url && st?.attributes.glass_tv && (r > 1.15 || r < 0.87) ? "fit" : "";
+    return html`<div class="art ${cls} ${fit} ${url ? "" : "none"}" style=${url ? (fit ? `--art:${cssUrl(url)}` : `background-image:${cssUrl(url)}`) : ""}>
       ${url ? nothing : wait ? html`<i class="spin" aria-hidden="true"></i>` : html`<ha-icon .icon=${icon}></ha-icon>`}
     </div>`;
   }
@@ -3436,6 +3453,25 @@ class GlassMedia extends GlassElement<MediaConfig> {
         place-items: center;
         color: var(--g-text-2);
         background-color: color-mix(in srgb, var(--g-text) 8%, transparent);
+      }
+      .art.fit {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .art.fit::before,
+      .art.fit::after {
+        content: "";
+        position: absolute;
+        background: var(--art) center / cover no-repeat;
+      }
+      .art.fit::before {
+        inset: -20%;
+        filter: blur(18px) saturate(1.3) brightness(0.8);
+      }
+      .art.fit::after {
+        inset: 0;
+        background-size: contain;
       }
       .art .spin {
         width: clamp(22px, 14cqw, 40px);

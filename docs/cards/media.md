@@ -273,13 +273,19 @@ A Sonos soundbar connected to the TV over HDMI only tells Home Assistant that it
 ```yaml
 tv_sources:
   - speaker: media_player.living_room
+    tv: media_player.lg_tv                 # optional: the TV, which knows the input on screen
     sources:
-      - media_player.plex_apple_tv     # Plex on the Apple TV: the film's poster, the episode
-      - media_player.apple_tv          # the Apple TV itself: the app and what it plays
-      - media_player.playstation_5     # the game
+      - entity: media_player.plex_apple_tv # Plex on the Apple TV: the film's poster, the episode
+        input: Apple TV
+      - entity: media_player.apple_tv      # the Apple TV itself: the app and what it plays
+        input: Apple TV
+      - entity: media_player.playstation_5 # the game
+        input: PS5
 ```
 
-Each soundbar gets its own list. The card shows the first device that plays or is paused, in the order you list them, so put the richest one first: Plex knows the film and its poster, while the Apple TV knows only what the app tells it. Music from Music Assistant on the soundbar always comes first – the list only matters while the soundbar plays the TV's sound. Posters and video frames show whole, without being cut to a square.
+Each soundbar gets its own list. Of the devices that play or are paused, the card follows the one that changed last – you started, paused or switched something on it. When a device listed before it plays the same thing, that one shows instead, so put the richest one first: Plex knows the film and its poster, while the Apple TV knows only what the app tells it. An Apple TV with only an app open and nothing in it counts as nothing playing.
+
+Devices don't always say when you've moved on – a PlayStation may report the same game for an hour, and Plex may keep saying it plays long after you closed it. If your TV is in Home Assistant, add it as `tv` and give each device the `input` the TV calls it (its `source`, as the TV entity shows it). The card then only looks at the devices on the input that's on screen, and on any other input – an app of the TV itself, like Netflix – it shows the TV. Music from Music Assistant on the soundbar always comes first: the list only matters while the soundbar plays the TV's sound.
 
 ## Keyboard media keys
 
@@ -306,7 +312,7 @@ Browsers only send media keys to a page that plays sound, so the tab plays a loo
 | `favorites` | Pick[] | your own covers, the first row of the library |
 | `library_from` | string | the library of another player for the others (YouTube Music for a Sonos): a tap plays it through that player on the one picked |
 | `library_sections` | string[] | which rows of the library, in this order (their titles); default: all, played and new first |
-| `tv_sources` | { speaker?: string; sources: string[] }[] | a speaker on a TV's HDMI (a Sonos soundbar): what the TV plays, from these players – the first one playing (or paused), in this order – while the speaker plays the TV's sound |
+| `tv_sources` | { speaker?: string; tv?: string; sources: (string \| { entity: string; input?: string })[] }[] | a speaker on a TV's HDMI (a Sonos soundbar): what the TV plays, from these players – the first one playing (or paused), in this order – while the speaker plays the TV's sound |
 | `music_assistant_url` | string | Music Assistant's own address (`http://…:8095`) – with a token, the card talks to Music Assistant itself: its home's rows, every playlist's tracks, each player's kind (optional) |
 | `music_assistant_token` | string | a token made in Music Assistant (Settings → profile → tokens) – stored in the dashboard in plain text: anyone who can read the dashboard's configuration can read it (optional, see the docs) |
 | `media_keys` | boolean | the keyboard's media keys (play / pause, next, previous) play on this card's player – also with the window minimised or the card in a closed pop-up (default false) |

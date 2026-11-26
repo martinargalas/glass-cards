@@ -2134,7 +2134,7 @@ export const mediaSpec: EditorSpec = {
                 {
                   ...YAML("tv_sources"),
                   label: "TV sources",
-                  helper: "A soundbar on the TV: - speaker: its player, sources: [Apple TV, PlayStation…] – the first one playing shows while it plays the TV's sound",
+                  helper: "A soundbar on the TV: - speaker: its player, tv: the TV (optional), sources: - entity: Apple TV, input: the TV's input… – what plays on the TV shows while the soundbar plays its sound",
                 },
               ]
             : []),

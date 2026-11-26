@@ -22,14 +22,14 @@ let xp = class {
     return this.cssText;
   }
 };
-const Ea = (o) => new xp(typeof o == "string" ? o : o + "", void 0, _c), ee = (o, ...e) => {
+const La = (o) => new xp(typeof o == "string" ? o : o + "", void 0, _c), ee = (o, ...e) => {
   const t = o.length === 1 ? o[0] : e.reduce((a, i, s) => a + ((n) => {
     if (n._$cssResult$ === !0) return n.cssText;
     if (typeof n == "number") return n;
     throw Error("Value passed to 'css' function must be a 'css' function result: " + n + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
   })(i) + o[s + 1], o[0]);
   return new xp(t, o, _c);
-}, tg = (o, e) => {
+}, ag = (o, e) => {
   if (bc) o.adoptedStyleSheets = e.map((t) => t instanceof CSSStyleSheet ? t : t.styleSheet);
   else for (const t of e) {
     const a = document.createElement("style"), i = Xs.litNonce;
@@ -38,17 +38,17 @@ const Ea = (o) => new xp(typeof o == "string" ? o : o + "", void 0, _c), ee = (o
 }, Vc = bc ? (o) => o : (o) => o instanceof CSSStyleSheet ? ((e) => {
   let t = "";
   for (const a of e.cssRules) t += a.cssText;
-  return Ea(t);
+  return La(t);
 })(o) : o;
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { is: ag, defineProperty: ig, getOwnPropertyDescriptor: sg, getOwnPropertyNames: og, getOwnPropertySymbols: ng, getPrototypeOf: rg } = Object, pn = globalThis, Yc = pn.trustedTypes, lg = Yc ? Yc.emptyScript : "", cg = pn.reactiveElementPolyfillSupport, Ji = (o, e) => o, Sr = { toAttribute(o, e) {
+const { is: ig, defineProperty: sg, getOwnPropertyDescriptor: og, getOwnPropertyNames: ng, getOwnPropertySymbols: rg, getPrototypeOf: lg } = Object, pn = globalThis, Yc = pn.trustedTypes, cg = Yc ? Yc.emptyScript : "", dg = pn.reactiveElementPolyfillSupport, Xi = (o, e) => o, Sr = { toAttribute(o, e) {
   switch (e) {
     case Boolean:
-      o = o ? lg : null;
+      o = o ? cg : null;
       break;
     case Object:
     case Array:
@@ -73,7 +73,7 @@ const { is: ag, defineProperty: ig, getOwnPropertyDescriptor: sg, getOwnProperty
       }
   }
   return t;
-} }, kp = (o, e) => !ag(o, e), Zc = { attribute: !0, type: String, converter: Sr, reflect: !1, useDefault: !1, hasChanged: kp };
+} }, kp = (o, e) => !ig(o, e), Zc = { attribute: !0, type: String, converter: Sr, reflect: !1, useDefault: !1, hasChanged: kp };
 Symbol.metadata ??= Symbol("metadata"), pn.litPropertyMetadata ??= /* @__PURE__ */ new WeakMap();
 let Ua = class extends HTMLElement {
   static addInitializer(e) {
@@ -85,11 +85,11 @@ let Ua = class extends HTMLElement {
   static createProperty(e, t = Zc) {
     if (t.state && (t.attribute = !1), this._$Ei(), this.prototype.hasOwnProperty(e) && ((t = Object.create(t)).wrapped = !0), this.elementProperties.set(e, t), !t.noAccessor) {
       const a = Symbol(), i = this.getPropertyDescriptor(e, a, t);
-      i !== void 0 && ig(this.prototype, e, i);
+      i !== void 0 && sg(this.prototype, e, i);
     }
   }
   static getPropertyDescriptor(e, t, a) {
-    const { get: i, set: s } = sg(this.prototype, e) ?? { get() {
+    const { get: i, set: s } = og(this.prototype, e) ?? { get() {
       return this[t];
     }, set(n) {
       this[t] = n;
@@ -103,14 +103,14 @@ let Ua = class extends HTMLElement {
     return this.elementProperties.get(e) ?? Zc;
   }
   static _$Ei() {
-    if (this.hasOwnProperty(Ji("elementProperties"))) return;
-    const e = rg(this);
+    if (this.hasOwnProperty(Xi("elementProperties"))) return;
+    const e = lg(this);
     e.finalize(), e.l !== void 0 && (this.l = [...e.l]), this.elementProperties = new Map(e.elementProperties);
   }
   static finalize() {
-    if (this.hasOwnProperty(Ji("finalized"))) return;
-    if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(Ji("properties"))) {
-      const t = this.properties, a = [...og(t), ...ng(t)];
+    if (this.hasOwnProperty(Xi("finalized"))) return;
+    if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(Xi("properties"))) {
+      const t = this.properties, a = [...ng(t), ...rg(t)];
       for (const i of a) this.createProperty(i, t[i]);
     }
     const e = this[Symbol.metadata];
@@ -156,7 +156,7 @@ let Ua = class extends HTMLElement {
   }
   createRenderRoot() {
     const e = this.shadowRoot ?? this.attachShadow(this.constructor.shadowRootOptions);
-    return tg(e, this.constructor.elementStyles), e;
+    return ag(e, this.constructor.elementStyles), e;
   }
   connectedCallback() {
     this.renderRoot ??= this.createRenderRoot(), this.enableUpdating(!0), this._$EO?.forEach((e) => e.hostConnected?.());
@@ -256,20 +256,20 @@ let Ua = class extends HTMLElement {
   firstUpdated(e) {
   }
 };
-Ua.elementStyles = [], Ua.shadowRootOptions = { mode: "open" }, Ua[Ji("elementProperties")] = /* @__PURE__ */ new Map(), Ua[Ji("finalized")] = /* @__PURE__ */ new Map(), cg?.({ ReactiveElement: Ua }), (pn.reactiveElementVersions ??= []).push("2.1.2");
+Ua.elementStyles = [], Ua.shadowRootOptions = { mode: "open" }, Ua[Xi("elementProperties")] = /* @__PURE__ */ new Map(), Ua[Xi("finalized")] = /* @__PURE__ */ new Map(), dg?.({ ReactiveElement: Ua }), (pn.reactiveElementVersions ??= []).push("2.1.2");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const yc = globalThis, Jc = (o) => o, go = yc.trustedTypes, Xc = go ? go.createPolicy("lit-html", { createHTML: (o) => o }) : void 0, $p = "$lit$", Kt = `lit$${Math.random().toFixed(9).slice(2)}$`, Sp = "?" + Kt, dg = `<${Sp}>`, za = document, _s = () => za.createComment(""), ys = (o) => o === null || typeof o != "object" && typeof o != "function", vc = Array.isArray, hg = (o) => vc(o) || typeof o?.[Symbol.iterator] == "function", bn = `[ 	
+const yc = globalThis, Jc = (o) => o, go = yc.trustedTypes, Xc = go ? go.createPolicy("lit-html", { createHTML: (o) => o }) : void 0, $p = "$lit$", Kt = `lit$${Math.random().toFixed(9).slice(2)}$`, Sp = "?" + Kt, hg = `<${Sp}>`, Aa = document, ys = () => Aa.createComment(""), vs = (o) => o === null || typeof o != "object" && typeof o != "function", vc = Array.isArray, pg = (o) => vc(o) || typeof o?.[Symbol.iterator] == "function", bn = `[ 	
 \f\r]`, ki = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, Qc = /-->/g, ed = />/g, sa = RegExp(`>|${bn}(?:([^\\s"'>=/]+)(${bn}*=${bn}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), td = /'/g, ad = /"/g, zp = /^(?:script|style|textarea|title)$/i, Ap = (o) => (e, ...t) => ({ _$litType$: o, strings: e, values: t }), p = Ap(1), j = Ap(2), Aa = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), id = /* @__PURE__ */ new WeakMap(), fa = za.createTreeWalker(za, 129);
+\f\r"'\`<>=]|("|')|))|$)`, "g"), td = /'/g, ad = /"/g, zp = /^(?:script|style|textarea|title)$/i, Ap = (o) => (e, ...t) => ({ _$litType$: o, strings: e, values: t }), p = Ap(1), j = Ap(2), Ma = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), id = /* @__PURE__ */ new WeakMap(), ba = Aa.createTreeWalker(Aa, 129);
 function Mp(o, e) {
   if (!vc(o) || !o.hasOwnProperty("raw")) throw Error("invalid template strings array");
   return Xc !== void 0 ? Xc.createHTML(e) : e;
 }
-const pg = (o, e) => {
+const ug = (o, e) => {
   const t = o.length - 1, a = [];
   let i, s = e === 2 ? "<svg>" : e === 3 ? "<math>" : "", n = ki;
   for (let r = 0; r < t; r++) {
@@ -277,7 +277,7 @@ const pg = (o, e) => {
     let c, d, h = -1, u = 0;
     for (; u < l.length && (n.lastIndex = u, d = n.exec(l), d !== null); ) u = n.lastIndex, n === ki ? d[1] === "!--" ? n = Qc : d[1] !== void 0 ? n = ed : d[2] !== void 0 ? (zp.test(d[2]) && (i = RegExp("</" + d[2], "g")), n = sa) : d[3] !== void 0 && (n = sa) : n === sa ? d[0] === ">" ? (n = i ?? ki, h = -1) : d[1] === void 0 ? h = -2 : (h = n.lastIndex - d[2].length, c = d[1], n = d[3] === void 0 ? sa : d[3] === '"' ? ad : td) : n === ad || n === td ? n = sa : n === Qc || n === ed ? n = ki : (n = sa, i = void 0);
     const m = n === sa && o[r + 1].startsWith("/>") ? " " : "";
-    s += n === ki ? l + dg : h >= 0 ? (a.push(c), l.slice(0, h) + $p + l.slice(h) + Kt + m) : l + Kt + (h === -2 ? r : m);
+    s += n === ki ? l + hg : h >= 0 ? (a.push(c), l.slice(0, h) + $p + l.slice(h) + Kt + m) : l + Kt + (h === -2 ? r : m);
   }
   return [Mp(o, s + (o[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), a];
 };
@@ -286,23 +286,23 @@ let zr = class Tp {
     let i;
     this.parts = [];
     let s = 0, n = 0;
-    const r = e.length - 1, l = this.parts, [c, d] = pg(e, t);
-    if (this.el = Tp.createElement(c, a), fa.currentNode = this.el.content, t === 2 || t === 3) {
+    const r = e.length - 1, l = this.parts, [c, d] = ug(e, t);
+    if (this.el = Tp.createElement(c, a), ba.currentNode = this.el.content, t === 2 || t === 3) {
       const h = this.el.content.firstChild;
       h.replaceWith(...h.childNodes);
     }
-    for (; (i = fa.nextNode()) !== null && l.length < r; ) {
+    for (; (i = ba.nextNode()) !== null && l.length < r; ) {
       if (i.nodeType === 1) {
         if (i.hasAttributes()) for (const h of i.getAttributeNames()) if (h.endsWith($p)) {
           const u = d[n++], m = i.getAttribute(h).split(Kt), f = /([.?@])?(.*)/.exec(u);
-          l.push({ type: 1, index: s, name: f[2], strings: m, ctor: f[1] === "." ? mg : f[1] === "?" ? gg : f[1] === "@" ? fg : un }), i.removeAttribute(h);
+          l.push({ type: 1, index: s, name: f[2], strings: m, ctor: f[1] === "." ? gg : f[1] === "?" ? fg : f[1] === "@" ? bg : un }), i.removeAttribute(h);
         } else h.startsWith(Kt) && (l.push({ type: 6, index: s }), i.removeAttribute(h));
         if (zp.test(i.tagName)) {
           const h = i.textContent.split(Kt), u = h.length - 1;
           if (u > 0) {
             i.textContent = go ? go.emptyScript : "";
-            for (let m = 0; m < u; m++) i.append(h[m], _s()), fa.nextNode(), l.push({ type: 2, index: ++s });
-            i.append(h[u], _s());
+            for (let m = 0; m < u; m++) i.append(h[m], ys()), ba.nextNode(), l.push({ type: 2, index: ++s });
+            i.append(h[u], ys());
           }
         }
       } else if (i.nodeType === 8) if (i.data === Sp) l.push({ type: 2, index: s });
@@ -314,17 +314,17 @@ let zr = class Tp {
     }
   }
   static createElement(e, t) {
-    const a = za.createElement("template");
+    const a = Aa.createElement("template");
     return a.innerHTML = e, a;
   }
 };
 function pi(o, e, t = o, a) {
-  if (e === Aa) return e;
+  if (e === Ma) return e;
   let i = a !== void 0 ? t._$Co?.[a] : t._$Cl;
-  const s = ys(e) ? void 0 : e._$litDirective$;
+  const s = vs(e) ? void 0 : e._$litDirective$;
   return i?.constructor !== s && (i?._$AO?.(!1), s === void 0 ? i = void 0 : (i = new s(o), i._$AT(o, t, a)), a !== void 0 ? (t._$Co ??= [])[a] = i : t._$Cl = i), i !== void 0 && (e = pi(o, i._$AS(o, e.values), i, a)), e;
 }
-let ug = class {
+let mg = class {
   constructor(e, t) {
     this._$AV = [], this._$AN = void 0, this._$AD = e, this._$AM = t;
   }
@@ -335,17 +335,17 @@ let ug = class {
     return this._$AM._$AU;
   }
   u(e) {
-    const { el: { content: t }, parts: a } = this._$AD, i = (e?.creationScope ?? za).importNode(t, !0);
-    fa.currentNode = i;
-    let s = fa.nextNode(), n = 0, r = 0, l = a[0];
+    const { el: { content: t }, parts: a } = this._$AD, i = (e?.creationScope ?? Aa).importNode(t, !0);
+    ba.currentNode = i;
+    let s = ba.nextNode(), n = 0, r = 0, l = a[0];
     for (; l !== void 0; ) {
       if (n === l.index) {
         let c;
-        l.type === 2 ? c = new _i(s, s.nextSibling, this, e) : l.type === 1 ? c = new l.ctor(s, l.name, l.strings, this, e) : l.type === 6 && (c = new bg(s, this, e)), this._$AV.push(c), l = a[++r];
+        l.type === 2 ? c = new _i(s, s.nextSibling, this, e) : l.type === 1 ? c = new l.ctor(s, l.name, l.strings, this, e) : l.type === 6 && (c = new _g(s, this, e)), this._$AV.push(c), l = a[++r];
       }
-      n !== l?.index && (s = fa.nextNode(), n++);
+      n !== l?.index && (s = ba.nextNode(), n++);
     }
-    return fa.currentNode = za, i;
+    return ba.currentNode = Aa, i;
   }
   p(e) {
     let t = 0;
@@ -371,7 +371,7 @@ class _i {
     return this._$AB;
   }
   _$AI(e, t = this) {
-    e = pi(this, e, t), ys(e) ? e === g || e == null || e === "" ? (this._$AH !== g && this._$AR(), this._$AH = g) : e !== this._$AH && e !== Aa && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : hg(e) ? this.k(e) : this._(e);
+    e = pi(this, e, t), vs(e) ? e === g || e == null || e === "" ? (this._$AH !== g && this._$AR(), this._$AH = g) : e !== this._$AH && e !== Ma && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : pg(e) ? this.k(e) : this._(e);
   }
   O(e) {
     return this._$AA.parentNode.insertBefore(e, this._$AB);
@@ -380,13 +380,13 @@ class _i {
     this._$AH !== e && (this._$AR(), this._$AH = this.O(e));
   }
   _(e) {
-    this._$AH !== g && ys(this._$AH) ? this._$AA.nextSibling.data = e : this.T(za.createTextNode(e)), this._$AH = e;
+    this._$AH !== g && vs(this._$AH) ? this._$AA.nextSibling.data = e : this.T(Aa.createTextNode(e)), this._$AH = e;
   }
   $(e) {
     const { values: t, _$litType$: a } = e, i = typeof a == "number" ? this._$AC(e) : (a.el === void 0 && (a.el = zr.createElement(Mp(a.h, a.h[0]), this.options)), a);
     if (this._$AH?._$AD === i) this._$AH.p(t);
     else {
-      const s = new ug(i, this), n = s.u(this.options);
+      const s = new mg(i, this), n = s.u(this.options);
       s.p(t), this.T(n), this._$AH = s;
     }
   }
@@ -398,7 +398,7 @@ class _i {
     vc(this._$AH) || (this._$AH = [], this._$AR());
     const t = this._$AH;
     let a, i = 0;
-    for (const s of e) i === t.length ? t.push(a = new _i(this.O(_s()), this.O(_s()), this, this.options)) : a = t[i], a._$AI(s), i++;
+    for (const s of e) i === t.length ? t.push(a = new _i(this.O(ys()), this.O(ys()), this, this.options)) : a = t[i], a._$AI(s), i++;
     i < t.length && (this._$AR(a && a._$AB.nextSibling, i), t.length = i);
   }
   _$AR(e = this._$AA.nextSibling, t) {
@@ -424,11 +424,11 @@ let un = class {
   _$AI(e, t = this, a, i) {
     const s = this.strings;
     let n = !1;
-    if (s === void 0) e = pi(this, e, t, 0), n = !ys(e) || e !== this._$AH && e !== Aa, n && (this._$AH = e);
+    if (s === void 0) e = pi(this, e, t, 0), n = !vs(e) || e !== this._$AH && e !== Ma, n && (this._$AH = e);
     else {
       const r = e;
       let l, c;
-      for (e = s[0], l = 0; l < s.length - 1; l++) c = pi(this, r[a + l], t, l), c === Aa && (c = this._$AH[l]), n ||= !ys(c) || c !== this._$AH[l], c === g ? e = g : e !== g && (e += (c ?? "") + s[l + 1]), this._$AH[l] = c;
+      for (e = s[0], l = 0; l < s.length - 1; l++) c = pi(this, r[a + l], t, l), c === Ma && (c = this._$AH[l]), n ||= !vs(c) || c !== this._$AH[l], c === g ? e = g : e !== g && (e += (c ?? "") + s[l + 1]), this._$AH[l] = c;
     }
     n && !i && this.j(e);
   }
@@ -436,7 +436,7 @@ let un = class {
     e === g ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
   }
 };
-class mg extends un {
+class gg extends un {
   constructor() {
     super(...arguments), this.type = 3;
   }
@@ -444,7 +444,7 @@ class mg extends un {
     this.element[this.name] = e === g ? void 0 : e;
   }
 }
-class gg extends un {
+class fg extends un {
   constructor() {
     super(...arguments), this.type = 4;
   }
@@ -452,12 +452,12 @@ class gg extends un {
     this.element.toggleAttribute(this.name, !!e && e !== g);
   }
 }
-class fg extends un {
+class bg extends un {
   constructor(e, t, a, i, s) {
     super(e, t, a, i, s), this.type = 5;
   }
   _$AI(e, t = this) {
-    if ((e = pi(this, e, t, 0) ?? g) === Aa) return;
+    if ((e = pi(this, e, t, 0) ?? g) === Ma) return;
     const a = this._$AH, i = e === g && a !== g || e.capture !== a.capture || e.once !== a.once || e.passive !== a.passive, s = e !== g && (a === g || i);
     i && this.element.removeEventListener(this.name, this, a), s && this.element.addEventListener(this.name, this, e), this._$AH = e;
   }
@@ -465,7 +465,7 @@ class fg extends un {
     typeof this._$AH == "function" ? this._$AH.call(this.options?.host ?? this.element, e) : this._$AH.handleEvent(e);
   }
 }
-let bg = class {
+let _g = class {
   constructor(e, t, a) {
     this.element = e, this.type = 6, this._$AN = void 0, this._$AM = t, this.options = a;
   }
@@ -476,14 +476,14 @@ let bg = class {
     pi(this, e);
   }
 };
-const _g = { I: _i }, yg = yc.litHtmlPolyfillSupport;
-yg?.(zr, _i), (yc.litHtmlVersions ??= []).push("3.3.3");
+const yg = { I: _i }, vg = yc.litHtmlPolyfillSupport;
+vg?.(zr, _i), (yc.litHtmlVersions ??= []).push("3.3.3");
 const Cp = (o, e, t) => {
   const a = t?.renderBefore ?? e;
   let i = a._$litPart$;
   if (i === void 0) {
     const s = t?.renderBefore ?? null;
-    a._$litPart$ = i = new _i(e.insertBefore(_s(), s), s, void 0, t ?? {});
+    a._$litPart$ = i = new _i(e.insertBefore(ys(), s), s, void 0, t ?? {});
   }
   return i._$AI(o), i;
 };
@@ -512,14 +512,14 @@ let Ye = class extends Ua {
     super.disconnectedCallback(), this._$Do?.setConnected(!1);
   }
   render() {
-    return Aa;
+    return Ma;
   }
 };
 Ye._$litElement$ = !0, Ye.finalized = !0, wc.litElementHydrateSupport?.({ LitElement: Ye });
-const vg = wc.litElementPolyfillSupport;
-vg?.({ LitElement: Ye });
+const wg = wc.litElementPolyfillSupport;
+wg?.({ LitElement: Ye });
 (wc.litElementVersions ??= []).push("4.2.2");
-const wg = {
+const xg = {
   "Any colour": "Libovolná barva",
   Primary: "Hlavní (motiv)",
   Accent: "Zvýrazňující (motiv)",
@@ -2856,7 +2856,7 @@ const wg = {
   "Music Assistant": "Music Assistant",
   "It shows the one playing; a tap on the player's name picks another": "Ukazuje ten, který hraje; klepnutím na název přehrávače vybereš jiný",
   "TV sources": "Zdroje z TV",
-  "A soundbar on the TV: - speaker: its player, sources: [Apple TV, PlayStation…] – the first one playing shows while it plays the TV's sound": "Soundbar u TV: - speaker: jeho přehrávač, sources: [Apple TV, PlayStation…] – ukáže se první, který hraje, když soundbar hraje zvuk z TV",
+  "A soundbar on the TV: - speaker: its player, tv: the TV (optional), sources: - entity: Apple TV, input: the TV's input… – what plays on the TV shows while the soundbar plays its sound": "Soundbar u TV: - speaker: jeho přehrávač, tv: televize (nepovinné), sources: - entity: Apple TV, input: vstup televize… – když soundbar hraje zvuk z TV, ukáže se, co na ní běží",
   "Move to the one playing": "Přepnout na ten, který hraje",
   "Off: always the player above – another one only while you picked it": "Vypnuto: vždy přehrávač výše – jiný jen když si ho vybereš",
   "The button by the volume: speakers of the same kind to play along": "Tlačítko u hlasitosti: reproduktory stejného druhu, které budou hrát s ním",
@@ -2876,7 +2876,7 @@ const wg = {
   "Got it": "Rozumím",
   "Your calendars in full on a photo of the month – add events, drag them with a finger and change them.": "Tvoje kalendáře v plné velikosti na fotce měsíce – přidávej události, přetahuj je prstem a upravuj je.",
   "Made for Music Assistant: the cover lights the glass, your library and a search, speakers to group – and a screensaver.": "Dělaný pro Music Assistant: obal prosvítí sklo, tvoje knihovna a hledání, reproduktory do skupiny – a spořič obrazovky."
-}, xg = {
+}, kg = {
   "Any colour": "Beliebige Farbe",
   Primary: "Primär (Design)",
   Accent: "Akzent (Design)",
@@ -5213,7 +5213,7 @@ const wg = {
   "Music Assistant": "Music Assistant",
   "It shows the one playing; a tap on the player's name picks another": "Sie zeigt den, der spielt; ein Tipp auf den Namen des Players wählt einen anderen",
   "TV sources": "TV-Quellen",
-  "A soundbar on the TV: - speaker: its player, sources: [Apple TV, PlayStation…] – the first one playing shows while it plays the TV's sound": "Soundbar am TV: - speaker: ihr Player, sources: [Apple TV, PlayStation…] – der erste, der spielt, erscheint, während sie den Ton des TVs spielt",
+  "A soundbar on the TV: - speaker: its player, tv: the TV (optional), sources: - entity: Apple TV, input: the TV's input… – what plays on the TV shows while the soundbar plays its sound": "Soundbar am TV: - speaker: ihr Player, tv: der Fernseher (optional), sources: - entity: Apple TV, input: der Eingang des TVs… – was auf dem TV läuft, erscheint, während die Soundbar seinen Ton spielt",
   "Move to the one playing": "Zu dem wechseln, der spielt",
   "Off: always the player above – another one only while you picked it": "Aus: immer der Player oben – ein anderer nur, wenn du ihn wählst",
   "The button by the volume: speakers of the same kind to play along": "Die Taste neben der Lautstärke: Lautsprecher derselben Art, die mitspielen",
@@ -5233,7 +5233,7 @@ const wg = {
   "Got it": "Verstanden",
   "Your calendars in full on a photo of the month – add events, drag them with a finger and change them.": "Deine Kalender in voller Größe auf einem Foto des Monats – Termine hinzufügen, mit dem Finger verschieben und ändern.",
   "Made for Music Assistant: the cover lights the glass, your library and a search, speakers to group – and a screensaver.": "Gemacht für Music Assistant: das Cover leuchtet durchs Glas, deine Bibliothek und eine Suche, Lautsprecher zum Gruppieren – und ein Bildschirmschoner."
-}, kg = {
+}, $g = {
   "{n} lights": { one: "{n} light", other: "{n} lights" },
   "{n} cards": { one: "{n} card", other: "{n} cards" },
   "{n} pop-ups": { one: "{n} pop-up", other: "{n} pop-ups" },
@@ -5253,7 +5253,7 @@ const wg = {
   "cover.is_closed": "Closed",
   "cover.opening": "Opening",
   "cover.closing": "Closing"
-}, sd = { cs: wg, de: xg }, Dp = [
+}, sd = { cs: xg, de: kg }, Dp = [
   ["en", "English"],
   ["cs", "Čeština"],
   // i18n-ok
@@ -5270,7 +5270,7 @@ function v(o, e) {
 }
 function Rp(o, e, t) {
   const a = o === "en" ? void 0 : Pp(o);
-  let i = a?.[e] ?? kg[e] ?? e;
+  let i = a?.[e] ?? $g[e] ?? e;
   if (typeof i == "object") {
     const s = Number(t?.n ?? 0);
     i = i[new Intl.PluralRules(a ? o : "en").select(s)] ?? i.other ?? e;
@@ -5281,7 +5281,7 @@ const pe = { glass: "auto", mode: "tablet" };
 function Lt(o, e) {
   return Np(e, "glassNight") ?? pe.dark ?? !!o?.themes?.darkMode;
 }
-function $g(o) {
+function Sg(o) {
   return Np(o, "glassPreviewNight");
 }
 function Np(o, e) {
@@ -5342,14 +5342,14 @@ const _n = {
     sidebar: "home",
     sidebar_areas: { mobile: ["header", "top"] }
   }
-}, Qs = (o) => o && o in _n ? _n[o] : _n.liquid, Op = Ea(`
+}, Qs = (o) => o && o in _n ? _n[o] : _n.liquid, Op = La(`
     --glass-room-bg: linear-gradient(rgba(246, 246, 248, 0.8), rgba(246, 246, 248, 0.8));
     --glass-room-fg: #1c1c1e;
     --glass-room-fg-2: rgba(60, 60, 67, 0.68);
     --glass-room-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     --glass-room-solid: rgba(246, 246, 248, 0.94);
     --glass-room-level-filter: brightness(0.72) saturate(1.4);
-`), Bp = Ea(`
+`), Bp = La(`
     --glass-surface: rgba(18, 20, 30, 0.38);
     --glass-surface-nested: rgba(255, 255, 255, 0.06);
     --glass-border: rgba(255, 255, 255, 0.12);
@@ -5479,7 +5479,7 @@ const _n = {
     color: var(--g-text);
     -webkit-tap-highlight-color: transparent;
   }
-`, bo = Ea(`
+`, bo = La(`
     --glass-text: var(--glass-home-side-text, #fff);
     --glass-text-secondary: var(--glass-home-side-text-2, rgba(235, 235, 245, 0.6));
     --glass-text-shadow: none;
@@ -5491,7 +5491,7 @@ const _n = {
     --glass-divider-color: rgba(255, 255, 255, 0.28);
     --glass-divider-size: 2px;
     --glass-bar-mono: var(--glass-home-side-bar, rgba(255, 255, 255, 0.92));
-`), jp = Ea(`
+`), jp = La(`
     --glass-text: #fff;
     --glass-text-secondary: rgba(255, 255, 255, 0.86);
     --glass-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.32), 0 0 10px rgba(0, 0, 0, 0.18);
@@ -5510,12 +5510,12 @@ const _n = {
     --glass-home-shadow: none;
     --glass-home-border: rgba(255, 255, 255, 0.22);
     --glass-home-control: rgba(22, 30, 46, 0.2);
-`), _o = Ea(`
+`), _o = La(`
     --glass-accent-icon: var(--glass-side-icon, #fff);
     --glass-graph-color: #fff;
     --glass-graph-accent: #ff9f0a;
     --glass-graph-span: 0.28;
-`), Ip = Ea(`
+`), Ip = La(`
     --glass-text: var(--glass-side-frosted-text, #2c2c2e);
     --glass-text-secondary: rgba(60, 60, 67, 0.7);
     --glass-text-shadow: none;
@@ -6390,13 +6390,13 @@ const qp = ee`
   blobY: 0,
   blobR: 0,
   blobK: 0
-}, Sg = `
+}, zg = `
 attribute vec2 a_pos;
 varying vec2 v_uv;
 void main() {
   v_uv = vec2((a_pos.x + 1.0) * 0.5, (1.0 - a_pos.y) * 0.5);
   gl_Position = vec4(a_pos, 0.0, 1.0);
-}`, zg = `
+}`, Ag = `
 precision highp float;
 uniform sampler2D u_bg;
 uniform vec2 u_size;
@@ -6541,15 +6541,15 @@ void main() {
 
   gl_FragColor = vec4(min(col, vec3(1.0)) * mask, mask);
 }`;
-function ba(o) {
+function _a(o) {
   const e = o?.match(/^glass:([\w-]+(?:\/[\w.-]+)?)$/);
   if (!e) return o;
   const t = import.meta.url, a = new URL(e[1].includes("/") ? `./${e[1].replace("/", "-")}` : `./wallpaper-${e[1]}.jpg`, t);
   return a.search = new URL(t).search, a.href;
 }
-const Wp = ba;
+const Wp = _a;
 function Fp(o) {
-  o = ba(o);
+  o = _a(o);
   const e = zc(document, "hui-view-background");
   if (!e) return !1;
   const t = [
@@ -6588,7 +6588,7 @@ function Dr(o, e = !1) {
   const i = { r: o.getBoundingClientRect(), fit: e ? getComputedStyle(o).objectFit : void 0, at: t };
   return nd.set(o, i), i;
 }
-function Ag(o) {
+function Mg(o) {
   Pr.set(o, (Pr.get(o) ?? 0) + 1);
 }
 const Pr = /* @__PURE__ */ new WeakMap();
@@ -6653,14 +6653,14 @@ function Gp(o) {
   }
   return e;
 }
-const Es = /* @__PURE__ */ new Map();
-function Mg(o, e) {
+const Ls = /* @__PURE__ */ new Map();
+function Tg(o, e) {
   const t = eo(o);
   if (!t) return;
-  const a = `${t.url}|${t.filter ?? ""}`, i = Es.get(a);
+  const a = `${t.url}|${t.filter ?? ""}`, i = Ls.get(a);
   if (i) return { url: i, rect: t.rect };
   if (i === void 0) {
-    Es.set(a, null);
+    Ls.set(a, null);
     const { img: s, ready: n } = Gp(t.url);
     n.then(() => {
       const l = Math.max(1, Math.round(480 * s.naturalHeight / s.naturalWidth)), c = document.createElement("canvas");
@@ -6669,12 +6669,12 @@ function Mg(o, e) {
       d.filter = `${t.filter ?? ""} blur(${Math.round(480 / Math.max(1, t.rect.w) * 30)}px) saturate(120%)`.trim();
       const h = 480 * 0.04;
       d.drawImage(s, -h, -h * (l / 480), 480 + 2 * h, l + 2 * h * (l / 480)), c.toBlob((u) => {
-        u && (Es.set(a, URL.createObjectURL(u)), e());
+        u && (Ls.set(a, URL.createObjectURL(u)), e());
       });
-    }).catch(() => Es.delete(a));
+    }).catch(() => Ls.delete(a));
   }
 }
-class Tg {
+class Cg {
   constructor() {
     this.canvas = document.createElement("canvas"), this.texs = /* @__PURE__ */ new Map(), this.loc = {}, this.styled = /* @__PURE__ */ new WeakMap(), this.vkey = "", this.vcanvas = document.createElement("canvas"), this.vthumb = document.createElement("canvas"), this.vthumbAt = 0, this.vblank = !1, this.gl = this.canvas.getContext("webgl", { premultipliedAlpha: !0, preserveDrawingBuffer: !0, antialias: !1 }), this.gl && this.init(this.gl);
   }
@@ -6689,7 +6689,7 @@ class Tg {
     };
     try {
       const a = e.createProgram();
-      if (e.attachShader(a, t(e.VERTEX_SHADER, Sg)), e.attachShader(a, t(e.FRAGMENT_SHADER, zg)), e.linkProgram(a), !e.getProgramParameter(a, e.LINK_STATUS)) throw new Error("link");
+      if (e.attachShader(a, t(e.VERTEX_SHADER, zg)), e.attachShader(a, t(e.FRAGMENT_SHADER, Ag)), e.linkProgram(a), !e.getProgramParameter(a, e.LINK_STATUS)) throw new Error("link");
       e.useProgram(a);
       const i = e.createBuffer();
       e.bindBuffer(e.ARRAY_BUFFER, i), e.bufferData(e.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), e.STATIC_DRAW);
@@ -6832,7 +6832,7 @@ class Tg {
 }
 let vn;
 function dd() {
-  return vn ??= new Tg(), vn.ok ? vn : void 0;
+  return vn ??= new Cg(), vn.ok ? vn : void 0;
 }
 const Er = (() => {
   try {
@@ -6840,35 +6840,35 @@ const Er = (() => {
   } catch {
     return !1;
   }
-})(), Ki = /* @__PURE__ */ new Set();
+})(), Vi = /* @__PURE__ */ new Set();
 let wn = 0;
 function _t() {
   wn || (wn = requestAnimationFrame(() => {
-    wn = 0, Ki.forEach((o) => o());
+    wn = 0, Vi.forEach((o) => o());
   }));
 }
 function hd(o) {
-  return Ki.size || (window.addEventListener("resize", _t, { passive: !0 }), window.addEventListener("scroll", _t, { passive: !0, capture: !0 })), Ki.add(o), () => {
-    Ki.delete(o), Ki.size || (window.removeEventListener("resize", _t), window.removeEventListener("scroll", _t, { capture: !0 }));
+  return Vi.size || (window.addEventListener("resize", _t, { passive: !0 }), window.addEventListener("scroll", _t, { passive: !0, capture: !0 })), Vi.add(o), () => {
+    Vi.delete(o), Vi.size || (window.removeEventListener("resize", _t), window.removeEventListener("scroll", _t, { capture: !0 }));
   };
 }
-let Cg = 0;
+let Dg = 0;
 const xn = (() => {
   try {
     return CSS.supports("backdrop-filter", "url(#a)") && /Chrome\/\d+/.test(navigator.userAgent);
   } catch {
     return !1;
   }
-})(), pd = /* @__PURE__ */ new Map(), Ls = 0.25;
-function Dg(o, e, t, a) {
+})(), pd = /* @__PURE__ */ new Map(), Rs = 0.25;
+function Pg(o, e, t, a) {
   const i = `${o}x${e}r${t}b${a}`, s = pd.get(i);
   if (s) return s;
-  const n = Math.max(2, Math.round(o * Ls)), r = Math.max(2, Math.round(e * Ls)), l = document.createElement("canvas");
+  const n = Math.max(2, Math.round(o * Rs)), r = Math.max(2, Math.round(e * Rs)), l = document.createElement("canvas");
   l.width = n, l.height = r;
   const c = l.getContext("2d"), d = c.createImageData(n, r), h = o / 2, u = e / 2, m = Math.min(t, h, u);
   for (let b = 0; b < r; b++)
     for (let y = 0; y < n; y++) {
-      const _ = (y + 0.5) / Ls - h, x = (b + 0.5) / Ls - u, z = Math.abs(_) - (h - m), S = Math.abs(x) - (u - m), M = Math.max(z, 0), k = Math.max(S, 0), C = -(Math.min(Math.max(z, S), 0) + Math.hypot(M, k) - m);
+      const _ = (y + 0.5) / Rs - h, x = (b + 0.5) / Rs - u, z = Math.abs(_) - (h - m), S = Math.abs(x) - (u - m), M = Math.max(z, 0), k = Math.max(S, 0), C = -(Math.min(Math.max(z, S), 0) + Math.hypot(M, k) - m);
       let T = 0, P = 0;
       if (M > 0 && k > 0) {
         const G = Math.hypot(M, k) || 1;
@@ -6881,14 +6881,14 @@ function Dg(o, e, t, a) {
   const f = l.toDataURL("image/png");
   return pd.set(i, f), f;
 }
-function Pg(o) {
+function Eg(o) {
   for (let e = o; e; e = e instanceof ShadowRoot ? e.host : e.parentNode)
     if (e.hasAttribute?.("glass-fast")) return !0;
   return !1;
 }
-const Eg = ".mat-liquid-gl, .mat-dark-liquid-gl", Ac = [".mat-liquid-gl", ".mat-dark-liquid-gl"].map((o) => `${o}:not(input):not(textarea):not(select):not(.on):not(.cur):not(.active):not(.lit)`).join(", ");
+const Lg = ".mat-liquid-gl, .mat-dark-liquid-gl", Ac = [".mat-liquid-gl", ".mat-dark-liquid-gl"].map((o) => `${o}:not(input):not(textarea):not(select):not(.on):not(.cur):not(.active):not(.lit)`).join(", ");
 let oa;
-function Lg(o) {
+function Rg(o) {
   const e = o.trim();
   if (!e || e === "initial") return;
   oa ??= Object.assign(document.createElement("i"), { hidden: !0 }), oa.isConnected || document.body.append(oa), oa.style.color = "", oa.style.color = e;
@@ -6925,7 +6925,7 @@ const Xa = class Xa {
     }, this.fakes = /* @__PURE__ */ new Set(), this.placeFake = () => {
       for (const r of this.fakes) {
         if (!r.isConnected) continue;
-        const l = Mg(r, () => this.placeFake());
+        const l = Tg(r, () => this.placeFake());
         if (!l) continue;
         const c = r.getBoundingClientRect(), d = r.offsetWidth ? c.width / r.offsetWidth : 1;
         r.style.setProperty("--fake-img", `url("${l.url}")`), r.style.setProperty("--fake-size", `${l.rect.w / d}px ${l.rect.h / d}px`), r.style.setProperty("--fake-pos", `${(l.rect.x - c.x) / d}px ${(l.rect.y - c.y) / d}px`), r.classList.add("fake-on");
@@ -6937,7 +6937,7 @@ const Xa = class Xa {
     for (const e of Xa.connected) e.host.requestUpdate();
   }
   get active() {
-    if (Pg(this.host) || this.when && !this.when()) return !1;
+    if (Eg(this.host) || this.when && !this.when()) return !1;
     if (this.under) return Er || xn;
     const e = this.host.getAttribute("glass"), t = !this.host.hasAttribute("nested") || this.host.hasAttribute("own-tile"), a = e === "liquid" || e === "dark-liquid" || e === "home" && !this.host.hasAttribute("nested") || !!this.legibilitySelector && e === "none";
     return (Er || xn) && a && t;
@@ -6972,7 +6972,7 @@ const Xa = class Xa {
       i && this.flush();
     });
     for (const a of t)
-      this.lenses.has(a) || (this.lenses.set(a, { id: `glass-liquid-${++Cg}`, w: 0, h: 0, markup: "" }), this.ro.observe(a));
+      this.lenses.has(a) || (this.lenses.set(a, { id: `glass-liquid-${++Dg}`, w: 0, h: 0, markup: "" }), this.ro.observe(a));
   }
   hostConnected() {
     Xa.connected.add(this), this.host.hasUpdated && this.host.requestUpdate();
@@ -6990,7 +6990,7 @@ const Xa = class Xa {
     }
     const i = t.getPropertyValue("--glass-panel-tint").split(",").map((r) => parseFloat(r)), s = parseFloat(t.getPropertyValue("--glass-panel-tint-a"));
     i.length === 3 && i.every((r) => !Number.isNaN(r)) && !Number.isNaN(s) && ([a.tintR, a.tintG, a.tintB] = i, a.tintA = s);
-    const n = e.matches(Eg) && t.getPropertyValue("--mat-tinted").trim() === "1" ? Lg(t.getPropertyValue("--mat-tint")) : void 0;
+    const n = e.matches(Lg) && t.getPropertyValue("--mat-tinted").trim() === "1" ? Rg(t.getPropertyValue("--mat-tint")) : void 0;
     return n && ([a.tintR, a.tintG, a.tintB, a.tintA] = n), a;
   }
   /** Re-renders the glass now – for cards animating its shape (--glass-liquid-blob-*). With
@@ -7044,7 +7044,7 @@ const Xa = class Xa {
     const a = Math.round(e.offsetWidth), i = Math.round(e.offsetHeight);
     if (!a || !i || a === t.w && i === t.h) return !1;
     t.w = a, t.h = i;
-    const s = Math.min(parseFloat(getComputedStyle(e).borderTopLeftRadius) || 24, a / 2, i / 2), n = Math.max(6, Math.min(30, Math.min(a, i) / 3)), r = this.strength ?? Math.round(Math.min(56, n * 1.9)), l = parseFloat(getComputedStyle(this.host).getPropertyValue("--glass-liquid-dispersion")), c = Number.isNaN(l) ? 1 : l, d = `<feImage href="${Dg(a, i, s, n)}" x="0" y="0" width="${a}" height="${i}" preserveAspectRatio="none" result="map"/>`, h = (y, _) => `<feDisplacementMap in="SourceGraphic" in2="map" scale="${(r * y).toFixed(1)}" xChannelSelector="R" yChannelSelector="G" result="${_}"/>`, u = (y, _, x) => {
+    const s = Math.min(parseFloat(getComputedStyle(e).borderTopLeftRadius) || 24, a / 2, i / 2), n = Math.max(6, Math.min(30, Math.min(a, i) / 3)), r = this.strength ?? Math.round(Math.min(56, n * 1.9)), l = parseFloat(getComputedStyle(this.host).getPropertyValue("--glass-liquid-dispersion")), c = Number.isNaN(l) ? 1 : l, d = `<feImage href="${Pg(a, i, s, n)}" x="0" y="0" width="${a}" height="${i}" preserveAspectRatio="none" result="map"/>`, h = (y, _) => `<feDisplacementMap in="SourceGraphic" in2="map" scale="${(r * y).toFixed(1)}" xChannelSelector="R" yChannelSelector="G" result="${_}"/>`, u = (y, _, x) => {
       const z = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
       return z[_ * 5 + _] = 1, `<feColorMatrix in="${y}" type="matrix" values="${z.join(" ")}" result="${x}"/>`;
     }, m = 0.08 * c, f = c > 0 ? `${d}${h(1, "dr")}${h(1 - m, "dg")}${h(1 - m * 2, "db")}${u("dr", 0, "r")}${u("dg", 1, "g")}${u("db", 2, "b")}<feBlend in="r" in2="g" mode="screen" result="rg"/><feBlend in="rg" in2="b" mode="screen"/>` : `${d}${h(1, "out")}`;
@@ -7093,25 +7093,25 @@ const Lr = {
   "blue-grey": "#7d8ea3",
   "light-grey": "#d1d1d6",
   "dark-grey": "#48484a"
-}, na = Lr, Rg = /* @__PURE__ */ new Set(["none", "state", ""]);
+}, na = Lr, Ng = /* @__PURE__ */ new Set(["none", "state", ""]);
 function Y(o) {
   if (!o) return;
   const e = o.trim().toLowerCase();
-  if (!Rg.has(e))
+  if (!Ng.has(e))
     return e === "primary" || e === "accent" ? `var(--${e}-color)` : Lr[e] ? `var(--glass-color-${e}, ${Lr[e]})` : o;
 }
 function Be(o, e = 68) {
   const t = Y(o);
   return t ? `color-mix(in srgb, ${t} ${e}%, transparent)` : void 0;
 }
-const Ng = new Set(
+const Og = new Set(
   ["roboto", "system-ui", "-apple-system", "sf pro", "sf pro display", "sf pro text", "helvetica", "helvetica neue", "arial", "sans-serif", "serif", "monospace", "inherit"].map(
     (o) => o.toLowerCase()
   )
 ), ud = /* @__PURE__ */ new Set();
-function Og(o, e, t) {
+function Bg(o, e, t) {
   const a = o.trim();
-  if (!a || Ng.has(a.toLowerCase())) return;
+  if (!a || Og.has(a.toLowerCase())) return;
   const i = String(e ?? 400), s = `${a}|${i}|${t}`;
   if (ud.has(s)) return;
   ud.add(s);
@@ -7119,7 +7119,7 @@ function Og(o, e, t) {
   n.rel = "stylesheet", n.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(a).replace(/%20/g, "+")}:ital,wght@${t ? 1 : 0},${i}&display=swap`, document.head.appendChild(n);
 }
 const Rr = (o) => o === void 0 || o === "" ? void 0 : typeof o == "number" ? `${o}px` : o;
-function Bg(o) {
+function jg(o) {
   if (!o) return "";
   let e = "";
   for (const [t, a] of Object.entries(o)) {
@@ -7127,11 +7127,11 @@ function Bg(o) {
     const i = (s, n) => {
       n !== void 0 && n !== "" && (e += `--gt-${t}-${s}:${n};`);
     };
-    a.font && (Og(a.font, a.weight, a.style === "italic"), i("font", `"${a.font.replace(/"/g, "")}", var(--g-font)`)), i("size", Rr(a.size)), i("weight", a.weight !== void 0 ? String(a.weight) : void 0), i("style", a.style), i("color", Y(a.color)), i("spacing", Rr(a.spacing));
+    a.font && (Bg(a.font, a.weight, a.style === "italic"), i("font", `"${a.font.replace(/"/g, "")}", var(--g-font)`)), i("size", Rr(a.size)), i("weight", a.weight !== void 0 ? String(a.weight) : void 0), i("style", a.style), i("color", Y(a.color)), i("spacing", Rr(a.spacing));
   }
   return e;
 }
-function jg(o) {
+function Ig(o) {
   if (!o) return "";
   let e = "";
   for (const [t, a] of Object.entries(o)) {
@@ -7143,7 +7143,7 @@ function jg(o) {
   }
   return e;
 }
-const R = (o, e, t, a, i, s = !0) => ({ key: o, kind: "text", sel: e, on: i, title: t, group: a, size: s }), Fe = (o) => ({ ...o, always: !0 }), md = (o, e, t, a, i) => ({ key: o, kind: "icon", sel: e, on: i, title: t, group: a, svg: !0 }), Q = (o, e, t, a, i) => ({ key: o, kind: "icon", sel: e, on: i, title: t, group: a }), Ig = (o) => o === void 0 || o === "" || o === null ? void 0 : typeof o == "number" || /^\d*\.?\d+$/.test(o) ? `${o}px` : o;
+const R = (o, e, t, a, i, s = !0) => ({ key: o, kind: "text", sel: e, on: i, title: t, group: a, size: s }), Fe = (o) => ({ ...o, always: !0 }), md = (o, e, t, a, i) => ({ key: o, kind: "icon", sel: e, on: i, title: t, group: a, svg: !0 }), Q = (o, e, t, a, i) => ({ key: o, kind: "icon", sel: e, on: i, title: t, group: a }), qg = (o) => o === void 0 || o === "" || o === null ? void 0 : typeof o == "number" || /^\d*\.?\d+$/.test(o) ? `${o}px` : o;
 function Up(o, e, t) {
   let a = "";
   for (const i of [!1, !0])
@@ -7155,21 +7155,21 @@ function Up(o, e, t) {
       let c = "";
       const d = Y(l.color);
       d && (c += `color:${d} !important;`);
-      const h = s.size === !1 ? void 0 : Ig(l.size);
+      const h = s.size === !1 ? void 0 : qg(l.size);
       h && (c += s.svg ? `width:${h} !important;height:${h} !important;` : s.kind === "icon" ? `--mdc-icon-size:${h} !important;` : `font-size:${h} !important;`), s.kind === "text" && l.weight !== void 0 && l.weight !== "" && (c += `font-weight:${l.weight} !important;`), c && (a += `${n}{${c}}
 `);
     }
   return a;
 }
-const vs = (o) => !!o && typeof o == "object" && !Array.isArray(o);
+const ws = (o) => !!o && typeof o == "object" && !Array.isArray(o);
 function Kp(o, e) {
   const t = { ...o };
-  for (const [a, i] of Object.entries(e)) t[a] = vs(i) && vs(o[a]) ? Kp(o[a], i) : i;
+  for (const [a, i] of Object.entries(e)) t[a] = ws(i) && ws(o[a]) ? Kp(o[a], i) : i;
   return t;
 }
-function Xi(o, e) {
+function Qi(o, e) {
   const { dark: t, ...a } = o ?? {};
-  if (!e || !vs(t)) return a;
+  if (!e || !ws(t)) return a;
   const { appearance: i, ...s } = t;
   return Kp(a, s);
 }
@@ -7178,14 +7178,14 @@ function Vp(o, e) {
   for (const a of /* @__PURE__ */ new Set([...Object.keys(o), ...Object.keys(e)])) {
     if (a === "dark") continue;
     const i = o[a], s = e[a];
-    if (vs(i) && vs(s)) {
+    if (ws(i) && ws(s)) {
       const n = Vp(i, s);
       n && (t[a] = n);
     } else JSON.stringify(i) !== JSON.stringify(s) && s !== void 0 && (t[a] = s);
   }
   return Object.keys(t).length ? t : void 0;
 }
-function qg(o) {
+function Wg(o) {
   if (!o || typeof o != "object") return;
   let e;
   if (Array.isArray(o.color) && o.color.length === 3) e = o.color.map(Number);
@@ -7197,7 +7197,7 @@ function qg(o) {
   const t = Math.min(100, Math.max(0, Number(o.strength ?? 30)));
   return { rgb: e.join(", "), a: String(t / 100 * 0.6) };
 }
-const is = class is extends Ye {
+const ss = class ss extends Ye {
   constructor() {
     super(), this._watched = [], this._seen = /* @__PURE__ */ new Map(), this._partsCss = "", this._onLang = () => this.requestUpdate(), this._appliedStyles = [];
     const e = (a) => this.glassUnder(a) ?? a.closest(".tile.full")?.querySelector(".pic") ?? kt();
@@ -7226,7 +7226,7 @@ const is = class is extends Ye {
   }
   setConfig(e) {
     if (!e) throw new Error("Invalid configuration");
-    if (this._rawConfig = e, this._configNight = this.nightNow(), this._config = this.validateConfig(Xi(e, this._configNight)), this._watched = [...new Set([...this.watchedEntities(this._config)].filter(Boolean))], this._seen.clear(), this._hass) for (const t of this._watched) this._seen.set(t, this._hass.states[t]);
+    if (this._rawConfig = e, this._configNight = this.nightNow(), this._config = this.validateConfig(Qi(e, this._configNight)), this._watched = [...new Set([...this.watchedEntities(this._config)].filter(Boolean))], this._seen.clear(), this._hass) for (const t of this._watched) this._seen.set(t, this._hass.states[t]);
     this.requestUpdate();
   }
   /** Whether the card is dark now – the dashboard's day / night. */
@@ -7297,7 +7297,7 @@ const is = class is extends Ye {
     for (const n of this._appliedStyles) this.style.removeProperty(n);
     this._appliedStyles = [];
     const t = this.styleConfig();
-    for (const n of `${Bg(t?.fonts)}${jg(t?.icons)}`.split(";")) {
+    for (const n of `${jg(t?.fonts)}${Ig(t?.icons)}`.split(";")) {
       const r = n.indexOf(":");
       if (r < 0) continue;
       const l = n.slice(0, r);
@@ -7315,7 +7315,7 @@ const is = class is extends Ye {
       ["glass_tint", "own"]
     ];
     for (const [n, r] of s) {
-      const l = qg(a?.[n]);
+      const l = Wg(a?.[n]);
       if (l)
         for (const [c, d] of [["", l.rgb], ["-a", l.a]]) {
           const h = `--glass-${r}-tint${c}`;
@@ -7335,8 +7335,8 @@ const is = class is extends Ye {
     return 3;
   }
 };
-is.properties = { _config: { state: !0 } }, is.styles = [xc, we], is.wrapTile = !1;
-let F = is;
+ss.properties = { _config: { state: !0 } }, ss.styles = [xc, we], ss.wrapTile = !1;
+let F = ss;
 function Yp(o) {
   for (const e of o.querySelectorAll("*"))
     e.requestUpdate?.(), e.shadowRoot && Yp(e.shadowRoot);
@@ -7358,8 +7358,8 @@ function ce(o, e, t) {
     });
   }
 }
-let Rs;
-function ws(o, e) {
+let Ns;
+function xs(o, e) {
   const t = typeof o?.type == "string" && o.type.startsWith("custom:") ? o.type.slice(7) : "";
   if (t.startsWith("glass-") && customElements.get(t)) {
     const i = document.createElement(t);
@@ -7371,7 +7371,7 @@ function ws(o, e) {
     return e && (i.hass = e), i;
   }
   const a = document.createElement("div");
-  return a.style.display = "contents", Rs = Rs ?? window.loadCardHelpers?.(), Rs ? (Rs.then((i) => {
+  return a.style.display = "contents", Ns = Ns ?? window.loadCardHelpers?.(), Ns ? (Ns.then((i) => {
     const s = i.createCardElement(o);
     a.hass && (s.hass = a.hass), a.appendChild(s), Object.defineProperty(a, "hass", {
       configurable: !0,
@@ -7392,13 +7392,13 @@ function Jp(o) {
     return null;
   }
 }
-function Ma(o, e) {
+function Ta(o, e) {
   return Jp(o) ?? e ?? Nr.get(o);
 }
 function Mc(o, e) {
   Nr.get(o) !== e && (Nr.set(o, e), Jp(o) === null && window.dispatchEvent(new CustomEvent(ui, { detail: { group: o, id: e } })));
 }
-function Ts(o, e) {
+function Cs(o, e) {
   try {
     sessionStorage.setItem(Zp(o), e);
   } catch {
@@ -7415,7 +7415,7 @@ function mi(o, e) {
   };
   return window.addEventListener(ui, t), () => window.removeEventListener(ui, t);
 }
-const Wg = /* @__PURE__ */ new Set([
+const Fg = /* @__PURE__ */ new Set([
   "condition",
   "entity",
   "attribute",
@@ -7427,7 +7427,7 @@ const Wg = /* @__PURE__ */ new Set([
   "or",
   "not",
   "conditions"
-]), Fg = /^[a-z_]+\.[a-z0-9_]+$/, vo = (o) => typeof o == "string" && Fg.test(o);
+]), Hg = /^[a-z_]+\.[a-z0-9_]+$/, vo = (o) => typeof o == "string" && Hg.test(o);
 function Qp(o, e, t) {
   if (!e) return;
   const a = o.states[e];
@@ -7448,7 +7448,7 @@ function ge(o, e, t) {
   if (a === "not" && i) return !ra(i).some((r) => ge(r, e, t));
   if (a === "screen") return !o.media_query || window.matchMedia(o.media_query).matches;
   if (a === "user") return ra(o.users ?? []).includes(e.user?.id);
-  if (a === "select") return !o.group || ra(o.id).map(String).includes(String(Ma(o.group)));
+  if (a === "select") return !o.group || ra(o.id).map(String).includes(String(Ta(o.group)));
   if (o.and && !ge(o.and, e, t) || o.or && !ra(o.or).some((r) => ge(r, e, t)) || o.not && ge(o.not, e, t)) return !1;
   const s = o.entity ?? t, n = Qp(e, s, o.attribute);
   if (o.state !== void 0 && !ra(o.state).map(String).includes(String(n)) || o.state_not !== void 0 && ra(o.state_not).map(String).includes(String(n))) return !1;
@@ -7474,7 +7474,7 @@ function eu(o) {
     return { when: a, set: i };
   }
   const e = {}, t = {};
-  for (const [a, i] of Object.entries(o)) (Wg.has(a) ? e : t)[a] = i;
+  for (const [a, i] of Object.entries(o)) (Fg.has(a) ? e : t)[a] = i;
   return { when: e, set: t };
 }
 function wo(o, e, t, a) {
@@ -7498,17 +7498,17 @@ function Br(o) {
 function jr(o) {
   return !o || typeof o != "object" ? !1 : Array.isArray(o) ? o.some(jr) : o.condition === "screen" || ["and", "or", "not", "conditions"].some((e) => jr(o[e]));
 }
-const Hg = /* @__PURE__ */ new Set(["unavailable", "unknown"]);
+const Gg = /* @__PURE__ */ new Set(["unavailable", "unknown"]);
 function tu(o, e) {
   if (o)
     return e in o.attributes ? o.attributes[e] : e.split(".").reduce((t, a) => t?.[a], o.attributes);
 }
-const gi = (o) => !o || Hg.has(o.state);
+const gi = (o) => !o || Gg.has(o.state);
 function kn(o, e, t) {
   const a = o.locale?.number_format, i = a === "comma_decimal" ? "en-US" : a === "decimal_comma" ? "de" : a === "space_comma" ? "fr" : a === "none" ? "en-US" : e, s = { useGrouping: a !== "none" };
   return t !== void 0 ? (s.minimumFractionDigits = t, s.maximumFractionDigits = t) : s.maximumFractionDigits = 2, new Intl.NumberFormat(i, s);
 }
-function Gg(o, e, t) {
+function Ug(o, e, t) {
   switch (o) {
     case "power": {
       const a = t === "kW" ? e * 1e3 : e;
@@ -7526,7 +7526,7 @@ function Gg(o, e, t) {
       return { value: e, unit: t ?? "", precision: 1 };
   }
 }
-function Ug(o) {
+function Kg(o) {
   const e = Math.max(0, Math.round(o)), t = Math.floor(e / 3600), a = Math.floor(e % 3600 / 60);
   return t ? `${t} h ${a.toString().padStart(2, "0")} min` : a ? `${a} min` : `${e} s`;
 }
@@ -7560,10 +7560,10 @@ function au(o, e) {
   }
   if (d *= e.scale ?? 1, e.abs && (d = Math.abs(d)), c === "duration") {
     const h = l === "min" ? d * 60 : l === "h" ? d * 3600 : d;
-    return { value: Ug(h), unit: "", number: d, available: !0 };
+    return { value: Kg(h), unit: "", number: d, available: !0 };
   }
   if (c === "power" || c === "energy" || c === "data_rate") {
-    const h = Gg(c, d, l);
+    const h = Ug(c, d, l);
     return {
       value: kn(o, i, e.precision ?? h.precision).format(h.value),
       unit: e.unit ?? h.unit,
@@ -7573,7 +7573,7 @@ function au(o, e) {
   }
   return { value: kn(o, i, e.precision).format(d), unit: e.unit ?? l ?? "", number: d, available: !0 };
 }
-function Kg(o, e, t, a) {
+function Vg(o, e, t, a) {
   const i = a.entity ? e.states[a.entity] : void 0;
   return o.replace(/\{([a-z_]+)(?::([^}]+))?\}/gi, (s, n, r) => {
     switch (n) {
@@ -7592,9 +7592,9 @@ function Kg(o, e, t, a) {
     }
   });
 }
-function wa(o, e) {
+function xa(o, e) {
   const t = au(o, e);
-  return t.available ? e.text !== void 0 ? { text: Kg(e.text, o, t, e).replace(/\s+/g, " ").trim(), available: !0, number: t.number } : { text: t.unit ? `${t.value} ${t.unit}` : t.value, available: !0, number: t.number } : { text: "", available: !1, number: NaN };
+  return t.available ? e.text !== void 0 ? { text: Vg(e.text, o, t, e).replace(/\s+/g, " ").trim(), available: !0, number: t.number } : { text: t.unit ? `${t.value} ${t.unit}` : t.value, available: !0, number: t.number } : { text: "", available: !1, number: NaN };
 }
 const Uo = class Uo extends Ye {
   constructor() {
@@ -7786,7 +7786,7 @@ Uo.properties = { _open: { state: !0 }, _ready: { state: !0 } }, Uo.styles = ee`
   `;
 let Ir = Uo;
 customElements.get("glass-action-menu") || customElements.define("glass-action-menu", Ir);
-function Vg(o, e, t, a, i) {
+function Yg(o, e, t, a, i) {
   document.querySelectorAll("glass-action-menu").forEach((l) => l.close());
   const n = (i ?? o).getBoundingClientRect(), r = document.createElement("glass-action-menu");
   if (r.host = o, r.hass = e, r.entity = a, r.items = t.items ?? [], t.radius && (r.radius = Number(t.radius)), r.labels = !!t.labels, i) {
@@ -7795,14 +7795,14 @@ function Vg(o, e, t, a, i) {
   }
   r.cx = n.left + n.width / 2, r.cy = n.top + n.height / 2, document.body.appendChild(r);
 }
-const Yg = /* @__PURE__ */ new Set(["light", "switch", "input_boolean", "fan", "siren", "humidifier", "script", "group"]);
-function Zg(o) {
-  return o ? Yg.has(o.split(".")[0]) ? { action: "toggle" } : { action: "more-info" } : { action: "none" };
+const Zg = /* @__PURE__ */ new Set(["light", "switch", "input_boolean", "fan", "siren", "humidifier", "script", "group"]);
+function Jg(o) {
+  return o ? Zg.has(o.split(".")[0]) ? { action: "toggle" } : { action: "more-info" } : { action: "none" };
 }
 function Ot(o, e = {}) {
   return {
     entity: o.entity,
-    tap_action: o.tap_action ?? e.tap_action ?? Zg(o.entity),
+    tap_action: o.tap_action ?? e.tap_action ?? Jg(o.entity),
     hold_action: o.hold_action ?? e.hold_action ?? (o.entity ? { action: "more-info" } : void 0),
     double_tap_action: o.double_tap_action ?? e.double_tap_action
   };
@@ -7815,7 +7815,7 @@ function $e(o, e, t, a, i) {
   const s = t[`${a}_action`];
   if (!qr(s)) return;
   if (W(a === "hold" ? "medium" : "light"), s.action === "menu") {
-    e && Vg(o, e, s, t.entity, i);
+    e && Yg(o, e, s, t.entity, i);
     return;
   }
   e?.demo?.action(s, t.entity) || o.dispatchEvent(
@@ -7826,7 +7826,7 @@ function $e(o, e, t, a, i) {
     })
   );
 }
-const Si = /* @__PURE__ */ new WeakMap(), Jg = 500, Xg = 250, Ns = 10;
+const Si = /* @__PURE__ */ new WeakMap(), Xg = 500, Qg = 250, Os = 10;
 function Ze(o, e) {
   return {
     down: (t) => {
@@ -7834,22 +7834,22 @@ function Ze(o, e) {
       const a = t.currentTarget, i = Si.get(a), s = { held: !1, x: t.clientX, y: t.clientY, pending: i?.pending ?? !1, tapTimer: i?.tapTimer };
       Si.set(a, s), qr(o().hold_action) && (s.timer = window.setTimeout(() => {
         s.held = !0, e("hold", a);
-      }, Jg));
+      }, Xg));
     },
     move: (t) => {
       const a = Si.get(t.currentTarget);
-      a?.timer && (Math.abs(t.clientX - a.x) > Ns || Math.abs(t.clientY - a.y) > Ns) && (clearTimeout(a.timer), a.timer = void 0);
+      a?.timer && (Math.abs(t.clientX - a.x) > Os || Math.abs(t.clientY - a.y) > Os) && (clearTimeout(a.timer), a.timer = void 0);
     },
     up: (t) => {
       const a = t.currentTarget, i = Si.get(a);
       if (!i) return;
       clearTimeout(i.timer);
-      const s = Math.abs(t.clientX - i.x) > Ns || Math.abs(t.clientY - i.y) > Ns;
+      const s = Math.abs(t.clientX - i.x) > Os || Math.abs(t.clientY - i.y) > Os;
       if (!(i.held || s)) {
         if (qr(o().double_tap_action)) {
           i.pending ? (clearTimeout(i.tapTimer), i.pending = !1, e("double_tap", a)) : (i.pending = !0, i.tapTimer = window.setTimeout(() => {
             i.pending = !1, e("tap", a);
-          }, Xg));
+          }, Qg));
           return;
         }
         e("tap", a);
@@ -7865,7 +7865,7 @@ function Ze(o, e) {
     context: (t) => t.preventDefault()
   };
 }
-const Qg = {
+const e0 = {
   "input_boolean.glass_alarm_1_ringing": [
     "off",
     {
@@ -12593,15 +12593,15 @@ const Qg = {
       friendly_name: "Mower zone By the path 2"
     }
   ]
-}, e0 = { type: "FeatureCollection", features: [{ type: "Feature", geometry: { type: "Point", coordinates: [13.9999386, 49.9999513] }, properties: { hash: 0, title: "Dock", type_name: "station", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.000143, 50.0001273], [14.000134, 50.000132], [14.0001311, 50.0001324], [14.0001141, 50.0001303], [14.0001132, 50.0001301], [14.0001039, 50.0001273], [14.0000972, 50.0001266], [14.0000949, 50.0001256], [14.0000948, 50.0001253], [14.0000887, 50.0001243], [14.0000771, 50.0001252], [14.0000763, 50.0001252], [14.0000666, 50.0001246], [14.0000658, 50.0001245], [14.0000559, 50.0001222], [14.0000549, 50.0001218], [14.0000514, 50.0001201], [14.00005, 50.0001178], [14.0000512, 50.0001134], [14.0000515, 50.0001128], [14.0000576, 50.0001047], [14.000057, 50.000101], [14.0000541, 50.0000983], [14.0000459, 50.000095], [14.0000376, 50.0000952], [14.0000328, 50.0000969], [14.0000301, 50.0000993], [14.0000284, 50.0001022], [14.0000282, 50.0001052], [14.000029, 50.0001071], [14.0000347, 50.0001118], [14.0000353, 50.0001139], [14.0000335, 50.0001181], [14.0000324, 50.0001192], [14.0000299, 50.0001208], [14.0000272, 50.0001214], [13.9999909, 50.0001194], [13.999988, 50.0001193], [13.9999861, 50.0001189], [13.99998, 50.000116], [13.9999787, 50.0001148], [13.999977, 50.000111], [13.9999775, 50.000109], [13.9999812, 50.0001055], [13.9999831, 50.0001046], [13.9999932, 50.0001025], [13.9999943, 50.0001014], [13.9999943, 50.0001008], [13.9999934, 50.0000996], [13.9999858, 50.0000963], [13.9999847, 50.0000955], [13.9999787, 50.0000893], [13.9999783, 50.0000875], [13.99998, 50.0000835], [13.9999793, 50.0000797], [13.9999795, 50.0000787], [13.9999826, 50.0000726], [13.9999825, 50.0000725], [13.9999743, 50.0000708], [13.9999707, 50.0000716], [13.9999666, 50.000074], [13.9999634, 50.0000745], [13.9999508, 50.0000728], [13.9999499, 50.0000726], [13.9999414, 50.0000698], [13.9999397, 50.0000686], [13.999937, 50.0000645], [13.9999367, 50.0000634], [13.9999411, 50.0000321], [13.9999411, 50.000032], [13.999946, 50.0000067], [13.999946, 50.0000065], [13.9999537, 49.999983], [13.9999537, 49.9999828], [13.999961, 49.9999663], [13.9999628, 49.9999648], [13.9999649, 49.9999641], [13.9999673, 49.9999639], [14.000081, 49.9999789], [14.0000973, 49.9999742], [14.0000977, 49.9999718], [14.000097, 49.999968], [14.0000973, 49.9999667], [14.0001004, 49.9999628], [14.000102, 49.9999618], [14.0001042, 49.9999616], [14.0001245, 49.9999639], [14.0001268, 49.9999634], [14.0001293, 49.9999478], [14.0001307, 49.9999466], [14.0001267, 49.9999427], [14.0001261, 49.9999414], [14.0001261, 49.9999392], [14.0001269, 49.9999377], [14.0001328, 49.999933], [14.0001359, 49.9999322], [14.0001435, 49.9999327], [14.0001455, 49.9999332], [14.0001708, 49.9999473], [14.0001719, 49.9999485], [14.0001752, 49.9999568], [14.0001798, 49.9999635], [14.0001882, 49.99997], [14.0001981, 49.9999753], [14.0002056, 49.9999775], [14.0002197, 49.9999787], [14.0002212, 49.9999791], [14.0002255, 49.9999808], [14.0002264, 49.9999813], [14.0002333, 49.999987], [14.000234, 49.9999883], [14.0002343, 49.9999925], [14.0002342, 49.999993], [14.0002325, 50.0000001], [14.0002322, 50.0000008], [14.0002289, 50.0000048], [14.0002281, 50.0000055], [14.0002242, 50.0000077], [14.0002234, 50.0000081], [14.0002137, 50.0000113], [14.0002123, 50.0000116], [14.000203, 50.000012], [14.000198, 50.0000129], [14.0001961, 50.0000137], [14.0001935, 50.0000164], [14.0001903, 50.0000275], [14.0001901, 50.000028], [14.0001873, 50.0000321], [14.0001872, 50.0000345], [14.0001878, 50.0000352], [14.0001974, 50.0000384], [14.000198, 50.0000387], [14.0002029, 50.0000414], [14.0002042, 50.0000428], [14.0002057, 50.0000493], [14.0002187, 50.0000685], [14.0002236, 50.0000738], [14.0002281, 50.0000754], [14.0002494, 50.0000744], [14.0002501, 50.0000744], [14.0002699, 50.0000759], [14.0002924, 50.0000759], [14.000293, 50.000076], [14.0003106, 50.0000776], [14.0003107, 50.0000776], [14.0003338, 50.0000802], [14.0003345, 50.0000803], [14.0003417, 50.0000821], [14.0003429, 50.0000826], [14.0003489, 50.0000863], [14.00035, 50.0000877], [14.0003494, 50.0000892], [14.0003454, 50.0000934], [14.0003414, 50.0001092], [14.0003397, 50.0001109], [14.0003374, 50.0001117], [14.0003363, 50.000112], [14.0003233, 50.0001137], [14.0003229, 50.0001141], [14.0003207, 50.0001146], [14.0002952, 50.0001144], [14.0002948, 50.0001144], [14.0002857, 50.0001136], [14.0002843, 50.0001141], [14.0002754, 50.0001212], [14.0002743, 50.0001245], [14.0002757, 50.000127], [14.0002804, 50.0001306], [14.0002811, 50.0001329], [14.000274, 50.0001458], [14.0002724, 50.00015], [14.0002722, 50.0001503], [14.0002708, 50.0001526], [14.0002698, 50.0001535], [14.0002661, 50.0001555], [14.0002646, 50.000156], [14.0002612, 50.0001565], [14.0002576, 50.0001586], [14.0002541, 50.0001592], [14.0002488, 50.0001581], [14.0002467, 50.000157], [14.0002432, 50.0001529], [14.0002345, 50.0001499], [14.0002331, 50.000149], [14.0002312, 50.000147], [14.0002307, 50.0001463], [14.0002293, 50.0001426], [14.0002213, 50.000143], [14.0002108, 50.0001465], [14.0002071, 50.0001463], [14.0002051, 50.0001454], [14.0002036, 50.000143], [14.0002171, 50.0001043], [14.0002118, 50.0001029], [14.0001976, 50.0001012], [14.0001974, 50.0001012], [14.0001759, 50.0000974], [14.0001721, 50.0001015], [14.0001633, 50.0001227], [14.0001624, 50.0001237], [14.0001608, 50.0001248], [14.0001594, 50.0001253], [14.0001528, 50.0001269], [14.0001517, 50.0001271], [14.000143, 50.0001273]]] }, properties: { hash: 1, title: "Middle", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9993357, 50.0002443], [13.9993523, 50.0001759], [13.9993523, 50.0001758], [13.9993691, 50.000125], [13.9993692, 50.0001247], [13.9993759, 50.0001123], [13.9993816, 50.0000964], [13.9993922, 50.0000602], [13.9993927, 50.0000593], [13.9993948, 50.0000573], [13.9993965, 50.0000564], [13.999403, 50.0000548], [13.9994057, 50.0000548], [13.9994116, 50.0000564], [13.999422, 50.0000552], [13.9994231, 50.0000552], [13.9994469, 50.0000574], [13.9994547, 50.0000575], [13.9994753, 50.0000532], [13.9994761, 50.0000531], [13.9994844, 50.0000527], [13.9994856, 50.0000527], [13.9994907, 50.0000536], [13.9994929, 50.0000535], [13.9994962, 50.0000521], [13.9995007, 50.0000487], [13.9995016, 50.0000482], [13.9995068, 50.0000463], [13.9995089, 50.000046], [13.9995188, 50.0000466], [13.9995251, 50.0000448], [13.9995265, 50.0000446], [13.9995421, 50.0000443], [13.9995436, 50.0000445], [13.9995492, 50.0000462], [13.9995502, 50.0000466], [13.9995566, 50.0000505], [13.9995598, 50.0000506], [13.9995734, 50.0000474], [13.9995798, 50.0000445], [13.9995813, 50.0000441], [13.9995916, 50.000043], [13.9995918, 50.0000424], [13.9995942, 50.0000414], [13.9996019, 50.0000407], [13.9996031, 50.0000407], [13.9996111, 50.0000417], [13.999613, 50.0000424], [13.9996131, 50.000043], [13.9996138, 50.0000433], [13.9996157, 50.0000476], [13.9996159, 50.0000479], [13.999619, 50.0000625], [13.999619, 50.0000627], [13.9996195, 50.0000675], [13.9996203, 50.0000706], [13.9996221, 50.0000746], [13.9996222, 50.0000749], [13.9996265, 50.0000902], [13.9996265, 50.000091], [13.9996229, 50.0001052], [13.9996246, 50.0001114], [13.9996332, 50.000132], [13.9996333, 50.0001322], [13.9996382, 50.0001515], [13.9996422, 50.0001597], [13.9996423, 50.00016], [13.9996435, 50.0001654], [13.999644, 50.0001656], [13.9996454, 50.0001666], [13.9996475, 50.0001695], [13.9996478, 50.0001704], [13.9996487, 50.0001795], [13.9996486, 50.0001803], [13.9996465, 50.0001846], [13.9996464, 50.0001868], [13.9996513, 50.0001974], [13.9996514, 50.000198], [13.9996526, 50.0002117], [13.999654, 50.0002168], [13.9996592, 50.0002258], [13.999671, 50.000242], [13.9996713, 50.0002428], [13.9996715, 50.0002444], [13.999672, 50.0002472], [13.9996719, 50.0002481], [13.9996699, 50.0002528], [13.9996682, 50.0002542], [13.9996667, 50.0002543], [13.9996637, 50.000255], [13.9996638, 50.0002556], [13.9996634, 50.0002568], [13.9996612, 50.0002596], [13.9996586, 50.0002672], [13.9996583, 50.0002677], [13.999656, 50.000271], [13.9996553, 50.0002748], [13.9996615, 50.0003012], [13.9996629, 50.0003038], [13.9996696, 50.0003095], [13.9996701, 50.0003101], [13.9996732, 50.0003159], [13.9996723, 50.0003184], [13.9996654, 50.0003226], [13.9996628, 50.0003232], [13.999635, 50.0003225], [13.9996334, 50.0003223], [13.9996314, 50.0003216], [13.9996298, 50.0003203], [13.9996277, 50.0003165], [13.9996275, 50.0003155], [13.9996287, 50.000308], [13.9996238, 50.000302], [13.9996126, 50.000299], [13.9996019, 50.0002988], [13.9995915, 50.0003001], [13.9995799, 50.0003057], [13.9995774, 50.0003061], [13.999575, 50.0003053], [13.9995707, 50.000302], [13.9995688, 50.0003022], [13.999561, 50.0003045], [13.9995591, 50.0003047], [13.9995465, 50.0003039], [13.9995459, 50.0003038], [13.9994647, 50.0002896], [13.9994644, 50.0002895], [13.9994478, 50.0002856], [13.9994198, 50.0002815], [13.9993998, 50.0002795], [13.9993995, 50.0002795], [13.9993321, 50.0002687], [13.9993297, 50.0002675], [13.9993288, 50.0002663], [13.9993285, 50.0002648], [13.9993357, 50.0002443]]] }, properties: { hash: 2, title: "Meadow", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0001265, 49.9998736], [14.0001342, 49.9998578], [14.0001413, 49.9998351], [14.000143, 49.9998335], [14.0001469, 49.999832], [14.0001482, 49.9998318], [14.0001541, 49.9998312], [14.0001552, 49.9998312], [14.0001743, 49.9998332], [14.0001748, 49.9998333], [14.0001833, 49.9998351], [14.0001852, 49.999836], [14.0001878, 49.9998385], [14.0001883, 49.9998391], [14.0001925, 49.9998475], [14.0001927, 49.9998483], [14.0001923, 49.9998619], [14.0001922, 49.9998623], [14.0001878, 49.9998781], [14.0001877, 49.9998783], [14.0001814, 49.9998938], [14.0001757, 49.9999125], [14.0001755, 49.9999128], [14.0001706, 49.999921], [14.0001693, 49.999922], [14.0001648, 49.9999241], [14.0001633, 49.9999245], [14.0001517, 49.9999257], [14.0001488, 49.9999252], [14.0001336, 49.9999168], [14.0001308, 49.9999163], [14.0001271, 49.9999168], [14.0001252, 49.9999168], [14.000123, 49.9999163], [14.000122, 49.999916], [14.0001146, 49.9999125], [14.0001098, 49.9999107], [14.0001092, 49.9999105], [14.0001083, 49.99991], [14.0001073, 49.9999091], [14.0001065, 49.9999078], [14.0001063, 49.9999073], [14.0001052, 49.9999031], [14.0001053, 49.9999026], [14.0001051, 49.9999025], [14.0001063, 49.9998939], [14.0001064, 49.9998937], [14.0001095, 49.9998827], [14.0001104, 49.9998816], [14.0001136, 49.9998792], [14.0001143, 49.9998788], [14.0001265, 49.9998736]]] }, properties: { hash: 3, title: "Area 3", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999226, 49.9998488], [13.9999312, 49.999833], [13.9999338, 49.9998231], [13.9999309, 49.9998087], [13.9999309, 49.9998081], [13.9999317, 49.9998026], [13.9999329, 49.999801], [13.9999354, 49.9997997], [13.9999374, 49.9997992], [13.9999481, 49.9997986], [13.9999515, 49.9997997], [13.9999531, 49.9998015], [13.9999536, 49.9998029], [13.9999531, 49.9998065], [13.9999528, 49.9998072], [13.9999465, 49.9998165], [13.9999464, 49.9998206], [13.9999462, 49.9998212], [13.9999387, 49.9998375], [13.9999386, 49.9998377], [13.9999283, 49.9998536], [13.9999185, 49.9998868], [13.9999176, 49.9998879], [13.9999122, 49.9998918], [13.9999115, 49.9998922], [13.9999004, 49.9998967], [13.9998998, 49.9998969], [13.9998968, 49.9998977], [13.9998964, 49.9998977], [13.999893, 49.9998984], [13.9998926, 49.9998984], [13.9998891, 49.9998987], [13.9998884, 49.9998988], [13.999885, 49.9998986], [13.9998828, 49.999898], [13.9998817, 49.9998966], [13.9998813, 49.9998949], [13.9998797, 49.9998906], [13.9998798, 49.9998892], [13.9998799, 49.9998891], [13.9998799, 49.9998891], [13.9998821, 49.9998859], [13.9998847, 49.9998846], [13.99989, 49.9998839], [13.9998907, 49.9998838], [13.9999024, 49.9998838], [13.999907, 49.9998813], [13.9999093, 49.9998759], [13.9999107, 49.9998654], [13.9999109, 49.999865], [13.9999135, 49.9998588], [13.9999139, 49.9998583], [13.9999226, 49.9998488]]] }, properties: { hash: 4, title: "Rockery", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996513, 49.9997271], [13.9996898, 49.9997318], [13.9996904, 49.9997319], [13.9997068, 49.9997358], [13.9997078, 49.9997363], [13.9997081, 49.9997363], [13.9997129, 49.9997395], [13.9997131, 49.9997396], [13.9997166, 49.9997423], [13.9997174, 49.9997444], [13.9997164, 49.9997471], [13.9997143, 49.9997488], [13.999707, 49.9997507], [13.9997043, 49.9997507], [13.9996921, 49.9997474], [13.9996701, 49.9997473], [13.9996698, 49.9997473], [13.9996528, 49.9997462], [13.9996388, 49.9997471], [13.9996372, 49.9997469], [13.9996217, 49.9997432], [13.9996001, 49.9997407], [13.9995999, 49.9997406], [13.9995647, 49.9997349], [13.9995641, 49.9997348], [13.9995576, 49.9997329], [13.9995327, 49.9997307], [13.9995323, 49.9997307], [13.9995079, 49.9997265], [13.9995063, 49.9997258], [13.9995034, 49.9997239], [13.9995024, 49.9997221], [13.9995039, 49.9997104], [13.9995051, 49.9997088], [13.999508, 49.9997072], [13.9995097, 49.9997067], [13.9995135, 49.9997062], [13.9995149, 49.9997062], [13.9996082, 49.9997195], [13.9996083, 49.9997196], [13.9996513, 49.9997271]]] }, properties: { hash: 5, title: "Area 5", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000416, 49.9998131], [14.0000417, 49.9998131], [14.0000751, 49.9998186], [14.000077, 49.9998193], [14.0000828, 49.9998239], [14.0000936, 49.9998262], [14.0000963, 49.999826], [14.0001019, 49.9998234], [14.0001038, 49.999823], [14.0001114, 49.9998227], [14.0001142, 49.9998234], [14.0001152, 49.9998251], [14.0001151, 49.9998278], [14.000115, 49.9998281], [14.0001073, 49.9998554], [14.0001073, 49.9998555], [14.0001053, 49.9998612], [14.0001047, 49.999862], [14.0001019, 49.9998645], [14.000101, 49.999865], [14.0000961, 49.999867], [14.0000941, 49.9998674], [14.0000827, 49.9998672], [14.0000821, 49.9998671], [14.0000549, 49.9998634], [14.0000434, 49.9998625], [14.0000403, 49.9998606], [14.0000377, 49.9998526], [14.0000335, 49.9998495], [14.0000309, 49.9998488], [14.0000267, 49.9998488], [14.0000227, 49.9998504], [14.0000201, 49.9998544], [14.000019, 49.9998553], [14.0000172, 49.9998562], [14.0000154, 49.9998567], [14.0000056, 49.9998572], [14.0000049, 49.9998572], [13.9999745, 49.9998553], [13.9999716, 49.9998538], [13.9999699, 49.9998512], [13.9999696, 49.9998502], [13.9999699, 49.9998472], [13.9999701, 49.9998466], [13.9999776, 49.9998313], [13.9999782, 49.9998306], [13.9999812, 49.999828], [13.9999834, 49.9998226], [13.9999835, 49.9998224], [13.9999836, 49.9998223], [13.9999839, 49.9998218], [13.9999855, 49.9998202], [13.999987, 49.9998169], [13.9999872, 49.9998166], [13.9999899, 49.9998129], [13.9999905, 49.9998115], [13.9999931, 49.9998098], [13.9999984, 49.999809], [13.9999992, 49.9998089], [14.0000048, 49.9998088], [14.0000052, 49.9998088], [14.0000107, 49.9998091], [14.0000111, 49.9998092], [14.0000415, 49.9998131], [14.0000416, 49.9998131]]] }, properties: { hash: 6, title: "Front garden", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996035, 49.9999805], [13.9995973, 49.9999618], [13.9995972, 49.9999613], [13.9995973, 49.9999587], [13.999598, 49.9999573], [13.9996059, 49.9999508], [13.9996072, 49.9999473], [13.9995946, 49.9999006], [13.9995902, 49.9998886], [13.9995874, 49.9998857], [13.9995869, 49.9998848], [13.999586, 49.999881], [13.9995861, 49.99988], [13.9995882, 49.9998756], [13.9995904, 49.9998741], [13.9995959, 49.9998728], [13.9995972, 49.9998727], [13.9996021, 49.9998727], [13.9996028, 49.9998728], [13.999663, 49.9998815], [13.999664, 49.9998818], [13.999674, 49.9998854], [13.9996755, 49.9998864], [13.9996758, 49.9998879], [13.9996751, 49.9998898], [13.9996757, 49.9998928], [13.9996764, 49.9998935], [13.9996994, 49.9998975], [13.9997019, 49.9998974], [13.999705, 49.9998962], [13.9997124, 49.9998913], [13.9997146, 49.9998883], [13.9997145, 49.9998839], [13.9997152, 49.9998825], [13.9997172, 49.9998807], [13.9997196, 49.9998798], [13.9997261, 49.9998791], [13.999727, 49.9998791], [13.9997394, 49.99988], [13.9997398, 49.9998801], [13.9998752, 49.999898], [13.9998759, 49.9998982], [13.9998809, 49.9998995], [13.9998826, 49.9999004], [13.9998831, 49.9999019], [13.9998827, 49.9999048], [13.9998824, 49.9999056], [13.9998779, 49.9999121], [13.9998797, 49.999915], [13.9998811, 49.9999161], [13.9998857, 49.9999178], [13.9998979, 49.9999172], [13.9998995, 49.9999173], [13.9999095, 49.9999198], [13.9999276, 49.9999204], [13.99993, 49.9999211], [13.9999322, 49.9999225], [13.9999332, 49.9999245], [13.9999259, 49.9999529], [13.9999267, 49.9999552], [13.9999378, 49.9999559], [13.9999392, 49.9999562], [13.9999423, 49.9999574], [13.9999435, 49.9999581], [13.9999466, 49.9999609], [13.9999483, 49.9999617], [13.9999684, 49.9999642], [13.9999696, 49.9999645], [13.9999734, 49.9999659], [13.9999751, 49.9999678], [13.9999753, 49.9999716], [13.9999752, 49.9999721], [13.9999592, 50.0000245], [13.9999517, 50.0000602], [13.9999515, 50.0000606], [13.9999489, 50.0000655], [13.9999476, 50.0000666], [13.9999446, 50.0000681], [13.9999425, 50.0000685], [13.9999392, 50.0000686], [13.9999381, 50.0000685], [13.9999241, 50.0000659], [13.9998301, 50.0000551], [13.9998299, 50.0000551], [13.9998205, 50.0000536], [13.9998197, 50.0000548], [13.9998194, 50.0000621], [13.9998194, 50.0000625], [13.9998168, 50.0000712], [13.9998158, 50.0000835], [13.9998154, 50.0000845], [13.9998144, 50.0000858], [13.9998107, 50.000087], [13.9997942, 50.0000856], [13.9997937, 50.0000855], [13.9997697, 50.0000812], [13.9997677, 50.0000803], [13.9997664, 50.0000791], [13.9997657, 50.0000782], [13.9997645, 50.0000738], [13.9997645, 50.000073], [13.9997664, 50.000064], [13.9997655, 50.0000621], [13.9997637, 50.0000617], [13.9997427, 50.0000602], [13.9997424, 50.0000604], [13.9997411, 50.0000657], [13.9997401, 50.0000669], [13.9997328, 50.0000718], [13.9997316, 50.000075], [13.9997316, 50.0000768], [13.9997318, 50.0000781], [13.9997303, 50.0000802], [13.9997286, 50.000081], [13.9997274, 50.0000814], [13.9997244, 50.0000819], [13.9997226, 50.0000819], [13.999716, 50.0000809], [13.999634, 50.0000697], [13.9996321, 50.000069], [13.999628, 50.0000662], [13.9996272, 50.0000653], [13.9996243, 50.000059], [13.9996242, 50.0000587], [13.9996212, 50.0000473], [13.9996213, 50.0000463], [13.9996235, 50.0000412], [13.9996236, 50.000038], [13.9996211, 50.0000318], [13.9996201, 50.0000307], [13.9996198, 50.0000302], [13.999615, 50.0000209], [13.9996149, 50.0000203], [13.9996144, 50.000016], [13.9996145, 50.0000153], [13.9996159, 50.0000118], [13.9996167, 50.0000108], [13.9996224, 50.0000068], [13.9996258, 50.0000003], [13.9996232, 49.9999991], [13.9996118, 49.9999957], [13.9996107, 49.9999952], [13.9996073, 49.999993], [13.9996066, 49.9999922], [13.9996052, 49.9999901], [13.999605, 49.9999895], [13.9996035, 49.9999805]]] }, properties: { hash: 7, title: "Upper", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004296, 50.0000534], [14.0004387, 50.0000558], [14.0004447, 50.0000562], [14.0004557, 50.000054], [14.0004587, 50.0000527], [14.0004646, 50.000043], [14.0004656, 50.0000421], [14.0004702, 50.0000394], [14.0004725, 50.0000368], [14.000473, 50.0000331], [14.0004707, 50.0000208], [14.0004701, 50.0000203], [14.0004622, 50.0000171], [14.000461, 50.0000162], [14.0004593, 50.0000143], [14.0004589, 50.0000132], [14.0004589, 50.0000109], [14.0004593, 50.0000097], [14.0004611, 50.0000077], [14.0004623, 50.0000069], [14.0004655, 50.0000055], [14.0004674, 50.0000051], [14.0004781, 50.000005], [14.0004798, 50.0000053], [14.000484, 50.0000068], [14.0004858, 50.0000083], [14.0004871, 50.000012], [14.0004877, 50.0000124], [14.0004882, 50.0000125], [14.0004887, 50.0000127], [14.00049, 50.0000132], [14.0005127, 50.0000151], [14.0005132, 50.0000151], [14.0005151, 50.0000071], [14.0005154, 50.0000065], [14.0005186, 50.0000019], [14.00052, 50.0000009], [14.0005229, 49.9999997], [14.0005258, 49.9999995], [14.0005352, 50.0000012], [14.0005361, 50.0000014], [14.0005448, 50.0000049], [14.0005464, 50.0000073], [14.000544, 50.0000161], [14.0005448, 50.0000174], [14.0005468, 50.0000173], [14.0005601, 50.0000193], [14.0005809, 50.000021], [14.0005812, 50.000021], [14.0006019, 50.0000239], [14.0006033, 50.0000243], [14.000608, 50.0000267], [14.0006093, 50.0000288], [14.0006076, 50.0000398], [14.0006067, 50.0000607], [14.0006067, 50.000061], [14.0006036, 50.0000742], [14.0006043, 50.0000766], [14.000605, 50.0000779], [14.0006052, 50.0000787], [14.0006041, 50.0000993], [14.000604, 50.0000999], [14.0006004, 50.0001079], [14.0005993, 50.000109], [14.0005882, 50.0001153], [14.0005874, 50.0001229], [14.000591, 50.0001263], [14.0005978, 50.0001288], [14.0005995, 50.0001303], [14.0006009, 50.0001341], [14.000601, 50.0001348], [14.0005977, 50.0001696], [14.0005977, 50.0001698], [14.0005952, 50.0001789], [14.0005948, 50.0001796], [14.0005915, 50.0001835], [14.0005924, 50.0001846], [14.0005911, 50.0001968], [14.0005904, 50.0001979], [14.0005865, 50.0002017], [14.0005827, 50.0002027], [14.0005791, 50.0002022], [14.0005781, 50.0002019], [14.0005732, 50.0002], [14.0005517, 50.0001956], [14.0005425, 50.0001944], [14.0005419, 50.0001943], [14.00052, 50.0001887], [14.0005152, 50.0001885], [14.000502, 50.0001901], [14.0005004, 50.0001901], [14.0004945, 50.0001891], [14.0004934, 50.0001888], [14.0004877, 50.0001862], [14.000481, 50.0001871], [14.0004774, 50.0001863], [14.000473, 50.0001828], [14.0004621, 50.0001846], [14.0004573, 50.000187], [14.0004556, 50.0001875], [14.0004532, 50.0001877], [14.0004518, 50.0001877], [14.0004405, 50.0001858], [14.0004395, 50.0001855], [14.0004302, 50.000182], [14.0004288, 50.0001811], [14.0004258, 50.0001775], [14.0004221, 50.0001754], [14.0004185, 50.0001745], [14.000412, 50.000174], [14.0004101, 50.0001736], [14.0003905, 50.0001636], [14.0003833, 50.0001606], [14.0003742, 50.0001589], [14.0003512, 50.0001568], [14.0003494, 50.0001563], [14.0003353, 50.0001485], [14.0003273, 50.0001515], [14.0003183, 50.0001566], [14.0003172, 50.000157], [14.0003072, 50.0001595], [14.0003006, 50.0001645], [14.0002983, 50.0001654], [14.0002957, 50.0001649], [14.0002887, 50.0001615], [14.0002876, 50.0001608], [14.0002857, 50.0001583], [14.0002733, 50.0001558], [14.0002722, 50.0001555], [14.0002656, 50.0001524], [14.0002641, 50.0001508], [14.000263, 50.0001455], [14.000263, 50.0001446], [14.0002668, 50.0001358], [14.0002671, 50.0001353], [14.0002699, 50.0001321], [14.0002712, 50.0001312], [14.0002777, 50.0001287], [14.0002789, 50.0001285], [14.0002885, 50.0001273], [14.0002916, 50.0001279], [14.0003121, 50.00014], [14.0003244, 50.0001308], [14.0003229, 50.000129], [14.0003226, 50.0001285], [14.0003207, 50.000124], [14.0003207, 50.0001226], [14.0003218, 50.0001207], [14.0003223, 50.0001175], [14.0003224, 50.000117], [14.0003402, 50.0000793], [14.0003397, 50.0000788], [14.0003394, 50.000077], [14.0003411, 50.0000756], [14.0003519, 50.0000715], [14.0003542, 50.00007], [14.0003604, 50.0000488], [14.000361, 50.0000479], [14.0003641, 50.0000451], [14.0003655, 50.0000443], [14.0003743, 50.0000416], [14.0003756, 50.0000413], [14.000384, 50.000041], [14.0003852, 50.000041], [14.000413, 50.0000457], [14.0004137, 50.0000458], [14.0004182, 50.0000473], [14.0004188, 50.0000476], [14.0004296, 50.0000534]]] }, properties: { hash: 8, title: "Lower", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999244, 49.9997925], [13.9999243, 49.9997925], [13.9998962, 49.999788], [13.999894, 49.999787], [13.9998915, 49.9997845], [13.9998909, 49.9997828], [13.9998919, 49.9997793], [13.9998923, 49.9997786], [13.9998967, 49.9997731], [13.9998976, 49.9997724], [13.999903, 49.9997696], [13.9999042, 49.9997692], [13.9999081, 49.9997684], [13.9999097, 49.9997683], [13.9999393, 49.9997713], [13.9999397, 49.9997713], [13.9999596, 49.9997749], [13.9999602, 49.9997751], [13.9999615, 49.9997755], [13.9999623, 49.9997759], [13.9999644, 49.9997771], [13.9999651, 49.9997777], [13.9999669, 49.99978], [13.9999672, 49.9997805], [13.9999679, 49.9997822], [13.999968, 49.999783], [13.9999671, 49.9997892], [13.999967, 49.9997895], [13.9999657, 49.9997929], [13.9999636, 49.9997945], [13.9999585, 49.9997959], [13.9999572, 49.9997961], [13.9999517, 49.9997961], [13.9999511, 49.9997961], [13.9999456, 49.9997956], [13.9999453, 49.9997956], [13.9999244, 49.9997925], [13.9999244, 49.9997925]]] }, properties: { hash: 9, title: "By the path 1", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000003, 49.9997807], [14.0000017, 49.9997802], [14.000006, 49.9997805], [14.0000064, 49.9997806], [14.0000776, 49.9997907], [14.0000778, 49.9997907], [14.0001306, 49.9997999], [14.0001314, 49.9998002], [14.0001533, 49.999808], [14.0001547, 49.9998089], [14.000157, 49.9998117], [14.0001573, 49.9998122], [14.0001594, 49.9998179], [14.000162, 49.9998203], [14.0001644, 49.9998213], [14.000166, 49.9998226], [14.0001665, 49.9998239], [14.0001664, 49.9998255], [14.0001647, 49.9998266], [14.0001607, 49.9998279], [14.0001591, 49.9998281], [14.0001537, 49.9998281], [14.0001528, 49.9998281], [14.0000033, 49.9998049], [14.0000018, 49.9998044], [13.9999971, 49.999802], [13.9999958, 49.9998004], [13.9999948, 49.9997953], [13.9999945, 49.9997946], [13.9999944, 49.999794], [13.9999943, 49.9997905], [13.9999944, 49.9997902], [13.9999948, 49.9997876], [13.9999951, 49.9997869], [13.9999963, 49.9997852], [13.9999969, 49.9997845], [13.9999974, 49.9997842], [13.9999974, 49.9997841], [13.9999977, 49.9997822], [13.9999981, 49.9997817], [13.999998, 49.9997815], [13.9999983, 49.9997814], [13.9999987, 49.9997809], [14.0000003, 49.9997807]]] }, properties: { hash: 10, title: "By the path 2", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9996111, 50.0000457], [13.9996258, 50.0000444]] }, properties: { hash: 11, title: "Path 1", type_name: "path", parent_hash_a: 7, parent_hash_b: 2 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9998843, 49.999893], [13.9998825, 49.9998989], [13.9998785, 49.9999014]] }, properties: { hash: 12, title: "Path 2", type_name: "path", parent_hash_a: 7, parent_hash_b: 4 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[14.0000027, 49.9998112], [13.9999754, 49.999807], [13.9999623, 49.9998073], [13.9999475, 49.9998093]] }, properties: { hash: 13, title: "Path 4", type_name: "path", parent_hash_a: 4, parent_hash_b: 6 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.999926, 49.9999381], [13.9999418, 49.9999398]] }, properties: { hash: 14, title: "Path 5", type_name: "path", parent_hash_a: 0, parent_hash_b: 7 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9997126, 49.9997429], [13.9997507, 49.9997464], [13.9997941, 49.999754], [13.9998382, 49.9997574], [13.9998707, 49.9997613], [13.9999008, 49.9997662], [13.9999048, 49.9997682], [13.9999074, 49.9997709]] }, properties: { hash: 15, title: "Path 6", type_name: "path", parent_hash_a: 9, parent_hash_b: 5 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9999639, 49.9997865], [13.9999695, 49.9997903], [13.9999714, 49.9997937], [13.9999665, 49.9998095], [13.9999633, 49.9998125], [13.9999592, 49.999814], [13.9999441, 49.9998144]] }, properties: { hash: 16, title: "Path 7", type_name: "path", parent_hash_a: 4, parent_hash_b: 9 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9999999, 49.9997859], [13.9999849, 49.9997826], [13.9999628, 49.99978]] }, properties: { hash: 17, title: "Path 9", type_name: "path", parent_hash_a: 9, parent_hash_b: 10 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004199, 50.0000686], [14.0004178, 50.0000688], [14.0004168, 50.0000706], [14.0004164, 50.0000712], [14.0004142, 50.0000731], [14.0004142, 50.0000734], [14.0004159, 50.0000745], [14.000431, 50.0000762], [14.0004337, 50.0000776], [14.000436, 50.0000813], [14.0004404, 50.0000822], [14.0004446, 50.0000811], [14.0004446, 50.0000797], [14.0004412, 50.0000749], [14.0004344, 50.0000707], [14.0004309, 50.0000705], [14.0004301, 50.0000705], [14.0004199, 50.0000686]]] }, properties: { hash: 18, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0002795, 50.0001467], [14.0002807, 50.0001468], [14.0002813, 50.0001464], [14.0002821, 50.0001439], [14.0002818, 50.0001434], [14.0002795, 50.0001416], [14.0002772, 50.0001416], [14.0002762, 50.0001445], [14.0002773, 50.000146], [14.0002795, 50.0001467]]] }, properties: { hash: 19, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0003435, 50.0001347], [14.0003446, 50.0001341], [14.0003451, 50.000134], [14.0003451, 50.0001338], [14.0003442, 50.0001327], [14.0003429, 50.0001324], [14.0003414, 50.0001329], [14.0003411, 50.000133], [14.000342, 50.0001339], [14.0003424, 50.0001346], [14.0003435, 50.0001347]]] }, properties: { hash: 20, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0002957, 50.0001491], [14.0002992, 50.0001487], [14.0002991, 50.0001485], [14.0002989, 50.0001472], [14.0002997, 50.0001442], [14.0002981, 50.0001437], [14.0002972, 50.0001429], [14.0002963, 50.0001428], [14.000293, 50.0001437], [14.0002919, 50.0001463], [14.0002922, 50.0001477], [14.0002939, 50.0001488], [14.0002957, 50.0001491]]] }, properties: { hash: 21, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999844, 49.9998433], [13.9999855, 49.9998433], [13.9999862, 49.9998421], [13.999986, 49.9998415], [13.9999854, 49.999841], [13.9999827, 49.9998412], [13.9999817, 49.9998423], [13.9999817, 49.9998425], [13.9999844, 49.9998433]]] }, properties: { hash: 22, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000739, 49.9998309], [14.0000711, 49.9998307], [14.0000709, 49.9998312], [14.0000727, 49.9998326], [14.0000746, 49.9998329], [14.0000756, 49.9998325], [14.0000756, 49.999832], [14.0000739, 49.9998309]]] }, properties: { hash: 23, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0003634, 50.0001358], [14.0003626, 50.0001353], [14.0003624, 50.0001357], [14.0003628, 50.0001364], [14.0003631, 50.0001366], [14.0003639, 50.0001364], [14.0003634, 50.0001358]]] }, properties: { hash: 24, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000183, 49.9998359], [14.0000251, 49.9998336], [14.0000269, 49.9998324], [14.0000319, 49.9998259], [14.0000334, 49.9998216], [14.000034, 49.9998207], [14.0000355, 49.9998195], [14.0000321, 49.9998187], [14.0000026, 49.9998217], [13.9999989, 49.9998232], [13.9999981, 49.9998248], [13.9999984, 49.9998271], [14.0000071, 49.9998351], [14.0000183, 49.9998359]]] }, properties: { hash: 25, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9997037, 50.0000559], [13.9997025, 50.0000561], [13.9997022, 50.0000563], [13.9997024, 50.0000588], [13.9997024, 50.0000592], [13.9997002, 50.0000695], [13.9997044, 50.0000696], [13.9997051, 50.0000696], [13.9997218, 50.0000719], [13.9997227, 50.0000718], [13.9997265, 50.0000606], [13.9997264, 50.0000586], [13.9997261, 50.0000585], [13.9997181, 50.0000581], [13.9997176, 50.000058], [13.9997037, 50.0000559]]] }, properties: { hash: 26, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.999854, 50], [13.9998592, 49.9999965], [13.9998587, 49.9999949], [13.9998556, 49.9999904], [13.9998513, 49.9999899], [13.9998486, 49.9999909], [13.9998476, 49.9999921], [13.9998469, 49.9999952], [13.9998485, 49.9999981], [13.9998508, 49.9999997], [13.999854, 50]]] }, properties: { hash: 27, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999828, 50.0000065], [13.9999786, 50.0000101], [13.9999751, 50.0000184], [13.9999746, 50.0000217], [13.9999772, 50.0000238], [13.9999832, 50.0000245], [13.9999869, 50.0000244], [13.9999883, 50.0000232], [13.9999929, 50.0000116], [13.9999928, 50.0000113], [13.9999887, 50.0000069], [13.9999864, 50.0000058], [13.9999828, 50.0000065]]] }, properties: { hash: 28, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996089, 49.9998909], [13.999614, 49.9998893], [13.9996173, 49.9998874], [13.9996177, 49.9998867], [13.9996177, 49.9998832], [13.9996165, 49.9998824], [13.9996101, 49.9998801], [13.9996063, 49.9998801], [13.9996031, 49.9998812], [13.9996017, 49.9998824], [13.9996006, 49.9998855], [13.9996008, 49.9998878], [13.9996033, 49.9998914], [13.9996035, 49.9998913], [13.9996089, 49.9998909]]] }, properties: { hash: 29, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000917, 50.0000282], [14.0001014, 50.000026], [14.0001019, 50.0000259], [14.0001119, 50.0000246], [14.0001178, 50.0000189], [14.0001192, 50.0000181], [14.000122, 50.0000172], [14.0001215, 50.0000163], [14.0001124, 50.0000113], [14.0001112, 50.0000101], [14.0001104, 50.0000078], [14.0001078, 50.0000055], [14.0001072, 50.0000041], [14.0001072, 50.0000041], [14.0001072, 50.0000026], [14.0001024, 50.0000004], [14.0001009, 49.9999991], [14.0001002, 49.9999975], [14.0000995, 49.9999971], [14.000092, 49.9999984], [14.0000912, 49.9999987], [14.0000899, 50.0000009], [14.0000871, 50.0000023], [14.0000848, 50.0000026], [14.0000823, 50.0000022], [14.0000786, 50.0000007], [14.000076, 50.0000013], [14.0000739, 50.000001], [14.0000712, 49.9999994], [14.0000704, 49.9999979], [14.0000685, 49.9999985], [14.0000672, 49.9999995], [14.0000662, 50.000003], [14.0000658, 50.0000037], [14.0000638, 50.000006], [14.000062, 50.0000071], [14.0000595, 50.0000071], [14.0000591, 50.000007], [14.0000549, 50.0000078], [14.000047, 50.0000148], [14.0000453, 50.000018], [14.0000465, 50.0000189], [14.0000504, 50.0000199], [14.0000619, 50.0000204], [14.0000627, 50.0000205], [14.0000725, 50.0000223], [14.0000731, 50.0000224], [14.0000917, 50.0000282]]] }, properties: { hash: 30, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9998745, 49.9999647], [13.9998744, 49.9999648], [13.9998716, 49.9999746], [13.9998721, 49.9999757], [13.9998867, 49.9999779], [13.9998881, 49.9999776], [13.9998908, 49.9999661], [13.9998893, 49.9999658], [13.9998745, 49.9999647]]] }, properties: { hash: 31, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.999749, 49.9999215], [13.9997401, 49.9999227], [13.9997385, 49.9999227], [13.9997278, 49.9999211], [13.9997181, 49.9999212], [13.9997176, 49.9999212], [13.9996967, 49.9999195], [13.9996894, 49.9999222], [13.9996871, 49.9999239], [13.9996837, 49.9999281], [13.9996753, 49.9999453], [13.9996741, 49.9999464], [13.9996568, 49.9999552], [13.999656, 49.9999575], [13.999656, 49.9999629], [13.9996576, 49.9999698], [13.999661, 49.9999722], [13.9996661, 49.9999738], [13.9996849, 49.9999746], [13.9996861, 49.9999747], [13.9996939, 49.9999768], [13.9996955, 49.9999776], [13.9997034, 49.9999852], [13.9997077, 49.999988], [13.9997164, 49.9999917], [13.9997237, 49.9999935], [13.9997303, 49.9999941], [13.9997389, 49.999994], [13.9997551, 49.9999901], [13.9997568, 49.99999], [13.9997972, 49.9999932], [13.9998015, 49.9999928], [13.9998079, 49.9999909], [13.999809, 49.9999907], [13.9998145, 49.9999903], [13.9998157, 49.9999904], [13.9998284, 49.9999922], [13.9998297, 49.999992], [13.9998297, 49.999992], [13.9998402, 49.9999446], [13.9998403, 49.9999444], [13.999843, 49.9999367], [13.9998425, 49.9999364], [13.9997992, 49.9999335], [13.9997985, 49.9999334], [13.9997879, 49.9999313], [13.999773, 49.9999305], [13.999772, 49.9999303], [13.9997556, 49.9999263], [13.9997539, 49.9999255], [13.9997496, 49.9999216], [13.999749, 49.9999215]]] }, properties: { hash: 32, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996405, 49.9999033], [13.9996349, 49.9999039], [13.9996303, 49.9999054], [13.9996265, 49.9999084], [13.9996245, 49.9999113], [13.9996222, 49.9999216], [13.9996229, 49.9999305], [13.9996237, 49.9999322], [13.9996271, 49.9999352], [13.9996301, 49.9999362], [13.999656, 49.999921], [13.9996594, 49.9999149], [13.9996599, 49.9999122], [13.9996564, 49.999909], [13.9996465, 49.9999042], [13.9996405, 49.9999033]]] }, properties: { hash: 33, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004415, 50.000107], [14.0004374, 50.0001104], [14.0004365, 50.0001109], [14.0004328, 50.0001124], [14.0004317, 50.0001132], [14.0004315, 50.0001146], [14.0004329, 50.0001172], [14.0004353, 50.0001186], [14.0004457, 50.0001174], [14.0004474, 50.0001164], [14.0004483, 50.0001144], [14.0004477, 50.0001106], [14.000444, 50.0001078], [14.0004419, 50.000107], [14.0004415, 50.000107]]] }, properties: { hash: 34, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000008, 50.0000491], [13.9999979, 50.0000516], [13.9999973, 50.0000572], [13.9999981, 50.0000596], [14.0000059, 50.0000628], [14.0000085, 50.0000556], [14.0000081, 50.0000533], [14.0000065, 50.0000511], [14.0000008, 50.0000491]]] }, properties: { hash: 35, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }] }, t0 = { "sensor.heat_pump_supply_temperature": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85740, "60.3"], [85680, "59.8"], [85621, "36.8"], [85560, "30.4"], [85380, "29.9"], [84957, "29.9"], [84897, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74756, "41.8"], [74336, "41.3"], [73856, "41.8"], [73796, "39.3"], [73736, "38.8"], [73676, "38.3"], [73196, "37.8"], [72522, "37.3"], [71945, "36.8"], [71434, "36.3"], [70954, "35.8"], [70414, "35.3"], [69934, "34.8"], [69454, "34.3"], [68973, "33.8"], [68434, "33.3"], [67954, "32.8"], [67354, "32.3"], [66874, "31.8"], [66274, "31.3"], [65674, "30.8"], [65074, "30.3"], [64414, "29.8"], [63754, "29.3"], [63094, "28.8"], [62314, "28.3"], [61534, "27.8"], [60694, "27.3"], [59854, "26.8"], [58894, "26.3"], [57874, "25.8"], [56734, "25.3"], [55594, "24.8"], [54394, "24.3"], [52954, "23.8"], [51454, "23.3"], [49774, "22.8"], [47974, "22.3"], [47194, "22.9"], [47134, "32.3"], [47074, "32.8"], [45394, "27.9"], [45334, "23.6"], [45274, "20.7"], [40338, "20.2"], [38238, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35898, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32598, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32298, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29418, "60.4"], [29358, "57.4"], [29298, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.current_water_temperature": [[86186, "47.6"], [78865, "46.6"], [75685, "45.6"], [74758, "45.6"], [74696, "45.6"], [68395, "44.6"], [63175, "43.6"], [58855, "42.6"], [51235, "41.9"], [43915, "40.9"], [40315, "39.9"], [38574, "38.9"], [37974, "37.9"], [37794, "36.9"], [37614, "35.9"], [36234, "34.9"], [34254, "33.9"], [33354, "34.9"], [33114, "35.9"], [32934, "36.9"], [32754, "37.9"], [32454, "38.9"], [31493, "39.9"], [31314, "40.9"], [31299, "40.9"], [31134, "41.9"], [30954, "42.9"], [30714, "43.9"], [30534, "44.9"], [30293, "45.9"], [30137, "46.9"], [29813, "47.9"], [29502, "47.9"], [24773, "46.9"], [17213, "46.5"], [9593, "45.9"], [2873, "44.9"]], "sensor.water_temperature": [[74758, "47"], [74696, "47"], [34254, "47"], [31299, "47"], [29502, "47"]], "sensor.heating_on": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85766, "60.8"], [85740, "60.3"], [84865, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74758, "41.8"], [74696, "41.8"], [74336, "41.3"], [73856, "41.8"], [38214, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36114, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35874, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32574, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32274, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31299, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29453, "60.9"], [29418, "60.4"], [29358, "57.4"], [29273, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.water_heating_on": [[85231, "off"], [74758, "off"], [33138, "on"], [31300, "off"], [31300, "on"], [31299, "on"], [29502, "on"], [28698, "off"]] }, a0 = (o) => new Date(Date.now() + o * 6e4).toISOString();
+}, t0 = { type: "FeatureCollection", features: [{ type: "Feature", geometry: { type: "Point", coordinates: [13.9999386, 49.9999513] }, properties: { hash: 0, title: "Dock", type_name: "station", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.000143, 50.0001273], [14.000134, 50.000132], [14.0001311, 50.0001324], [14.0001141, 50.0001303], [14.0001132, 50.0001301], [14.0001039, 50.0001273], [14.0000972, 50.0001266], [14.0000949, 50.0001256], [14.0000948, 50.0001253], [14.0000887, 50.0001243], [14.0000771, 50.0001252], [14.0000763, 50.0001252], [14.0000666, 50.0001246], [14.0000658, 50.0001245], [14.0000559, 50.0001222], [14.0000549, 50.0001218], [14.0000514, 50.0001201], [14.00005, 50.0001178], [14.0000512, 50.0001134], [14.0000515, 50.0001128], [14.0000576, 50.0001047], [14.000057, 50.000101], [14.0000541, 50.0000983], [14.0000459, 50.000095], [14.0000376, 50.0000952], [14.0000328, 50.0000969], [14.0000301, 50.0000993], [14.0000284, 50.0001022], [14.0000282, 50.0001052], [14.000029, 50.0001071], [14.0000347, 50.0001118], [14.0000353, 50.0001139], [14.0000335, 50.0001181], [14.0000324, 50.0001192], [14.0000299, 50.0001208], [14.0000272, 50.0001214], [13.9999909, 50.0001194], [13.999988, 50.0001193], [13.9999861, 50.0001189], [13.99998, 50.000116], [13.9999787, 50.0001148], [13.999977, 50.000111], [13.9999775, 50.000109], [13.9999812, 50.0001055], [13.9999831, 50.0001046], [13.9999932, 50.0001025], [13.9999943, 50.0001014], [13.9999943, 50.0001008], [13.9999934, 50.0000996], [13.9999858, 50.0000963], [13.9999847, 50.0000955], [13.9999787, 50.0000893], [13.9999783, 50.0000875], [13.99998, 50.0000835], [13.9999793, 50.0000797], [13.9999795, 50.0000787], [13.9999826, 50.0000726], [13.9999825, 50.0000725], [13.9999743, 50.0000708], [13.9999707, 50.0000716], [13.9999666, 50.000074], [13.9999634, 50.0000745], [13.9999508, 50.0000728], [13.9999499, 50.0000726], [13.9999414, 50.0000698], [13.9999397, 50.0000686], [13.999937, 50.0000645], [13.9999367, 50.0000634], [13.9999411, 50.0000321], [13.9999411, 50.000032], [13.999946, 50.0000067], [13.999946, 50.0000065], [13.9999537, 49.999983], [13.9999537, 49.9999828], [13.999961, 49.9999663], [13.9999628, 49.9999648], [13.9999649, 49.9999641], [13.9999673, 49.9999639], [14.000081, 49.9999789], [14.0000973, 49.9999742], [14.0000977, 49.9999718], [14.000097, 49.999968], [14.0000973, 49.9999667], [14.0001004, 49.9999628], [14.000102, 49.9999618], [14.0001042, 49.9999616], [14.0001245, 49.9999639], [14.0001268, 49.9999634], [14.0001293, 49.9999478], [14.0001307, 49.9999466], [14.0001267, 49.9999427], [14.0001261, 49.9999414], [14.0001261, 49.9999392], [14.0001269, 49.9999377], [14.0001328, 49.999933], [14.0001359, 49.9999322], [14.0001435, 49.9999327], [14.0001455, 49.9999332], [14.0001708, 49.9999473], [14.0001719, 49.9999485], [14.0001752, 49.9999568], [14.0001798, 49.9999635], [14.0001882, 49.99997], [14.0001981, 49.9999753], [14.0002056, 49.9999775], [14.0002197, 49.9999787], [14.0002212, 49.9999791], [14.0002255, 49.9999808], [14.0002264, 49.9999813], [14.0002333, 49.999987], [14.000234, 49.9999883], [14.0002343, 49.9999925], [14.0002342, 49.999993], [14.0002325, 50.0000001], [14.0002322, 50.0000008], [14.0002289, 50.0000048], [14.0002281, 50.0000055], [14.0002242, 50.0000077], [14.0002234, 50.0000081], [14.0002137, 50.0000113], [14.0002123, 50.0000116], [14.000203, 50.000012], [14.000198, 50.0000129], [14.0001961, 50.0000137], [14.0001935, 50.0000164], [14.0001903, 50.0000275], [14.0001901, 50.000028], [14.0001873, 50.0000321], [14.0001872, 50.0000345], [14.0001878, 50.0000352], [14.0001974, 50.0000384], [14.000198, 50.0000387], [14.0002029, 50.0000414], [14.0002042, 50.0000428], [14.0002057, 50.0000493], [14.0002187, 50.0000685], [14.0002236, 50.0000738], [14.0002281, 50.0000754], [14.0002494, 50.0000744], [14.0002501, 50.0000744], [14.0002699, 50.0000759], [14.0002924, 50.0000759], [14.000293, 50.000076], [14.0003106, 50.0000776], [14.0003107, 50.0000776], [14.0003338, 50.0000802], [14.0003345, 50.0000803], [14.0003417, 50.0000821], [14.0003429, 50.0000826], [14.0003489, 50.0000863], [14.00035, 50.0000877], [14.0003494, 50.0000892], [14.0003454, 50.0000934], [14.0003414, 50.0001092], [14.0003397, 50.0001109], [14.0003374, 50.0001117], [14.0003363, 50.000112], [14.0003233, 50.0001137], [14.0003229, 50.0001141], [14.0003207, 50.0001146], [14.0002952, 50.0001144], [14.0002948, 50.0001144], [14.0002857, 50.0001136], [14.0002843, 50.0001141], [14.0002754, 50.0001212], [14.0002743, 50.0001245], [14.0002757, 50.000127], [14.0002804, 50.0001306], [14.0002811, 50.0001329], [14.000274, 50.0001458], [14.0002724, 50.00015], [14.0002722, 50.0001503], [14.0002708, 50.0001526], [14.0002698, 50.0001535], [14.0002661, 50.0001555], [14.0002646, 50.000156], [14.0002612, 50.0001565], [14.0002576, 50.0001586], [14.0002541, 50.0001592], [14.0002488, 50.0001581], [14.0002467, 50.000157], [14.0002432, 50.0001529], [14.0002345, 50.0001499], [14.0002331, 50.000149], [14.0002312, 50.000147], [14.0002307, 50.0001463], [14.0002293, 50.0001426], [14.0002213, 50.000143], [14.0002108, 50.0001465], [14.0002071, 50.0001463], [14.0002051, 50.0001454], [14.0002036, 50.000143], [14.0002171, 50.0001043], [14.0002118, 50.0001029], [14.0001976, 50.0001012], [14.0001974, 50.0001012], [14.0001759, 50.0000974], [14.0001721, 50.0001015], [14.0001633, 50.0001227], [14.0001624, 50.0001237], [14.0001608, 50.0001248], [14.0001594, 50.0001253], [14.0001528, 50.0001269], [14.0001517, 50.0001271], [14.000143, 50.0001273]]] }, properties: { hash: 1, title: "Middle", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9993357, 50.0002443], [13.9993523, 50.0001759], [13.9993523, 50.0001758], [13.9993691, 50.000125], [13.9993692, 50.0001247], [13.9993759, 50.0001123], [13.9993816, 50.0000964], [13.9993922, 50.0000602], [13.9993927, 50.0000593], [13.9993948, 50.0000573], [13.9993965, 50.0000564], [13.999403, 50.0000548], [13.9994057, 50.0000548], [13.9994116, 50.0000564], [13.999422, 50.0000552], [13.9994231, 50.0000552], [13.9994469, 50.0000574], [13.9994547, 50.0000575], [13.9994753, 50.0000532], [13.9994761, 50.0000531], [13.9994844, 50.0000527], [13.9994856, 50.0000527], [13.9994907, 50.0000536], [13.9994929, 50.0000535], [13.9994962, 50.0000521], [13.9995007, 50.0000487], [13.9995016, 50.0000482], [13.9995068, 50.0000463], [13.9995089, 50.000046], [13.9995188, 50.0000466], [13.9995251, 50.0000448], [13.9995265, 50.0000446], [13.9995421, 50.0000443], [13.9995436, 50.0000445], [13.9995492, 50.0000462], [13.9995502, 50.0000466], [13.9995566, 50.0000505], [13.9995598, 50.0000506], [13.9995734, 50.0000474], [13.9995798, 50.0000445], [13.9995813, 50.0000441], [13.9995916, 50.000043], [13.9995918, 50.0000424], [13.9995942, 50.0000414], [13.9996019, 50.0000407], [13.9996031, 50.0000407], [13.9996111, 50.0000417], [13.999613, 50.0000424], [13.9996131, 50.000043], [13.9996138, 50.0000433], [13.9996157, 50.0000476], [13.9996159, 50.0000479], [13.999619, 50.0000625], [13.999619, 50.0000627], [13.9996195, 50.0000675], [13.9996203, 50.0000706], [13.9996221, 50.0000746], [13.9996222, 50.0000749], [13.9996265, 50.0000902], [13.9996265, 50.000091], [13.9996229, 50.0001052], [13.9996246, 50.0001114], [13.9996332, 50.000132], [13.9996333, 50.0001322], [13.9996382, 50.0001515], [13.9996422, 50.0001597], [13.9996423, 50.00016], [13.9996435, 50.0001654], [13.999644, 50.0001656], [13.9996454, 50.0001666], [13.9996475, 50.0001695], [13.9996478, 50.0001704], [13.9996487, 50.0001795], [13.9996486, 50.0001803], [13.9996465, 50.0001846], [13.9996464, 50.0001868], [13.9996513, 50.0001974], [13.9996514, 50.000198], [13.9996526, 50.0002117], [13.999654, 50.0002168], [13.9996592, 50.0002258], [13.999671, 50.000242], [13.9996713, 50.0002428], [13.9996715, 50.0002444], [13.999672, 50.0002472], [13.9996719, 50.0002481], [13.9996699, 50.0002528], [13.9996682, 50.0002542], [13.9996667, 50.0002543], [13.9996637, 50.000255], [13.9996638, 50.0002556], [13.9996634, 50.0002568], [13.9996612, 50.0002596], [13.9996586, 50.0002672], [13.9996583, 50.0002677], [13.999656, 50.000271], [13.9996553, 50.0002748], [13.9996615, 50.0003012], [13.9996629, 50.0003038], [13.9996696, 50.0003095], [13.9996701, 50.0003101], [13.9996732, 50.0003159], [13.9996723, 50.0003184], [13.9996654, 50.0003226], [13.9996628, 50.0003232], [13.999635, 50.0003225], [13.9996334, 50.0003223], [13.9996314, 50.0003216], [13.9996298, 50.0003203], [13.9996277, 50.0003165], [13.9996275, 50.0003155], [13.9996287, 50.000308], [13.9996238, 50.000302], [13.9996126, 50.000299], [13.9996019, 50.0002988], [13.9995915, 50.0003001], [13.9995799, 50.0003057], [13.9995774, 50.0003061], [13.999575, 50.0003053], [13.9995707, 50.000302], [13.9995688, 50.0003022], [13.999561, 50.0003045], [13.9995591, 50.0003047], [13.9995465, 50.0003039], [13.9995459, 50.0003038], [13.9994647, 50.0002896], [13.9994644, 50.0002895], [13.9994478, 50.0002856], [13.9994198, 50.0002815], [13.9993998, 50.0002795], [13.9993995, 50.0002795], [13.9993321, 50.0002687], [13.9993297, 50.0002675], [13.9993288, 50.0002663], [13.9993285, 50.0002648], [13.9993357, 50.0002443]]] }, properties: { hash: 2, title: "Meadow", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0001265, 49.9998736], [14.0001342, 49.9998578], [14.0001413, 49.9998351], [14.000143, 49.9998335], [14.0001469, 49.999832], [14.0001482, 49.9998318], [14.0001541, 49.9998312], [14.0001552, 49.9998312], [14.0001743, 49.9998332], [14.0001748, 49.9998333], [14.0001833, 49.9998351], [14.0001852, 49.999836], [14.0001878, 49.9998385], [14.0001883, 49.9998391], [14.0001925, 49.9998475], [14.0001927, 49.9998483], [14.0001923, 49.9998619], [14.0001922, 49.9998623], [14.0001878, 49.9998781], [14.0001877, 49.9998783], [14.0001814, 49.9998938], [14.0001757, 49.9999125], [14.0001755, 49.9999128], [14.0001706, 49.999921], [14.0001693, 49.999922], [14.0001648, 49.9999241], [14.0001633, 49.9999245], [14.0001517, 49.9999257], [14.0001488, 49.9999252], [14.0001336, 49.9999168], [14.0001308, 49.9999163], [14.0001271, 49.9999168], [14.0001252, 49.9999168], [14.000123, 49.9999163], [14.000122, 49.999916], [14.0001146, 49.9999125], [14.0001098, 49.9999107], [14.0001092, 49.9999105], [14.0001083, 49.99991], [14.0001073, 49.9999091], [14.0001065, 49.9999078], [14.0001063, 49.9999073], [14.0001052, 49.9999031], [14.0001053, 49.9999026], [14.0001051, 49.9999025], [14.0001063, 49.9998939], [14.0001064, 49.9998937], [14.0001095, 49.9998827], [14.0001104, 49.9998816], [14.0001136, 49.9998792], [14.0001143, 49.9998788], [14.0001265, 49.9998736]]] }, properties: { hash: 3, title: "Area 3", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999226, 49.9998488], [13.9999312, 49.999833], [13.9999338, 49.9998231], [13.9999309, 49.9998087], [13.9999309, 49.9998081], [13.9999317, 49.9998026], [13.9999329, 49.999801], [13.9999354, 49.9997997], [13.9999374, 49.9997992], [13.9999481, 49.9997986], [13.9999515, 49.9997997], [13.9999531, 49.9998015], [13.9999536, 49.9998029], [13.9999531, 49.9998065], [13.9999528, 49.9998072], [13.9999465, 49.9998165], [13.9999464, 49.9998206], [13.9999462, 49.9998212], [13.9999387, 49.9998375], [13.9999386, 49.9998377], [13.9999283, 49.9998536], [13.9999185, 49.9998868], [13.9999176, 49.9998879], [13.9999122, 49.9998918], [13.9999115, 49.9998922], [13.9999004, 49.9998967], [13.9998998, 49.9998969], [13.9998968, 49.9998977], [13.9998964, 49.9998977], [13.999893, 49.9998984], [13.9998926, 49.9998984], [13.9998891, 49.9998987], [13.9998884, 49.9998988], [13.999885, 49.9998986], [13.9998828, 49.999898], [13.9998817, 49.9998966], [13.9998813, 49.9998949], [13.9998797, 49.9998906], [13.9998798, 49.9998892], [13.9998799, 49.9998891], [13.9998799, 49.9998891], [13.9998821, 49.9998859], [13.9998847, 49.9998846], [13.99989, 49.9998839], [13.9998907, 49.9998838], [13.9999024, 49.9998838], [13.999907, 49.9998813], [13.9999093, 49.9998759], [13.9999107, 49.9998654], [13.9999109, 49.999865], [13.9999135, 49.9998588], [13.9999139, 49.9998583], [13.9999226, 49.9998488]]] }, properties: { hash: 4, title: "Rockery", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996513, 49.9997271], [13.9996898, 49.9997318], [13.9996904, 49.9997319], [13.9997068, 49.9997358], [13.9997078, 49.9997363], [13.9997081, 49.9997363], [13.9997129, 49.9997395], [13.9997131, 49.9997396], [13.9997166, 49.9997423], [13.9997174, 49.9997444], [13.9997164, 49.9997471], [13.9997143, 49.9997488], [13.999707, 49.9997507], [13.9997043, 49.9997507], [13.9996921, 49.9997474], [13.9996701, 49.9997473], [13.9996698, 49.9997473], [13.9996528, 49.9997462], [13.9996388, 49.9997471], [13.9996372, 49.9997469], [13.9996217, 49.9997432], [13.9996001, 49.9997407], [13.9995999, 49.9997406], [13.9995647, 49.9997349], [13.9995641, 49.9997348], [13.9995576, 49.9997329], [13.9995327, 49.9997307], [13.9995323, 49.9997307], [13.9995079, 49.9997265], [13.9995063, 49.9997258], [13.9995034, 49.9997239], [13.9995024, 49.9997221], [13.9995039, 49.9997104], [13.9995051, 49.9997088], [13.999508, 49.9997072], [13.9995097, 49.9997067], [13.9995135, 49.9997062], [13.9995149, 49.9997062], [13.9996082, 49.9997195], [13.9996083, 49.9997196], [13.9996513, 49.9997271]]] }, properties: { hash: 5, title: "Area 5", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000416, 49.9998131], [14.0000417, 49.9998131], [14.0000751, 49.9998186], [14.000077, 49.9998193], [14.0000828, 49.9998239], [14.0000936, 49.9998262], [14.0000963, 49.999826], [14.0001019, 49.9998234], [14.0001038, 49.999823], [14.0001114, 49.9998227], [14.0001142, 49.9998234], [14.0001152, 49.9998251], [14.0001151, 49.9998278], [14.000115, 49.9998281], [14.0001073, 49.9998554], [14.0001073, 49.9998555], [14.0001053, 49.9998612], [14.0001047, 49.999862], [14.0001019, 49.9998645], [14.000101, 49.999865], [14.0000961, 49.999867], [14.0000941, 49.9998674], [14.0000827, 49.9998672], [14.0000821, 49.9998671], [14.0000549, 49.9998634], [14.0000434, 49.9998625], [14.0000403, 49.9998606], [14.0000377, 49.9998526], [14.0000335, 49.9998495], [14.0000309, 49.9998488], [14.0000267, 49.9998488], [14.0000227, 49.9998504], [14.0000201, 49.9998544], [14.000019, 49.9998553], [14.0000172, 49.9998562], [14.0000154, 49.9998567], [14.0000056, 49.9998572], [14.0000049, 49.9998572], [13.9999745, 49.9998553], [13.9999716, 49.9998538], [13.9999699, 49.9998512], [13.9999696, 49.9998502], [13.9999699, 49.9998472], [13.9999701, 49.9998466], [13.9999776, 49.9998313], [13.9999782, 49.9998306], [13.9999812, 49.999828], [13.9999834, 49.9998226], [13.9999835, 49.9998224], [13.9999836, 49.9998223], [13.9999839, 49.9998218], [13.9999855, 49.9998202], [13.999987, 49.9998169], [13.9999872, 49.9998166], [13.9999899, 49.9998129], [13.9999905, 49.9998115], [13.9999931, 49.9998098], [13.9999984, 49.999809], [13.9999992, 49.9998089], [14.0000048, 49.9998088], [14.0000052, 49.9998088], [14.0000107, 49.9998091], [14.0000111, 49.9998092], [14.0000415, 49.9998131], [14.0000416, 49.9998131]]] }, properties: { hash: 6, title: "Front garden", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996035, 49.9999805], [13.9995973, 49.9999618], [13.9995972, 49.9999613], [13.9995973, 49.9999587], [13.999598, 49.9999573], [13.9996059, 49.9999508], [13.9996072, 49.9999473], [13.9995946, 49.9999006], [13.9995902, 49.9998886], [13.9995874, 49.9998857], [13.9995869, 49.9998848], [13.999586, 49.999881], [13.9995861, 49.99988], [13.9995882, 49.9998756], [13.9995904, 49.9998741], [13.9995959, 49.9998728], [13.9995972, 49.9998727], [13.9996021, 49.9998727], [13.9996028, 49.9998728], [13.999663, 49.9998815], [13.999664, 49.9998818], [13.999674, 49.9998854], [13.9996755, 49.9998864], [13.9996758, 49.9998879], [13.9996751, 49.9998898], [13.9996757, 49.9998928], [13.9996764, 49.9998935], [13.9996994, 49.9998975], [13.9997019, 49.9998974], [13.999705, 49.9998962], [13.9997124, 49.9998913], [13.9997146, 49.9998883], [13.9997145, 49.9998839], [13.9997152, 49.9998825], [13.9997172, 49.9998807], [13.9997196, 49.9998798], [13.9997261, 49.9998791], [13.999727, 49.9998791], [13.9997394, 49.99988], [13.9997398, 49.9998801], [13.9998752, 49.999898], [13.9998759, 49.9998982], [13.9998809, 49.9998995], [13.9998826, 49.9999004], [13.9998831, 49.9999019], [13.9998827, 49.9999048], [13.9998824, 49.9999056], [13.9998779, 49.9999121], [13.9998797, 49.999915], [13.9998811, 49.9999161], [13.9998857, 49.9999178], [13.9998979, 49.9999172], [13.9998995, 49.9999173], [13.9999095, 49.9999198], [13.9999276, 49.9999204], [13.99993, 49.9999211], [13.9999322, 49.9999225], [13.9999332, 49.9999245], [13.9999259, 49.9999529], [13.9999267, 49.9999552], [13.9999378, 49.9999559], [13.9999392, 49.9999562], [13.9999423, 49.9999574], [13.9999435, 49.9999581], [13.9999466, 49.9999609], [13.9999483, 49.9999617], [13.9999684, 49.9999642], [13.9999696, 49.9999645], [13.9999734, 49.9999659], [13.9999751, 49.9999678], [13.9999753, 49.9999716], [13.9999752, 49.9999721], [13.9999592, 50.0000245], [13.9999517, 50.0000602], [13.9999515, 50.0000606], [13.9999489, 50.0000655], [13.9999476, 50.0000666], [13.9999446, 50.0000681], [13.9999425, 50.0000685], [13.9999392, 50.0000686], [13.9999381, 50.0000685], [13.9999241, 50.0000659], [13.9998301, 50.0000551], [13.9998299, 50.0000551], [13.9998205, 50.0000536], [13.9998197, 50.0000548], [13.9998194, 50.0000621], [13.9998194, 50.0000625], [13.9998168, 50.0000712], [13.9998158, 50.0000835], [13.9998154, 50.0000845], [13.9998144, 50.0000858], [13.9998107, 50.000087], [13.9997942, 50.0000856], [13.9997937, 50.0000855], [13.9997697, 50.0000812], [13.9997677, 50.0000803], [13.9997664, 50.0000791], [13.9997657, 50.0000782], [13.9997645, 50.0000738], [13.9997645, 50.000073], [13.9997664, 50.000064], [13.9997655, 50.0000621], [13.9997637, 50.0000617], [13.9997427, 50.0000602], [13.9997424, 50.0000604], [13.9997411, 50.0000657], [13.9997401, 50.0000669], [13.9997328, 50.0000718], [13.9997316, 50.000075], [13.9997316, 50.0000768], [13.9997318, 50.0000781], [13.9997303, 50.0000802], [13.9997286, 50.000081], [13.9997274, 50.0000814], [13.9997244, 50.0000819], [13.9997226, 50.0000819], [13.999716, 50.0000809], [13.999634, 50.0000697], [13.9996321, 50.000069], [13.999628, 50.0000662], [13.9996272, 50.0000653], [13.9996243, 50.000059], [13.9996242, 50.0000587], [13.9996212, 50.0000473], [13.9996213, 50.0000463], [13.9996235, 50.0000412], [13.9996236, 50.000038], [13.9996211, 50.0000318], [13.9996201, 50.0000307], [13.9996198, 50.0000302], [13.999615, 50.0000209], [13.9996149, 50.0000203], [13.9996144, 50.000016], [13.9996145, 50.0000153], [13.9996159, 50.0000118], [13.9996167, 50.0000108], [13.9996224, 50.0000068], [13.9996258, 50.0000003], [13.9996232, 49.9999991], [13.9996118, 49.9999957], [13.9996107, 49.9999952], [13.9996073, 49.999993], [13.9996066, 49.9999922], [13.9996052, 49.9999901], [13.999605, 49.9999895], [13.9996035, 49.9999805]]] }, properties: { hash: 7, title: "Upper", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004296, 50.0000534], [14.0004387, 50.0000558], [14.0004447, 50.0000562], [14.0004557, 50.000054], [14.0004587, 50.0000527], [14.0004646, 50.000043], [14.0004656, 50.0000421], [14.0004702, 50.0000394], [14.0004725, 50.0000368], [14.000473, 50.0000331], [14.0004707, 50.0000208], [14.0004701, 50.0000203], [14.0004622, 50.0000171], [14.000461, 50.0000162], [14.0004593, 50.0000143], [14.0004589, 50.0000132], [14.0004589, 50.0000109], [14.0004593, 50.0000097], [14.0004611, 50.0000077], [14.0004623, 50.0000069], [14.0004655, 50.0000055], [14.0004674, 50.0000051], [14.0004781, 50.000005], [14.0004798, 50.0000053], [14.000484, 50.0000068], [14.0004858, 50.0000083], [14.0004871, 50.000012], [14.0004877, 50.0000124], [14.0004882, 50.0000125], [14.0004887, 50.0000127], [14.00049, 50.0000132], [14.0005127, 50.0000151], [14.0005132, 50.0000151], [14.0005151, 50.0000071], [14.0005154, 50.0000065], [14.0005186, 50.0000019], [14.00052, 50.0000009], [14.0005229, 49.9999997], [14.0005258, 49.9999995], [14.0005352, 50.0000012], [14.0005361, 50.0000014], [14.0005448, 50.0000049], [14.0005464, 50.0000073], [14.000544, 50.0000161], [14.0005448, 50.0000174], [14.0005468, 50.0000173], [14.0005601, 50.0000193], [14.0005809, 50.000021], [14.0005812, 50.000021], [14.0006019, 50.0000239], [14.0006033, 50.0000243], [14.000608, 50.0000267], [14.0006093, 50.0000288], [14.0006076, 50.0000398], [14.0006067, 50.0000607], [14.0006067, 50.000061], [14.0006036, 50.0000742], [14.0006043, 50.0000766], [14.000605, 50.0000779], [14.0006052, 50.0000787], [14.0006041, 50.0000993], [14.000604, 50.0000999], [14.0006004, 50.0001079], [14.0005993, 50.000109], [14.0005882, 50.0001153], [14.0005874, 50.0001229], [14.000591, 50.0001263], [14.0005978, 50.0001288], [14.0005995, 50.0001303], [14.0006009, 50.0001341], [14.000601, 50.0001348], [14.0005977, 50.0001696], [14.0005977, 50.0001698], [14.0005952, 50.0001789], [14.0005948, 50.0001796], [14.0005915, 50.0001835], [14.0005924, 50.0001846], [14.0005911, 50.0001968], [14.0005904, 50.0001979], [14.0005865, 50.0002017], [14.0005827, 50.0002027], [14.0005791, 50.0002022], [14.0005781, 50.0002019], [14.0005732, 50.0002], [14.0005517, 50.0001956], [14.0005425, 50.0001944], [14.0005419, 50.0001943], [14.00052, 50.0001887], [14.0005152, 50.0001885], [14.000502, 50.0001901], [14.0005004, 50.0001901], [14.0004945, 50.0001891], [14.0004934, 50.0001888], [14.0004877, 50.0001862], [14.000481, 50.0001871], [14.0004774, 50.0001863], [14.000473, 50.0001828], [14.0004621, 50.0001846], [14.0004573, 50.000187], [14.0004556, 50.0001875], [14.0004532, 50.0001877], [14.0004518, 50.0001877], [14.0004405, 50.0001858], [14.0004395, 50.0001855], [14.0004302, 50.000182], [14.0004288, 50.0001811], [14.0004258, 50.0001775], [14.0004221, 50.0001754], [14.0004185, 50.0001745], [14.000412, 50.000174], [14.0004101, 50.0001736], [14.0003905, 50.0001636], [14.0003833, 50.0001606], [14.0003742, 50.0001589], [14.0003512, 50.0001568], [14.0003494, 50.0001563], [14.0003353, 50.0001485], [14.0003273, 50.0001515], [14.0003183, 50.0001566], [14.0003172, 50.000157], [14.0003072, 50.0001595], [14.0003006, 50.0001645], [14.0002983, 50.0001654], [14.0002957, 50.0001649], [14.0002887, 50.0001615], [14.0002876, 50.0001608], [14.0002857, 50.0001583], [14.0002733, 50.0001558], [14.0002722, 50.0001555], [14.0002656, 50.0001524], [14.0002641, 50.0001508], [14.000263, 50.0001455], [14.000263, 50.0001446], [14.0002668, 50.0001358], [14.0002671, 50.0001353], [14.0002699, 50.0001321], [14.0002712, 50.0001312], [14.0002777, 50.0001287], [14.0002789, 50.0001285], [14.0002885, 50.0001273], [14.0002916, 50.0001279], [14.0003121, 50.00014], [14.0003244, 50.0001308], [14.0003229, 50.000129], [14.0003226, 50.0001285], [14.0003207, 50.000124], [14.0003207, 50.0001226], [14.0003218, 50.0001207], [14.0003223, 50.0001175], [14.0003224, 50.000117], [14.0003402, 50.0000793], [14.0003397, 50.0000788], [14.0003394, 50.000077], [14.0003411, 50.0000756], [14.0003519, 50.0000715], [14.0003542, 50.00007], [14.0003604, 50.0000488], [14.000361, 50.0000479], [14.0003641, 50.0000451], [14.0003655, 50.0000443], [14.0003743, 50.0000416], [14.0003756, 50.0000413], [14.000384, 50.000041], [14.0003852, 50.000041], [14.000413, 50.0000457], [14.0004137, 50.0000458], [14.0004182, 50.0000473], [14.0004188, 50.0000476], [14.0004296, 50.0000534]]] }, properties: { hash: 8, title: "Lower", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999244, 49.9997925], [13.9999243, 49.9997925], [13.9998962, 49.999788], [13.999894, 49.999787], [13.9998915, 49.9997845], [13.9998909, 49.9997828], [13.9998919, 49.9997793], [13.9998923, 49.9997786], [13.9998967, 49.9997731], [13.9998976, 49.9997724], [13.999903, 49.9997696], [13.9999042, 49.9997692], [13.9999081, 49.9997684], [13.9999097, 49.9997683], [13.9999393, 49.9997713], [13.9999397, 49.9997713], [13.9999596, 49.9997749], [13.9999602, 49.9997751], [13.9999615, 49.9997755], [13.9999623, 49.9997759], [13.9999644, 49.9997771], [13.9999651, 49.9997777], [13.9999669, 49.99978], [13.9999672, 49.9997805], [13.9999679, 49.9997822], [13.999968, 49.999783], [13.9999671, 49.9997892], [13.999967, 49.9997895], [13.9999657, 49.9997929], [13.9999636, 49.9997945], [13.9999585, 49.9997959], [13.9999572, 49.9997961], [13.9999517, 49.9997961], [13.9999511, 49.9997961], [13.9999456, 49.9997956], [13.9999453, 49.9997956], [13.9999244, 49.9997925], [13.9999244, 49.9997925]]] }, properties: { hash: 9, title: "By the path 1", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000003, 49.9997807], [14.0000017, 49.9997802], [14.000006, 49.9997805], [14.0000064, 49.9997806], [14.0000776, 49.9997907], [14.0000778, 49.9997907], [14.0001306, 49.9997999], [14.0001314, 49.9998002], [14.0001533, 49.999808], [14.0001547, 49.9998089], [14.000157, 49.9998117], [14.0001573, 49.9998122], [14.0001594, 49.9998179], [14.000162, 49.9998203], [14.0001644, 49.9998213], [14.000166, 49.9998226], [14.0001665, 49.9998239], [14.0001664, 49.9998255], [14.0001647, 49.9998266], [14.0001607, 49.9998279], [14.0001591, 49.9998281], [14.0001537, 49.9998281], [14.0001528, 49.9998281], [14.0000033, 49.9998049], [14.0000018, 49.9998044], [13.9999971, 49.999802], [13.9999958, 49.9998004], [13.9999948, 49.9997953], [13.9999945, 49.9997946], [13.9999944, 49.999794], [13.9999943, 49.9997905], [13.9999944, 49.9997902], [13.9999948, 49.9997876], [13.9999951, 49.9997869], [13.9999963, 49.9997852], [13.9999969, 49.9997845], [13.9999974, 49.9997842], [13.9999974, 49.9997841], [13.9999977, 49.9997822], [13.9999981, 49.9997817], [13.999998, 49.9997815], [13.9999983, 49.9997814], [13.9999987, 49.9997809], [14.0000003, 49.9997807]]] }, properties: { hash: 10, title: "By the path 2", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9996111, 50.0000457], [13.9996258, 50.0000444]] }, properties: { hash: 11, title: "Path 1", type_name: "path", parent_hash_a: 7, parent_hash_b: 2 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9998843, 49.999893], [13.9998825, 49.9998989], [13.9998785, 49.9999014]] }, properties: { hash: 12, title: "Path 2", type_name: "path", parent_hash_a: 7, parent_hash_b: 4 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[14.0000027, 49.9998112], [13.9999754, 49.999807], [13.9999623, 49.9998073], [13.9999475, 49.9998093]] }, properties: { hash: 13, title: "Path 4", type_name: "path", parent_hash_a: 4, parent_hash_b: 6 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.999926, 49.9999381], [13.9999418, 49.9999398]] }, properties: { hash: 14, title: "Path 5", type_name: "path", parent_hash_a: 0, parent_hash_b: 7 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9997126, 49.9997429], [13.9997507, 49.9997464], [13.9997941, 49.999754], [13.9998382, 49.9997574], [13.9998707, 49.9997613], [13.9999008, 49.9997662], [13.9999048, 49.9997682], [13.9999074, 49.9997709]] }, properties: { hash: 15, title: "Path 6", type_name: "path", parent_hash_a: 9, parent_hash_b: 5 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9999639, 49.9997865], [13.9999695, 49.9997903], [13.9999714, 49.9997937], [13.9999665, 49.9998095], [13.9999633, 49.9998125], [13.9999592, 49.999814], [13.9999441, 49.9998144]] }, properties: { hash: 16, title: "Path 7", type_name: "path", parent_hash_a: 4, parent_hash_b: 9 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9999999, 49.9997859], [13.9999849, 49.9997826], [13.9999628, 49.99978]] }, properties: { hash: 17, title: "Path 9", type_name: "path", parent_hash_a: 9, parent_hash_b: 10 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004199, 50.0000686], [14.0004178, 50.0000688], [14.0004168, 50.0000706], [14.0004164, 50.0000712], [14.0004142, 50.0000731], [14.0004142, 50.0000734], [14.0004159, 50.0000745], [14.000431, 50.0000762], [14.0004337, 50.0000776], [14.000436, 50.0000813], [14.0004404, 50.0000822], [14.0004446, 50.0000811], [14.0004446, 50.0000797], [14.0004412, 50.0000749], [14.0004344, 50.0000707], [14.0004309, 50.0000705], [14.0004301, 50.0000705], [14.0004199, 50.0000686]]] }, properties: { hash: 18, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0002795, 50.0001467], [14.0002807, 50.0001468], [14.0002813, 50.0001464], [14.0002821, 50.0001439], [14.0002818, 50.0001434], [14.0002795, 50.0001416], [14.0002772, 50.0001416], [14.0002762, 50.0001445], [14.0002773, 50.000146], [14.0002795, 50.0001467]]] }, properties: { hash: 19, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0003435, 50.0001347], [14.0003446, 50.0001341], [14.0003451, 50.000134], [14.0003451, 50.0001338], [14.0003442, 50.0001327], [14.0003429, 50.0001324], [14.0003414, 50.0001329], [14.0003411, 50.000133], [14.000342, 50.0001339], [14.0003424, 50.0001346], [14.0003435, 50.0001347]]] }, properties: { hash: 20, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0002957, 50.0001491], [14.0002992, 50.0001487], [14.0002991, 50.0001485], [14.0002989, 50.0001472], [14.0002997, 50.0001442], [14.0002981, 50.0001437], [14.0002972, 50.0001429], [14.0002963, 50.0001428], [14.000293, 50.0001437], [14.0002919, 50.0001463], [14.0002922, 50.0001477], [14.0002939, 50.0001488], [14.0002957, 50.0001491]]] }, properties: { hash: 21, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999844, 49.9998433], [13.9999855, 49.9998433], [13.9999862, 49.9998421], [13.999986, 49.9998415], [13.9999854, 49.999841], [13.9999827, 49.9998412], [13.9999817, 49.9998423], [13.9999817, 49.9998425], [13.9999844, 49.9998433]]] }, properties: { hash: 22, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000739, 49.9998309], [14.0000711, 49.9998307], [14.0000709, 49.9998312], [14.0000727, 49.9998326], [14.0000746, 49.9998329], [14.0000756, 49.9998325], [14.0000756, 49.999832], [14.0000739, 49.9998309]]] }, properties: { hash: 23, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0003634, 50.0001358], [14.0003626, 50.0001353], [14.0003624, 50.0001357], [14.0003628, 50.0001364], [14.0003631, 50.0001366], [14.0003639, 50.0001364], [14.0003634, 50.0001358]]] }, properties: { hash: 24, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000183, 49.9998359], [14.0000251, 49.9998336], [14.0000269, 49.9998324], [14.0000319, 49.9998259], [14.0000334, 49.9998216], [14.000034, 49.9998207], [14.0000355, 49.9998195], [14.0000321, 49.9998187], [14.0000026, 49.9998217], [13.9999989, 49.9998232], [13.9999981, 49.9998248], [13.9999984, 49.9998271], [14.0000071, 49.9998351], [14.0000183, 49.9998359]]] }, properties: { hash: 25, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9997037, 50.0000559], [13.9997025, 50.0000561], [13.9997022, 50.0000563], [13.9997024, 50.0000588], [13.9997024, 50.0000592], [13.9997002, 50.0000695], [13.9997044, 50.0000696], [13.9997051, 50.0000696], [13.9997218, 50.0000719], [13.9997227, 50.0000718], [13.9997265, 50.0000606], [13.9997264, 50.0000586], [13.9997261, 50.0000585], [13.9997181, 50.0000581], [13.9997176, 50.000058], [13.9997037, 50.0000559]]] }, properties: { hash: 26, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.999854, 50], [13.9998592, 49.9999965], [13.9998587, 49.9999949], [13.9998556, 49.9999904], [13.9998513, 49.9999899], [13.9998486, 49.9999909], [13.9998476, 49.9999921], [13.9998469, 49.9999952], [13.9998485, 49.9999981], [13.9998508, 49.9999997], [13.999854, 50]]] }, properties: { hash: 27, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999828, 50.0000065], [13.9999786, 50.0000101], [13.9999751, 50.0000184], [13.9999746, 50.0000217], [13.9999772, 50.0000238], [13.9999832, 50.0000245], [13.9999869, 50.0000244], [13.9999883, 50.0000232], [13.9999929, 50.0000116], [13.9999928, 50.0000113], [13.9999887, 50.0000069], [13.9999864, 50.0000058], [13.9999828, 50.0000065]]] }, properties: { hash: 28, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996089, 49.9998909], [13.999614, 49.9998893], [13.9996173, 49.9998874], [13.9996177, 49.9998867], [13.9996177, 49.9998832], [13.9996165, 49.9998824], [13.9996101, 49.9998801], [13.9996063, 49.9998801], [13.9996031, 49.9998812], [13.9996017, 49.9998824], [13.9996006, 49.9998855], [13.9996008, 49.9998878], [13.9996033, 49.9998914], [13.9996035, 49.9998913], [13.9996089, 49.9998909]]] }, properties: { hash: 29, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000917, 50.0000282], [14.0001014, 50.000026], [14.0001019, 50.0000259], [14.0001119, 50.0000246], [14.0001178, 50.0000189], [14.0001192, 50.0000181], [14.000122, 50.0000172], [14.0001215, 50.0000163], [14.0001124, 50.0000113], [14.0001112, 50.0000101], [14.0001104, 50.0000078], [14.0001078, 50.0000055], [14.0001072, 50.0000041], [14.0001072, 50.0000041], [14.0001072, 50.0000026], [14.0001024, 50.0000004], [14.0001009, 49.9999991], [14.0001002, 49.9999975], [14.0000995, 49.9999971], [14.000092, 49.9999984], [14.0000912, 49.9999987], [14.0000899, 50.0000009], [14.0000871, 50.0000023], [14.0000848, 50.0000026], [14.0000823, 50.0000022], [14.0000786, 50.0000007], [14.000076, 50.0000013], [14.0000739, 50.000001], [14.0000712, 49.9999994], [14.0000704, 49.9999979], [14.0000685, 49.9999985], [14.0000672, 49.9999995], [14.0000662, 50.000003], [14.0000658, 50.0000037], [14.0000638, 50.000006], [14.000062, 50.0000071], [14.0000595, 50.0000071], [14.0000591, 50.000007], [14.0000549, 50.0000078], [14.000047, 50.0000148], [14.0000453, 50.000018], [14.0000465, 50.0000189], [14.0000504, 50.0000199], [14.0000619, 50.0000204], [14.0000627, 50.0000205], [14.0000725, 50.0000223], [14.0000731, 50.0000224], [14.0000917, 50.0000282]]] }, properties: { hash: 30, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9998745, 49.9999647], [13.9998744, 49.9999648], [13.9998716, 49.9999746], [13.9998721, 49.9999757], [13.9998867, 49.9999779], [13.9998881, 49.9999776], [13.9998908, 49.9999661], [13.9998893, 49.9999658], [13.9998745, 49.9999647]]] }, properties: { hash: 31, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.999749, 49.9999215], [13.9997401, 49.9999227], [13.9997385, 49.9999227], [13.9997278, 49.9999211], [13.9997181, 49.9999212], [13.9997176, 49.9999212], [13.9996967, 49.9999195], [13.9996894, 49.9999222], [13.9996871, 49.9999239], [13.9996837, 49.9999281], [13.9996753, 49.9999453], [13.9996741, 49.9999464], [13.9996568, 49.9999552], [13.999656, 49.9999575], [13.999656, 49.9999629], [13.9996576, 49.9999698], [13.999661, 49.9999722], [13.9996661, 49.9999738], [13.9996849, 49.9999746], [13.9996861, 49.9999747], [13.9996939, 49.9999768], [13.9996955, 49.9999776], [13.9997034, 49.9999852], [13.9997077, 49.999988], [13.9997164, 49.9999917], [13.9997237, 49.9999935], [13.9997303, 49.9999941], [13.9997389, 49.999994], [13.9997551, 49.9999901], [13.9997568, 49.99999], [13.9997972, 49.9999932], [13.9998015, 49.9999928], [13.9998079, 49.9999909], [13.999809, 49.9999907], [13.9998145, 49.9999903], [13.9998157, 49.9999904], [13.9998284, 49.9999922], [13.9998297, 49.999992], [13.9998297, 49.999992], [13.9998402, 49.9999446], [13.9998403, 49.9999444], [13.999843, 49.9999367], [13.9998425, 49.9999364], [13.9997992, 49.9999335], [13.9997985, 49.9999334], [13.9997879, 49.9999313], [13.999773, 49.9999305], [13.999772, 49.9999303], [13.9997556, 49.9999263], [13.9997539, 49.9999255], [13.9997496, 49.9999216], [13.999749, 49.9999215]]] }, properties: { hash: 32, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996405, 49.9999033], [13.9996349, 49.9999039], [13.9996303, 49.9999054], [13.9996265, 49.9999084], [13.9996245, 49.9999113], [13.9996222, 49.9999216], [13.9996229, 49.9999305], [13.9996237, 49.9999322], [13.9996271, 49.9999352], [13.9996301, 49.9999362], [13.999656, 49.999921], [13.9996594, 49.9999149], [13.9996599, 49.9999122], [13.9996564, 49.999909], [13.9996465, 49.9999042], [13.9996405, 49.9999033]]] }, properties: { hash: 33, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004415, 50.000107], [14.0004374, 50.0001104], [14.0004365, 50.0001109], [14.0004328, 50.0001124], [14.0004317, 50.0001132], [14.0004315, 50.0001146], [14.0004329, 50.0001172], [14.0004353, 50.0001186], [14.0004457, 50.0001174], [14.0004474, 50.0001164], [14.0004483, 50.0001144], [14.0004477, 50.0001106], [14.000444, 50.0001078], [14.0004419, 50.000107], [14.0004415, 50.000107]]] }, properties: { hash: 34, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000008, 50.0000491], [13.9999979, 50.0000516], [13.9999973, 50.0000572], [13.9999981, 50.0000596], [14.0000059, 50.0000628], [14.0000085, 50.0000556], [14.0000081, 50.0000533], [14.0000065, 50.0000511], [14.0000008, 50.0000491]]] }, properties: { hash: 35, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }] }, a0 = { "sensor.heat_pump_supply_temperature": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85740, "60.3"], [85680, "59.8"], [85621, "36.8"], [85560, "30.4"], [85380, "29.9"], [84957, "29.9"], [84897, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74756, "41.8"], [74336, "41.3"], [73856, "41.8"], [73796, "39.3"], [73736, "38.8"], [73676, "38.3"], [73196, "37.8"], [72522, "37.3"], [71945, "36.8"], [71434, "36.3"], [70954, "35.8"], [70414, "35.3"], [69934, "34.8"], [69454, "34.3"], [68973, "33.8"], [68434, "33.3"], [67954, "32.8"], [67354, "32.3"], [66874, "31.8"], [66274, "31.3"], [65674, "30.8"], [65074, "30.3"], [64414, "29.8"], [63754, "29.3"], [63094, "28.8"], [62314, "28.3"], [61534, "27.8"], [60694, "27.3"], [59854, "26.8"], [58894, "26.3"], [57874, "25.8"], [56734, "25.3"], [55594, "24.8"], [54394, "24.3"], [52954, "23.8"], [51454, "23.3"], [49774, "22.8"], [47974, "22.3"], [47194, "22.9"], [47134, "32.3"], [47074, "32.8"], [45394, "27.9"], [45334, "23.6"], [45274, "20.7"], [40338, "20.2"], [38238, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35898, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32598, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32298, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29418, "60.4"], [29358, "57.4"], [29298, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.current_water_temperature": [[86186, "47.6"], [78865, "46.6"], [75685, "45.6"], [74758, "45.6"], [74696, "45.6"], [68395, "44.6"], [63175, "43.6"], [58855, "42.6"], [51235, "41.9"], [43915, "40.9"], [40315, "39.9"], [38574, "38.9"], [37974, "37.9"], [37794, "36.9"], [37614, "35.9"], [36234, "34.9"], [34254, "33.9"], [33354, "34.9"], [33114, "35.9"], [32934, "36.9"], [32754, "37.9"], [32454, "38.9"], [31493, "39.9"], [31314, "40.9"], [31299, "40.9"], [31134, "41.9"], [30954, "42.9"], [30714, "43.9"], [30534, "44.9"], [30293, "45.9"], [30137, "46.9"], [29813, "47.9"], [29502, "47.9"], [24773, "46.9"], [17213, "46.5"], [9593, "45.9"], [2873, "44.9"]], "sensor.water_temperature": [[74758, "47"], [74696, "47"], [34254, "47"], [31299, "47"], [29502, "47"]], "sensor.heating_on": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85766, "60.8"], [85740, "60.3"], [84865, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74758, "41.8"], [74696, "41.8"], [74336, "41.3"], [73856, "41.8"], [38214, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36114, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35874, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32574, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32274, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31299, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29453, "60.9"], [29418, "60.4"], [29358, "57.4"], [29273, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.water_heating_on": [[85231, "off"], [74758, "off"], [33138, "on"], [31300, "off"], [31300, "on"], [31299, "on"], [29502, "on"], [28698, "off"]] }, i0 = (o) => new Date(Date.now() + o * 6e4).toISOString();
 function bd(o, e, t) {
   const a = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${e}"/><stop offset="1" stop-color="${t}"/></linearGradient></defs><rect width="96" height="96" fill="url(#g)"/><text x="48" y="60" font-family="system-ui,sans-serif" font-size="38" font-weight="600" fill="white" text-anchor="middle">${o}</text></svg>`;
   return `data:image/svg+xml,${encodeURIComponent(a)}`;
 }
-const Wr = (/* @__PURE__ */ new Date()).getHours(), Vi = Wr >= 7 && Wr < 19, i0 = Vi ? Math.round(6e4 * Math.sin((Wr + 0.5 - 7) / 12 * Math.PI)) : 0, $n = (o, e, t) => [
+const Wr = (/* @__PURE__ */ new Date()).getHours(), Yi = Wr >= 7 && Wr < 19, s0 = Yi ? Math.round(6e4 * Math.sin((Wr + 0.5 - 7) / 12 * Math.PI)) : 0, $n = (o, e, t) => [
   e > 0 ? "open" : "closed",
   { friendly_name: o, current_position: e, current_tilt_position: t, device_class: "blind", supported_features: 255 }
-], s0 = {
+], o0 = {
   "person.alex": ["home", { friendly_name: "Alex", entity_picture: bd("A", "#7aa7ff", "#5161d6") }],
   "person.sam": ["Work", { friendly_name: "Sam", entity_picture: bd("S", "#ffb37a", "#e0617d") }],
   "zone.work": ["0", { friendly_name: "Work", icon: "mdi:briefcase" }],
@@ -12614,7 +12614,7 @@ const Wr = (/* @__PURE__ */ new Date()).getHours(), Vi = Wr >= 7 && Wr < 19, i0 
   "sensor.washer_machine_state": ["run", { friendly_name: "Washer" }],
   "sensor.washer_job_state": ["rinse", { friendly_name: "Washer job" }],
   "sensor.washer_remaining_time": ["0:42", { friendly_name: "Washer time left" }],
-  "sensor.washer_completion_time": [a0(42), { device_class: "timestamp", friendly_name: "Washer done at" }],
+  "sensor.washer_completion_time": [i0(42), { device_class: "timestamp", friendly_name: "Washer done at" }],
   "binary_sensor.washer_power": ["on", { friendly_name: "Washer power" }],
   "binary_sensor.heat_pump_compressor": ["on", { friendly_name: "Compressor" }],
   "sensor.glass_notifications": [
@@ -12627,33 +12627,33 @@ const Wr = (/* @__PURE__ */ new Date()).getHours(), Vi = Wr >= 7 && Wr < 19, i0 
     }
   ],
   // the sun in the shading azimuth by day: the office and the kids' room shaded, the balcony open
-  "sensor.sun_sensor_luminance": [String(i0), { friendly_name: "Sun sensor luminance", unit_of_measurement: "lx", device_class: "illuminance", state_class: "measurement" }],
-  "sensor.blinds_shading_level": [Vi ? "mid" : "open", { friendly_name: "Blinds shading level" }],
-  "sensor.blinds_target_tilt": [Vi ? "45" : "100", { friendly_name: "Blinds target tilt", unit_of_measurement: "%" }],
-  "cover.office": $n("Office", 0, Vi ? 45 : 0),
-  "cover.kids_room": $n("Kids room", 0, Vi ? 45 : 0),
+  "sensor.sun_sensor_luminance": [String(s0), { friendly_name: "Sun sensor luminance", unit_of_measurement: "lx", device_class: "illuminance", state_class: "measurement" }],
+  "sensor.blinds_shading_level": [Yi ? "mid" : "open", { friendly_name: "Blinds shading level" }],
+  "sensor.blinds_target_tilt": [Yi ? "45" : "100", { friendly_name: "Blinds target tilt", unit_of_measurement: "%" }],
+  "cover.office": $n("Office", 0, Yi ? 45 : 0),
+  "cover.kids_room": $n("Kids room", 0, Yi ? 45 : 0),
   "cover.balcony": $n("Balcony", 100, 100),
   // a gate that only opens and closes (no position), and can be stopped
   "cover.gate": ["closed", { friendly_name: "Gate", device_class: "gate", supported_features: 11 }],
   // the weather now: what the forecast (demoForecast) starts with, by day or night
   "weather.home": [(/* @__PURE__ */ new Date()).getHours() >= 7 && (/* @__PURE__ */ new Date()).getHours() < 19 ? "partlycloudy" : "clear-night", { friendly_name: "Home", temperature: 14.6, temperature_unit: "°C", humidity: 64, pressure: 1016, pressure_unit: "hPa", wind_speed: 14, wind_speed_unit: "km/h", wind_bearing: 240, apparent_temperature: 13.2, cloud_coverage: 45, supported_features: 3 }],
   "sensor.heat_pump_outside_temperature": ["14.8", { unit_of_measurement: "°C", device_class: "temperature", state_class: "measurement", friendly_name: "Outside" }]
-}, Fr = { ...Qg, ...s0 };
+}, Fr = { ...e0, ...o0 };
 {
   const o = Fr["calendar.family"];
   Array.isArray(o) && (Fr["calendar.family"] = [o[0], { ...o[1], supported_features: 7 }]);
 }
-const o0 = (o, e) => {
+const n0 = (o, e) => {
   for (const [t, a] of e) o.set(t, a ? ["on", { brightness: a }] : ["off", { brightness: null }]);
-}, zi = (o, e) => (t) => o0(t, [[`light.${o}`, e[o] ?? 0]]), Sn = (o, e) => ({
+}, zi = (o, e) => (t) => n0(t, [[`light.${o}`, e[o] ?? 0]]), Sn = (o, e) => ({
   [`script.open_blinds_${o}`]: (t) => t.set(e, ["open", { current_position: 100 }]),
   [`script.close_blinds_${o}`]: (t) => t.set(e, ["closed", { current_position: 0 }]),
   [`script.tilt_blinds_${o}_min`]: (t) => t.set(e, ["open", { current_tilt_position: 20 }]),
   [`script.tilt_blinds_${o}_mid`]: (t) => t.set(e, ["open", { current_tilt_position: 50 }]),
   [`script.tilt_blinds_${o}_max`]: (t) => t.set(e, ["open", { current_tilt_position: 90 }])
-}), Os = (o, e) => (t) => {
+}), Bs = (o, e) => (t) => {
   t.set("binary_sensor.kitchen_lights_upper_on", o ? "on" : "off"), t.set("binary_sensor.kitchen_lights_lower_on", e ? "on" : "off"), t.set("binary_sensor.kitchen_lights_all_on", o && e ? "on" : "off"), t.set("binary_sensor.kitchen_lights_off_on", !o && !e ? "on" : "off"), t.set("binary_sensor.kitchen_lights_any_on", o || e ? "on" : "off"), t.set("light.kitchen_led", o || e ? ["on", { brightness: 200 }] : "off");
-}, n0 = {
+}, r0 = {
   ...Object.fromEntries(
     ["living_room", "kitchen", "hallway"].flatMap((o) => [
       [`scene.${o}_relax`, zi(o, { [o]: 110 })],
@@ -12666,10 +12666,10 @@ const o0 = (o, e) => {
   ...Sn("office", "cover.office"),
   ...Sn("kids", "cover.kids_room"),
   ...Sn("bedroom", "cover.balcony"),
-  "select.kitchen_led_preset=Lights off": Os(!1, !1),
-  "select.kitchen_led_preset=Upper light": Os(!0, !1),
-  "select.kitchen_led_preset=Lower light": Os(!1, !0),
-  "select.kitchen_led_preset=All lights": Os(!0, !0),
+  "select.kitchen_led_preset=Lights off": Bs(!1, !1),
+  "select.kitchen_led_preset=Upper light": Bs(!0, !1),
+  "select.kitchen_led_preset=Lower light": Bs(!1, !0),
+  "select.kitchen_led_preset=All lights": Bs(!0, !0),
   "script.kids_radio_button_toggle": (o) => o.set("input_boolean.kids_radio", o.get("input_boolean.kids_radio")?.state === "on" ? "off" : "on"),
   "script.kids_bedtime": (o) => {
     const e = o.data.volba ?? o.data.choice, t = e === "both" ? !0 : e === "off" ? !1 : !(o.get("input_boolean.kids_radio")?.state === "on" || o.get("input_boolean.star_projector")?.state === "on");
@@ -12685,13 +12685,13 @@ const o0 = (o, e) => {
   "script.mower_pause": (o) => o.set("lawn_mower.mower", "paused"),
   "script.mower_unpause": (o) => o.set("lawn_mower.mower", "mowing")
 };
-function xa(o, e) {
+function ka(o, e) {
   let t = 2166136261;
   for (const a of `${o}:${e}`) t = Math.imul(t ^ a.charCodeAt(0), 16777619);
   return (t >>> 0) % 1e3 / 1e3;
 }
 function _d(o, e, t, a) {
-  const i = [], s = t0[o];
+  const i = [], s = a0[o];
   if (s) {
     const d = s.findIndex(([h]) => a - h * 1e3 >= t);
     for (const [h, u] of s.slice(d < 0 ? -1 : Math.max(0, d - 1))) i.push({ s: u, lu: Math.max(t, a - h * 1e3) / 1e3 });
@@ -12701,7 +12701,7 @@ function _d(o, e, t, a) {
   if (l && e.attributes.state_class === "total_increasing") {
     const d = /pv|solar|generation|production|export/.test(o), h = (_, x) => {
       const z = new Date(_).getHours() + new Date(_).getMinutes() / 60;
-      return (d ? Math.max(0, Math.sin((z - 6) / 14 * Math.PI)) ** 1.4 : 0.3 + 0.55 * Math.exp(-(((z - 7.5) / 1.3) ** 2)) + 0.9 * Math.exp(-(((z - 19) / 2) ** 2))) * (0.85 + xa(o, x) * 0.3);
+      return (d ? Math.max(0, Math.sin((z - 6) / 14 * Math.PI)) ** 1.4 : 0.3 + 0.55 * Math.exp(-(((z - 7.5) / 1.3) ** 2)) + 0.9 * Math.exp(-(((z - 19) / 2) ** 2))) * (0.85 + ka(o, x) * 0.3);
     };
     let u = 0;
     for (let _ = 0; _ < 1440; _ += 10) u += h(new Date(t).setHours(0, _, 0, 0), 0) / 0.85 / 1.15;
@@ -12718,34 +12718,34 @@ function _d(o, e, t, a) {
     let m;
     if (l) {
       const f = Math.sin((u - 9) / 24 * Math.PI * 2), b = c ? 4 : o.includes("temperature") ? 0.7 : Math.abs(r) * 0.15;
-      m = (r + f * b + (xa(o, h) - 0.5) * b * 0.4 - Math.sin((new Date(a).getHours() - 9) / 24 * Math.PI * 2) * b).toFixed(1);
-    } else m = xa(o, Math.floor(h / 6)) > 0.6 ? "on" : "off";
+      m = (r + f * b + (ka(o, h) - 0.5) * b * 0.4 - Math.sin((new Date(a).getHours() - 9) / 24 * Math.PI * 2) * b).toFixed(1);
+    } else m = ka(o, Math.floor(h / 6)) > 0.6 ? "on" : "off";
     i.push({ s: m, lu: d / 1e3 });
   }
   return i.push({ s: e.state, lu: a / 1e3 }), i;
 }
-function r0(o, e, t, a, i) {
+function l0(o, e, t, a, i) {
   const s = { "5minute": 3e5, hour: 36e5, day: 864e5, week: 6048e5, month: 2592e6 }[i] ?? 36e5, n = Math.abs(parseFloat(e.state)) || 1, r = [];
   let l = 0;
   for (let c = t, d = 0; c < a; c += s, d++) {
-    const h = new Date(c).getHours(), u = s < 864e5 ? Math.max(0, Math.sin((h - 6) / 24 * Math.PI * 2)) : 1, m = n / (s < 864e5 ? 24 : 1) * (0.4 + xa(o, d) * 0.9) * (o.includes("pv") || o.includes("generation") ? u : 1);
+    const h = new Date(c).getHours(), u = s < 864e5 ? Math.max(0, Math.sin((h - 6) / 24 * Math.PI * 2)) : 1, m = n / (s < 864e5 ? 24 : 1) * (0.4 + ka(o, d) * 0.9) * (o.includes("pv") || o.includes("generation") ? u : 1);
     l += m, r.push({ start: c, end: c + s, mean: m, min: m * 0.7, max: m * 1.3, sum: l, state: l, change: m });
   }
   return r;
 }
-const La = ["partlycloudy", "cloudy", "partlycloudy", "sunny", "rainy", "partlycloudy", "cloudy"];
-function l0(o) {
+const Ra = ["partlycloudy", "cloudy", "partlycloudy", "sunny", "rainy", "partlycloudy", "cloudy"];
+function c0(o) {
   const e = /* @__PURE__ */ new Date();
   if (o === "daily")
     return Array.from({ length: 7 }, (a, i) => {
-      const s = new Date(e.getFullYear(), e.getMonth(), e.getDate() + i, 12), n = 15 + Math.round(xa("hi", i) * 6);
+      const s = new Date(e.getFullYear(), e.getMonth(), e.getDate() + i, 12), n = 15 + Math.round(ka("hi", i) * 6);
       return {
         datetime: s.toISOString(),
-        condition: La[i % La.length],
+        condition: Ra[i % Ra.length],
         temperature: n,
-        templow: n - 6 - Math.round(xa("lo", i) * 3),
-        precipitation: La[i % La.length] === "rainy" ? 4.2 : 0,
-        precipitation_probability: La[i % La.length] === "rainy" ? 70 : Math.round(xa("pp", i) * 20)
+        templow: n - 6 - Math.round(ka("lo", i) * 3),
+        precipitation: Ra[i % Ra.length] === "rainy" ? 4.2 : 0,
+        precipitation_probability: Ra[i % Ra.length] === "rainy" ? 70 : Math.round(ka("pp", i) * 20)
       };
     });
   const t = new Date(e);
@@ -12762,11 +12762,11 @@ function l0(o) {
 }
 const Hr = {}, Gr = /* @__PURE__ */ new Set(), iu = /* @__PURE__ */ new Map(), Ur = /* @__PURE__ */ new Map();
 let yd = 0;
-const xo = (o) => String(o).padStart(2, "0"), ko = (o) => `${o.getFullYear()}-${xo(o.getMonth() + 1)}-${xo(o.getDate())}`, c0 = (o) => {
+const xo = (o) => String(o).padStart(2, "0"), ko = (o) => `${o.getFullYear()}-${xo(o.getMonth() + 1)}-${xo(o.getDate())}`, d0 = (o) => {
   const [e, t, a] = o.split("-").map(Number);
   return new Date(e, t - 1, a);
-}, $o = (o) => o.dateTime ? Date.parse(o.dateTime) : c0(o.date).getTime(), d0 = (o, e) => ko(o).replace(/-/g, "") + (e ? "" : `T${xo(o.getHours())}${xo(o.getMinutes())}00`), vd = (o) => new Date(+o.slice(0, 4), +o.slice(4, 6) - 1, +o.slice(6, 8), +(o.slice(9, 11) || 0), +(o.slice(11, 13) || 0)).getTime();
-function h0(o, e, t) {
+}, $o = (o) => o.dateTime ? Date.parse(o.dateTime) : d0(o.date).getTime(), h0 = (o, e) => ko(o).replace(/-/g, "") + (e ? "" : `T${xo(o.getHours())}${xo(o.getMinutes())}00`), vd = (o) => new Date(+o.slice(0, 4), +o.slice(4, 6) - 1, +o.slice(6, 8), +(o.slice(9, 11) || 0), +(o.slice(11, 13) || 0)).getTime();
+function p0(o, e, t) {
   const a = /FREQ=(\w+)/.exec(o.rrule ?? "")?.[1];
   if (!a) return [o];
   const i = !o.start.dateTime, s = new Date($o(o.start)), n = $o(o.end) - s.getTime(), r = Math.round(n / 864e5), l = Ur.get(o.uid) ?? 1 / 0, c = [];
@@ -12780,12 +12780,12 @@ function h0(o, e, t) {
       ...o,
       start: i ? { date: ko(h) } : { dateTime: h.toISOString() },
       end: i ? { date: ko(m) } : { dateTime: m.toISOString() },
-      recurrence_id: d0(h, i)
+      recurrence_id: h0(h, i)
     });
   }
   return c;
 }
-function p0(o, e, t) {
+function u0(o, e, t) {
   const a = (n, r, l = 0) => {
     const c = /* @__PURE__ */ new Date();
     return c.setDate(c.getDate() + n), r === void 0 ? { date: ko(c) } : (c.setHours(r, l, 0, 0), { dateTime: c.toISOString() });
@@ -12799,9 +12799,9 @@ function p0(o, e, t) {
     { summary: "Dentist", start: a(1, 9, 0), end: a(1, 9, 45), location: "Main Street 12" },
     { summary: "Grandma's birthday", start: a(2), end: a(3) },
     { summary: "Car service", start: a(3, 8, 0), end: a(3, 10, 0) }
-  ]).map((n, r) => ({ ...n, uid: `${o}-${r}` })), ...Hr[o] ?? []].flatMap((n) => h0(n, e, t)).filter((n) => !Gr.has(n.uid) && !(n.recurrence_id && Gr.has(`${n.uid}|${n.recurrence_id}`))).map((n) => ({ ...n, ...iu.get(n.recurrence_id ? `${n.uid}|${n.recurrence_id}` : n.uid) ?? {} })).filter((n) => $o(n.start) < t && $o(n.end) > e);
+  ]).map((n, r) => ({ ...n, uid: `${o}-${r}` })), ...Hr[o] ?? []].flatMap((n) => p0(n, e, t)).filter((n) => !Gr.has(n.uid) && !(n.recurrence_id && Gr.has(`${n.uid}|${n.recurrence_id}`))).map((n) => ({ ...n, ...iu.get(n.recurrence_id ? `${n.uid}|${n.recurrence_id}` : n.uid) ?? {} })).filter((n) => $o(n.start) < t && $o(n.end) > e);
 }
-function u0(o) {
+function m0(o) {
   const e = String(o.entity_id), t = String(o.uid ?? ""), a = o.recurrence_id ? String(o.recurrence_id) : void 0, i = o.recurrence_range === "THISANDFUTURE" && !!a, s = o.event ?? {}, n = (c) => c && c.length > 10 ? { dateTime: new Date(c).toISOString() } : { date: c }, r = () => ({
     summary: s.summary ?? "",
     start: n(s.dtstart),
@@ -12916,8 +12916,8 @@ const su = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
 `, group_by: { func: "sum" } }], apex_config: { yaxis: [{ labels: { show: !1 }, axisBorder: { show: !1 }, axisTicks: { show: !1 } }] } }, height: 200 }, { type: "custom:glass-divider", name: "Export to the grid", icon: "mdi:transmission-tower-import", margin: 0, line: !1 }, { type: "custom:glass-chart", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", card: { type: "custom:apexcharts-card", apex_config: { chart: { type: "area" } }, yaxis: [{ decimals: 0 }] }, day: { series: [{ entity: "sensor.active_power", transform: "return x/1000", unit: "kW", type: "column", group_by: { duration: "15m", func: "max" }, name: "Export" }], update_interval: "15m" }, month: { series: [{ entity: "sensor.pnd_data", unit: "kW", type: "column", attribute: "production", data_generator: `return entity.attributes.pnddate.map((pnd, index) => {
   return [new Date(pnd).getTime(), Number(entity.attributes.production[index])];
 });
-`, group_by: { func: "sum" }, name: "Export" }] }, year: { series: [{ entity: "sensor.total_energy_buy", unit: "kWh", type: "column", group_by: { func: "diff", start_with_last: !0 }, name: "Export" }], update_interval: "1h" }, height: 170 }], bar: !0 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#security", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:cctv", margin_top_desktop: "-35px", name: "Security", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Security", icon: "mdi:cctv", view_layout: { height: "auto" } }, { type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", layout: "header", modes: ["home", "away", "night"], align: "stretch" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", justify: "start", gap: 10, padding: 12, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, buttons: [{ name: "Entrance", icon: "mdi:door", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_2" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_1" }] } }, active: { entity: "input_boolean.switch_security_camera_1", state: "on" } }, { name: "Garden", icon: "mdi:tree-outline", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_1" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_2" }] } }, active: { entity: "input_boolean.switch_security_camera_2", state: "on" } }] }, { type: "custom:glass-camera", layout: "stacked", list_glass: "dark-liquid", player_glass: "liquid-gl", badge_glass: "liquid-gl", show_timeline: !0, cameras: [{ camera: "camera.front_door", name: "Entrance", icon: "mdi:door", frigate_camera: "frontdoor", active: { entity: "input_boolean.switch_security_camera_1", state: "on" }, items: [{ entity: "switch.front_door_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.front_door_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }, { camera: "camera.garden", name: "Garden", icon: "mdi:tree-outline", frigate_camera: "garden", active: { entity: "input_boolean.switch_security_camera_2", state: "on" }, items: [{ entity: "switch.garden_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.garden_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#more", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:dots-horizontal-circle-outline", margin_top_desktop: "-35px", name: "More", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "More", icon: "mdi:dots-horizontal-circle-outline", view_layout: { height: "auto" } }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Security", icon: "mdi:shield-home", description: "Arm and disarm the alarm – the keypad and what's open", cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarms", icon: "mdi:alarm", description: "Wake-up alarms – their times, days and sound", cards: [{ type: "custom:glass-alarms", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarm ringing", icon: "mdi:alarm-bell", description: "An alarm over the whole dashboard – snooze it or slide to stop", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Ring an alarm", image: "glass:demo/alarm-morning.jpg", status: "info", info: [{ text: "Kids' room – snooze it or slide to stop" }], tap_action: { action: "perform-action", perform_action: "input_boolean.turn_on", target: { entity_id: "input_boolean.glass_alarm_1_ringing" } }, entities: [{ entity: "input_boolean.glass_alarm_1_ringing", icon: "mdi:alarm-bell", name: "Ring" }], view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Screensaver player", icon: "mdi:monitor-screenshot", description: "The media player as the whole screen – a kiosk's screensaver", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Open the screensaver", image: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj", status: "info", info: [{ text: "What plays, big – a touch for the buttons" }], tap_action: { action: "navigate", navigation_path: "#screensaver" }, view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Calendar", icon: "mdi:calendar-month", description: "The family's month and week – tap a day to add an event", cards: [{ type: "custom:glass-calendar-view", height: "600px", close: !1, days_off: ["calendar.holidays"], calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], view_layout: { height: "auto" } }] }] }], show_header: !1 }] }] }] }, Qi = "glass-demo-popups", So = { "home|": { title: "Home", media_class: "directory", media_content_type: "home", media_content_id: "", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Today's biggest hits", media_class: "playlist", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/JhukEr_gsgy7LuD0aFWmmTpcrAkB0Amk5zoFgAtPE3LBWwRXfbkZPP3epGFAp9HLcNkVZ-AyD0kX-a7e=w544-h544-l90-rj" }, { title: "All hits", media_class: "playlist", media_content_type: "home2", media_content_id: "All hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }, { title: "Trending songs for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Music videos for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Covers and remixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Song mixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/_cBCKUoFjuJsTPKvNViql9pqLTD_NfiNNn3y13rh1iXXIwpZ2dyQcyn9H2dneW9J9F9-I6zM13zFe4qV=w544-h544-l90-rj" }, { title: "New releases", media_class: "playlist", media_content_type: "home2", media_content_id: "New releases", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Live performances", media_class: "playlist", media_content_type: "home2", media_content_id: "Live performances", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, "home2|Song mixes": { title: "Song mixes", media_class: "directory", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard) - Justice", media_class: "playlist", media_content_type: "track", media_content_id: "JWxoRY7AFSw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Stop The Wedding! - Ashe", media_class: "playlist", media_content_type: "track", media_content_id: "BVR3k32x9h0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me - Kelsy Karter & The Heroines", media_class: "playlist", media_content_type: "track", media_content_id: "VdlCbji1CAg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti - KATSEYE", media_class: "playlist", media_content_type: "track", media_content_id: "HY397w59MT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album) - Tove Lo", media_class: "playlist", media_content_type: "track", media_content_id: "0lI_KzhfIBk", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden - HUNTR/X", media_class: "playlist", media_content_type: "track", media_content_id: "9_bTl2vvYQg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "BbY WOW - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "ljAH6jNaApU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/GdW-pwzDkHLGvvf0pe_dgTcBYkJ2UFgsW6Zldnxyz-kX3l8I-QrRMow8IooEm7njIEAJauyWfoSV1rM=w544-h544-l90-rj" }, { title: "You’re Under Arrest - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "qsqvJpOgrWw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EQNyUqxuYcONem8DYLwrXvMdc0rs-ryUcSgdgpxVkqtx53WRKr5YtBwEnaHBgnN5iWk90JBbdkrpSq4=w544-h544-l90-rj" }, { title: "COQUETA - Fuerza Regida", media_class: "playlist", media_content_type: "track", media_content_id: "fPczdTA1xU0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/llYLq4jy6rSfhDDnEwL5rsxS80eBMvPzcZoryVzEQhbZCCOJMgcrkhtWiXTMLnASubnA0Ga99l6lVdUg=w544-h544-l90-rj" }, { title: "Don't Stop The Music - Bisken", media_class: "playlist", media_content_type: "track", media_content_id: "7WIWltd6CiM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/qn1AKHBdT_xmKUxMmseOxhFlTVQ4zoDO60JyXcMRiy3DSvdT8HOCmty-wQyPD3F2BRN-1kKzrMWcZKjyjw=w544-h544-l90-rj" }, { title: "Love Options - BESTie", media_class: "playlist", media_content_type: "track", media_content_id: "jWwdHeJ8XeU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/e_KhStFaUpXtdfyncHtYOBGibpgdw3fVixG8H0_E8aIW6G0Op9wo4jQqWsfHCEMaI96DnhsqlHM9Yzck=w544-h544-l90-rj" }, { title: "Sakuranbo - YENA", media_class: "playlist", media_content_type: "track", media_content_id: "6POlUfjBIB4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/_RWfWayKDftrngXQ8sGahDtVVmqfhzji0cR1WTE2DWsW8VO7NJnDMStdjFYWj1lqoACBSxW8e5dnheHbIg=w544-h544-l90-rj" }, { title: "Hong Kong", media_class: "playlist", media_content_type: "track", media_content_id: "cUnEvW5aS80", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/X_xAPVJ2PYZCimHbT1dLd6JNQRNIzelWVSjUak_sBJXVUy2wajg7DHX__2B7O_fpi5iCKrOufTphwH3_=w544-h544-l90-rj" }, { title: "I Want You - ENHYPEN", media_class: "playlist", media_content_type: "track", media_content_id: "dBv5ju-TGZQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/p03tt4dCfQUZILU6EFkRanxOdpHXfKJi93xgjChLZkyUQS76s-ap-_QtjwHCtFy-QqdTdrdO4eNoaOMR=w544-h544-l90-rj" }, { title: "REDRED - CORTIS", media_class: "playlist", media_content_type: "track", media_content_id: "5sOgJQ3N03Q", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QwlA1MsRGQRVG6kIPLEB068OXqVk4QKHWXeAIX0C-QaZ7Mzgh4f9JbXLj03itMK14uRL5EsnVmslkzN2=w544-h544-l90-rj" }, { title: "like JENNIE - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "HMQlkbXjSTM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Z3gufPaLCcWuJNE4NH6KhlbUSrnx3hvUQgnhwQBrUDNzEgAp1aNMuCr0nv0gJxU8XcS2Rp9I-BHPZt_i=w544-h544-l90-rj" }] }, "home2|Covers and remixes": { title: "Covers and remixes", media_class: "directory", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Save Your Tears ((Remix) Bonus Track) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "lS9Kgp6PsWY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Ds4HZUl-Cziy9wW0zGv5_rRw0fGc01a3rMZ6mB27HkSTtVLaPwUpPaXdoISHAH3XprkYyPfIEcSpmPy-=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight) - Syzz", media_class: "playlist", media_content_type: "track", media_content_id: "maY-KIK3EDI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Remember Our Summer CYNIX Remix - CYNIX", media_class: "playlist", media_content_type: "track", media_content_id: "1x0e5svjyoA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/1x0e5svjyoA/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3m6b1RsrcKkQCPkyDTNx2HXM7wmpA" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "DXO288FnB-A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Flo Rida feat. T-Pain - Low (FNZ Remix) - FNZ", media_class: "playlist", media_content_type: "track", media_content_id: "8s5o9JS9dsM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/8s5o9JS9dsM/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3lhK_a8liz1kba7el0JWShA6hq2Eg" }, { title: "Stand by Me - Seal", media_class: "playlist", media_content_type: "track", media_content_id: "zRafBMo9t_A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Die For You (Remix) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "AySMGpXQ1Mo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/liKrw5t_WphMbkiYKDHQj1rf8S8GSwxgMRUmB7tkHhPF862BRcqIYxFEj9QwKr51ge2ma6u0C_wI4jNo=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "6KjVYeQ9SRw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/FQsPsZdaGUkT3_Q-9iilsYnS6xc0CAerb6pIhUou-skal6-jMQQ-xUigopbvfqVP_e-msHiabmCN2wCl=w544-h544-l90-rj" }, { title: "Cold Heart (PNAU Remix) - Elton John", media_class: "playlist", media_content_type: "track", media_content_id: "e-S1k9-soT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Love Me Like You Do - Elena Gray", media_class: "playlist", media_content_type: "track", media_content_id: "Q9HxtBBqmHA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }] }, "home2|Trending songs for you": { title: "Trending songs for you", media_class: "directory", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Go Easy (from GTAVI: The Album) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "eqQRPRcoIYo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat - MOONLGHT", media_class: "playlist", media_content_type: "track", media_content_id: "LOvFNEryrOA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack) - Lena Vril", media_class: "playlist", media_content_type: "track", media_content_id: "zLilheGY7OY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man - FINNEAS", media_class: "playlist", media_content_type: "track", media_content_id: "pQ_3P-0WwvU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Sexy Magic (from GTAVI: The Album) (feat. Grand Theft Auto VI) - CA7RIEL & Paco Amoroso", media_class: "playlist", media_content_type: "track", media_content_id: "VBKnzlBP95A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/hbpSyosNXpw2uZ6_KOx0YjBLO-rMJx6gLxEE7Suz-sYnWYhoWu8FVk5FXJEDwJdncjWifi9UIbmDTJEU=w544-h544-l90-rj" }, { title: "Babydoll - Jamie Miller", media_class: "playlist", media_content_type: "track", media_content_id: "7MAs5b7EJyc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love - Keyshia Cole", media_class: "playlist", media_content_type: "track", media_content_id: "8M_-aaZUs4o", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }, { title: "Innerbloom XI - RÜFÜS DU SOL", media_class: "playlist", media_content_type: "track", media_content_id: "MyeUOTWUNsE", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gk6GLgNgat-oez8Yl8tirJNj80jCNuN1HnnaoyhLPGazQP76XMGXzB67nL7KBJUz6wead6n8mH_jBFdk=w544-h544-l90-rj" }, { title: "Power Trip (from GTAVI: The Album) - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "3uC4yshW6Yc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AwqUl_c3gIFWtvPf7h_tDz_gIlM8pLyTTxeVyIT14W1eoVCKfcmnrox73QDxI-YIntjKdKZGvh-c1twq=w544-h544-l90-rj" }, { title: "Leave With Me - LISA", media_class: "playlist", media_content_type: "track", media_content_id: "r58jywvd-Rw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EAgD2-ySGHKQdBxH3kj9IGjyJiXYP8Lkoa2dMvXb3KZUw1N_6ghCLiB9hklwRqZHqt8cVpnVviQ3r-Zo=w544-h544-l90-rj" }, { title: 'Sun Showers (From "The Angry Birds Movie 3”) - JISOO', media_class: "playlist", media_content_type: "track", media_content_id: "nfvXvCwqChY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/M4Bx2xs5rppzER-NHQvimkZ29gyD9t99yKBBWvAk4PSTOcTKGyfUbKhdVeHuAQwbtrRAGGNNzCWwWGsv=w544-h544-l90-rj" }, { title: "ICONIC - CL", media_class: "playlist", media_content_type: "track", media_content_id: "6v-TZZKvADw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/gDaFchnWU4AGuYCAPgHjkZ3oTkN_LU7IK9aYpkDED9zgZUUqxLgOjXE9W5338xoqLoIaTfunleAMnIxSQw=w544-h544-l90-rj" }, { title: "BABY ANGEL - NAYEON", media_class: "playlist", media_content_type: "track", media_content_id: "Z8ehh3ANZak", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/di75B_1bBuBn_TwuiQ_bMUNmHYLtVncpVY8KH5iVPvGRZ1jNMB20tIzhtuluWltcx4AF0YAaf1k3yZc=w544-h544-l90-rj" }, { title: "Tremendo Desastre - Myke Towers", media_class: "playlist", media_content_type: "track", media_content_id: "PWIQFC5YZPA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Nm_lkqCGk6JtexgRCc-XQsiYx_aWPexSC7KDP66iCA2v0cV-CmhwUTBkdxQ6sLEt0aYM2jEibDFDCdOeCw=w544-h544-l90-rj" }, { title: "Angel Bite - TOMORROW X TOGETHER", media_class: "playlist", media_content_type: "track", media_content_id: "5JkTq9rOYI8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/JlSvnvfKfrsSqmYacyjKZUyGT5lDaON6lYGMobOoQSFMY6jZix3Uc6zCLUVdwt1oyDhXc3-4EGOeI6M=w544-h544-l90-rj" }, { title: "El Ojo Alegre - Lucero", media_class: "playlist", media_content_type: "track", media_content_id: "_ulXageeMis", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/sdnkjwUO2m4zxwGl3iG0ax205A0w6o584Rz125r7qxet41QMDdzK6LTuT6U9Oh943OGn1DIGhpzroed76A=w544-h544-l90-rj" }] }, "home2|New releases": { title: "New releases", media_class: "directory", media_content_type: "home2", media_content_id: "New releases", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "New Release Mix", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDTMAK5uy_lr0LWzGrq6FU9GIxWvFHTRPQD2LHMqlFA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://music.youtube.com/image/mixart?r=ENgEGNgEMiAIBxoNL2cvMTF0ZzJ2a3IxehoNL2cvMTF2azhtMV81c2IICgYKBAoCZW4" }, { title: "Grand Theft Auto VI: The Album (Deluxe Edition)", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_TINpB57piQG", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/wSeM_CFdxBOWkA26uiVcmIGhsfwRtoU3QFaXRZm7i3BQnjm_H6HkQXhSX7QmF3oUjiWNOftVM86dBMKT=w544-h544-l90-rj" }, { title: "Live in Mexico City", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_eMs4ZDFJwXq", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Oh My Little Baby Boy", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_1VNQRlCRafA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/0g39YYG1TCisyYWef7EzNyrPHHMQ5zHRpHT3jQvD0SP2Qzk9ireD0ynEi78_mGq9HWpu-BoeseOrE0hK=w544-h544-l90-rj" }] }, "home2|All hits": { title: "All hits", media_class: "directory", media_content_type: "home2", media_content_id: "All hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_n9PTezEY6LrODsz6rl2KDtFzC9e5Qzz9Y", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QrISu_Bk4sR6MN_TUD2bbWO4ZyfdSFJVE8JPpCD4P9uCRmyQtE1e3HjxtwsiomjiR0idTKD7Wl6w9A=w544-h544-l90-rj" }, { title: "Huge Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kWiJXUNLZM9EyS3GBGznl1ku8_cOos97U", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Lld802Wk-_qbAttIghD3-R2U9wjKT87qsY-9sUbxl1G4AQ4VKwA02HGg6QF56thp9HA-u6VCj76W=w544-h544-l90-rj" }, { title: "Pop Gold", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nHSqCJjDrW9HBhCNdF6tWPdnOMngOv0wA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/rAUuEbLF7CYEYBXU3yAY4npMCzTgPxMhlD-ygH9iv_SuDXGDuDvO0Z4MTh33xAI6o3UnpWFe26MS_hBZ=w544-h544-l90-rj" }, { title: "Hip-Hop Classics", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kP2172rQNb3KFXz880xp6M98R_ME5CIKA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QbaOnF8DHmwx70wCX4E3e8QcmkZNaO91jkIqz1U-UcW_PFYzA2419D7icVlUZRrWwsDqxAal_RzCOg=w544-h544-l90-rj" }, { title: "Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_k6PkYWus1Mt-aKrbb0Ne8SkA2BgAk1Yy4", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BJEqYDBiNwOS5x7siLvlpqISZOjTNTNmWBk5QzBF70y8RotdBrkHg24o5VFLxfrfheO8SFYyhUqAUJY=w544-h544-l90-rj" }, { title: "Hip-Hop Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nMRqcKbbYRujfKKitokBwvLQSFHnsomls", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/fhbtBeL6Pglzk0DfmwOTxX2cO7hkhFulB-uqDgKyEdoPQs6zcQFtm_eWFqltKv2W17LRNEkpZJBNpw=w544-h544-l90-rj" }, { title: "Pop's Biggest Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nmS3YoxSwVVQk9lEQJ0UX4ZCjXsW_psU8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/ih5QdpqpkVNRXtD-joBWj3jo1woxAXJFyAoA3hWYNWAKX0M9B825HH2VOh7aDX-unf67oyCyJGN9TljR=w544-h544-l90-rj" }, { title: "Drum & Bass Room", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lwP-V7kSIhX3CJEV7zRd9P8Nj0F1l5RbY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Qcd9QnCfMmsjdl8mXNlxHf9N0csfuOr3Gb_2aH7WCcr1RbIRXRvpnoiyTeKlL54d3PT9s0YbQznsAxU=w544-h544-l90-rj" }, { title: "Heavy Hitters", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nVT2-bFfxplES7OQSLcnwlJqpsQ9gn0yY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }] }, "home2|Today's biggest hits": { title: "Today's biggest hits", media_class: "directory", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Pop Certified", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lBNUteBRencHzKelu5iDHwLF6mYqjL-JU", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BchO1e_VlImwqaOcFKhjEmQj9x_gfumqInfztMvIlbSoxfpFeyu3uJoMkIDtx22Hng_PCtg2XmWm_g=w544-h544-l90-rj" }, { title: "Chroma: Today's Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kLWIr9gv1XLlPbaDS965-Db4TrBoUTxQ8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bgyYaDg4vQmS4TB1A5vZbnTO0X3Dp2K466u7ZJcEKB7fY4o8Mg3BAObHle4ZMGhEVBWGJ17YMoYqgQ=w544-h544-l90-rj" }, { title: "Hits Remixed", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_l2zLaMIWOqWSePvTSmt49GcuR8460ZR10", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/8QAvBU7EabmeoXp8wtBoFPROpZy0LVDU5CqrMmKy6ubrwixctxAJdWs7u9ZkZIx1dbB37hAnx6tHXRgh=w544-h544-l90-rj" }, { title: "EDM 2026", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mOGSCVBsZurORfvybL5lEwxKsNFlZ8cPY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/DJhVFzpwJJBcnOQpHEjnZgqon_9TFlQNiss38auB9zqNItAv9ivXZmbaWNiXErYhEE1MVvq51c-3zw=w544-h544-l90-rj" }, { title: "Hits Unplugged ", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mdwsZFtQhJyGQPuQA612VoRPXp-OJfzx8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/t4ITg7S7zqTh93EXNlRoPSaAXIR7nQrdpo3BlGtJ3lkaqsRz5Pu-nWHXjcd7hMlzCirM6-HZ00PvrCKc=w544-h544-l90-rj" }] }, "home2|Music videos for you": { title: "Music videos for you", media_class: "directory", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "I Don't Want To Talk About It (Live) - Rod Stewart", media_class: "playlist", media_content_type: "track", media_content_id: "w46bWxS9IjY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/w46bWxS9IjY/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kPxizLkdJBFIu9K4f7uo7NjTP2KQ" }, { title: "I Knew It, I Knew You/ Our Song (Live) - Taylor Swift", media_class: "playlist", media_content_type: "track", media_content_id: "LJC7mgjp5FQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/LJC7mgjp5FQ/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mM4YESRNfhv97MCbjSE09Hpz_s2A" }, { title: "Training Season (Live) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "3DcoC8p9az8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Dusk Till Dawn (feat. Sia) - ZAYN", media_class: "playlist", media_content_type: "track", media_content_id: "tt2k8PGm-TI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/tt2k8PGm-TI/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mwQETV3eMp1l7fpqqCQirCg9x7PA" }, { title: "ADDICTED - JISOO", media_class: "playlist", media_content_type: "track", media_content_id: "Pksr9T8m_aA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/Pksr9T8m_aA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nthnoizeIpaXcWtt98-BPcJ6ZSXg" }, { title: "TQG - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "jZGpkLElSu8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/jZGpkLElSu8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mcWVQ9jm77acjGdDNvQ8VeKgaDRw" }, { title: "It's Me - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "bMhDJ0S0OBA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/bMhDJ0S0OBA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3lRd-ngPHNZ1KbFt6pba5wdAVIEwQ" }, { title: "HOLLYWOOD - Peso Pluma", media_class: "playlist", media_content_type: "track", media_content_id: "rCL8-CiGSmc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/rCL8-CiGSmc/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mOpJu1dMkOEnAVOczmJsUo7D2lpg" }] }, "home2|Featured playlists for you": { title: "Featured playlists for you", media_class: "directory", media_content_type: "home2", media_content_id: "Featured playlists for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Top 100 Music Videos Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn5kI81J1fYWK5eZRl1zJ5kM", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/9FVtwu1BWibyR39Mv1wIGDkpQXTuhAcHMM1D3RQLEDOeMDz9jtRFG_GnliUGMXXP8HoJJ1w0og=s544" }, { title: "Daily Top Music Videos - Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn6t3TXLGiiJdD-sZbrG3tG0", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/zXfgdEQFwlHIbhe_h5F7LQly0XtWbbk-k3hoffmDNOyfNiZx6XAOEzYW7ojOG-LlGi9w9qyfJ8cw=s544" }] }, "home2|Live performances": { title: "Live performances", media_class: "directory", media_content_type: "home2", media_content_id: "Live performances", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Let Me Love You - Mario", media_class: "playlist", media_content_type: "track", media_content_id: "D6vCMxmkMKI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/ld8MgzxD57OHR1UWFbqPHQ1tFMu7KeiWz89gMxhqlH3Vmk6pGsKTR1T8JKtur1P8jj6oq1aa-knevkY=w544-h544-l90-rj" }, { title: "Training Season (Live from the Royal Albert Hall) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "2tw2QDSeBQQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/mRy_-GXuXaHpjkGh4pyMTDh9nw5Yzr-5EcvOgmfUA8xVCVQ0Ewdx_Xt1kzc1GvXNxHrUxmbHXh1xH1HC=w544-h544-l90-rj" }, { title: "Lost On You (Live) - LP", media_class: "playlist", media_content_type: "track", media_content_id: "wDjeBNv6ip0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/wDjeBNv6ip0/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kHFkLOnqkOC1EQ9Y-WFg63tYlYGQ" }, { title: "El Perdedor - Aventura", media_class: "playlist", media_content_type: "track", media_content_id: "EJuxDbSkwmQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, root: { title: "Media Library", media_class: "directory", media_content_type: "library", media_content_id: "library", children_media_class: "directory", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Home", media_class: "playlist", media_content_type: "home", media_content_id: "", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: null }] } }, ka = [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard)", artist: "Justice", picture: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight)", artist: "Syzz", picture: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE)", artist: "Tame Impala", picture: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Stop The Wedding!", artist: "Ashe", picture: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me", artist: "Kelsy Karter & The Heroines", picture: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti", artist: "KATSEYE", picture: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album)", artist: "Tove Lo", picture: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden", artist: "HUNTR/X", picture: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "Stand by Me", artist: "Seal", picture: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Love Me Like You Do", artist: "Elena Gray", picture: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }, { title: "Go Easy (from GTAVI: The Album)", artist: "Dua Lipa", picture: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat", artist: "MOONLGHT", picture: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack)", artist: "Lena Vril", picture: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man", artist: "FINNEAS", picture: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Babydoll", artist: "Jamie Miller", picture: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love", artist: "Keyshia Cole", picture: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }], Yi = "media_player.youtube_music", m0 = ["media_player.living_room_speaker", "media_player.kitchen_speaker", "media_player.bathroom_speaker"], zn = 842303, g0 = 449471, zo = (o, e = 0, t = 214) => {
-  const a = ka[o % ka.length];
+`, group_by: { func: "sum" }, name: "Export" }] }, year: { series: [{ entity: "sensor.total_energy_buy", unit: "kWh", type: "column", group_by: { func: "diff", start_with_last: !0 }, name: "Export" }], update_interval: "1h" }, height: 170 }], bar: !0 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#security", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:cctv", margin_top_desktop: "-35px", name: "Security", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Security", icon: "mdi:cctv", view_layout: { height: "auto" } }, { type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", layout: "header", modes: ["home", "away", "night"], align: "stretch" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", justify: "start", gap: 10, padding: 12, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, buttons: [{ name: "Entrance", icon: "mdi:door", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_2" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_1" }] } }, active: { entity: "input_boolean.switch_security_camera_1", state: "on" } }, { name: "Garden", icon: "mdi:tree-outline", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_1" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_2" }] } }, active: { entity: "input_boolean.switch_security_camera_2", state: "on" } }] }, { type: "custom:glass-camera", layout: "stacked", list_glass: "dark-liquid", player_glass: "liquid-gl", badge_glass: "liquid-gl", show_timeline: !0, cameras: [{ camera: "camera.front_door", name: "Entrance", icon: "mdi:door", frigate_camera: "frontdoor", active: { entity: "input_boolean.switch_security_camera_1", state: "on" }, items: [{ entity: "switch.front_door_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.front_door_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }, { camera: "camera.garden", name: "Garden", icon: "mdi:tree-outline", frigate_camera: "garden", active: { entity: "input_boolean.switch_security_camera_2", state: "on" }, items: [{ entity: "switch.garden_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.garden_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#more", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:dots-horizontal-circle-outline", margin_top_desktop: "-35px", name: "More", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "More", icon: "mdi:dots-horizontal-circle-outline", view_layout: { height: "auto" } }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Security", icon: "mdi:shield-home", description: "Arm and disarm the alarm – the keypad and what's open", cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarms", icon: "mdi:alarm", description: "Wake-up alarms – their times, days and sound", cards: [{ type: "custom:glass-alarms", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarm ringing", icon: "mdi:alarm-bell", description: "An alarm over the whole dashboard – snooze it or slide to stop", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Ring an alarm", image: "glass:demo/alarm-morning.jpg", status: "info", info: [{ text: "Kids' room – snooze it or slide to stop" }], tap_action: { action: "perform-action", perform_action: "input_boolean.turn_on", target: { entity_id: "input_boolean.glass_alarm_1_ringing" } }, entities: [{ entity: "input_boolean.glass_alarm_1_ringing", icon: "mdi:alarm-bell", name: "Ring" }], view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Screensaver player", icon: "mdi:monitor-screenshot", description: "The media player as the whole screen – a kiosk's screensaver", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Open the screensaver", image: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj", status: "info", info: [{ text: "What plays, big – a touch for the buttons" }], tap_action: { action: "navigate", navigation_path: "#screensaver" }, view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Calendar", icon: "mdi:calendar-month", description: "The family's month and week – tap a day to add an event", cards: [{ type: "custom:glass-calendar-view", height: "600px", close: !1, days_off: ["calendar.holidays"], calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], view_layout: { height: "auto" } }] }] }], show_header: !1 }] }] }] }, es = "glass-demo-popups", So = { "home|": { title: "Home", media_class: "directory", media_content_type: "home", media_content_id: "", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Today's biggest hits", media_class: "playlist", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/JhukEr_gsgy7LuD0aFWmmTpcrAkB0Amk5zoFgAtPE3LBWwRXfbkZPP3epGFAp9HLcNkVZ-AyD0kX-a7e=w544-h544-l90-rj" }, { title: "All hits", media_class: "playlist", media_content_type: "home2", media_content_id: "All hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }, { title: "Trending songs for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Music videos for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Covers and remixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Song mixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/_cBCKUoFjuJsTPKvNViql9pqLTD_NfiNNn3y13rh1iXXIwpZ2dyQcyn9H2dneW9J9F9-I6zM13zFe4qV=w544-h544-l90-rj" }, { title: "New releases", media_class: "playlist", media_content_type: "home2", media_content_id: "New releases", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Live performances", media_class: "playlist", media_content_type: "home2", media_content_id: "Live performances", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, "home2|Song mixes": { title: "Song mixes", media_class: "directory", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard) - Justice", media_class: "playlist", media_content_type: "track", media_content_id: "JWxoRY7AFSw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Stop The Wedding! - Ashe", media_class: "playlist", media_content_type: "track", media_content_id: "BVR3k32x9h0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me - Kelsy Karter & The Heroines", media_class: "playlist", media_content_type: "track", media_content_id: "VdlCbji1CAg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti - KATSEYE", media_class: "playlist", media_content_type: "track", media_content_id: "HY397w59MT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album) - Tove Lo", media_class: "playlist", media_content_type: "track", media_content_id: "0lI_KzhfIBk", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden - HUNTR/X", media_class: "playlist", media_content_type: "track", media_content_id: "9_bTl2vvYQg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "BbY WOW - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "ljAH6jNaApU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/GdW-pwzDkHLGvvf0pe_dgTcBYkJ2UFgsW6Zldnxyz-kX3l8I-QrRMow8IooEm7njIEAJauyWfoSV1rM=w544-h544-l90-rj" }, { title: "You’re Under Arrest - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "qsqvJpOgrWw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EQNyUqxuYcONem8DYLwrXvMdc0rs-ryUcSgdgpxVkqtx53WRKr5YtBwEnaHBgnN5iWk90JBbdkrpSq4=w544-h544-l90-rj" }, { title: "COQUETA - Fuerza Regida", media_class: "playlist", media_content_type: "track", media_content_id: "fPczdTA1xU0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/llYLq4jy6rSfhDDnEwL5rsxS80eBMvPzcZoryVzEQhbZCCOJMgcrkhtWiXTMLnASubnA0Ga99l6lVdUg=w544-h544-l90-rj" }, { title: "Don't Stop The Music - Bisken", media_class: "playlist", media_content_type: "track", media_content_id: "7WIWltd6CiM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/qn1AKHBdT_xmKUxMmseOxhFlTVQ4zoDO60JyXcMRiy3DSvdT8HOCmty-wQyPD3F2BRN-1kKzrMWcZKjyjw=w544-h544-l90-rj" }, { title: "Love Options - BESTie", media_class: "playlist", media_content_type: "track", media_content_id: "jWwdHeJ8XeU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/e_KhStFaUpXtdfyncHtYOBGibpgdw3fVixG8H0_E8aIW6G0Op9wo4jQqWsfHCEMaI96DnhsqlHM9Yzck=w544-h544-l90-rj" }, { title: "Sakuranbo - YENA", media_class: "playlist", media_content_type: "track", media_content_id: "6POlUfjBIB4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/_RWfWayKDftrngXQ8sGahDtVVmqfhzji0cR1WTE2DWsW8VO7NJnDMStdjFYWj1lqoACBSxW8e5dnheHbIg=w544-h544-l90-rj" }, { title: "Hong Kong", media_class: "playlist", media_content_type: "track", media_content_id: "cUnEvW5aS80", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/X_xAPVJ2PYZCimHbT1dLd6JNQRNIzelWVSjUak_sBJXVUy2wajg7DHX__2B7O_fpi5iCKrOufTphwH3_=w544-h544-l90-rj" }, { title: "I Want You - ENHYPEN", media_class: "playlist", media_content_type: "track", media_content_id: "dBv5ju-TGZQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/p03tt4dCfQUZILU6EFkRanxOdpHXfKJi93xgjChLZkyUQS76s-ap-_QtjwHCtFy-QqdTdrdO4eNoaOMR=w544-h544-l90-rj" }, { title: "REDRED - CORTIS", media_class: "playlist", media_content_type: "track", media_content_id: "5sOgJQ3N03Q", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QwlA1MsRGQRVG6kIPLEB068OXqVk4QKHWXeAIX0C-QaZ7Mzgh4f9JbXLj03itMK14uRL5EsnVmslkzN2=w544-h544-l90-rj" }, { title: "like JENNIE - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "HMQlkbXjSTM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Z3gufPaLCcWuJNE4NH6KhlbUSrnx3hvUQgnhwQBrUDNzEgAp1aNMuCr0nv0gJxU8XcS2Rp9I-BHPZt_i=w544-h544-l90-rj" }] }, "home2|Covers and remixes": { title: "Covers and remixes", media_class: "directory", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Save Your Tears ((Remix) Bonus Track) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "lS9Kgp6PsWY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Ds4HZUl-Cziy9wW0zGv5_rRw0fGc01a3rMZ6mB27HkSTtVLaPwUpPaXdoISHAH3XprkYyPfIEcSpmPy-=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight) - Syzz", media_class: "playlist", media_content_type: "track", media_content_id: "maY-KIK3EDI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Remember Our Summer CYNIX Remix - CYNIX", media_class: "playlist", media_content_type: "track", media_content_id: "1x0e5svjyoA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/1x0e5svjyoA/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3m6b1RsrcKkQCPkyDTNx2HXM7wmpA" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "DXO288FnB-A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Flo Rida feat. T-Pain - Low (FNZ Remix) - FNZ", media_class: "playlist", media_content_type: "track", media_content_id: "8s5o9JS9dsM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/8s5o9JS9dsM/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3lhK_a8liz1kba7el0JWShA6hq2Eg" }, { title: "Stand by Me - Seal", media_class: "playlist", media_content_type: "track", media_content_id: "zRafBMo9t_A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Die For You (Remix) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "AySMGpXQ1Mo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/liKrw5t_WphMbkiYKDHQj1rf8S8GSwxgMRUmB7tkHhPF862BRcqIYxFEj9QwKr51ge2ma6u0C_wI4jNo=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "6KjVYeQ9SRw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/FQsPsZdaGUkT3_Q-9iilsYnS6xc0CAerb6pIhUou-skal6-jMQQ-xUigopbvfqVP_e-msHiabmCN2wCl=w544-h544-l90-rj" }, { title: "Cold Heart (PNAU Remix) - Elton John", media_class: "playlist", media_content_type: "track", media_content_id: "e-S1k9-soT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Love Me Like You Do - Elena Gray", media_class: "playlist", media_content_type: "track", media_content_id: "Q9HxtBBqmHA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }] }, "home2|Trending songs for you": { title: "Trending songs for you", media_class: "directory", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Go Easy (from GTAVI: The Album) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "eqQRPRcoIYo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat - MOONLGHT", media_class: "playlist", media_content_type: "track", media_content_id: "LOvFNEryrOA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack) - Lena Vril", media_class: "playlist", media_content_type: "track", media_content_id: "zLilheGY7OY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man - FINNEAS", media_class: "playlist", media_content_type: "track", media_content_id: "pQ_3P-0WwvU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Sexy Magic (from GTAVI: The Album) (feat. Grand Theft Auto VI) - CA7RIEL & Paco Amoroso", media_class: "playlist", media_content_type: "track", media_content_id: "VBKnzlBP95A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/hbpSyosNXpw2uZ6_KOx0YjBLO-rMJx6gLxEE7Suz-sYnWYhoWu8FVk5FXJEDwJdncjWifi9UIbmDTJEU=w544-h544-l90-rj" }, { title: "Babydoll - Jamie Miller", media_class: "playlist", media_content_type: "track", media_content_id: "7MAs5b7EJyc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love - Keyshia Cole", media_class: "playlist", media_content_type: "track", media_content_id: "8M_-aaZUs4o", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }, { title: "Innerbloom XI - RÜFÜS DU SOL", media_class: "playlist", media_content_type: "track", media_content_id: "MyeUOTWUNsE", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gk6GLgNgat-oez8Yl8tirJNj80jCNuN1HnnaoyhLPGazQP76XMGXzB67nL7KBJUz6wead6n8mH_jBFdk=w544-h544-l90-rj" }, { title: "Power Trip (from GTAVI: The Album) - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "3uC4yshW6Yc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AwqUl_c3gIFWtvPf7h_tDz_gIlM8pLyTTxeVyIT14W1eoVCKfcmnrox73QDxI-YIntjKdKZGvh-c1twq=w544-h544-l90-rj" }, { title: "Leave With Me - LISA", media_class: "playlist", media_content_type: "track", media_content_id: "r58jywvd-Rw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EAgD2-ySGHKQdBxH3kj9IGjyJiXYP8Lkoa2dMvXb3KZUw1N_6ghCLiB9hklwRqZHqt8cVpnVviQ3r-Zo=w544-h544-l90-rj" }, { title: 'Sun Showers (From "The Angry Birds Movie 3”) - JISOO', media_class: "playlist", media_content_type: "track", media_content_id: "nfvXvCwqChY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/M4Bx2xs5rppzER-NHQvimkZ29gyD9t99yKBBWvAk4PSTOcTKGyfUbKhdVeHuAQwbtrRAGGNNzCWwWGsv=w544-h544-l90-rj" }, { title: "ICONIC - CL", media_class: "playlist", media_content_type: "track", media_content_id: "6v-TZZKvADw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/gDaFchnWU4AGuYCAPgHjkZ3oTkN_LU7IK9aYpkDED9zgZUUqxLgOjXE9W5338xoqLoIaTfunleAMnIxSQw=w544-h544-l90-rj" }, { title: "BABY ANGEL - NAYEON", media_class: "playlist", media_content_type: "track", media_content_id: "Z8ehh3ANZak", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/di75B_1bBuBn_TwuiQ_bMUNmHYLtVncpVY8KH5iVPvGRZ1jNMB20tIzhtuluWltcx4AF0YAaf1k3yZc=w544-h544-l90-rj" }, { title: "Tremendo Desastre - Myke Towers", media_class: "playlist", media_content_type: "track", media_content_id: "PWIQFC5YZPA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Nm_lkqCGk6JtexgRCc-XQsiYx_aWPexSC7KDP66iCA2v0cV-CmhwUTBkdxQ6sLEt0aYM2jEibDFDCdOeCw=w544-h544-l90-rj" }, { title: "Angel Bite - TOMORROW X TOGETHER", media_class: "playlist", media_content_type: "track", media_content_id: "5JkTq9rOYI8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/JlSvnvfKfrsSqmYacyjKZUyGT5lDaON6lYGMobOoQSFMY6jZix3Uc6zCLUVdwt1oyDhXc3-4EGOeI6M=w544-h544-l90-rj" }, { title: "El Ojo Alegre - Lucero", media_class: "playlist", media_content_type: "track", media_content_id: "_ulXageeMis", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/sdnkjwUO2m4zxwGl3iG0ax205A0w6o584Rz125r7qxet41QMDdzK6LTuT6U9Oh943OGn1DIGhpzroed76A=w544-h544-l90-rj" }] }, "home2|New releases": { title: "New releases", media_class: "directory", media_content_type: "home2", media_content_id: "New releases", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "New Release Mix", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDTMAK5uy_lr0LWzGrq6FU9GIxWvFHTRPQD2LHMqlFA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://music.youtube.com/image/mixart?r=ENgEGNgEMiAIBxoNL2cvMTF0ZzJ2a3IxehoNL2cvMTF2azhtMV81c2IICgYKBAoCZW4" }, { title: "Grand Theft Auto VI: The Album (Deluxe Edition)", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_TINpB57piQG", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/wSeM_CFdxBOWkA26uiVcmIGhsfwRtoU3QFaXRZm7i3BQnjm_H6HkQXhSX7QmF3oUjiWNOftVM86dBMKT=w544-h544-l90-rj" }, { title: "Live in Mexico City", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_eMs4ZDFJwXq", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Oh My Little Baby Boy", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_1VNQRlCRafA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/0g39YYG1TCisyYWef7EzNyrPHHMQ5zHRpHT3jQvD0SP2Qzk9ireD0ynEi78_mGq9HWpu-BoeseOrE0hK=w544-h544-l90-rj" }] }, "home2|All hits": { title: "All hits", media_class: "directory", media_content_type: "home2", media_content_id: "All hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_n9PTezEY6LrODsz6rl2KDtFzC9e5Qzz9Y", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QrISu_Bk4sR6MN_TUD2bbWO4ZyfdSFJVE8JPpCD4P9uCRmyQtE1e3HjxtwsiomjiR0idTKD7Wl6w9A=w544-h544-l90-rj" }, { title: "Huge Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kWiJXUNLZM9EyS3GBGznl1ku8_cOos97U", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Lld802Wk-_qbAttIghD3-R2U9wjKT87qsY-9sUbxl1G4AQ4VKwA02HGg6QF56thp9HA-u6VCj76W=w544-h544-l90-rj" }, { title: "Pop Gold", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nHSqCJjDrW9HBhCNdF6tWPdnOMngOv0wA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/rAUuEbLF7CYEYBXU3yAY4npMCzTgPxMhlD-ygH9iv_SuDXGDuDvO0Z4MTh33xAI6o3UnpWFe26MS_hBZ=w544-h544-l90-rj" }, { title: "Hip-Hop Classics", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kP2172rQNb3KFXz880xp6M98R_ME5CIKA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QbaOnF8DHmwx70wCX4E3e8QcmkZNaO91jkIqz1U-UcW_PFYzA2419D7icVlUZRrWwsDqxAal_RzCOg=w544-h544-l90-rj" }, { title: "Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_k6PkYWus1Mt-aKrbb0Ne8SkA2BgAk1Yy4", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BJEqYDBiNwOS5x7siLvlpqISZOjTNTNmWBk5QzBF70y8RotdBrkHg24o5VFLxfrfheO8SFYyhUqAUJY=w544-h544-l90-rj" }, { title: "Hip-Hop Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nMRqcKbbYRujfKKitokBwvLQSFHnsomls", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/fhbtBeL6Pglzk0DfmwOTxX2cO7hkhFulB-uqDgKyEdoPQs6zcQFtm_eWFqltKv2W17LRNEkpZJBNpw=w544-h544-l90-rj" }, { title: "Pop's Biggest Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nmS3YoxSwVVQk9lEQJ0UX4ZCjXsW_psU8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/ih5QdpqpkVNRXtD-joBWj3jo1woxAXJFyAoA3hWYNWAKX0M9B825HH2VOh7aDX-unf67oyCyJGN9TljR=w544-h544-l90-rj" }, { title: "Drum & Bass Room", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lwP-V7kSIhX3CJEV7zRd9P8Nj0F1l5RbY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Qcd9QnCfMmsjdl8mXNlxHf9N0csfuOr3Gb_2aH7WCcr1RbIRXRvpnoiyTeKlL54d3PT9s0YbQznsAxU=w544-h544-l90-rj" }, { title: "Heavy Hitters", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nVT2-bFfxplES7OQSLcnwlJqpsQ9gn0yY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }] }, "home2|Today's biggest hits": { title: "Today's biggest hits", media_class: "directory", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Pop Certified", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lBNUteBRencHzKelu5iDHwLF6mYqjL-JU", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BchO1e_VlImwqaOcFKhjEmQj9x_gfumqInfztMvIlbSoxfpFeyu3uJoMkIDtx22Hng_PCtg2XmWm_g=w544-h544-l90-rj" }, { title: "Chroma: Today's Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kLWIr9gv1XLlPbaDS965-Db4TrBoUTxQ8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bgyYaDg4vQmS4TB1A5vZbnTO0X3Dp2K466u7ZJcEKB7fY4o8Mg3BAObHle4ZMGhEVBWGJ17YMoYqgQ=w544-h544-l90-rj" }, { title: "Hits Remixed", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_l2zLaMIWOqWSePvTSmt49GcuR8460ZR10", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/8QAvBU7EabmeoXp8wtBoFPROpZy0LVDU5CqrMmKy6ubrwixctxAJdWs7u9ZkZIx1dbB37hAnx6tHXRgh=w544-h544-l90-rj" }, { title: "EDM 2026", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mOGSCVBsZurORfvybL5lEwxKsNFlZ8cPY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/DJhVFzpwJJBcnOQpHEjnZgqon_9TFlQNiss38auB9zqNItAv9ivXZmbaWNiXErYhEE1MVvq51c-3zw=w544-h544-l90-rj" }, { title: "Hits Unplugged ", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mdwsZFtQhJyGQPuQA612VoRPXp-OJfzx8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/t4ITg7S7zqTh93EXNlRoPSaAXIR7nQrdpo3BlGtJ3lkaqsRz5Pu-nWHXjcd7hMlzCirM6-HZ00PvrCKc=w544-h544-l90-rj" }] }, "home2|Music videos for you": { title: "Music videos for you", media_class: "directory", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "I Don't Want To Talk About It (Live) - Rod Stewart", media_class: "playlist", media_content_type: "track", media_content_id: "w46bWxS9IjY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/w46bWxS9IjY/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kPxizLkdJBFIu9K4f7uo7NjTP2KQ" }, { title: "I Knew It, I Knew You/ Our Song (Live) - Taylor Swift", media_class: "playlist", media_content_type: "track", media_content_id: "LJC7mgjp5FQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/LJC7mgjp5FQ/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mM4YESRNfhv97MCbjSE09Hpz_s2A" }, { title: "Training Season (Live) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "3DcoC8p9az8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Dusk Till Dawn (feat. Sia) - ZAYN", media_class: "playlist", media_content_type: "track", media_content_id: "tt2k8PGm-TI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/tt2k8PGm-TI/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mwQETV3eMp1l7fpqqCQirCg9x7PA" }, { title: "ADDICTED - JISOO", media_class: "playlist", media_content_type: "track", media_content_id: "Pksr9T8m_aA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/Pksr9T8m_aA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nthnoizeIpaXcWtt98-BPcJ6ZSXg" }, { title: "TQG - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "jZGpkLElSu8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/jZGpkLElSu8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mcWVQ9jm77acjGdDNvQ8VeKgaDRw" }, { title: "It's Me - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "bMhDJ0S0OBA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/bMhDJ0S0OBA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3lRd-ngPHNZ1KbFt6pba5wdAVIEwQ" }, { title: "HOLLYWOOD - Peso Pluma", media_class: "playlist", media_content_type: "track", media_content_id: "rCL8-CiGSmc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/rCL8-CiGSmc/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mOpJu1dMkOEnAVOczmJsUo7D2lpg" }] }, "home2|Featured playlists for you": { title: "Featured playlists for you", media_class: "directory", media_content_type: "home2", media_content_id: "Featured playlists for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Top 100 Music Videos Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn5kI81J1fYWK5eZRl1zJ5kM", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/9FVtwu1BWibyR39Mv1wIGDkpQXTuhAcHMM1D3RQLEDOeMDz9jtRFG_GnliUGMXXP8HoJJ1w0og=s544" }, { title: "Daily Top Music Videos - Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn6t3TXLGiiJdD-sZbrG3tG0", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/zXfgdEQFwlHIbhe_h5F7LQly0XtWbbk-k3hoffmDNOyfNiZx6XAOEzYW7ojOG-LlGi9w9qyfJ8cw=s544" }] }, "home2|Live performances": { title: "Live performances", media_class: "directory", media_content_type: "home2", media_content_id: "Live performances", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Let Me Love You - Mario", media_class: "playlist", media_content_type: "track", media_content_id: "D6vCMxmkMKI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/ld8MgzxD57OHR1UWFbqPHQ1tFMu7KeiWz89gMxhqlH3Vmk6pGsKTR1T8JKtur1P8jj6oq1aa-knevkY=w544-h544-l90-rj" }, { title: "Training Season (Live from the Royal Albert Hall) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "2tw2QDSeBQQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/mRy_-GXuXaHpjkGh4pyMTDh9nw5Yzr-5EcvOgmfUA8xVCVQ0Ewdx_Xt1kzc1GvXNxHrUxmbHXh1xH1HC=w544-h544-l90-rj" }, { title: "Lost On You (Live) - LP", media_class: "playlist", media_content_type: "track", media_content_id: "wDjeBNv6ip0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/wDjeBNv6ip0/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kHFkLOnqkOC1EQ9Y-WFg63tYlYGQ" }, { title: "El Perdedor - Aventura", media_class: "playlist", media_content_type: "track", media_content_id: "EJuxDbSkwmQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, root: { title: "Media Library", media_class: "directory", media_content_type: "library", media_content_id: "library", children_media_class: "directory", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Home", media_class: "playlist", media_content_type: "home", media_content_id: "", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: null }] } }, $a = [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard)", artist: "Justice", picture: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight)", artist: "Syzz", picture: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE)", artist: "Tame Impala", picture: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Stop The Wedding!", artist: "Ashe", picture: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me", artist: "Kelsy Karter & The Heroines", picture: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti", artist: "KATSEYE", picture: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album)", artist: "Tove Lo", picture: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden", artist: "HUNTR/X", picture: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "Stand by Me", artist: "Seal", picture: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Love Me Like You Do", artist: "Elena Gray", picture: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }, { title: "Go Easy (from GTAVI: The Album)", artist: "Dua Lipa", picture: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat", artist: "MOONLGHT", picture: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack)", artist: "Lena Vril", picture: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man", artist: "FINNEAS", picture: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Babydoll", artist: "Jamie Miller", picture: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love", artist: "Keyshia Cole", picture: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }], Zi = "media_player.youtube_music", g0 = ["media_player.living_room_speaker", "media_player.kitchen_speaker", "media_player.bathroom_speaker"], zn = 842303, f0 = 449471, zo = (o, e = 0, t = 214) => {
+  const a = $a[o % $a.length];
   return {
     media_title: a.title,
     media_artist: a.artist,
@@ -12926,7 +12926,7 @@ const su = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
     media_duration: t,
     media_position: e,
     media_position_updated_at: (/* @__PURE__ */ new Date()).toISOString(),
-    track: o % ka.length
+    track: o % $a.length
   };
 }, wd = ["media_player.living_room_speaker", "media_player.kitchen_speaker"], to = {
   "media_player.living_room_speaker": [
@@ -12941,10 +12941,10 @@ const su = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
     "idle",
     { friendly_name: "Bathroom", device_class: "speaker", supported_features: zn, volume_level: 0.18, is_volume_muted: !1, shuffle: !1, repeat: "off", group_members: ["media_player.bathroom_speaker"] }
   ],
-  "media_player.youtube_music": ["idle", { friendly_name: "YouTube Music", supported_features: g0, shuffle: !0, repeat: "all", remote_player_id: "media_player.living_room_speaker" }]
+  "media_player.youtube_music": ["idle", { friendly_name: "YouTube Music", supported_features: f0, shuffle: !0, repeat: "all", remote_player_id: "media_player.living_room_speaker" }]
 };
-function f0(o) {
-  if (o.entity_id !== Yi) return;
+function b0(o) {
+  if (o.entity_id !== Zi) return;
   const e = o.media_content_type === void 0 ? "root" : `${o.media_content_type}|${o.media_content_id ?? ""}`, t = So[e];
   if (t) return structuredClone(t);
   if (o.media_content_type !== void 0 && /playlist|album/i.test(String(o.media_content_type))) {
@@ -12961,19 +12961,19 @@ function f0(o) {
   }
   return { title: String(o.media_content_id ?? "YouTube Music"), media_class: "directory", media_content_type: o.media_content_type, media_content_id: o.media_content_id ?? "", can_play: !1, can_expand: !0, children: [] };
 }
-function b0(o) {
+function _0(o) {
   for (const e of Object.values(So)) for (const t of e.children ?? []) if (t.media_content_id === o) return t;
 }
-function _0(o) {
+function y0(o) {
   return Object.fromEntries(["media_title", "media_artist", "entity_picture", "media_duration", "media_position", "media_position_updated_at", "track", "shuffle", "repeat"].filter((t) => t in o).map((t) => [t, o[t]]));
 }
-function y0(o, e, t, a, i) {
+function v0(o, e, t, a, i) {
   const s = e.filter((c) => c in to);
   if (!s.length) return !1;
   const n = (c) => {
     const d = a(c)?.attributes.group_members ?? [c];
     return d.length > 1 ? d : [c];
-  }, r = (c, d) => c === Yi && d.remote_player_id ? [c, ...n(String(d.remote_player_id))] : n(c), l = () => (/* @__PURE__ */ new Date()).toISOString();
+  }, r = (c, d) => c === Zi && d.remote_player_id ? [c, ...n(String(d.remote_player_id))] : n(c), l = () => (/* @__PURE__ */ new Date()).toISOString();
   for (const c of s) {
     const d = a(c);
     if (!d) continue;
@@ -12989,7 +12989,7 @@ function y0(o, e, t, a, i) {
       }
       case "media_next_track":
       case "media_previous_track": {
-        const u = Number(h.track ?? 0) + (o === "media_next_track" ? 1 : ka.length - 1);
+        const u = Number(h.track ?? 0) + (o === "media_next_track" ? 1 : $a.length - 1);
         for (const m of r(c, h)) i(m, ["playing", zo(u)]);
         break;
       }
@@ -13015,11 +13015,11 @@ function y0(o, e, t, a, i) {
         i(c, ["off", {}]);
         break;
       case "select_source":
-        c === Yi && typeof t.source == "string" && t.source in to && i(c, [d.state, { remote_player_id: t.source }]);
+        c === Zi && typeof t.source == "string" && t.source in to && i(c, [d.state, { remote_player_id: t.source }]);
         break;
       case "join": {
         const u = (Array.isArray(t.group_members) ? t.group_members : [t.group_members]).filter((f) => f in to), m = [.../* @__PURE__ */ new Set([...n(c), ...u])];
-        for (const f of m) i(f, [d.state, { group_members: m, ...f === c ? {} : _0(h) }]);
+        for (const f of m) i(f, [d.state, { group_members: m, ...f === c ? {} : y0(h) }]);
         break;
       }
       case "unjoin": {
@@ -13029,14 +13029,14 @@ function y0(o, e, t, a, i) {
         break;
       }
       case "play_media": {
-        const u = b0(String(t.media_content_id ?? "")), m = c === Yi ? String(h.remote_player_id ?? m0[0]) : c, f = String(u?.title ?? "Music"), b = f.lastIndexOf(" - "), y = {
+        const u = _0(String(t.media_content_id ?? "")), m = c === Zi ? String(h.remote_player_id ?? g0[0]) : c, f = String(u?.title ?? "Music"), b = f.lastIndexOf(" - "), y = {
           ...zo(Number(h.track ?? 0) + 1),
           media_title: b > 0 ? f.slice(0, b) : f,
           media_artist: b > 0 ? f.slice(b + 3) : "YouTube Music",
           ...u?.thumbnail ? { entity_picture: u.thumbnail } : {}
         };
         for (const _ of n(m)) i(_, ["playing", y]);
-        c === Yi && i(c, ["playing", { ...y, remote_player_id: m }]);
+        c === Zi && i(c, ["playing", { ...y, remote_player_id: m }]);
         break;
       }
       default:
@@ -13045,7 +13045,7 @@ function y0(o, e, t, a, i) {
   }
   return !0;
 }
-const v0 = (o) => So[`home2|${o}`]?.children ?? [], ou = (o) => o ? { path: o, type: "thumb", provider: "ytmusic", remotely_accessible: !0 } : void 0, An = (o, e) => ({
+const w0 = (o) => So[`home2|${o}`]?.children ?? [], ou = (o) => o ? { path: o, type: "thumb", provider: "ytmusic", remotely_accessible: !0 } : void 0, An = (o, e) => ({
   item_id: `t${e}`,
   provider: "ytmusic",
   media_type: "track",
@@ -13053,24 +13053,24 @@ const v0 = (o) => So[`home2|${o}`]?.children ?? [], ou = (o) => o ? { path: o, t
   name: o.title,
   artists: [{ name: o.artist }],
   image: ou(o.picture)
-}), Mn = (o, e) => v0(o).filter((t) => t.thumbnail).map((t, a) => ({ item_id: `${o}-${a}`, provider: "ytmusic", media_type: e, uri: String(t.media_content_id), name: String(t.title), owner: "YouTube Music", image: ou(String(t.thumbnail)) })), xd = ["Dua Lipa", "Tame Impala", "Seal", "FINNEAS", "Tove Lo", "Ashe"], w0 = () => [...ka].sort((o, e) => (xd.indexOf(o.artist) + 99) % 99 - (xd.indexOf(e.artist) + 99) % 99 || 0);
-function x0(o) {
+}), Mn = (o, e) => w0(o).filter((t) => t.thumbnail).map((t, a) => ({ item_id: `${o}-${a}`, provider: "ytmusic", media_type: e, uri: String(t.media_content_id), name: String(t.title), owner: "YouTube Music", image: ou(String(t.thumbnail)) })), xd = ["Dua Lipa", "Tame Impala", "Seal", "FINNEAS", "Tove Lo", "Ashe"], x0 = () => [...$a].sort((o, e) => (xd.indexOf(o.artist) + 99) % 99 - (xd.indexOf(e.artist) + 99) % 99 || 0);
+function k0(o) {
   switch (o) {
     case "music/recommendations":
       return [
-        { item_id: "listen", provider: "ytmusic", name: "Listen again", items: w0().map(An) },
+        { item_id: "listen", provider: "ytmusic", name: "Listen again", items: x0().map(An) },
         { item_id: "mixed", provider: "ytmusic", name: "Mixed for you", items: [...Mn("Today's biggest hits", "playlist"), ...Mn("All hits", "playlist")].filter((e) => !/Gaming/.test(e.name)) },
         { item_id: "albums", provider: "ytmusic", name: "Albums for you", items: Mn("New releases", "album") },
-        { item_id: "recent", provider: "library", name: "Recently played", items: [...ka].reverse().map(An) }
+        { item_id: "recent", provider: "library", name: "Recently played", items: [...$a].reverse().map(An) }
       ];
     case "music/playlists/playlist_tracks":
     case "music/albums/album_tracks":
-      return ka.map(An);
+      return $a.map(An);
     default:
       return [];
   }
 }
-globalThis.__glassMaDemo = x0;
+globalThis.__glassMaDemo = k0;
 const Ce = {}, Kr = /* @__PURE__ */ new Set(), Ao = (/* @__PURE__ */ new Date()).toISOString();
 function me(o, e) {
   const t = Ce[o], [a, i = {}] = typeof e == "string" ? [e, {}] : e, s = !t || t.state !== a, n = (/* @__PURE__ */ new Date()).toISOString();
@@ -13092,22 +13092,22 @@ function Ht() {
 function Tc(o) {
   return Kr.add(o), () => Kr.delete(o);
 }
-function k0(o, e, t = {}) {
+function $0(o, e, t = {}) {
   me(o, [e, t]), Ht();
 }
-const $0 = {
+const S0 = {
   media_player: ["playing", "paused"],
   cover: ["open", "closed"],
   lock: ["locked", "unlocked"],
   vacuum: ["cleaning", "docked"],
   lawn_mower: ["mowing", "docked"]
-}, S0 = (o) => !!o && !["off", "closed", "idle", "paused", "standby", "docked", "unlocked", "unavailable", "unknown"].includes(o.state);
-function z0(o, e) {
+}, z0 = (o) => !!o && !["off", "closed", "idle", "paused", "standby", "docked", "unlocked", "unavailable", "unknown"].includes(o.state);
+function A0(o, e) {
   const t = e?.entity_id ?? o?.entity_id;
   return (Array.isArray(t) ? t : t ? [t] : []).filter((a) => Ce[a]);
 }
 function Cn(o, e, t = {}) {
-  const a = o.split(".")[0], [i, s] = $0[a] ?? ["on", "off"];
+  const a = o.split(".")[0], [i, s] = S0[a] ?? ["on", "off"];
   a === "light" && e && !Ce[o].attributes.brightness && !t.brightness && (t = { brightness: 200, ...t }), a === "light" && !e && (t = { brightness: null, ...t }), a === "cover" && (t = { current_position: e ? 100 : 0, ...t }), me(o, [e ? i : s, t]);
 }
 const Mo = /* @__PURE__ */ new Map();
@@ -13129,12 +13129,12 @@ function Dn(o, e) {
 function nu(o) {
   clearInterval(Mo.get(o)), Mo.delete(o);
 }
-function A0(o) {
+function M0(o) {
   const e = {};
   return o.brightness_pct !== void 0 && (e.brightness = Math.round(Number(o.brightness_pct) / 100 * 255)), o.brightness !== void 0 && (e.brightness = Number(o.brightness)), o.color_temp_kelvin !== void 0 && (e.color_temp_kelvin = Number(o.color_temp_kelvin)), o.hs_color !== void 0 && (e.hs_color = o.hs_color), o.rgb_color !== void 0 && (e.rgb_color = o.rgb_color), e;
 }
 async function To(o, e, t, a) {
-  const i = z0(t, a), s = t ?? {};
+  const i = A0(t, a), s = t ?? {};
   if ((o === "scene" || o === "script") && (e === "turn_on" || e === "toggle")) {
     for (const n of i) la[n]?.(s);
     o === "script" && !i.length && la[`${o}.${e}`]?.(s), Ht();
@@ -13147,7 +13147,7 @@ async function To(o, e, t, a) {
     }
     return;
   }
-  if (o === "media_player" && y0(e, i, s, (n) => Ce[n], me)) {
+  if (o === "media_player" && v0(e, i, s, (n) => Ce[n], me)) {
     Ht();
     return;
   }
@@ -13159,10 +13159,10 @@ async function To(o, e, t, a) {
     const r = Ce[n], l = n.split(".")[0];
     switch (e) {
       case "toggle":
-        Cn(n, !S0(r));
+        Cn(n, !z0(r));
         break;
       case "turn_on":
-        Cn(n, !0, l === "light" ? A0(s) : {});
+        Cn(n, !0, l === "light" ? M0(s) : {});
         break;
       case "turn_off":
         Cn(n, !1);
@@ -13268,7 +13268,7 @@ async function To(o, e, t, a) {
   i.length || la[`${o}.${e}`]?.(s), Ht();
 }
 const la = Object.fromEntries(
-  Object.entries(n0).map(([o, e]) => [o, (t) => e({ set: me, get: (a) => Ce[a], data: t })])
+  Object.entries(r0).map(([o, e]) => [o, (t) => e({ set: me, get: (a) => Ce[a], data: t })])
 );
 function Vr(o) {
   if (typeof o == "string") {
@@ -13277,7 +13277,7 @@ function Vr(o) {
   }
   return Array.isArray(o) ? o.map(Vr) : o && typeof o == "object" ? Object.fromEntries(Object.entries(o).map(([e, t]) => [e, Vr(t)])) : o;
 }
-function M0(o, e) {
+function T0(o, e) {
   switch (o.action) {
     case "toggle":
       return e && To(e.split(".")[0], "toggle", { entity_id: e }), !0;
@@ -13292,7 +13292,7 @@ function M0(o, e) {
       return !1;
   }
 }
-function T0(o, e) {
+function C0(o, e) {
   if (o) return o;
   const t = e === void 0 ? (/* @__PURE__ */ new Date()).getHours() : e ? 22 : 12, a = (s, n = 0) => {
     const r = /* @__PURE__ */ new Date();
@@ -13313,11 +13313,11 @@ function T0(o, e) {
     last_updated: Ao
   };
 }
-const C0 = (o, e) => {
+const D0 = (o, e) => {
   const t = Number(o);
   return Number.isFinite(t) ? t.toLocaleString(e, { maximumFractionDigits: 1 }) : o;
 };
-function D0(o, e) {
+function P0(o, e) {
   if (o?.formatEntityState) return o.formatEntityState.bind(o);
   const t = {
     on: "On",
@@ -13346,16 +13346,16 @@ function D0(o, e) {
     "windy-variant": "Windy"
   };
   return (a, i = a.state) => {
-    const s = a.attributes.unit_of_measurement, n = s ? C0(i, e) : t[i] ?? i.replace(/_/g, " ").replace(/^./, (r) => r.toUpperCase());
+    const s = a.attributes.unit_of_measurement, n = s ? D0(i, e) : t[i] ?? i.replace(/_/g, " ").replace(/^./, (r) => r.toUpperCase());
     return s ? `${n} ${s}` : n;
   };
 }
 const kd = /* @__PURE__ */ new Set();
 function Cc(o) {
-  const e = o?.locale?.language ?? o?.language ?? navigator.language?.slice(0, 2) ?? "en", t = { ...o?.states ?? {}, ...Ce, "sun.sun": T0(o?.states?.["sun.sun"], o?.states ? void 0 : o?.themes?.darkMode) }, a = o?.connection, i = {
+  const e = o?.locale?.language ?? o?.language ?? navigator.language?.slice(0, 2) ?? "en", t = { ...o?.states ?? {}, ...Ce, "sun.sun": C0(o?.states?.["sun.sun"], o?.states ? void 0 : o?.themes?.darkMode) }, a = o?.connection, i = {
     subscribeMessage: async (s, n) => {
       if (n.type === "weather/subscribe_forecast" && Ce[String(n.entity_id)]) {
-        const r = () => s({ type: n.forecast_type, forecast: l0(String(n.forecast_type)) });
+        const r = () => s({ type: n.forecast_type, forecast: c0(String(n.forecast_type)) });
         return r(), kd.add(r), async () => void kd.delete(r);
       }
       return a?.subscribeMessage ? a.subscribeMessage(s, n) : async () => {
@@ -13371,7 +13371,7 @@ function Cc(o) {
     config: { latitude: 50.08, longitude: 14.43, time_zone: Intl.DateTimeFormat().resolvedOptions().timeZone, unit_system: { temperature: "°C" }, ...o?.config ?? {} },
     user: o?.user ?? { id: "demo", name: "Demo", is_admin: !1 },
     connection: i,
-    formatEntityState: D0(o, e),
+    formatEntityState: P0(o, e),
     localize: o?.localize ?? ((s) => s),
     // a service for real entities only (not the demo's) goes to Home Assistant
     callService: async (s, n, r, l, c, d) => {
@@ -13387,20 +13387,20 @@ function Cc(o) {
       }
       if (s.type === "recorder/statistics_during_period") {
         const n = (s.statistic_ids ?? []).filter((r) => t[r]);
-        return Object.fromEntries(n.map((r) => [r, r0(r, t[r], Date.parse(String(s.start_time)), s.end_time ? Date.parse(String(s.end_time)) : Date.now(), String(s.period ?? "hour"))]));
+        return Object.fromEntries(n.map((r) => [r, l0(r, t[r], Date.parse(String(s.start_time)), s.end_time ? Date.parse(String(s.end_time)) : Date.now(), String(s.period ?? "hour"))]));
       }
       if (s.type === "media_player/browse_media") {
-        const n = f0(s);
+        const n = b0(s);
         if (n) return n;
       }
-      if (typeof s.type == "string" && s.type.startsWith("calendar/event/") && Ce[String(s.entity_id)]) return u0(s);
+      if (typeof s.type == "string" && s.type.startsWith("calendar/event/") && Ce[String(s.entity_id)]) return m0(s);
       if (s.type === "call_service" && s.domain === "mammotion") {
         const n = { type: "FeatureCollection", features: [] };
-        return { response: s.service === "get_geojson" ? structuredClone(e0) : n };
+        return { response: s.service === "get_geojson" ? structuredClone(t0) : n };
       }
       if (s.type === "lovelace/config" && typeof s.url_path == "string" && /^glass-demo(-[\w-]+)?-popups$/.test(s.url_path)) {
         const r = (o?.callWS ? await o.callWS(s).catch(() => {
-        }) : void 0) ?? (s.url_path === Qi ? structuredClone(mn) : void 0);
+        }) : void 0) ?? (s.url_path === es ? structuredClone(mn) : void 0);
         if (!r) throw Object.assign(new Error("No such dashboard"), { code: "config_not_found" });
         return Vr(r);
       }
@@ -13409,7 +13409,7 @@ function Cc(o) {
     },
     callApi: async (s, n, r) => {
       const l = /^calendars\/([^?]+)\?start=([^&]+)&end=(.+)$/.exec(n);
-      if (l && Ce[decodeURIComponent(l[1])]) return p0(decodeURIComponent(l[1]), Date.parse(decodeURIComponent(l[2])), Date.parse(decodeURIComponent(l[3])));
+      if (l && Ce[decodeURIComponent(l[1])]) return u0(decodeURIComponent(l[1]), Date.parse(decodeURIComponent(l[2])), Date.parse(decodeURIComponent(l[3])));
       const c = /^history\/period(?:\/([^?]+))?\?(.*)$/.exec(n);
       if (c) {
         const d = new URLSearchParams(c[2]), h = (d.get("filter_entity_id") ?? "").split(",").filter((f) => t[f]), u = c[1] ? Date.parse(decodeURIComponent(c[1])) : Date.now() - 864e5, m = d.get("end_time") ? Date.parse(d.get("end_time")) : Date.now();
@@ -13422,11 +13422,11 @@ function Cc(o) {
       }
       return o?.callApi ? o.callApi(s, n, r) : [];
     },
-    demo: { action: M0 }
+    demo: { action: T0 }
   };
 }
-const P0 = 2.4, mt = (o) => +o.toFixed(2);
-function Yr(o, e, t, a, i = P0) {
+const E0 = 2.4, mt = (o) => +o.toFixed(2);
+function Yr(o, e, t, a, i = E0) {
   const s = Math.hypot(t - o, a - e) || 1, n = i / 2, r = -(a - e) / s * n, l = (t - o) / s * n;
   return `M${mt(o + r)} ${mt(e + l)}L${mt(t + r)} ${mt(a + l)}A${n} ${n} 0 0 0 ${mt(t - r)} ${mt(a - l)}L${mt(o - r)} ${mt(e - l)}A${n} ${n} 0 0 0 ${mt(o + r)} ${mt(e + l)}Z`;
 }
@@ -13450,7 +13450,7 @@ const so = (o) => {
   "slats-half": { path: io(so(50)), keywords: ["slats", "tilt", "half", "blind"] },
   "slats-open": { path: io(so(100)), keywords: ["slats", "tilt", "open", "blind"] }
 };
-function E0() {
+function L0() {
   const o = window;
   o.customIcons ??= {}, !o.customIcons.glass && (o.customIcons.glass = {
     getIcon: async (e) => ({ path: Sd[e]?.path ?? "" }),
@@ -13512,13 +13512,13 @@ function xt(o) {
   return Co(o, (e) => e.type === "custom:bubble-card" && e.card_type === "pop-up") ? "popup" : Co(o, (e) => e.type === "custom:bubble-card" && e.card_type === "horizontal-buttons-stack") ? "nav" : "other";
 }
 const Pn = /* @__PURE__ */ new Map();
-function L0(o, e) {
+function R0(o, e) {
   let t = Pn.get(e);
   return t || (t = o.callWS({ type: "lovelace/config", url_path: e }).catch((a) => {
     console.warn(`glass-cards: overlay_source ${e} could not be loaded`, a), Pn.delete(e);
   }), Pn.set(e, t)), t;
 }
-function R0(o) {
+function N0(o) {
   if (!o || !Object.keys(o).length) return;
   const e = [document];
   for (; e.length; ) {
@@ -13538,17 +13538,17 @@ function R0(o) {
     t.querySelectorAll("*").forEach((i) => i.shadowRoot && e.push(i.shadowRoot));
   }
 }
-function N0(o) {
+function O0(o) {
   const e = o?.cards ?? [], t = e.findIndex((a) => xt(a) === "popup");
   return t < 0 || Array.isArray(e[t]?.cards) && e[t].type === "custom:bubble-card" ? e : [...e.slice(0, t), { type: "vertical-stack", cards: e.slice(t) }];
 }
 async function Dc(o, e) {
-  const t = await L0(o, e.dashboard);
+  const t = await R0(o, e.dashboard);
   if (!t) return;
-  R0(t.button_card_templates);
+  N0(t.button_card_templates);
   const a = e.views ?? (e.view !== void 0 ? [e.view] : void 0), s = (t.views ?? []).filter(
     (r, l) => !a || a.some((c) => c === l || c === r.path || c === r.title || String(c) === String(l))
-  ).flatMap((r) => [...r.cards ?? [], ...(r.sections ?? []).flatMap(N0)]), n = e.filter === "all" ? s : s.filter((r) => xt(r) !== "other");
+  ).flatMap((r) => [...r.cards ?? [], ...(r.sections ?? []).flatMap(O0)]), n = e.filter === "all" ? s : s.filter((r) => xt(r) !== "other");
   return ru(n, e.dashboard), e.nav === !1 ? n.filter((r) => xt(r) !== "nav") : n;
 }
 function Do(o) {
@@ -13615,7 +13615,7 @@ function pu(o) {
 function w(o, e) {
   return o ? Rp(hu(), o, e) : "";
 }
-function O0(o) {
+function B0(o) {
   if (hu() === "en") return o;
   const e = (t) => {
     if (Array.isArray(t)) return t.map(e);
@@ -13639,7 +13639,7 @@ function Zt(o, e) {
   const n = t?.[e] ?? (s ? t?.tablet : void 0);
   return Qr(n) ? uu(i, n) : i;
 }
-function B0(o, e) {
+function j0(o, e) {
   const t = new CSSStyleSheet();
   t.replaceSync(e);
   let a = 0;
@@ -13653,38 +13653,38 @@ function B0(o, e) {
   };
   i();
 }
-const el = /* @__PURE__ */ new Map(), j0 = (o) => (
+const el = /* @__PURE__ */ new Map(), I0 = (o) => (
   // third-party cards sit in a display:contents holder: the ring goes on the card itself
   (getComputedStyle(o).display === "contents" ? o.firstElementChild : o) ?? o
 );
 function zd(o, e) {
   for (const t of el.get(o) ?? []) {
     const a = t.dataset.glassSelect === e;
-    t.toggleAttribute("glass-selected", a), t.isConnected && j0(t).toggleAttribute("glass-selected", a);
+    t.toggleAttribute("glass-selected", a), t.isConnected && I0(t).toggleAttribute("glass-selected", a);
   }
 }
-function I0(o, e) {
-  const t = String(e.group);
-  o.dataset.glassSelect = String(e.id), o.setAttribute("glass-selectable", ""), o.addEventListener("click", () => Ts(t, o.dataset.glassSelect));
-  let a = el.get(t);
-  a || (a = /* @__PURE__ */ new Set(), el.set(t, a), mi(t, (i) => zd(t, i))), a.add(o), requestAnimationFrame(() => zd(t, Ma(t)));
-}
 function q0(o, e) {
-  return e ? { ...o ?? {}, ...e.width ? { width: e.width } : {}, ...e.height ? { height: e.height } : {}, ...e.fill ? { grow: 1 } : {} } : o;
+  const t = String(e.group);
+  o.dataset.glassSelect = String(e.id), o.setAttribute("glass-selectable", ""), o.addEventListener("click", () => Cs(t, o.dataset.glassSelect));
+  let a = el.get(t);
+  a || (a = /* @__PURE__ */ new Set(), el.set(t, a), mi(t, (i) => zd(t, i))), a.add(o), requestAnimationFrame(() => zd(t, Ta(t)));
 }
 function W0(o, e) {
+  return e ? { ...o ?? {}, ...e.width ? { width: e.width } : {}, ...e.height ? { height: e.height } : {}, ...e.fill ? { grow: 1 } : {} } : o;
+}
+function F0(o, e) {
   const t = o.style;
   if (t.minWidth = "0", !e) return;
   e.grow !== void 0 && (t.flexGrow = String(e.grow), t.minHeight = "0"), e.shrink !== void 0 && (t.flexShrink = String(e.shrink)), e.basis && (t.flexBasis = e.basis), e.align && (t.alignSelf = e.align), e.span && (t.gridColumn = `span ${e.span}`), e.row_span && (t.gridRow = `span ${e.row_span}`), e.order !== void 0 && (t.order = String(e.order));
   const a = (i) => /^\d*\.?\d+$/.test(String(i).trim()) ? `${String(i).trim()}px` : String(i);
-  e.height && (t.height = a(e.height)), e.width && (t.width = a(e.width)), e.margin && (t.margin = typeof e.margin == "number" ? `${e.margin}px` : e.margin), e.select?.group && e.select.id !== void 0 && I0(o, e.select), e.z_index !== void 0 && (t.position = "relative", t.zIndex = String(e.z_index));
+  e.height && (t.height = a(e.height)), e.width && (t.width = a(e.width)), e.margin && (t.margin = typeof e.margin == "number" ? `${e.margin}px` : e.margin), e.select?.group && e.select.id !== void 0 && q0(o, e.select), e.z_index !== void 0 && (t.position = "relative", t.zIndex = String(e.z_index));
 }
-const Ve = /* @__PURE__ */ new WeakMap(), Ra = /* @__PURE__ */ new WeakMap();
-function Ta(o, e, t) {
-  const a = o ? Array.isArray(o) ? o : [o] : [], i = t.mode ?? "tablet", s = [], n = JSON.stringify([i, t.nested, t.glass, t.controlGlass, t.bare]), r = (t.reuse ?? []).filter((d) => Ra.get(d)?.opts === n), l = /* @__PURE__ */ new Set(), c = (d, h, u, m) => {
-    const f = r.find((_) => !l.has(_) && Ra.get(_).json === d);
+const Ve = /* @__PURE__ */ new WeakMap(), Na = /* @__PURE__ */ new WeakMap();
+function Ca(o, e, t) {
+  const a = o ? Array.isArray(o) ? o : [o] : [], i = t.mode ?? "tablet", s = [], n = JSON.stringify([i, t.nested, t.glass, t.controlGlass, t.bare]), r = (t.reuse ?? []).filter((d) => Na.get(d)?.opts === n), l = /* @__PURE__ */ new Set(), c = (d, h, u, m) => {
+    const f = r.find((_) => !l.has(_) && Na.get(_).json === d);
     if (f) return f;
-    const b = r[m], y = b && Ra.get(b);
+    const b = r[m], y = b && Na.get(b);
     if (b && !l.has(b) && y.type === h && y.layout === u && Ln(b) && b.setConfig) return b;
   };
   for (const d of a) {
@@ -13692,21 +13692,21 @@ function Ta(o, e, t) {
     if (!h) continue;
     const u = JSON.stringify(h), m = JSON.stringify([h.view_layout ?? null, h.card_size ?? null]), f = String(h.type), b = c(u, f, m, s.length);
     if (b) {
-      if (l.add(b), Ra.get(b).json !== u) {
+      if (l.add(b), Na.get(b).json !== u) {
         try {
           b.setConfig(h);
         } catch (x) {
           console.warn("glass-cards: card config", x);
         }
-        Ra.set(b, { json: u, opts: n, layout: m, type: f }), Ln(b) && Ad(b, h, t);
+        Na.set(b, { json: u, opts: n, layout: m, type: f }), Ln(b) && Ad(b, h, t);
       }
       Ve.set(b, d), s.push(b);
       continue;
     }
-    const y = ws(h, e);
-    Ve.set(y, d), Ra.set(y, { json: u, opts: n, layout: m, type: f }), Ln(y) && (t.nested && y.setAttribute("nested", ""), t.bare && y.setAttribute("on-bare", ""), Ad(y, h, t), y.setMode?.(i)), W0(y, q0(h.view_layout, h.card_size));
+    const y = xs(h, e);
+    Ve.set(y, d), Na.set(y, { json: u, opts: n, layout: m, type: f }), Ln(y) && (t.nested && y.setAttribute("nested", ""), t.bare && y.setAttribute("on-bare", ""), Ad(y, h, t), y.setMode?.(i)), F0(y, W0(h.view_layout, h.card_size));
     const _ = h.view_layout?.shadow_css;
-    _ && B0(y, _), s.push(y);
+    _ && j0(y, _), s.push(y);
   }
   return s;
 }
@@ -13716,7 +13716,7 @@ function Ad(o, e, t) {
   const i = t.controlGlass && !e.control_glass;
   o.toggleAttribute("control-glass-inherited", !!i), i && o.setAttribute("control-glass", t.controlGlass);
 }
-function F0(o, e) {
+function H0(o, e) {
   return e ? o.filter((t) => {
     const a = Ve.get(t)?.visibility;
     return !a || ge(a, e);
@@ -13725,7 +13725,7 @@ function F0(o, e) {
 function Rt(o, e) {
   for (const t of o) t.hass = e;
 }
-const Rn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "mint", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange", "brown", "grey", "blue-grey", "black", "white"], H0 = (o) => `#${o.map((e) => Math.max(0, Math.min(255, Math.round(e))).toString(16).padStart(2, "0")).join("")}`, G0 = (o) => {
+const Rn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "mint", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange", "brown", "grey", "blue-grey", "black", "white"], G0 = (o) => `#${o.map((e) => Math.max(0, Math.min(255, Math.round(e))).toString(16).padStart(2, "0")).join("")}`, U0 = (o) => {
   const e = o.replace("#", "");
   return e.length === 6 ? [0, 2, 4].map((t) => parseInt(e.slice(t, t + 2), 16)) : void 0;
 }, Ko = class Ko extends Ye {
@@ -13740,7 +13740,7 @@ const Rn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo
     const e = this.value;
     if (e == null || e === "" || e === "none") return {};
     if (Array.isArray(e)) {
-      const t = H0(e), a = Rn.find((i) => na[i]?.toLowerCase() === t);
+      const t = G0(e), a = Rn.find((i) => na[i]?.toLowerCase() === t);
       return { css: t, hex: t, name: a };
     }
     return e === "primary" || e === "accent" ? { css: `var(--${e}-color)`, name: e } : na[e] ? { css: na[e], hex: na[e], name: e } : { css: e, hex: /^#[0-9a-f]{6}$/i.test(e) ? e : void 0 };
@@ -13749,7 +13749,7 @@ const Rn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo
     let t = e;
     if (e && this._rgb) {
       const a = e.startsWith("#") ? e : na[e];
-      t = a ? G0(a) : void 0;
+      t = a ? U0(a) : void 0;
     }
     this.value = t, this.dispatchEvent(new CustomEvent("value-changed", { detail: { value: t }, bubbles: !0, composed: !0 }));
   }
@@ -13928,7 +13928,7 @@ function Md(o) {
 }
 customElements.get("ha-selector-glass_color") || customElements.define("ha-selector-glass_color", tl);
 const Td = /* @__PURE__ */ new Map();
-function U0(o, e) {
+function K0(o, e) {
   let t = Td.get(e);
   return t || (t = o.callWS({ type: "lovelace/config", url_path: e }).then(
     (a) => (a.views ?? []).map((i, s) => {
@@ -13937,7 +13937,7 @@ function U0(o, e) {
     })
   ).catch(() => []), Td.set(e, t)), t;
 }
-const K0 = {
+const V0 = {
   entities: ["Entities", "mdi:format-list-bulleted"],
   "vertical-stack": ["Vertical stack", "mdi:view-agenda-outline"],
   "horizontal-stack": ["Horizontal stack", "mdi:view-column-outline"],
@@ -13951,7 +13951,7 @@ const K0 = {
   "custom:mini-graph-card": ["Mini graph", "mdi:chart-line"],
   "custom:layout-card": ["Card layout", "mdi:view-dashboard-outline"],
   "custom:button-card": ["Button (button-card)", "mdi:gesture-tap-button"]
-}, ga = { mobile: "Mobile", tablet: "Tablet / desktop", desktop: "Desktop" };
+}, fa = { mobile: "Mobile", tablet: "Tablet / desktop", desktop: "Desktop" };
 function mu(o, e, t = 0) {
   if (!(!o || typeof o != "object" || t > 6)) {
     if (e(o)) return o;
@@ -13968,11 +13968,11 @@ function Cd(o) {
   }).filter(Boolean).join(", ");
 }
 const si = ["mobile", "tablet"];
-function _a(o, e) {
+function ya(o, e) {
   return !Array.isArray(o.visible_on) || o.visible_on.includes(e) || e === "tablet" && o.visible_on.includes("desktop");
 }
 function gu(o, e, t) {
-  const a = si.filter((n) => n === e ? t : _a(o, n));
+  const a = si.filter((n) => n === e ? t : ya(o, n));
   if (!a.length) return o;
   const { visible_on: i, ...s } = o;
   return a.length === si.length ? s : { ...s, visible_on: a.includes("tablet") ? [...a, "desktop"] : a };
@@ -13995,19 +13995,19 @@ function Dd(o, e, t) {
   const { view_layout: s, ...n } = o;
   return Object.keys(a).length ? { ...n, view_layout: a } : n;
 }
-function V0(o, e) {
+function Y0(o, e) {
   const { visibility: t, ...a } = o;
   return e?.length ? { ...a, visibility: e } : a;
 }
 let Pd;
-function Y0() {
+function Z0() {
   return customElements.get("ha-card-conditions-editor") ? Promise.resolve() : (Pd ??= (async () => {
     (await window.loadCardHelpers?.())?.createCardElement({ type: "conditional", conditions: [], card: { type: "markdown", content: "" } }), await (await customElements.whenDefined("hui-conditional-card"))?.getConfigElement?.(), await customElements.whenDefined("ha-card-conditions-editor");
   })().catch(() => {
   }), Pd);
 }
 function Oe(o) {
-  const e = Array.isArray(o.visible_on) ? o.visible_on : void 0, t = e ? e.filter((r) => r !== "desktop" || !e.includes("tablet")).map((r) => w(ga[r] ?? r)) : [];
+  const e = Array.isArray(o.visible_on) ? o.visible_on : void 0, t = e ? e.filter((r) => r !== "desktop" || !e.includes("tablet")).map((r) => w(fa[r] ?? r)) : [];
   if (Array.isArray(o.visibility) && o.visibility.length) {
     const { visibility: r, ...l } = o, c = Oe(l), d = Cd(o.visibility);
     return { ...c, sub: [d && `${w("Only ")}${d}`, c.sub].filter(Boolean).join(" · ") };
@@ -14033,14 +14033,14 @@ function Oe(o) {
     const l = (window.customCards?.find((c) => c.type === i.slice(7))?.name ?? i.slice(7)).replace(/^Glass – /, "");
     return n(w(l.charAt(0).toUpperCase() + l.slice(1)), o.icon ?? "mdi:card-outline");
   }
-  const s = K0[i];
+  const s = V0[i];
   return n(s?.[0] ? w(s[0]) : i.replace("custom:", ""), s?.[1] ?? "mdi:card-outline");
   function n(r, l) {
     const c = o.name ?? o.title, d = Array.isArray(o.cards) ? w("{n} cards", { n: o.cards.length }) : "", h = typeof o.entity == "string" ? o.entity : "";
     return c && typeof c == "string" ? { title: c, sub: [r, d].filter(Boolean).join(" · "), icon: l, badges: t } : { title: r, sub: d || h, icon: l, badges: t };
   }
 }
-const Z0 = [
+const J0 = [
   ["wraps", "Wraps"],
   ["requires", "Requires"],
   ["inspired", "Inspired by"]
@@ -14069,7 +14069,7 @@ const Dt = {
   right: ["Second side column", ""],
   main: ["Main area", "Mostly room cards."]
 }, yt = ["header", "top", "left", "main"];
-function J0(o, e) {
+function X0(o, e) {
   const t = [...yt.map((s) => o[s]), ...Object.values(o.areas ?? {})], a = (s) => s?.type === "custom:glass-panel" && !(Array.isArray(s.cards) && s.cards.length);
   if (t.some((s) => Array.isArray(s) && s.some((n) => !a(n)))) return o;
   const i = { ...o, areas: {} };
@@ -14086,7 +14086,7 @@ const Lo = {
   "custom:glass-popup-header": "bubble-card",
   "custom:glass-chart": "apexcharts-card",
   "custom:glass-camera": "webrtc-camera"
-}, X0 = { "bubble-card": "Bubble Card", "apexcharts-card": "apexcharts-card", "webrtc-camera": "WebRTC Camera" }, _u = (o) => !Lo[o] || !!customElements.get(Lo[o]), yu = (o) => _u(o) ? void 0 : `${w("Requires")} ${X0[Lo[o]] ?? Lo[o]} (HACS) – ${w("install it first")}`, il = () => !!customElements.get("bubble-card"), vu = "https://buymeacoffee.com/argii", wu = "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png", xu = [
+}, Q0 = { "bubble-card": "Bubble Card", "apexcharts-card": "apexcharts-card", "webrtc-camera": "WebRTC Camera" }, _u = (o) => !Lo[o] || !!customElements.get(Lo[o]), yu = (o) => _u(o) ? void 0 : `${w("Requires")} ${Q0[Lo[o]] ?? Lo[o]} (HACS) – ${w("install it first")}`, il = () => !!customElements.get("bubble-card"), vu = "https://buymeacoffee.com/argii", wu = "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png", xu = [
   ["custom:glass-room-card", "Room", "mdi:sofa-outline", "Room icon or photo with device buttons"],
   ["custom:glass-panel", "Panel", "mdi:view-dashboard-outline", "Glass frame that holds other cards"],
   ["custom:glass-status-bar", "Status bar", "mdi:dots-horizontal-circle-outline", "Chips with values (temperature, power…)"],
@@ -14122,15 +14122,15 @@ const Lo = {
   // any other card (HA's own or from HACS): starts as a Markdown card, change it in the card's YAML
   ["markdown", "Other card (YAML)", "mdi:code-braces", "Any Home Assistant or HACS card – edit its YAML"]
 ];
-function Q0(o) {
+function ef(o) {
   return /^\s*(\d*\.?\d+(px|%|vh|vw|dvh|svh|lvh|rem|em)?)?\s*$/i.test(o);
 }
-const ef = /* @__PURE__ */ new Set(["glass", "glass_tint", "tile_glass", "tile_tint", "control_glass", "control_tint", "bar_glass", "bar_tint", "fonts", "icons", "button_size"]);
-function tf(o, e) {
+const tf = /* @__PURE__ */ new Set(["glass", "glass_tint", "tile_glass", "tile_tint", "control_glass", "control_tint", "bar_glass", "bar_tint", "fonts", "icons", "button_size"]);
+function af(o, e) {
   const t = [], a = [], i = (n) => n.flatMap((r) => {
     if (r.custom === "section" && r.key === "look" && Array.isArray(r.schema))
       return t.push(...r.schema), [];
-    if (r.name && (ef.has(r.name) || r.name.endsWith("_glass") || r.selector?.ui_color))
+    if (r.name && (tf.has(r.name) || r.name.endsWith("_glass") || r.selector?.ui_color))
       return t.push(r), [];
     if (Array.isArray(r.schema) && (r.type === "grid" || r.type === "expandable" || r.custom === "section")) {
       const l = i(r.group ? r.schema.map((c) => ({ group: r.group, ...c })) : r.schema);
@@ -14141,21 +14141,21 @@ function tf(o, e) {
     const r = n.type === "expandable" && n.title === "Advanced" || n.custom === "section" && n.key === "advanced";
     return r && a.push(...n.schema), !r;
   });
-  return e?.length && t.push(...yf(e)), { content: s, look: t, adv: a };
+  return e?.length && t.push(...vf(e)), { content: s, look: t, adv: a };
 }
-const af = /* @__PURE__ */ new Set(["glass", "glass_tint", "tile_glass", "tile_tint", "fonts"]), sf = /* @__PURE__ */ new Set(["control_glass", "control_tint", "button_size"]), of = /* @__PURE__ */ new Set(["bar_glass", "bar_tint"]);
-function nf(o) {
+const sf = /* @__PURE__ */ new Set(["glass", "glass_tint", "tile_glass", "tile_tint", "fonts"]), of = /* @__PURE__ */ new Set(["control_glass", "control_tint", "button_size"]), nf = /* @__PURE__ */ new Set(["bar_glass", "bar_tint"]);
+function rf(o) {
   if (o.group) return o.group;
   const e = o.type === "grid" && Array.isArray(o.schema) ? o.schema[0] : o;
   if (e?.group) return e.group;
   const t = e?.name ?? "";
-  return af.has(t) ? "Card" : sf.has(t) ? "Buttons" : of.has(t) ? "Bar" : "Colours";
+  return sf.has(t) ? "Card" : of.has(t) ? "Buttons" : nf.has(t) ? "Bar" : "Colours";
 }
-function rf(o) {
+function lf(o) {
   const e = /* @__PURE__ */ new Map([["Card", []]]);
   let t = "Card";
   for (const a of o) {
-    const i = a.custom === "hint" ? t : nf(a);
+    const i = a.custom === "hint" ? t : rf(a);
     t = i, e.has(i) || e.set(i, []), e.get(i).push(a);
   }
   return [...e].filter(([, a]) => a.length);
@@ -14427,10 +14427,10 @@ try {
 } catch {
   Jt = void 0;
 }
-const Nd = () => Jt, lf = ["vertical-stack", "horizontal-stack", "grid", "conditional", "custom:layout-card", "custom:stack-in-card"];
+const Nd = () => Jt, cf = ["vertical-stack", "horizontal-stack", "grid", "conditional", "custom:layout-card", "custom:stack-in-card"];
 function Pc(o) {
   const e = o?.type;
-  return typeof e == "string" && !e.startsWith("custom:glass-") && !lf.includes(e) && xt(o) === "other";
+  return typeof e == "string" && !e.startsWith("custom:glass-") && !cf.includes(e) && xt(o) === "other";
 }
 const Ro = "__auto";
 function $u(o) {
@@ -14481,13 +14481,13 @@ function rl(o, e) {
   for (const [i, s] of Object.entries(t.areas ?? {})) Array.isArray(s) && s.length && a.add(gn(i));
   return a;
 }
-const cf = /* @__PURE__ */ new Set(["dashboard", "panel", "dock", "tabs"]), Bd = (o) => !cf.has(o) && !!window.customCards?.some((e) => e.type === `glass-${o}`), df = /* @__PURE__ */ new Set(["image-full", "compact"]);
+const df = /* @__PURE__ */ new Set(["dashboard", "panel", "dock", "tabs"]), Bd = (o) => !df.has(o) && !!window.customCards?.some((e) => e.type === `glass-${o}`), hf = /* @__PURE__ */ new Set(["image-full", "compact"]);
 function jd(o) {
   const e = (window.customCards?.find((t) => t.type === `glass-${o}`)?.name ?? o).replace(/^Glass – /, "");
   return w(e.charAt(0).toUpperCase() + e.slice(1));
 }
-function hf(o, e) {
-  if (o === "apple-home") return pf(e);
+function pf(o, e) {
+  if (o === "apple-home") return uf(e);
   const t = rl(e, "tablet").has("left"), a = {
     liquid: "Liquid glass: panels of liquid glass that bends the wallpaper (WebGL) – the heaviest; cards and buttons inside in the Apple Home material.",
     frosted: "Frosted glass: panels of blurred glass, blurred live by the browser – medium; cards and buttons inside in the Apple Home material.",
@@ -14499,7 +14499,7 @@ function hf(o, e) {
     t ? w("The side column keeps the glass and takes the sidebar's colours: white text, accent icons.") : ""
   ].filter(Boolean).join(" ");
 }
-function pf(o) {
+function uf(o) {
   const e = rl(o, "tablet").has("left"), t = rl(o, "mobile"), a = t.has("header") || t.has("top");
   return [
     w("Apple Home: tiles straight on the wallpaper."),
@@ -14520,7 +14520,7 @@ function Ec(o) {
   for (const s of Object.values(o.responsive ?? {})) i(s);
   return e;
 }
-function uf(o) {
+function mf(o) {
   return Pc(o) ? p`<div class="bubble-notice"><ha-icon .icon=${"mdi:information-outline"}></ha-icon><span>${w("Not a glass card: the glass type, colours and the day / night look do not reach it – it keeps its own look (theme, card_mod).")}</span></div>` : g;
 }
 function no() {
@@ -14532,7 +14532,7 @@ function no() {
     </span>
   </div>`;
 }
-function ya(o) {
+function va(o) {
   Jt = o;
   try {
     o ? localStorage.setItem(ol, JSON.stringify(o)) : localStorage.removeItem(ol);
@@ -14548,7 +14548,7 @@ const Vo = class Vo extends Ye {
   /** The config being edited: at night (the Appearance tab's day / night switch) the night look,
    *  `dark:` merged in – what is changed then goes to `dark:` (see _emit). */
   get _config() {
-    return this._open?.night === 1 && this._cfg ? Xi(this._cfg, !0) : this._cfg;
+    return this._open?.night === 1 && this._cfg ? Qi(this._cfg, !0) : this._cfg;
   }
   set _config(e) {
     this._cfg = e;
@@ -14585,7 +14585,7 @@ const Vo = class Vo extends Ye {
     return p`<ha-form
       .hass=${this.hass}
       .data=${s}
-      .schema=${O0(zu(i.size ? $u(t) : t))}
+      .schema=${B0(zu(i.size ? $u(t) : t))}
       .computeLabel=${this._label}
       .computeHelper=${this._helper}
       @value-changed=${(n) => {
@@ -14729,7 +14729,7 @@ const Vo = class Vo extends Ye {
   /** "Visible when": the card's visibility conditions, edited as on HA's Visibility tab – ours ("Picked in a group") above it. */
   _visibility(e, t) {
     const a = Array.isArray(e.visibility) ? e.visibility : [], i = a.filter((h) => h?.condition === "select"), s = a.filter((h) => h?.condition !== "select"), n = (h, u) => t([...h, ...u].length ? [...h, ...u] : void 0), r = (h, u) => n(u ? i.map((m, f) => f === h ? u : m) : i.filter((m, f) => f !== h), s), l = this._pickChoices(), c = `pick-${Math.random().toString(36).slice(2, 8)}`, d = !!customElements.get("ha-card-conditions-editor");
-    return d || Y0().then(() => this.requestUpdate()), p`<div class="visibility">
+    return d || Z0().then(() => this.requestUpdate()), p`<div class="visibility">
       <span class="devices-title">${w("Visible when")}</span>
       <span class="vis-hint">${w("Empty = always. A hidden card leaves the page (a camera stops), in the preview too.")}</span>
       <datalist id="${c}-g">${l.groups.map((h) => p`<option value=${h}></option>`)}</datalist>
@@ -14819,12 +14819,12 @@ const Vo = class Vo extends Ye {
                   <button @click=${() => s([...i.slice(0, x + 1), structuredClone(_), ...i.slice(x + 1)])}>
                     <ha-icon .icon=${"mdi:content-duplicate"}></ha-icon>${w("Duplicate")}
                   </button>
-                  <button @click=${() => ya({ card: structuredClone(_), cut: !1 })}>
+                  <button @click=${() => va({ card: structuredClone(_), cut: !1 })}>
                     <ha-icon .icon=${"mdi:content-copy"}></ha-icon>${w("Copy")}
                   </button>
                   <button
                     @click=${() => {
-      ya({ card: structuredClone(_), cut: !0 }), s(i.filter((z, S) => S !== x));
+      va({ card: structuredClone(_), cut: !0 }), s(i.filter((z, S) => S !== x));
     }}
                   >
                     <ha-icon .icon=${"mdi:content-cut"}></ha-icon>${w("Cut (paste it in another panel)")}
@@ -14842,9 +14842,9 @@ const Vo = class Vo extends Ye {
                   <label class="device-on">
                     <input
                       type="checkbox"
-                      .checked=${_a(_, z)}
+                      .checked=${ya(_, z)}
                       @change=${(S) => s(i.map((M, k) => k === x ? gu(M, z, S.target.checked) : M))}
-                    />${w(ga[z])}
+                    />${w(fa[z])}
                   </label>
                   <input
                     class="device-order"
@@ -14852,7 +14852,7 @@ const Vo = class Vo extends Ye {
                     step="1"
                     placeholder=${w("Order")}
                     title=${w("Order among the cards next to it (lower first, empty = as listed)")}
-                    ?disabled=${!_a(_, z)}
+                    ?disabled=${!ya(_, z)}
                     .value=${oo(_, z)}
                     @change=${(S) => s(i.map((M, k) => k === x ? fu(M, z, S.target.value) : M))}
                   />
@@ -14874,7 +14874,7 @@ const Vo = class Vo extends Ye {
                 @change=${(z) => s(i.map((S, M) => M === x ? Dd(S, "id", z.target.value) : S))}
               />
             </div>
-            ${r ? this._visibility(_, (z) => s(i.map((S, M) => M === x ? V0(S, z) : S))) : g}
+            ${r ? this._visibility(_, (z) => s(i.map((S, M) => M === x ? Y0(S, z) : S))) : g}
             <hui-card-element-editor
               .hass=${this.hass}
               .lovelace=${this.lovelace}
@@ -14923,7 +14923,7 @@ const Vo = class Vo extends Ye {
                   title=${w(Jt.cut ? "Moves the cut card here" : "Adds a copy of the copied card here")}
                   @click=${() => {
       const _ = Jt;
-      s([...i, structuredClone(_.card)]), this._open = { ...this._open, [n]: i.length }, _.cut && ya(void 0);
+      s([...i, structuredClone(_.card)]), this._open = { ...this._open, [n]: i.length }, _.cut && va(void 0);
     }}
                 >
                   <ha-icon .icon=${"mdi:content-paste"}></ha-icon> ${w("Paste")}: ${Oe(Jt.card).title}
@@ -14979,7 +14979,7 @@ const Vo = class Vo extends Ye {
       glass: !0,
       tile_glass: a ? n.some((k) => Bd(r(k))) : (t.cards ?? []).some((k) => String(k?.type ?? "").startsWith("custom:glass-")),
       control_glass: n.some((k) => Od.has(r(k))),
-      bar_glass: n.some((k) => r(k) === "room-card" && (!a || df.has(k.layout ?? "stacked")))
+      bar_glass: n.some((k) => r(k) === "room-card" && (!a || hf.has(k.layout ?? "stacked")))
     }, c = Re(t.glass), d = {
       glass: Re(void 0),
       tile_glass: pe.tile_glass ? Re(pe.tile_glass) : t.glass ?? c,
@@ -15023,8 +15023,8 @@ const Vo = class Vo extends Ye {
       return M ? p`<div class="list-hint">${w("The look is picked by day; at night change the levels below.")}</div>` : p`<div class="looks">
         <div class="list-hint">${w("Look – picks the glass for panels, cards and buttons at once, on the dashboard and in its pop-ups (the pop-up window itself is Bubble Card's). Fine-tune each of them below. Panels with their own glass setting are switched to the look; panels without glass stay without.")}</div>
         <div class="look-row">
-          ${mf.map(
-        ([$, C]) => p`<button class="look ${S === C ? "on" : ""}" @click=${() => S !== C && this._emit(ff(t, C, z))}>
+          ${gf.map(
+        ([$, C]) => p`<button class="look ${S === C ? "on" : ""}" @click=${() => S !== C && this._emit(bf(t, C, z))}>
                 ${w($)}
               </button>`
       )}
@@ -15032,12 +15032,12 @@ const Vo = class Vo extends Ye {
             class="look ${z ? "on" : ""}"
             ?disabled=${!z && !t.custom_look}
             title=${w("Change a level below to customise the look; pick a look to reset it.")}
-            @click=${() => !z && t.custom_look && this._emit(_f(t))}
+            @click=${() => !z && t.custom_look && this._emit(yf(t))}
           >
             ${w("Custom")}
           </button>
         </div>
-        ${a ? p`<div class="list-hint">${hf(_, t)}</div>` : g}
+        ${a ? p`<div class="list-hint">${pf(_, t)}</div>` : g}
         ${a && k.length && _ !== "apple-home" ? p`<div class="bubble-notice bare-notice">
               <ha-icon .icon=${"mdi:information-outline"}></ha-icon>
               <div>
@@ -15045,7 +15045,7 @@ const Vo = class Vo extends Ye {
                 <ul>
                   ${k.map(($) => p`<li>${$}</li>`)}
                 </ul>
-                <button class="look" @click=${() => this._emit(bf(t))}>${w(k.length === 1 ? "Give it the look's glass" : "Give them the look's glass")}</button>
+                <button class="look" @click=${() => this._emit(_f(t))}>${w(k.length === 1 ? "Give it the look's glass" : "Give them the look's glass")}</button>
               </div>
             </div>` : g}
       </div>`;
@@ -15136,7 +15136,7 @@ const Vo = class Vo extends Ye {
   }
   /** A card's Appearance: one group per part (the card, its bar, its icon…), each with its material and colours. */
   _lookGroups(e, t = this._config, a) {
-    return rf(e).map(([i, s]) => {
+    return lf(e).map(([i, s]) => {
       const n = s.some((r) => ku(r, t));
       return p`<ha-expansion-panel outlined class="group" .header=${w(i)} .secondary=${w(n ? "Set" : "Automatic – from the panel / dashboard")}>
         <div class="grp">${a ? a(s) : this._blocks(s)}</div>
@@ -15145,7 +15145,7 @@ const Vo = class Vo extends Ye {
   }
   /** Pop-up source: the same two drop-downs for every device, mobile optionally different. */
   _popups() {
-    const e = this._config, t = this.hass, a = Object.values(t?.panels ?? {}).filter((l) => l.component_name === "lovelace").map((l) => ({ value: l.url_path, label: `${l.title ?? l.url_path} (${l.url_path})` })).sort((l, c) => l.label.localeCompare(c.label)), i = (l) => l ? (!this._views[l] && this.hass && U0(this.hass, l).then((c) => (this._views = { ...this._views, [l]: c }, this.requestUpdate())), this._views[l] ?? []) : [], s = (l, c, d) => p`<div class="src-row">
+    const e = this._config, t = this.hass, a = Object.values(t?.panels ?? {}).filter((l) => l.component_name === "lovelace").map((l) => ({ value: l.url_path, label: `${l.title ?? l.url_path} (${l.url_path})` })).sort((l, c) => l.label.localeCompare(c.label)), i = (l) => l ? (!this._views[l] && this.hass && K0(this.hass, l).then((c) => (this._views = { ...this._views, [l]: c }, this.requestUpdate())), this._views[l] ?? []) : [], s = (l, c, d) => p`<div class="src-row">
         <div class="src-title">${w(l)}</div>
         ${this._form(
       { dashboard: c?.dashboard ?? "", view: c?.view !== void 0 ? String(c.view) : "" },
@@ -15251,7 +15251,7 @@ const Vo = class Vo extends Ye {
         a(c),
         !t && (e.preset ?? "classic") === c,
         qe[c].label,
-        () => this._emit(J0({ ...e, preset: c === "classic" ? void 0 : c, grid: void 0 }, a(c))),
+        () => this._emit(X0({ ...e, preset: c === "classic" ? void 0 : c, grid: void 0 }, a(c))),
         qe[c].thumb
       )
     )}
@@ -15569,7 +15569,7 @@ const Vo = class Vo extends Ye {
         const h = { width: String(d.width ?? ""), height: String(d.height ?? "") }, u = this._sizeDraft ?? { width: String(i.width), height: String(i.height) };
         this._sizeDraft = h;
         const m = {};
-        for (const f of ["width", "height"]) h[f] !== u[f] && Q0(h[f]) && (m[f] = n(h[f]));
+        for (const f of ["width", "height"]) h[f] !== u[f] && ef(h[f]) && (m[f] = n(h[f]));
         Object.keys(m).length && r(m);
       }
     )}
@@ -15605,7 +15605,7 @@ const Vo = class Vo extends Ye {
     const s = typeof this.spec.form == "function" ? [] : (this.spec.lists ?? []).filter((d) => !a.has(d.name));
     let n = this.noCards ? this.spec.tabs?.filter((d) => !d.cards?.length || d.form?.length) : this.spec.tabs;
     if (!n?.length) {
-      const { content: d, look: h, adv: u } = tf(t, this._shownParts()), m = (x) => x.some((z) => z.name === "glass" || Array.isArray(z.schema) && m(z.schema)), f = this.spec.noGlass || m(h) ? h : [{ ...ve, group: "Card" }, ...h], b = p`
+      const { content: d, look: h, adv: u } = af(t, this._shownParts()), m = (x) => x.some((z) => z.name === "glass" || Array.isArray(z.schema) && m(z.schema)), f = this.spec.noGlass || m(h) ? h : [{ ...ve, group: "Card" }, ...h], b = p`
         ${s.map((x) => this._list(x))} ${(this.spec.cards ?? []).map((x) => this._cardList(x))}
         ${s.length || this.spec.cards?.length ? p`<div class="list-title settings-title">${w("Settings")}</div>` : g}
         ${e(d)} ${this._sizeForm()}
@@ -15674,7 +15674,7 @@ const Vo = class Vo extends Ye {
   /** The "Credits" tab: what the card wraps, needs and took its idea from, each with its author. */
   _credits() {
     const e = (t, a) => p`<a href=${t} target="_blank" rel="noreferrer">${a}</a>`;
-    return p`${Z0.map(([t, a]) => {
+    return p`${J0.map(([t, a]) => {
       const i = (this.spec.credits ?? []).filter((s) => s.kind === t);
       return i.length ? p`<div class="list-title credits-title">${w(a)}</div>
             ${i.map(
@@ -16516,7 +16516,7 @@ function de(o) {
   const e = document.createElement("glass-card-editor");
   return e.spec = o, e;
 }
-const fe = (o, e) => ({ value: o, label: e }), mf = [
+const fe = (o, e) => ({ value: o, label: e }), gf = [
   ["Liquid glass", "liquid"],
   ["Apple Home", "apple-home"],
   ["Frosted glass", "frosted"],
@@ -16534,7 +16534,7 @@ function fi(o) {
   for (const [a, i] of Object.entries(o.responsive ?? {})) t(i, `${a}:`);
   return e;
 }
-function gf(o) {
+function ff(o) {
   const e = {};
   for (const a of Lc) o[a] !== void 0 && (e[a] = o[a]);
   const t = {};
@@ -16547,21 +16547,21 @@ function gf(o) {
     });
   return { look: o.look, ...e, panels: t };
 }
-function ff(o, e, t) {
+function bf(o, e, t) {
   const a = structuredClone(o);
-  t && (a.custom_look = gf(o)), e === "liquid" ? delete a.look : a.look = e;
+  t && (a.custom_look = ff(o)), e === "liquid" ? delete a.look : a.look = e;
   for (const i of Lc) delete a[i];
   for (const [, i] of fi(a))
     for (const s of i)
       !s || typeof s != "object" || (s.glass !== "none" && delete s.glass, delete s.tile_glass, delete s.control_glass);
   return a;
 }
-function bf(o) {
+function _f(o) {
   const e = structuredClone(o);
   for (const [, t] of fi(e)) for (const a of t) a?.glass === "none" && delete a.glass;
   return e;
 }
-function _f(o) {
+function yf(o) {
   const e = o.custom_look;
   if (!e) return o;
   const t = structuredClone(o);
@@ -16607,12 +16607,12 @@ function tt(o, e, t = !1, a = !0) {
     schema: [
       { ...B("color"), label: n ? "Active colour" : "Colour" },
       ...a ? [{ name: "size", label: n ? "Active size" : "Size", selector: { number: { min: 6, max: 120, mode: "box", unit_of_measurement: "px" } } }] : [],
-      { name: "weight", label: n ? "Active weight" : "Weight", selector: { select: { mode: "dropdown", options: vf.map(([r, l]) => fe(r, l)) } } }
+      { name: "weight", label: n ? "Active weight" : "Weight", selector: { select: { mode: "dropdown", options: wf.map(([r, l]) => fe(r, l)) } } }
     ]
   });
   return { type: "expandable", name: "fonts", title: e, schema: [i(o, !1), ...t ? [i(`${o}_on`, !0)] : []] };
 }
-function yf(o) {
+function vf(o) {
   return o.map((e) => ({ ...e.kind === "icon" ? ct(e.key, e.title, !!e.on) : tt(e.key, e.title, !!e.on, e.size !== !1), group: e.group }));
 }
 function ct(o, e, t = !1) {
@@ -16626,7 +16626,7 @@ function ct(o, e, t = !1) {
   });
   return { type: "expandable", name: "icons", title: e, schema: [a(o, !1), ...t ? [a(`${o}_on`, !0)] : []] };
 }
-const vf = [
+const wf = [
   ["100", "100 – Thin"],
   ["200", "200 – Extra light"],
   ["300", "300 – Light"],
@@ -16636,7 +16636,7 @@ const vf = [
   ["700", "700 – Bold"],
   ["800", "800 – Extra bold"],
   ["900", "900 – Black"]
-], $a = (o, e) => ({
+], Sa = (o, e) => ({
   type: "expandable",
   name: o,
   title: e,
@@ -17000,11 +17000,11 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   R("volume", ".vval, .sname", "Volume", "Volume"),
   Q("buttons", ".cbtn:not(.main) ha-icon", "Button icons", "Buttons", ".cbtn.on ha-icon"),
   Q("play", ".cbtn.main ha-icon", "Play icon", "Buttons")
-], xs = [
+], ks = [
   ["start", "Left / top"],
   ["center", "Center"],
   ["end", "Right / bottom"]
-], je = (o) => o ? o.split(".")[1] : "", wf = (o) => ({
+], je = (o) => o ? o.split(".")[1] : "", xf = (o) => ({
   name: o,
   selector: {
     select: {
@@ -17022,12 +17022,12 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   ["auto", "Follow the HA theme"],
   ["light", "Always light"],
   ["dark", "Always dark"]
-], xf = { liquid: "Liquid glass", "apple-home": "Apple Home", frosted: "Frosted glass", light: "Light glass", solid: "Solid" };
+], kf = { liquid: "Liquid glass", "apple-home": "Apple Home", frosted: "Frosted glass", light: "Light glass", solid: "Solid" };
 function Fd(o, e, t = {}, a = 0) {
   const i = e.filter((s) => o[s] !== void 0 && o[s] !== "").length + Object.entries(t).filter(([s, n]) => o[s] !== void 0 && o[s] !== n).length + a;
   return i ? `${i} ${w(i === 1 ? "setting" : "settings")}` : w("Default");
 }
-const kf = {
+const $f = {
   kind: "wraps",
   name: "apexcharts-card",
   url: "https://github.com/RomRider/apexcharts-card",
@@ -17041,46 +17041,46 @@ const kf = {
   author: "Clooos",
   author_url: "https://github.com/Clooos",
   note: "The pop-ups are Bubble Card's; the glass cards place and open them."
-}, $f = {
+}, Sf = {
   kind: "inspired",
   name: "liquid-glass-js",
   url: "https://github.com/dashersw/liquid-glass-js",
   author: "dashersw",
   author_url: "https://github.com/dashersw",
   note: "The liquid glass refraction model and its defaults."
-}, Sf = {
+}, zf = {
   kind: "inspired",
   name: "clock-weather-card",
   url: "https://github.com/pkissling/clock-weather-card",
   author: "pkissling",
   author_url: "https://github.com/pkissling",
   note: "The clock above the forecast with temperature bars."
-}, zf = {
+}, Af = {
   kind: "inspired",
   name: "honeycomb-menu",
   url: "https://github.com/Sian-Lee-SA/honeycomb-menu",
   author: "Sian-Lee-SA",
   author_url: "https://github.com/Sian-Lee-SA",
   note: "The menu that opens from a button (action: menu): related choices around it."
-}, Af = {
+}, Mf = {
   kind: "inspired",
   name: "atomic-calendar-revive",
   url: "https://github.com/totaldebug/atomic-calendar-revive",
   author: "totaldebug",
   author_url: "https://github.com/totaldebug",
   note: "Upcoming events of several calendars in one list, each calendar in its colour."
-}, Mf = {
+}, Tf = {
   kind: "inspired",
   name: "custom_card_person_info (UI Lovelace Minimalist)",
   url: "https://ui-lovelace-minimalist.github.io/UI/usage/custom_cards/custom_card_person_info/",
   author: "Jordan Janzen",
   author_url: "https://github.com/jordandrako",
   note: "A person's round picture with where they are and their phone's battery."
-}, Tf = {
+}, Cf = {
   parts: Ku,
   defaults: { align: "center" },
   form: [
-    D("align", xs),
+    D("align", ks),
     {
       name: "holidays",
       label: "Public holidays",
@@ -17110,7 +17110,7 @@ const kf = {
       ]
     }
   ]
-}, Cf = {
+}, Df = {
   parts: Ou,
   defaults: { size: 36, gap: 8, wrap: !0, align: "start", pack: !1, pack_animation: !0, layout: "chips" },
   form: (o) => {
@@ -17139,7 +17139,7 @@ const kf = {
             { name: "size", label: "Size", selector: { number: { min: 24, max: 64, mode: "box", unit_of_measurement: "px" } } },
             { name: "gap", label: "Gap", selector: { number: { min: 0, max: 40, mode: "box", unit_of_measurement: "px" } } }
           ),
-          A({ ...D("align", xs), label: "Alignment" }, { name: "wrap", label: "Wrap to more rows", selector: { boolean: {} } }),
+          A({ ...D("align", ks), label: "Alignment" }, { name: "wrap", label: "Wrap to more rows", selector: { boolean: {} } }),
           ...o.wrap !== !1 ? [A({ name: "pack", label: "Fill the rows", selector: { boolean: {} } }, { name: "pack_animation", label: "Animate", selector: { boolean: {} } })] : []
         ]
       },
@@ -17175,7 +17175,7 @@ const kf = {
         title: "Look",
         schema: [
           { ...ve, group: "Card" },
-          { ...$a("glass_tint", "Glass color"), group: "Card" },
+          { ...Sa("glass_tint", "Glass color"), group: "Card" },
           { ...ia, group: "Buttons" },
           ...e === "pills" ? [
             ...O(
@@ -17253,8 +17253,8 @@ const kf = {
       ]
     }
   ]
-}, Df = {
-  credits: [Mf],
+}, Pf = {
+  credits: [Tf],
   parts: Wu,
   defaults: { size: 44, gap: 12, show_location: "away", align: "end", show_battery: !0, show_name: !1, battery_style: "ring" },
   form: [
@@ -17268,14 +17268,14 @@ const kf = {
         ["always", "Always"],
         ["never", "Never"]
       ]),
-      D("align", xs)
+      D("align", ks)
     ),
     A({ name: "show_name", selector: { boolean: {} } }, { name: "show_battery", selector: { boolean: {} } }),
     D("battery_style", [
       ["text", "Icon and percent"],
       ["ring", "Ring around the photo"]
     ]),
-    _e("Advanced", [ve, $a("glass_tint", "Glass color"), ia, K("styles")])
+    _e("Advanced", [ve, Sa("glass_tint", "Glass color"), ia, K("styles")])
   ],
   lists: [
     {
@@ -17296,7 +17296,7 @@ const kf = {
       ]
     }
   ]
-}, Pf = ["image-full", "compact"], Ef = ["image-left", "image-right"], Hd = (o) => [
+}, Ef = ["image-full", "compact"], Lf = ["image-left", "image-right"], Hd = (o) => [
   { name: "entity", selector: { entity: {} } },
   A({ name: "icon", selector: { icon: {} } }, { name: "icon_active", selector: { icon: {} } }),
   A(B("active_color"), Tu),
@@ -17318,12 +17318,12 @@ const kf = {
   { group: Mi, value: "image-background", label: "Photo, buttons below", rows: [["p"], ["p"], ["b"]] },
   { group: Gd, value: "image-full", label: "Photo with a bar", rows: [["p", "p"], ["p", "p"], ["n", "b"]] },
   { group: Gd, value: "compact", label: "Low strip", rows: [["p", "n", "n", "b"]] }
-], Lf = {
-  credits: [zf],
+], Rf = {
+  credits: [Af],
   parts: Nu,
   defaults: { layout: "stacked", show_icon: !0, image_opacity: 1, image_fade: 50, image_position: "center", status: "auto" },
   form: (o) => {
-    const e = o.layout ?? "stacked", t = Pf.includes(e), a = Ef.includes(e), i = e === "image-background", s = (h, u, m, f, b) => ({
+    const e = o.layout ?? "stacked", t = Ef.includes(e), a = Lf.includes(e), i = e === "image-background", s = (h, u, m, f, b) => ({
       name: h,
       label: f,
       selector: { number: { min: u, max: m, mode: "box", ...b ? { unit_of_measurement: b } : {} } }
@@ -17468,7 +17468,7 @@ const kf = {
         title: "Advanced",
         schema: [
           // the low strip is all bar: its material is the bar's, below
-          ...e === "compact" ? [] : [ve, $a("glass_tint", "Glass color")],
+          ...e === "compact" ? [] : [ve, Sa("glass_tint", "Glass color")],
           ...t ? [
             {
               helper: "Empty = as set on the panel or the dashboard (liquid glass).",
@@ -17481,10 +17481,10 @@ const kf = {
               ]),
               label: "Bar material"
             },
-            $a("bar_tint", "Bar color")
+            Sa("bar_tint", "Bar color")
           ] : [],
           { ...ia, label: "Button material" },
-          $a("control_tint", "Button color"),
+          Sa("control_tint", "Button color"),
           K("rules"),
           K("styles")
         ]
@@ -17493,7 +17493,7 @@ const kf = {
   },
   adjust: (o, e, t) => {
     const a = { ...o }, i = a.fill_area;
-    return delete a.fill_area, i && i !== e.fill_area && t ? { ...a, ...Rf(t, i) } : a;
+    return delete a.fill_area, i && i !== e.fill_area && t ? { ...a, ...Nf(t, i) } : a;
   },
   lists: [
     {
@@ -17525,14 +17525,14 @@ const kf = {
     }
   ]
 };
-function Rf(o, e) {
+function Nf(o, e) {
   const t = o.areas?.[e], a = {};
   t?.name && (a.name = t.name), t?.icon && (a.icon = t.icon);
   const i = ["light", "media_player", "cover", "fan", "climate"], s = Object.values(o.entities ?? {}).filter((n) => !n.hidden && !n.entity_category && (n.area_id ?? o.devices?.[n.device_id]?.area_id) === e).map((n) => n.entity_id).filter((n) => i.includes(n.split(".")[0]) && o.states[n]).sort((n, r) => i.indexOf(n.split(".")[0]) - i.indexOf(r.split(".")[0]));
   return s.length && (a.entities = s.slice(0, 6).map((n) => ({ entity: n }))), a;
 }
-const Nf = {
-  credits: [Sf],
+const Of = {
+  credits: [zf],
   parts: Uu,
   defaults: {
     variant: "full",
@@ -17583,7 +17583,7 @@ const Nf = {
             ["block", "Big icon and temperature"],
             ["line", "One line"]
           ]),
-          D("now_align", xs)
+          D("now_align", ks)
         ),
         { name: "temperature_decimals", selector: { number: { min: 0, max: 2, mode: "box" } } }
       ]
@@ -17594,7 +17594,7 @@ const Nf = {
       title: "Clock",
       secondary: o.show_clock === !1 ? "Hidden" : "",
       schema: [
-        D("clock_align", xs),
+        D("clock_align", ks),
         A({ name: "show_seconds", selector: { boolean: {} } }, { name: "show_date", selector: { boolean: {} } })
       ]
     },
@@ -17649,7 +17649,7 @@ const Nf = {
       title: "Look",
       schema: [
         { ...ve, group: "Card" },
-        ...o.glass === "none" ? [] : [{ ...$a("glass_tint", "Glass color"), group: "Card" }],
+        ...o.glass === "none" ? [] : [{ ...Sa("glass_tint", "Glass color"), group: "Card" }],
         ...O(
           "Icon",
           A(
@@ -17758,7 +17758,7 @@ const Nf = {
       K("styles")
     ])
   ];
-}, Of = {
+}, Bf = {
   parts: Zu,
   // columns: 3 – what a grid without the setting uses, shown in the field
   defaults: { layout: "column", gap: 16, align: "stretch", justify: "start", wrap: !1, columns: 3 },
@@ -17792,7 +17792,7 @@ const Nf = {
     }
   ]
 }, am = {
-  credits: [Nc, $f],
+  credits: [Nc, Sf],
   previewSwitch: !0,
   looks: !0,
   defaults: {
@@ -17888,7 +17888,7 @@ const Nf = {
           summary: (o) => w(Wd.find(([e]) => e === (o.appearance ?? "auto"))[1])
         },
         { key: "background", title: "Background", open: !0, blocks: ["wallpaper"], summary: (o) => o.wallpaper ? String(o.wallpaper).split("/").pop() : w("HA theme") },
-        { key: "glass", title: "Glass", open: !0, blocks: ["looks", "levels"], summary: (o) => w(xf[o.look ?? "liquid"] ?? o.look) },
+        { key: "glass", title: "Glass", open: !0, blocks: ["looks", "levels"], summary: (o) => w(kf[o.look ?? "liquid"] ?? o.look) },
         {
           key: "foreign",
           title: "Cards that are not glass",
@@ -17940,7 +17940,7 @@ const Nf = {
       hint: "Not part of the layout: the bottom navigation bar and pop-ups opened by a button linking to #name. The Tablet / Mobile badge says where an item is used."
     }
   ]
-}, Bf = {
+}, jf = {
   parts: Ju,
   defaults: { width: "92%", thickness: 4, opacity: 0.55, margin: 8, line: !0 },
   form: [
@@ -17952,8 +17952,8 @@ const Nf = {
       { name: "margin", selector: { number: { min: 0, max: 40, mode: "box", unit_of_measurement: "px" } } }
     )
   ]
-}, jf = {
-  credits: [Af],
+}, If = {
+  credits: [Mf],
   parts: Hu,
   defaults: { days: 5, max_events: 6, show_location: !1, show_title: !1, hide_empty: !1, tap_opens: "glass" },
   form: [
@@ -17987,7 +17987,7 @@ const Nf = {
   ["week", "Week"],
   ["day", "Day"],
   ["agenda", "Agenda"]
-].map(([o, e]) => ({ value: o, label: e })), If = {
+].map(([o, e]) => ({ value: o, label: e })), qf = {
   parts: Gu,
   defaults: { image: "months", hemisphere: "auto", agenda_days: 30, close: !0, weekends: "tint", views: ["month", "week", "day", "agenda"], phone_views: ["day", "agenda"] },
   form: (o) => [
@@ -18105,7 +18105,7 @@ const Nf = {
       item: () => [{ name: "entity", selector: { entity: { domain: "calendar" } } }, { name: "name", selector: { text: {} } }, B()]
     }
   ]
-}, qf = {
+}, Wf = {
   parts: Yu,
   defaults: {
     zoom: 7,
@@ -18200,7 +18200,7 @@ const Nf = {
     },
     { custom: "section", key: "advanced", title: "Advanced", schema: [K("styles")] }
   ]
-}, Wf = {
+}, Ff = {
   parts: Vu,
   defaults: { image_color: "active", image_fade: !0, edge_fade: !0, name_backdrop: !0, level_style: "dot" },
   form: (o) => [
@@ -18300,17 +18300,17 @@ const Nf = {
   label: "Period group (without helpers)",
   helper: "Only for two independent period bars on one screen; the bar and its charts share it. Not used with helpers.",
   selector: { text: {} }
-}, Ff = A(
+}, Hf = A(
   {
     name: "periods",
     selector: { select: { multiple: !0, options: [{ value: "day", label: "Day" }, { value: "week", label: "Week" }, { value: "month", label: "Month" }, { value: "year", label: "Year" }] } }
   },
   im
-), Hf = {
+), Gf = {
   parts: Fu,
   form: [
     { custom: "hint", text: "Charts follow the period in a glass-chart (period on). Without helpers the bar keeps the period itself; with them automations and templates can follow it." },
-    Ff,
+    Hf,
     _e("Home Assistant helpers", [
       { name: "offset_entity", selector: { entity: { domain: "input_number" } } },
       { name: "select_entity", selector: { entity: { domain: "input_select" } } },
@@ -18339,8 +18339,8 @@ const Nf = {
     },
     _e("Advanced", [K("styles")])
   ]
-}, Gf = {
-  credits: [kf],
+}, Uf = {
+  credits: [$f],
   parts: cl,
   defaults: { values: !0, gradient: !0, glow: !0, zero_line: !0, column_width: 62, radius: 5 },
   form: [
@@ -18368,7 +18368,7 @@ const Nf = {
       K("kinds")
     ])
   ]
-}, Uf = {
+}, Kf = {
   credits: [Nc],
   parts: em,
   defaults: { close: !0 },
@@ -18438,7 +18438,7 @@ const Nf = {
     }
   ],
   cards: [{ name: "cards", title: "Cards in the header", hint: "Between the name and the close button, e.g. a period bar." }]
-}, Kf = {
+}, Vf = {
   defaults: { active_color: "orange", fill_style: "fade", fill_strength: 34 },
   form: (o) => {
     const e = String(o.entity ?? ""), t = o.kind ?? (e.startsWith("lawn_mower.") ? "mower" : e.startsWith("vacuum.") ? "vacuum" : "washer"), a = (s, n, r = "sensor") => ({ name: s, label: n, selector: { entity: { domain: r } } }), i = (s, n, r) => ({ name: s, label: n, helper: r, selector: { ui_action: {} } });
@@ -18572,7 +18572,7 @@ const Nf = {
       }
     ];
   }
-}, Vf = {
+}, Yf = {
   noGlass: !0,
   form: [
     {
@@ -18606,7 +18606,7 @@ const Nf = {
       item: () => [{ name: "id", selector: { text: {} } }, A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } })]
     }
   ]
-}, Yf = {
+}, Zf = {
   defaults: { satellite: !0 },
   form: (o) => {
     const e = String(o.entity ?? "").startsWith("lawn_mower.");
@@ -18675,7 +18675,7 @@ const Nf = {
       { custom: "section", key: "advanced", title: "Advanced", schema: [{ name: "service", selector: { text: {} } }, { ...ve, group: "Card" }] }
     ];
   }
-}, Zf = {
+}, Jf = {
   parts: Ru,
   defaults: { hours: 24, graph: !0, active_color: "orange", controls: "bottom", show_name: !0 },
   form: (o) => [
@@ -18757,7 +18757,7 @@ const Nf = {
     { custom: "section", key: "actions", title: "Actions", schema: pt(o, ["tap_action", "hold_action", "double_tap_action"]) },
     { custom: "section", key: "advanced", title: "Advanced", schema: [ia, K("styles")] }
   ]
-}, Jf = {
+}, Xf = {
   parts: tm,
   defaults: { layout: "card", show: "all", art_background: !0, speakers: !0, library: !0, library_layout: "sheet", library_close: 8, visualizer: !0, clock: !0, follow_playing: !0 },
   form: (o) => {
@@ -18943,7 +18943,7 @@ const Nf = {
             {
               ...K("tv_sources"),
               label: "TV sources",
-              helper: "A soundbar on the TV: - speaker: its player, sources: [Apple TV, PlayStation…] – the first one playing shows while it plays the TV's sound"
+              helper: "A soundbar on the TV: - speaker: its player, tv: the TV (optional), sources: - entity: Apple TV, input: the TV's input… – what plays on the TV shows while the soundbar plays its sound"
             }
           ] : [],
           K("styles")
@@ -18951,7 +18951,7 @@ const Nf = {
       }
     ];
   }
-}, Xf = {
+}, Qf = {
   parts: Du,
   defaults: { active_color: "yellow", show_name: !0, layout: "bars", fill_style: "fade", fill_strength: 34, fill_source: "light" },
   form: (o) => [
@@ -19083,7 +19083,7 @@ const Nf = {
 function On(o) {
   return (o.scenes ?? []).length + (o.lights ?? []).reduce((e, t) => e + (t.scenes ?? []).length, 0);
 }
-const Qf = {
+const eb = {
   parts: Bu,
   defaults: { show_animation: !0, show_modes: !0, show_dhw_setpoint: !0, show_settings: !0 },
   form: [
@@ -19174,7 +19174,7 @@ const Qf = {
     },
     _e("Advanced", [K("styles")])
   ]
-}, eb = {
+}, tb = {
   parts: Pu,
   defaults: { kind: "auto", pause_glass: "dark", positions_glass: "none", tilts_glass: "dark", fill_style: "fade", fill_strength: 34, show_icon: !0, show_bar_text: !0, show_title: !0, show_positions: !0, percent_only: !1 },
   form: (o) => [
@@ -19281,8 +19281,8 @@ const Qf = {
         ...O("Icon", A({ ...D("icon_glass", [["", "Default"], ...U]), label: "Icon material when up" }, { ...D("icon_on_glass", [["", "Default"], ...U]), label: "Icon material when down" })),
         ...O("Icon", { ...B("icon_background"), label: "Icon background" }),
         ...O("Drawer", A({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" })),
-        ...O("Pause button", A({ ...D("pause_glass", Sa), label: "Pause button material" }, { ...B("pause_button_color"), label: "Pause button colour" })),
-        ...O("Quick choices", A({ ...D("positions_glass", Sa), label: "Position buttons material" }, { ...D("tilts_glass", Sa), label: "Tilt buttons material" })),
+        ...O("Pause button", A({ ...D("pause_glass", za), label: "Pause button material" }, { ...B("pause_button_color"), label: "Pause button colour" })),
+        ...O("Quick choices", A({ ...D("positions_glass", za), label: "Position buttons material" }, { ...D("tilts_glass", za), label: "Tilt buttons material" })),
         ...O("Quick choices", { ...B("choices_color"), label: "Quick choice buttons' colour" })
       ]
     },
@@ -19290,30 +19290,30 @@ const Qf = {
   ],
   lists: [
     { name: "positions", title: "Positions", label: (o) => o.name ?? o.icon ?? "Position", create: () => ({ name: "", value: 50 }), item: () => sm },
-    { name: "tilts", title: "Slats", label: (o) => o.name ?? "Tilt", create: () => ({ name: "", value: 50 }), item: () => tb, initial: () => om() }
+    { name: "tilts", title: "Slats", label: (o) => o.name ?? "Tilt", create: () => ({ name: "", value: 50 }), item: () => ab, initial: () => om() }
   ]
 }, sm = [
   A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
   { name: "script", label: "Script", helper: "Run instead of setting a value", selector: { entity: { domain: "script" } } },
   { name: "value", label: "Value", selector: { number: { min: 0, max: 100, mode: "slider", unit_of_measurement: "%" } } }
-], tb = [
+], ab = [
   A({ name: "name", selector: { text: {} } }, { name: "icon", helper: "Empty = the slats drawn as this tilt sets them", selector: { icon: {} } }),
   ...sm.slice(1)
 ], om = () => [
   { name: v("Close"), value: 0 },
   { name: v("Half"), value: 50 },
   { name: v("Open"), value: 100 }
-], Sa = U, ab = (o) => ({
+], za = U, ib = (o) => ({
   custom: "section",
   key: "titles",
   title: "Title",
   schema: [
     A({ name: "title", label: "Title", helper: o, selector: { text: {} } }, { name: "show_title", label: "Show the title", selector: { boolean: {} } })
   ]
-}), ib = {
+}), sb = {
   name: "sheet_glass",
   selector: { select: { mode: "dropdown", options: [{ value: "", label: "Its own glass" }, ...ve.selector.select.options.filter((o) => o.value)] } }
-}, sb = "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays… An alarm on weekdays doesn't ring on them, an alarm with a weekend day rings on them as on a weekend (each alarm can turn that off in its settings). Events with a time – a meeting at 6:00 – don't count.", ob = {
+}, ob = "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays… An alarm on weekdays doesn't ring on them, an alarm with a weekend day rings on them as on a weekend (each alarm can turn that off in its settings). Events with a time – a meeting at 6:00 – don't count.", nb = {
   parts: Lu,
   defaults: { display: "modal", style: "photo", snooze: 10 },
   form: (o) => [
@@ -19370,7 +19370,7 @@ const Qf = {
       ]
     }
   ]
-}, nb = {
+}, rb = {
   parts: Eu,
   defaults: { show_next: !0, layout: "list" },
   form: (o) => [
@@ -19409,7 +19409,7 @@ const Qf = {
       title: "Days off",
       secondary: (o.skip_calendars ?? []).length ? "" : "Optional",
       schema: [
-        { custom: "hint", text: sb },
+        { custom: "hint", text: ob },
         { name: "skip_calendars", label: "Calendars with days off", selector: { entity: { domain: "calendar", multiple: !0 } } }
       ]
     },
@@ -19432,20 +19432,20 @@ const Qf = {
         ...O("Alarms", { ...B("days_color"), label: "Days it rings on" }),
         ...O("Switches", A({ ...D("switch_glass", [["", "Plain track"], ...U]), label: "Switch material when off" }, { ...B("switch_color"), label: "Switch colour when on" })),
         ...O("+ button", A({ ...D("add_glass", [["", "Default"], ...U]), label: "+ button material" }, { ...B("add_color"), label: "+ button colour" })),
-        ...O("Settings window", A({ ...ib, label: "Window material" }, { ...B("sheet_color"), label: "Window colour" })),
+        ...O("Settings window", A({ ...sb, label: "Window material" }, { ...B("sheet_color"), label: "Window colour" })),
         ...O("Settings window", A({ ...D("controls_glass", [["", "Default"], ...U]), label: "Controls' material" }, { ...B("controls_color"), label: "Controls' colour" }))
       ]
     },
     { custom: "section", key: "advanced", title: "Advanced", schema: [{ ...ve, group: "Card" }, K("styles")] }
   ]
-}, rb = {
+}, lb = {
   kind: "requires",
   name: "WebRTC Camera",
   url: "https://github.com/AlexxIT/WebRTC",
   author: "AlexxIT",
   author_url: "https://github.com/AlexxIT",
   note: "Plays the live picture (RTSP through go2rtc); its settings go through this card."
-}, lb = {
+}, cb = {
   kind: "inspired",
   name: "Advanced Camera Card (Frigate card)",
   url: "https://github.com/dermotduffy/advanced-camera-card",
@@ -19477,7 +19477,7 @@ const Qf = {
   K("digital_ptz"),
   K("streams"),
   K("style")
-], cb = {
+], db = {
   parts: Qu,
   defaults: { layout: "card", keypad: "ask", keyboard: !0, close_popup: !0, show_sensors: !0, drawer: !0, drawer_style: "pill", sensor_items: "list" },
   form: [
@@ -19538,7 +19538,7 @@ const Qf = {
       title: "Look",
       schema: [
         { ...ve, group: "Card" },
-        { ...$a("glass_tint", "Glass color"), group: "Card" },
+        { ...Sa("glass_tint", "Glass color"), group: "Card" },
         { ...ia, group: "Buttons" },
         ...O("Bar", A({ ...D("bar_glass", [["", "Control glass (default)"], ...U]), label: "Bar material" }, { ...B("bar_color"), label: "Bar colour" })),
         ...O("Mode buttons", A({ ...D("buttons_glass", [["", "Default"], ...U]), label: "Buttons' material" }, { ...B("buttons_color"), label: "Buttons' colour" })),
@@ -19558,9 +19558,9 @@ const Qf = {
     },
     _e("Advanced", [K("styles")])
   ]
-}, db = {
+}, hb = {
   parts: Xu,
-  credits: [rb, lb],
+  credits: [lb, cb],
   defaults: {
     layout: "auto",
     aspect_ratio: "16/9",
@@ -19700,7 +19700,7 @@ const Qf = {
       ]
     }
   ]
-}, hb = {
+}, pb = {
   parts: xi,
   defaults: { show_title: !0, show_state: !0 },
   form: (o) => [
@@ -19719,7 +19719,7 @@ const Qf = {
       custom: "section",
       key: "look",
       title: "Look",
-      schema: [{ ...D("switch_glass", [["", "Plain track"], ...Sa]), label: "Switch material", group: "Switch" }]
+      schema: [{ ...D("switch_glass", [["", "Plain track"], ...za]), label: "Switch material", group: "Switch" }]
     },
     {
       custom: "section",
@@ -19738,10 +19738,10 @@ const Qf = {
         )
       ]
     },
-    ab("Empty = the automation's name"),
+    ib("Empty = the automation's name"),
     { custom: "section", key: "advanced", title: "Advanced", schema: [K("styles")] }
   ]
-}, pb = {
+}, ub = {
   parts: xi,
   defaults: { show_title: !0, show_compass: !0, show_details: !0, layout: "side", compass_glass: "watch", sun_style: "icon", show_letters: !0, show_ticks: !0, size: 124, ring_width: 9 },
   form: (o) => [
@@ -19791,7 +19791,7 @@ const Qf = {
       title: "Look",
       schema: [
         A(
-          ...O("Compass", { ...D("compass_glass", [["watch", "Watch face (glass, glare)"], ...Sa]), label: "Compass material" }),
+          ...O("Compass", { ...D("compass_glass", [["watch", "Watch face (glass, glare)"], ...za]), label: "Compass material" }),
           { ...D("sun_style", [["icon", "Realistic sun"], ["dot", "Dot"]]), label: "Sun" }
         ),
         A({ name: "show_letters", label: "Cardinal points (N E S W)", selector: { boolean: {} } }, { name: "show_ticks", label: "Ticks", selector: { boolean: {} } }),
@@ -19816,7 +19816,7 @@ const Qf = {
       ]
     }
   ]
-}, ub = {
+}, mb = {
   parts: xi,
   defaults: { show_title: !0, show_months: !0, current_glass: "dark", field_glass: "flat" },
   form: (o) => [
@@ -19866,7 +19866,7 @@ const Qf = {
       key: "look",
       title: "Look",
       schema: [
-        ...O("Fields", A({ ...D("current_glass", Sa), label: "Current column's fields material" }, { ...D("field_glass", Sa), label: "Other fields material" })),
+        ...O("Fields", A({ ...D("current_glass", za), label: "Current column's fields material" }, { ...D("field_glass", za), label: "Other fields material" })),
         ...O("Fields", A({ ...B("active_color"), label: "Current column colour" }, { ...B("cell_color"), label: "Other fields' colour" }))
       ]
     },
@@ -19902,7 +19902,7 @@ const Qf = {
       ]
     }
   ]
-}, mb = {
+}, gb = {
   noGlass: !0,
   credits: [Nc],
   parts: ju,
@@ -19927,13 +19927,13 @@ const Qf = {
       create: () => ({ icon: "mdi:circle-outline", link: "#" }),
       item: (o) => [
         A({ name: "icon", selector: { icon: {} } }, { name: "name", selector: { text: {} } }),
-        A(wf("link"), { name: "home", selector: { boolean: {} } }),
+        A(xf("link"), { name: "home", selector: { boolean: {} } }),
         { name: "id", label: "Page id (with the dock's page group)", selector: { text: {} } },
         _e("Actions", pt(o, ["tap_action"]))
       ]
     }
   ]
-}, gb = {
+}, fb = {
   parts: Iu,
   // the card hides itself while nothing is on unless told otherwise
   defaults: { hide_empty: !0, density: "normal", dividers: !0 },
@@ -20034,7 +20034,7 @@ const Qf = {
       }
     }
   ]
-}, fb = {
+}, bb = {
   parts: qu,
   defaults: { entity: "sensor.glass_notifications", place: "between", size: 36, snooze: 3600 },
   form: [
@@ -20071,12 +20071,12 @@ const Qf = {
       ]
     }
   ]
-}, ss = class ss extends F {
+}, os = class os extends F {
   constructor() {
     super(...arguments), this._short = !1;
   }
   static getConfigElement() {
-    return de(Tf);
+    return de(Cf);
   }
   static getStubConfig(e) {
     const t = Object.keys(e?.states ?? {}).find((a) => a.startsWith("calendar.") && /holiday|svatk|feiertag|ferie|festiv/i.test(a));
@@ -20135,7 +20135,7 @@ const Qf = {
     }, a = t(this._config.holidays), i = t(this._config.nameday), n = [...[
       ...a?.state === "on" && a.attributes.message ? [{ text: String(a.attributes.message), icon: "mdi:flag-variant-outline" }] : [],
       ...i ? [{ text: v("Name day: {names}", { names: i.state }) }] : []
-    ], ...this._config.lines ?? []].filter((r) => ge(r.visible, e, r.entity)).map((r) => ({ l: r, t: wa(e, r) })).filter(({ t: r }) => r.available && r.text);
+    ], ...this._config.lines ?? []].filter((r) => ge(r.visible, e, r.entity)).map((r) => ({ l: r, t: xa(e, r) })).filter(({ t: r }) => r.available && r.text);
     return p`
       <div
         class="wrap"
@@ -20150,7 +20150,7 @@ const Qf = {
     `;
   }
 };
-ss.wrapTile = !0, ss.parts = Ku, ss.styles = [
+os.wrapTile = !0, os.parts = Ku, os.styles = [
   F.styles,
   ee`
       :host {
@@ -20201,7 +20201,7 @@ ss.wrapTile = !0, ss.parts = Ku, ss.styles = [
       }
     `
 ];
-let dl = ss;
+let dl = os;
 ce("glass-date-header", dl, {
   name: "Glass – date header",
   description: "The date, name day and other one-line information."
@@ -20211,7 +20211,7 @@ ce("glass-date-header", dl, {
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const bb = { CHILD: 2 }, nm = (o) => (...e) => ({ _$litDirective$: o, values: e });
+const _b = { CHILD: 2 }, nm = (o) => (...e) => ({ _$litDirective$: o, values: e });
 let rm = class {
   constructor(e) {
   }
@@ -20233,11 +20233,11 @@ let rm = class {
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { I: _b } = _g, Zd = (o) => o, Jd = () => document.createComment(""), Ti = (o, e, t) => {
+const { I: yb } = yg, Zd = (o) => o, Jd = () => document.createComment(""), Ti = (o, e, t) => {
   const a = o._$AA.parentNode, i = e === void 0 ? o._$AB : e._$AA;
   if (t === void 0) {
     const s = a.insertBefore(Jd(), i), n = a.insertBefore(Jd(), i);
-    t = new _b(s, n, o, o.options);
+    t = new yb(s, n, o, o.options);
   } else {
     const s = t._$AB.nextSibling, n = t._$AM, r = n !== o;
     if (r) {
@@ -20253,7 +20253,7 @@ const { I: _b } = _g, Zd = (o) => o, Jd = () => document.createComment(""), Ti =
     }
   }
   return t;
-}, da = (o, e, t = o) => (o._$AI(e, t), o), yb = {}, lm = (o, e = yb) => o._$AH = e, vb = (o) => o._$AH, Bn = (o) => {
+}, da = (o, e, t = o) => (o._$AI(e, t), o), vb = {}, lm = (o, e = vb) => o._$AH = e, wb = (o) => o._$AH, Bn = (o) => {
   o._$AR(), o._$AA.remove();
 };
 /**
@@ -20265,9 +20265,9 @@ const Xd = (o, e, t) => {
   const a = /* @__PURE__ */ new Map();
   for (let i = e; i <= t; i++) a.set(o[i], i);
   return a;
-}, es = nm(class extends rm {
+}, ts = nm(class extends rm {
   constructor(o) {
-    if (super(o), o.type !== bb.CHILD) throw Error("repeat() can only be used in text expressions");
+    if (super(o), o.type !== _b.CHILD) throw Error("repeat() can only be used in text expressions");
   }
   dt(o, e, t) {
     let a;
@@ -20281,7 +20281,7 @@ const Xd = (o, e, t) => {
     return this.dt(o, e, t).values;
   }
   update(o, [e, t, a]) {
-    const i = vb(o), { values: s, keys: n } = this.dt(e, t, a);
+    const i = wb(o), { values: s, keys: n } = this.dt(e, t, a);
     if (!Array.isArray(i)) return this.ut = n, s;
     const r = this.ut ??= [], l = [];
     let c, d, h = 0, u = i.length - 1, m = 0, f = s.length - 1;
@@ -20308,19 +20308,19 @@ const Xd = (o, e, t) => {
       const b = i[h++];
       b !== null && Bn(b);
     }
-    return this.ut = n, lm(o, l), Aa;
+    return this.ut = n, lm(o, l), Ma;
   }
-}), wb = /* @__PURE__ */ new Set(["on", "heat", "heating", "open", "true", "home"]), xb = /* @__PURE__ */ new Set(["off", "idle", "closed", "false", "not_home"]);
+}), xb = /* @__PURE__ */ new Set(["on", "heat", "heating", "open", "true", "home"]), kb = /* @__PURE__ */ new Set(["off", "idle", "closed", "false", "not_home"]);
 function No(o) {
   if (o === void 0) return NaN;
   const e = parseFloat(o);
-  return Number.isNaN(e) ? wb.has(o) ? 1 : xb.has(o) ? 0 : NaN : e;
+  return Number.isNaN(e) ? xb.has(o) ? 1 : kb.has(o) ? 0 : NaN : e;
 }
-const jn = /* @__PURE__ */ new Map(), kb = 300 * 1e3;
+const jn = /* @__PURE__ */ new Map(), $b = 300 * 1e3;
 async function cm(o, e, t) {
   const a = Date.now(), i = e.filter((n) => {
     const r = jn.get(`${n}|${t}`);
-    return !r || a - r.at > kb;
+    return !r || a - r.at > $b;
   });
   if (i.length) {
     const n = o.callWS({
@@ -20378,7 +20378,7 @@ function pl(o, e, t) {
   };
   return o.forEach((c, d) => c === void 0 ? l() : r.push([i(d), s(c)])), l(), n;
 }
-function $b(o, e, t) {
+function Sb(o, e, t) {
   const a = [], i = (r) => (Math.min(t, Math.max(e, r)) - e) / (t - e) * 100;
   let s, n = 0;
   for (const r of o) {
@@ -20390,7 +20390,7 @@ function $b(o, e, t) {
   }
   return n > 0 && a.push([i(s ?? e), 100]), a.filter(([r, l]) => l - r > 0.2);
 }
-function Sb(o, e) {
+function zb(o, e) {
   const t = o.length;
   if (t < 2) return o[0];
   const a = Math.min(t - 1, Math.max(0, e * (t - 1))), i = Math.min(t - 2, Math.floor(a)), s = a - i, n = o[i], r = o[i + 1];
@@ -20407,7 +20407,7 @@ function Qd(o, e, t) {
   const n = new Date(a), r = new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: Te(e) }).format(n), l = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(), c = Math.round((l(i) - l(n)) / 864e5);
   return c === 0 ? v("today {time}", { time: r }) : c === 1 ? v("yesterday {time}", { time: r }) : new Intl.DateTimeFormat(t, { day: "numeric", month: "numeric" }).format(n);
 }
-const os = class os extends F {
+const ns = class ns extends F {
   constructor() {
     super(), this._packWatched = /* @__PURE__ */ new WeakSet(), this._packPos = /* @__PURE__ */ new WeakMap(), this._outside = (e) => {
       e.composedPath().includes(this) || this._openMenu(void 0);
@@ -20481,7 +20481,7 @@ const os = class os extends F {
     this._hass?.callService(a, "select_option", { entity_id: e, option: t }), this._openMenu(void 0);
   }
   static getConfigElement() {
-    return de(Cf);
+    return de(Df);
   }
   static getStubConfig(e) {
     return { items: [{ entity: Object.keys(e.states).find((a) => a.startsWith("sensor.")) ?? "sensor.example" }] };
@@ -20537,7 +20537,7 @@ const os = class os extends F {
     if (i.hidden) return g;
     const s = i.entity ? a.states[i.entity] : void 0;
     if ((i.hide_unavailable ?? !0) && i.entity && !i.entities && gi(s)) return g;
-    const n = i.text?.includes("{changed}") ? Qd(s?.last_changed, a, be(a)) || "–" : "", r = wa(a, n ? { ...i, text: i.text.replace("{changed}", n) } : i), l = i.icon === "dot", c = l ? void 0 : i.icon ?? s?.attributes.icon, d = Tr(i.animation), h = Y(i.icon_color ?? i.color), u = Ot(i), f = Ze(() => u, (_, x) => $e(this, a, Ot(i), _, x)), b = !r.text;
+    const n = i.text?.includes("{changed}") ? Qd(s?.last_changed, a, be(a)) || "–" : "", r = xa(a, n ? { ...i, text: i.text.replace("{changed}", n) } : i), l = i.icon === "dot", c = l ? void 0 : i.icon ?? s?.attributes.icon, d = Tr(i.animation), h = Y(i.icon_color ?? i.color), u = Ot(i), f = Ze(() => u, (_, x) => $e(this, a, Ot(i), _, x)), b = !r.text;
     if (this._config.layout === "pills") {
       const _ = h ? Be(i.icon_color ?? i.color) : void 0, { icon_background: x, pill_color: z } = this._config, S = this._config.icons?.icon_on?.color, M = this._config.icons?.icon?.color, k = this._config.pill_glass ?? (z && z !== "none" ? "frosted" : void 0), $ = _ ? this._config.icon_on_glass ?? this._config.icon_glass : this._config.icon_glass, C = !!x, T = x === "none", P = _ && !C, N = _ ? S && S !== "none" ? Y(S) : C ? h : void 0 : M && M !== "none" ? Y(M) : void 0, E = $ ? `${C ? T ? "" : `${re(x)};` : P ? `${re(i.icon_color ?? i.color, 70)};` : ""}${N ? `color:${N};` : ""}` : `${C ? T ? "--bg:transparent;" : `--bg:${Be(x)};--sheen:${wi};` : P ? `--bg:${_};--accent:${h};` : ""}${N ? `--fg:${N};` : ""}`, L = i.dropdown ? s?.attributes.options ?? [] : [], G = (I) => i.option_names?.[I] ?? I, H = i.dropdown && L.length && i.entity, te = H && this._menu === t;
       return p`<div class="pill-wrap">
@@ -20584,7 +20584,7 @@ const os = class os extends F {
       </div>`;
     }
     if (this._config.layout === "figures") {
-      const _ = i.secondary ? wa(a, i.secondary) : void 0;
+      const _ = i.secondary ? xa(a, i.secondary) : void 0;
       return p`<div
         class="fig"
         role="button"
@@ -20655,7 +20655,7 @@ const os = class os extends F {
     if (!this._config || !this._hass) return g;
     const e = this._config, t = e.size ?? 36, a = e.pill_height ? `;--glass-pill-height:${e.pill_height}px` : "", i = (s) => this.tile ? p`<div class=${this.tile}>${s}</div>` : s;
     return e.layout === "list" || e.layout === "pills" || e.layout === "figures" ? i(p`<div class="${e.layout}" style="--cols:${e.columns ?? (e.layout === "list" ? 1 : e.layout === "pills" ? 2 : e.items.length)}${e.gap !== void 0 ? `;gap:${e.gap}px` : ""}${a}">
-          ${es(
+          ${ts(
       e.items,
       (s, n) => n,
       (s, n) => this._chip(s, n)
@@ -20665,7 +20665,7 @@ const os = class os extends F {
       class="bar ${e.wrap === !1 ? "scroll" : ""}"
       style="--chip:${t}px;gap:${e.gap ?? 8}px;flex-wrap:${e.wrap === !1 ? "nowrap" : "wrap"};justify-content:${e.align ?? "start"}"
     >
-      ${es(
+      ${ts(
       e.items,
       (s, n) => n,
       (s, n) => this._chip(s, n)
@@ -20673,7 +20673,7 @@ const os = class os extends F {
     </div>`);
   }
 };
-os.parts = Ou, os.properties = { ...F.properties, _menu: { state: !0 } }, os.styles = [
+ns.parts = Ou, ns.properties = { ...F.properties, _menu: { state: !0 } }, ns.styles = [
   F.styles,
   we,
   Ne,
@@ -21060,12 +21060,12 @@ os.parts = Ou, os.properties = { ...F.properties, _menu: { state: !0 } }, os.sty
       }
     `
 ];
-let ul = os;
+let ul = ns;
 ce("glass-status-bar", ul, {
   name: "Glass – status bar",
   description: "Chips with entity values, conditional icons, colors and animations."
 });
-function zb(o, e) {
+function Ab(o, e) {
   const t = Math.max(10, Math.min(100, Math.ceil(o / 10) * 10));
   return t === 100 ? e ? "mdi:battery-charging-100" : "mdi:battery" : `${e ? "mdi:battery-charging" : "mdi:battery"}-${t}`;
 }
@@ -21077,7 +21077,7 @@ const Yo = class Yo extends F {
     super.setConfig(e), e.liquid && !this._liquid && (this._liquid = new le(this, ".person", void 0, void 0, () => kt()));
   }
   static getConfigElement() {
-    return de(Df);
+    return de(Pf);
   }
   static getStubConfig(e) {
     return { people: Object.keys(e.states).filter((t) => t.startsWith("person.")).slice(0, 2).map((t) => ({ entity: t })) };
@@ -21121,7 +21121,7 @@ const Yo = class Yo extends F {
       ${i.show_name || f || P ? p`<div class="info">
             ${i.show_name ? p`<span class="name">${M}</span>` : g}
             ${P ? p`<span class="battery"
-                  ><ha-icon .icon=${zb(y, x)} style="color:${Y(z)}"></ha-icon>${Math.round(y)}%</span
+                  ><ha-icon .icon=${Ab(y, x)} style="color:${Y(z)}"></ha-icon>${Math.round(y)}%</span
                 >` : g}
             ${f ? p`<span class="loc">${h}</span>` : g}
           </div>` : g}
@@ -21389,17 +21389,17 @@ ce("glass-people", ml, {
   name: "Glass – people",
   description: "Avatar, location and phone battery for each person."
 });
-const ns = class ns extends F {
+const rs = class rs extends F {
   constructor() {
     super(), this._onNav = () => {
       this._hash = location.hash;
     }, this._onPick = () => {
       const e = this._config?.group;
-      this._picked = e ? Ma(e) : void 0;
+      this._picked = e ? Ta(e) : void 0;
     }, this._hash = location.hash, new le(this, ".dock:not(.bare)", void 0, void 0, () => kt());
   }
   static getConfigElement() {
-    return de(mb);
+    return de(gb);
   }
   static getStubConfig() {
     return { items: [{ icon: "mdi:lightbulb-group", link: "#lights" }] };
@@ -21407,7 +21407,7 @@ const ns = class ns extends F {
   validateConfig(e) {
     if (!Array.isArray(e.items) || !e.items.length) throw new Error("`items` must list at least one button");
     const t = e.group ? e.items.find((a) => a.id)?.id : void 0;
-    return e.group && t && Mc(e.group, t), this._picked = e.group ? Ma(e.group) : void 0, e;
+    return e.group && t && Mc(e.group, t), this._picked = e.group ? Ta(e.group) : void 0, e;
   }
   watchedEntities() {
     return [];
@@ -21483,7 +21483,7 @@ const ns = class ns extends F {
   _tap(e, t) {
     const a = this._config?.group;
     if (a && e.id && !e.tap_action) {
-      Ts(a, e.id);
+      Cs(a, e.id);
       return;
     }
     const i = e.tap_action ?? { action: "navigate", navigation_path: e.home ? location.pathname : e.link };
@@ -21503,7 +21503,7 @@ const ns = class ns extends F {
     </nav>`;
   }
 };
-ns.parts = ju, ns.properties = { ...F.properties, _hash: { state: !0 }, _picked: { state: !0 } }, ns.styles = [
+rs.parts = ju, rs.properties = { ...F.properties, _hash: { state: !0 }, _picked: { state: !0 } }, rs.styles = [
   F.styles,
   ee`
       :host {
@@ -21690,13 +21690,13 @@ ns.parts = ju, ns.properties = { ...F.properties, _hash: { state: !0 }, _picked:
       }
     `
 ];
-let gl = ns;
+let gl = rs;
 ce("glass-dock", gl, {
   requires: "Bubble Card",
   name: "Glass – dock",
   description: "Navigation buttons on one liquid glass capsule at the bottom."
 });
-const Ab = [
+const Mb = [
   "run",
   "running",
   "in_use",
@@ -21734,13 +21734,13 @@ const Ab = [
   "cool_down",
   "anti_crease",
   "wrinkle_prevent"
-], Mb = ["pause", "paused", "rinse_hold", "action_required", "actionrequired", "interrupted"], Tb = ["finish", "finished", "end", "ended", "program_ended", "complete", "completed", "done", "end_of_cycle"], oi = (o) => (o ?? "").toLowerCase().replace(/[\s-]+/g, "_"), dm = (o, e, t) => {
+], Tb = ["pause", "paused", "rinse_hold", "action_required", "actionrequired", "interrupted"], Cb = ["finish", "finished", "end", "ended", "program_ended", "complete", "completed", "done", "end_of_cycle"], oi = (o) => (o ?? "").toLowerCase().replace(/[\s-]+/g, "_"), dm = (o, e, t) => {
   const a = (e ?? o).match(/^sensor\.(.+?)_washer_(?:machine|job)_state$/)?.[1];
   return {
     machine: e ?? (a ? `sensor.${a}_washer_machine_state` : void 0),
     power: t ?? (a ? `binary_sensor.${a}_power` : void 0)
   };
-}, Cb = (o) => /^sensor\..+_washer_job_state$/.test(o);
+}, Db = (o) => /^sensor\..+_washer_job_state$/.test(o);
 function Oc(o, e) {
   const t = dm(e.entity, e.machine, e.power), a = o?.states[e.entity];
   if (!a) return "off";
@@ -21749,7 +21749,7 @@ function Oc(o, e) {
   const n = parseFloat(a.state);
   if (Number.isFinite(n) && /^(W|kW)$/.test(a.attributes.unit_of_measurement ?? ""))
     return n * (a.attributes.unit_of_measurement === "kW" ? 1e3 : 1) > (e.run_above ?? 5) ? "run" : "off";
-  if (s(e.done_states, Tb)) {
+  if (s(e.done_states, Cb)) {
     const l = o?.states[t.power ?? ""]?.state, c = Date.now() - new Date(a.last_changed).getTime();
     return c < 3 * 36e5 && (l === "on" || l === void 0 && c < 30 * 6e4) ? "done" : "off";
   }
@@ -21759,7 +21759,7 @@ function Oc(o, e) {
     const l = oi(r.state);
     return l === "run" ? "run" : l === "pause" ? "pause" : "off";
   }
-  return s(e.pause_states, Mb) ? "pause" : s(e.run_states, Ab) ? "run" : "off";
+  return s(e.pause_states, Tb) ? "pause" : s(e.run_states, Mb) ? "run" : "off";
 }
 const Bc = (o) => {
   const e = dm(o.entity, o.machine, o.power);
@@ -21777,7 +21777,7 @@ const Bc = (o) => {
     name: "Done",
     icon: "mdi:check"
   }
-], pm = (o) => v(o.name), Db = ["playing", "paused", "on", "buffering"], Pb = ["on", "open", "unlocked"], Eb = [
+], pm = (o) => v(o.name), Pb = ["playing", "paused", "on", "buffering"], Eb = ["on", "open", "unlocked"], Lb = [
   "off",
   "unavailable",
   "unknown",
@@ -21785,12 +21785,12 @@ const Bc = (o) => {
   "idle",
   "docked",
   ""
-], Lb = ["mowing", "returning", "paused", "error"], Rb = {
+], Rb = ["mowing", "returning", "paused", "error"], Nb = {
   mowing: ["mdi:robot-mower", "mowing"],
   returning: ["mdi:home-import-outline", "returning"],
   paused: ["mdi:pause", "paused"],
   error: ["mdi:alert-circle-outline", "error"]
-}, Nb = ["cleaning", "returning", "paused", "error"], Ob = {
+}, Ob = ["cleaning", "returning", "paused", "error"], Bb = {
   cleaning: ["mdi:play", "cleaning"],
   returning: ["mdi:home-import-outline", "returning"],
   paused: ["mdi:pause", "paused"],
@@ -21800,7 +21800,7 @@ const Bc = (o) => {
     super(), new le(this);
   }
   static getConfigElement() {
-    return de(gb);
+    return de(fb);
   }
   static getStubConfig(e) {
     return { lights: [{ name: "Domov", entities: Object.keys(e.states).filter((a) => a.startsWith("light.")).slice(0, 3) }] };
@@ -21929,10 +21929,10 @@ const Bc = (o) => {
         continue;
       }
       if (h === "mower" || h === "vacuum") {
-        const M = h === "mower" ? Lb : Nb;
+        const M = h === "mower" ? Rb : Ob;
         if (!(c.active ? ge(c.active, e, c.entity) : M.includes(d.state)))
           continue;
-        const [k, $] = (h === "mower" ? Rb : Ob)[d.state] ?? ["mdi:dots-horizontal", ""], C = $ ? v($) : d.state, T = parseFloat(Ci(e.states[c.progress ?? ""]) ?? ""), P = parseFloat(Ci(e.states[c.time_left ?? ""]) ?? ""), N = Ci(e.states[c.area ?? ""]), E = u ?? (N && !/not working/i.test(N) ? N : void 0);
+        const [k, $] = (h === "mower" ? Nb : Bb)[d.state] ?? ["mdi:dots-horizontal", ""], C = $ ? v($) : d.state, T = parseFloat(Ci(e.states[c.progress ?? ""]) ?? ""), P = parseFloat(Ci(e.states[c.time_left ?? ""]) ?? ""), N = Ci(e.states[c.area ?? ""]), E = u ?? (N && !/not working/i.test(N) ? N : void 0);
         a.push({
           key: c.entity,
           icon: c.icon ?? (h === "mower" ? "mdi:robot-mower" : "mdi:robot-vacuum"),
@@ -21969,7 +21969,7 @@ const Bc = (o) => {
         continue;
       }
       const b = c.entity.split(".")[0];
-      if (!(c.active ? ge(c.active, e, c.entity) : b === "media_player" ? Db.includes(d.state) : b === "sensor" ? !Eb.includes(d.state) : Pb.includes(d.state))) continue;
+      if (!(c.active ? ge(c.active, e, c.entity) : b === "media_player" ? Pb.includes(d.state) : b === "sensor" ? !Lb.includes(d.state) : Eb.includes(d.state))) continue;
       const _ = c.detail ? e.states[c.detail] : void 0, x = Ci(_), z = b === "media_player" ? [d.attributes.media_title, d.attributes.app_name].find(
         (M) => typeof M == "string" && M
       ) : void 0, S = c.off_action;
@@ -22181,7 +22181,7 @@ ce("glass-now", fl, {
   name: "Glass – running now",
   description: "What is on in the whole home, each with a button to switch it off or the state it is in."
 });
-const zt = ["on"], Bb = {
+const zt = ["on"], jb = {
   light: zt,
   switch: zt,
   input_boolean: zt,
@@ -22199,9 +22199,9 @@ const zt = ["on"], Bb = {
   person: ["home"],
   device_tracker: ["home"],
   alarm_control_panel: ["armed_home", "armed_away", "armed_night", "triggered"]
-}, jb = { light: "yellow", binary_sensor: "red", lock: "red", alarm_control_panel: "red" };
+}, Ib = { light: "yellow", binary_sensor: "red", lock: "red", alarm_control_panel: "red" };
 function bl(o) {
-  if (!(o.washer === !1 || !o.washer && !Cb(o.entity)))
+  if (!(o.washer === !1 || !o.washer && !Db(o.entity)))
     return { ...typeof o.washer == "object" ? o.washer : {}, entity: o.entity };
 }
 function jt(o, e, t) {
@@ -22210,13 +22210,13 @@ function jt(o, e, t) {
   const a = bl(o);
   if (a) return Oc(t, a) === "run";
   const i = o.entity.split(".")[0];
-  return o.active_states ? o.active_states.includes(e.state) : i === "climate" ? e.state !== "off" : (Bb[i] ?? []).includes(e.state);
+  return o.active_states ? o.active_states.includes(e.state) : i === "climate" ? e.state !== "off" : (jb[i] ?? []).includes(e.state);
 }
-function Ib(o) {
+function qb(o) {
   if (o && (o.state === "opening" || o.state === "closing"))
     return "blink";
 }
-const eh = /* @__PURE__ */ new Map(), qb = (() => {
+const eh = /* @__PURE__ */ new Map(), Wb = (() => {
   try {
     const o = document.createElement("canvas").getContext("2d");
     return !!o && "filter" in o;
@@ -22225,7 +22225,7 @@ const eh = /* @__PURE__ */ new Map(), qb = (() => {
   }
 })();
 function um(o, e, t, a) {
-  if (!qb || !o || !e) return;
+  if (!Wb || !o || !e) return;
   const i = `${o}x${e}r${t}f${a}`, s = eh.get(i);
   if (s) return s;
   const n = 0.5, r = document.createElement("canvas");
@@ -22342,7 +22342,7 @@ const Jo = class Jo extends F {
     e.style.setProperty("-webkit-mask", s), e.style.setProperty("mask", s);
   }
   static getConfigElement() {
-    return de(Lf);
+    return de(Rf);
   }
   /** A setting of the nearest panel / dashboard above that has it (their per-device config). */
   _inherited(e) {
@@ -22382,13 +22382,13 @@ const Jo = class Jo extends F {
     if (!ge(e.visible, i, e.entity)) return g;
     const s = i.states[e.entity], n = e.entity.split(".")[0], r = jt(e, s, i), l = {
       ...e,
-      color: e.color ?? (r ? e.active_color ?? this._config?.active_color ?? jb[n] ?? "blue" : void 0),
+      color: e.color ?? (r ? e.active_color ?? this._config?.active_color ?? Ib[n] ?? "blue" : void 0),
       icon: r && e.icon_active || s && e.state_icons?.[s.state] || e.icon,
-      animation: e.animation ?? Ib(s)
+      animation: e.animation ?? qb(s)
     }, c = wo(l, e.rules, i, e.entity), d = Tr(c.animation), h = Be(c.color), u = Y(c.color), m = Ot(c), f = Ze(
       () => m,
       (x, z) => $e(this, i, m, x, z)
-    ), b = c.name ?? s?.attributes.friendly_name ?? c.entity, y = c.label ? wa(i, { entity: c.entity, text: c.label }).text : "", _ = (c.artwork ?? !1) && r && n === "media_player" ? s?.attributes.entity_picture : void 0;
+    ), b = c.name ?? s?.attributes.friendly_name ?? c.entity, y = c.label ? xa(i, { entity: c.entity, text: c.label }).text : "", _ = (c.artwork ?? !1) && r && n === "media_player" ? s?.attributes.entity_picture : void 0;
     return p`<div class="slot ${a}">
       <div
         class="btn control ${h ? "active" : ""} ${d.cls} ${s ? "" : "missing"}"
@@ -22423,7 +22423,7 @@ const Jo = class Jo extends F {
   _status(e, t, a = []) {
     const i = this._hass;
     if (e.status === !1 || e.status === "none") return "";
-    const s = (e.info ?? []).filter((n) => ge(n.visible, i, n.entity)).map((n) => wa(i, n)).filter((n) => n.available && n.text).map((n) => n.text);
+    const s = (e.info ?? []).filter((n) => ge(n.visible, i, n.entity)).map((n) => xa(i, n)).filter((n) => n.available && n.text).map((n) => n.text);
     if (e.status !== "info") {
       const n = t.filter((c) => ge(c.visible, i, c.entity) && jt(c, i.states[c.entity], i)), r = (c) => c.entity.startsWith("light.") || /lightbulb|ceiling-light|wall-sconce|lamp/.test(c.icon ?? ""), l = n.filter(r).reduce((c, d) => {
         const h = d.count ?? (d.entity.startsWith("light.") ? i.states[d.entity]?.attributes.entity_id : void 0);
@@ -22437,7 +22437,7 @@ const Jo = class Jo extends F {
   }
   /** image-full and compact: photo, then a strip with name, status and up to three (two) buttons. */
   _renderTile(e, t, a, i) {
-    const s = this._hass, n = e.layout === "compact", r = e.entities ?? [], l = r.filter((S) => ge(S.visible, s, S.entity)).slice(0, e.max_entities ?? (n ? 2 : 3)), c = this._imageUrl(e.image), d = $g(this) ?? s.states["sun.sun"]?.state === "below_horizon", h = this._status(e, r, [...l, ...e.contextual ?? []]), u = e.bar === "split", m = e.bar_glass ?? this._inherited("bar_glass") ?? pe.bar_glass ?? "liquid", f = !!(e.bar_tint ?? this._inherited("bar_tint")), b = `${m === "liquid" || m === "dark-liquid" ? "liq" : ""} mat-${m} ${f ? "bar-tinted" : ""}`, y = e.buttons === "top-center" || e.buttons === "top-end", _ = (e.contextual ?? []).filter((S) => S.visible ? ge(S.visible, s, S.entity) : jt(S, s.states[S.entity], s)).slice(0, 2).map((S) => ({ ...S, visible: void 0, artwork: S.artwork ?? S.entity.startsWith("media_player.") })), x = l.length || _.length ? p`<div class="entities">${_.map((S, M) => this._button(S, 100 + M, "ctx"))}${l.map((S, M) => this._button(S, M))}</div>` : void 0, z = c ? p`<div class="pic ${t ? "" : "off"}" style="background-image:url('${c}');background-position:${e.image_position ?? "center"}"></div>` : p`<div class="pic none"><ha-icon .icon=${e.icon ?? "mdi:home"}></ha-icon></div>`;
+    const s = this._hass, n = e.layout === "compact", r = e.entities ?? [], l = r.filter((S) => ge(S.visible, s, S.entity)).slice(0, e.max_entities ?? (n ? 2 : 3)), c = this._imageUrl(e.image), d = Sg(this) ?? s.states["sun.sun"]?.state === "below_horizon", h = this._status(e, r, [...l, ...e.contextual ?? []]), u = e.bar === "split", m = e.bar_glass ?? this._inherited("bar_glass") ?? pe.bar_glass ?? "liquid", f = !!(e.bar_tint ?? this._inherited("bar_tint")), b = `${m === "liquid" || m === "dark-liquid" ? "liq" : ""} mat-${m} ${f ? "bar-tinted" : ""}`, y = e.buttons === "top-center" || e.buttons === "top-end", _ = (e.contextual ?? []).filter((S) => S.visible ? ge(S.visible, s, S.entity) : jt(S, s.states[S.entity], s)).slice(0, 2).map((S) => ({ ...S, visible: void 0, artwork: S.artwork ?? S.entity.startsWith("media_player.") })), x = l.length || _.length ? p`<div class="entities">${_.map((S, M) => this._button(S, 100 + M, "ctx"))}${l.map((S, M) => this._button(S, M))}</div>` : void 0, z = c ? p`<div class="pic ${t ? "" : "off"}" style="background-image:url('${c}');background-position:${e.image_position ?? "center"}"></div>` : p`<div class="pic none"><ha-icon .icon=${e.icon ?? "mdi:home"}></ha-icon></div>`;
     return n ? p`<div
         class="surface tile cmp ${b} ${t ? "lit" : ""} ${d ? "night" : ""} ${e.tap_action ? "clickable" : ""}"
         style="${e.button_size ? `--btn-fixed:${e.button_size}px;` : ""}"
@@ -22493,7 +22493,7 @@ const Jo = class Jo extends F {
       (E) => $e(this, e, s, E)
     ), r = (E) => (L) => {
       L.composedPath().some((G) => G.classList?.contains("btn")) || E(L);
-    }, l = Tr(t.animation), c = (t.info ?? []).map((E) => ({ i: E, t: wa(e, E) })).filter(({ t: E }) => E.available && E.text), d = Y(t.icons?.icon?.color), h = { stacked: "top", "image-bottom": "bottom", "image-left": "left", "image-right": "right", "image-background": "bg" }[t.layout ?? "stacked"] ?? "top", u = h === "left" || h === "right", m = h === "bg", f = (u || m) && !!t.show_name && !!t.name, b = this._imageUrl(t.image), y = t.image_on !== void 0 ? ge(t.image_on, e) : t.image_color === "active" ? t.image_entities?.length ? t.image_entities.some((E) => jt({ entity: E }, e.states[E], e)) : a.some((E) => jt(E, e.states[E.entity], e)) : !0, _ = t.rows ?? Math.max(1, Math.min(a.length, 2)), x = Math.ceil(a.length / _), z = t.button_gap, S = u ? `--cols:${x};--rows:${_};grid-auto-flow:column${z !== void 0 ? `;--bgap:${z}px` : ""}` : m ? "" : `grid-template-columns:repeat(${i}, 1fr)${z !== void 0 ? `;gap:${z}px` : ""}`, M = this._bgCols, k = m && this._fitRows ? this._fitRows * M : a.length, $ = Math.max(1, Math.ceil(a.length / Math.max(1, k)));
+    }, l = Tr(t.animation), c = (t.info ?? []).map((E) => ({ i: E, t: xa(e, E) })).filter(({ t: E }) => E.available && E.text), d = Y(t.icons?.icon?.color), h = { stacked: "top", "image-bottom": "bottom", "image-left": "left", "image-right": "right", "image-background": "bg" }[t.layout ?? "stacked"] ?? "top", u = h === "left" || h === "right", m = h === "bg", f = (u || m) && !!t.show_name && !!t.name, b = this._imageUrl(t.image), y = t.image_on !== void 0 ? ge(t.image_on, e) : t.image_color === "active" ? t.image_entities?.length ? t.image_entities.some((E) => jt({ entity: E }, e.states[E], e)) : a.some((E) => jt(E, e.states[E.entity], e)) : !0, _ = t.rows ?? Math.max(1, Math.min(a.length, 2)), x = Math.ceil(a.length / _), z = t.button_gap, S = u ? `--cols:${x};--rows:${_};grid-auto-flow:column${z !== void 0 ? `;--bgap:${z}px` : ""}` : m ? "" : `grid-template-columns:repeat(${i}, 1fr)${z !== void 0 ? `;gap:${z}px` : ""}`, M = this._bgCols, k = m && this._fitRows ? this._fitRows * M : a.length, $ = Math.max(1, Math.ceil(a.length / Math.max(1, k)));
     this._page >= $ && (this._page = 0);
     const C = $ > 1 ? a.slice(this._page * k, this._page * k + k) : a, T = $ > 1 ? this._page * k : 0, P = Math.max(1, Math.ceil(C.length / M)), N = (E) => a.slice(E * k, E * k + k).some((L) => jt(L, e.states[L.entity], e));
     return p`<div
@@ -23360,20 +23360,20 @@ const th = j`<svg width="0" height="0" style="position:absolute" aria-hidden="tr
       <feDropShadow dx="0" dy="2.5" stdDeviation="2.2" flood-color="#1b2a4a" flood-opacity=".22"/>
     </filter>
   </defs>
-</svg>`, Wb = "M19 47h27a10 10 0 0 0 1.3-19.9A14 14 0 0 0 20.6 24.4 11.4 11.4 0 0 0 19 47z", ah = (o = "") => j`<g transform=${o}>
+</svg>`, Fb = "M19 47h27a10 10 0 0 0 1.3-19.9A14 14 0 0 0 20.6 24.4 11.4 11.4 0 0 0 19 47z", ah = (o = "") => j`<g transform=${o}>
   <g class="rays">${[0, 45, 90, 135, 180, 225, 270, 315].map(
   (e) => j`<rect x="30.6" y="6" width="2.8" height="8" rx="1.4" fill="url(#wi-ray)" transform="rotate(${e} 32 32)"/>`
 )}</g>
   <circle cx="32" cy="32" r="12.5" fill="url(#wi-sun)" filter="url(#wi-soft)"/>
 </g>`, In = (o = "") => j`<g transform=${o}><g class="moon">
   <path d="M38.5 14.5a17 17 0 1 0 11 27.8A14 14 0 0 1 38.5 14.5z" fill="url(#wi-moon)" filter="url(#wi-soft)"/>
-</g></g>`, Je = (o = "wi-cloud", e = "", t = "cloud") => j`<g transform=${e}><g class=${t}><path d=${Wb} fill="url(#${o})" filter="url(#wi-soft)"/></g></g>`, Bs = (o) => j`<g class="drops">${Array.from({ length: o }, (e, t) => {
+</g></g>`, Je = (o = "wi-cloud", e = "", t = "cloud") => j`<g transform=${e}><g class=${t}><path d=${Fb} fill="url(#${o})" filter="url(#wi-soft)"/></g></g>`, js = (o) => j`<g class="drops">${Array.from({ length: o }, (e, t) => {
   const a = 22 + t * (20 / Math.max(1, o - 1));
   return j`<path class="drop" style="animation-delay:${t * 0.23}s" d="M${a} 50.5l-2 5.5a2.1 2.1 0 1 0 4 0z" fill="url(#wi-drop)"/>`;
 })}</g>`, qn = (o) => j`<g class="flakes">${Array.from({ length: o }, (e, t) => {
   const a = 23 + t * (18 / Math.max(1, o - 1));
   return j`<circle class="flake" style="animation-delay:${t * 0.4}s" cx=${a} cy="54" r="2.1" fill="#fff" stroke="#c7d6ea" stroke-width=".6"/>`;
-})}</g>`, ih = j`<path class="bolt" d="M33 44l-6 10h5l-3 8 9-12h-5l3-6z" fill="url(#wi-bolt)" filter="url(#wi-soft)"/>`, Fb = j`<g class="fog" stroke="#e8eef6" stroke-width="3" stroke-linecap="round">
+})}</g>`, ih = j`<path class="bolt" d="M33 44l-6 10h5l-3 8 9-12h-5l3-6z" fill="url(#wi-bolt)" filter="url(#wi-soft)"/>`, Hb = j`<g class="fog" stroke="#e8eef6" stroke-width="3" stroke-linecap="round">
   <line x1="14" y1="51" x2="50" y2="51"/><line x1="18" y1="57" x2="46" y2="57"/>
 </g>`, sh = j`<g class="wind" fill="none" stroke="#eef4fb" stroke-width="3" stroke-linecap="round">
   <path d="M10 26h28a6 6 0 1 0-6-6"/><path d="M10 34h38a6 6 0 1 1-6 6"/><path d="M10 42h18"/>
@@ -23395,19 +23395,19 @@ function Wn(o, e = !1) {
       t = j`${Je("wi-cloud-back", "translate(9 -7) scale(.8)", "cloud back")}${Je("wi-cloud", "translate(-2 2)")}`;
       break;
     case "fog":
-      t = j`${Je("wi-cloud", "translate(0 -6)")}${Fb}`;
+      t = j`${Je("wi-cloud", "translate(0 -6)")}${Hb}`;
       break;
     case "rainy":
-      t = j`${Je("wi-cloud", "translate(0 -6)")}${Bs(3)}`;
+      t = j`${Je("wi-cloud", "translate(0 -6)")}${js(3)}`;
       break;
     case "pouring":
-      t = j`${Je("wi-cloud-dark", "translate(0 -6)")}${Bs(5)}`;
+      t = j`${Je("wi-cloud-dark", "translate(0 -6)")}${js(5)}`;
       break;
     case "snowy":
       t = j`${Je("wi-cloud", "translate(0 -6)")}${qn(3)}`;
       break;
     case "snowy-rainy":
-      t = j`${Je("wi-cloud", "translate(0 -6)")}${Bs(2)}${qn(2)}`;
+      t = j`${Je("wi-cloud", "translate(0 -6)")}${js(2)}${qn(2)}`;
       break;
     case "hail":
       t = j`${Je("wi-cloud-dark", "translate(0 -6)")}${qn(4)}`;
@@ -23416,7 +23416,7 @@ function Wn(o, e = !1) {
       t = j`${Je("wi-cloud-dark", "translate(0 -8)")}${ih}`;
       break;
     case "lightning-rainy":
-      t = j`${Je("wi-cloud-dark", "translate(0 -8)")}${Bs(2)}${ih}`;
+      t = j`${Je("wi-cloud-dark", "translate(0 -8)")}${js(2)}${ih}`;
       break;
     case "windy":
       t = sh;
@@ -23429,7 +23429,7 @@ function Wn(o, e = !1) {
   }
   return j`<svg class="wi" viewBox="0 0 64 64" role="img" aria-label=${o ?? ""}>${t}</svg>`;
 }
-const Hb = ee`
+const Gb = ee`
   .wi {
     display: block;
     width: 100%;
@@ -23706,7 +23706,7 @@ const Hb = ee`
   <g fill="#fff" opacity=${e ? 0.35 : 0.9} filter="url(#gc-hl)">
     <ellipse cx="57" cy="40" rx="11" ry="7"/><ellipse cx="40" cy="47" rx="9" ry="5.5"/><ellipse cx="72" cy="53" rx="7" ry="4.5"/>
   </g>
-</g></g>`, js = (o, e = !1) => j`<g class="drops">${Array.from({ length: o }, (t, a) => {
+</g></g>`, Is = (o, e = !1) => j`<g class="drops">${Array.from({ length: o }, (t, a) => {
   const i = 34 + a * (32 / Math.max(1, o - 1)), s = 72 + a % 2 * 6;
   return j`<g class="drop" style="animation-delay:${a * 0.21}s">
       <path d="M${i} ${s}c-3.9 6-6 9.6-6 12.6a6 6 0 0 0 12 0c0-3-2.1-6.6-6-12.6z" fill="url(#wr-drop)" opacity=${e ? 0.97 : 0.93} filter="url(#wr-shadow)"/>
@@ -23719,7 +23719,7 @@ const Hb = ee`
         </g>`;
 })}</g>`, rh = j`<g class="bolt" fill="none" stroke="url(#gb-bolt)" stroke-linecap="round" stroke-linejoin="round" filter="url(#wr-glow)">
   <path d="M52 58l-7 13 8 3-10 18" stroke-width="3"/><path d="M45 71l-8 7" stroke-width="1.8"/><path d="M53 74l8 8" stroke-width="1.6"/><path d="M47 83l-5 3" stroke-width="1.2"/>
-</g>`, Gb = j`<g class="fog" filter="url(#wr-blur)" stroke="#f2f6fb" stroke-linecap="round" stroke-width="4.5" opacity=".9">
+</g>`, Ub = j`<g class="fog" filter="url(#wr-blur)" stroke="#f2f6fb" stroke-linecap="round" stroke-width="4.5" opacity=".9">
   <line x1="20" y1="78" x2="80" y2="78"/><line x1="28" y1="88" x2="72" y2="88"/>
 </g>`, lh = j`<g class="wind" fill="none" stroke="#f2f6fb" stroke-width="4.5" stroke-linecap="round" opacity=".92" filter="url(#wr-shadow)">
   <path d="M14 42h44a9 9 0 1 0-9-9"/><path d="M14 56h58a9 9 0 1 1-9 9"/><path d="M14 70h28"/>
@@ -23741,19 +23741,19 @@ function mm(o, e = !1) {
       t = j`${Xe("translate(24 -4) scale(.72)", !1, "cloud back")}${Xe("translate(0 12)")}`;
       break;
     case "fog":
-      t = j`${Xe("translate(0 -4)")}${Gb}`;
+      t = j`${Xe("translate(0 -4)")}${Ub}`;
       break;
     case "rainy":
-      t = j`${Xe("translate(0 -6)")}${js(3)}`;
+      t = j`${Xe("translate(0 -6)")}${Is(3)}`;
       break;
     case "pouring":
-      t = j`${Xe("translate(0 -8)", !0)}${js(5, !0)}`;
+      t = j`${Xe("translate(0 -8)", !0)}${Is(5, !0)}`;
       break;
     case "snowy":
       t = j`${Xe("translate(0 -6)")}${Hn(3)}`;
       break;
     case "snowy-rainy":
-      t = j`${Xe("translate(0 -6)")}${js(2)}${Hn(2)}`;
+      t = j`${Xe("translate(0 -6)")}${Is(2)}${Hn(2)}`;
       break;
     case "hail":
       t = j`${Xe("translate(0 -8)", !0)}${Hn(4, !0)}`;
@@ -23762,7 +23762,7 @@ function mm(o, e = !1) {
       t = j`${Xe("translate(0 -10)", !0)}${rh}`;
       break;
     case "lightning-rainy":
-      t = j`${Xe("translate(0 -10)", !0)}${js(2, !0)}${rh}`;
+      t = j`${Xe("translate(0 -10)", !0)}${Is(2, !0)}${rh}`;
       break;
     case "windy":
       t = lh;
@@ -23891,7 +23891,7 @@ const gm = ee`
       animation: none !important;
     }
   }
-`, Na = (o) => o.mm >= 0.1, ch = (o) => o.charAt(0).toUpperCase() + o.slice(1), Un = { daily: 1, hourly: 2, twice_daily: 4 };
+`, Oa = (o) => o.mm >= 0.1, ch = (o) => o.charAt(0).toUpperCase() + o.slice(1), Un = { daily: 1, hourly: 2, twice_daily: 4 };
 function dh(o) {
   const e = /* @__PURE__ */ new Map();
   for (const t of o) {
@@ -23937,12 +23937,12 @@ const hh = {
   wind_gust_speed: "mdi:weather-windy-variant",
   sunrise: "mdi:weather-sunset-up",
   sunset: "mdi:weather-sunset-down"
-}, Ub = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"], rs = class rs extends F {
+}, Kb = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"], ls = class ls extends F {
   constructor() {
     super(), this._unsubs = [], this._monoRo = new ResizeObserver(() => this.hasUpdated && this._mono !== this._wasMono && this.requestUpdate()), new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(Nf);
+    return de(Of);
   }
   static getStubConfig(e) {
     return { weather: Object.keys(e.states).find((t) => t.startsWith("weather.")) ?? "weather.home" };
@@ -23985,8 +23985,8 @@ const hh = {
   /** rain_nowcast: the next two hours in 15-minute steps and "Rain from 11:15" – undefined when it stays dry. */
   _rainInfo(e, t) {
     const a = Date.now(), i = (this._nowcast ?? []).filter((d) => d.t + 9e5 > a), s = i.slice(0, 8);
-    if (!s.some(Na)) return;
-    const n = new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: Te(e) }), r = Na(s[0]), l = r ? i.find((d) => !Na(d)) : s.find(Na);
+    if (!s.some(Oa)) return;
+    const n = new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: Te(e) }), r = Oa(s[0]), l = r ? i.find((d) => !Oa(d)) : s.find(Oa);
     return { text: r ? l ? `${v("rain until")} ${n.format(new Date(l.t))}` : this._rainEnd(t, n, i[i.length - 1].t + 9e5) : `${v("rain from")} ${n.format(new Date(l.t))}`, steps: s, raining: r };
   }
   /**
@@ -24007,7 +24007,7 @@ const hh = {
     const s = Math.max(1, ...i.steps.map((r) => r.mm)), n = i.text.charAt(0).toUpperCase() + i.text.slice(1);
     return p`<div class="rain">
       ${a ? p`<span class="rain-text">${n}</span>` : g}
-      <span class="rain-bars">${i.steps.map((r) => p`<i class=${Na(r) ? "wet" : ""} style="height:${Na(r) ? Math.max(18, r.mm / s * 100) : 8}%"></i>`)}</span>
+      <span class="rain-bars">${i.steps.map((r) => p`<i class=${Oa(r) ? "wet" : ""} style="height:${Oa(r) ? Math.max(18, r.mm / s * 100) : 8}%"></i>`)}</span>
     </div>`;
   }
   /** Re-render on the minute (or second) boundary, not on a free-running interval. */
@@ -24136,7 +24136,7 @@ const hh = {
       if (c === "wind") {
         const u = t.attributes.wind_speed;
         if (u == null) return g;
-        const m = t.attributes.wind_bearing, f = typeof m == "number" ? v(`compass.${Ub[Math.round(m / 45) % 8]}`) : "";
+        const m = t.attributes.wind_bearing, f = typeof m == "number" ? v(`compass.${Kb[Math.round(m / 45) % 8]}`) : "";
         return p`<span>${l(c)}${f ? p`<ha-icon class="arrow" icon="mdi:navigation" style="transform:rotate(${m + 180}deg)"></ha-icon>${f}&nbsp;` : g}${s.format(u)}<small>${n[c] ?? ""}</small></span>`;
       }
       if (c === "sunrise" || c === "sunset") {
@@ -24234,10 +24234,10 @@ const hh = {
     </div>`;
   }
 };
-rs.parts = Uu, rs.properties = { ...F.properties, _forecasts: { state: !0 }, _nowcast: { state: !0 } }, rs.styles = [
+ls.parts = Uu, ls.properties = { ...F.properties, _forecasts: { state: !0 }, _nowcast: { state: !0 } }, ls.styles = [
   F.styles,
   we,
-  Hb,
+  Gb,
   gm,
   ee`
       .big-icon ha-icon.mdi,
@@ -24648,14 +24648,14 @@ rs.parts = Uu, rs.properties = { ...F.properties, _forecasts: { state: !0 }, _no
       }
     `
 ];
-let vl = rs;
+let vl = ls;
 ce("glass-clock-weather", vl, {
   name: "Glass – clock & weather",
   description: "Large clock, current weather with an animated icon and a forecast with temperature bars."
 });
-const ls = class ls extends F {
+const cs = class cs extends F {
   static getConfigElement() {
-    return de(Bf);
+    return de(jf);
   }
   static getStubConfig() {
     return {};
@@ -24681,7 +24681,7 @@ const ls = class ls extends F {
     ></div>`;
   }
 };
-ls.wrapTile = !0, ls.parts = Ju, ls.styles = [
+cs.wrapTile = !0, cs.parts = Ju, cs.styles = [
   F.styles,
   ee`
       :host {
@@ -24728,7 +24728,7 @@ ls.wrapTile = !0, ls.parts = Ju, ls.styles = [
       }
     `
 ];
-let wl = ls;
+let wl = cs;
 ce("glass-divider", wl, {
   name: "Glass – divider",
   description: "Rounded separator line between cards."
@@ -25141,13 +25141,13 @@ actions:
       - action: input_boolean.turn_off
         target:
           entity_id: "{{ ringing_entity }}"
-`, Me = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], ks = ["mon", "tue", "wed", "thu", "fri"], Ca = ["sat", "sun"];
+`, Me = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], $s = ["mon", "tue", "wed", "thu", "fri"], Da = ["sat", "sun"];
 function fm(o) {
   const e = (o ?? "").toLowerCase().trim();
   if (!e || e === "once" || e === "unknown" || e === "unavailable") return;
   if (e === "daily" || e === "every day" || e === "all") return new Set(Me);
-  if (e === "workdays" || e === "weekdays") return new Set(ks);
-  if (e === "weekends") return new Set(Ca);
+  if (e === "workdays" || e === "weekdays") return new Set($s);
+  if (e === "weekends") return new Set(Da);
   const t = /* @__PURE__ */ new Set();
   for (const a of e.split(/[\s,;|]+/)) {
     const i = Me.find((s) => a.startsWith(s));
@@ -25155,10 +25155,10 @@ function fm(o) {
   }
   return t.size ? t : void 0;
 }
-const ro = (o) => o?.size ? Me.filter((e) => o.has(e)).join(",") : "once", ni = (o, e) => !!o && o.size === e.length && e.every((t) => o.has(t)), ph = (o) => Me[(o.getDay() + 6) % 7], bm = (o) => `${o.getFullYear()}-${String(o.getMonth() + 1).padStart(2, "0")}-${String(o.getDate()).padStart(2, "0")}`, Kb = new Set(
+const ro = (o) => o?.size ? Me.filter((e) => o.has(e)).join(",") : "once", ni = (o, e) => !!o && o.size === e.length && e.every((t) => o.has(t)), ph = (o) => Me[(o.getDay() + 6) % 7], bm = (o) => `${o.getFullYear()}-${String(o.getMonth() + 1).padStart(2, "0")}-${String(o.getDate()).padStart(2, "0")}`, Vb = new Set(
   "AD AL AM AT AZ BA BE BG BY CH CY CZ DE DK EE ES FI FO FR GB GE GG GI GR HR HU IE IM IS IT JE LI LT LU LV MC MD ME MK MT NL NO PL PT RO RS RU SE SI SK SM TR UA VA XK".split(" ")
 );
-function Vb(o) {
+function Yb(o) {
   const e = o?.locale?.first_weekday;
   if (e && e !== "language") {
     const i = Me.find((s) => e.startsWith(s));
@@ -25166,7 +25166,7 @@ function Vb(o) {
   }
   if (o?.config?.time_zone?.startsWith("Europe/")) return "mon";
   const t = o?.config?.country?.toUpperCase();
-  if (t && Kb.has(t)) return "mon";
+  if (t && Vb.has(t)) return "mon";
   const a = be(o);
   try {
     const i = new Intl.Locale(a), s = i.getWeekInfo?.().firstDay ?? i.weekInfo?.firstDay;
@@ -25176,15 +25176,15 @@ function Vb(o) {
   return a === "en" || a === "en-US" ? "sun" : "mon";
 }
 function ri(o) {
-  const e = Me.indexOf(Vb(o));
+  const e = Me.indexOf(Yb(o));
   return [...Me.slice(e), ...Me.slice(0, e)];
 }
-function $s(o, e, t = "short") {
+function Ss(o, e, t = "short") {
   const a = new Intl.DateTimeFormat(be(o), { weekday: t }).format(new Date(2024, 0, 1 + Me.indexOf(e)));
   return a.charAt(0).toUpperCase() + a.slice(1);
 }
-function Yb(o, e) {
-  return e ? ni(e, Me) ? v("Every day") : ni(e, ks) ? v("Weekdays") : ni(e, Ca) ? v("Weekends") : ri(o).filter((t) => e.has(t)).map((t) => $s(o, t)).join(", ") : v("Once");
+function Zb(o, e) {
+  return e ? ni(e, Me) ? v("Every day") : ni(e, $s) ? v("Weekdays") : ni(e, Da) ? v("Weekends") : ri(o).filter((t) => e.has(t)).map((t) => Ss(o, t)).join(", ") : v("Once");
 }
 function jc(o) {
   return Te(o) ?? new Intl.DateTimeFormat(be(o), { hour: "numeric" }).resolvedOptions().hour12 ?? !1;
@@ -25199,8 +25199,8 @@ function ym(o, e) {
   const i = t?.attributes;
   return typeof i?.hour == "number" ? [i.hour, i.minute ?? 0] : void 0;
 }
-const vm = (o) => !!o && o.size < 7 && Ca.some((e) => o.has(e));
-function Zb(o, e, t, a) {
+const vm = (o) => !!o && o.size < 7 && Da.some((e) => o.has(e));
+function Jb(o, e, t, a) {
   if (!o) return;
   const i = /* @__PURE__ */ new Date(), s = vm(t);
   let n;
@@ -25224,7 +25224,7 @@ function Zb(o, e, t, a) {
   }
 }
 const uh = /* @__PURE__ */ new Map();
-function Jb(o, e, t) {
+function Xb(o, e, t) {
   if (!e || !o?.callApi) return;
   const a = uh.get(e);
   if (a && (a.pending || Date.now() - a.at < 36e5))
@@ -25243,11 +25243,11 @@ function Jb(o, e, t) {
     return r.days = c, r.pending = void 0, c;
   }).catch(() => (r.at = 0, r.pending = void 0, r.days)), uh.set(e, r), r.pending.then(t), r.days;
 }
-function Xb(o, e, t) {
+function Qb(o, e, t) {
   const a = lo(e);
   if (!a.length) return;
   const i = /* @__PURE__ */ new Map();
-  for (const s of a) for (const [n, r] of Jb(o, s, t) ?? []) i.has(n) || i.set(n, r);
+  for (const s of a) for (const [n, r] of Xb(o, s, t) ?? []) i.has(n) || i.set(n, r);
   return i;
 }
 const lo = (o) => (Array.isArray(o) ? o : o ? [o] : []).filter((e) => typeof e == "string" && e.startsWith("calendar."));
@@ -25282,18 +25282,18 @@ function bi(o) {
   const e = /^input_datetime\.glass_alarm_(\d+)_time$/;
   return Object.keys(o.states).map((t) => e.exec(t)?.[1]).filter((t) => !!t).map(Number).sort((t, a) => t - a);
 }
-const Qb = (o) => {
+const e_ = (o) => {
   const e = /^input_datetime\.glass_alarm_(\d+)_time$/.exec(o.entity);
   return e ? Number(e[1]) : void 0;
 };
-async function e_(o, e) {
+async function t_(o, e) {
   const t = new Set(bi(o));
   let a = 1;
   for (; t.has(a); ) a++;
   const i = `Glass alarm ${a}`, s = (r) => o.callWS(r);
   await s({ type: "input_boolean/create", name: i, icon: "mdi:alarm" }), await s({ type: "input_datetime/create", name: `${i} time`, has_date: !1, has_time: !0, icon: "mdi:clock-outline" }), await s({ type: "input_text/create", name: `${i} days`, max: 100, icon: "mdi:calendar-week" }), await s({ type: "input_text/create", name: `${i} name`, max: 100, icon: "mdi:label-outline" }), await s({ type: "input_text/create", name: `${i} player`, max: 255, icon: "mdi:speaker" }), await s({ type: "input_text/create", name: `${i} sound`, max: 255, icon: "mdi:music-note" }), await s({ type: "input_boolean/create", name: `${i} holidays`, icon: "mdi:calendar-star" }), await xm(o, a);
   const n = ea(a);
-  return await o_(o, [n.entity, n.days, n.name, n.player, n.sound]), await o.callService("input_datetime", "set_datetime", { entity_id: n.entity, time: e.time }), await o.callService("input_text", "set_value", { entity_id: n.days, value: e.days }), e.name && await o.callService("input_text", "set_value", { entity_id: n.name, value: e.name }), e.player && await o.callService("input_text", "set_value", { entity_id: n.player, value: e.player }), await o.callService("input_text", "set_value", { entity_id: n.sound, value: e.sound || Qt() }), await o.callService("input_boolean", "turn_on", { entity_id: e.skip === !1 ? n.switch : [n.switch, n.skip_holidays] }), await Sm(o), await o.callApi("POST", `config/automation/config/${fn}${a}`, {
+  return await n_(o, [n.entity, n.days, n.name, n.player, n.sound]), await o.callService("input_datetime", "set_datetime", { entity_id: n.entity, time: e.time }), await o.callService("input_text", "set_value", { entity_id: n.days, value: e.days }), e.name && await o.callService("input_text", "set_value", { entity_id: n.name, value: e.name }), e.player && await o.callService("input_text", "set_value", { entity_id: n.player, value: e.player }), await o.callService("input_text", "set_value", { entity_id: n.sound, value: e.sound || Qt() }), await o.callService("input_boolean", "turn_on", { entity_id: e.skip === !1 ? n.switch : [n.switch, n.skip_holidays] }), await Sm(o), await o.callApi("POST", `config/automation/config/${fn}${a}`, {
     alias: i,
     description: "Rings the alarm set in the Glass alarm cards. Created by the cards: change it there.",
     use_blueprint: {
@@ -25312,7 +25312,7 @@ async function e_(o, e) {
     }
   }), a;
 }
-async function t_(o) {
+async function a_(o) {
   for (const e of bi(o)) {
     const t = ea(e);
     if (o.states[t.ringing] && o.states[t.snooze]) continue;
@@ -25328,18 +25328,18 @@ async function km(o, e) {
   t.length && await o.callService("media_player", "media_stop", { entity_id: t }).catch(() => {
   });
 }
-async function a_(o, e, t = 10) {
+async function i_(o, e, t = 10) {
   if (e.snooze) {
     const a = new Date(Date.now() + t * 6e4), i = (n) => String(n).padStart(2, "0"), s = `${a.getFullYear()}-${i(a.getMonth() + 1)}-${i(a.getDate())} ${i(a.getHours())}:${i(a.getMinutes())}:${i(a.getSeconds())}`;
     await o.callService("input_datetime", "set_datetime", { entity_id: e.snooze, datetime: s });
   }
   await km(o, e);
 }
-const i_ = (() => {
+const s_ = (() => {
   let o = 5381;
   for (let e = 0; e < xl.length; e++) o = (o * 33 ^ xl.charCodeAt(e)) >>> 0;
   return o.toString(36);
-})(), $m = `https://github.com/martinargalas/glass-cards/blob/main/blueprints/automation/glass_alarm.yaml?v=${i_}`;
+})(), $m = `https://github.com/martinargalas/glass-cards/blob/main/blueprints/automation/glass_alarm.yaml?v=${s_}`;
 async function Sm(o) {
   await o.callWS({
     type: "blueprint/save",
@@ -25356,12 +25356,12 @@ async function zm(o) {
     mh = !0;
     try {
       const t = (await o.callWS({ type: "blueprint/list", domain: "automation" }))[Ic];
-      t && t.metadata?.source_url !== $m && (await Sm(o), await o.callService("automation", "reload")), t && await t_(o);
+      t && t.metadata?.source_url !== $m && (await Sm(o), await o.callService("automation", "reload")), t && await a_(o);
     } catch {
     }
   }
 }
-async function s_(o, e) {
+async function o_(o, e) {
   await o.callApi("DELETE", `config/automation/config/${fn}${e}`).catch(() => {
   });
   const t = ea(e);
@@ -25371,7 +25371,7 @@ async function s_(o, e) {
     });
   }
 }
-function o_(o, e) {
+function n_(o, e) {
   return new Promise((t) => {
     const a = Date.now(), i = () => {
       const s = document.querySelector("home-assistant")?.hass?.states ?? o.states;
@@ -25380,7 +25380,7 @@ function o_(o, e) {
     i();
   });
 }
-const n_ = [
+const r_ = [
   // the dashboard's liquid glass settings (the shader reads them from the element it draws)
   ...Object.keys(Cr).map((o) => `--glass-liquid-${o.replace(/[A-Z]/g, (e) => "-" + e.toLowerCase())}`),
   "--glass-corner-shape",
@@ -25392,7 +25392,7 @@ const n_ = [
   "--mat-home-bg",
   "--glass-blur-scale",
   "--glass-font"
-], r_ = 600, Xo = class Xo extends Ye {
+], l_ = 600, Xo = class Xo extends Ye {
   constructor() {
     super(), this._liquid = new le(this, ".sheet.surface"), this._parts = new le(this, Ac, void 0, void 0, () => kt()), this._onResize = () => this.requestUpdate(), this._onKey = (e) => {
       e.key === "Enter" && this.opts.onEnter && !(e.composedPath()[0] instanceof HTMLInputElement) && this.opts.onEnter();
@@ -25421,7 +25421,7 @@ const n_ = [
     const e = this.opts.host;
     if (!e) return "";
     const t = getComputedStyle(e);
-    return n_.map((a) => [a, t.getPropertyValue(a).trim()]).filter(([, a]) => a).map(([a, i]) => `${a}:${i}`).join(";");
+    return r_.map((a) => [a, t.getPropertyValue(a).trim()]).filter(([, a]) => a).map(([a, i]) => `${a}:${i}`).join(";");
   }
   firstUpdated() {
     this.renderRoot.querySelector(".sheet")?.addEventListener("transitionend", () => (this._liquid.refresh(), this._parts.refresh()));
@@ -25436,7 +25436,7 @@ const n_ = [
     this.isConnected && (this._open = !1, this.opts.onClose?.(), setTimeout(() => this.remove(), 240));
   }
   render() {
-    const e = this.opts, t = window.innerWidth < r_, a = e.glass || "", i = e.dark === !1, s = a === "flat" || a === "none", n = e.tint ? this._rgb(e.tint) : void 0, r = n ? `--glass-panel-tint:${n};--glass-panel-tint-a:0.35;--sheet-tint:rgba(${n}, 0.3);` : "";
+    const e = this.opts, t = window.innerWidth < l_, a = e.glass || "", i = e.dark === !1, s = a === "flat" || a === "none", n = e.tint ? this._rgb(e.tint) : void 0, r = n ? `--glass-panel-tint:${n};--glass-panel-tint-a:0.35;--sheet-tint:rgba(${n}, 0.3);` : "";
     return p`<dialog class="top" aria-label=${e.title ?? ""} @cancel=${(l) => (l.preventDefault(), this.close())}>
       <div class="scrim ${this._open ? "open" : ""} ${s ? "deep" : ""} ${a === "none" ? "none" : ""}" @click=${() => this.close()}></div>
       <div
@@ -25942,7 +25942,7 @@ Xo.properties = { _open: { state: !0 } }, Xo.styles = [
 ];
 let kl = Xo;
 customElements.get("glass-sheet") || customElements.define("glass-sheet", kl);
-function l_(o) {
+function c_(o) {
   document.querySelectorAll("glass-sheet").forEach((t) => t.close());
   const e = document.createElement("glass-sheet");
   return e.opts = o, document.body.appendChild(e), {
@@ -25953,7 +25953,7 @@ function l_(o) {
     }
   };
 }
-const Is = 40, c_ = 5, Qo = class Qo extends Ye {
+const qs = 40, d_ = 5, Qo = class Qo extends Ye {
   constructor() {
     super(), this._timers = /* @__PURE__ */ new Map(), this.hours = 7, this.minutes = 0, this.hour12 = !1, this.step = 1;
   }
@@ -25983,7 +25983,7 @@ const Is = 40, c_ = 5, Qo = class Qo extends Ye {
   firstUpdated(e) {
     for (const t of this._wheels()) {
       const a = this.renderRoot.querySelector(`.wheel[data-k="${t.key}"]`);
-      a && (a.scrollTop = t.index * Is);
+      a && (a.scrollTop = t.index * qs);
     }
   }
   focus() {
@@ -25996,12 +25996,12 @@ const Is = 40, c_ = 5, Qo = class Qo extends Ye {
       e,
       window.setTimeout(() => {
         const i = a.querySelectorAll(".item").length;
-        this._pick(e, Math.max(0, Math.min(i - 1, Math.round(a.scrollTop / Is))));
+        this._pick(e, Math.max(0, Math.min(i - 1, Math.round(a.scrollTop / qs))));
       }, 90)
     );
   }
   _scrollTo(e, t) {
-    this.renderRoot.querySelector(`.wheel[data-k="${e}"]`)?.scrollTo({ top: t * Is, behavior: "smooth" });
+    this.renderRoot.querySelector(`.wheel[data-k="${e}"]`)?.scrollTo({ top: t * qs, behavior: "smooth" });
   }
   _wheelKey(e, t, a, i) {
     const s = i.key === "ArrowDown" ? 1 : i.key === "ArrowUp" ? -1 : 0;
@@ -26012,7 +26012,7 @@ const Is = 40, c_ = 5, Qo = class Qo extends Ye {
   }
   render() {
     const e = this._wheels();
-    return p`<div class="wheels" style="--row:${Is}px;--rows:${c_}">
+    return p`<div class="wheels" style="--row:${qs}px;--rows:${d_}">
       <div class="band"></div>
       ${e.map(
       (t, a) => p`${a === 1 ? p`<span class="colon">:</span>` : g}
@@ -26108,7 +26108,7 @@ Qo.properties = { hours: { type: Number }, minutes: { type: Number }, hour12: { 
   `;
 let $l = Qo;
 customElements.get("glass-time-wheels") || customElements.define("glass-time-wheels", $l);
-const d_ = (o) => (o ?? "").split(/[\s,;]+/).map((e) => e.trim()).filter((e) => e.includes("."));
+const h_ = (o) => (o ?? "").split(/[\s,;]+/).map((e) => e.trim()).filter((e) => e.includes("."));
 function Am(o, e) {
   const t = (s) => s ? o.states[s]?.state : void 0, a = ym(o, e.entity) ?? [7, 0], i = e.name?.startsWith("input_text.") ? t(e.name) : e.name;
   return {
@@ -26117,17 +26117,17 @@ function Am(o, e) {
     minutes: a[1],
     days: e.days ? fm(t(e.days)) : new Set(Me),
     skip: e.skip_holidays ? t(e.skip_holidays) === "on" : !0,
-    players: d_(t(e.player)),
+    players: h_(t(e.player)),
     sound: t(e.sound) && t(e.sound) !== "unknown" ? t(e.sound) : ""
   };
 }
-async function h_(o, e, t, a) {
+async function p_(o, e, t, a) {
   const i = [], s = `${String(t.hours).padStart(2, "0")}:${String(t.minutes).padStart(2, "0")}:00`;
-  (t.hours !== a.hours || t.minutes !== a.minutes) && i.push(o.callService("input_datetime", "set_datetime", { entity_id: e.entity, time: s })), e.days && ro(t.days) !== ro(a.days) && i.push(o.callService("input_text", "set_value", { entity_id: e.days, value: ro(t.days) })), e.skip_holidays && t.skip !== a.skip && i.push(o.callService(p_(e.skip_holidays), t.skip ? "turn_on" : "turn_off", { entity_id: e.skip_holidays })), e.name?.startsWith("input_text.") && t.name !== a.name && i.push(o.callService("input_text", "set_value", { entity_id: e.name, value: t.name.slice(0, 100) })), e.player && t.players.join(",") !== a.players.join(",") && i.push(o.callService("input_text", "set_value", { entity_id: e.player, value: t.players.join(",").slice(0, 255) })), e.sound && t.sound !== a.sound && i.push(o.callService("input_text", "set_value", { entity_id: e.sound, value: t.sound.slice(0, 255) })), await Promise.all(i);
+  (t.hours !== a.hours || t.minutes !== a.minutes) && i.push(o.callService("input_datetime", "set_datetime", { entity_id: e.entity, time: s })), e.days && ro(t.days) !== ro(a.days) && i.push(o.callService("input_text", "set_value", { entity_id: e.days, value: ro(t.days) })), e.skip_holidays && t.skip !== a.skip && i.push(o.callService(u_(e.skip_holidays), t.skip ? "turn_on" : "turn_off", { entity_id: e.skip_holidays })), e.name?.startsWith("input_text.") && t.name !== a.name && i.push(o.callService("input_text", "set_value", { entity_id: e.name, value: t.name.slice(0, 100) })), e.player && t.players.join(",") !== a.players.join(",") && i.push(o.callService("input_text", "set_value", { entity_id: e.player, value: t.players.join(",").slice(0, 255) })), e.sound && t.sound !== a.sound && i.push(o.callService("input_text", "set_value", { entity_id: e.sound, value: t.sound.slice(0, 255) })), await Promise.all(i);
 }
-const p_ = (o) => o.split(".")[0] === "switch" ? "switch" : "input_boolean";
+const u_ = (o) => o.split(".")[0] === "switch" ? "switch" : "input_boolean";
 function gh(o) {
-  const e = o.hass, t = o.helpers, a = o.draft ? { ...u_(), ...o.draft } : Am(e, t), i = { ...a, days: a.days ? new Set(a.days) : void 0, players: [...a.players] };
+  const e = o.hass, t = o.helpers, a = o.draft ? { ...m_(), ...o.draft } : Am(e, t), i = { ...a, days: a.days ? new Set(a.days) : void 0, players: [...a.players] };
   let s = !1, n = "", r = !1, l = !1, c = !!i.sound && !fh(i.sound, o.sounds);
   const d = (k) => {
     k(), S.update();
@@ -26138,14 +26138,14 @@ function gh(o) {
     if (!s) {
       s = !0, n = "", S.update();
       try {
-        o.onSave ? await o.onSave(i) : await h_(e, t, i, a), S.close();
+        o.onSave ? await o.onSave(i) : await p_(e, t, i, a), S.close();
       } catch (k) {
         n = k?.message ?? String(k), s = !1, S.update();
       }
     }
   }, m = o.players ?? Object.keys(e.states).filter((k) => k.startsWith("media_player.") && e.states[k].state !== "unavailable").sort((k, $) => Di(e, k).localeCompare(Di(e, $))), f = [{ name: wm(Qt()), url: Qt() }, ...o.sounds ?? []], b = o.controlsMat, y = b?.cls ?? "", _ = b?.style ?? "", x = (k, $, C) => p`<button class="chip ${y} ${$ ? "cur" : ""}" style=${_} aria-pressed=${$} @click=${C}>${k}</button>`, z = (k, $, C, T, P) => p`<button class="opt ${C ? "cur" : ""}" role="checkbox" aria-checked=${C} @click=${T}>
       <ha-icon .icon=${k}></ha-icon><span>${$}${P ? p`<small>${P}</small>` : g}</span><ha-icon class="tick" .icon=${"mdi:check"}></ha-icon>
-    </button>`, S = l_({
+    </button>`, S = c_({
     title: o.title,
     dark: o.dark,
     accent: o.accent,
@@ -26165,14 +26165,14 @@ function gh(o) {
       ${t.days ? p`<div class="label">${v("Repeat")}</div>
             <div class="chips">
               ${x(v("Once"), !i.days, () => d(() => i.days = void 0))}
-              ${x(v("Weekdays"), ni(i.days, ks), () => d(() => i.days = new Set(ks)))}
+              ${x(v("Weekdays"), ni(i.days, $s), () => d(() => i.days = new Set($s)))}
               ${x(v("Every day"), ni(i.days, Me), () => d(() => i.days = new Set(Me)))}
-              ${x(v("Weekends"), ni(i.days, Ca), () => d(() => i.days = new Set(Ca)))}
+              ${x(v("Weekends"), ni(i.days, Da), () => d(() => i.days = new Set(Da)))}
             </div>
             <div class="days">
               ${ri(e).map(
-      (k) => p`<button class="day ${y} ${i.days?.has(k) ? "cur" : ""}" style=${_} aria-pressed=${!!i.days?.has(k)} title=${$s(e, k, "long")} @click=${() => h(k)}>
-                    ${$s(e, k, "narrow")}
+      (k) => p`<button class="day ${y} ${i.days?.has(k) ? "cur" : ""}" style=${_} aria-pressed=${!!i.days?.has(k)} title=${Ss(e, k, "long")} @click=${() => h(k)}>
+                    ${Ss(e, k, "narrow")}
                   </button>`
     )}
             </div>` : g}
@@ -26234,7 +26234,7 @@ function gh(o) {
   };
   return S;
 }
-const u_ = () => ({ name: "", hours: 7, minutes: 0, days: new Set(ks), skip: !0, players: [], sound: "" }), Di = (o, e) => o.states[e]?.attributes.friendly_name ?? e, fh = (o, e) => !o || o === Qt() || /sound-birds\.mp3$/.test(o) || !!e?.some((t) => t.url === o), Oo = (o) => !!o && o !== "none";
+const m_ = () => ({ name: "", hours: 7, minutes: 0, days: new Set($s), skip: !0, players: [], sound: "" }), Di = (o, e) => o.states[e]?.attributes.friendly_name ?? e, fh = (o, e) => !o || o === Qt() || /sound-birds\.mp3$/.test(o) || !!e?.some((t) => t.url === o), Oo = (o) => !!o && o !== "none";
 function ot(o, e, t) {
   const a = o ?? (Oo(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: re(Oo(e) ? e : void 0) } : void 0;
@@ -26244,7 +26244,7 @@ const en = class en extends F {
     super(), this._busy = !1, this._sent = /* @__PURE__ */ new Map(), this._key = "", this._slide = 0, new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(nb);
+    return de(rb);
   }
   static getStubConfig() {
     return { title: v("Alarms") };
@@ -26301,14 +26301,14 @@ const en = class en extends F {
     const t = this._hass;
     if (!t) return;
     W("light");
-    const a = e.created ?? Qb(e);
+    const a = e.created ?? e_(e);
     this._sheet = gh({
       ...this._opts(),
       hass: t,
       helpers: e,
       title: this._name(e) || v("Alarm"),
       full: !0,
-      onDelete: a !== void 0 && t.user?.is_admin ? () => s_(t, a) : void 0
+      onDelete: a !== void 0 && t.user?.is_admin ? () => o_(t, a) : void 0
     });
   }
   /** + : a new alarm in the editor; Done creates its helpers and automation. */
@@ -26327,7 +26327,7 @@ const en = class en extends F {
       onSave: async (a) => {
         this._busy = !0;
         try {
-          await e_(e, {
+          await t_(e, {
             name: a.name,
             time: `${String(a.hours).padStart(2, "0")}:${String(a.minutes).padStart(2, "0")}:00`,
             days: ro(a.days),
@@ -26355,8 +26355,8 @@ const en = class en extends F {
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = !!t.user?.is_admin, i = Xb(t, e.skip_calendars, () => this.requestUpdate()), s = this._alarms().map((m) => {
-      const f = this._on(m), b = ym(t, m.entity), y = m.days ? fm(t.states[m.days]?.state) : new Set(Me), _ = !!i && (!m.skip_holidays || t.states[m.skip_holidays]?.state === "on"), x = Zb(b, !0, y, _ ? i : void 0);
+    const a = !!t.user?.is_admin, i = Qb(t, e.skip_calendars, () => this.requestUpdate()), s = this._alarms().map((m) => {
+      const f = this._on(m), b = ym(t, m.entity), y = m.days ? fm(t.states[m.days]?.state) : new Set(Me), _ = !!i && (!m.skip_holidays || t.states[m.skip_holidays]?.state === "on"), x = Jb(b, !0, y, _ ? i : void 0);
       return { a: m, on: f, t: b, days: y, next: f ? x : void 0, date: x?.at, skipped: f ? x?.skipped?.name : void 0, dayOff: f ? x?.dayOff : void 0 };
     }), n = this._soonest(s), r = e.layout === "carousel" && s.length > 1, l = ot(e.add_glass, e.add_color, "flat"), c = ot(e.list_glass, e.list_color, "flat"), d = a ? p`<button class="add ${l?.cls ?? ""}" style=${l?.style ?? ""} title=${v("New alarm")} aria-label=${v("New alarm")} @click=${() => this._add()}><ha-icon .icon=${"mdi:plus"}></ha-icon></button>` : g, h = Y(e.active_color ?? "blue") ?? "transparent", u = `--c-on:${h};--c-sw:${Oo(e.switch_color) && Y(e.switch_color) || h};--c-days:${Oo(e.days_color) && Y(e.days_color) || h}`;
     return p`<div class="frame surface ${r ? "carousel" : ""}" style=${u}>
@@ -26384,8 +26384,8 @@ const en = class en extends F {
         ${l ? p`<div class="aname">${l}</div>` : g}
         <div class="clock"><span class="time">${r.time}</span>${r.ap ? p`<span class="ap">${r.ap}</span>` : g}</div>
         <div class="when">
-          ${n ? p`<span class="week" aria-label=${Yb(t, n)}
-                >${ri(t).map((u) => p`<b class=${n.has(u) ? "lit" : ""} title=${$s(t, u, "long")}>${$s(t, u, "narrow")}</b>`)}</span
+          ${n ? p`<span class="week" aria-label=${Zb(t, n)}
+                >${ri(t).map((u) => p`<b class=${n.has(u) ? "lit" : ""} title=${Ss(t, u, "long")}>${Ss(t, u, "narrow")}</b>`)}</span
               >` : p`<span class="date">${e.date ? new Intl.DateTimeFormat(h, { weekday: "short", day: "numeric", month: "numeric" }).format(e.date) : v("Once")}</span>`}
           ${e.skipped || e.dayOff ? p`<span class="skip" title=${e.skipped ? v("{name} skipped", { name: e.skipped }) : v("{name}: rings as on a weekend", { name: e.dayOff })}><ha-icon .icon=${"mdi:calendar-star"}></ha-icon></span>` : g}
         </div>
@@ -26760,7 +26760,7 @@ function zl(o) {
   }
   return document.body;
 }
-function m_(o) {
+function g_(o) {
   let e = o;
   for (let t = 0; e && t < 60; t++) {
     const a = e.localName;
@@ -26769,19 +26769,19 @@ function m_(o) {
   }
   return !1;
 }
-const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], _h = { month: "mdi:calendar-month-outline", week: "mdi:calendar-week-outline", day: "mdi:calendar-today-outline", agenda: "mdi:format-list-bulleted" }, yh = { month: "Month", week: "Week", day: "Day", agenda: "Agenda" }, Ge = 44, Vn = 1, g_ = 2, vh = 4, Yn = [
+const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], _h = { month: "mdi:calendar-month-outline", week: "mdi:calendar-week-outline", day: "mdi:calendar-today-outline", agenda: "mdi:format-list-bulleted" }, yh = { month: "Month", week: "Week", day: "Day", agenda: "Agenda" }, Ge = 44, Vn = 1, f_ = 2, vh = 4, Yn = [
   ["", "Doesn't repeat"],
   ["FREQ=DAILY", "Every day"],
   ["FREQ=WEEKLY", "Every week"],
   ["FREQ=MONTHLY", "Every month"],
   ["FREQ=YEARLY", "Every year"]
-], f_ = 900 * 1e3, Qe = (o) => {
+], b_ = 900 * 1e3, Qe = (o) => {
   const [e, t, a] = o.split("-").map(Number);
   return new Date(e, t - 1, a);
-}, gt = (o) => new Date(o.getFullYear(), o.getMonth(), o.getDate()), ze = (o, e) => new Date(o.getFullYear(), o.getMonth(), o.getDate() + e), Le = (o, e) => o.getFullYear() === e.getFullYear() && o.getMonth() === e.getMonth() && o.getDate() === e.getDate(), Pi = (o) => Ca.includes(Me[(o.getDay() + 6) % 7]), Oa = (o) => o.charAt(0).toUpperCase() + o.slice(1), ta = (o) => String(o).padStart(2, "0"), De = (o) => `${o.getFullYear()}-${ta(o.getMonth() + 1)}-${ta(o.getDate())}`, Ka = (o) => `${ta(o.getHours())}:${ta(o.getMinutes())}`, qs = (o) => {
+}, gt = (o) => new Date(o.getFullYear(), o.getMonth(), o.getDate()), ze = (o, e) => new Date(o.getFullYear(), o.getMonth(), o.getDate() + e), Le = (o, e) => o.getFullYear() === e.getFullYear() && o.getMonth() === e.getMonth() && o.getDate() === e.getDate(), Pi = (o) => Da.includes(Me[(o.getDay() + 6) % 7]), Ba = (o) => o.charAt(0).toUpperCase() + o.slice(1), ta = (o) => String(o).padStart(2, "0"), De = (o) => `${o.getFullYear()}-${ta(o.getMonth() + 1)}-${ta(o.getDate())}`, Ka = (o) => `${ta(o.getHours())}:${ta(o.getMinutes())}`, Ws = (o) => {
   const e = -o.getTimezoneOffset();
   return `${De(o)}T${Ka(o)}:00${e < 0 ? "-" : "+"}${ta(Math.floor(Math.abs(e) / 60))}:${ta(Math.abs(e) % 60)}`;
-}, b_ = (o) => `glass:calendar/${String(o + 1).padStart(2, "0")}.webp`, Ut = class Ut extends F {
+}, __ = (o) => `glass:calendar/${String(o + 1).padStart(2, "0")}.webp`, Ut = class Ut extends F {
   constructor() {
     super(), this._popup = !1, this._cals = [], this._range = "", this._scrolled = "", this._ro = new ResizeObserver(([e]) => {
       const t = Math.round(e.contentRect.width);
@@ -26880,7 +26880,7 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     location.hash && (history.replaceState(history.state, "", location.href.split("#")[0]), window.dispatchEvent(new CustomEvent("location-changed", { detail: { replace: !0 } })));
   }
   static getConfigElement() {
-    return de(If);
+    return de(qf);
   }
   static getStubConfig() {
     return {};
@@ -26899,7 +26899,7 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     super.connectedCallback(), this._ro.observe(this), requestAnimationFrame(() => {
       const e = this._findPopup();
       e !== this._popup && (this._popup = e, this.requestUpdate());
-    }), this._timer = window.setInterval(() => (this._range = "", void this._fetch()), f_), this._config?.overlay && window.addEventListener("keydown", this._onKey);
+    }), this._timer = window.setInterval(() => (this._range = "", void this._fetch()), b_), this._config?.overlay && window.addEventListener("keydown", this._onKey);
   }
   disconnectedCallback() {
     super.disconnectedCallback(), this._ro.disconnect(), clearInterval(this._timer), window.removeEventListener("keydown", this._onKey), this._dragCancel();
@@ -27046,8 +27046,8 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     if (i <= a) return void (this._form = { ...e, error: v("It ends before it starts") });
     const s = {
       summary: e.title.trim(),
-      dtstart: e.allDay ? De(a) : qs(a),
-      dtend: e.allDay ? De(i) : qs(i)
+      dtstart: e.allDay ? De(a) : Ws(a),
+      dtend: e.allDay ? De(i) : Ws(i)
     };
     e.location.trim() && (s.location = e.location.trim()), e.description.trim() && (s.description = e.description.trim());
     const n = !!e.ev?.recurrenceId && e.scope === "one";
@@ -27160,8 +27160,8 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     if (!i) return;
     const s = {
       summary: e.title,
-      dtstart: e.allDay ? De(t) : qs(t),
-      dtend: e.allDay ? De(a) : qs(a)
+      dtstart: e.allDay ? De(t) : Ws(t),
+      dtend: e.allDay ? De(a) : Ws(a)
     };
     e.location && (s.location = e.location), e.description && (s.description = e.description), e.rrule && !e.recurrenceId && (s.rrule = e.rrule), this._evs = (this._evs ?? []).map((n) => n.id === e.id ? { ...n, start: t, end: a } : n), this._detail?.id === e.id && (this._detail = this._evs.find((n) => n.id === e.id)), W("selection");
     try {
@@ -27180,12 +27180,12 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   /* ---------- the photo ---------- */
   _photo() {
     const e = this._config, t = this._cursor.getMonth(), a = e.images?.[String(t + 1)];
-    if (a) return ba(a);
+    if (a) return _a(a);
     if (e.image === "custom") {
-      if (e.image_url) return ba(e.image_url);
-    } else if (e.image && e.image !== "months") return ba(e.image);
+      if (e.image_url) return _a(e.image_url);
+    } else if (e.image && e.image !== "months") return _a(e.image);
     const i = e.hemisphere === "south" || e.hemisphere !== "north" && (this._hass?.config?.latitude ?? 0) < 0;
-    return ba(b_(i ? (t + 6) % 12 : t));
+    return _a(__(i ? (t + 6) % 12 : t));
   }
   glassUnder(e) {
     return e.closest(".frame")?.querySelector(".photo") ?? void 0;
@@ -27309,7 +27309,7 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     </div>`;
     return p`<div class="head">
       <div class="row top">
-        <h2 class="title">${Oa(l)}</h2>
+        <h2 class="title">${Ba(l)}</h2>
         ${this._canAdd() ? c("add", p`<button class="item round" title=${v("New event")} @click=${() => this._newEvent()}><ha-icon .icon=${"mdi:plus"}></ha-icon></button>`) : g}
         ${c(
       "nav",
@@ -27349,7 +27349,7 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     </button>`;
   }
   _month(e) {
-    const t = this._hass, a = Te(t), [i] = this._span("month", this._cursor, t), s = gt(/* @__PURE__ */ new Date()), n = this._config.weekends ?? "tint", r = ri(t).filter((h) => n !== "hide" || !Ca.includes(h)), l = r.map((h) => new Intl.DateTimeFormat(e, { weekday: this._w < 900 ? "narrow" : "short" }).format(new Date(2024, 0, 1 + Me.indexOf(h)))), c = this._w < 900 ? 2 : 3, d = Array.from({ length: 42 }, (h, u) => ze(i, u)).filter((h) => n !== "hide" || !Pi(h));
+    const t = this._hass, a = Te(t), [i] = this._span("month", this._cursor, t), s = gt(/* @__PURE__ */ new Date()), n = this._config.weekends ?? "tint", r = ri(t).filter((h) => n !== "hide" || !Da.includes(h)), l = r.map((h) => new Intl.DateTimeFormat(e, { weekday: this._w < 900 ? "narrow" : "short" }).format(new Date(2024, 0, 1 + Me.indexOf(h)))), c = this._w < 900 ? 2 : 3, d = Array.from({ length: 42 }, (h, u) => ze(i, u)).filter((h) => n !== "hide" || !Pi(h));
     return p`<div class="month" style="grid-template-columns:repeat(${r.length}, minmax(0, 1fr))">
       ${l.map((h) => p`<div class="wd">${h}</div>`)}
       ${d.map((h, u) => {
@@ -27371,7 +27371,7 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     for (let l = i; l < s; l = ze(l, 1)) {
       const c = this._on(l), d = this._dayOff(l);
       if (!c.length && !d) continue;
-      const h = Le(l, n) ? Oa(new Intl.RelativeTimeFormat(e, { numeric: "auto" }).format(0, "day")) : Oa(new Intl.DateTimeFormat(e, { weekday: "long", day: "numeric", month: "long" }).format(l));
+      const h = Le(l, n) ? Ba(new Intl.RelativeTimeFormat(e, { numeric: "auto" }).format(0, "day")) : Ba(new Intl.DateTimeFormat(e, { weekday: "long", day: "numeric", month: "long" }).format(l));
       r.push(p`<section class=${d ? "off" : ""}>
         <h3 @click=${() => this._openDay(l)}>${h}${d ? p`<small>${d}</small>` : g}</h3>
         ${c.map((u) => {
@@ -27450,7 +27450,7 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   /** an event: when, which calendar, where, what */
   _sheet(e, t) {
-    const a = Te(this._hass), i = this._cals[e.cal], s = (h) => Oa(new Intl.DateTimeFormat(t, { weekday: "long", day: "numeric", month: "long", year: h.getFullYear() === (/* @__PURE__ */ new Date()).getFullYear() ? void 0 : "numeric" }).format(h)), n = (h) => new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: a }).format(h), r = ze(e.end, -1), l = e.allDay ? Le(e.start, r) || e.end <= e.start ? `${s(e.start)} · ${v("all day")}` : `${s(e.start)} – ${s(r)}` : Le(e.start, e.end) ? `${s(e.start)} · ${n(e.start)} – ${n(e.end)}` : `${s(e.start)} ${n(e.start)} – ${s(e.end)} ${n(e.end)}`, c = ot(this._config.sheet_glass ?? this._config.panel_glass, this._config.sheet_color ?? this._config.panel_color, "frosted"), d = this._w < 720;
+    const a = Te(this._hass), i = this._cals[e.cal], s = (h) => Ba(new Intl.DateTimeFormat(t, { weekday: "long", day: "numeric", month: "long", year: h.getFullYear() === (/* @__PURE__ */ new Date()).getFullYear() ? void 0 : "numeric" }).format(h)), n = (h) => new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: a }).format(h), r = ze(e.end, -1), l = e.allDay ? Le(e.start, r) || e.end <= e.start ? `${s(e.start)} · ${v("all day")}` : `${s(e.start)} – ${s(r)}` : Le(e.start, e.end) ? `${s(e.start)} · ${n(e.start)} – ${n(e.end)}` : `${s(e.start)} ${n(e.start)} – ${s(e.end)} ${n(e.end)}`, c = ot(this._config.sheet_glass ?? this._config.panel_glass, this._config.sheet_color ?? this._config.panel_color, "frosted"), d = this._w < 720;
     return p`<div class="detail ${d ? "dock" : "popwrap"}">
       <div class="sheet ${d ? "" : "pop"} ${c?.cls ?? ""}" style="--c:${i.color};${c?.style ?? ""}${d ? "" : ";visibility:hidden"}" @click=${(h) => h.stopPropagation()}>
         <button class="x" title=${v("Close")} @click=${() => this._dismiss()}><ha-icon .icon=${"mdi:close"}></ha-icon></button>
@@ -27464,7 +27464,7 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   /** the detail's Edit and Delete – where the calendar allows them; a delete asked again */
   _actions(e) {
-    const t = this._cals[e.cal].entity, a = !!e.uid && this._can(t, vh), i = !!e.uid && this._can(t, g_);
+    const t = this._cals[e.cal].entity, a = !!e.uid && this._can(t, vh), i = !!e.uid && this._can(t, f_);
     if (!a && !i) return g;
     const s = this._confirm;
     return s && i ? p`<div class="ask">
@@ -27487,7 +27487,7 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     };
     return p`<div class="mini">
       <div class="mhead">
-        <b>${Oa(new Intl.DateTimeFormat(a, { month: "long", year: "numeric" }).format(n))}</b>
+        <b>${Ba(new Intl.DateTimeFormat(a, { month: "long", year: "numeric" }).format(n))}</b>
         <button class="mnav" title=${v("Previous")} @click=${() => u(-1)}><ha-icon .icon=${"mdi:chevron-left"}></ha-icon></button>
         <button class="mnav" title=${v("Next")} @click=${() => u(1)}><ha-icon .icon=${"mdi:chevron-right"}></ha-icon></button>
       </div>
@@ -27504,7 +27504,7 @@ const bh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   /** a new event, or one changed – as Apple's: Cancel, the title and Add on top; the name and the
    *  place; when; repeat and calendar; notes. Every field a pill. */
   _formSheet(e, t) {
-    const a = this._cals.filter((_) => this._can(_.entity, Vn) || _.entity === e.cal), i = this._cals.find((_) => _.entity === e.cal)?.color ?? "#888", s = ot(this._config.sheet_glass ?? this._config.panel_glass, this._config.sheet_color ?? this._config.panel_color, "frosted"), n = Yn.some(([_]) => _ === e.rrule) ? Yn : [...Yn, [e.rrule, v("As set in the calendar")]], r = !!e.ev?.recurrenceId, l = (_) => _.target.value, c = Te(this._hass), d = new Intl.DateTimeFormat(t, { weekday: "short", day: "numeric", month: "short" }), h = new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: c }), u = (_) => (W("selection"), this._set({ open: e.open === _ ? void 0 : _, mon: void 0 })), m = (_) => p`<button class="pill date ${e.open === _ ? "open" : ""}" @click=${() => u(_)}>${Oa(d.format(Qe(e[_])))}</button>`, f = (_) => p`<button class="pill time ${e.open === _ ? "open" : ""}" @click=${() => u(_)}>${h.format(/* @__PURE__ */ new Date(`2000-01-01T${e[_]}`))}</button>`, b = (_) => e.open === `${_}d` ? this._miniMonth(e, `${_}d`, t) : e.open === `${_}t` ? p`<div class="wheels-row">
+    const a = this._cals.filter((_) => this._can(_.entity, Vn) || _.entity === e.cal), i = this._cals.find((_) => _.entity === e.cal)?.color ?? "#888", s = ot(this._config.sheet_glass ?? this._config.panel_glass, this._config.sheet_color ?? this._config.panel_color, "frosted"), n = Yn.some(([_]) => _ === e.rrule) ? Yn : [...Yn, [e.rrule, v("As set in the calendar")]], r = !!e.ev?.recurrenceId, l = (_) => _.target.value, c = Te(this._hass), d = new Intl.DateTimeFormat(t, { weekday: "short", day: "numeric", month: "short" }), h = new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: c }), u = (_) => (W("selection"), this._set({ open: e.open === _ ? void 0 : _, mon: void 0 })), m = (_) => p`<button class="pill date ${e.open === _ ? "open" : ""}" @click=${() => u(_)}>${Ba(d.format(Qe(e[_])))}</button>`, f = (_) => p`<button class="pill time ${e.open === _ ? "open" : ""}" @click=${() => u(_)}>${h.format(/* @__PURE__ */ new Date(`2000-01-01T${e[_]}`))}</button>`, b = (_) => e.open === `${_}d` ? this._miniMonth(e, `${_}d`, t) : e.open === `${_}t` ? p`<div class="wheels-row">
               <glass-time-wheels
                 .hours=${Number(e[`${_}t`].slice(0, 2))}
                 .minutes=${Number(e[`${_}t`].slice(3, 5))}
@@ -29051,7 +29051,7 @@ Ut.properties = {
   xe
 ];
 let Al = Ut;
-function __(o, e, t) {
+function y_(o, e, t) {
   document.querySelectorAll("glass-calendar-view[overlay]").forEach((s) => s.remove());
   const a = document.createElement("glass-calendar-view");
   a.opener = o, a.setConfig({ type: "custom:glass-calendar-view", ...t, overlay: !0 }), e && (a.hass = e), zl(o).append(a);
@@ -29064,10 +29064,10 @@ ce("glass-calendar-view", Al, {
   name: "Glass – full calendar",
   description: "A full-size calendar – month, week, day or agenda: add, edit and drag events. Opens from the Calendar card."
 });
-const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], y_ = 900 * 1e3, xh = (o) => {
+const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], v_ = 900 * 1e3, xh = (o) => {
   const [e, t, a] = o.split("-").map(Number);
   return new Date(e, t - 1, a);
-}, v_ = (o) => `${o.getFullYear()}-${o.getMonth()}-${o.getDate()}`, Ws = (o) => new Date(o.getFullYear(), o.getMonth(), o.getDate()), cs = class cs extends F {
+}, w_ = (o) => `${o.getFullYear()}-${o.getMonth()}-${o.getDate()}`, Fs = (o) => new Date(o.getFullYear(), o.getMonth(), o.getDate()), ds = class ds extends F {
   constructor() {
     super(), this._sources = [], this._loading = !1, new le(this, ".cal");
   }
@@ -29075,7 +29075,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     this._full?.isConnected ? this._full.hass = e : this._full = void 0;
   }
   static getConfigElement() {
-    return de(jf);
+    return de(If);
   }
   static getStubConfig(e) {
     const t = Object.keys(e.states).find((a) => a.startsWith("calendar."));
@@ -29097,7 +29097,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     this._fetch();
   }
   connectedCallback() {
-    super.connectedCallback(), this._timer = window.setInterval(() => this._fetch(), y_), this._scheduleMidnight(), this._hass && this._config && this._fetch();
+    super.connectedCallback(), this._timer = window.setInterval(() => this._fetch(), v_), this._scheduleMidnight(), this._hass && this._config && this._fetch();
   }
   disconnectedCallback() {
     super.disconnectedCallback(), clearInterval(this._timer), clearTimeout(this._midnight);
@@ -29113,7 +29113,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     const e = this._hass;
     if (!e?.callApi || !this._config || this._loading) return;
     this._loading = !0;
-    const t = Ws(/* @__PURE__ */ new Date()), a = new Date(t.getFullYear(), t.getMonth(), t.getDate() + Math.max(1, this._config.days ?? 5)), i = `start=${encodeURIComponent(t.toISOString())}&end=${encodeURIComponent(a.toISOString())}`;
+    const t = Fs(/* @__PURE__ */ new Date()), a = new Date(t.getFullYear(), t.getMonth(), t.getDate() + Math.max(1, this._config.days ?? 5)), i = `start=${encodeURIComponent(t.toISOString())}&end=${encodeURIComponent(a.toISOString())}`;
     try {
       const s = await Promise.all(
         this._sources.map(async (r) => (await e.callApi("GET", `calendars/${r.entity}?${i}`).catch(() => [])).map((c) => {
@@ -29136,7 +29136,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     }
   }
   _dayLabel(e, t) {
-    const a = Ws(/* @__PURE__ */ new Date()), i = Math.round((Ws(e).getTime() - a.getTime()) / 864e5);
+    const a = Fs(/* @__PURE__ */ new Date()), i = Math.round((Fs(e).getTime() - a.getTime()) / 864e5);
     if (i <= 0 || i === 1) {
       const r = new Intl.RelativeTimeFormat(t, { numeric: "auto" }).format(Math.max(0, i), "day");
       return r.charAt(0).toUpperCase() + r.slice(1);
@@ -29157,9 +29157,9 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     if (!this._config || !this._hass) return g;
     const e = this._config, t = this._hass, a = be(t), i = Te(t), s = (this._events ?? []).slice(0, e.max_events ?? 6);
     if (this._events && !s.length && e.hide_empty) return g;
-    const n = (this._events?.length ?? 0) - s.length, r = Ws(/* @__PURE__ */ new Date()), l = /* @__PURE__ */ new Map();
+    const n = (this._events?.length ?? 0) - s.length, r = Fs(/* @__PURE__ */ new Date()), l = /* @__PURE__ */ new Map();
     for (const h of s) {
-      const u = h.start < r ? r : h.start, m = v_(u);
+      const u = h.start < r ? r : h.start, m = w_(u);
       l.has(m) || l.set(m, { label: this._dayLabel(u, a), events: [] }), l.get(m).events.push(h);
     }
     const c = { entity: this._sources[0]?.entity, tap_action: e.tap_action ?? (e.tap_opens === "ha" ? { action: "navigate", navigation_path: "/calendar" } : { action: "none" }) }, d = Ze(
@@ -29167,7 +29167,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
       (h) => {
         if (h === "tap" && !e.tap_action && e.tap_opens !== "ha") {
           const u = e.calendars ?? e.entities;
-          this._full = __(this, t, { ...u ? { calendars: u } : {}, ...e.calendar_view ?? {} });
+          this._full = y_(this, t, { ...u ? { calendars: u } : {}, ...e.calendar_view ?? {} });
         } else $e(this, t, c, h);
       }
     );
@@ -29191,7 +29191,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     </div>`;
   }
 };
-cs.parts = Hu, cs.properties = { ...F.properties, _events: { state: !0 }, _error: { state: !0 } }, cs.styles = [
+ds.parts = Hu, ds.properties = { ...F.properties, _events: { state: !0 }, _error: { state: !0 } }, ds.styles = [
   F.styles,
   we,
   ee`
@@ -29303,7 +29303,7 @@ cs.parts = Hu, cs.properties = { ...F.properties, _events: { state: !0 }, _error
       }
     `
 ];
-let Ml = cs;
+let Ml = ds;
 ce("glass-calendar", Ml, {
   name: "Glass – calendar",
   description: "Upcoming events from HA calendars, grouped by day."
@@ -29317,7 +29317,7 @@ const kh = {
   satellite: "Clouds",
   clouds: "Cloud cover",
   rain: "Rain"
-}, w_ = [
+}, x_ = [
   [150, 196, 255, 0.55],
   // light (grey in DWD's scheme)
   [70, 140, 255, 0.72],
@@ -29327,7 +29327,7 @@ const kh = {
   [150, 70, 220, 0.9]
   // extreme (violet / blue)
 ], Ei = /* @__PURE__ */ new Map();
-function x_(o) {
+function k_(o) {
   let e = Ei.get(o);
   if (e) return e;
   if (e = new Promise((t, a) => {
@@ -29341,7 +29341,7 @@ function x_(o) {
       for (let c = 0; c < l.length; c += 4) {
         const d = l[c + 3];
         if (d < 8) continue;
-        const h = l[c], u = l[c + 1], m = l[c + 2], b = Math.max(h, u, m) - Math.min(h, u, m) < 24 ? 0 : h > 180 && u > 150 && m < 140 ? 1 : h > 170 && u < 150 ? 2 : 3, y = w_[b];
+        const h = l[c], u = l[c + 1], m = l[c + 2], b = Math.max(h, u, m) - Math.min(h, u, m) < 24 ? 0 : h > 180 && u > 150 && m < 140 ? 1 : h > 170 && u < 150 ? 2 : 3, y = x_[b];
         l[c] = y[0], l[c + 1] = y[1], l[c + 2] = y[2], l[c + 3] = Math.round(y[3] * d);
       }
       n.putImageData(r, 0, 0), s.toBlob((c) => c ? t(URL.createObjectURL(c)) : a(new Error("blob")), "image/png");
@@ -29353,12 +29353,12 @@ function x_(o) {
   }
   return e;
 }
-const Ba = 600, k_ = (o) => Array.from({ length: o }, () => !0), $_ = 600 * 1e3, S_ = 6378137, Li = 2 * Math.PI * S_;
+const ja = 600, $_ = (o) => Array.from({ length: o }, () => !0), S_ = 600 * 1e3, z_ = 6378137, Li = 2 * Math.PI * z_;
 let Ri, Jn;
-function z_() {
+function A_() {
   return Ri && Date.now() - Ri.at < 300 * 1e3 ? Promise.resolve(Ri) : (Jn ??= fetch("https://api.rainviewer.com/public/weather-maps.json").then((o) => o.json()).then((o) => Ri = { at: Date.now(), host: o.host, frames: (o.radar?.past ?? []).map((e) => ({ time: e.time, path: e.path })) }).catch(() => Ri).finally(() => Jn = void 0), Jn);
 }
-function A_(o, e, t) {
+function M_(o, e, t) {
   const a = 256 * 2 ** t, i = Math.sin(Math.max(-85, Math.min(85, o)) * Math.PI / 180);
   return { x: (e + 180) / 360 * a, y: (0.5 - Math.log((1 + i) / (1 - i)) / (4 * Math.PI)) * a, size: a };
 }
@@ -29370,7 +29370,7 @@ function Xn(o, e, t, a, i, s, n) {
         h.push({ url: n((m % l + l) % l, u, a), left: (m * 256 - c) * r, top: (u * 256 - d) * r, size: 256 * r });
   return h;
 }
-const M_ = [
+const T_ = [
   [0, [110, 130, 160, 0]],
   [0.12, [118, 138, 168, 0.18]],
   [0.35, [160, 176, 200, 0.5]],
@@ -29378,7 +29378,7 @@ const M_ = [
   [0.82, [248, 249, 252, 0.9]],
   [0.94, [232, 220, 255, 0.93]],
   [1, [206, 166, 255, 0.95]]
-], T_ = [
+], C_ = [
   [0, [96, 112, 140, 0]],
   [0.12, [96, 112, 140, 0.16]],
   [0.35, [88, 104, 134, 0.38]],
@@ -29387,8 +29387,8 @@ const M_ = [
   [0.94, [92, 70, 150, 0.72]],
   [1, [110, 60, 170, 0.78]]
 ], Ni = /* @__PURE__ */ new Map(), $h = /* @__PURE__ */ new Map();
-function C_(o, e) {
-  const t = e ? T_ : M_, a = `${e ? "l" : "d"}|${o}`;
+function D_(o, e) {
+  const t = e ? C_ : T_, a = `${e ? "l" : "d"}|${o}`;
   let i = Ni.get(a);
   if (i) return i;
   if (i = new Promise((s, n) => {
@@ -29431,7 +29431,7 @@ function C_(o, e) {
   }
   return i;
 }
-const ds = class ds extends F {
+const hs = class hs extends F {
   constructor() {
     super(), this._dragged = !1, this._touches = /* @__PURE__ */ new Map(), this._wheelAt = 0, this._host = "", this._hold = 0, this._prev = -1, this._ready = [], this._composeSoon = () => {
       this._composeRaf === void 0 && (this._composeRaf = requestAnimationFrame(() => {
@@ -29480,7 +29480,7 @@ const ds = class ds extends F {
     }, this._fc = /* @__PURE__ */ new Map(), this._shaded = /* @__PURE__ */ new Map(), this._frames = [], this._idx = 0, this._playing = !0, this._w = 0, this._h = 0, this._visible = !1, new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(qf);
+    return de(Wf);
   }
   static getStubConfig() {
     return { zoom: 7, frames: 7 };
@@ -29514,7 +29514,7 @@ const ds = class ds extends F {
     } catch {
       return;
     }
-    Ag(a), this.partsGl.refresh();
+    Mg(a), this.partsGl.refresh();
   }
   validateConfig(e) {
     return this._playing = e.autoplay === !0, this._style = e.style ?? e.styles?.[0] ?? "satellite", this._zoom = Math.max(4, Math.min(10, e.zoom ?? 7)), e;
@@ -29529,7 +29529,7 @@ const ds = class ds extends F {
     super.disconnectedCallback(), this._io?.disconnect(), this._ro?.disconnect(), this._ro = void 0, document.removeEventListener("visibilitychange", this._onDoc), this._stop(), clearInterval(this._refresh), this._refresh = void 0;
   }
   _setVisible(e) {
-    this._visible = e, e && document.visibilityState === "visible" ? (this._refresh || (this._load(), this._refresh = window.setInterval(() => this._load(), $_)), this._playing && this._start()) : (this._stop(), clearInterval(this._refresh), this._refresh = void 0);
+    this._visible = e, e && document.visibilityState === "visible" ? (this._refresh || (this._load(), this._refresh = window.setInterval(() => this._load(), S_)), this._playing && this._start()) : (this._stop(), clearInterval(this._refresh), this._refresh = void 0);
   }
   firstUpdated() {
     this._ro = new ResizeObserver(() => {
@@ -29548,12 +29548,12 @@ const ds = class ds extends F {
     let a = [];
     const i = e.radar_provider === "dwd";
     if (e.radar !== !1 && !i) {
-      const l = await z_();
+      const l = await A_();
       l && (this._host = l.host, a = l.frames.slice(-t));
     }
     if (!a.length) {
-      const l = Math.floor(Date.now() / 1e3 / Ba) * Ba - (i ? 1 : 2) * Ba;
-      a = Array.from({ length: t }, (c, d) => ({ time: l - (t - 1 - d) * Ba, dwd: i && e.radar !== !1 }));
+      const l = Math.floor(Date.now() / 1e3 / ja) * ja - (i ? 1 : 2) * ja;
+      a = Array.from({ length: t }, (c, d) => ({ time: l - (t - 1 - d) * ja, dwd: i && e.radar !== !1 }));
     }
     const s = a.length, n = e.show_forecast === !1 ? 0 : Math.max(0, Math.min(12, e.forecast ?? 0));
     if (n && e.radar !== !1) {
@@ -29594,7 +29594,7 @@ const ds = class ds extends F {
   }
   /** Home position in world units (0–1). */
   _homeWorld(e) {
-    const { lat: t, lon: a } = this._center(e), i = A_(t, a, 0);
+    const { lat: t, lon: a } = this._center(e), i = M_(t, a, 0);
     return { x: i.x / i.size, y: i.y / i.size };
   }
   _recenter() {
@@ -29614,7 +29614,7 @@ const ds = class ds extends F {
   _forecastSrc(e) {
     const t = this._fc.get(e);
     if (t) return t;
-    this._fc.has(e) || (this._fc.set(e, ""), x_(e).then((a) => {
+    this._fc.has(e) || (this._fc.set(e, ""), k_(e).then((a) => {
       this._fc.set(e, a), this.requestUpdate();
     }).catch(() => {
     }));
@@ -29623,7 +29623,7 @@ const ds = class ds extends F {
   _cloudsSrc(e, t) {
     const a = `${t ? "l" : "d"}|${e}`, i = this._shaded.get(a);
     if (i) return i;
-    this._shaded.has(a) || (this._shaded.set(a, ""), C_(e, t).then((s) => {
+    this._shaded.has(a) || (this._shaded.set(a, ""), D_(e, t).then((s) => {
       this._shaded.set(a, s), this.requestUpdate();
     }).catch(() => {
     }));
@@ -29634,7 +29634,7 @@ const ds = class ds extends F {
     return `&bbox=${[r - i / 2 * n, l - s / 2 * n, r + i / 2 * n, l + s / 2 * n].map((m) => m.toFixed(0)).join(",")}&width=${d}&height=${h}`;
   }
   _satUrl(e, t, a, i) {
-    const s = this._config, n = Math.floor((e - (s.satellite_delay ?? 40) * 60) / Ba) * Ba, r = new Date(n * 1e3).toISOString().slice(0, 16) + ":00Z";
+    const s = this._config, n = Math.floor((e - (s.satellite_delay ?? 40) * 60) / ja) * ja, r = new Date(n * 1e3).toISOString().slice(0, 16) + ":00Z";
     return `https://view.eumetsat.int/geoserver/wms?service=WMS&version=1.3.0&request=GetMap&styles=&crs=EPSG:3857&format=image/jpeg&layers=${encodeURIComponent(s.satellite_layer ?? (this._style === "clouds" ? "mtg_fd:ir105_hrfi" : "mtg_fd:rgb_geocolour"))}${this._box(t, a, i)}&time=${r}`;
   }
   render() {
@@ -29656,7 +29656,7 @@ const ds = class ds extends F {
   }
   _layers(e, t) {
     const a = this._config, i = this._zoom, s = this._homeWorld(e), n = this._view ?? s, r = 256 * 2 ** i, l = { x: n.x * r, y: n.y * r, size: r }, c = this._w, d = this._h, h = a.satellite !== !1 && this._style !== "rain", u = this._style === "clouds", m = a.styles ?? (a.satellite === !1 ? [] : ["satellite", "clouds"]);
-    this._ready = k_(this._frames.length);
+    this._ready = $_(this._frames.length);
     const f = Lt(e, this);
     this.toggleAttribute("light", !f && this._style !== "satellite");
     const b = Math.min(i, 7), y = a.radar_color ?? 2, _ = (I) => (ae, q, Z) => `https://server.arcgisonline.com/ArcGIS/rest/services/${I}/MapServer/tile/${Z}/${q}/${ae}`, x = (I) => (ae, q, Z) => `https://basemaps.cartocdn.com/${I}/${Z}/${ae}/${q}.png`, z = a.map_provider ?? "esri", S = z === "carto" ? x(f ? "dark_nolabels" : "light_nolabels") : z === "osm" ? (I, ae, q) => `https://tile.openstreetmap.org/${q}/${I}/${ae}.png` : _(f ? "Canvas/World_Dark_Gray_Base" : "Canvas/World_Light_Gray_Base"), M = h ? _("Reference/World_Boundaries_and_Places") : z === "carto" ? x(f ? "dark_only_labels" : "light_only_labels") : z === "osm" ? void 0 : _(f ? "Canvas/World_Dark_Gray_Reference" : "Canvas/World_Light_Gray_Reference"), k = Zn(a.controls_glass, a.controls_color, "liquid"), $ = Zn(a.play_glass, a.play_color, "liquid"), C = Zn(a.tab_glass, a.tab_color, "liquid"), T = (I, ae) => I.map(
@@ -29724,7 +29724,7 @@ const ds = class ds extends F {
     `;
   }
 };
-ds.parts = Yu, ds.properties = {
+hs.parts = Yu, hs.properties = {
   ...F.properties,
   _frames: { state: !0 },
   _idx: { state: !0 },
@@ -29735,7 +29735,7 @@ ds.parts = Yu, ds.properties = {
   _style: { state: !0 },
   _zoom: { state: !0 },
   _view: { state: !0 }
-}, ds.styles = [
+}, hs.styles = [
   F.styles,
   we,
   ee`
@@ -30110,30 +30110,30 @@ ds.parts = Yu, ds.properties = {
   // after the card's own rules: a picked material replaces the default glass
   xe
 ];
-let Tl = ds;
+let Tl = hs;
 ce("glass-radar", Tl, {
   name: "Glass – radar",
   description: "Satellite clouds and precipitation radar, animated over the last hour."
 });
-const D_ = [
+const P_ = [
   ["#7fb8f2", "#dcecfb"],
   ["#93bde6", "#e6edf0"],
   ["#a7bccd", "#e7e3d6"],
   ["#a4a69f", "#d8cfbd"],
   ["#8f857a", "#cbb89e"],
   ["#6f6056", "#a88f77"]
-], P_ = [
+], E_ = [
   ["#14213d", "#3a5584"],
   ["#18243c", "#435673"],
   ["#1d2638", "#4d5566"],
   ["#22252c", "#55534d"],
   ["#262220", "#5c4f42"],
   ["#241c18", "#57463a"]
-], E_ = [1, 0.9, 0.7, 0.45, 0.3, 0.18], L_ = [0, 0.18, 0.36, 0.55, 0.72, 0.85], Qn = ["#fff4c2", "#fff0bd", "#ffe3a8", "#ffcf8f", "#ffb877", "#ff9f66"], R_ = [
+], L_ = [1, 0.9, 0.7, 0.45, 0.3, 0.18], R_ = [0, 0.18, 0.36, 0.55, 0.72, 0.85], Qn = ["#fff4c2", "#fff0bd", "#ffe3a8", "#ffcf8f", "#ffb877", "#ff9f66"], N_ = [
   ["M0 92 C30 78 55 80 80 88 C105 96 130 74 160 76 C180 78 192 84 200 86 V140 H0Z", "#a9c1df", "#2f4268"],
   ["M0 104 C25 94 50 92 78 100 C104 108 128 92 152 94 C172 96 188 102 200 100 V140 H0Z", "#86a6cf", "#27375a"],
   ["M0 118 C30 108 60 110 92 116 C122 122 150 108 176 110 C188 111 196 114 200 115 V140 H0Z", "#6489ba", "#1e2c4a"]
-], Fs = (o, e, t, a) => j`<g class="cloud" style="--dur:${t}s;--delay:${-a * t}s">
+], Hs = (o, e, t, a) => j`<g class="cloud" style="--dur:${t}s;--delay:${-a * t}s">
     <g transform="translate(0 ${o}) scale(${e})">
       <ellipse cx="0" cy="0" rx="14" ry="6"></ellipse>
       <ellipse cx="9" cy="-4" rx="9" ry="7"></ellipse>
@@ -30141,20 +30141,20 @@ const D_ = [
     </g>
   </g>`, er = (o, e, t) => j`<g class="bird" style="--d:${t}s" transform="translate(${o} ${e})">
     <path class="wing" d="M-3 0 Q-1.5 -1.6 0 0 Q1.5 -1.6 3 0"></path>
-  </g>`, N_ = [
+  </g>`, O_ = [
   { houses: 0, day: "#ffffff", night: "#9aa3b5", op: 0, k: 1 },
   { houses: 2, day: "#bcc2ca", night: "#9aa3b5", op: 0.8, k: 2.4 },
   { houses: 3, day: "#a9a49c", night: "#8f939c", op: 0.8, k: 2.8 },
   { houses: 5, day: "#9a9389", night: "#7f7f82", op: 0.8, k: 3.2 },
   { houses: 5, day: "#7a7369", night: "#6c6866", op: 0.85, k: 3.6 },
   { houses: 5, day: "#5a534c", night: "#5a5552", op: 0.9, k: 4 }
-], Mm = (o, e, t, a, i, s = 22) => j`${Array.from({ length: t }, (n, r) => j`<circle class="puff" cx=${o} cy=${e} r=${a} style="--delay:${-(i + r * 4.8 / t)}s;--rise:${-s}px;--drift:${s * 0.5}px"></circle>`)}`, O_ = [
+], Mm = (o, e, t, a, i, s = 22) => j`${Array.from({ length: t }, (n, r) => j`<circle class="puff" cx=${o} cy=${e} r=${a} style="--delay:${-(i + r * 4.8 / t)}s;--rise:${-s}px;--drift:${s * 0.5}px"></circle>`)}`, B_ = [
   [81, 101.4, 0.95],
   [89, 102.5, 1.15],
   [97, 102.6, 1],
   [105, 101.7, 1.1],
   [113, 100.3, 0.9]
-], B_ = [1, 3, 0, 2, 4], j_ = (o, e, t, a, i, s) => {
+], j_ = [1, 3, 0, 2, 4], I_ = (o, e, t, a, i, s) => {
   const n = t * 1.25, r = 3.6 * n, l = 3.4 * n, c = 2.8 * n, d = o + r * 0.45, h = e - l - c * 0.75;
   return j`<g>
     <rect class="chim" x=${d} y=${h} width=${0.9 * n} height=${c}></rect>
@@ -30163,7 +30163,7 @@ const D_ = [
     ${s ? j`<rect class="win" x=${o - 0.6 * n} y=${e - l * 0.6} width=${1.2 * n} height=${1.1 * n}></rect>` : null}
     ${a ? Mm(d + 0.45 * n, h - 0.6, 4, 1.5 + i * 0.2, o * 0.07, 16 + i * 3) : null}
   </g>`;
-}, I_ = (o) => {
+}, q_ = (o) => {
   const e = o >= 5 ? [[113, 22], [121, 17]] : [[115, 18]];
   return j`<g class="factory" transform="translate(56 -2)">
     ${e.map(([t, a]) => j`<rect class="stack" x=${t - 1.3} y=${81 - a} width="2.6" height=${a}></rect>
@@ -30172,8 +30172,8 @@ const D_ = [
     ${e.map(([t, a], i) => Mm(t, 79 - a, 9, o >= 5 ? 2.6 : 2.1, i * 0.9, 30))}
   </g>`;
 };
-function q_(o, e) {
-  const t = Math.min(5, Math.max(0, o)), [a, i] = (e ? P_ : D_)[t], s = L_[t], n = e ? "#6b6a66" : t >= 3 ? "#b9ab92" : "#e8eef2", r = N_[t];
+function W_(o, e) {
+  const t = Math.min(5, Math.max(0, o)), [a, i] = (e ? E_ : P_)[t], s = R_[t], n = e ? "#6b6a66" : t >= 3 ? "#b9ab92" : "#e8eef2", r = O_[t];
   return j`<svg class="air-scene" viewBox="0 0 200 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs>
       <linearGradient id="as-sky" x1="0" y1="0" x2="0" y2="1">
@@ -30212,7 +30212,7 @@ function q_(o, e) {
     [96, 34]
   ].map(([l, c], d) => j`<circle class="star" cx=${l} cy=${c} r="0.8" style="--delay:${d * 0.7}s"></circle>`)}
         </g>` : null}
-    <g class="sun" style="opacity:${E_[t]}">
+    <g class="sun" style="opacity:${L_[t]}">
       <circle cx="150" cy="36" r="26" fill="url(#as-glow)"></circle>
       ${e ? j`<mask id="as-crescent">
               <circle cx="150" cy="36" r="8" fill="#fff"></circle>
@@ -30221,17 +30221,17 @@ function q_(o, e) {
             <circle cx="150" cy="36" r="8" fill="#f2eedd" mask="url(#as-crescent)"></circle>` : j`<circle cx="150" cy="36" r="10" fill=${Qn[t]}></circle>`}
     </g>
     <g class="clouds" fill=${e ? "#55627d" : t >= 3 ? "#cfc6b4" : "#ffffff"} style="opacity:${e ? 0.45 : 0.85 - t * 0.08}">
-      ${Fs(30, 1, 90, 0.25)}${Fs(22, 0.8, 110, 0.75)}${Fs(48, 0.7, 70, 0.55)}${Fs(40, 0.6, 80, 0.05)}
+      ${Hs(30, 1, 90, 0.25)}${Hs(22, 0.8, 110, 0.75)}${Hs(48, 0.7, 70, 0.55)}${Hs(40, 0.6, 80, 0.05)}
     </g>
     ${t <= 1 && !e ? j`<g class="birds">${er(30, 54, 0)}${er(38, 50, 0.3)}${er(25, 47, 0.6)}</g>` : null}
-    ${R_.map(
+    ${N_.map(
     ([l, c, d], h) => j`
         <path d=${l} fill=${e ? d : c}></path>
-        ${h === 0 && t >= 4 ? I_(t) : null}
+        ${h === 0 && t >= 4 ? q_(t) : null}
 
         <rect class="haze h${h}" x="-40" y=${70 + h * 14} width="280" height="70" fill="url(#as-haze)" style="opacity:${s * (0.55 + h * 0.2)}"></rect>
         ${h === 1 ? j`<g class="village ${e ? "night" : t >= 3 ? "dull" : ""}" style="--op:${r.op};--k:${r.k}">
-              ${O_.map(([u, m, f], b) => j_(u, m, f, B_.indexOf(b) < r.houses, t, e))}
+              ${B_.map(([u, m, f], b) => I_(u, m, f, j_.indexOf(b) < r.houses, t, e))}
             </g>` : null}`
   )}
     <g class="trees" fill=${e ? "#14203a" : t >= 3 ? "#6f7a82" : "#3f6a8f"}>
@@ -30247,7 +30247,7 @@ function q_(o, e) {
     </g>
   </svg>`;
 }
-const W_ = ee`
+const F_ = ee`
   .air-scene {
     position: absolute;
     inset: 0;
@@ -30411,7 +30411,7 @@ const W_ = ee`
       animation: none !important;
     }
   }
-`, Ss = [
+`, zs = [
   { max: 50, color: "#34c759", en: "Good" },
   {
     max: 100,
@@ -30426,21 +30426,21 @@ const W_ = ee`
   { max: 200, color: "#ff3b30", en: "Unhealthy" },
   { max: 300, color: "#af52de", en: "Very unhealthy" },
   { max: 1 / 0, color: "#a2324a", en: "Hazardous" }
-], ja = (o) => `https://images.unsplash.com/photo-${o}?w=640&q=70&auto=format&fit=crop`, F_ = [
-  ja("1623390003553-4fa3f9fceb89"),
-  ja("1750089440008-fedc3d2760f3"),
-  ja("1760112570747-8684a0b3e609"),
-  ja("1754373218499-8d48334e1303"),
-  ja("1755577540905-f62e5b55022a"),
-  ja("1761509418231-15bf0145b2a6")
+], Ia = (o) => `https://images.unsplash.com/photo-${o}?w=640&q=70&auto=format&fit=crop`, H_ = [
+  Ia("1623390003553-4fa3f9fceb89"),
+  Ia("1750089440008-fedc3d2760f3"),
+  Ia("1760112570747-8684a0b3e609"),
+  Ia("1754373218499-8d48334e1303"),
+  Ia("1755577540905-f62e5b55022a"),
+  Ia("1761509418231-15bf0145b2a6")
 ];
-function H_(o) {
+function G_(o) {
   const e = (Array.isArray(o) ? o : String(o ?? "").split(/[,;\s]+/)).map((t) => parseFloat(String(t).replace(",", "."))).filter((t) => !Number.isNaN(t));
-  return e.length === 5 ? e : Ss.slice(0, 5).map((t) => t.max);
+  return e.length === 5 ? e : zs.slice(0, 5).map((t) => t.max);
 }
 const Sh = (o, e) => {
-  const t = H_(e).findIndex((a) => o <= a);
-  return Ss[t < 0 ? Ss.length - 1 : t];
+  const t = G_(e).findIndex((a) => o <= a);
+  return zs[t < 0 ? zs.length - 1 : t];
 }, tr = [
   [/pm_?2[._]?5|pm25/i, "PM2.5"],
   [/pm_?10/i, "PM10"],
@@ -30455,7 +30455,7 @@ const Sh = (o, e) => {
     super(), this._list = [], this._lastWatched = "", new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(Wf);
+    return de(Ff);
   }
   static getStubConfig(e) {
     return { entity: Object.values(e.states).find((a) => a.entity_id.startsWith("sensor.") && a.attributes.device_class === "aqi")?.entity_id ?? "" };
@@ -30513,7 +30513,7 @@ const Sh = (o, e) => {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
     if (!t.states[e.entity]) return p`<div class="frame surface"><div class="missing">${e.entity}?</div></div>`;
-    const i = (y) => parseFloat(t.states[y]?.state ?? ""), s = (y) => (Math.round(y * 10) / 10).toLocaleString(yi()), n = i(e.entity), r = !Number.isNaN(n), l = Sh(r ? n : 0, e.limits), c = r ? Ss.indexOf(l) : 0, d = e.image ?? e.images?.[c] ?? F_[c], h = (y) => Y(e.level_colors?.[Ss.indexOf(y)]) ?? y.color, u = (y, _, x) => {
+    const i = (y) => parseFloat(t.states[y]?.state ?? ""), s = (y) => (Math.round(y * 10) / 10).toLocaleString(yi()), n = i(e.entity), r = !Number.isNaN(n), l = Sh(r ? n : 0, e.limits), c = r ? zs.indexOf(l) : 0, d = e.image ?? e.images?.[c] ?? H_[c], h = (y) => Y(e.level_colors?.[zs.indexOf(y)]) ?? y.color, u = (y, _, x) => {
       const z = y ?? (_ && _ !== "none" ? x : void 0);
       return z ? { cls: `mat mat-${z}`, style: re(_ && _ !== "none" ? _ : void 0) } : { cls: "", style: "" };
     }, m = u(e.hero_glass, e.hero_color, "frosted"), f = u(e.tiles_glass, e.tiles_color, "liquid"), b = `lv-${e.level_style ?? "dot"}`;
@@ -30525,7 +30525,7 @@ const Sh = (o, e) => {
             ${e.image || e.images?.length ? p`<div
                   class="photo ${(e.image_color ?? "active") === "always" || (e.image_color ?? "active") === "active" && c >= 2 ? "" : "grey"}"
                   style="background-image:url('${d}')"
-                ></div>` : p`<div class="photo scene">${q_(c, Lt(t, this))}</div>`}
+                ></div>` : p`<div class="photo scene">${W_(c, Lt(t, this))}</div>`}
           </div>
           <span class="name">${e.name ?? v("Air quality")}</span>
           <div class="hero-text">
@@ -30550,7 +30550,7 @@ const Sh = (o, e) => {
 tn.parts = Vu, tn.styles = [
   F.styles,
   we,
-  W_,
+  F_,
   ee`
       :host {
         display: block;
@@ -30847,7 +30847,7 @@ const li = nm(class extends rm {
     }, new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(Zf);
+    return de(Jf);
   }
   static getStubConfig(e) {
     return { entity: Object.keys(e.states).find((a) => a.startsWith("climate.")) ?? "" };
@@ -30933,13 +30933,13 @@ const li = nm(class extends rm {
     if (e.graph === !1) return g;
     const t = Date.now(), a = t - (e.hours ?? 24) * 3600 * 1e3, i = this._lineEntity, s = Math.max(0, Math.min(12, Math.round(e.smoothing ?? 1))), n = i ? hl(this._series[i] ?? [], a, t, zh, s) : [], r = e.graph_entities.map((M) => {
       const k = this._series[M] ?? [], $ = this._hass.states[M];
-      return M.startsWith("binary_sensor.") || ($ ? Number.isNaN(parseFloat($.state)) && !Number.isNaN(No($.state)) : !1) ? { spans: $b(k, a, t) } : { values: hl(k, a, t, zh, s) };
+      return M.startsWith("binary_sensor.") || ($ ? Number.isNaN(parseFloat($.state)) && !Number.isNaN(No($.state)) : !1) ? { spans: Sb(k, a, t) } : { values: hl(k, a, t, zh, s) };
     }), l = [...n, ...r.flatMap((M) => M.values ?? [])].filter((M) => M !== void 0);
     if (!l.length) return p`<div class="graph"></div>`;
     let c = Math.min(...l), d = Math.max(...l);
     const h = Math.max(e.min_range ?? 2, d - c), u = (c + d) / 2;
     c = u - h / 2, d = u + h / 2;
-    const m = c - h * 0.18, f = d + h * 0.12, b = pl(n, m, f), y = Y(e.graph_color), _ = 3600 * 1e3, x = this._hover !== void 0 ? Math.min(Math.floor(t / _) * _, Math.max(Math.ceil(a / _) * _, Math.round((a + this._hover * (t - a)) / _) * _)) : void 0, z = x !== void 0 ? (x - a) / (t - a) : void 0, S = z !== void 0 && b ? Sb(n, z) : void 0;
+    const m = c - h * 0.18, f = d + h * 0.12, b = pl(n, m, f), y = Y(e.graph_color), _ = 3600 * 1e3, x = this._hover !== void 0 ? Math.min(Math.floor(t / _) * _, Math.max(Math.ceil(a / _) * _, Math.round((a + this._hover * (t - a)) / _) * _)) : void 0, z = x !== void 0 ? (x - a) / (t - a) : void 0, S = z !== void 0 && b ? zb(n, z) : void 0;
     return this._hoverInfo = S !== void 0 ? { v: S, t: x } : void 0, p`<div
       class="graph ${y ? "colored" : ""}"
       style=${y ? `--glass-graph-color:${y}` : ""}
@@ -31460,7 +31460,7 @@ ce("glass-thermostat", Dl, {
   name: "Glass – thermostat",
   description: "Room temperature with set point controls and a soft history graph, styled like the room cards."
 });
-const G_ = [
+const U_ = [
   ["climate", "climate", /heating|_hk1|circuit/],
   ["water_heater", "water_heater", /./],
   ["compressor", "binary_sensor", /compressor$/],
@@ -31480,23 +31480,23 @@ const G_ = [
   ["rod_hours", "sensor", /heating_rod_hours$/],
   ["pressure", "sensor", /supply_pressure$|pressure$/],
   ["flow", "sensor", /volumetric_flow$/]
-], U_ = "#0084FF", Ah = "#ff9500", K_ = "#ff3b30", V_ = "rgba(160, 160, 165, 0.78)", Oi = 300, dt = 96, at = 22, it = 34, jo = [26, it], bt = [110, it], qc = [194, it], Za = [274, it], Ia = {
+], K_ = "#0084FF", Ah = "#ff9500", V_ = "#ff3b30", Y_ = "rgba(160, 160, 165, 0.78)", Oi = 300, dt = 96, at = 22, it = 34, jo = [26, it], bt = [110, it], qc = [194, it], Za = [274, it], qa = {
   out: `M${jo[0] + at + 2},${it} L${bt[0] - at - 2},${it}`,
   heat: `M${bt[0] + at + 2},${it} L${qc[0] - at - 2},${it}`,
   dhw: `M${bt[0]},${it + at + 2} L${bt[0]},${dt - 22} Q${bt[0]},${dt - 10} ${bt[0] + 12},${dt - 10} L${Za[0] - 12},${dt - 10} Q${Za[0]},${dt - 10} ${Za[0]},${dt - 22} L${Za[0]},${it + at + 2}`
-}, ar = { out: bt[0] - jo[0] - 2 * at - 4, heat: qc[0] - bt[0] - 2 * at - 4, dhw: Za[0] - bt[0] + 2 * (dt - 10 - it - at) }, Y_ = 40, Z_ = 34, Hs = 20, J_ = {
+}, ar = { out: bt[0] - jo[0] - 2 * at - 4, heat: qc[0] - bt[0] - 2 * at - 4, dhw: Za[0] - bt[0] + 2 * (dt - 10 - it - at) }, Z_ = 40, J_ = 34, Gs = 20, X_ = {
   comfort: "Comfort",
   home: "Home",
   sleep: "Sleep",
   eco: "Eco",
   away: "Away"
-}, X_ = {
+}, Q_ = {
   efficient: "Efficient",
   efficientWithMinComfort: "Efficient+",
   efficient_with_min_comfort: "Efficient+",
   comfort: "Comfort",
   off: "Off"
-}, Q_ = {
+}, ey = {
   ready: "ready",
   off: "off",
   heating: "heating",
@@ -31512,7 +31512,7 @@ const G_ = [
     }, new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(Qf);
+    return de(eb);
   }
   static getStubConfig(e) {
     const t = e.entities ?? {}, a = Object.keys(t).find((i) => /^binary_sensor\..*compressor$/.test(i));
@@ -31527,7 +31527,7 @@ const G_ = [
     const e = this._config, t = {}, a = this._hass?.entities;
     if (this._fromDevice = !!(e?.device && a), e?.device && a) {
       const i = Object.keys(a).filter((s) => a[s].device_id === e.device);
-      for (const [s, n, r] of G_) {
+      for (const [s, n, r] of U_) {
         if (t[s]) continue;
         const l = i.find((c) => c.startsWith(`${n}.`) && r.test(c.slice(n.length + 1)));
         l && (t[s] = l);
@@ -31569,11 +31569,11 @@ const G_ = [
   }
   /** One beam (head, white core, fading tail) along a pipe, like the energy card's laser. */
   _beam(e, t, a, i) {
-    const s = t / Y_, n = Math.min(Z_ * s / t, s * 0.6), r = n / Hs, l = `offset-path:path('${e}');animation-duration:${s.toFixed(2)}s;`, c = (d) => `animation-delay:${(-n + d * r).toFixed(3)}s;`;
+    const s = t / Z_, n = Math.min(J_ * s / t, s * 0.6), r = n / Gs, l = `offset-path:path('${e}');animation-duration:${s.toFixed(2)}s;`, c = (d) => `animation-delay:${(-n + d * r).toFixed(3)}s;`;
     return j`
       <g filter="url(#${i}-t)">
-        ${Array.from({ length: Hs }, (d, h) => {
-      const u = (2.4 - h * 2 / (Hs - 1)).toFixed(2), m = (0.85 * Math.pow(1 - h / Hs, 0.55)).toFixed(3);
+        ${Array.from({ length: Gs }, (d, h) => {
+      const u = (2.4 - h * 2 / (Gs - 1)).toFixed(2), m = (0.85 * Math.pow(1 - h / Gs, 0.55)).toFixed(3);
       return j`<ellipse class="beam" rx=${u} ry=${u} fill=${a} fill-opacity=${m} style="${l}${c(h + 1)}"></ellipse>`;
     })}
       </g>
@@ -31583,7 +31583,7 @@ const G_ = [
   _node(e, t, a, i, s, n = "") {
     return p`<div
       class="node ${!!t ? "lit" : ""} ${n}"
-      style="left:${e[0] / Oi * 100}%;top:${e[1] / dt * 100}%;--c:${t ?? `var(--hp-idle, ${V_})`}"
+      style="left:${e[0] / Oi * 100}%;top:${e[1] / dt * 100}%;--c:${t ?? `var(--hp-idle, ${Y_})`}"
       title=${s}
     >
       <ha-icon .icon=${a}></ha-icon>
@@ -31593,7 +31593,7 @@ const G_ = [
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = (J, ye) => J ? v(J) : ye, i = (J, ye = 1) => J === void 0 ? "–" : J.toLocaleString(yi(), { maximumFractionDigits: ye }), s = this._ids, n = this._st("climate"), r = this._st("water_heater"), l = this._st("compressor")?.state === "on", c = (J) => ["on", "true", "heating"].includes(String(this._st(J)?.state).toLowerCase()), d = this._st("pump")?.state === "on", h = s.dhw_active ? c("dhw_active") : !1, u = s.heating_active ? c("heating_active") : s.pump ? d && !h : l && n?.attributes.hvac_action === "heating", m = this._st("frost")?.state === "on", f = c("rod"), b = "hp", y = (J, ye) => J && J !== "none" ? Y(J) ?? ye : ye, _ = y(e.outside_color, U_), x = y(e.heating_color, Ah), z = y(e.dhw_color, Ah), S = y(e.rod_color, K_), M = e.show_animation !== !1, k = p`<div class="scheme">
+    const a = (J, ye) => J ? v(J) : ye, i = (J, ye = 1) => J === void 0 ? "–" : J.toLocaleString(yi(), { maximumFractionDigits: ye }), s = this._ids, n = this._st("climate"), r = this._st("water_heater"), l = this._st("compressor")?.state === "on", c = (J) => ["on", "true", "heating"].includes(String(this._st(J)?.state).toLowerCase()), d = this._st("pump")?.state === "on", h = s.dhw_active ? c("dhw_active") : !1, u = s.heating_active ? c("heating_active") : s.pump ? d && !h : l && n?.attributes.hvac_action === "heating", m = this._st("frost")?.state === "on", f = c("rod"), b = "hp", y = (J, ye) => J && J !== "none" ? Y(J) ?? ye : ye, _ = y(e.outside_color, K_), x = y(e.heating_color, Ah), z = y(e.dhw_color, Ah), S = y(e.rod_color, V_), M = e.show_animation !== !1, k = p`<div class="scheme">
       <svg viewBox="0 0 ${Oi} ${dt}" aria-hidden="true">
         <defs>
           <filter id="${b}-h" x="-300%" y="-300%" width="700%" height="700%">
@@ -31614,12 +31614,12 @@ const G_ = [
             <stop offset="100%" stop-color="white" stop-opacity="1"></stop>
           </linearGradient>
         </defs>
-        <path class="pipe" d=${Ia.out}></path>
-        <path class="pipe" d=${Ia.heat}></path>
-        ${s.dhw || r ? j`<path class="pipe" d=${Ia.dhw}></path>` : g}
-        ${M && l ? this._beam(Ia.out, ar.out, _, b) : g}
-        ${M && u ? this._beam(Ia.heat, ar.heat, x, b) : g}
-        ${M && h && (s.dhw || r) ? this._beam(Ia.dhw, ar.dhw, z, b) : g}
+        <path class="pipe" d=${qa.out}></path>
+        <path class="pipe" d=${qa.heat}></path>
+        ${s.dhw || r ? j`<path class="pipe" d=${qa.dhw}></path>` : g}
+        ${M && l ? this._beam(qa.out, ar.out, _, b) : g}
+        ${M && u ? this._beam(qa.heat, ar.heat, x, b) : g}
+        ${M && h && (s.dhw || r) ? this._beam(qa.dhw, ar.dhw, z, b) : g}
       </svg>
       ${this._node(jo, l ? _ : void 0, "mdi:weather-windy", this._st("outside") ? `${i(this._num("outside"))}°` : "", v("Outside"))}
       ${m ? p`<span
@@ -31630,7 +31630,7 @@ const G_ = [
           ></span>` : g}
 
       ${this._node(qc, u ? x : void 0, "mdi:radiator", this._st("supply") ? `${i(this._num("supply"))}°` : "", v("Heating supply"), u ? "pulse" : "")}
-      ${this._node(bt, f ? S : l ? x : void 0, "mdi:pump", "", `${v("Heat pump")}: ${a(Q_[this._st("phase")?.state ?? ""], this._st("phase")?.state ?? "")}${f ? v(" · heating rod") : ""}`, d && M ? "pump spin" : "pump")}
+      ${this._node(bt, f ? S : l ? x : void 0, "mdi:pump", "", `${v("Heat pump")}: ${a(ey[this._st("phase")?.state ?? ""], this._st("phase")?.state ?? "")}${f ? v(" · heating rod") : ""}`, d && M ? "pump spin" : "pump")}
       ${s.dhw || r ? this._node(Za, h ? z : void 0, "mdi:water-boiler", this._st("dhw") || r?.attributes.current_temperature !== void 0 ? `${i(this._num("dhw") ?? Number(r?.attributes.current_temperature))}°` : "", v("Hot water"), h ? "pulse" : "") : g}
 
     </div>`, $ = [];
@@ -31668,16 +31668,16 @@ const G_ = [
         this._call("climate", "set_preset_mode", { entity_id: s.climate, preset_mode: J });
       }}
               >
-                ${a(J_[J], J)}
+                ${a(X_[J], J)}
               </button>`
     )}
           </div>
-        </div>` : g, q = (J, ye, Ee, ut, St, Ps, Uc, Qm = 1) => {
-      const eg = this._pending.get(J) ?? Ee;
+        </div>` : g, q = (J, ye, Ee, ut, St, Es, Uc, eg = 1) => {
+      const tg = this._pending.get(J) ?? Ee;
       return p`<div class=${`set ${N.cls}`} style=${N.style}>
-        <button aria-label="−" @click=${() => this._nudge(J, ye, Ee, -ut, St, Ps, Uc)}><ha-icon icon="mdi:minus"></ha-icon></button>
-        <span class="sp ${this._pending.has(J) ? "pending" : ""}">${i(eg, Qm)}</span>
-        <button aria-label="+" @click=${() => this._nudge(J, ye, Ee, ut, St, Ps, Uc)}><ha-icon icon="mdi:plus"></ha-icon></button>
+        <button aria-label="−" @click=${() => this._nudge(J, ye, Ee, -ut, St, Es, Uc)}><ha-icon icon="mdi:minus"></ha-icon></button>
+        <span class="sp ${this._pending.has(J) ? "pending" : ""}">${i(tg, eg)}</span>
+        <button aria-label="+" @click=${() => this._nudge(J, ye, Ee, ut, St, Es, Uc)}><ha-icon icon="mdi:plus"></ha-icon></button>
       </div>`;
     }, Z = this._st("dhw_mode"), he = r && e.show_dhw_setpoint !== !1 ? p`<div class="row">
           <span class="lbl"><ha-icon icon="mdi:water-boiler"></ha-icon>${v("Hot water")}</span>
@@ -31709,7 +31709,7 @@ const G_ = [
             ${Z ? p`<div class=${`seg wide ${T.cls}`} style=${T.style}>
                   ${Z.attributes.options.map(
       (J) => p`<button class="segb ${Z.state === J ? `cur ${P.cls}` : ""}" style=${Z.state === J ? P.style : ""} @click=${() => this._call("select", "select_option", { entity_id: s.dhw_mode, option: J })}>
-                      ${a(X_[J], J)}
+                      ${a(Q_[J], J)}
                     </button>`
     )}
                 </div>` : g}
@@ -31726,7 +31726,7 @@ const G_ = [
         Number(St.step ?? 1),
         Number(St.min ?? -100),
         Number(St.max ?? 100),
-        (Ps) => this._call("number", "set_value", { entity_id: s[J], value: Ps }),
+        (Es) => this._call("number", "set_value", { entity_id: s[J], value: Es }),
         Ee
       )}
       </div>`;
@@ -32221,22 +32221,22 @@ ce("glass-heat-pump", Pl, {
   name: "Glass – heat pump",
   description: "Heat pump: the heat flow like the energy card, heating mode, hot water and the heating curve."
 });
-const Mh = 4, Th = 8, ey = 176, ty = ["gate", "garage", "door", "window", "damper"], ay = {
+const Mh = 4, Th = 8, ty = 176, ay = ["gate", "garage", "door", "window", "damper"], iy = {
   gate: ["mdi:gate", "mdi:gate-open"],
   garage: ["mdi:garage", "mdi:garage-open"],
   door: ["mdi:door-closed", "mdi:door-open"],
   window: ["mdi:window-closed", "mdi:window-open"]
-}, ts = (o) => !!o && o !== "none";
+}, as = (o) => !!o && o !== "none";
 function ir(o, e, t) {
-  const a = o ?? (ts(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: re(ts(e) ? e : void 0) } : void 0;
+  const a = o ?? (as(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: re(as(e) ? e : void 0) } : void 0;
 }
-const iy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${ao(o)}></path></svg>`, sy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${io(o)}></path></svg>`, hs = class hs extends F {
+const sy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${ao(o)}></path></svg>`, oy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${io(o)}></path></svg>`, ps = class ps extends F {
   constructor() {
     super(), this._sent = /* @__PURE__ */ new Map(), new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(eb);
+    return de(tb);
   }
   static getStubConfig(e) {
     return { entity: Object.keys(e.states).find((t) => t.startsWith("cover.")) ?? "" };
@@ -32259,9 +32259,9 @@ const iy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
     const e = this._config;
     if (e.kind && e.kind !== "auto") return e.kind;
     const t = this._hass?.states[e.entity]?.attributes ?? {};
-    if (ty.includes(t.device_class)) return "gate";
+    if (ay.includes(t.device_class)) return "gate";
     const a = t.supported_features;
-    return !!e.tilts?.length || e.slats === "full" || e.slats === "bar" || t.current_tilt_position !== void 0 || typeof a == "number" && (a & ey) !== 0 ? "blind" : "roller";
+    return !!e.tilts?.length || e.slats === "full" || e.slats === "bar" || t.current_tilt_position !== void 0 || typeof a == "number" && (a & ty) !== 0 ? "blind" : "roller";
   }
   /** A cover feature; an entity without supported_features is taken to have it. */
   _can(e, t) {
@@ -32369,10 +32369,10 @@ const iy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
     </button>`, L = (Z, he) => {
       const Ie = this._value(Z), $t = he.value !== void 0 && Ie !== void 0 && Math.abs(Ie - he.value) <= 2;
       return p`<button class="round side mat-${e.tilts_glass ?? "dark"} ${e.tilts_glass ? "" : "auto"} ${$t ? "cur" : ""}" style=${re(e.choices_color)} title=${he.name ?? ""} aria-label=${he.name ?? ""} @click=${() => this._choose(Z, he)}>
-        ${he.deg !== void 0 && !he.icon ? sy(he.deg) : p`<ha-icon .icon=${he.icon ?? "mdi:circle-small"}></ha-icon>`}
+        ${he.deg !== void 0 && !he.icon ? oy(he.deg) : p`<ha-icon .icon=${he.icon ?? "mdi:circle-small"}></ha-icon>`}
       </button>`;
-    }, G = ir(e.bar_glass, e.bar_color, "frosted"), H = ir(e.slats_glass, e.slats_color, "flat"), te = ir(e.tray_glass, e.tray_color, "flat"), I = this._icon($, r), ae = ay[a.attributes.device_class] ?? ["glass:blind", "glass:blind-open"], q = (Z) => (he) => this._slide(Z, he);
-    return p`<div class="frame surface" style="--c-on:${Y(r) ?? "transparent"};--fill:${ts(e.fill_color) ? Y(e.fill_color) : "var(--c-on)"};--c-pause:${Y(e.pause_color ?? r) ?? "transparent"}">
+    }, G = ir(e.bar_glass, e.bar_color, "frosted"), H = ir(e.slats_glass, e.slats_color, "flat"), te = ir(e.tray_glass, e.tray_color, "flat"), I = this._icon($, r), ae = iy[a.attributes.device_class] ?? ["glass:blind", "glass:blind-open"], q = (Z) => (he) => this._slide(Z, he);
+    return p`<div class="frame surface" style="--c-on:${Y(r) ?? "transparent"};--fill:${as(e.fill_color) ? Y(e.fill_color) : "var(--c-on)"};--c-pause:${Y(e.pause_color ?? r) ?? "transparent"}">
       ${e.show_title === !1 && !(e.pause && !e.hide_pause) ? g : p`<div class="title ${e.show_title === !1 ? "bare" : ""}">
         ${e.show_title === !1 ? g : p`${e.icon ? p`<ha-icon class="ricon" .icon=${e.icon}></ha-icon>` : g}
               <span class="tt">
@@ -32418,7 +32418,7 @@ const iy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
                 @click=${() => this._iconTap()}
                 @keydown=${(Z) => (Z.key === "Enter" || Z.key === " ") && (Z.preventDefault(), this._iconTap())}
               >
-                ${s ? p`<ha-icon class="gicon" .icon=${ae[(c ?? 0) > 1 || n ? 1 : 0]}></ha-icon>` : iy(c ?? 100)}
+                ${s ? p`<ha-icon class="gicon" .icon=${ae[(c ?? 0) > 1 || n ? 1 : 0]}></ha-icon>` : sy(c ?? 100)}
               </div>`}
           <span class="blabel"
             ><span class="wide-only">${n && x ? `${x}${m && c !== void 0 ? ` · ${c} %` : ""}` : _}</span
@@ -32453,7 +32453,7 @@ const iy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
   }
   /** The button on the bar: own material / backing / symbol colours (icon_*), else the control glass lit while down (a gate: open). */
   _icon(e, t) {
-    const a = this._config, i = e ? Be(t) : void 0, s = Y(t), n = !!a.icon_background, r = !!i && !n, l = a.icons?.icon_on?.color, c = a.icons?.icon?.color, d = e ? ts(l) ? Y(l) : n ? s : void 0 : ts(c) ? Y(c) : void 0, h = a.icon_background === "none" ? "transparent" : n ? Be(a.icon_background) : void 0, u = e ? a.icon_on_glass : a.icon_glass;
+    const a = this._config, i = e ? Be(t) : void 0, s = Y(t), n = !!a.icon_background, r = !!i && !n, l = a.icons?.icon_on?.color, c = a.icons?.icon?.color, d = e ? as(l) ? Y(l) : n ? s : void 0 : as(c) ? Y(c) : void 0, h = a.icon_background === "none" ? "transparent" : n ? Be(a.icon_background) : void 0, u = e ? a.icon_on_glass : a.icon_glass;
     return u ? {
       cls: `mat mat-${u} ${r ? "on" : ""} ${e ? "glow" : ""}`,
       style: `${n ? h === "transparent" ? "" : `${re(a.icon_background)};` : r ? `${re(t, 70)};` : ""}${d ? `color:${d};` : ""}--glow:${s}`
@@ -32463,7 +32463,7 @@ const iy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
     };
   }
 };
-hs.parts = Pu, hs.properties = { ...F.properties, _drag: { state: !0 } }, hs.styles = [
+ps.parts = Pu, ps.properties = { ...F.properties, _drag: { state: !0 } }, ps.styles = [
   F.styles,
   we,
   Ne,
@@ -33021,20 +33021,20 @@ hs.parts = Pu, hs.properties = { ...F.properties, _drag: { state: !0 } }, hs.sty
   // last: an element's material wins over its rules above
   xe
 ];
-let El = hs;
+let El = ps;
 ce("glass-blind", El, {
   name: "Glass – blind",
   description: "A room's blind, roller or gate: position and tilt bars (tap or drag), stop while it moves, quick choices, the automation's pause."
 });
-function oy() {
+function ny() {
   const o = import.meta.url;
   return new URL("./demo-alarm-morning.jpg?v=2", o).href;
 }
-function ny() {
+function ry() {
   return new URL("./demo-alarm-night.jpg?v=1", import.meta.url).href;
 }
-const Gs = /* @__PURE__ */ new Map(), sr = /* @__PURE__ */ new Map();
-function ry(o) {
+const Us = /* @__PURE__ */ new Map(), sr = /* @__PURE__ */ new Map();
+function ly(o) {
   try {
     const e = document.createElement("canvas");
     e.width = 32, e.height = 4;
@@ -33048,8 +33048,8 @@ function ry(o) {
     return;
   }
 }
-let Us;
-const ps = class ps extends F {
+let Ks;
+const us = class us extends F {
   constructor() {
     super(...arguments), this._key = "", this._open = !1, this._done = /* @__PURE__ */ new Set(), this._ro = new ResizeObserver(([e]) => this.toggleAttribute("wide", e.contentRect.width >= 700)), this._onLoc = () => {
       this._config?.inline && this.requestUpdate(), this._sample && !location.hash && (this._sample = !1, document.documentElement.removeAttribute("glass-ring-sample"));
@@ -33079,7 +33079,7 @@ const ps = class ps extends F {
     }, this._sample = !1;
   }
   static getConfigElement() {
-    return de(ob);
+    return de(nb);
   }
   static getStubConfig() {
     return { display: "modal" };
@@ -33096,15 +33096,15 @@ const ps = class ps extends F {
   }
   /** the photo's shape for the tablet's layout, once the browser has it */
   _ratio(e) {
-    const t = Gs.get(e);
-    if (t || Gs.has(e)) return t;
-    Gs.set(e, 0);
+    const t = Us.get(e);
+    if (t || Us.has(e)) return t;
+    Us.set(e, 0);
     const a = new Image();
     a.crossOrigin = "anonymous", a.onerror = () => {
       a.crossOrigin && (a.removeAttribute("crossorigin"), a.src = e);
     }, a.onload = () => {
-      a.naturalWidth && a.naturalHeight && Gs.set(e, a.naturalWidth / a.naturalHeight);
-      const i = ry(a);
+      a.naturalWidth && a.naturalHeight && Us.set(e, a.naturalWidth / a.naturalHeight);
+      const i = ly(a);
       i && sr.set(e, i), this.requestUpdate();
     }, a.src = e;
   }
@@ -33132,9 +33132,9 @@ const ps = class ps extends F {
         return;
       }
       if (e) {
-        Us?.remove();
+        Ks?.remove();
         const a = document.createElement("glass-alarm-ring");
-        a.setConfig({ ...this._rawConfig, inline: !0, overlay: !0 }), this._hass && (a.hass = this._hass), zl(this).append(a), Us = a, this._over = a;
+        a.setConfig({ ...this._rawConfig, inline: !0, overlay: !0 }), this._hass && (a.hass = this._hass), zl(this).append(a), Ks = a, this._over = a;
       } else
         this._over?.remove(), this._over = void 0;
     }
@@ -33143,7 +33143,7 @@ const ps = class ps extends F {
     return !!this.preview || this._inEditor;
   }
   connectedCallback() {
-    super.connectedCallback(), this._ro.observe(this), this._inEditor = m_(this);
+    super.connectedCallback(), this._ro.observe(this), this._inEditor = g_(this);
     for (const e of ["click", "pointerdown", "touchstart"]) this.addEventListener(e, this._stop);
     window.addEventListener("location-changed", this._onLoc), window.addEventListener("hashchange", this._onLoc), this._tick = window.setInterval(() => this.requestUpdate(), 15e3), this._key && !this._config?.inline && queueMicrotask(() => this._show(!0));
   }
@@ -33162,7 +33162,7 @@ const ps = class ps extends F {
       }
       this._done.add(e.h.ringing), this.requestUpdate(), this._config.overlay && this.remove();
       try {
-        t ? await a_(this._hass, e.h, this._config.snooze ?? 10) : await km(this._hass, e.h);
+        t ? await i_(this._hass, e.h, this._config.snooze ?? 10) : await km(this._hass, e.h);
       } catch (a) {
         console.warn("glass-alarm-ring:", a), this._done.delete(e.h.ringing), this.requestUpdate();
       }
@@ -33192,9 +33192,9 @@ const ps = class ps extends F {
       return;
     }
     if (!e) return;
-    Us?.remove();
+    Ks?.remove();
     const a = document.createElement("glass-alarm-ring");
-    a.setConfig({ ...this._rawConfig, inline: !0, overlay: !0, preview: !0 }), this._hass && (a.hass = this._hass), zl(this).append(a), Us = a;
+    a.setConfig({ ...this._rawConfig, inline: !0, overlay: !0, preview: !0 }), this._hass && (a.hass = this._hass), zl(this).append(a), Ks = a;
   }
   glassUnder(e) {
     return e.closest(".frame")?.querySelector(".photo") ?? void 0;
@@ -33205,7 +33205,7 @@ const ps = class ps extends F {
     if (!e.inline) return this._editing ? this._placeholder() : g;
     const t = this._ringing(), a = e.preview || this._sample || !e.overlay && document.documentElement.hasAttribute("glass-ring-sample"), i = t[0] ?? (a ? { h: ea(1), name: v("Alarm"), sample: !0 } : void 0);
     if (!i) return g;
-    const s = e.style !== "simple", n = /* @__PURE__ */ new Date(), r = _m(this._hass, n.getHours(), n.getMinutes()), l = new Intl.DateTimeFormat(be(this._hass), { weekday: "long", day: "numeric", month: "long" }).format(n), c = s && this._night(), d = s ? c ? ot(e.night_panel_glass ?? "dark-liquid-gl", e.night_panel_color, "dark-liquid-gl") : ot(e.panel_glass ?? "liquid-gl", e.panel_color, "liquid-gl") : void 0, h = c ? e.night_image || ny() : e.image || oy(), u = s ? this._ratio(h) : void 0, m = ot(e.controls_glass, e.controls_color, "dark"), f = e.snooze ?? 10, b = t.length > 1 ? p`<span class="more">+${t.length - 1}</span>` : g;
+    const s = e.style !== "simple", n = /* @__PURE__ */ new Date(), r = _m(this._hass, n.getHours(), n.getMinutes()), l = new Intl.DateTimeFormat(be(this._hass), { weekday: "long", day: "numeric", month: "long" }).format(n), c = s && this._night(), d = s ? c ? ot(e.night_panel_glass ?? "dark-liquid-gl", e.night_panel_color, "dark-liquid-gl") : ot(e.panel_glass ?? "liquid-gl", e.panel_color, "liquid-gl") : void 0, h = c ? e.night_image || ry() : e.image || ny(), u = s ? this._ratio(h) : void 0, m = ot(e.controls_glass, e.controls_color, "dark"), f = e.snooze ?? 10, b = t.length > 1 ? p`<span class="more">+${t.length - 1}</span>` : g;
     return p`<div
       class="frame ${this.tile} ${s ? "photo-style" : "simple"} ${c ? "night" : ""}"
       style=${[u ? `--ring-photo-ratio:${u}` : "", sr.has(h) ? `--ring-under:${sr.get(h)}` : ""].join(";")}
@@ -33239,7 +33239,7 @@ const ps = class ps extends F {
     </div>`;
   }
 };
-ps.parts = Lu, ps.properties = { ...F.properties, preview: { type: Boolean } }, ps.styles = [
+us.parts = Lu, us.properties = { ...F.properties, preview: { type: Boolean } }, us.styles = [
   F.styles,
   we,
   ee`
@@ -33575,7 +33575,7 @@ ps.parts = Lu, ps.properties = { ...F.properties, preview: { type: Boolean } }, 
     `,
   xe
 ];
-let Ll = ps;
+let Ll = us;
 ce("glass-alarm-ring", Ll, {
   name: "Glass – alarm ringing",
   description: "An alarm of the Glass alarms card ringing: Snooze and slide to stop, over the dashboard or in a pop-up; a morning photo under liquid glass, or simple."
@@ -33585,7 +33585,7 @@ function Tm(o = document, e = 0, t = []) {
     (a.localName === "glass-dock" || a.classList.contains("horizontal-buttons-stack-card")) && a.getBoundingClientRect().height > 0 && t.push(a), a.shadowRoot && e < 12 && Tm(a.shadowRoot, e + 1, t);
   return t;
 }
-function ly(o) {
+function cy(o) {
   let e = o;
   for (; e; ) {
     const t = e.assignedSlot ?? e.parentNode ?? e.host ?? null;
@@ -33599,7 +33599,7 @@ function ly(o) {
 function Rl(o, e = 320, t = 16) {
   const a = o.getBoundingClientRect(), i = o.offsetHeight, s = i > 0 && a.height > 0 ? a.height / i : 1, n = a.top;
   let r = window.innerHeight;
-  const l = ly(o);
+  const l = cy(o);
   if (l) {
     const c = l.getBoundingClientRect(), d = parseFloat(getComputedStyle(l).paddingBottom) || 0;
     c.height && (r = Math.min(r, c.bottom - d * s));
@@ -33611,12 +33611,12 @@ function Rl(o, e = 320, t = 16) {
   }
   return Math.max(e, Math.round((r - n) / s));
 }
-const cy = ["url", "entity", "streams", "poster", "poster_remote", "title", "mode", "media", "server", "ui", "muted", "background", "intersection", "style", "shortcuts", "ptz", "digital_ptz", "mse", "webrtc"], Ch = (o) => !!o && o !== "none";
+const dy = ["url", "entity", "streams", "poster", "poster_remote", "title", "mode", "media", "server", "ui", "muted", "background", "intersection", "style", "shortcuts", "ptz", "digital_ptz", "mse", "webrtc"], Ch = (o) => !!o && o !== "none";
 function pa(o, e, t) {
   const a = o ?? (Ch(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: re(Ch(e) ? e : void 0) } : { cls: "", style: "" };
 }
-const dy = {
+const hy = {
   person: "mdi:account",
   face: "mdi:face-recognition",
   car: "mdi:car",
@@ -33656,19 +33656,19 @@ const dy = {
   rabbit: "Rabbit",
   bus: "Bus",
   truck: "Truck"
-}, Ph = (o) => dy[o] ?? "mdi:shape-outline", or = (o) => Dh[o] ? v(Dh[o]) : o.replace(/_/g, " ").replace(/^./, (e) => e.toUpperCase()), Eh = 6 * 3600, Lh = /* @__PURE__ */ new Map();
+}, Ph = (o) => hy[o] ?? "mdi:shape-outline", or = (o) => Dh[o] ? v(Dh[o]) : o.replace(/_/g, " ").replace(/^./, (e) => e.toUpperCase()), Eh = 6 * 3600, Lh = /* @__PURE__ */ new Map();
 async function nr(o, e) {
   const t = Lh.get(e);
   if (t && t.until > Date.now()) return t.url;
   const a = await o.callWS({ type: "auth/sign_path", path: e, expires: Eh });
   return Lh.set(e, { url: a.path, until: Date.now() + (Eh - 600) * 1e3 }), a.path;
 }
-const hy = (o) => !!o?.demo;
+const py = (o) => !!o?.demo;
 function Cm(o) {
   const e = import.meta.url;
   return new URL(`./demo-${o}`, e).href;
 }
-const qa = (o, e) => hy(o) && !!e && !e.url && !e.streams && !e.live_card && !e.frigate_instance, rr = (o) => /garden|zahrad/i.test(`${o.frigate_camera ?? ""} ${o.camera ?? ""} ${o.name ?? ""}`) ? "garden" : "front", py = {
+const Wa = (o, e) => py(o) && !!e && !e.url && !e.streams && !e.live_card && !e.frigate_instance, rr = (o) => /garden|zahrad/i.test(`${o.frigate_camera ?? ""} ${o.camera ?? ""} ${o.name ?? ""}`) ? "garden" : "front", uy = {
   front: [
     [4, 18, 24, ["dog"], !1],
     [3, 165, 41, ["person"], !0],
@@ -33686,7 +33686,7 @@ const qa = (o, e) => hy(o) && !!e && !e.url && !e.streams && !e.live_card && !e.
     [5, 1127, 39, ["fox"], !1]
   ]
 }, Rh = /* @__PURE__ */ new Map();
-function uy(o) {
+function my(o) {
   let e = Rh.get(o);
   if (e) return e;
   const t = document.createElement("canvas");
@@ -33699,16 +33699,16 @@ function uy(o) {
     s(), setInterval(s, 250);
   }, a.src = o, e;
 }
-function my(o) {
+function gy(o) {
   const e = Date.now() / 1e3, t = [];
   for (const { i: a, cam: i } of o)
-    for (const [s, n, r, l, c] of py[i]) {
+    for (const [s, n, r, l, c] of uy[i]) {
       const d = Math.floor(e - n * 60);
       t.push({ id: `demo-${i}-${s}`, cam: a, fcam: i, start: d, end: d + r, labels: l, alert: c, thumb: Cm(`event-${i}-${s}.jpg`), clip: "" });
     }
   return t.sort((a, i) => i.start - a.start);
 }
-const us = class us extends F {
+const ms = class ms extends F {
   constructor() {
     super(), this._events = !1, this._mode = pe.mode, this._ctl = [], this._live = /* @__PURE__ */ new Map(), this._fmemo = /* @__PURE__ */ new Map(), this._seenOn = "", this._occ = /* @__PURE__ */ new Map(), this._onOpen = () => {
       for (const e of [50, 400, 900]) window.setTimeout(this._onFill, e);
@@ -33797,7 +33797,7 @@ const us = class us extends F {
     }, this._wide = !1, this._paused = !1, this._pos = 0, this._span = 24, this._narrow = !1, this._glFail = !1, this._fs = !1;
   }
   static getConfigElement() {
-    return de(db);
+    return de(hb);
   }
   static getStubConfig(e) {
     const t = Object.keys(e?.states ?? {}).filter((s) => s.startsWith("camera."));
@@ -33833,7 +33833,7 @@ const us = class us extends F {
         ...e.controls_glass ? { pill_glass: e.controls_glass } : {},
         ...e.controls_color ? { pill_color: e.controls_color } : {}
       };
-      return Ta(i, this._hass, { nested: !0, glass: Re(pe.tile_glass ?? e.glass), mode: this._mode })[0];
+      return Ca(i, this._hass, { nested: !0, glass: Re(pe.tile_glass ?? e.glass), mode: this._mode })[0];
     });
   }
   setMode(e) {
@@ -33855,7 +33855,7 @@ const us = class us extends F {
   }
   /** Frigate's instance and camera name for a camera of the card (none: not a Frigate camera). */
   _frigate(e) {
-    if (qa(this._hass, e)) return { inst: "demo", cam: rr(e) };
+    if (Wa(this._hass, e)) return { inst: "demo", cam: rr(e) };
     const t = e.camera ? this._hass?.states[e.camera] : void 0, a = e.frigate_instance ?? t?.attributes.client_id, i = e.frigate_camera ?? t?.attributes.camera_name, s = e.camera ?? e.frigate_camera ?? "";
     return a && i ? (this._fmemo.set(s, { inst: a, cam: i }), { inst: a, cam: i }) : this._fmemo.get(s);
   }
@@ -33922,8 +33922,8 @@ const us = class us extends F {
       d && r.set(d.inst, [...r.get(d.inst) ?? [], { cam: d.cam, i: c }]);
     }
     const l = this._sevNow();
-    if (s.length && s.every((c) => qa(e, i[c]))) {
-      this._recs = my(s.map((c) => ({ i: c, cam: rr(i[c]) }))).filter((c) => l === "all" || c.alert === (l === "alert"));
+    if (s.length && s.every((c) => Wa(e, i[c]))) {
+      this._recs = gy(s.map((c) => ({ i: c, cam: rr(i[c]) }))).filter((c) => l === "all" || c.alert === (l === "alert"));
       return;
     }
     try {
@@ -34001,7 +34001,7 @@ const us = class us extends F {
     if (!e || !a || !this._config.show_timeline) return;
     const i = this._win(), s = Math.ceil(i.to), n = Math.floor(i.from), r = `${a.inst}|${a.cam}|${this._span}|${this._end === void 0 ? Math.floor(s / 300) : s}`;
     if (this._cover?.key !== r) {
-      if (this._cover = { key: r, segs: [] }, qa(e, t)) {
+      if (this._cover = { key: r, segs: [] }, Wa(e, t)) {
         const l = (Array.isArray(this._recs) ? this._recs : []).filter((c) => c.fcam === a.cam).map((c) => [c.start - 90, (c.end ?? c.start) + 120]).sort((c, d) => c[0] - d[0]);
         this._cover = { key: r, segs: l }, this.requestUpdate();
         return;
@@ -34025,7 +34025,7 @@ const us = class us extends F {
         const a = this._win();
         (e.start < a.from || e.start > a.to) && this._show(e.start);
       }
-      if (qa(t, this._cams()[e.cam])) {
+      if (Wa(t, this._cams()[e.cam])) {
         this._play = { rec: e, url: "", dl: "", at: e.start }, this._paused = !0;
         return;
       }
@@ -34044,7 +34044,7 @@ const us = class us extends F {
     const n = this._cams()[this._cur()], r = n && this._frigate(n);
     if (!t || !r) return;
     const l = this._cover?.segs.some(([d, h]) => e >= d && e <= h);
-    if (this._cover?.segs.length && !l || qa(t, n)) {
+    if (this._cover?.segs.length && !l || Wa(t, n)) {
       this._toast(v("Nothing recorded at {time}", { time: this._time(e) }));
       return;
     }
@@ -34164,18 +34164,18 @@ const us = class us extends F {
     if (!t) return;
     let a = this._live.get(e);
     if (a) return a;
-    if (t.live_card) a = ws(t.live_card, this._hass);
+    if (t.live_card) a = xs(t.live_card, this._hass);
     else {
       const i = {};
       for (const n of [this._config, t])
-        for (const r of cy) n[r] !== void 0 && !(n === this._config && (r === "url" || r === "entity")) && (i[r] = n[r]);
+        for (const r of dy) n[r] !== void 0 && !(n === this._config && (r === "url" || r === "entity")) && (i[r] = n[r]);
       if (!i.url && !i.entity && !i.streams) {
         if (!t.camera) return;
         i.entity = t.camera;
       }
       i.poster === void 0 && t.camera && (i.poster = t.camera);
       const s = this._config.fit ?? "cover";
-      a = ws(
+      a = xs(
         {
           type: "custom:webrtc-camera",
           ui: !1,
@@ -34217,7 +34217,7 @@ const us = class us extends F {
       @click=${{ handleEvent: this._onClickCapture, capture: !0 }}
       @dblclick=${this._onDbl}
     >
-      ${qa(this._hass, a) && (i?.rec || !i && c) ? p`<video class="live demo" muted autoplay playsinline .srcObject=${uy(i?.rec ? i.rec.thumb : Cm(`camera-${rr(a)}.jpg`))}></video>` : i ? p`<video
+      ${Wa(this._hass, a) && (i?.rec || !i && c) ? p`<video class="live demo" muted autoplay playsinline .srcObject=${my(i?.rec ? i.rec.thumb : Cm(`camera-${rr(a)}.jpg`))}></video>` : i ? p`<video
             class="clip"
             .src=${i.url}
             autoplay
@@ -34492,7 +34492,7 @@ const us = class us extends F {
     return 6;
   }
 };
-us.parts = Xu, us.properties = {
+ms.parts = Xu, ms.properties = {
   ...F.properties,
   _pick: { state: !0 },
   _play: { state: !0 },
@@ -34508,7 +34508,7 @@ us.parts = Xu, us.properties = {
   _end: { state: !0 },
   _sev: { state: !0 },
   _fs: { state: !0 }
-}, us.styles = [
+}, ms.styles = [
   F.styles,
   we,
   Ne,
@@ -35367,13 +35367,13 @@ us.parts = Xu, us.properties = {
     `,
   xe
 ];
-let Nl = us;
+let Nl = ms;
 ce("glass-camera", Nl, {
   requires: "WebRTC Camera",
   name: "Glass – camera",
   description: "Live picture and Frigate's recordings in one card: a tap plays a recording in place of live; the camera's light, night vision… under it."
 });
-const gy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, lr = ["away", "home", "night", "vacation", "custom_bypass"], At = {
+const fy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, lr = ["away", "home", "night", "vacation", "custom_bypass"], At = {
   away: { label: "Away", icon: "mdi:shield-lock" },
   home: { label: "Home", icon: "mdi:shield-home" },
   night: { label: "Night", icon: "mdi:shield-moon" },
@@ -35390,7 +35390,7 @@ const gy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, lr =
   pending: { label: "Enter the code", icon: "mdi:shield-alert-outline", tone: "warn" },
   triggered: { label: "Alarm!", icon: "mdi:alarm-light", tone: "alarm" },
   disarming: { label: "Disarming", icon: "mdi:shield-sync-outline", tone: "wait" }
-}, fy = (o) => o === "disarmed" || !!o?.startsWith("armed_"), Dm = (o) => !!o && o !== "none", Nh = {
+}, by = (o) => o === "disarmed" || !!o?.startsWith("armed_"), Dm = (o) => !!o && o !== "none", Nh = {
   door: ["mdi:door-closed", "mdi:door-open"],
   garage_door: ["mdi:garage", "mdi:garage-open"],
   opening: ["mdi:door-closed", "mdi:door-open"],
@@ -35412,7 +35412,7 @@ function It(o, e) {
   return o ? { cls: `mat mat-${o}`, style: Dm(e) ? re(e) : "" } : { cls: "", style: "" };
 }
 let cr, jh;
-function by(o) {
+function _y(o) {
   return (!cr || jh?.connection !== o.connection) && (jh = o, cr = o.callWS({ type: "alarmo/entities" }).then((e) => new Map(e.map((t) => [t.entity_id, String(t.area_id)]))).catch(() => {
   })), cr;
 }
@@ -35430,7 +35430,7 @@ const Gc = class Gc extends Ye {
 Gc.properties = { content: { attribute: !1 } };
 let Ol = Gc;
 customElements.get("glass-security-keypad") || customElements.define("glass-security-keypad", Ol);
-const Bi = /* @__PURE__ */ new Set(), Wa = /* @__PURE__ */ new Map(), ms = class ms extends F {
+const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class gs extends F {
   constructor() {
     super(), this._sensorKey = "", this._everOpen = !1, this._pillsKey = "", this._mode = pe.mode, this._cols = 3, this._width = 0, this._hl = 0, this._alerted = !1, this._onKey = (e) => {
       const t = this._st;
@@ -35454,7 +35454,7 @@ const Bi = /* @__PURE__ */ new Set(), Wa = /* @__PURE__ */ new Map(), ms = class
         if (f)
           f._takeRequest(), f._press(d);
         else {
-          const b = Wa.get(m);
+          const b = Fa.get(m);
           b && /^[0-9a-z]$/i.test(d) && (b.code = (b.code ?? "") + d);
         }
         return;
@@ -35466,7 +35466,7 @@ const Bi = /* @__PURE__ */ new Set(), Wa = /* @__PURE__ */ new Map(), ms = class
     e !== this._mode && (this._mode = e, this._pillsKey = "", this.requestUpdate());
   }
   static getConfigElement() {
-    return de(cb);
+    return de(db);
   }
   static getStubConfig(e) {
     const t = Object.keys(e?.states ?? {}).filter((a) => a.startsWith("alarm_control_panel."));
@@ -35497,16 +35497,16 @@ const Bi = /* @__PURE__ */ new Set(), Wa = /* @__PURE__ */ new Map(), ms = class
   /* ---------- Alarmo ---------- */
   hassChanged(e) {
     const t = this._st?.state;
-    if (this._alarmo === void 0 && this._config && by(e).then((i) => {
+    if (this._alarmo === void 0 && this._config && _y(e).then((i) => {
       const s = i?.get(this._config.entity);
       s !== void 0 && (this._alarmo = s, this._subscribe(), this._fetchReady(), this._fetchCountdown(), this._fetchSensors());
-    }), Wa.size && this._takeRequest(), t === this._last) return;
+    }), Fa.size && this._takeRequest(), t === this._last) return;
     const a = this._last;
     if (this._requested && a && (this._requested = !1, this._inPopup() && location.hash && window.setTimeout(() => history.back(), 900)), this._last = t, a !== void 0 && (this._code = "", this._blocked = void 0, this._pad = !1, this._armAfter = void 0), (t === "pending" || t === "triggered") && (this._alerted = !0), t === "arming" || t === "pending") {
       const i = this._st, s = Number(i.attributes.delay), n = Date.parse(i.last_changed);
       s > 0 && n && (this._cd = { total: s, end: n + s * 1e3 }), this._now = Date.now(), this._fetchCountdown();
     } else this._cd = void 0;
-    this._alarmo !== void 0 && this._fetchReady(), a && fy(t) && this._alerted && (this._alerted = !1, this._config.close_popup !== !1 && this._config.layout !== "header" && this._closePopup());
+    this._alarmo !== void 0 && this._fetchReady(), a && by(t) && this._alerted && (this._alerted = !1, this._config.close_popup !== !1 && this._config.layout !== "header" && this._closePopup());
   }
   async _fetchCountdown() {
     const e = this._hass;
@@ -35645,7 +35645,7 @@ const Bi = /* @__PURE__ */ new Set(), Wa = /* @__PURE__ */ new Map(), ms = class
   }
   /* ---------- drawing ---------- */
   _modes(e) {
-    const t = Number(e.attributes.supported_features ?? 0), a = lr.filter((i) => t & gy[i]);
+    const t = Number(e.attributes.supported_features ?? 0), a = lr.filter((i) => t & fy[i]);
     return this._config.modes?.length ? this._config.modes.filter((i) => lr.includes(i) && (!t || a.includes(i))) : a;
   }
   /** a code is needed for what can be done now */
@@ -35795,7 +35795,7 @@ const Bi = /* @__PURE__ */ new Set(), Wa = /* @__PURE__ */ new Map(), ms = class
         ...i.sensors_glass ? { pill_glass: i.sensors_glass } : {},
         ...i.sensors_color ? { pill_color: i.sensors_color } : {}
       };
-      this._pills = Ta(c, this._hass, { nested: !0, glass: Re(pe.tile_glass ?? i.glass), mode: this._mode })[0];
+      this._pills = Ca(c, this._hass, { nested: !0, glass: Re(pe.tile_glass ?? i.glass), mode: this._mode })[0];
     }
     return this._pills;
   }
@@ -35863,14 +35863,14 @@ const Bi = /* @__PURE__ */ new Set(), Wa = /* @__PURE__ */ new Map(), ms = class
       return;
     }
     const a = this._config.entity;
-    Wa.set(a, { mode: e, at: Date.now() });
+    Fa.set(a, { mode: e, at: Date.now() });
     for (const i of Bi) i !== this && i._config?.entity === a && i._inPopup() && i._takeRequest();
     history.pushState(history.state, "", `${location.pathname}${location.search}${t.startsWith("#") ? t : `#${t}`}`), window.dispatchEvent(new Event("location-changed"));
   }
   /** A keypad pop-up's card: the header's request (disarm, or arm a mode) – fresh ones only. */
   _takeRequest() {
-    const e = Wa.get(this._config?.entity);
-    !e || Date.now() - e.at > 6e4 || !this._inPopup() || (Wa.delete(this._config.entity), this._armAfter = e.mode, this._pad = !0, this._code = e.code ?? "", this._requested = !0);
+    const e = Fa.get(this._config?.entity);
+    !e || Date.now() - e.at > 6e4 || !this._inPopup() || (Fa.delete(this._config.entity), this._armAfter = e.mode, this._pad = !0, this._code = e.code ?? "", this._requested = !0);
   }
   /** Off in the header: disarm – the keypad first when a code is needed */
   _offTap(e) {
@@ -35949,7 +35949,7 @@ const Bi = /* @__PURE__ */ new Set(), Wa = /* @__PURE__ */ new Map(), ms = class
     </div>`;
   }
   updated(e) {
-    super.updated(e), Wa.size && !this._requested && this._takeRequest();
+    super.updated(e), Fa.size && !this._requested && this._takeRequest();
     const t = this._config?.layout === "header" && this._config.align !== "stretch" ? this.shadowRoot?.querySelector(".hdr") : null, a = t ? [...t.children] : [];
     this.style.minWidth = t ? `${a.length * 42}px` : "";
     const i = a.reduce((n, r) => n + r.offsetWidth, 0) + Math.max(0, a.length - 1) * 6;
@@ -35958,7 +35958,7 @@ const Bi = /* @__PURE__ */ new Set(), Wa = /* @__PURE__ */ new Map(), ms = class
     this._portalRender(s && this._onDemand() && !this._config.keypad_popup ? this._overlay(s) : g), this._cd && this._now > this._cd.end + 1500 && (this._cd = void 0);
   }
 };
-ms.parts = Qu, ms.properties = {
+gs.parts = Qu, gs.properties = {
   ...F.properties,
   _code: { state: !0 },
   _msg: { state: !0 },
@@ -35972,7 +35972,7 @@ ms.parts = Qu, ms.properties = {
   _drawer: { state: !0 },
   _pad: { state: !0 },
   _armAfter: { state: !0 }
-}, ms.styles = [
+}, gs.styles = [
   F.styles,
   we,
   Ne,
@@ -36825,12 +36825,12 @@ ms.parts = Qu, ms.properties = {
       }
     `
 ];
-let Bl = ms;
+let Bl = gs;
 ce("glass-security", Bl, {
   name: "Glass – security",
   description: "An alarm panel for any alarm_control_panel: its state, arm modes, the countdown and a keypad; with Alarmo also readiness, a wrong code, skip delay and arm anyway."
 });
-class _y {
+class yy {
   constructor(e) {
     this.host = e, this.pending = /* @__PURE__ */ new Map(), this.timers = /* @__PURE__ */ new Map();
   }
@@ -36942,7 +36942,7 @@ const Wc = ee`
   }
 `, Io = (o) => "frame", Qa = class Qa extends F {
   static getConfigElement() {
-    return de(hb);
+    return de(pb);
   }
   static getStubConfig(e) {
     return { entity: Object.keys(e?.states ?? {}).find((t) => t.startsWith("automation.")) ?? "" };
@@ -37174,9 +37174,9 @@ const Ih = {
   mid: "Medium shading",
   medium: "Medium shading",
   max: "Strong shading"
-}, gs = class gs extends F {
+}, fs = class fs extends F {
   static getConfigElement() {
-    return de(pb);
+    return de(ub);
   }
   static getStubConfig() {
     return { sun: "sun.sun", azimuth_from: 135, azimuth_to: 225 };
@@ -37255,7 +37255,7 @@ const Ih = {
     </div>`;
   }
 };
-gs.wrapTile = !0, gs.parts = xi, gs.styles = [
+fs.wrapTile = !0, fs.parts = xi, fs.styles = [
   gm,
   F.styles,
   Wc,
@@ -37395,17 +37395,17 @@ gs.wrapTile = !0, gs.parts = xi, gs.styles = [
     `,
   xe
 ];
-let Il = gs;
+let Il = fs;
 ce("glass-sun-shading", Il, {
   name: "Glass – sun and shading",
   description: "The sun over a compass with the windows' band, the light outside and the shading decision."
 });
-const fs = class fs extends F {
+const bs = class bs extends F {
   constructor() {
-    super(...arguments), this._n = new _y({ requestUpdate: () => this.requestUpdate(), hass: () => this._hass });
+    super(...arguments), this._n = new yy({ requestUpdate: () => this.requestUpdate(), hass: () => this._hass });
   }
   static getConfigElement() {
-    return de(ub);
+    return de(mb);
   }
   static getStubConfig() {
     return { title: "", columns: [{ name: "A" }], rows: [{ name: "1", entities: [] }] };
@@ -37473,7 +37473,7 @@ const fs = class fs extends F {
     </div>`;
   }
 };
-fs.wrapTile = !0, fs.parts = xi, fs.styles = [
+bs.wrapTile = !0, bs.parts = xi, bs.styles = [
   F.styles,
   Wc,
   ee`
@@ -37518,7 +37518,7 @@ fs.wrapTile = !0, fs.parts = xi, fs.styles = [
     `,
   xe
 ];
-let ql = fs;
+let ql = bs;
 ce("glass-value-grid", ql, {
   name: "Glass – value grid",
   description: "Numbers in a table with − / +, a column per mode (season); the current one marked by months or a state."
@@ -37536,22 +37536,22 @@ function Wl(o) {
   const a = o.attributes.brightness;
   return typeof a == "number" ? Math.max(1, Math.round(a / 255 * 100)) : 100;
 }
-const yy = ["hs", "xy", "rgb", "rgbw", "rgbww"];
-function vy(o) {
+const vy = ["hs", "xy", "rgb", "rgbw", "rgbww"];
+function wy(o) {
   if (Wl(o) === void 0) return [];
   const e = o.attributes.supported_color_modes ?? [], t = ["b"];
-  return e.includes("color_temp") && t.push("t"), e.some((a) => yy.includes(a)) && t.push("c"), t;
+  return e.includes("color_temp") && t.push("t"), e.some((a) => vy.includes(a)) && t.push("c"), t;
 }
-const dr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.attributes.max_color_temp_kelvin) || 6500], wy = [
+const dr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.attributes.max_color_temp_kelvin) || 6500], xy = [
   [2700, "Warm"],
   [4e3, "Neutral"],
   [6500, "Cool"]
-], xy = [0, 30, 330, 280, 220, 130], ky = { b: "mdi:brightness-6", t: "mdi:thermometer", c: "mdi:palette" }, on = class on extends F {
+], ky = [0, 30, 330, 280, 220, 130], $y = { b: "mdi:brightness-6", t: "mdi:thermometer", c: "mdi:palette" }, on = class on extends F {
   constructor() {
     super(), this._lights = [], this._scenes = [], this._drag = /* @__PURE__ */ new Map(), this._sendTimer = /* @__PURE__ */ new Map(), this._pending = /* @__PURE__ */ new Map(), this._mode = /* @__PURE__ */ new Map(), this._modeTimer = /* @__PURE__ */ new Map(), new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(Xf);
+    return de(Qf);
   }
   static getStubConfig(e) {
     const t = Object.keys(e.states).find((a) => a.startsWith("light."));
@@ -37635,7 +37635,7 @@ const dr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     } else this._sendTimer.has(l) || this._sendTimer.set(l, window.setTimeout(c, 300));
   }
   _bar(e, t, a) {
-    const i = t.states[e.entity], s = this._isOn(e, i), n = Wl(i), r = vy(i), l = r.includes(this._mode.get(e.entity)) ? this._mode.get(e.entity) : "b", c = this._drag.get(`${e.entity}|${l}`), d = this._config.active_color ?? "yellow", h = i?.attributes.rgb_color, u = this._config, m = co(u.fill_color) ? Y(u.fill_color) : s && h && u.fill_source !== "accent" ? `rgb(${h.join(",")})` : Y(d), f = e.name ?? i?.attributes.friendly_name ?? e.entity;
+    const i = t.states[e.entity], s = this._isOn(e, i), n = Wl(i), r = wy(i), l = r.includes(this._mode.get(e.entity)) ? this._mode.get(e.entity) : "b", c = this._drag.get(`${e.entity}|${l}`), d = this._config.active_color ?? "yellow", h = i?.attributes.rgb_color, u = this._config, m = co(u.fill_color) ? Y(u.fill_color) : s && h && u.fill_source !== "accent" ? `rgb(${h.join(",")})` : Y(d), f = e.name ?? i?.attributes.friendly_name ?? e.entity;
     let b = 0, y = v(i ? s ? "On" : "Off" : "Unavailable");
     if (i && l === "b" && n !== void 0) {
       const V = c !== void 0 ? Math.max(1, Math.round(c * 100)) : this._pending.get(e.entity) ?? n;
@@ -37670,7 +37670,7 @@ const dr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     if (l === "t" && i) {
       const [V, oe] = dr(i), Se = Number(i.attributes.color_temp_kelvin), J = s && i.attributes.color_mode === "color_temp";
       P = E(
-        wy.map(([ye, Ee], ut) => {
+        xy.map(([ye, Ee], ut) => {
           const St = Math.min(oe, Math.max(V, ye));
           return { cur: J && Math.abs(Se - St) <= 250, dot: ["#ffb35c", "#fff4e0", "#cfe2ff"][ut], label: v(Ee), act: () => $({ color_temp_kelvin: St }) };
         })
@@ -37678,7 +37678,7 @@ const dr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     } else if (l === "c") {
       const V = i?.attributes.hs_color, oe = s && !!V && i?.attributes.color_mode !== "color_temp";
       P = p`<div class="swatches">
-        ${xy.map((Se) => {
+        ${ky.map((Se) => {
         const J = V ? Math.abs((V[0] - Se + 540) % 360 - 180) : 999;
         return p`<button
             class="swatch control ${oe && J <= 12 ? "cur" : ""}"
@@ -37705,7 +37705,7 @@ const dr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
                 @pointerdown=${(Se) => Se.stopPropagation()}
                 @click=${(Se) => (Se.stopPropagation(), this._setMode(e.entity, oe))}
               >
-                <ha-icon .icon=${ky[oe]}></ha-icon>
+                <ha-icon .icon=${$y[oe]}></ha-icon>
               </button>`
     )}
           </div>` : g, Z = this._config, he = this._icon(s), Ie = ji(Z.pill_glass, Z.pill_color, "frosted"), $t = ji(Z.tray_glass, Z.tray_color, "flat"), Bt = ji(Z.modes_glass, Z.modes_color, "dark");
@@ -38407,31 +38407,31 @@ ce("glass-light", Fl, {
   name: "Glass – lights",
   description: "Room lights tile: scenes as round buttons and a liquid glass brightness bar per light."
 });
-const $y = {}, Pm = /* @__PURE__ */ new WeakMap(), Hl = new EventTarget();
+const Sy = {}, Pm = /* @__PURE__ */ new WeakMap(), Hl = new EventTarget();
 function Fc(o) {
   let e = o;
   for (let t = 0; t < 40 && e; t++)
     if (e = e.parentElement ?? e.getRootNode().host ?? null, e && e.tagName === "BUBBLE-CARD") return e;
-  return $y;
+  return Sy;
 }
-function Sy(o, e) {
+function zy(o, e) {
   const t = Fc(o);
   Pm.set(t, e), Hl.dispatchEvent(new CustomEvent("search", { detail: { scope: t, text: e } }));
 }
-function zy(o) {
+function Ay(o) {
   return Pm.get(Fc(o)) ?? "";
 }
-const va = ["ring", "bars", "orbit"], et = 48, ie = 32, rt = Math.PI * 2, Ue = (o) => {
+const wa = ["ring", "bars", "orbit"], et = 48, ie = 32, rt = Math.PI * 2, Ue = (o) => {
   const e = Math.sin(o * 127.1 + 311.7) * 43758.5453;
   return e - Math.floor(e);
-}, Ks = (o, e) => {
+}, Vs = (o, e) => {
   const t = Math.floor(o), a = o - t, i = a * a * (3 - 2 * a);
   return Ue(t + e * 57.3) * (1 - i) + Ue(t + 1 + e * 57.3) * i;
-}, Ay = (o) => {
+}, My = (o) => {
   let e = 2166136261;
   for (let t = 0; t < o.length; t++) e = Math.imul(e ^ o.charCodeAt(t), 16777619);
   return (e >>> 0) % 1e5 / 7.3;
-}, Fa = /* @__PURE__ */ new Map();
+}, Ha = /* @__PURE__ */ new Map();
 function ho(o) {
   const e = document.createElement("canvas");
   e.width = e.height = ie;
@@ -38446,7 +38446,7 @@ function Em(o) {
   const a = t.createRadialGradient(48, 48, 6, 48, 48, 48);
   return a.addColorStop(0, "rgba(0,0,0,1)"), a.addColorStop(0.55, "rgba(0,0,0,0.55)"), a.addColorStop(1, "rgba(0,0,0,0)"), t.fillStyle = a, t.fillRect(0, 0, 96, 96), e;
 }
-function My(o) {
+function Ty(o) {
   let e;
   try {
     e = o.getImageData(0, 0, ie, ie);
@@ -38472,8 +38472,8 @@ function My(o) {
     o.putImageData(e, 0, 0);
   }
 }
-function Ty(o) {
-  let e = Fa.get(o);
+function Cy(o) {
+  let e = Ha.get(o);
   return e || (e = new Promise((t) => {
     const a = (i) => {
       const s = new Image();
@@ -38481,16 +38481,16 @@ function Ty(o) {
         const n = document.createElement("canvas");
         n.width = n.height = ie;
         const r = n.getContext("2d"), l = Math.min(s.naturalWidth, s.naturalHeight) || 1;
-        r.imageSmoothingEnabled = !0, r.imageSmoothingQuality = "high", r.drawImage(s, (s.naturalWidth - l) / 2, (s.naturalHeight - l) / 2, l, l, 0, 0, ie, ie), My(r), t({ img: s, px: n, glow: Em(n) });
+        r.imageSmoothingEnabled = !0, r.imageSmoothingQuality = "high", r.drawImage(s, (s.naturalWidth - l) / 2, (s.naturalHeight - l) / 2, l, l, 0, 0, ie, ie), Ty(r), t({ img: s, px: n, glow: Em(n) });
       }, s.onerror = () => {
         if (i) return a(!1);
-        Fa.delete(o), t(ho());
+        Ha.delete(o), t(ho());
       }, s.src = o;
     };
     a(new URL(o, location.href).origin !== location.origin);
-  }), Fa.set(o, e), Fa.size > 24 && Fa.delete(Fa.keys().next().value), e);
+  }), Ha.set(o, e), Ha.size > 24 && Ha.delete(Ha.keys().next().value), e);
 }
-class Cy {
+class Dy {
   constructor(e) {
     this.cv = e, this.art = ho(), this.onLight = !1, this.track = { playing: !1, pos: 0, at: 0, dur: 0, seed: "" }, this.seed = 0, this.bpm = 112, this.four = !0, this.style = "ring", this.bands = new Float32Array(et), this.target = new Float32Array(et), this.peaks = new Float32Array(et), this.kick = 0, this.lastKick = 0, this.energy = 0, this.rot = 0, this.flying = [], this.raf = 0, this.last = 0, this.size = 0, this.dpr = 1, this.visible = !0, this.calm = matchMedia("(prefers-reduced-motion: reduce)"), this.wake = () => {
       !this.raf && this.visible && !document.hidden && this.cv.isConnected && (this.last = performance.now(), this.raf = requestAnimationFrame(this.frame));
@@ -38502,7 +38502,7 @@ class Cy {
       if (i) this.sim(n);
       else {
         const c = 0.5 + 0.5 * Math.sin(t / 1400);
-        for (let d = 0; d < et; d++) this.target[d] = 0.1 + 0.09 * c * Ks(d * 0.4 + t / 4e3, this.seed);
+        for (let d = 0; d < et; d++) this.target[d] = 0.1 + 0.09 * c * Vs(d * 0.4 + t / 4e3, this.seed);
         this.kick = 0;
       }
       this.energy += ((i ? 1 : 0) - this.energy) * (1 - Math.exp(-a * 2.5));
@@ -38528,7 +38528,7 @@ class Cy {
         this.art = ho(t);
         return;
       }
-      Ty(e).then((a) => {
+      Cy(e).then((a) => {
         this.artUrl === e && (this.art = a.img ? a : ho(t));
       });
     }
@@ -38547,7 +38547,7 @@ class Cy {
     return a.globalCompositeOperation = "source-over", a.clearRect(0, 0, ie, ie), a.drawImage(e, 0, 0), a.globalCompositeOperation = this.onLight ? "multiply" : "screen", a.fillStyle = this.onLight ? "rgb(150,150,150)" : "rgba(255,255,255,0.26)", a.fillRect(0, 0, ie, ie), this.lit = t, this.litOf = e, t;
   }
   setTrack(e) {
-    e.seed !== this.track.seed && (this.seed = Ay(e.seed), this.bpm = 84 + Math.floor(Ue(this.seed) * 48), this.four = Ue(this.seed + 1) > 0.3), this.track = e, this.wake();
+    e.seed !== this.track.seed && (this.seed = My(e.seed), this.bpm = 84 + Math.floor(Ue(this.seed) * 48), this.four = Ue(this.seed + 1) > 0.3), this.track = e, this.wake();
   }
   fit() {
     const e = this.cv.getBoundingClientRect();
@@ -38583,7 +38583,7 @@ class Cy {
       T[P] = E;
     }
     for (let P = 0; P < et; P++) {
-      const N = P / (et - 1), E = N * (C - 1), L = Math.floor(E), G = E - L, H = T[L] * (1 - G) + T[Math.min(C - 1, L + 1)] * G, te = 0.85 + 0.3 * Ks(e * 7 + P * 1.3, this.seed + P), I = Math.max(0, 1 - N / 0.22) * (0.08 + 1.15 * b), ae = Math.exp(-((N - 0.45) ** 2) / 0.03) * z * 0.85, q = N ** 1.2 * $ * 0.6;
+      const N = P / (et - 1), E = N * (C - 1), L = Math.floor(E), G = E - L, H = T[L] * (1 - G) + T[Math.min(C - 1, L + 1)] * G, te = 0.85 + 0.3 * Vs(e * 7 + P * 1.3, this.seed + P), I = Math.max(0, 1 - N / 0.22) * (0.08 + 1.15 * b), ae = Math.exp(-((N - 0.45) ** 2) / 0.03) * z * 0.85, q = N ** 1.2 * $ * 0.6;
       this.target[P] = Math.min(1, (I + ae + q + H * (0.85 - 0.3 * N)) * h * te);
     }
     this.kick = b * h;
@@ -38606,7 +38606,7 @@ class Cy {
       e.globalAlpha = k, e.setTransform(i * $, i * C, -i * C, i * $, i * T, i * P), e.drawImage(f, Math.max(0, Math.min(ie - 1, S)), Math.max(0, Math.min(ie - 1, M)), 1, 1, -x / 2, -z / 2, x, z);
     };
     for (let y = 0; y < d; y++) {
-      const _ = this.rot + y / d * rt, x = Math.min(1, this.bandAt(_ - this.rot) * (0.7 + 0.6 * Ks(y * 0.83 + a * 0.5, this.seed + 7))), z = 1 + x * 5, S = Math.floor(z), M = x * u * 1.3 + this.kick * u * 0.8;
+      const _ = this.rot + y / d * rt, x = Math.min(1, this.bandAt(_ - this.rot) * (0.7 + 0.6 * Vs(y * 0.83 + a * 0.5, this.seed + 7))), z = 1 + x * 5, S = Math.floor(z), M = x * u * 1.3 + this.kick * u * 0.8;
       for (let k = 0; k <= S && k < 7; k++) {
         const $ = k < S ? 1 : z - S;
         if ($ < 0.08) continue;
@@ -38687,12 +38687,12 @@ class Cy {
     ])
       for (let M = 0; M < _; M++) {
         const k = M / _ * rt + this.rot * z, $ = this.bandAt(k - this.rot * z), C = d * x + $ * d * 0.28 * this.energy, T = c * S * (0.55 + $ * 1.3), P = r + Math.sin(k) * C, N = l - Math.cos(k) * C, E = Math.max(0, Math.min(ie - 1, Math.floor((0.5 + Math.sin(k) * 0.42) * ie))), L = Math.max(0, Math.min(ie - 1, Math.floor((0.5 - Math.cos(k) * 0.42) * ie)));
-        e.globalAlpha = Math.min(1, (0.5 + 0.8 * $) * (0.55 + 0.45 * this.energy) * (0.8 + 0.2 * Ks(M + t, this.seed))), e.save(), e.beginPath(), e.arc(P, N, T / 2, 0, rt), e.clip(), e.drawImage(a, E, L, 1, 1, P - T / 2, N - T / 2, T, T), e.restore();
+        e.globalAlpha = Math.min(1, (0.5 + 0.8 * $) * (0.55 + 0.45 * this.energy) * (0.8 + 0.2 * Vs(M + t, this.seed))), e.save(), e.beginPath(), e.arc(P, N, T / 2, 0, rt), e.clip(), e.drawImage(a, E, L, 1, 1, P - T / 2, N - T / 2, T, T), e.restore();
       }
     e.globalAlpha = 1;
   }
 }
-class Dy {
+class Py {
   constructor(e, t) {
     this.url = e, this.token = t, this.next = 1, this.waiting = /* @__PURE__ */ new Map();
   }
@@ -38747,7 +38747,7 @@ function Va(o, e, t, a) {
   if (i && /^https?:\/\/[^/]*\.demo\.invalid(:\d+)?\/?$/.test(o)) return Promise.resolve(i(t, a));
   const s = `${o}|${e}`;
   let n = qh.get(s);
-  return n || qh.set(s, n = new Dy(o, e)), n.command(t, a);
+  return n || qh.set(s, n = new Py(o, e)), n.command(t, a);
 }
 function hr(o, e) {
   const t = [e?.image, ...e?.metadata?.images ?? []].filter(Boolean), a = t.find((i) => i.type === "thumb") ?? t[0];
@@ -38755,7 +38755,7 @@ function hr(o, e) {
     return /^https?:\/\//.test(a.path) && a.remotely_accessible !== !1 ? a.path : a.proxy_id ? `${o.replace(/\/$/, "")}/imageproxy/${a.proxy_id}?size=256` : void 0;
 }
 const pr = /* @__PURE__ */ new Map();
-function Py(o, e) {
+function Ey(o, e) {
   const t = `${o}|${e}`, a = pr.get(t);
   if (a && Date.now() - a.at < 3e5) return a.p;
   const i = Va(o, e, "players/all").then((s) => {
@@ -38772,10 +38772,10 @@ function Py(o, e) {
   });
   return i.catch(() => pr.delete(t)), pr.set(t, { at: Date.now(), p: i }), i;
 }
-const Wh = (o, e) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${o}"><path d="${e}"/></svg>`)}")`, Ey = {
+const Wh = (o, e) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${o}"><path d="${e}"/></svg>`)}")`, Ly = {
   chromecast: Wh("0 0 21.97425 21.97425", "m0,17v3h3c0,-1.7-1.3,-3-3,-3zm0,-4v2c2.8,0 5,2.2 5,5h2c0,-3.9-3.1,-7-7,-7zM0,9V11c5,0 9,4 9,9h2C11,13.9 6.1,9 0,9ZM20,2H2c-1.1,0-2,0.9-2,2v3h2v-3H20V18h-7v2h7c1.1,0 2,-0.9 2,-2V4c0,-1.1-0.9,-2-2,-2z"),
   sendspin: Wh("0 1 114.24 93.03", "M42.5 57.5C41.8 58.2 40.7 58.1 40.1 57.4C34.5 51.2 31.4 43.2 31.4 34.8C31.4 25.8 34.9 17.3 41.3 10.9C54.1-1.9 74.6-2.3 87.8 9.7C88.6 10.3 88.6 11.4 87.9 12.1L84.8 15.2C84.2 15.8 83.3 15.8 82.6 15.2C75.4 8.8 65.2 6.8 55.2 10.5C55.2 10.5 55.1 10.5 55 10.5C44.9 15.2 39 24.5 39 34.8C39 41.3 41.4 47.4 45.7 52.2C46.2 52.8 46.2 53.8 45.6 54.4L42.5 57.5V57.5ZM50.9 46.6C46.8 41.5 45.5 34.6 47.9 27.9C47.9 27.9 48 27.8 48 27.7C53.5 15.4 68 13 77 20.5C77.8 21.1 77.8 22.2 77.1 22.9L74 26C73.4 26.6 72.5 26.6 71.8 26.1C67.6 22.9 61.4 23.2 57.5 27.1C55.5 29.1 54.3 31.9 54.3 34.8C54.3 37.2 55.1 39.5 56.6 41.4C57.1 42.1 57 43 56.4 43.6L53.3 46.7C52.6 47.4 51.5 47.3 50.9 46.6H50.9ZM11.1 88.9C10.4 89.6 9.3 89.6 8.7 88.8C2.9 82.4 0 74.3 0 66.2C0 58.1 2.9 50 8.7 43.6C9.3 42.9 10.4 42.8 11.1 43.5L12.6 45L14.2 46.6C14.8 47.2 14.8 48.2 14.2 48.8C9.8 53.8 7.6 60 7.6 66.2C7.6 72.5 9.8 78.7 14.2 83.6C14.8 84.3 14.8 85.3 14.2 85.9L12.6 87.4L11.1 89V88.9ZM21.9 78.1C21.2 78.8 20.1 78.8 19.5 78C16.7 74.7 15.3 70.6 15.3 66.2C15.3 61.9 16.7 57.7 19.5 54.4C20.1 53.7 21.2 53.6 21.9 54.3L25 57.4C25.6 58 25.6 58.9 25.1 59.6C23.7 61.5 22.9 63.8 22.9 66.2C22.9 68.7 23.7 71 25.1 72.8C25.6 73.5 25.6 74.4 25 75L21.9 78.1V78.1ZM105.5 51.5C104.9 52.2 103.8 52.2 103.2 51.5L101.7 50L100.1 48.4C99.5 47.8 99.4 46.9 100 46.2C104.4 41.3 106.6 35 106.6 28.8C106.6 22.6 104.4 16.4 100 11.4C99.4 10.8 99.5 9.8 100.1 9.2L101.7 7.6L103.2 6.1C103.8 5.4 104.9 5.5 105.5 6.2C111.3 12.6 114.2 20.7 114.2 28.8C114.2 36.9 111.3 45 105.5 51.4V51.5ZM92.3 40.7L89.2 37.6C88.6 37 88.6 36.1 89.1 35.4C90.6 33.5 91.3 31.2 91.3 28.8C91.3 26.4 90.6 24.1 89.1 22.2C88.6 21.5 88.6 20.6 89.2 20L92.3 16.9C93 16.2 94.2 16.3 94.8 17C97.5 20.3 99 24.4 99 28.8C99 33.2 97.5 37.3 94.8 40.6C94.2 41.3 93 41.4 92.3 40.7V40.7ZM49 94C40.9 94 32.8 91.1 26.4 85.3C25.7 84.7 25.6 83.6 26.3 83L29.4 79.9C30 79.3 31 79.2 31.6 79.8C41.9 88.9 57.7 88.6 67.5 78.7C77.4 68.9 77.7 53.1 68.6 42.8C68 42.2 68.1 41.2 68.7 40.6L71.8 37.5C72.4 36.9 73.5 36.9 74.1 37.6C86.1 50.9 85.7 71.4 72.9 84.1C66.3 90.7 57.7 94 49 94H49ZM49 78.8C44.8 78.8 40.6 77.4 37.2 74.5C36.5 73.9 36.5 72.8 37.1 72.1L40.2 69C40.8 68.5 41.7 68.4 42.4 68.9C46.7 72.2 52.8 71.9 56.7 68C60.6 64 61 57.9 57.7 53.6C57.2 53 57.2 52 57.8 51.5L60.9 48.4C61.6 47.7 62.7 47.7 63.3 48.5C69.3 55.7 68.9 66.5 62.1 73.3C58.5 77 53.8 78.8 49 78.8V78.8Z")
-}, Ly = {
+}, Ry = {
   sonos: "mdi:speaker",
   chromecast: "mdi:cast",
   sendspin: "mdi:speaker-wireless",
@@ -38798,20 +38798,20 @@ const Wh = (o, e) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="
   hass: "Home Assistant",
   ma: "Music Assistant"
 };
-function Ry(o) {
-  return { mask: Ey[o], mdi: Ly[o], word: o === "sonos" ? "SONOS" : void 0 };
-}
 function Ny(o) {
+  return { mask: Ly[o], mdi: Ry[o], word: o === "sonos" ? "SONOS" : void 0 };
+}
+function Oy(o) {
   if (o)
     return o === "hass" || o === "hass_players" ? "hass" : o === "cast" || o === "google_cast" ? "chromecast" : o === "slimproto" ? "squeezelite" : po[o] ? o : "ma";
 }
-function Oy(o, e) {
+function By(o, e) {
   const t = `${o ?? ""} ${e ?? ""}`;
   return /sonos/i.test(t) ? "sonos" : /web player|sendspin/i.test(t) ? "sendspin" : /google|nvidia|chromecast|nest/i.test(t) ? "chromecast" : /apple|airplay/i.test(t) ? "airplay" : /bluesound|bluos/i.test(t) ? "bluesound" : /squeeze|slim/i.test(t) ? "squeezelite" : "ma";
 }
 const Nt = /* @__PURE__ */ new Set();
 let Xt, ci, Fh = "";
-function By() {
+function jy() {
   const e = new Uint8Array(8044), t = new DataView(e.buffer), a = (s, n) => [...n].forEach((r, l) => e[s + l] = r.charCodeAt(0));
   a(0, "RIFF"), t.setUint32(4, 8036, !0), a(8, "WAVEfmt "), t.setUint32(16, 16, !0), t.setUint16(20, 1, !0), t.setUint16(22, 1, !0), t.setUint32(24, 8e3, !0), t.setUint32(28, 8e3, !0), t.setUint16(32, 1, !0), t.setUint16(34, 8, !0), a(36, "data"), t.setUint32(40, 8e3, !0), e.fill(128, 44);
   let i = "";
@@ -38819,14 +38819,14 @@ function By() {
   return `data:audio/wav;base64,${btoa(i)}`;
 }
 function Gl() {
-  !("mediaSession" in navigator) || !Nt.size || (ci ??= Object.assign(new Audio(By()), { loop: !0 }), ci.paused && ci.play().catch(() => {
+  !("mediaSession" in navigator) || !Nt.size || (ci ??= Object.assign(new Audio(jy()), { loop: !0 }), ci.paused && ci.play().catch(() => {
   }));
 }
-function jy() {
+function Iy() {
   ci?.pause(), "mediaSession" in navigator && (navigator.mediaSession.metadata = null, navigator.mediaSession.playbackState = "none");
 }
 let Hh = !1;
-function Iy() {
+function qy() {
   if (Hh) return;
   Hh = !0;
   const o = () => {
@@ -38850,16 +38850,16 @@ function Iy() {
 function Ul() {
   return Xt && Nt.has(Xt) ? Xt : Xt = [...Nt].find((o) => o.isConnected) ?? [...Nt][0];
 }
-function qy(o) {
-  "mediaSession" in navigator && (Nt.add(o), Xt ??= o, Iy(), Gl());
-}
 function Wy(o) {
-  Nt.delete(o), Xt === o && (Xt = [...Nt][0]), Nt.size || jy();
+  "mediaSession" in navigator && (Nt.add(o), Xt ??= o, qy(), Gl());
 }
 function Fy(o) {
-  Nt.has(o) && (Xt = o);
+  Nt.delete(o), Xt === o && (Xt = [...Nt][0]), Nt.size || Iy();
 }
 function Hy(o) {
+  Nt.has(o) && (Xt = o);
+}
+function Gy(o) {
   if (!("mediaSession" in navigator) || Ul() !== o) return;
   const e = o.mediaKeyInfo(), t = navigator.mediaSession, a = JSON.stringify([e?.title, e?.artist, e?.album, e?.art]);
   a !== Fh && (Fh = a, t.metadata = e?.title ? new MediaMetadata({
@@ -38889,8 +38889,8 @@ const ne = {
   SHUFFLE: 32768,
   REPEAT: 262144,
   GROUPING: 524288
-}, Gh = /* @__PURE__ */ new Set(["movie", "tv_show", "season", "episode", "video", "image", "game", "url", "app"]), Uh = /^(tracks|audiobooks|speakers?)$|video|watching|on deck|playback device|moods?\b|genres?\b/i, Vs = /* @__PURE__ */ new Set(["cur_playlists", "PLAYLIST_GOTO_TRACK"]);
-function Ys(o) {
+}, Gh = /* @__PURE__ */ new Set(["movie", "tv_show", "season", "episode", "video", "image", "game", "url", "app"]), Uh = /^(tracks|audiobooks|speakers?)$|video|watching|on deck|playback device|moods?\b|genres?\b/i, Ys = /* @__PURE__ */ new Set(["cur_playlists", "PLAYLIST_GOTO_TRACK"]);
+function Zs(o) {
   const e = o.toLowerCase();
   return /played/.test(e) ? 0 : /recent|new|added/.test(e) ? 1 : /playlist/.test(e) ? 2 : /favou?rit/.test(e) ? 3 : /radio|station/.test(e) ? 4 : /album/.test(e) ? 5 : /artist|hudba|music/.test(e) ? 6 : 7;
 }
@@ -38911,15 +38911,15 @@ const Kh = {
   radio: "Radio",
   podcast: "Podcast",
   audiobook: "Audiobook"
-}, Gy = /^(line[- ]?in|tv|hdmi|optical|spdif|s\/pdif|aux|bluetooth|airplay|music assistant queue|analog|coaxial|phono|usb)\b/i, Lm = "glass-media-viz", Ft = (() => {
+}, Uy = /^(line[- ]?in|tv|hdmi|optical|spdif|s\/pdif|aux|bluetooth|airplay|music assistant queue|analog|coaxial|phono|usb)\b/i, Lm = "glass-media-viz", Ft = (() => {
   try {
     const o = JSON.parse(localStorage.getItem(Lm) ?? "{}");
     return {
       on: !!o.on,
-      style: va.includes(o.style) ? o.style : va[0]
+      style: wa.includes(o.style) ? o.style : wa[0]
     };
   } catch {
-    return { on: !1, style: va[0] };
+    return { on: !1, style: wa[0] };
   }
 })(), Kl = new EventTarget();
 function Vh() {
@@ -38929,8 +38929,8 @@ function Vh() {
   }
   Kl.dispatchEvent(new Event("change"));
 }
-const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, Zs = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), Pe = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), ft = (o) => !!o?.attributes.mass_player_type;
-function Uy(o) {
+const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, qi = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), Pe = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), ft = (o) => !!o?.attributes.mass_player_type;
+function Ky(o) {
   const e = o.media_content_id;
   if (!e) return;
   const t = o.media_content_type ?? o.kind;
@@ -38939,14 +38939,14 @@ function Uy(o) {
   if (t === "album") return `ytmusic://album/${e}`;
   if (t === "artist") return `ytmusic://artist/${e}`;
 }
-const Ke = /* @__PURE__ */ new Map(), Ky = 5 * 6e4, Rm = "glass-media-players", qo = /* @__PURE__ */ new Map();
+const Ke = /* @__PURE__ */ new Map(), Vy = 5 * 6e4, Rm = "glass-media-players", qo = /* @__PURE__ */ new Map();
 try {
   const o = JSON.parse(localStorage.getItem(Rm) ?? "{}");
   for (const [e, t] of Object.entries(o))
     t?.pick && typeof t.pick.id == "string" && Ke.set(e, { id: t.pick.id, at: Number(t.pick.at) || 0 }), typeof t?.shown == "string" && qo.set(e, t.shown);
 } catch {
 }
-function qi() {
+function Wi() {
   const o = {};
   for (const [e, t] of Ke) o[e] = { pick: { id: t.id, at: t.at } };
   for (const [e, t] of qo) (o[e] ??= {}).shown = t;
@@ -38955,11 +38955,11 @@ function qi() {
   } catch {
   }
 }
-const Vy = /* @__PURE__ */ new Set(["media_next_track", "media_previous_track", "shuffle_set", "repeat_set", "media_play", "media_pause", "media_seek"]), Wi = new EventTarget(), Mt = /* @__PURE__ */ new Map(), nt = /* @__PURE__ */ new Map(), Nm = 36e5, Vl = new EventTarget(), Yh = /* @__PURE__ */ new Map(), zs = /* @__PURE__ */ new Map(), Om = 4e3, Wo = 2e4;
+const Yy = /* @__PURE__ */ new Set(["media_next_track", "media_previous_track", "shuffle_set", "repeat_set", "media_play", "media_pause", "media_seek"]), Fi = new EventTarget(), Mt = /* @__PURE__ */ new Map(), nt = /* @__PURE__ */ new Map(), Nm = 36e5, Vl = new EventTarget(), Yh = /* @__PURE__ */ new Map(), As = /* @__PURE__ */ new Map(), Om = 4e3, Wo = 2e4;
 function Zh(o, ...e) {
-  return o && e.some((t) => Date.now() - (zs.get(t) ?? 0) < Wo) ? Wo : 8e3;
+  return o && e.some((t) => Date.now() - (As.get(t) ?? 0) < Wo) ? Wo : 8e3;
 }
-const Yy = 8e3, Jh = 1500;
+const Zy = 8e3, Jh = 1500;
 function ur(o, e = !1) {
   if (!o) return o;
   const t = o.entity_id;
@@ -38969,7 +38969,7 @@ function ur(o, e = !1) {
   if (n && ((o.state === "playing" || o.state === "buffering") && r || o.state === "off" || o.state === "unavailable" || s && s !== n.title || i - n.at > Nm) && nt.delete(t), Pe.has(o.state)) {
     a.idle = void 0;
     const c = a.last?.attributes.media_title;
-    if (a.last && s && c && s !== c && !((zs.get(t) ?? 0) > a.replacedAt) && i - a.replacedAt < Yy) {
+    if (a.last && s && c && s !== c && !((As.get(t) ?? 0) > a.replacedAt) && i - a.replacedAt < Zy) {
       let h = a.pending;
       if ((!h || h.title !== s) && (h = a.pending = { title: s, since: i }), i - h.since < Jh)
         return window.setTimeout(() => Vl.dispatchEvent(new Event("check")), Jh + 50), a.last;
@@ -38978,7 +38978,7 @@ function ur(o, e = !1) {
   }
   const l = Date.parse(o.last_changed) || i;
   if (e) {
-    const c = Zy(o, a, t, s, l, i);
+    const c = Jy(o, a, t, s, l, i);
     if (c) return c;
   } else if (o.state === "idle" && a.last && i - a.lastAt < Om) {
     if (!a.idle) {
@@ -38989,10 +38989,10 @@ function ur(o, e = !1) {
     }
     return { ...a.last, attributes: { ...a.last.attributes, media_position: a.idle.pos, media_position_frozen: !0 } };
   }
-  return Jy(o, a, t, s, l, i, e);
+  return Xy(o, a, t, s, l, i, e);
 }
-function Zy(o, e, t, a, i, s) {
-  const n = (zs.get(t) ?? 0) > i - 5e3 && s - (zs.get(t) ?? 0) < Wo;
+function Jy(o, e, t, a, i, s) {
+  const n = (As.get(t) ?? 0) > i - 5e3 && s - (As.get(t) ?? 0) < Wo;
   if (o.state === "idle" && e.last && s - i < (n ? Wo : Om)) {
     const r = e.last.attributes.media_title;
     if (a && r && a !== r)
@@ -39008,7 +39008,7 @@ function Zy(o, e, t, a, i, s) {
     return { ...e.last, attributes: { ...e.last.attributes, media_position: e.idle.pos, media_position_frozen: !0 } };
   }
 }
-function Jy(o, e, t, a, i, s, n) {
+function Xy(o, e, t, a, i, s, n) {
   let r = nt.get(t);
   if (!r && o.state === "idle" && a) {
     const l = o.attributes, c = Number(l.media_duration), d = Number(l.media_position), h = Date.parse(l.media_position_updated_at ?? "");
@@ -39031,7 +39031,7 @@ function Jy(o, e, t, a, i, s, n) {
     }
   } : (n && !Pe.has(o.state) && (e.last = void 0), o);
 }
-const mr = /* @__PURE__ */ new Map(), Yl = /* @__PURE__ */ new Set();
+const mr = /* @__PURE__ */ new Map(), Bm = /* @__PURE__ */ new Map(), Yl = /* @__PURE__ */ new Set();
 function Xh(o) {
   const e = mr.get(o);
   if (e === "ok" || e === "fail") return e;
@@ -39043,17 +39043,17 @@ function Xh(o) {
     mr.set(
       o,
       new Promise((i) => {
-        t.onload = () => (a("ok"), i()), t.onerror = () => (a("fail"), i());
+        t.onload = () => (Bm.set(o, t.naturalWidth / (t.naturalHeight || 1)), a("ok"), i()), t.onerror = () => (a("fail"), i());
       })
     ), t.src = o;
   }
   return "wait";
 }
-function Ha(o) {
+function ma(o) {
   return `url("${String(o).replace(/["\\\n\r\f]/g, (e) => encodeURIComponent(e))}")`;
 }
 const gr = /* @__PURE__ */ new Map(), Qh = /* @__PURE__ */ new Map();
-function Xy(o) {
+function Qy(o) {
   let e = Qh.get(o);
   return e || (e = new Promise((t) => {
     const a = new Image();
@@ -39122,10 +39122,10 @@ const Tt = (o) => ({
       menu: (e, t) => (a) => {
         this._canOpen(t) && (a.preventDefault(), !(this._held || this._stack[this._stack.length - 1]?.detail === t) && (this._hold.end(), this._openDetail(e, t)));
       }
-    }, this._handleTpl = g, this._qInfo = /* @__PURE__ */ new Map(), this._groupWant = /* @__PURE__ */ new Map(), this._fullH = 0, new le(this, ".frame"), this.addEventListener("pointerdown", () => Fy(this));
+    }, this._handleTpl = g, this._qInfo = /* @__PURE__ */ new Map(), this._groupWant = /* @__PURE__ */ new Map(), this._fullH = 0, new le(this, ".frame"), this.addEventListener("pointerdown", () => Hy(this));
   }
   static getConfigElement() {
-    return de(Jf);
+    return de(Xf);
   }
   static getStubConfig(e) {
     const t = Object.keys(e.states).filter((i) => i.startsWith("media_player."));
@@ -39235,8 +39235,8 @@ const Tt = (o) => ({
     const d = s.attributes, h = { ...a.attributes }, u = i !== void 0 && i === this._tvVia(e);
     if (u) {
       for (const y of n) delete h[y];
-      h.media_title = d.media_title ?? d.media_series_title ?? d.app_name ?? s.attributes.friendly_name;
-      const b = [d.media_artist, d.media_title && d.media_series_title, d.app_name, s.attributes.friendly_name];
+      h.media_title = d.media_title ?? d.media_series_title ?? d.app_name ?? d.source ?? s.attributes.friendly_name;
+      const b = [d.media_artist, d.media_title && d.media_series_title, d.app_name, d.source, s.attributes.friendly_name];
       h.media_artist = b.find((y) => y && y !== h.media_title), h.glass_tv = !0;
     }
     for (const b of n) b in d && !(u && (b === "media_title" || b === "media_artist")) && (h[b] = d[b]);
@@ -39253,7 +39253,7 @@ const Tt = (o) => ({
    *  next, previous, shuffle, repeat, play and pause go to it. */
   _via(e) {
     const t = this._hass?.states;
-    return t ? [...this._ids, ...this._config.library_from ? [this._config.library_from] : []].find((i) => i !== e && t[i]?.attributes.remote_player_id === e && Zs.has(t[i]?.state ?? "")) ?? this._tvVia(e) : void 0;
+    return t ? [...this._ids, ...this._config.library_from ? [this._config.library_from] : []].find((i) => i !== e && t[i]?.attributes.remote_player_id === e && qi.has(t[i]?.state ?? "")) ?? this._tvVia(e) : void 0;
   }
   /**
    * A soundbar playing the TV's sound (its input: TV, HDMI): the player that plays on the TV – of
@@ -39266,18 +39266,27 @@ const Tt = (o) => ({
     if (!t?.length || !a) return;
     const i = a[e], s = i?.attributes ?? {};
     if (!Pe.has(i?.state ?? "") || !(s.app_id === "tv" || /^(tv|hdmi)/i.test(String(s.source ?? "")))) return;
-    const n = this._twins.get(e), l = (t.find((m) => {
-      const f = m.speaker ?? this._ids[0];
-      return f === e || f === n || this._twins.get(f) === e;
-    })?.sources ?? []).filter((m) => Pe.has(a[m]?.state ?? ""));
-    if (!l.length) return;
-    const c = (m) => Date.parse(a[m].last_changed) || 0, d = l.reduce((m, f) => c(f) > c(m) ? f : m);
-    if (!a[d].attributes.media_title && !a[d].attributes.media_series_title) return;
-    const h = (m) => [a[m].attributes.media_title, a[m].attributes.media_series_title, a[m].attributes.media_artist].filter((f) => typeof f == "string" && f.trim().length > 2).map((f) => f.toLowerCase().trim()), u = (m) => {
-      const f = h(m), b = h(d);
-      return f.some((y) => b.some((_) => _.includes(y) || y.includes(_)));
+    const n = this._twins.get(e), r = t.find((y) => {
+      const _ = y.speaker ?? this._ids[0];
+      return _ === e || _ === n || this._twins.get(_) === e;
+    });
+    if (!r) return;
+    let l = (r.sources ?? []).map((y) => typeof y == "string" ? { entity: y } : y).filter((y) => y?.entity);
+    const c = r.tv ? a[r.tv] : void 0, d = c && qi.has(c.state) ? String(c.attributes.source ?? "").toLowerCase() : "";
+    if (d && l.some((y) => y.input)) {
+      const y = l.filter((_) => _.input?.toLowerCase() === d);
+      if (!y.length) return r.tv;
+      l = y;
+    }
+    const h = l.map((y) => y.entity).filter((y) => Pe.has(a[y]?.state ?? ""));
+    if (!h.length) return;
+    const u = (y) => Date.parse(a[y].last_changed) || 0, m = h.reduce((y, _) => u(_) > u(y) ? _ : y);
+    if (!a[m].attributes.media_title && !a[m].attributes.media_series_title) return;
+    const f = (y) => [a[y].attributes.media_title, a[y].attributes.media_series_title, a[y].attributes.media_artist].filter((_) => typeof _ == "string" && _.trim().length > 2).map((_) => _.toLowerCase().trim()), b = (y) => {
+      const _ = f(y), x = f(m);
+      return _.some((z) => x.some((S) => S.includes(z) || z.includes(S)));
     };
-    return l.slice(0, l.indexOf(d)).find(u) ?? d;
+    return h.slice(0, h.indexOf(m)).find(b) ?? m;
   }
   async _twin(e) {
     if (this._twins.has(e)) return this._twins.get(e) ?? void 0;
@@ -39321,28 +39330,28 @@ const Tt = (o) => ({
     if (!e || this._ids.length === 1) return this._ids[0];
     this._shown ??= qo.get(this._linkKey);
     const t = this._shown, a = this._pickMain(e);
-    return a !== t && (qo.set(this._linkKey, a), qi()), a;
+    return a !== t && (qo.set(this._linkKey, a), Wi()), a;
   }
   _pickMain(e) {
     const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (l) => Date.parse(e[l]?.last_changed ?? "") || 0, i = (l) => Pe.has(e[l]?.state ?? "") || Mt.has(l) || nt.has(l), s = new Set(this._ids.map((l) => e[l]?.attributes.remote_player_id).filter(Boolean)), n = Ke.get(this._linkKey) ?? this._chosen;
     if (this._config.follow_playing === !1) {
-      const l = n && n.id !== this._ids[0] && this._ids.includes(n.id) && (this._busy(n) || i(n.id) || Date.now() - n.at < Ky);
+      const l = n && n.id !== this._ids[0] && this._ids.includes(n.id) && (this._busy(n) || i(n.id) || Date.now() - n.at < Vy);
       return this._shown = l ? n.id : this._ids[0];
     }
     if (n && this._ids.includes(n.id)) {
       if (this._busy(n)) return this._shown = n.id;
       const l = this._ids.find((c) => c !== n.id && !s.has(c) && e[c]?.state === "playing" && a(c) > n.at && !i(n.id));
-      return l ? (this._chosen = void 0, Ke.get(this._linkKey) === n && (Ke.delete(this._linkKey), qi()), this._shown = l) : this._shown = n.id;
+      return l ? (this._chosen = void 0, Ke.get(this._linkKey) === n && (Ke.delete(this._linkKey), Wi()), this._shown = l) : this._shown = n.id;
     }
     const r = t?.attributes.remote_player_id;
     if (t && r && e[r]?.state === "playing") return t.entity_id;
-    if (t && (Zs.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && Pe.has(ur(t, !0)?.state ?? ""))) {
+    if (t && (qi.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && Pe.has(ur(t, !0)?.state ?? ""))) {
       const l = this._ids.find(
         (c) => c !== t.entity_id && !s.has(c) && e[c]?.state === "playing" && a(c) > a(t.entity_id) && !i(t.entity_id)
       );
       this._shown = l ?? t.entity_id;
     } else
-      this._shown = this._ids.find((l) => !s.has(l) && e[l]?.state === "playing") ?? this._ids.find((l) => e[l]?.state === "playing") ?? this._ids.find((l) => Zs.has(e[l]?.state ?? "")) ?? this._ids[0];
+      this._shown = this._ids.find((l) => !s.has(l) && e[l]?.state === "playing") ?? this._ids.find((l) => e[l]?.state === "playing") ?? this._ids.find((l) => qi.has(e[l]?.state ?? "")) ?? this._ids[0];
     return this._shown;
   }
   _busyOn(e) {
@@ -39441,7 +39450,7 @@ const Tt = (o) => ({
     return !!e && e.layout !== "tile" && e.layout !== "screen" && e.show !== "player" && (e.show === "library" || e.library !== !1);
   }
   _choose(e) {
-    W("selection"), this._chosen = { id: e, at: Date.now() }, Ke.set(this._linkKey, this._chosen), qi(), Wi.dispatchEvent(new CustomEvent("pick", { detail: this._linkKey })), this._shown = e, this._pickOpen = !1, this._open = !1, this._stack = [], this._libOpen = void 0, this.requestUpdate();
+    W("selection"), this._chosen = { id: e, at: Date.now() }, Ke.set(this._linkKey, this._chosen), Wi(), Fi.dispatchEvent(new CustomEvent("pick", { detail: this._linkKey })), this._shown = e, this._pickOpen = !1, this._open = !1, this._stack = [], this._libOpen = void 0, this.requestUpdate();
   }
   async _loadKinds() {
     const e = this._hass;
@@ -39452,7 +39461,7 @@ const Tt = (o) => ({
       try {
         const s = await e.callWS({ type: "config/entity_registry/get_entries", entity_ids: t }), n = Array.isArray(s) ? s : Object.entries(s).map(([r, l]) => ({ entity_id: r, unique_id: l?.unique_id }));
         for (const r of n) r.unique_id && this._maUids.set(r.entity_id, r.unique_id);
-        this._maProv = await Py(a, i);
+        this._maProv = await Ey(a, i);
       } catch {
       }
     this._kinds.clear(), this.requestUpdate();
@@ -39464,15 +39473,15 @@ const Tt = (o) => ({
     let s = "hass";
     if (i) {
       const n = this._maUids.get(i);
-      if (s = Ny(n ? this._maProv?.get(n) : void 0) ?? "ma", s === "ma") {
+      if (s = Oy(n ? this._maProv?.get(n) : void 0) ?? "ma", s === "ma") {
         const r = a, l = r.devices?.[r.entities?.[i]?.device_id ?? ""];
-        s = Oy(l?.manufacturer, l?.model);
+        s = By(l?.manufacturer, l?.model);
       }
     }
     return (!i || this._twins.has(e) || ft(a.states[e])) && this._kinds.set(e, s), s;
   }
   _kindBadge(e) {
-    const t = this._kind(e), a = Ry(t);
+    const t = this._kind(e), a = Ny(t);
     return a.word ? p`<i class="pkind word" title=${po[t]}>${a.word}</i>` : p`<i class="pkind" title=${po[t]} aria-label=${po[t]}
       >${a.mask ? p`<b style=${`-webkit-mask-image:${a.mask};mask-image:${a.mask}`}></b>` : p`<ha-icon .icon=${a.mdi}></ha-icon>`}</i
     >`;
@@ -39485,7 +39494,7 @@ const Tt = (o) => ({
         ${this._ids.map((a) => {
       const i = t.states[a], s = i?.attributes ?? {}, n = this._artUrl(i), r = s.device_class === "tv" ? "mdi:television" : s.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker", l = !i || i.state === "unavailable" ? v("Unavailable") : i.state === "off" ? v("Off") : Pe.has(i.state) && s.media_title ? [s.media_title, s.media_artist].filter(Boolean).join(" · ") : v("Nothing playing");
       return p`<button class="prow ${a === e ? "in" : ""}" role="option" aria-selected=${a === e ? "true" : "false"} @click=${() => this._choose(a)}>
-            <i class="pic" style=${n ? `background-image:${Ha(n)}` : ""}>${n ? g : p`<ha-icon .icon=${r}></ha-icon>`}</i>
+            <i class="pic" style=${n ? `background-image:${ma(n)}` : ""}>${n ? g : p`<ha-icon .icon=${r}></ha-icon>`}</i>
             <span class="ptxt"><span class="sname"><span class="nm">${s.friendly_name ?? a}</span>${this._kindBadge(a)}</span><span class="psub">${l}</span></span>
             ${i?.state === "playing" ? p`<i class="eq ${a === e ? "main" : ""}" aria-hidden="true"><b></b><b></b><b></b></i>` : g}
             ${a === e ? p`<ha-icon class="chk" .icon=${"mdi:check"}></ha-icon>` : g}
@@ -39513,15 +39522,15 @@ const Tt = (o) => ({
     this._syncTick(), this._syncArt();
   }
   connectedCallback() {
-    super.connectedCallback(), Yl.add(this._artWake), this._syncTick(), Wi.addEventListener("pick", this._onPick), Hl.addEventListener("search", this._onSearch), Kl.addEventListener("change", this._onViz), Vl.addEventListener("check", this._onViz), this._ro ??= new ResizeObserver(() => {
+    super.connectedCallback(), Yl.add(this._artWake), this._syncTick(), Fi.addEventListener("pick", this._onPick), Hl.addEventListener("search", this._onSearch), Kl.addEventListener("change", this._onViz), Vl.addEventListener("check", this._onViz), this._ro ??= new ResizeObserver(() => {
       const t = this.clientWidth > 0 && this.clientWidth < 600;
       t !== this._narrow && (this._narrow = t, this.requestUpdate());
     }), this._ro.observe(this), window.addEventListener("resize", this._onFill), window.addEventListener("location-changed", this._onOpen), window.addEventListener("hashchange", this._onOpen), this._config?.layout === "screen" && (this._clockT ??= window.setInterval(() => this.requestUpdate(), 1e4), this._wake()), this._onOpen();
-    const e = zy(this);
+    const e = Ay(this);
     e !== this._q && this._setQuery(e);
   }
   disconnectedCallback() {
-    super.disconnectedCallback(), Yl.delete(this._artWake), clearInterval(this._clockT), this._clockT = void 0, clearTimeout(this._calmT), Wi.removeEventListener("pick", this._onPick), Hl.removeEventListener("search", this._onSearch), Kl.removeEventListener("change", this._onViz), Vl.removeEventListener("check", this._onViz), this._ro?.disconnect(), window.removeEventListener("resize", this._onFill), window.removeEventListener("location-changed", this._onOpen), window.removeEventListener("hashchange", this._onOpen), this._viz?.destroy(), this._viz = this._vizCv = void 0, clearInterval(this._tick), this._tick = void 0;
+    super.disconnectedCallback(), Yl.delete(this._artWake), clearInterval(this._clockT), this._clockT = void 0, clearTimeout(this._calmT), Fi.removeEventListener("pick", this._onPick), Hl.removeEventListener("search", this._onSearch), Kl.removeEventListener("change", this._onViz), Vl.removeEventListener("check", this._onViz), this._ro?.disconnect(), window.removeEventListener("resize", this._onFill), window.removeEventListener("location-changed", this._onOpen), window.removeEventListener("hashchange", this._onOpen), this._viz?.destroy(), this._viz = this._vizCv = void 0, clearInterval(this._tick), this._tick = void 0;
     for (const e of this._sendTimer.values()) clearTimeout(e);
   }
   /** While playing the position moves on its own (HA reports it only on a change). */
@@ -39548,7 +39557,7 @@ const Tt = (o) => ({
         this._color = void 0, this._light = void 0;
         return;
       }
-      Xy(e).then((t) => {
+      Qy(e).then((t) => {
         this._art === e && (this._color = t?.color, this._light = t?.light, this.requestUpdate());
       });
     }
@@ -39563,7 +39572,7 @@ const Tt = (o) => ({
     return (t ? i * this._light * 0.7 + (1 - i) * 0.15 : i * this._light + (1 - i) * 0.92) > 0.58 ? "ink-dark" : "ink-light";
   }
   _call(e, t = {}, a = this._main()) {
-    if (a === this._main() && Vy.has(e) && (a = this._queueVia(a) ?? a), e === "media_previous_track" || e === "media_next_track") for (const i of [this._main(), a]) zs.set(i, Date.now());
+    if (a === this._main() && Yy.has(e) && (a = this._queueVia(a) ?? a), e === "media_previous_track" || e === "media_next_track") for (const i of [this._main(), a]) As.set(i, Date.now());
     this._hass?.callService("media_player", e, {
       entity_id: a,
       ...t
@@ -39715,11 +39724,11 @@ const Tt = (o) => ({
     if (!e || e.state === "unavailable") return [a, v("Unavailable")];
     if (e.state === "off") return [a, v("Off")];
     const i = t.media_title ?? t.media_series_title ?? "", s = t.media_artist ?? t.media_album_artist ?? t.app_name ?? t.source ?? "";
-    return i ? [i, [s, a].filter(Boolean).join(" · "), s] : [a, Zs.has(e.state) && s ? s : v("Nothing playing")];
+    return i ? [i, [s, a].filter(Boolean).join(" · "), s] : [a, qi.has(e.state) && s ? s : v("Nothing playing")];
   }
   _art_(e, t) {
-    const a = this._artUrl(e), i = !a && this._artWaits(e), s = e?.attributes.glass_tv || e?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note";
-    return p`<div class="art ${t} ${a ? "" : "none"}" style=${a ? `background-image:${Ha(a)}` : ""}>
+    const a = this._artUrl(e), i = !a && this._artWaits(e), s = e?.attributes.glass_tv || e?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note", n = a ? Bm.get(a) ?? 1 : 1, r = a && e?.attributes.glass_tv && (n > 1.15 || n < 0.87) ? "fit" : "";
+    return p`<div class="art ${t} ${r} ${a ? "" : "none"}" style=${a ? r ? `--art:${ma(a)}` : `background-image:${ma(a)}` : ""}>
       ${a ? g : i ? p`<i class="spin" aria-hidden="true"></i>` : p`<ha-icon .icon=${s}></ha-icon>`}
     </div>`;
   }
@@ -39751,7 +39760,7 @@ const Tt = (o) => ({
       a ? () => {
         Ft.on = !Ft.on, Ft.on && this._showDots(), W("light"), Vh();
       } : void 0
-    ), n = va.indexOf(Ft.style);
+    ), n = wa.indexOf(Ft.style);
     return p`<div
       class="artbtn ${i ? "vizon" : ""}"
       role="button"
@@ -39764,8 +39773,8 @@ const Tt = (o) => ({
       if (this._vizFrom = void 0, !i || !l) return;
       const c = r.clientX - l.x;
       if (Math.abs(c) < 28 || Math.abs(c) < Math.abs(r.clientY - l.y) * 1.5) return;
-      const d = va.length;
-      Ft.style = va[(n + (c < 0 ? 1 : d - 1)) % d], this._showDots(), W("light"), Vh();
+      const d = wa.length;
+      Ft.style = wa[(n + (c < 0 ? 1 : d - 1)) % d], this._showDots(), W("light"), Vh();
     }}
       @pointercancel=${s.cancel}
       @contextmenu=${s.context}
@@ -39773,14 +39782,14 @@ const Tt = (o) => ({
       <div class="artwrap">
         ${this._art_(e, "square")} ${i ? p`<canvas class="viz"></canvas>` : g}
 
-        ${i ? p`<div class="vdots ${this._vizDots ? "show" : ""}">${va.map((r, l) => p`<i class=${l === n ? "on" : ""}></i>`)}</div>` : g}
+        ${i ? p`<div class="vdots ${this._vizDots ? "show" : ""}">${wa.map((r, l) => p`<i class=${l === n ? "on" : ""}></i>`)}</div>` : g}
       </div>
     </div>`;
   }
   /** The visualizer told what plays, its cover and look (after each render). */
   _syncViz() {
     const e = this.renderRoot.querySelector("canvas.viz") ?? void 0;
-    if (e !== this._vizCv && (this._viz?.destroy(), this._viz = e ? new Cy(e) : void 0, this._vizCv = e), !this._viz) return;
+    if (e !== this._vizCv && (this._viz?.destroy(), this._viz = e ? new Dy(e) : void 0, this._vizCv = e), !this._viz) return;
     const t = this._shownState(), a = t?.attributes ?? {};
     this._viz.setStyle(Ft.style), this._viz.setInk(this._tone(t) === "ink-dark"), this._viz.setArt(this._artUrl(t), this._color), this._viz.setTrack({
       playing: this._isPlaying(t),
@@ -39841,12 +39850,12 @@ const Tt = (o) => ({
     if (ue(a, ne.BROWSE))
       try {
         const c = ((await this._browse(e)).children ?? []).filter(
-          (b) => b.can_expand && b.media_class !== "app" && !String(b.media_content_id).startsWith("media-source://") && !Gh.has(b.children_media_class) && !Uh.test(b.title) && !Vs.has(b.media_content_type)
+          (b) => b.can_expand && b.media_class !== "app" && !String(b.media_content_id).startsWith("media-source://") && !Gh.has(b.children_media_class) && !Uh.test(b.title) && !Ys.has(b.media_content_type)
         ), d = [], h = [];
         await Promise.all(
           c.slice(0, 10).map(async (b) => {
             const _ = ((await this._browse(e, b.media_content_id, b.media_content_type).catch(() => {
-            }))?.children ?? []).filter((M) => !Vs.has(M.media_content_type)), x = _.filter((M) => M.can_expand && !M.can_play), z = x.length === _.length ? x : x.filter((M) => M.media_class === "directory" && /recommend|doporu/i.test(M.title));
+            }))?.children ?? []).filter((M) => !Ys.has(M.media_content_type)), x = _.filter((M) => M.can_expand && !M.can_play), z = x.length === _.length ? x : x.filter((M) => M.media_class === "directory" && /recommend|doporu/i.test(M.title));
             for (const M of z)
               d.push({
                 title: M.title,
@@ -39875,10 +39884,10 @@ const Tt = (o) => ({
               ctype: _.media_content_type
             });
         }
-        const m = d.filter((b) => !Uh.test(b.title) && !Vs.has(b.ctype)).sort((b, y) => Ys(b.title) - Ys(y.title)).slice(0, 10), f = await Promise.all(
+        const m = d.filter((b) => !Uh.test(b.title) && !Ys.has(b.ctype)).sort((b, y) => Zs(b.title) - Zs(y.title)).slice(0, 10), f = await Promise.all(
           m.map(async (b) => {
             const _ = ((await this._browse(e, b.cid, b.ctype).catch(() => {
-            }))?.children ?? []).filter((x) => !Vs.has(x.media_content_type));
+            }))?.children ?? []).filter((x) => !Ys.has(x.media_content_type));
             return {
               title: b.title,
               items: await this._picks(_.slice(0, 30)),
@@ -39893,13 +39902,13 @@ const Tt = (o) => ({
       } catch {
       }
     if (i.length <= s && ue(a, ne.SELECT_SOURCE)) {
-      const l = (a?.attributes.source_list ?? []).filter((c) => !Gy.test(c));
+      const l = (a?.attributes.source_list ?? []).filter((c) => !Uy.test(c));
       l.length && i.push({
         title: v("Favorites"),
         items: l.map((c) => ({ name: c, source: c, play: !0 }))
       });
     }
-    const n = this._config.library_sections, r = n?.length ? n.map((l) => i.find((c) => c.title.toLowerCase() === l.toLowerCase())).filter((l) => !!l) : [...i.slice(0, s), ...i.slice(s).sort((l, c) => Ys(l.title) - Ys(c.title))];
+    const n = this._config.library_sections, r = n?.length ? n.map((l) => i.find((c) => c.title.toLowerCase() === l.toLowerCase())).filter((l) => !!l) : [...i.slice(0, s), ...i.slice(s).sort((l, c) => Zs(l.title) - Zs(c.title))];
     this._lib.set(e, r.length ? { sections: r.slice(0, 12) } : "none"), this.requestUpdate();
   }
   /** The rows of Music Assistant's home (its recommendations: your mixes, top picks, played lately…),
@@ -40129,7 +40138,7 @@ const Tt = (o) => ({
       </div>
       <div class="rows det" @scroll=${a} @pointerdown=${s.down} @pointermove=${s.move} @pointerup=${s.up} @pointercancel=${s.up}>
         <div class="det-hero">
-          ${i.image ? p`<i class="det-bg" style=${`background-image:${Ha(i.image)}`}></i>` : g}
+          ${i.image ? p`<i class="det-bg" style=${`background-image:${ma(i.image)}`}></i>` : g}
           <i class="det-cov cov ${i.image ? "" : "tile"}" style="--h:${[...i.name].reduce((h, u) => (h * 31 + u.charCodeAt(0)) % 360, 7)}">
             <ha-icon .icon=${Kh[i.kind ?? ""] ?? "mdi:playlist-music"}></ha-icon>
             ${i.image ? p`<img src=${i.image} alt="" draggable="false" @error=${(h) => h.currentTarget.hidden = !0} />` : g}
@@ -40145,7 +40154,7 @@ const Tt = (o) => ({
         <div class="det-list">
           ${n === "loading" ? Array.from({ length: 6 }, () => p`<div class="trk ghost"><i class="tcov"></i><span class="ttxt"><span></span></span></div>`) : n.map(
       (h) => p`<button class="trk" @click=${() => (W("light"), void this._start(h))}>
-                      ${h.image || i.kind !== "album" ? p`<i class="tcov" style=${h.image ? `background-image:${Ha(h.image)}` : ""}></i>` : g}
+                      ${h.image || i.kind !== "album" ? p`<i class="tcov" style=${h.image ? `background-image:${ma(h.image)}` : ""}></i>` : g}
                       <span class="ttxt"><span class="tn">${h.name}</span>${h.sub ? p`<span class="ts">${h.sub}</span>` : g}</span>
                       ${h.dur ? p`<span class="td">${d(h.dur)}</span>` : g}
                     </button>`
@@ -40246,7 +40255,7 @@ const Tt = (o) => ({
       from: a?.state === "playing" ? a.attributes.media_content_id ?? a.attributes.media_title : "\0",
       twinFrom: s ? s.state === "playing" ? s.attributes.media_content_id ?? s.attributes.media_title : "\0" : void 0
     };
-    if (this._chosen = n, Ke.set(this._linkKey, n), qi(), Wi.dispatchEvent(new CustomEvent("pick", { detail: this._linkKey })), window.setTimeout(() => this.requestUpdate(), 20100), this.requestUpdate(), a?.state === "off" && ue(a, ne.TURN_ON) && await this._hass?.callService("media_player", "turn_on", {
+    if (this._chosen = n, Ke.set(this._linkKey, n), Wi(), Fi.dispatchEvent(new CustomEvent("pick", { detail: this._linkKey })), window.setTimeout(() => this.requestUpdate(), 20100), this.requestUpdate(), a?.state === "off" && ue(a, ne.TURN_ON) && await this._hass?.callService("media_player", "turn_on", {
       entity_id: t
     }), e.within && await this._playWithin(t, a, e)) return;
     if (e.ma_uri) {
@@ -40261,7 +40270,7 @@ const Tt = (o) => ({
         return;
       }
     }
-    const r = this._libId(), l = r !== t && this._platform(r) === "ytube_music_player" ? Uy(e) : void 0, c = l ? ft(a) ? t : await this._twin(t) : void 0;
+    const r = this._libId(), l = r !== t && this._platform(r) === "ytube_music_player" ? Ky(e) : void 0, c = l ? ft(a) ? t : await this._twin(t) : void 0;
     if (l && c) {
       this._hass?.callService("media_player", "play_media", {
         entity_id: c,
@@ -40380,7 +40389,7 @@ const Tt = (o) => ({
       hold: Date.now() + 15e3,
       from: "\0"
     };
-    this._chosen = i, Ke.set(this._linkKey, i), qi(), Wi.dispatchEvent(new CustomEvent("pick", { detail: this._linkKey })), window.setTimeout(() => this.requestUpdate(), 15100), (async () => {
+    this._chosen = i, Ke.set(this._linkKey, i), Wi(), Fi.dispatchEvent(new CustomEvent("pick", { detail: this._linkKey })), window.setTimeout(() => this.requestUpdate(), 15100), (async () => {
       const s = this._twinPlays(t) ?? await this._twin(t).then(() => this._twinPlays(t)), n = s ? await this._twin(e) : void 0;
       s && n ? this._hass?.callService("media_player", "join", {
         entity_id: s,
@@ -40461,7 +40470,7 @@ const Tt = (o) => ({
       @pointermove=${this._wake}
       @pointerdown=${this._wake}
     >
-      <div class="sbg">${li(r ?? "", p`<i class="sbgi ${r ? "" : "none"}" style=${r ? `background-image:${Ha(r)}` : ""}></i>`)}</div>
+      <div class="sbg">${li(r ?? "", p`<i class="sbgi ${r ? "" : "none"}" style=${r ? `background-image:${ma(r)}` : ""}></i>`)}</div>
       <div class="sshade"></div>
       <div class="shead">
         ${y && !n ? p`<div class="sclock"><b>${f}</b><span>${b}</span></div>` : p`<span></span>`}
@@ -40526,7 +40535,7 @@ const Tt = (o) => ({
   _bg(e) {
     const t = this._artUrl(e);
     if (this._config.art_background === !1 || !t) return g;
-    const a = p`<i class="bg ${e?.state === "playing" ? "" : "idle"}" style=${`background-image:${Ha(t)}`}></i>`;
+    const a = p`<i class="bg ${e?.state === "playing" ? "" : "idle"}" style=${`background-image:${ma(t)}`}></i>`;
     return this.hasAttribute("in-panel") ? p`<div class="bgclip">${a}</div>` : a;
   }
   /** The song's bar: where it is, a drag (or a tap) seeks. */
@@ -40675,7 +40684,7 @@ const Tt = (o) => ({
   updated(e) {
     super.updated(e);
     const t = this.renderRoot.querySelector(".frame.cardf");
-    t && (t.classList.contains("rest") ? t.style.minHeight = this._fullH ? `${this._fullH}px` : "" : (t.style.minHeight = "", this._fullH = t.offsetHeight)), this._libOn && this._hass && this._loadLib(this._libId()), this._config?.library_from && this._hass && !this._twins.has(this._main()) && this._twin(this._main()), this._fitPanel(), this._syncViz(), this._config?.media_keys ? (qy(this), Hy(this)) : Wy(this);
+    t && (t.classList.contains("rest") ? t.style.minHeight = this._fullH ? `${this._fullH}px` : "" : (t.style.minHeight = "", this._fullH = t.offsetHeight)), this._libOn && this._hass && this._loadLib(this._libId()), this._config?.library_from && this._hass && !this._twins.has(this._main()) && this._twin(this._main()), this._fitPanel(), this._syncViz(), this._config?.media_keys ? (Wy(this), Gy(this)) : Fy(this);
   }
   /** The media keys: what plays on the shown player, for the system's controls (macOS, Windows). */
   mediaKeyInfo() {
@@ -40897,6 +40906,25 @@ nn.parts = tm, nn.styles = [
         place-items: center;
         color: var(--g-text-2);
         background-color: color-mix(in srgb, var(--g-text) 8%, transparent);
+      }
+      .art.fit {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .art.fit::before,
+      .art.fit::after {
+        content: "";
+        position: absolute;
+        background: var(--art) center / cover no-repeat;
+      }
+      .art.fit::before {
+        inset: -20%;
+        filter: blur(18px) saturate(1.3) brightness(0.8);
+      }
+      .art.fit::after {
+        inset: 0;
+        background-size: contain;
       }
       .art .spin {
         width: clamp(22px, 14cqw, 40px);
@@ -43298,7 +43326,7 @@ ce("glass-media", Zl, {
   name: "Glass – media player",
   description: "What plays with its album art, the controls, a liquid glass volume bar and the speakers to group."
 });
-const Qy = ["day", "week", "month", "year"], ev = "period", As = (o) => o.group || ev, Gt = (o) => !!o.offset_entity, tv = [
+const ev = ["day", "week", "month", "year"], tv = "period", Ms = (o) => o.group || tv, Gt = (o) => !!o.offset_entity, av = [
   ["day", ["day", "den", "dny", "dni", "tag", "jour", "día", "dia", "dzie"]],
   // i18n-ok
   ["week", ["week", "týd", "tyd", "woche", "sem", "tydz", "týž"]],
@@ -43308,50 +43336,50 @@ const Qy = ["day", "week", "month", "year"], ev = "period", As = (o) => o.group 
   ["year", ["year", "rok", "jahr", "an", "año", "ano"]]
   // i18n-ok
 ];
-function av(o, e) {
+function iv(o, e) {
   if (!o) return;
   if (e?.[o]) return e[o];
   const t = o.trim().toLowerCase();
-  return tv.find(([, a]) => a.some((i) => t.startsWith(i)))?.[0];
+  return av.find(([, a]) => a.some((i) => t.startsWith(i)))?.[0];
 }
 function uo(o, e, t = ["day", "month", "year"]) {
   if (Gt(e)) {
     const r = Number(o?.states[e.offset_entity]?.state), l = e.select_entity ? o?.states[e.select_entity]?.state : void 0;
-    return { kind: av(l, e.kinds) ?? "day", offset: Number.isFinite(r) ? Math.min(0, r) : 0 };
+    return { kind: iv(l, e.kinds) ?? "day", offset: Number.isFinite(r) ? Math.min(0, r) : 0 };
   }
-  const [a, i] = (Ma(As(e)) ?? "").split(":"), s = Qy.includes(a) ? a : t[0] ?? "day", n = Number(i);
+  const [a, i] = (Ta(Ms(e)) ?? "").split(":"), s = ev.includes(a) ? a : t[0] ?? "day", n = Number(i);
   return { kind: s, offset: Number.isFinite(n) ? Math.min(0, Math.round(n)) : 0 };
 }
 function fr(o, e) {
-  Ts(As(o), `${e.kind}:${Math.min(0, e.offset)}`);
+  Cs(Ms(o), `${e.kind}:${Math.min(0, e.offset)}`);
 }
-function Ms(o, e = /* @__PURE__ */ new Date()) {
+function Ts(o, e = /* @__PURE__ */ new Date()) {
   const t = new Date(e.getFullYear(), e.getMonth(), e.getDate());
   return o.kind === "day" ? t.setDate(t.getDate() + o.offset) : o.kind === "week" ? t.setDate(t.getDate() - (t.getDay() + 6) % 7 + 7 * o.offset) : o.kind === "month" ? (t.setDate(1), t.setMonth(t.getMonth() + o.offset)) : t.setFullYear(t.getFullYear() + o.offset, 0, 1), t;
 }
-function iv(o, e = /* @__PURE__ */ new Date()) {
-  const t = Ms(o, e);
+function sv(o, e = /* @__PURE__ */ new Date()) {
+  const t = Ts(o, e);
   return o.kind === "day" ? t.setDate(t.getDate() + 1) : o.kind === "week" ? t.setDate(t.getDate() + 7) : o.kind === "month" ? t.setMonth(t.getMonth() + 1) : t.setFullYear(t.getFullYear() + 1), t;
 }
-function sv(o) {
+function ov(o) {
   const e = new Date(Date.UTC(o.getFullYear(), o.getMonth(), o.getDate()));
   return e.setUTCDate(e.getUTCDate() + 4 - (e.getUTCDay() || 7)), Math.ceil(((e.getTime() - Date.UTC(e.getUTCFullYear(), 0, 1)) / 864e5 + 1) / 7);
 }
 const tp = (o) => o.charAt(0).toLocaleUpperCase() + o.slice(1);
 function ap(o, e, t = !1, a = /* @__PURE__ */ new Date()) {
-  const i = Ms(o, a);
+  const i = Ts(o, a);
   if (o.kind === "day") {
     const s = i.toLocaleDateString(e, { day: "numeric", month: "numeric" });
     return `${tp(i.toLocaleDateString(e, { weekday: t ? "short" : "long" }))} ${s}`;
   }
-  if (o.kind === "week") return v(t ? "W{n}" : "Week {n}", { n: sv(i) });
+  if (o.kind === "week") return v(t ? "W{n}" : "Week {n}", { n: ov(i) });
   if (o.kind === "month") {
     const s = tp(i.toLocaleDateString(e, { month: t && i.getFullYear() !== a.getFullYear() ? "short" : "long" })).replace(/\.$/, "");
     return i.getFullYear() === a.getFullYear() ? s : `${s} ${i.getFullYear()}`;
   }
   return String(i.getFullYear());
 }
-function ov(o, e) {
+function nv(o, e) {
   return v({ day: "Day", week: "Week", month: "Month", year: "Year" }[o]);
 }
 const ip = (o) => !!o && o !== "none";
@@ -43366,16 +43394,16 @@ const ei = class ei extends F {
     }, this._open = !1;
   }
   static getConfigElement() {
-    return de(Hf);
+    return de(Gf);
   }
   static getStubConfig() {
     return { periods: ["day", "month", "year"] };
   }
   validateConfig(e) {
-    return this._unsub?.(), this._unsub = Gt(e) ? void 0 : mi(As(e), () => this.requestUpdate()), e;
+    return this._unsub?.(), this._unsub = Gt(e) ? void 0 : mi(Ms(e), () => this.requestUpdate()), e;
   }
   connectedCallback() {
-    super.connectedCallback(), this._config && !Gt(this._config) && !this._unsub && (this._unsub = mi(As(this._config), () => this.requestUpdate()));
+    super.connectedCallback(), this._config && !Gt(this._config) && !this._unsub && (this._unsub = mi(Ms(this._config), () => this.requestUpdate()));
   }
   updated(e) {
     super.updated(e), this.toggleAttribute("compact", !!this._config?.compact);
@@ -43417,7 +43445,7 @@ const ei = class ei extends F {
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = uo(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, ov($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${ap(n, a)}</span><span class="short">${ap(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), z = p`<span class="gap"></span>`, S = br(e.bar_glass, e.bar_color, "frosted"), M = br(e.buttons_glass, e.buttons_color, "dark"), k = h ? M : br(e.now_glass, e.now_color, "home");
+    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = uo(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, nv($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${ap(n, a)}</span><span class="short">${ap(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), z = p`<span class="gap"></span>`, S = br(e.bar_glass, e.bar_color, "frosted"), M = br(e.buttons_glass, e.buttons_color, "dark"), k = h ? M : br(e.now_glass, e.now_color, "home");
     return this._btn = M, p`<div class="bar lbar ${S.cls || "control"} ${e.spread ? "spread" : ""}" style=${S.style}>
         ${e.spread ? g : z}
         ${x("now") ? p`<button class="now ${h ? "on" : ""} ${k.cls}" style=${k.style} aria-label=${e.now_label ?? v("Now")} @click=${() => this._now()}>
@@ -43728,28 +43756,28 @@ ce("glass-period-bar", Jl, {
   description: "Back / forward / now and a day–month–year drop-down for charts, in one liquid glass bar."
 });
 const wt = (o) => !!o && typeof o == "object" && !Array.isArray(o);
-function Da(o, e) {
+function Pa(o, e) {
   const t = { ...o };
-  for (const [a, i] of Object.entries(e)) t[a] = wt(i) && wt(t[a]) ? Da(t[a], i) : i;
+  for (const [a, i] of Object.entries(e)) t[a] = wt(i) && wt(t[a]) ? Pa(t[a], i) : i;
   return t;
 }
-function nv(o, e = /* @__PURE__ */ new Date()) {
-  const t = Ms(o, e), a = iv(o, e), i = Math.round((a.getTime() - t.getTime()) / 864e5), s = { day: "day", week: "isoWeek", month: "month", year: "year" }, n = { graph_span: `${i}d`, span: { start: s[o.kind] } };
+function rv(o, e = /* @__PURE__ */ new Date()) {
+  const t = Ts(o, e), a = sv(o, e), i = Math.round((a.getTime() - t.getTime()) / 864e5), s = { day: "day", week: "isoWeek", month: "month", year: "year" }, n = { graph_span: `${i}d`, span: { start: s[o.kind] } };
   if (o.offset < 0) {
-    const r = Ms({ ...o, offset: 0 }, e).getTime() - t.getTime();
+    const r = Ts({ ...o, offset: 0 }, e).getTime() - t.getTime();
     n.span.offset = `-${Math.round(r / 36e5)}h`;
   }
   return n;
 }
-const rv = {
+const lv = {
   day: ["1h", "hour", "d. M. HH:mm"],
   week: ["1d", "day", "d. M. yyyy"],
   month: ["1d", "day", "d. M. yyyy"],
   year: ["1month", "month", "M / yyyy"]
 };
-function lv(o, e) {
-  const [t, a, i] = rv[e], s = Array.isArray(o.series) ? o.series.map((n) => wt(n) ? wt(n.statistics) ? { ...n, statistics: { period: a, ...n.statistics } } : wt(n.group_by) ? { ...n, group_by: { duration: t, ...n.group_by } } : n : n) : o.series;
-  return Da({ ...o, series: s }, { apex_config: Da({ tooltip: { x: { format: i } } }, wt(o.apex_config) ? o.apex_config : {}) });
+function cv(o, e) {
+  const [t, a, i] = lv[e], s = Array.isArray(o.series) ? o.series.map((n) => wt(n) ? wt(n.statistics) ? { ...n, statistics: { period: a, ...n.statistics } } : wt(n.group_by) ? { ...n, group_by: { duration: t, ...n.group_by } } : n : n) : o.series;
+  return Pa({ ...o, series: s }, { apex_config: Pa({ tooltip: { x: { format: i } } }, wt(o.apex_config) ? o.apex_config : {}) });
 }
 function _r(o, e) {
   const t = document.createElement("span");
@@ -43757,8 +43785,8 @@ function _r(o, e) {
   const a = getComputedStyle(t).color.match(/[\d.]+/g);
   return t.remove(), a && a.length >= 3 ? [Number(a[0]), Number(a[1]), Number(a[2])] : void 0;
 }
-const Xl = (o) => `#${o.map((e) => Math.round(e).toString(16).padStart(2, "0")).join("")}`, cv = (o) => Xl(o.map((e) => e + (255 - e) * 0.25));
-function dv(o, e, t) {
+const Xl = (o) => `#${o.map((e) => Math.round(e).toString(16).padStart(2, "0")).join("")}`, dv = (o) => Xl(o.map((e) => e + (255 - e) * 0.25));
+function hv(o, e, t) {
   const a = _r(Y(e.color) ?? "var(--glass-chart-color, #ff9f0a)", t) ?? [255, 159, 10], i = (Array.isArray(o.series) ? o.series : []).map((c) => {
     if (!wt(c)) return c;
     const d = typeof c.color == "string" ? Y(c.color) : void 0;
@@ -43775,7 +43803,7 @@ function dv(o, e, t) {
     },
     fill: {
       type: e.gradient === !1 ? "solid" : "gradient",
-      gradient: { type: "vertical", shade: "light", shadeIntensity: 0, gradientToColors: s.map(cv), inverseColors: !1, opacityFrom: 1, opacityTo: 0.85, stops: [0, 100] }
+      gradient: { type: "vertical", shade: "light", shadeIntensity: 0, gradientToColors: s.map(dv), inverseColors: !1, opacityFrom: 1, opacityTo: 0.85, stops: [0, 100] }
     },
     xaxis: { labels: { show: !!e.time, datetimeUTC: !1 }, axisBorder: { show: !1 }, axisTicks: { show: !1 }, tooltip: { enabled: !1 }, crosshairs: { show: !1 } },
     ...e.values === !1 ? { yaxis: { labels: { show: !1 } } } : {},
@@ -43787,9 +43815,9 @@ function dv(o, e, t) {
     plotOptions: { bar: { borderRadius: Number(e.radius ?? 5), borderRadiusApplication: "end", columnWidth: `${Number(e.column_width ?? 62)}%`, borderRadiusWhenStacked: "all" } },
     ...r ? { annotations: { yaxis: [{ y: 0, borderColor: "transparent", borderWidth: 1, strokeDashArray: 0 }] } } : {}
   };
-  return Da({ header: { show: !1 }, series: i }, { ...o, series: i, apex_config: Da(l, wt(o.apex_config) ? o.apex_config : {}) });
+  return Pa({ header: { show: !1 }, series: i }, { ...o, series: i, apex_config: Pa(l, wt(o.apex_config) ? o.apex_config : {}) });
 }
-function hv(o) {
+function pv(o) {
   const e = o?.el, t = e?.querySelector(".apexcharts-yaxis-annotations line"), a = e ? [...e.querySelectorAll(".apexcharts-bar-area")] : [];
   if (!t || !a.length) return;
   let i = 1 / 0, s = -1 / 0;
@@ -43799,8 +43827,8 @@ function hv(o) {
   }
   Number.isFinite(i) && (t.setAttribute("x1", String(Math.min(i, Number(t.getAttribute("x1"))))), t.setAttribute("x2", String(Math.max(s, Number(t.getAttribute("x2"))))));
 }
-window.glassChartZeroLine = hv;
-const sp = "EVAL:(chart) => window.glassChartZeroLine && window.glassChartZeroLine(chart)", pv = `
+window.glassChartZeroLine = pv;
+const sp = "EVAL:(chart) => window.glassChartZeroLine && window.glassChartZeroLine(chart)", uv = `
 ha-card { background: none !important; border: 0 !important; box-shadow: none !important; color: inherit !important;
   -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
 .apexcharts-text, .apexcharts-tooltip, .apexcharts-tooltip-title { font-family: var(--g-font) !important; }
@@ -43818,7 +43846,7 @@ ha-card { background: none !important; border: 0 !important; box-shadow: none !i
     super(...arguments), this._waiting = !1;
   }
   static getConfigElement() {
-    return de(Gf);
+    return de(Uf);
   }
   static getStubConfig() {
     return { card: { type: "custom:apexcharts-card", series: [] } };
@@ -43828,7 +43856,7 @@ ha-card { background: none !important; border: 0 !important; box-shadow: none !i
     return this._key = void 0, this._listen(e), e;
   }
   _listen(e) {
-    this._unsub?.(), this._unsub = !op(e) || Gt(e) ? void 0 : mi(As(e), () => this.requestUpdate());
+    this._unsub?.(), this._unsub = !op(e) || Gt(e) ? void 0 : mi(Ms(e), () => this.requestUpdate());
   }
   connectedCallback() {
     super.connectedCallback(), this._config && !this._unsub && this._listen(this._config);
@@ -43851,19 +43879,19 @@ ha-card { background: none !important; border: 0 !important; box-shadow: none !i
   }
   /** The chart for the current period; the same one until the period (or the day) changes. */
   _chart() {
-    const e = this._config, t = op(e) ? uo(this._hass, e) : void 0, a = t ? `${t.kind}:${Ms(t).getTime()}` : "fixed";
+    const e = this._config, t = op(e) ? uo(this._hass, e) : void 0, a = t ? `${t.kind}:${Ts(t).getTime()}` : "fixed";
     if (a !== this._key || !this._card) {
       this._key = a;
       const i = t ? e[t.kind] : void 0;
-      let s = t ? lv(Da(Da(e.card, nv(t)), wt(i) ? i : {}), t.kind) : { ...e.card };
-      e.look !== "apex" && (s = dv(s, e, this)), this._card = ws(s, this._hass), this._style(this._card);
+      let s = t ? cv(Pa(Pa(e.card, rv(t)), wt(i) ? i : {}), t.kind) : { ...e.card };
+      e.look !== "apex" && (s = hv(s, e, this)), this._card = xs(s, this._hass), this._style(this._card);
     }
     return this._card;
   }
   /** The glass CSS and the `fonts` of its parts into the chart card's shadow root (once it has one). */
   _style(e) {
     if (this._config.look === "apex") return;
-    this._sheet ??= new CSSStyleSheet(), this._sheet.replaceSync(pv + Up(cl, this._config.fonts));
+    this._sheet ??= new CSSStyleSheet(), this._sheet.replaceSync(uv + Up(cl, this._config.fonts));
     const t = this._sheet;
     let a = 0;
     const i = () => {
@@ -43902,7 +43930,7 @@ ce("glass-chart", Ql, {
   name: "Glass – chart",
   description: "apexcharts-card in the dashboard's look; can follow the day, week, month or year picked in the period bar."
 });
-const ec = (o) => !!o && o !== "none", Fi = (o, e, t) => {
+const ec = (o) => !!o && o !== "none", Hi = (o, e, t) => {
   const a = o ?? (ec(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: re(ec(e) ? e : void 0) } : { cls: "", style: "" };
 };
@@ -43917,7 +43945,7 @@ const ai = class ai extends F {
     }, this._children = [], this._mode = pe.mode, this._ask = -1, this._q = "";
   }
   _search(e) {
-    this._q = e, Sy(this, e);
+    this._q = e, zy(this, e);
   }
   connectedCallback() {
     super.connectedCallback(), window.addEventListener("location-changed", this._onLoc), window.addEventListener("popstate", this._onLoc);
@@ -43947,7 +43975,7 @@ const ai = class ai extends F {
     </label>`;
   }
   static getConfigElement() {
-    return de(Uf);
+    return de(Kf);
   }
   static getStubConfig() {
     return { name: "Pop-up", icon: "mdi:home", cards: [] };
@@ -43958,7 +43986,7 @@ const ai = class ai extends F {
     return t;
   }
   _build() {
-    this._children = Ta(this._config.cards, this._hass, {
+    this._children = Ca(this._config.cards, this._hass, {
       nested: !0,
       glass: Re(pe.tile_glass ?? this._config.glass),
       mode: this._mode
@@ -44004,7 +44032,7 @@ const ai = class ai extends F {
           </span>
         </span>`;
       }
-      const i = t.active !== void 0 && !!this._hass && !ge(t.active, this._hass), s = this._config, n = i ? Fi(s.off_glass, s.off_color, "home") : Fi(s.buttons_glass, s.buttons_color, "dark");
+      const i = t.active !== void 0 && !!this._hass && !ge(t.active, this._hass), s = this._config, n = i ? Hi(s.off_glass, s.off_color, "home") : Hi(s.buttons_glass, s.buttons_color, "dark");
       return p`<button
         class="act ${t.name ? "" : "round"} ${i ? "off" : ""} ${n.cls}"
         style=${n.style}
@@ -44018,7 +44046,7 @@ const ai = class ai extends F {
   render() {
     const e = this._config;
     if (!e) return g;
-    const t = !e.icon && !e.name, a = Fi(e.bar_glass, e.bar_color, "frosted"), i = Fi(e.icon_glass, void 0, "liquid"), s = ec(e.icon_background) ? i.cls ? re(e.icon_background, 70) : `background:${Y(e.icon_background)};` : "", n = Fi(e.close_glass, e.close_color, "frosted");
+    const t = !e.icon && !e.name, a = Hi(e.bar_glass, e.bar_color, "frosted"), i = Hi(e.icon_glass, void 0, "liquid"), s = ec(e.icon_background) ? i.cls ? re(e.icon_background, 70) : `background:${Y(e.icon_background)};` : "", n = Hi(e.close_glass, e.close_color, "frosted");
     return p`<div class="bar ${a.cls || "lbar control"} ${t ? "plain" : ""} ${e.search ? "searching" : ""}" style=${a.style}>
         ${t ? g : p`<span class="title" style=${e.title_width ? `width:${e.title_width}` : ""}>
               ${e.icon ? p`<span class="ico ${i.cls} ${s ? "own-bg" : ""}" style=${s}
@@ -44403,10 +44431,10 @@ ce("glass-popup-header", tc, {
   name: "Glass – pop-up header",
   description: "Header for a pop-up with its own header hidden: icon, name, cards in the middle and a close button."
 });
-const as = (o) => !!o && o !== "none";
-function Hi(o, e, t) {
-  const a = o ?? (as(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: as(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : void 0;
+const is = (o) => !!o && o !== "none";
+function Gi(o, e, t) {
+  const a = o ?? (is(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: is(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : void 0;
 }
 const np = {
   docked: "Docked",
@@ -44418,12 +44446,12 @@ const np = {
   mowing: "Mowing",
   unavailable: "Unavailable",
   unknown: "Unknown"
-}, uv = (o) => Array.isArray(o) ? o : [o], mv = { vacuum: ["cleaning", "paused", "returning"], mower: ["mowing", "paused", "returning"] }, gv = ["on", "charging", "recharging", "charging_mid_mission"], fv = (o) => o >= 95 ? "mdi:battery" : o < 5 ? "mdi:battery-outline" : `mdi:battery-${Math.round(o / 10) * 10}`, rn = class rn extends F {
+}, mv = (o) => Array.isArray(o) ? o : [o], gv = { vacuum: ["cleaning", "paused", "returning"], mower: ["mowing", "paused", "returning"] }, fv = ["on", "charging", "recharging", "charging_mid_mission"], bv = (o) => o >= 95 ? "mdi:battery" : o < 5 ? "mdi:battery-outline" : `mdi:battery-${Math.round(o / 10) * 10}`, rn = class rn extends F {
   constructor() {
     super(), new le(this, ".list");
   }
   static getConfigElement() {
-    return de(Kf);
+    return de(Vf);
   }
   static getStubConfig(e) {
     return { entity: Object.keys(e.states).find((a) => a.startsWith("vacuum.")) ?? "" };
@@ -44440,7 +44468,7 @@ const np = {
   connectedCallback() {
     super.connectedCallback();
     const e = this._config?.select_group;
-    e && (this._config.picked_first && this._config.select && Mc(e, this._config.select), this._sel = Ma(e), this._unsub = mi(e, (t) => this._sel = t));
+    e && (this._config.picked_first && this._config.select && Mc(e, this._config.select), this._sel = Ta(e), this._unsub = mi(e, (t) => this._sel = t));
   }
   disconnectedCallback() {
     super.disconnectedCallback(), this._unsub?.();
@@ -44497,7 +44525,7 @@ const np = {
     return Oc(this._hass, e);
   }
   _charging(e) {
-    return gv.includes(this._hass?.states[e.charging ?? ""]?.state ?? "");
+    return fv.includes(this._hass?.states[e.charging ?? ""]?.state ?? "");
   }
   _call(e, t, a) {
     W(), this._hass?.callService(e, t, { entity_id: a });
@@ -44512,10 +44540,10 @@ const np = {
   }
   _select(e) {
     const t = this._config.select_group;
-    !t || !e.select || this._sel === e.select || (W("selection"), Ts(t, e.select));
+    !t || !e.select || this._sel === e.select || (W("selection"), Cs(t, e.select));
   }
   _item(e, t) {
-    const a = t.states[e.entity], i = this._type(e), s = e.name ?? a?.attributes.friendly_name ?? e.entity, n = this._config.active_color ?? "orange", r = a?.state ?? "unavailable", l = i === "vacuum" ? ["cleaning", "returning"].includes(r) : i === "mower" ? ["mowing", "returning"].includes(r) : this._washer(e) === "run", c = !!(this._config.select_group && e.select), d = c && this._sel === e.select, h = this._num(e.battery), u = this._num(e.progress), m = this._charging(e) && !(h >= 100), f = !m && (mv[i] ?? []).includes(r), b = m ? h : f ? u : i === "washer" ? this._cycle(e) : NaN;
+    const a = t.states[e.entity], i = this._type(e), s = e.name ?? a?.attributes.friendly_name ?? e.entity, n = this._config.active_color ?? "orange", r = a?.state ?? "unavailable", l = i === "vacuum" ? ["cleaning", "returning"].includes(r) : i === "mower" ? ["mowing", "returning"].includes(r) : this._washer(e) === "run", c = !!(this._config.select_group && e.select), d = c && this._sel === e.select, h = this._num(e.battery), u = this._num(e.progress), m = this._charging(e) && !(h >= 100), f = !m && (gv[i] ?? []).includes(r), b = m ? h : f ? u : i === "washer" ? this._cycle(e) : NaN;
     let y = np[r] ? v(np[r]) : r;
     if (m) y = `${v("Charging")}${Number.isFinite(h) ? ` · ${Math.round(h)} %` : ""}`;
     else if (i === "mower" && r === "paused" && Number.isFinite(u)) y = `${v("Resume")} · ${Math.round(u)} %`;
@@ -44527,7 +44555,7 @@ const np = {
       const $ = this._washer(e), C = t.states[e.remaining ?? ""], T = C && !["unavailable", "unknown"].includes(C.state) ? `${C.state}${C.attributes.unit_of_measurement ? ` ${C.attributes.unit_of_measurement}` : ""}` : "";
       y = $ === "run" ? `${v("Running")}${T ? ` · ${v("left")} ${T}` : ""}` : v($ === "pause" ? "Paused" : $ === "done" ? "Washing done" : "Off");
     }
-    const _ = Ot({ entity: e.entity, tap_action: { action: "none" }, hold_action: e.hold_action ?? { action: "more-info" } }), x = this._config, z = d ? Hi(x.picked_glass, x.picked_color, "liquid") : Hi(x.bar_glass, x.bar_color, "frosted"), S = this._icon(l, n), M = Hi(x.tray_glass, x.tray_color, "flat"), k = Ze(
+    const _ = Ot({ entity: e.entity, tap_action: { action: "none" }, hold_action: e.hold_action ?? { action: "more-info" } }), x = this._config, z = d ? Gi(x.picked_glass, x.picked_color, "liquid") : Gi(x.bar_glass, x.bar_color, "frosted"), S = this._icon(l, n), M = Gi(x.tray_glass, x.tray_color, "flat"), k = Ze(
       () => _,
       // the icon shows, it doesn't start anything – the drawer's buttons do; hold for details
       ($) => $e(this, t, _, $)
@@ -44538,7 +44566,7 @@ const np = {
         role=${c ? "button" : g}
         aria-pressed=${c ? d ? "true" : "false" : g}
         @click=${() => this._select(e)}
-        style="${z ? `${z.style};` : ""}--fill:${Y(as(x.fill_color) ? x.fill_color : n)};--fill-a:${x.fill_strength ?? 34};--pct:${Number.isFinite(b) ? Math.min(100, Math.max(0, Math.round(b))) : 0}">
+        style="${z ? `${z.style};` : ""}--fill:${Y(is(x.fill_color) ? x.fill_color : n)};--fill-a:${x.fill_strength ?? 34};--pct:${Number.isFinite(b) ? Math.min(100, Math.max(0, Math.round(b))) : 0}">
         ${Number.isFinite(b) ? p`<i class="fill"></i>` : g}
         <div
           class="btn ${S.cls}"
@@ -44557,7 +44585,7 @@ const np = {
           <span class="lstate">${y}</span>
         </div>
         ${f && Number.isFinite(h) ? p`<span class="batt" title=${`${v("Battery")} ${Math.round(h)} %`}>
-              <ha-icon .icon=${fv(h)}></ha-icon>${Math.round(h)} %
+              <ha-icon .icon=${bv(h)}></ha-icon>${Math.round(h)} %
             </span>` : g}
       </div>
       <div class="tray ${M?.cls ?? ""}" style=${M?.style ?? ""}>${this._tray(e, a, i)}</div>
@@ -44565,7 +44593,7 @@ const np = {
   }
   /** The button on the bar: own material / backing / symbol colours (icon_*), else the control glass lit while at work. */
   _icon(e, t) {
-    const a = this._config, i = e ? Be(t) : void 0, s = Y(t), n = !!a.icon_background, r = !!i && !n, l = a.icons?.bar_on?.color, c = a.icons?.bar?.color, d = e ? as(l) ? Y(l) : n ? s : void 0 : as(c) ? Y(c) : void 0, h = a.icon_background === "none" ? "transparent" : n ? Be(a.icon_background) : void 0, u = e ? a.icon_on_glass : a.icon_glass;
+    const a = this._config, i = e ? Be(t) : void 0, s = Y(t), n = !!a.icon_background, r = !!i && !n, l = a.icons?.bar_on?.color, c = a.icons?.bar?.color, d = e ? is(l) ? Y(l) : n ? s : void 0 : is(c) ? Y(c) : void 0, h = a.icon_background === "none" ? "transparent" : n ? Be(a.icon_background) : void 0, u = e ? a.icon_on_glass : a.icon_glass;
     return u ? {
       cls: `mat mat-${u} ${r ? "on" : ""} ${e ? "glow" : ""}`,
       style: `${n ? h === "transparent" ? "" : `${re(a.icon_background)};` : r ? `${re(t, 70)};` : ""}${d ? `color:${d};` : ""}--glow:${s}`
@@ -44577,7 +44605,7 @@ const np = {
   /** A drawer button's / stage's own material: the lit one (current_*) or the others (buttons_*). */
   _seg(e) {
     const t = this._config;
-    return e ? Hi(t.current_glass, t.current_color, "liquid") : Hi(t.buttons_glass, t.buttons_color, "flat");
+    return e ? Gi(t.current_glass, t.current_color, "liquid") : Gi(t.buttons_glass, t.buttons_color, "flat");
   }
   /** A nudge: pressed once on touch, and again and again while held; let go and it stops. */
   _holdBtn(e, t, a) {
@@ -44633,7 +44661,7 @@ const np = {
               ${this._holdBtn("mdi:chevron-down", v("Back"), d.down)}
             </div>` : g}`;
     }
-    const s = e.stages ?? hm, n = oi(i), r = this._washer(e), l = r === "run" || r === "pause", c = r === "off" ? -1 : s.findIndex((d) => uv(d.state).map(oi).includes(n));
+    const s = e.stages ?? hm, n = oi(i), r = this._washer(e), l = r === "run" || r === "pause", c = r === "off" ? -1 : s.findIndex((d) => mv(d.state).map(oi).includes(n));
     return p`<div class="stages">
       ${s.map((d, h) => {
       const u = c < 0 ? "" : h < c ? "done" : h === c && (l || r === "done") ? "cur" : "", m = pm(d), f = this._seg(u === "cur");
@@ -45075,9 +45103,9 @@ function lp(o, e, t) {
   const a = o ?? (rp(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: rp(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
 }
-const bs = class bs extends F {
+const _s = class _s extends F {
   static getConfigElement() {
-    return de(Vf);
+    return de(Yf);
   }
   static getStubConfig() {
     return { group: "main", tabs: [{ id: "one", name: "One" }, { id: "two", name: "Two" }] };
@@ -45093,7 +45121,7 @@ const bs = class bs extends F {
   connectedCallback() {
     if (super.connectedCallback(), !this._config) return;
     const e = this._config;
-    e.default && Mc(e.group, e.default), this._cur = Ma(e.group), this._unsub = mi(e.group, (t) => this._cur = t);
+    e.default && Mc(e.group, e.default), this._cur = Ta(e.group), this._unsub = mi(e.group, (t) => this._cur = t);
   }
   disconnectedCallback() {
     super.disconnectedCallback(), this._unsub?.();
@@ -45107,7 +45135,7 @@ const bs = class bs extends F {
       (s) => p`<button
           class="tab ${s.id === t ? `on ${i.cls}` : ""}"
           style=${s.id === t ? i.style : ""}
-          @click=${() => (W("selection"), Ts(e.group, s.id))}
+          @click=${() => (W("selection"), Cs(e.group, s.id))}
         >
           ${s.icon ? p`<ha-icon .icon=${s.icon}></ha-icon>` : g}${s.name ? p`<span>${s.name}</span>` : g}
         </button>`
@@ -45118,7 +45146,7 @@ const bs = class bs extends F {
     return 1;
   }
 };
-bs.wrapTile = !0, bs.properties = { ...F.properties, _cur: { state: !0 } }, bs.styles = [
+_s.wrapTile = !0, _s.properties = { ...F.properties, _cur: { state: !0 } }, _s.styles = [
   F.styles,
   kc,
   ee`
@@ -45179,7 +45207,7 @@ bs.wrapTile = !0, bs.properties = { ...F.properties, _cur: { state: !0 } }, bs.s
     `,
   xe
 ];
-let ic = bs;
+let ic = _s;
 ce("glass-tabs", ic, {
   name: "Glass – tabs",
   description: "A segmented switch: cards in a panel show for the picked tab (visibility: picked in a group)."
@@ -45189,7 +45217,7 @@ function Ga(o, e, t) {
   const a = o ?? (Fo(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: Fo(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
 }
-function bv(o) {
+function _v(o) {
   if (!o || o.length < 3) return;
   const [e, t, a] = o, i = e.vacuum.x * (t.vacuum.y - a.vacuum.y) - e.vacuum.y * (t.vacuum.x - a.vacuum.x) + (t.vacuum.x * a.vacuum.y - a.vacuum.x * t.vacuum.y);
   if (!i) return;
@@ -45199,10 +45227,10 @@ function bv(o) {
   }, [n, r, l] = s("x"), [c, d, h] = s("y");
   return ([u, m]) => [n * u + r * m + l, c * u + d * m + h];
 }
-const sc = 22, oc = 256 * 2 ** sc, Zi = ([o, e]) => {
+const sc = 22, oc = 256 * 2 ** sc, Ji = ([o, e]) => {
   const t = Math.sin(e * Math.PI / 180);
   return [(o + 180) / 360 * oc, (0.5 - Math.log((1 + t) / (1 - t)) / (4 * Math.PI)) * oc];
-}, _v = {
+}, yv = {
   esri: { url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", max: 18 },
   cuzk: { url: "https://ags.cuzk.gov.cz/arcgis1/rest/services/ORTOFOTO_WM/MapServer/tile/{z}/{y}/{x}", max: 20 }
 };
@@ -45214,9 +45242,9 @@ function cp(o) {
     else if (a === "MultiLineString" || a === "Polygon") e.push(...i);
     else if (a === "MultiPolygon") for (const s of i) e.push(...s);
   }
-  return e.map((t) => t.map(Zi));
+  return e.map((t) => t.map(Ji));
 }
-const Gi = ["mowing", "paused", "returning"], nc = (o) => `glass-mow-zones:${o}`;
+const Ui = ["mowing", "paused", "returning"], nc = (o) => `glass-mow-zones:${o}`;
 function dp(o) {
   try {
     return JSON.parse(localStorage.getItem(nc(o)) ?? "null") ?? void 0;
@@ -45231,7 +45259,7 @@ function yr(o, e) {
   }
 }
 const vr = /* @__PURE__ */ new Map();
-function yv(o, e) {
+function vv(o, e) {
   let t = vr.get(e);
   return t || (t = o.callWS({
     type: "call_service",
@@ -45243,7 +45271,7 @@ function yv(o, e) {
     vr.delete(e);
   }), vr.set(e, t)), t;
 }
-function vv(o) {
+function wv(o) {
   let [e, t, a, i] = [1 / 0, 1 / 0, -1 / 0, -1 / 0];
   for (const [c, d] of o) [e, t, a, i] = [Math.min(e, c), Math.min(t, d), Math.max(a, c), Math.max(i, d)];
   const s = (c, d) => {
@@ -45279,7 +45307,7 @@ const ln = class ln extends F {
     }, new le(this, ".wrap"), this._picked = [], this._drag = {}, this._zoom = 1, this._pan = [0, 0];
   }
   static getConfigElement() {
-    return de(Yf);
+    return de(Zf);
   }
   static getStubConfig(e) {
     const t = Object.keys(e.states).find((i) => i.startsWith("image.") && i.endsWith("_rooms_map"));
@@ -45306,7 +45334,7 @@ const ln = class ln extends F {
   /** a job on, but the mower is charging in its dock: going on makes more sense than ending it */
   _recharging() {
     const e = this._chargingId(this._config);
-    return !!e && this._hass?.states[e]?.state === "on" && Gi.includes(this._hass?.states[this._config.entity]?.state ?? "");
+    return !!e && this._hass?.states[e]?.state === "on" && Ui.includes(this._hass?.states[this._config.entity]?.state ?? "");
   }
   _liveIds(e) {
     const t = e.entity.split(".")[1];
@@ -45377,8 +45405,8 @@ const ln = class ln extends F {
     for (const t of ["pointerdown", "pointermove", "touchstart", "touchmove", "mousedown", "mousemove"]) this.renderRoot.addEventListener(t, e);
   }
   updated(e) {
-    super.updated(e), this._busy && this._picked.length && (this._picked = []), this._lawn && !this._geo && this._hass && yv(this._hass, this._config.entity).then((i) => i && (this._geo = i));
-    const t = this._lawn && Gi.includes(this._hass?.states[this._config.entity]?.state ?? "");
+    super.updated(e), this._busy && this._picked.length && (this._picked = []), this._lawn && !this._geo && this._hass && vv(this._hass, this._config.entity).then((i) => i && (this._geo = i));
+    const t = this._lawn && Ui.includes(this._hass?.states[this._config.entity]?.state ?? "");
     if (t && !this._poll && (this._hass.callService("mammotion", "fetch_mow_path", {}, { entity_id: this._config.entity }).catch(() => {
     }), this._loadJob(), this._poll = window.setInterval(() => this._loadJob(), 3e4)), this._lawn) {
       const i = dp(this._config.entity);
@@ -45407,7 +45435,7 @@ const ln = class ln extends F {
       e.callService("lawn_mower", "start_mowing", {}, { entity_id: t.entity });
       return;
     }
-    if (this._lawn && Gi.includes(e.states[t.entity]?.state ?? "")) {
+    if (this._lawn && Ui.includes(e.states[t.entity]?.state ?? "")) {
       e.callService("mammotion", "cancel_job", {}, { entity_id: t.entity }).then(() => e.callService("lawn_mower", "dock", {}, { entity_id: t.entity }));
       return;
     }
@@ -45423,12 +45451,12 @@ const ln = class ln extends F {
   }
   /** Rooms from the Roomba+ map picture, in its pixels. */
   _rooms() {
-    const e = this._hass.states[this._config.map], t = e?.attributes.rooms ?? {}, a = bv(e?.attributes.calibration_points), [i, s] = this._size ?? [0, 0];
+    const e = this._hass.states[this._config.map], t = e?.attributes.rooms ?? {}, a = _v(e?.attributes.calibration_points), [i, s] = this._size ?? [0, 0];
     return { shapes: Object.keys(t).map((r) => ({ key: r, name: this._name(r), pts: a && t[r].outline ? t[r].outline.map(a) : [] })), view: a && i ? [0, 0, i, s] : void 0, url: e?.attributes.entity_picture };
   }
   /** Zones of the lawn: each one picked through its area switch (matched by the zone's hash). */
   _zones() {
-    const e = this._hass, t = this._geo?.features ?? [], a = Object.keys(e.states).filter((m) => m.startsWith("switch.") && e.states[m].attributes.hash != null), i = (m) => m.geometry.type === "Polygon" ? m.geometry.coordinates[0].map(Zi) : [], s = [];
+    const e = this._hass, t = this._geo?.features ?? [], a = Object.keys(e.states).filter((m) => m.startsWith("switch.") && e.states[m].attributes.hash != null), i = (m) => m.geometry.type === "Polygon" ? m.geometry.coordinates[0].map(Ji) : [], s = [];
     for (const m of t) {
       if (m.properties.type_name !== "area") continue;
       const f = a.find((b) => e.states[b].attributes.hash === m.properties.hash);
@@ -45438,8 +45466,8 @@ const ln = class ln extends F {
       }
     }
     s.sort((m, f) => m.name.localeCompare(f.name, yi()));
-    const n = t.filter((m) => m.properties.type_name === "obstacle").map(i), r = t.filter((m) => m.geometry.type === "LineString").map((m) => m.geometry.coordinates.map(Zi)), l = t.find((m) => m.properties.type_name === "station" && /dock/i.test(m.properties.title ?? "")), c = this._config.tracker ? e.states[this._config.tracker]?.attributes : void 0, d = c?.latitude != null ? Zi([c.longitude, c.latitude]) : void 0, h = t.find((m) => m.properties.type_name === "area")?.geometry.coordinates[0]?.[0]?.[1] ?? 50, u = oc / (2 * Math.PI * 6378137 * Math.cos(h * Math.PI / 180));
-    return { shapes: s, obstacles: n, paths: r, dock: l ? Zi(l.geometry.coordinates) : void 0, mower: d, perMetre: u };
+    const n = t.filter((m) => m.properties.type_name === "obstacle").map(i), r = t.filter((m) => m.geometry.type === "LineString").map((m) => m.geometry.coordinates.map(Ji)), l = t.find((m) => m.properties.type_name === "station" && /dock/i.test(m.properties.title ?? "")), c = this._config.tracker ? e.states[this._config.tracker]?.attributes : void 0, d = c?.latitude != null ? Ji([c.longitude, c.latitude]) : void 0, h = t.find((m) => m.properties.type_name === "area")?.geometry.coordinates[0]?.[0]?.[1] ?? 50, u = oc / (2 * Math.PI * 6378137 * Math.cos(h * Math.PI / 180));
+    return { shapes: s, obstacles: n, paths: r, dock: l ? Ji(l.geometry.coordinates) : void 0, mower: d, perMetre: u };
   }
   /** The lawn's bounds, widened to the card's shape so the picture fills it edge to edge. */
   _lawnView(e) {
@@ -45454,7 +45482,7 @@ const ln = class ln extends F {
   }
   /** Esri satellite tiles under the view, at the zoom closest to the screen's own sharpness (drawn from the view's corner). */
   _tiles([e, t, a, i]) {
-    const s = window.devicePixelRatio || 1, n = Math.round(sc - Math.log2(a / (this._box[0] * s))), r = _v[this._config.tiles ?? "esri"] ?? { url: this._config.tiles, max: 19 }, l = this._config.max_zoom ?? r.max;
+    const s = window.devicePixelRatio || 1, n = Math.round(sc - Math.log2(a / (this._box[0] * s))), r = yv[this._config.tiles ?? "esri"] ?? { url: this._config.tiles, max: 19 }, l = this._config.max_zoom ?? r.max;
     if (n > l + 1) return;
     const c = Math.max(12, Math.min(l, n)), d = 256 * 2 ** (sc - c), h = [];
     for (let u = Math.floor(t / d); u * d < t + i; u++)
@@ -45584,7 +45612,7 @@ const ln = class ln extends F {
   /** The zones of the running job (from when it was started here); empty = all. */
   _jobKeys() {
     const e = this._hass.states[this._config.entity]?.state ?? "", t = dp(this._config.entity);
-    return Gi.includes(e) || t && !t.seen ? t?.keys ?? [] : void 0;
+    return Ui.includes(e) || t && !t.seen ? t?.keys ?? [] : void 0;
   }
   /** The base view zoomed in and moved. */
   _zoomed([e, t, a, i]) {
@@ -45657,7 +45685,7 @@ const ln = class ln extends F {
       const [i, s] = a.pts[0], n = `${a.key}|${a.pts.length}|${(a.pts[1][0] - i).toFixed(2)}|${(a.pts[1][1] - s).toFixed(2)}`;
       let r = this._spots.get(n);
       if (!r) {
-        const [u, m, f] = vv(a.pts);
+        const [u, m, f] = wv(a.pts);
         r = [u - i, m - s, f], this._spots.set(n, r);
       }
       const [l, c, d] = [r[0] + i, r[1] + s, r[2]], h = d / t;
@@ -45673,7 +45701,7 @@ const ln = class ln extends F {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
     this.toggleAttribute("dark", Lt(t, this));
-    const a = t.states[e.entity]?.state, i = this._lawn, s = i && Gi.includes(a ?? ""), n = a === "cleaning" || a === "returning";
+    const a = t.states[e.entity]?.state, i = this._lawn, s = i && Ui.includes(a ?? ""), n = a === "cleaning" || a === "returning";
     let r, l;
     if (i) {
       const k = this._zones(), $ = this._jobKeys(), C = $?.length ? k.shapes.filter((q) => $.includes(q.key)) : k.shapes, T = this._lawnView(C.length ? C : k.shapes), P = T && this._zoomed(T);
@@ -46406,7 +46434,7 @@ const cn = class cn extends F {
     }, new le(this, ".panel:not(.transparent)", void 0, ".panel.transparent:not(.tiles)");
   }
   static getConfigElement() {
-    return de(Of);
+    return de(Bf);
   }
   static getStubConfig() {
     return { layout: "column", cards: [] };
@@ -46428,7 +46456,7 @@ const cn = class cn extends F {
    * (luminous bezel) applies to them.
    */
   _build() {
-    this._children = Ta(this._config.cards, this._hass, {
+    this._children = Ca(this._config.cards, this._hass, {
       nested: !0,
       // tiles may use their own tier (tile_glass on the panel or the dashboard)
       glass: Re(this._config.tile_glass ?? pe.tile_glass ?? this._config.glass),
@@ -46620,7 +46648,7 @@ const cn = class cn extends F {
         class="body ${e.scroll && t === "row" ? "scroll" : ""} ${t !== "grid" && !e.scroll && e.height && this._children.length === 1 ? "lone" : ""}"
         style="${r}${s ? "column-gap" : "gap"}:${e.gap ?? 16}px;--grip-gap:${e.gap ?? 16}px;${this._gripsOn() || this._flexGripsOn() ? "position:relative;" : ""}align-items:${e.align ?? "stretch"};justify-content:${e.justify ?? "start"};${e.item_width !== void 0 ? `--item-width:${typeof e.item_width == "number" ? `${e.item_width}px` : Do(e.item_width)};` : ""}"
       >
-        ${this._children.length || !this._inEditor() ? F0(this._children, this._hass) : p`<div class="empty">${v("Empty panel – add a card")}</div>`}${this._grips()}${this._flexGrips()}
+        ${this._children.length || !this._inEditor() ? H0(this._children, this._hass) : p`<div class="empty">${v("Empty panel – add a card")}</div>`}${this._grips()}${this._flexGrips()}
       </div>`}
     </div>`;
   }
@@ -46920,7 +46948,7 @@ const hp = { alert: 3, warning: 2, info: 1 }, pp = { info: "mdi:information-outl
     }, this._open = !1, this._leaving = [];
   }
   static getConfigElement() {
-    return de(fb);
+    return de(bb);
   }
   static getStubConfig() {
     return { entity: "sensor.glass_notifications" };
@@ -47048,14 +47076,14 @@ const hp = { alert: 3, warning: 2, info: 1 }, pp = { info: "mdi:information-outl
       ${this._row(x, !1)}
     </div>`;
     return e.place === "overlay" ? (this._floatTpl = p`<div class="wrap overlay ${l && a.length === 1 ? "leave" : ""}">
-        <div class="list sheet">${es(a, (x) => n(x), _)}</div>
-      </div>`, g) : (this._floatTpl = this._open ? p`<div class="list float" style="--maxw:${this._maxw ?? 420}px">${es(a, (x) => n(x), _)}</div>` : void 0, p`<div class="wrap ${d ? "block" : "between"} ${l ? a.length === 1 ? "leave" : "advance" : ""}" style="--h:${e.size ?? 36}px;${h}${u}">
+        <div class="list sheet">${ts(a, (x) => n(x), _)}</div>
+      </div>`, g) : (this._floatTpl = this._open ? p`<div class="list float" style="--maxw:${this._maxw ?? 420}px">${ts(a, (x) => n(x), _)}</div>` : void 0, p`<div class="wrap ${d ? "block" : "between"} ${l ? a.length === 1 ? "leave" : "advance" : ""}" style="--h:${e.size ?? 36}px;${h}${u}">
       ${y.map((x, z) => p`<span class="back ${m} ${x} ${z === 0 ? "next" : ""}" aria-hidden="true"></span>`)}
       <button class="pill ${m} ${s.level}" @click=${() => (W("selection"), this._open = !this._open)} aria-expanded=${this._open}>
         <span class="x" role="button" aria-label=${v("Dismiss")} @click=${(x) => this._dismiss(s, x)}>
           <ha-icon icon="mdi:close"></ha-icon>
         </span>
-        ${es(
+        ${ts(
       [s],
       (x) => n(x),
       (x) => p`<span class="cur ${this._fresh === n(x) ? "drop" : ""}" @animationend=${() => this._fresh = void 0}>${this._row(x, !0)}</span>`
@@ -47481,7 +47509,7 @@ ce("glass-notifications", cc, {
   name: "Glass – notifications",
   description: "Messages from automations and alerts from conditions, in one pill that drops in from the top."
 });
-const Bm = [
+const jm = [
   "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up",
   "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up",
   "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up",
@@ -47508,31 +47536,31 @@ async function Pt(o, e) {
     throw t;
   }
 }
-function Pa(o, e, t) {
+function Ea(o, e, t) {
   return o.callWS({ type: "lovelace/config/save", url_path: e, config: t });
 }
 const Et = "glass-demo", vt = "glass-demo-latest", Vt = (o) => `${o}-popups`;
 function dc(o) {
   return JSON.stringify(o, (e, t) => t && typeof t == "object" && !Array.isArray(t) ? Object.fromEntries(Object.entries(t).sort(([a], [i]) => a < i ? -1 : 1)) : t);
 }
-function jm(o) {
+function Im(o) {
   let e = 5381;
   for (let t = 0; t < o.length; t++) e = (e * 33 ^ o.charCodeAt(t)) >>> 0;
   return e.toString(36);
 }
 const hc = (o) => {
   const { glass_demo: e, ...t } = o;
-  return jm(dc(t));
-}, Ho = jm(dc(su) + dc(mn));
+  return Im(dc(t));
+}, Ho = Im(dc(su) + dc(mn));
 function Go(o, e, t) {
   return o === e ? t : Array.isArray(o) ? o.map((a) => Go(a, e, t)) : o && typeof o == "object" ? Object.fromEntries(Object.entries(o).map(([a, i]) => [a, Go(i, e, t)])) : o;
 }
-const Im = (o) => ({ ...o, glass_demo: { v: Ho, sum: hc(o), news: Bm.length } }), wv = { [Et]: "Glass demo", [vt]: "Glass demo – newest" };
-async function Cs(o) {
+const qm = (o) => ({ ...o, glass_demo: { v: Ho, sum: hc(o), news: jm.length } }), xv = { [Et]: "Glass demo", [vt]: "Glass demo – newest" };
+async function Ds(o) {
   return o.callWS({ type: "lovelace/dashboards/list" });
 }
-async function Ds(o, e, t = wv[e] ?? "Glass demo") {
-  const a = await Cs(o), i = Vt(e), s = { ...Go(structuredClone(su), Qi, i), title: t }, n = { ...structuredClone(mn), title: `${t} – pop-ups` };
+async function Ps(o, e, t = xv[e] ?? "Glass demo") {
+  const a = await Ds(o), i = Vt(e), s = { ...Go(structuredClone(su), es, i), title: t }, n = { ...structuredClone(mn), title: `${t} – pop-ups` };
   for (const [r, l, c] of [
     [i, n, !1],
     [e, s, !0]
@@ -47540,47 +47568,47 @@ async function Ds(o, e, t = wv[e] ?? "Glass demo") {
     if (a.some((d) => d.url_path === r)) {
       const d = await Pt(o, r).catch(() => {
       });
-      d?.views?.length && await Hm(r, d);
+      d?.views?.length && await Gm(r, d);
     } else
       await o.callWS({ type: "lovelace/dashboards/create", url_path: r, title: c ? t : `${t} – pop-ups`, icon: c ? "mdi:creation-outline" : "mdi:window-restore", show_in_sidebar: c, require_admin: !1, mode: "storage" });
-    await Pa(o, r, Im(l));
+    await Ea(o, r, qm(l));
   }
 }
-async function qm(o) {
-  const e = await Cs(o);
-  return e.some((t) => t.url_path === Et) ? (e.some((t) => t.url_path === Qi) || (await o.callWS({ type: "lovelace/dashboards/create", url_path: Qi, title: "Glass demo – pop-ups", icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Pa(o, Qi, Im(structuredClone(mn)))), Et) : (await Ds(o, Et), Et);
+async function Wm(o) {
+  const e = await Ds(o);
+  return e.some((t) => t.url_path === Et) ? (e.some((t) => t.url_path === es) || (await o.callWS({ type: "lovelace/dashboards/create", url_path: es, title: "Glass demo – pop-ups", icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, es, qm(structuredClone(mn)))), Et) : (await Ps(o, Et), Et);
 }
-async function xv(o, e) {
+async function kv(o, e) {
   const [t, a] = await Promise.all([Pt(o, e).catch(() => {
   }), Pt(o, Vt(e)).catch(() => {
   })]);
   if (!t?.views?.length) return;
   const i = t.glass_demo, s = a?.glass_demo, n = i?.v !== Ho, r = !i || i.sum !== hc(t) || !!a?.views?.length && (!s || s.sum !== hc(a));
-  return { url: e, outdated: n, changed: r, news: Bm.slice(i?.news ?? 0) };
+  return { url: e, outdated: n, changed: r, news: jm.slice(i?.news ?? 0) };
 }
-async function Wm(o, e) {
-  const t = await Cs(o).catch(() => []), a = { updated: [], outdated: [] }, i = t.some((s) => s.url_path === vt);
+async function Fm(o, e) {
+  const t = await Ds(o).catch(() => []), a = { updated: [], outdated: [] }, i = t.some((s) => s.url_path === vt);
   for (const s of [Et, vt]) {
     if (!t.some((r) => r.url_path === s)) continue;
-    const n = await xv(o, s).catch(() => {
+    const n = await kv(o, s).catch(() => {
     });
-    n?.outdated && (n.changed ? (s !== Et || !i) && a.outdated.push(n) : s !== e && (await Ds(o, s), a.updated.push(s)));
+    n?.outdated && (n.changed ? (s !== Et || !i) && a.outdated.push(n) : s !== e && (await Ps(o, s), a.updated.push(s)));
   }
   return a;
 }
-let kv;
-function $v(o) {
-  return kv ??= Wm(o).catch(() => {
+let $v;
+function Sv(o) {
+  return $v ??= Fm(o).catch(() => {
   });
 }
-async function Sv(o) {
-  return await Ds(o, vt), vt;
-}
-async function zv(o, e) {
-  return await Ds(o, e), e;
+async function zv(o) {
+  return await Ps(o, vt), vt;
 }
 async function Av(o, e) {
-  const t = await Cs(o);
+  return await Ps(o, e), e;
+}
+async function Mv(o, e) {
+  const t = await Ds(o);
   let a = 1;
   for (; t.some((c) => c.url_path === `glass-demo-mine-${a}`); ) a++;
   const i = `glass-demo-mine-${a}`, s = `Glass demo – mine${a > 1 ? ` ${a}` : ""}`, [n, r] = await Promise.all([Pt(o, e), Pt(o, Vt(e)).catch(() => {
@@ -47588,10 +47616,10 @@ async function Av(o, e) {
     const { glass_demo: d, ...h } = c;
     return h;
   };
-  return r?.views?.length && (await o.callWS({ type: "lovelace/dashboards/create", url_path: Vt(i), title: `${s} – pop-ups`, icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Pa(o, Vt(i), { ...l(r), title: `${s} – pop-ups` })), await o.callWS({ type: "lovelace/dashboards/create", url_path: i, title: s, icon: "mdi:creation-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Pa(o, i, { ...Go(l(n), Vt(e), Vt(i)), title: s }), await Ds(o, e), i;
+  return r?.views?.length && (await o.callWS({ type: "lovelace/dashboards/create", url_path: Vt(i), title: `${s} – pop-ups`, icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, Vt(i), { ...l(r), title: `${s} – pop-ups` })), await o.callWS({ type: "lovelace/dashboards/create", url_path: i, title: s, icon: "mdi:creation-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Ea(o, i, { ...Go(l(n), Vt(e), Vt(i)), title: s }), await Ps(o, e), i;
 }
-async function Mv(o, e) {
-  const t = await Cs(o);
+async function Tv(o, e) {
+  const t = await Ds(o);
   for (const a of [e, Vt(e)]) {
     const i = t.find((s) => s.url_path === a);
     i && await o.callWS({ type: "lovelace/dashboards/delete", dashboard_id: i.id });
@@ -47612,43 +47640,43 @@ function up(o) {
     (a.cards ?? []).forEach((n, r) => t(n, ["views", i, "cards", r], s)), (a.sections ?? []).forEach((n, r) => (n.cards ?? []).forEach((l, c) => t(l, ["views", i, "sections", r, "cards", c], s)));
   }), e;
 }
-function Tv(o, e, t) {
+function Cv(o, e, t) {
   const a = structuredClone(o);
   let i = a;
   for (const s of e.slice(0, -1)) i = i[s] ??= {};
   return i[e[e.length - 1]] = t, a;
 }
-const Cv = 5;
+const Dv = 5;
 function Hc() {
   return new Promise((o, e) => {
     const t = indexedDB.open("glass-studio", 1);
     t.onupgradeneeded = () => t.result.createObjectStore("backups", { keyPath: "id", autoIncrement: !0 }).createIndex("url", "url"), t.onsuccess = () => o(t.result), t.onerror = () => e(t.error);
   });
 }
-async function Fm(o) {
+async function Hm(o) {
   const e = await Hc();
   return new Promise((t, a) => {
     const i = e.transaction("backups").objectStore("backups").index("url").getAll(o ?? "");
     i.onsuccess = () => t(i.result.sort((s, n) => n.time - s.time)), i.onerror = () => a(i.error);
   });
 }
-async function Hm(o, e) {
+async function Gm(o, e) {
   try {
-    const t = await Fm(o), i = (await Hc()).transaction("backups", "readwrite").objectStore("backups");
+    const t = await Hm(o), i = (await Hc()).transaction("backups", "readwrite").objectStore("backups");
     i.add({ url: o ?? "", time: Date.now(), config: e });
-    for (const s of t.slice(Cv - 1)) i.delete(s.id);
+    for (const s of t.slice(Dv - 1)) i.delete(s.id);
   } catch (t) {
     console.warn("glass-studio: backup", t);
   }
 }
-async function Dv(o) {
+async function Pv(o) {
   try {
-    return (await Fm(o))[0];
+    return (await Hm(o))[0];
   } catch {
     return;
   }
 }
-async function Pv(o) {
+async function Ev(o) {
   (await Hc()).transaction("backups", "readwrite").objectStore("backups").delete(o);
 }
 const pc = "glass-wallpaper";
@@ -47665,14 +47693,14 @@ const pc = "glass-wallpaper";
   };
   t();
 })();
-const Ev = ["header", "top", "left", "main"];
+const Lv = ["header", "top", "left", "main"];
 let mp = !1;
-class Lv extends HTMLElement {
+class Rv extends HTMLElement {
   connectedCallback() {
     this.style.display = "contents";
   }
 }
-customElements.get("glass-overlay-view") || customElements.define("glass-overlay-view", Lv);
+customElements.get("glass-overlay-view") || customElements.define("glass-overlay-view", Rv);
 const dn = class dn extends F {
   constructor() {
     super(), this._areas = {}, this._pvBar = [], this._grid = {
@@ -47693,7 +47721,7 @@ const dn = class dn extends F {
     }, this._stale = !1, this._onPvScroll = () => _t(), this._fitWidth = 0, this._themeProps = [], this._wallpaperTries = 0, this._mode = pe.mode;
   }
   set hass(e) {
-    this._realHass = e, super.hass = this._rawConfig?.demo ? Cc(e) : e, this._rawConfig?.demo && e?.user?.is_admin && typeof e.callWS == "function" && !this._inEditor() && $v(e);
+    this._realHass = e, super.hass = this._rawConfig?.demo ? Cc(e) : e, this._rawConfig?.demo && e?.user?.is_admin && typeof e.callWS == "function" && !this._inEditor() && Sv(e);
   }
   get hass() {
     return super.hass;
@@ -47757,12 +47785,12 @@ const dn = class dn extends F {
    */
   _areasFor(e) {
     const t = Zt(this._config, e), a = Qs(t.look), i = Re(t.glass ?? a?.glass), s = {};
-    for (const c of Ev) t[c] && (s[c] = t[c]);
+    for (const c of Lv) t[c] && (s[c] = t[c]);
     for (const [c, d] of Object.entries(t.areas ?? {})) s[gn(c)] = d;
     const n = i, r = (c, d) => {
       const h = a?.sidebar && (a.sidebar_areas?.[e] ?? ["left"]).includes(c) ? a.sidebar : n, u = `${h}|${JSON.stringify(d ?? null)}`, m = this._cache.get(`${e}|${c}`);
       if (m && m.key === u) return m.els;
-      const f = Ta(d, this._hass, { nested: !1, glass: h, mode: e, reuse: m?.els });
+      const f = Ca(d, this._hass, { nested: !1, glass: h, mode: e, reuse: m?.els });
       return this._cache.set(`${e}|${c}`, { key: u, els: f }), f;
     }, l = {};
     for (const [c, d] of Object.entries(s)) l[c] = r(c, d);
@@ -47865,7 +47893,7 @@ const dn = class dn extends F {
           e.tries++, this._scheduleOverlay(2e3 * e.tries);
           return;
         }
-        const a = t.flatMap((s) => s ?? []), i = Ta([...a, ...e.c.overlay ?? []], this._hass, { nested: !1, glass: e.glass, mode: e.mode });
+        const a = t.flatMap((s) => s ?? []), i = Ca([...a, ...e.c.overlay ?? []], this._hass, { nested: !1, glass: e.glass, mode: e.mode });
         this._cache.set("overlay", { key: e.key, els: i }), this._areas.overlay = i, this._overlayJob = void 0, this._hass && Rt(i, this._hass), this.requestUpdate();
       } finally {
         this._overlayBusy = !1;
@@ -47938,7 +47966,7 @@ const dn = class dn extends F {
   /** The configured day / night wallpaper on HA's view background (it may not exist yet on first render). */
   _applyWallpaper(e) {
     if (this._preview) return;
-    const t = Xi(this._rawConfig ?? {}, e).wallpaper;
+    const t = Qi(this._rawConfig ?? {}, e).wallpaper;
     if (t !== this._wallpaper)
       if (Fp(t)) {
         this._wallpaper = t;
@@ -47952,7 +47980,7 @@ const dn = class dn extends F {
   willUpdate(e) {
     if (super.willUpdate(e), !this._config) return;
     const t = this._night(this._hass);
-    pe.dark = t, this._preview && this.previewDark !== this._pvDarkShown && (this._pvDarkShown = this.previewDark, Gm(this.renderRoot), requestAnimationFrame(() => requestAnimationFrame(() => _t()))), this._applyWallpaper(t), t !== this.hasAttribute("dark") && (this.toggleAttribute("dark", t), this._hass && this.forwardHass(this._hass), requestAnimationFrame(() => _t())), this.style.setProperty("--glass-tint", this._tint(this._hass));
+    pe.dark = t, this._preview && this.previewDark !== this._pvDarkShown && (this._pvDarkShown = this.previewDark, Um(this.renderRoot), requestAnimationFrame(() => requestAnimationFrame(() => _t()))), this._applyWallpaper(t), t !== this.hasAttribute("dark") && (this.toggleAttribute("dark", t), this._hass && this.forwardHass(this._hass), requestAnimationFrame(() => _t())), this.style.setProperty("--glass-tint", this._tint(this._hass));
     for (const [a, i] of Object.entries(this._config.liquid ?? {}))
       this.style.setProperty(`--glass-liquid-${a.replace(/_/g, "-")}`, String(i));
   }
@@ -47961,7 +47989,7 @@ const dn = class dn extends F {
   }
   setConfig(e) {
     this._rawConfig = e;
-    const t = Xi(e, this.nightNow()), a = Qs(t.look);
+    const t = Qi(e, this.nightNow()), a = Qs(t.look);
     if (pe.glass = t.glass ?? a?.glass ?? "auto", pe.tile_glass = t.tile_glass ?? a?.tile_glass, pe.control_glass = t.control_glass ?? a?.control_glass, pe.sidebar = a?.sidebar, pe.bar_glass = a?.bar_glass, super.setConfig(e), this._syncDemo(), this._preview || this.isConnected && this._inEditor()) {
       if (this._preview = !0, clearTimeout(this._pending), this.isConnected && this._hiddenPreview()) {
         this._stale = !0;
@@ -48042,7 +48070,7 @@ const dn = class dn extends F {
     if (!this._preview) return p`${m}${f}`;
     let b = "";
     if (this.previewBackground) {
-      const _ = ba(Xi(this._rawConfig ?? {}, this.hasAttribute("dark")).wallpaper);
+      const _ = _a(Qi(this._rawConfig ?? {}, this.hasAttribute("dark")).wallpaper);
       b = `background:${_ ? `url('${_}') center / cover no-repeat` : "var(--lovelace-background, var(--primary-background-color))"}`;
     }
     const y = this._mode === "mobile";
@@ -48230,11 +48258,11 @@ ce("glass-dashboard", uc, {
   name: "Glass – dashboard",
   description: "Full-screen layout of named areas (presets or a custom grid). Use it in a Panel view."
 });
-function Gm(o) {
+function Um(o) {
   for (const e of o.querySelectorAll("*"))
-    e.requestUpdate?.(), e.shadowRoot && Gm(e.shadowRoot);
+    e.requestUpdate?.(), e.shadowRoot && Um(e.shadowRoot);
 }
-const Ui = "glass-home", di = [
+const Ki = "glass-home", di = [
   { name: "Living room", re: /living|lounge|obyv|wohn/i, icon: "mdi:sofa", image: "photo-1631679706909-1844bbd07221", position: "center 92%" },
   { name: "Office", re: /office|study|pracov|b[uü]ro|arbeit/i, icon: "mdi:desk", image: "photo-1606223226350-4cf4cd93a221", position: "center 55%" },
   // i18n-ok
@@ -48254,8 +48282,8 @@ const Ui = "glass-home", di = [
   { name: "Garage", re: /garage|gar[aá][zž]/i, icon: "mdi:garage" },
   // i18n-ok
   { name: "Garden", re: /garden|yard|terrace|zahrad|terasa|garten|terrasse/i, icon: "mdi:flower-outline" }
-], Rv = (o) => `https://images.unsplash.com/${o}?w=1100&q=80&auto=format&fit=crop`, Um = ["unavailable", "unknown"];
-function Nv(o) {
+], Nv = (o) => `https://images.unsplash.com/${o}?w=1100&q=80&auto=format&fit=crop`, Km = ["unavailable", "unknown"];
+function Ov(o) {
   const e = /* @__PURE__ */ new Map();
   for (const t of Object.values(o.entities ?? {})) {
     if (t.hidden || t.entity_category || !o.states[t.entity_id]) continue;
@@ -48265,8 +48293,8 @@ function Nv(o) {
   return e;
 }
 const ht = (o) => o.split(".")[0], Ja = (o, e) => o.states[e]?.attributes.device_class;
-function Km(o, e, t) {
-  const a = t.filter((h) => ht(h) === "light"), i = t.filter((h) => ht(h) === "cover" && Ja(o, h) !== "garage" && Ja(o, h) !== "gate"), s = t.filter((h) => ht(h) === "climate"), n = t.filter((h) => ht(h) === "media_player" && !o.states[h].attributes.entity_id), r = t.find((h) => ht(h) === "sensor" && Ja(o, h) === "temperature" && !Um.includes(o.states[h].state)) ?? s.find((h) => o.states[h].attributes.current_temperature !== void 0);
+function Vm(o, e, t) {
+  const a = t.filter((h) => ht(h) === "light"), i = t.filter((h) => ht(h) === "cover" && Ja(o, h) !== "garage" && Ja(o, h) !== "gate"), s = t.filter((h) => ht(h) === "climate"), n = t.filter((h) => ht(h) === "media_player" && !o.states[h].attributes.entity_id), r = t.find((h) => ht(h) === "sensor" && Ja(o, h) === "temperature" && !Km.includes(o.states[h].state)) ?? s.find((h) => o.states[h].attributes.current_temperature !== void 0);
   if (!a.length && !i.length && !s.length && !n.length && !r) return;
   const l = [
     // a light group first: the button then counts its members
@@ -48274,7 +48302,7 @@ function Km(o, e, t) {
     ...i.slice(0, 1).map((h) => ({ entity: h, icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" } })),
     ...s.slice(0, 1).map((h) => ({ entity: h, icon: "mdi:radiator", active_states: ["heat", "cool", "heat_cool", "auto"] })),
     ...n.slice(0, 1).map((h) => ({ entity: h, icon: Ja(o, h) === "tv" ? "mdi:television" : "mdi:speaker", active: { state_not: ["off", "standby", "idle", "unavailable", "unknown"] } }))
-  ], c = di.find((h) => h.re.test(e.name) || v(h.name) === e.name), d = e.picture || (c?.image ? Rv(c.image) : void 0);
+  ], c = di.find((h) => h.re.test(e.name) || v(h.name) === e.name), d = e.picture || (c?.image ? Nv(c.image) : void 0);
   return {
     type: "custom:glass-room-card",
     name: e.name,
@@ -48288,10 +48316,10 @@ function Km(o, e, t) {
     ...a.length ? { image_entities: a.slice(0, 2) } : {}
   };
 }
-function Ov(o) {
+function Bv(o) {
   const e = Object.keys(o.states).filter((r) => {
     const l = o.entities?.[r];
-    if (l?.hidden || l?.entity_category || Um.includes(o.states[r].state)) return !1;
+    if (l?.hidden || l?.entity_category || Km.includes(o.states[r].state)) return !1;
     const c = ht(r);
     return c === "light" || c === "climate" || c === "media_player" || c === "cover" && !["garage", "gate"].includes(Ja(o, r) ?? "") || c === "sensor" && Ja(o, r) === "temperature";
   }), t = (r) => `${r.split(".")[1].replace(/_/g, " ")} ${o.states[r].attributes.friendly_name ?? ""}`, a = /* @__PURE__ */ new Map(), i = [];
@@ -48305,9 +48333,9 @@ function Ov(o) {
       const d = s[c % s.length];
       a.set(d, [...a.get(d) ?? [], l]);
     });
-  return di.filter((r) => a.has(r)).map((r) => Km(o, { name: v(r.name) }, a.get(r))).filter((r) => !!r);
+  return di.filter((r) => a.has(r)).map((r) => Vm(o, { name: v(r.name) }, a.get(r))).filter((r) => !!r);
 }
-function Bv(o) {
+function jv(o) {
   return {
     type: "custom:bubble-card",
     card_type: "pop-up",
@@ -48361,10 +48389,10 @@ function Bv(o) {
     ]
   };
 }
-function jv(o, e) {
-  const t = Object.keys(o.states), a = t.find((y) => ht(y) === "weather"), i = t.filter((y) => ht(y) === "person").map((y) => ({ entity: y })), s = t.filter((y) => ht(y) === "calendar").slice(0, 4).map((y) => ({ entity: y })), n = Nv(o);
-  let r = Object.values(o.areas ?? {}).map((y) => Km(o, y, n.get(y.area_id) ?? [])).filter((y) => !!y);
-  r.length || (r = Ov(o));
+function Iv(o, e) {
+  const t = Object.keys(o.states), a = t.find((y) => ht(y) === "weather"), i = t.filter((y) => ht(y) === "person").map((y) => ({ entity: y })), s = t.filter((y) => ht(y) === "calendar").slice(0, 4).map((y) => ({ entity: y })), n = Ov(o);
+  let r = Object.values(o.areas ?? {}).map((y) => Vm(o, y, n.get(y.area_id) ?? [])).filter((y) => !!y);
+  r.length || (r = Bv(o));
   const l = r.findIndex((y) => di[0].re.test(y.name) || y.name === v(di[0].name)), c = l >= 0 ? l : r.reduce((y, _, x) => _.entities.length > (r[y]?.entities.length ?? -1) ? x : y, -1), d = r.map((y, _) => _ === c && r.length > 2 ? { ...y, view_layout: { span: 2 } } : y), h = [
     {
       type: "custom:glass-panel",
@@ -48411,7 +48439,7 @@ function jv(o, e) {
       a ? { type: "custom:glass-clock-weather", variant: "compact", weather: a, glass: "none", view_layout: { grow: 1 }, ...e ? { tap_action: { action: "navigate", navigation_path: "#weather" } } : {} } : { type: "custom:glass-date-header", align: "start", view_layout: { grow: 1 } },
       ...i.length ? [{ type: "custom:glass-people", people: i, size: 34, gap: 6, view_layout: { shrink: 0 } }] : []
     ]
-  }, m = e && a ? [Bv(a)] : [], f = m.length ? [{ type: "custom:glass-dock", items: [{ icon: "mdi:weather-partly-cloudy", link: "#weather" }], indicator: "dot", bare: !0, fade: !0 }] : [], b = { type: "markdown", content: v("No lights, blinds or thermostats found yet. Add some to Home Assistant, then add this dashboard again in Dashboard Studio.") };
+  }, m = e && a ? [jv(a)] : [], f = m.length ? [{ type: "custom:glass-dock", items: [{ icon: "mdi:weather-partly-cloudy", link: "#weather" }], indicator: "dot", bare: !0, fade: !0 }] : [], b = { type: "markdown", content: v("No lights, blinds or thermostats found yet. Add some to Home Assistant, then add this dashboard again in Dashboard Studio.") };
   return {
     title: "Glass",
     views: [
@@ -48483,30 +48511,30 @@ function jv(o, e) {
     ]
   };
 }
-async function Iv(o) {
+async function qv(o) {
   return customElements.get("bubble-card") ? !0 : (await o.callWS({ type: "lovelace/resources" }).catch(() => [])).some((t) => /bubble-card/i.test(t.url));
 }
-async function qv(o) {
-  if ((await o.callWS({ type: "lovelace/dashboards/list" })).some((a) => a.url_path === Ui)) return Ui;
-  const t = jv(o, await Iv(o));
-  return await o.callWS({ type: "lovelace/dashboards/create", url_path: Ui, title: "Glass", icon: "mdi:home-variant-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Pa(o, Ui, t), Ui;
+async function Wv(o) {
+  if ((await o.callWS({ type: "lovelace/dashboards/list" })).some((a) => a.url_path === Ki)) return Ki;
+  const t = Iv(o, await qv(o));
+  return await o.callWS({ type: "lovelace/dashboards/create", url_path: Ki, title: "Glass", icon: "mdi:home-variant-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Ea(o, Ki, t), Ki;
 }
 const gp = "glass-cards-starter";
-function Wv() {
+function Fv() {
   return document.querySelector("home-assistant")?.hass;
 }
-function Fv(o) {
+function Hv(o) {
   history.pushState(null, "", o), window.dispatchEvent(new CustomEvent("location-changed", { detail: { replace: !1 } }));
 }
-async function Hv() {
+async function Gv() {
   const o = import.meta.url.split("?")[0];
   return fetch(o, { method: "HEAD", cache: "no-store" }).then((e) => e.headers.get("last-modified") ?? "").catch(() => "");
 }
-async function Gv() {
+async function Uv() {
   let o;
-  for (let a = 0; a < 40 && !(o = Wv())?.user; a++) await new Promise((i) => setTimeout(i, 500));
+  for (let a = 0; a < 40 && !(o = Fv())?.user; a++) await new Promise((i) => setTimeout(i, 500));
   if (!o?.user?.is_admin) return;
-  const e = await Hv(), t = () => o.callWS({ type: "frontend/set_user_data", key: gp, value: { at: (/* @__PURE__ */ new Date()).toISOString(), install: e } }).catch(() => {
+  const e = await Gv(), t = () => o.callWS({ type: "frontend/set_user_data", key: gp, value: { at: (/* @__PURE__ */ new Date()).toISOString(), install: e } }).catch(() => {
   });
   if (!new URLSearchParams(location.search).has("glass-setup")) {
     const [a, i] = await Promise.all([
@@ -48517,9 +48545,9 @@ async function Gv() {
     ]);
     if (!a || !i || i.some((s) => /glass/i.test(`${s.url_path} ${s.title ?? ""}`)) || a.value && a.value.install === e) return;
   }
-  vi(o), Uv(o, t);
+  vi(o), Kv(o, t);
 }
-function Uv(o, e) {
+function Kv(o, e) {
   const t = document.createElement("glass-starter-offer"), a = t.attachShadow({ mode: "open" });
   a.innerHTML = `
     <style>
@@ -48557,8 +48585,8 @@ function Uv(o, e) {
     l.onclick = async () => {
       for (const c of [...r, n]) c.disabled = !0;
       try {
-        const c = await qm(o);
-        await e(), t.remove(), Fv(`/${c}/0`);
+        const c = await Wm(o);
+        await e(), t.remove(), Hv(`/${c}/0`);
       } catch (c) {
         for (const d of [...r, n]) d.disabled = !1;
         s.textContent = `${v("The dashboard could not be created:")} ${c?.message ?? c}`;
@@ -48583,7 +48611,7 @@ const Js = [
   { name: 'iPad Pro 13"', w: 1376, h: 1032 },
   { name: "Laptop", w: 1440, h: 900 },
   { name: "Computer (Full HD)", w: 1920, h: 1080 }
-], Vm = "glass-studio-size", fp = "glass-studio-panes", xr = "glass-studio-zoom", bp = "glass-studio-placement", Ym = "glass-studio-dashboard", _p = [0.25, 0.33, 0.5, 0.67, 0.75, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2], kr = { tree: 280, insp: 420, yaml: 640 }, yp = { tree: 180, insp: 280, yaml: 360 }, hi = "This window";
+], Ym = "glass-studio-size", fp = "glass-studio-panes", xr = "glass-studio-zoom", bp = "glass-studio-placement", Zm = "glass-studio-dashboard", _p = [0.25, 0.33, 0.5, 0.67, 0.75, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2], kr = { tree: 280, insp: 420, yaml: 640 }, yp = { tree: 180, insp: 280, yaml: 360 }, hi = "This window";
 function mc() {
   const o = parseFloat(getComputedStyle(document.querySelector("home-assistant") ?? document.documentElement).getPropertyValue("--header-height")) || 56;
   return { w: window.innerWidth, h: window.innerHeight - o };
@@ -48591,7 +48619,7 @@ function mc() {
 function mo() {
   let o = {};
   try {
-    o = JSON.parse(localStorage.getItem(Vm) ?? "{}");
+    o = JSON.parse(localStorage.getItem(Ym) ?? "{}");
   } catch {
   }
   const e = mc();
@@ -49243,19 +49271,19 @@ const hn = class hn extends Ye {
     const a = e.slice(0, -1), i = e[e.length - 1], s = (X(this._config, a) ?? []).length, n = Nd(), r = lt(t), l = () => {
       this._set(this._with(e, void 0)), Ct(this._sel, e) && (this._sel = s > 1 ? [...a, Math.min(i, s - 2)] : a);
     }, c = (d, h) => {
-      n && (this._insert(d, structuredClone(n.card), h), n.cut && ya(void 0));
+      n && (this._insert(d, structuredClone(n.card), h), n.cut && va(void 0));
     };
     return [
       { icon: "mdi:arrow-up", label: "Move up", run: () => this._move(e, a, i - 1), disabled: i === 0 },
       { icon: "mdi:arrow-down", label: "Move down", run: () => this._move(e, a, i + 2), disabled: i >= s - 1 },
       { icon: "mdi:content-duplicate", label: "Duplicate", key: "⌘D", run: () => this._insert(a, structuredClone(t), i + 1) },
-      { icon: "mdi:content-copy", label: "Copy", key: "⌘C", run: () => ya({ card: structuredClone(t), cut: !1 }) },
+      { icon: "mdi:content-copy", label: "Copy", key: "⌘C", run: () => va({ card: structuredClone(t), cut: !1 }) },
       {
         icon: "mdi:content-cut",
         label: "Cut",
         key: "⌘X",
         run: () => {
-          ya({ card: structuredClone(t), cut: !0 }), l();
+          va({ card: structuredClone(t), cut: !0 }), l();
         }
       },
       ...n ? [{ icon: "mdi:content-paste", label: "Paste after", key: "⌘V", run: () => c(a, i + 1) }] : [],
@@ -49390,7 +49418,7 @@ const hn = class hn extends Ye {
     e = Math.round(Math.min(3840, Math.max(240, e || 0))), t = Math.round(Math.min(2400, Math.max(240, t || 0)));
     const i = this._config, s = e < (i.breakpoints?.mobile ?? i.breakpoint ?? 700) ? "mobile" : "tablet";
     try {
-      localStorage.setItem(Vm, JSON.stringify({ ...mo(), [s]: { w: e, h: t, name: a } }));
+      localStorage.setItem(Ym, JSON.stringify({ ...mo(), [s]: { w: e, h: t, name: a } }));
     } catch {
     }
     s !== se.mode ? this._device(s) : (Ar(s, { w: e, h: t }), this.requestUpdate());
@@ -49519,7 +49547,7 @@ const hn = class hn extends Ye {
       const a = w(Dt[t.name.replace(/^areas\./, "")]?.[0] ?? t.name.replace(/^areas\./, "")), i = X(this._config, t.path) ?? [];
       return p`<div class="area">
           ${this._row(a, `${i.length} ${w(i.length === 1 ? "card" : "cards")}`, "mdi:view-grid-outline", t.path, 0, {
-        badges: t.own ? [w(ga[se.mode])] : [],
+        badges: t.own ? [w(fa[se.mode])] : [],
         fold: JSON.stringify(t.path)
       })}
           ${this._isOpen(JSON.stringify(t.path)) ? e(i, t.path, 1) : g}
@@ -49610,7 +49638,7 @@ const hn = class hn extends Ye {
     }
     const c = l.querySelector(":scope > .pop-body"), d = String((i ? r.margin_top_mobile : r.margin_top_desktop) ?? "0px"), h = i ? "100%" : `min(100%, ${r.width_desktop ?? "540px"})`, u = `color-mix(in srgb, ${r.bg_color ?? "var(--card-background-color, #fff)"} ${r.bg_opacity ?? 88}%, transparent)`, m = `${parseFloat(r.bg_blur ?? 10) || 0}px`;
     l.style.cssText = `position:absolute;z-index:50;left:50%;top:max(0px, ${/^-?\d+$/.test(d) ? `${d}px` : d});bottom:0;transform:translateX(-50%);width:${h};box-sizing:border-box;overflow:auto;padding:18px;border-radius:${r.border_radius ?? "32px"} ${r.border_radius ?? "32px"} 0 0;background:${u};-webkit-backdrop-filter:blur(${m});backdrop-filter:blur(${m});box-shadow:0 -6px 40px rgba(0,0,0,.2);color:var(--primary-text-color)`;
-    const f = this._popContent(a), b = Ta(f, this._cardHass, { nested: !1, glass: "frosted", mode: se.mode, reuse: this._popEls }), y = new Set(b);
+    const f = this._popContent(a), b = Ca(f, this._cardHass, { nested: !1, glass: "frosted", mode: se.mode, reuse: this._popEls }), y = new Set(b);
     for (const x of [...c.children]) y.has(x) || x.remove();
     if (r.show_header !== !1 && !JSON.stringify(f).includes('"custom:glass-popup-header"')) {
       const x = document.createElement("div");
@@ -49690,7 +49718,7 @@ const hn = class hn extends Ye {
   _overlayTree(e) {
     const t = this._areas().find((d) => d.name === "overlay");
     if (!t) return g;
-    const a = X(this._config, t.path) ?? [], i = a.filter((d) => !ke(d)), s = a.filter((d) => ke(d)), n = this._srcPops ?? [], r = this._usedLinks(), l = (d) => r.has(d) ? [] : [w("unused")], c = t.own ? [w(ga[se.mode])] : [];
+    const a = X(this._config, t.path) ?? [], i = a.filter((d) => !ke(d)), s = a.filter((d) => ke(d)), n = this._srcPops ?? [], r = this._usedLinks(), l = (d) => r.has(d) ? [] : [w("unused")], c = t.own ? [w(fa[se.mode])] : [];
     return p`${i.length ? p`<div class="area">
             <div class="node static" style="--depth:0">
               ${this._twisty("bar")}
@@ -49777,9 +49805,9 @@ const hn = class hn extends Ye {
    * collapsible box with that on its second line (open or closed as left, per browser).
    */
   _placement(e, t) {
-    const a = this._parentLayout(e) === "grid", i = a ? this._gridCols(e) : 0, s = this._spanOf(t), n = (d, h) => this._set(this._with(e, this._withSpan(t, d, h))), r = si.filter((d) => _a(t, d)), l = [
+    const a = this._parentLayout(e) === "grid", i = a ? this._gridCols(e) : 0, s = this._spanOf(t), n = (d, h) => this._set(this._with(e, this._withSpan(t, d, h))), r = si.filter((d) => ya(t, d)), l = [
       a ? `${s.span} × ${s.rows}` : "",
-      r.length === si.length ? w("everywhere") : r.length ? r.map((d) => w(ga[d])).join(", ") : w("hidden")
+      r.length === si.length ? w("everywhere") : r.length ? r.map((d) => w(fa[d])).join(", ") : w("hidden")
     ].filter(Boolean).join(" · "), c = (d, h, u, m) => p`<span class="stepper"
         >${w(d)} <button ?disabled=${h <= 1} @click=${() => m(h - 1)}>−</button><b>${h}</b><button ?disabled=${h >= u} @click=${() => m(h + 1)}>+</button></span
       >`;
@@ -49803,8 +49831,8 @@ const hn = class hn extends Ye {
         <span>${w("Shown on")}</span>
         <span class="chips">
           ${si.map(
-      (d) => p`<button class=${_a(t, d) ? "on" : ""} @click=${() => this._set(this._with(e, gu(t, d, !_a(t, d))))}>
-              ${w(ga[d])}
+      (d) => p`<button class=${ya(t, d) ? "on" : ""} @click=${() => this._set(this._with(e, gu(t, d, !ya(t, d))))}>
+              ${w(fa[d])}
             </button>`
     )}
         </span>
@@ -49815,7 +49843,7 @@ const hn = class hn extends Ye {
   }
   _wireBox(e, t, a) {
     const i = se.mode;
-    if (!_a(e, i)) return g;
+    if (!ya(e, i)) return g;
     const s = this._resizing && Ae(this._resizing.path, t) ? this._resizing : this._spanOf(e), n = a === "grid" ? `grid-column:span ${s.span};grid-row:span ${s.rows}` : "", r = a === "grid" ? p`<span
             class="wresize"
             title=${w("Drag to span more columns or rows")}
@@ -50137,7 +50165,7 @@ const hn = class hn extends Ye {
           <ha-icon .icon=${"mdi:delete-outline"}></ha-icon>
         </button>
       </div>
-      ${ke(a) ? no() : uf(a)}
+      ${ke(a) ? no() : mf(a)}
       ${ke(a) ? p`<div class="popline">
             <ha-icon .icon=${"mdi:link-variant"}></ha-icon><code>${ke(a).hash}</code>
             <span class="grow"></span>
@@ -50173,7 +50201,7 @@ const hn = class hn extends Ye {
       class="link paste"
       title=${w(a.cut ? "Moves the cut card here" : "Adds a copy of the copied card here")}
       @click=${() => {
-      this._addAt = void 0, this._insert(e, structuredClone(a.card), t), a.cut && ya(void 0);
+      this._addAt = void 0, this._insert(e, structuredClone(a.card), t), a.cut && va(void 0);
     }}
     >
       <ha-icon .icon=${"mdi:content-paste"}></ha-icon> ${w("Paste")}: ${Oe(a.card).title}${a.card.name ? ` ${a.card.name}` : ""}
@@ -50214,7 +50242,7 @@ const hn = class hn extends Ye {
       a.set(i, n);
     }
     for (const [i, s] of e)
-      await Hm(i, a.get(i)), await Pa(t, i, s.next), i !== null && this._srcBase[i] !== void 0 && (this._srcBase[i] = JSON.stringify(s.next));
+      await Gm(i, a.get(i)), await Ea(t, i, s.next), i !== null && this._srcBase[i] !== void 0 && (this._srcBase[i] = JSON.stringify(s.next));
     return !0;
   }
   /** Standalone Save: the pop-up dashboards changed here and the dashboard with the edited card. */
@@ -50231,7 +50259,7 @@ const hn = class hn extends Ye {
         if (i !== e.card || e.newView) {
           const s = t.get(e.url) ?? { base: e.base, next: e.full };
           let n, r = e.path;
-          if (e.newView ? (n = structuredClone(s.next), n.views = [...n.views ?? [], { title: "Glass", path: "glass", type: "panel", cards: [a] }], r = ["views", n.views.length - 1, "cards", 0]) : n = Tv(s.next, e.path, a), t.set(e.url, { base: s.base, next: n }), !await this._write(t)) return;
+          if (e.newView ? (n = structuredClone(s.next), n.views = [...n.views ?? [], { title: "Glass", path: "glass", type: "panel", cards: [a] }], r = ["views", n.views.length - 1, "cards", 0]) : n = Cv(s.next, e.path, a), t.set(e.url, { base: s.base, next: n }), !await this._write(t)) return;
           this._host = { ...e, full: n, base: JSON.stringify(n), path: r, card: i, newView: !1, hits: up(n) }, e.url !== null && this._config.__sources?.[e.url] && this._attachSources({ [e.url]: n });
         } else {
           if (!t.size) {
@@ -50252,14 +50280,14 @@ const hn = class hn extends Ye {
   async _restore() {
     const e = this._host;
     if (!e || e.mode === "yaml") return;
-    const t = await Dv(e.url);
+    const t = await Pv(e.url);
     if (!t) {
       this._notice = { kind: "warn", text: w("No earlier version of this dashboard is kept in this browser.") };
       return;
     }
     if (confirm(`${w("Put back the version saved over at")} ${new Date(t.time).toLocaleString()}? ${w("Changes not saved here are lost.")}`))
       try {
-        await Pa(this.hass, e.url, t.config), await Pv(t.id), this._past = [], await this.openDashboard(e.url, e.which), this._notice = { kind: "ok", text: w("The earlier version is back") };
+        await Ea(this.hass, e.url, t.config), await Ev(t.id), this._past = [], await this.openDashboard(e.url, e.which), this._notice = { kind: "ok", text: w("The earlier version is back") };
       } catch (a) {
         this._notice = { kind: "error", text: `${w("Saving failed:")} ${a?.message ?? a}` };
       }
@@ -50276,7 +50304,7 @@ const hn = class hn extends Ye {
       const a = this._dashList.find((l) => l.url === e) ?? { url: e, title: e ?? "Overview", mode: "storage" }, i = await Pt(this.hass, e), s = up(i), n = s[t] ?? s[0], r = n ? X(i, n.path) : { type: "custom:glass-dashboard" };
       this._host = { url: e, mode: a.mode, full: i, base: JSON.stringify(i), path: n?.path ?? [], card: n ? JSON.stringify(r) : "", newView: !n, hits: s, which: n ? s.indexOf(n) : 0 }, this.lovelace = { config: i, urlPath: e, mode: a.mode, editMode: !0, locale: this.hass?.locale }, this._closePopup(), this._srcKey = void 0, this._srcBase = {}, this._srcPops = [], this._config = structuredClone(r), this._past = [], this._future = [], this._sel = [], this._notice = a.mode === "yaml" ? { kind: "warn", text: w("This dashboard is kept in YAML files – the editor shows it but cannot save it.") } : n ? void 0 : { kind: "warn", text: w("This dashboard has no glass dashboard yet – Save adds a view “Glass” with one.") };
       try {
-        localStorage.setItem(Ym, JSON.stringify(e));
+        localStorage.setItem(Zm, JSON.stringify(e));
       } catch {
       }
     } catch (a) {
@@ -50315,7 +50343,7 @@ const hn = class hn extends Ye {
   async _addStarter() {
     this._busy = !0;
     try {
-      const e = await qv(this.hass);
+      const e = await Wv(this.hass);
       this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(e), this._notice = { kind: "ok", text: w("The dashboard is in the sidebar as “Glass”. Rooms without lights, blinds or a temperature were left out.") };
     } catch (e) {
       this._busy = !1, this._notice = { kind: "error", text: `${w("The dashboard could not be created:")} ${e?.message ?? e}` };
@@ -50328,7 +50356,7 @@ const hn = class hn extends Ye {
   }
   /** Demos older than the cards': unchanged ones brought up to date, changed ones offered the newest. */
   async _checkDemo() {
-    const e = await Wm(this.hass, this._editedUrl()).catch(() => {
+    const e = await Fm(this.hass, this._editedUrl()).catch(() => {
     });
     e && (e.updated.length && (this._dashList = await qt(this.hass).catch(() => this._dashList), this.standalone && e.updated.includes(this._host?.url ?? "") && !this._dirty && await this.openDashboard(this._host.url), this._notice = { kind: "ok", text: w("The demo dashboard was brought up to the newest demo.") }), this._demoOffer = e.outdated.filter((t) => {
       try {
@@ -50352,13 +50380,13 @@ const hn = class hn extends Ye {
       this._busy = !0;
       try {
         if (t === "newest") {
-          const a = await Sv(this.hass);
+          const a = await zv(this.hass);
           this._busy = !1, await this._showDemo(a, w("The newest demo is in the sidebar as “Glass demo – newest”. Yours stays as it is."));
         } else if (t === "replace") {
-          const a = await zv(this.hass, e.url);
+          const a = await Av(this.hass, e.url);
           this._busy = !1, await this._showDemo(a, w("The demo is the newest one now."));
         } else {
-          const a = await Av(this.hass, e.url);
+          const a = await Mv(this.hass, e.url);
           this._busy = !1, await this._showDemo(e.url, w("Yours is kept as “{name}” in the sidebar; this is the newest demo now.", { name: a === "glass-demo-mine-1" ? "Glass demo – mine" : `Glass demo – mine ${a.slice(15)}` }));
         }
       } catch (a) {
@@ -50371,7 +50399,7 @@ const hn = class hn extends Ye {
     if (confirm(w("Delete “Glass demo – newest” and its pop-ups from Home Assistant?"))) {
       this._busy = !0;
       try {
-        await Mv(this.hass, vt), this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(this._dashList?.some((e) => e.url === Et) ? Et : null), this._notice = { kind: "ok", text: w("“Glass demo – newest” was removed. Your own dashboards weren't touched.") };
+        await Tv(this.hass, vt), this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(this._dashList?.some((e) => e.url === Et) ? Et : null), this._notice = { kind: "ok", text: w("“Glass demo – newest” was removed. Your own dashboards weren't touched.") };
       } catch (e) {
         this._busy = !1, this._notice = { kind: "error", text: `${e?.message ?? e}` };
       }
@@ -50405,7 +50433,7 @@ const hn = class hn extends Ye {
   async _addDemo() {
     this._busy = !0;
     try {
-      const e = await qm(this.hass);
+      const e = await Wm(this.hass);
       this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(e), this._notice = { kind: "ok", text: w("The demo dashboard is in the sidebar as “Glass demo”. Change anything – it runs on a made-up home.") };
     } catch (e) {
       this._busy = !1, this._notice = { kind: "error", text: `${w("The demo dashboard could not be added:")} ${e?.message ?? e}` };
@@ -50490,7 +50518,7 @@ const hn = class hn extends Ye {
         <span class="seg">
           ${e.map(
       ([t, a]) => p`<button class=${se.mode === t ? "on" : ""} @click=${() => this._device(t)}>
-              <ha-icon .icon=${a}></ha-icon>${w(ga[t])}
+              <ha-icon .icon=${a}></ha-icon>${w(fa[t])}
             </button>`
     )}
         </span>
@@ -51939,7 +51967,7 @@ hn.properties = {
   `;
 let gc = hn;
 customElements.get("glass-studio") || customElements.define("glass-studio", gc);
-function Zm(o) {
+function Jm(o) {
   o.mode && (se.mode = o.mode), se.mode === "desktop" && (se.mode = "tablet");
   const e = mo()[se.mode];
   se.w = e?.w, se.h = e?.h;
@@ -51956,9 +51984,9 @@ function Zm(o) {
 }
 window.addEventListener("glass-open-studio", (o) => {
   const e = o.detail;
-  e.studio = Zm(e);
+  e.studio = Jm(e);
 });
-async function Jm(o) {
+async function Xm(o) {
   const e = document.querySelector("home-assistant");
   if (!e?.hass || document.querySelector("home-assistant")?.shadowRoot?.querySelector("dialog.glass-studio-dialog")) return;
   (async () => {
@@ -51970,11 +51998,11 @@ async function Jm(o) {
   })();
   let t;
   try {
-    t = JSON.parse(localStorage.getItem(Ym) ?? "undefined");
+    t = JSON.parse(localStorage.getItem(Zm) ?? "undefined");
   } catch {
     t = void 0;
   }
-  const a = location.pathname.split("/")[1], i = o !== void 0 ? o : a && a !== "lovelace" && !a.startsWith("config") ? a : t ?? null, s = Zm({ config: {}, hass: e.hass, onChange: () => {
+  const a = location.pathname.split("/")[1], i = o !== void 0 ? o : a && a !== "lovelace" && !a.startsWith("config") ? a : t ?? null, s = Jm({ config: {}, hass: e.hass, onChange: () => {
   }, standalone: !0 });
   customElements.whenDefined("hui-card-element-editor").then(() => s.requestUpdate());
   const n = window.setInterval(() => {
@@ -51983,21 +52011,21 @@ async function Jm(o) {
   }, 1e3);
   return await s.openDashboard(i), s;
 }
-window.glassStudio = Jm;
-function Xm() {
+window.glassStudio = Xm;
+function Qm() {
   const o = new URLSearchParams(location.search);
   if (!o.has("glass-studio")) return;
   const e = o.get("glass-studio");
   o.delete("glass-studio"), history.replaceState(history.state, "", `${location.pathname}${o.toString() ? `?${o}` : ""}${location.hash}`);
   let t = 0;
   const a = () => {
-    document.querySelector("home-assistant")?.hass ? Jm(e || void 0) : ++t < 40 && setTimeout(a, 500);
+    document.querySelector("home-assistant")?.hass ? Xm(e || void 0) : ++t < 40 && setTimeout(a, 500);
   };
   a();
 }
-Xm();
-window.addEventListener("location-changed", () => setTimeout(Xm, 0));
-const vp = "glass-cards-version", Kv = "https://glass.argalas.org/docs/cards/", Vv = [
+Qm();
+window.addEventListener("location-changed", () => setTimeout(Qm, 0));
+const vp = "glass-cards-version", Vv = "https://glass.argalas.org/docs/cards/", Yv = [
   {
     version: "1.11.7",
     items: [
@@ -52021,7 +52049,7 @@ function $r(o, e) {
   for (let i = 0; i < 3; i++) if ((t[i] ?? 0) !== (a[i] ?? 0)) return (t[i] ?? 0) > (a[i] ?? 0);
   return !1;
 }
-async function Yv(o) {
+async function Zv(o) {
   if (!/^\d+\.\d+\.\d+$/.test(o)) return;
   let e;
   for (let n = 0; n < 40 && !(e = document.querySelector("home-assistant")?.hass)?.user; n++) await new Promise((r) => setTimeout(r, 500));
@@ -52033,14 +52061,14 @@ async function Yv(o) {
   });
   if (!a) return void i();
   if (!$r(o, a)) return;
-  const s = Vv.filter((n) => $r(n.version, a) && !$r(n.version, o)).flatMap((n) => n.items);
+  const s = Yv.filter((n) => $r(n.version, a) && !$r(n.version, o)).flatMap((n) => n.items);
   if (!s.length) return void i();
-  vi(e), Zv(o, s, i);
+  vi(e), Jv(o, s, i);
 }
-function ma(o) {
+function ga(o) {
   return o.replace(/[&<>"']/g, (e) => `&#${e.charCodeAt(0)};`);
 }
-function Zv(o, e, t) {
+function Jv(o, e, t) {
   if (document.querySelector("glass-whats-new")) return;
   const a = document.createElement("glass-whats-new"), i = a.attachShadow({ mode: "open" });
   i.innerHTML = `
@@ -52064,17 +52092,17 @@ function Zv(o, e, t) {
       .close { background: none; opacity: 0.6; font-size: 18px; line-height: 1; padding: 4px; }
       .ok { align-self: end; border-radius: 999px; padding: 8px 18px; background: var(--primary-color, #0a84ff); color: var(--text-primary-color, #fff); font-weight: 600; }
     </style>
-    <div class="bar" role="dialog" aria-label="${ma(v("What's new in Glass Cards"))}">
+    <div class="bar" role="dialog" aria-label="${ga(v("What's new in Glass Cards"))}">
       <div class="head">
-        <div class="text"><b>${ma(v("New in Glass Cards {version}").replace("{version}", o))}</b><span>${ma(v("Add them in Dashboard Studio, or with Add card in Home Assistant."))}</span></div>
-        <button class="close" aria-label="${ma(v("Close"))}">✕</button>
+        <div class="text"><b>${ga(v("New in Glass Cards {version}").replace("{version}", o))}</b><span>${ga(v("Add them in Dashboard Studio, or with Add card in Home Assistant."))}</span></div>
+        <button class="close" aria-label="${ga(v("Close"))}">✕</button>
       </div>
       <div class="items">
         ${e.map(
-    (n) => `<a class="item" href="${Kv}${n.doc}" target="_blank" rel="noopener"><ha-icon icon="${n.icon}"></ha-icon><span><strong>${ma(v(n.name))}</strong><small>${ma(v(n.text))}</small></span></a>`
+    (n) => `<a class="item" href="${Vv}${n.doc}" target="_blank" rel="noopener"><ha-icon icon="${n.icon}"></ha-icon><span><strong>${ga(v(n.name))}</strong><small>${ga(v(n.text))}</small></span></a>`
   ).join("")}
       </div>
-      <button class="ok">${ma(v("Got it"))}</button>
+      <button class="ok">${ga(v("Got it"))}</button>
     </div>`;
   const s = () => {
     a.remove(), t();
@@ -52086,21 +52114,21 @@ const fc = "1.11.8", wp = {
   GlassElement: F,
   lit: { LitElement: Ye, html: p, css: ee, svg: j, nothing: g },
   registerCard: ce,
-  createCard: ws,
+  createCard: xs,
   conditions: { evalCondition: ge, applyRules: wo },
-  format: { displayText: wa, computeValue: au },
+  format: { displayText: xa, computeValue: au },
   colors: { cssColor: Y, tint: Be },
   actions: { pressHandlers: Ze, runAction: $e, withDefaults: Ot },
   styles: { tokens: xc, surface: we, control: Ne, animations: $c },
   LiquidController: le,
   settings: pe,
   /** The made-up demo home (src/demo): a hass for pages without HA, and its changes. */
-  demo: { hass: Cc, onChange: Tc, setState: k0 }
+  demo: { hass: Cc, onChange: Tc, setState: $0 }
 };
-function Jv() {
+function Xv() {
   const o = (e, t) => (e.querySelectorAll("hui-error-card").forEach((a) => t.push(a)), e.querySelectorAll("*").forEach((a) => a.shadowRoot && o(a.shadowRoot, t)), t);
   for (const e of o(document, []))
     JSON.stringify(e._config ?? e.config ?? {}).includes("custom:glass-") && e.dispatchEvent(new CustomEvent("ll-rebuild", { bubbles: !0, composed: !0 }));
 }
-E0();
-window.GlassCards || (window.GlassCards = wp, requestAnimationFrame(Jv), window.dispatchEvent(new CustomEvent("glass-cards-ready", { detail: wp })), Gv(), Yv(fc), console.info(`%c GLASS-CARDS %c ${fc} `, "background:#0a84ff;color:#fff;border-radius:4px 0 0 4px;padding:2px 4px", "background:#fff;color:#0a84ff;border-radius:0 4px 4px 0;padding:2px 4px"));
+L0();
+window.GlassCards || (window.GlassCards = wp, requestAnimationFrame(Xv), window.dispatchEvent(new CustomEvent("glass-cards-ready", { detail: wp })), Uv(), Zv(fc), console.info(`%c GLASS-CARDS %c ${fc} `, "background:#0a84ff;color:#fff;border-radius:4px 0 0 4px;padding:2px 4px", "background:#fff;color:#0a84ff;border-radius:0 4px 4px 0;padding:2px 4px"));

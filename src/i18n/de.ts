@@ -2339,7 +2339,7 @@ export const de: Dict = {
   "Music Assistant": "Music Assistant",
   "It shows the one playing; a tap on the player's name picks another": "Sie zeigt den, der spielt; ein Tipp auf den Namen des Players wählt einen anderen",
   "TV sources": "TV-Quellen",
-  "A soundbar on the TV: - speaker: its player, sources: [Apple TV, PlayStation…] – the first one playing shows while it plays the TV's sound": "Soundbar am TV: - speaker: ihr Player, sources: [Apple TV, PlayStation…] – der erste, der spielt, erscheint, während sie den Ton des TVs spielt",
+  "A soundbar on the TV: - speaker: its player, tv: the TV (optional), sources: - entity: Apple TV, input: the TV's input… – what plays on the TV shows while the soundbar plays its sound": "Soundbar am TV: - speaker: ihr Player, tv: der Fernseher (optional), sources: - entity: Apple TV, input: der Eingang des TVs… – was auf dem TV läuft, erscheint, während die Soundbar seinen Ton spielt",
   "Move to the one playing": "Zu dem wechseln, der spielt",
   "Off: always the player above – another one only while you picked it": "Aus: immer der Player oben – ein anderer nur, wenn du ihn wählst",
   "The button by the volume: speakers of the same kind to play along": "Die Taste neben der Lautstärke: Lautsprecher derselben Art, die mitspielen",
