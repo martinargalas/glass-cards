@@ -3,7 +3,7 @@
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const eo = globalThis, vc = eo.ShadowRoot && (eo.ShadyCSS === void 0 || eo.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, wc = Symbol(), Zc = /* @__PURE__ */ new WeakMap();
+const to = globalThis, vc = to.ShadowRoot && (to.ShadyCSS === void 0 || to.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, wc = Symbol(), Zc = /* @__PURE__ */ new WeakMap();
 let zp = class {
   constructor(e, t, a) {
     if (this._$cssResult$ = !0, a !== wc) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
@@ -32,7 +32,7 @@ const La = (o) => new zp(typeof o == "string" ? o : o + "", void 0, wc), ee = (o
 }, ng = (o, e) => {
   if (vc) o.adoptedStyleSheets = e.map((t) => t instanceof CSSStyleSheet ? t : t.styleSheet);
   else for (const t of e) {
-    const a = document.createElement("style"), i = eo.litNonce;
+    const a = document.createElement("style"), i = to.litNonce;
     i !== void 0 && a.setAttribute("nonce", i), a.textContent = t.cssText, o.appendChild(a);
   }
 }, Jc = vc ? (o) => o : (o) => o instanceof CSSStyleSheet ? ((e) => {
@@ -45,7 +45,7 @@ const La = (o) => new zp(typeof o == "string" ? o : o + "", void 0, wc), ee = (o
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { is: rg, defineProperty: lg, getOwnPropertyDescriptor: cg, getOwnPropertyNames: dg, getOwnPropertySymbols: hg, getPrototypeOf: pg } = Object, mn = globalThis, Xc = mn.trustedTypes, ug = Xc ? Xc.emptyScript : "", mg = mn.reactiveElementPolyfillSupport, Xi = (o, e) => o, Mr = { toAttribute(o, e) {
+const { is: rg, defineProperty: lg, getOwnPropertyDescriptor: cg, getOwnPropertyNames: dg, getOwnPropertySymbols: hg, getPrototypeOf: pg } = Object, gn = globalThis, Xc = gn.trustedTypes, ug = Xc ? Xc.emptyScript : "", mg = gn.reactiveElementPolyfillSupport, Xi = (o, e) => o, Mr = { toAttribute(o, e) {
   switch (e) {
     case Boolean:
       o = o ? ug : null;
@@ -74,7 +74,7 @@ const { is: rg, defineProperty: lg, getOwnPropertyDescriptor: cg, getOwnProperty
   }
   return t;
 } }, Ap = (o, e) => !rg(o, e), Qc = { attribute: !0, type: String, converter: Mr, reflect: !1, useDefault: !1, hasChanged: Ap };
-Symbol.metadata ??= Symbol("metadata"), mn.litPropertyMetadata ??= /* @__PURE__ */ new WeakMap();
+Symbol.metadata ??= Symbol("metadata"), gn.litPropertyMetadata ??= /* @__PURE__ */ new WeakMap();
 let Ua = class extends HTMLElement {
   static addInitializer(e) {
     this._$Ei(), (this.l ??= []).push(e);
@@ -256,14 +256,14 @@ let Ua = class extends HTMLElement {
   firstUpdated(e) {
   }
 };
-Ua.elementStyles = [], Ua.shadowRootOptions = { mode: "open" }, Ua[Xi("elementProperties")] = /* @__PURE__ */ new Map(), Ua[Xi("finalized")] = /* @__PURE__ */ new Map(), mg?.({ ReactiveElement: Ua }), (mn.reactiveElementVersions ??= []).push("2.1.2");
+Ua.elementStyles = [], Ua.shadowRootOptions = { mode: "open" }, Ua[Xi("elementProperties")] = /* @__PURE__ */ new Map(), Ua[Xi("finalized")] = /* @__PURE__ */ new Map(), mg?.({ ReactiveElement: Ua }), (gn.reactiveElementVersions ??= []).push("2.1.2");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const xc = globalThis, ed = (o) => o, bo = xc.trustedTypes, td = bo ? bo.createPolicy("lit-html", { createHTML: (o) => o }) : void 0, Mp = "$lit$", Kt = `lit$${Math.random().toFixed(9).slice(2)}$`, Tp = "?" + Kt, gg = `<${Tp}>`, Aa = document, ys = () => Aa.createComment(""), vs = (o) => o === null || typeof o != "object" && typeof o != "function", kc = Array.isArray, fg = (o) => kc(o) || typeof o?.[Symbol.iterator] == "function", yn = `[ 	
-\f\r]`, ki = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, ad = /-->/g, id = />/g, sa = RegExp(`>|${yn}(?:([^\\s"'>=/]+)(${yn}*=${yn}*(?:[^ 	
+const xc = globalThis, ed = (o) => o, _o = xc.trustedTypes, td = _o ? _o.createPolicy("lit-html", { createHTML: (o) => o }) : void 0, Mp = "$lit$", Kt = `lit$${Math.random().toFixed(9).slice(2)}$`, Tp = "?" + Kt, gg = `<${Tp}>`, Aa = document, ys = () => Aa.createComment(""), vs = (o) => o === null || typeof o != "object" && typeof o != "function", kc = Array.isArray, fg = (o) => kc(o) || typeof o?.[Symbol.iterator] == "function", vn = `[ 	
+\f\r]`, ki = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, ad = /-->/g, id = />/g, sa = RegExp(`>|${vn}(?:([^\\s"'>=/]+)(${vn}*=${vn}*(?:[^ 	
 \f\r"'\`<>=]|("|')|))|$)`, "g"), sd = /'/g, od = /"/g, Cp = /^(?:script|style|textarea|title)$/i, Dp = (o) => (e, ...t) => ({ _$litType$: o, strings: e, values: t }), p = Dp(1), j = Dp(2), Ma = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), nd = /* @__PURE__ */ new WeakMap(), ba = Aa.createTreeWalker(Aa, 129);
 function Pp(o, e) {
   if (!kc(o) || !o.hasOwnProperty("raw")) throw Error("invalid template strings array");
@@ -295,12 +295,12 @@ let Tr = class Ep {
       if (i.nodeType === 1) {
         if (i.hasAttributes()) for (const h of i.getAttributeNames()) if (h.endsWith(Mp)) {
           const u = d[n++], m = i.getAttribute(h).split(Kt), f = /([.?@])?(.*)/.exec(u);
-          l.push({ type: 1, index: s, name: f[2], strings: m, ctor: f[1] === "." ? yg : f[1] === "?" ? vg : f[1] === "@" ? wg : gn }), i.removeAttribute(h);
+          l.push({ type: 1, index: s, name: f[2], strings: m, ctor: f[1] === "." ? yg : f[1] === "?" ? vg : f[1] === "@" ? wg : fn }), i.removeAttribute(h);
         } else h.startsWith(Kt) && (l.push({ type: 6, index: s }), i.removeAttribute(h));
         if (Cp.test(i.tagName)) {
           const h = i.textContent.split(Kt), u = h.length - 1;
           if (u > 0) {
-            i.textContent = bo ? bo.emptyScript : "";
+            i.textContent = _o ? _o.emptyScript : "";
             for (let m = 0; m < u; m++) i.append(h[m], ys()), ba.nextNode(), l.push({ type: 2, index: ++s });
             i.append(h[u], ys());
           }
@@ -411,7 +411,7 @@ class _i {
     this._$AM === void 0 && (this._$Cv = e, this._$AP?.(e));
   }
 }
-let gn = class {
+let fn = class {
   get tagName() {
     return this.element.tagName;
   }
@@ -436,7 +436,7 @@ let gn = class {
     e === g ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
   }
 };
-class yg extends gn {
+class yg extends fn {
   constructor() {
     super(...arguments), this.type = 3;
   }
@@ -444,7 +444,7 @@ class yg extends gn {
     this.element[this.name] = e === g ? void 0 : e;
   }
 }
-class vg extends gn {
+class vg extends fn {
   constructor() {
     super(...arguments), this.type = 4;
   }
@@ -452,7 +452,7 @@ class vg extends gn {
     this.element.toggleAttribute(this.name, !!e && e !== g);
   }
 }
-class wg extends gn {
+class wg extends fn {
   constructor(e, t, a, i, s) {
     super(e, t, a, i, s), this.type = 5;
   }
@@ -5285,11 +5285,11 @@ const zg = {
   // i18n-ok
   ["de", "Deutsch"]
 ], Np = (o) => rd[o] ?? rd[o.split("-")[0]];
-let _o = "en", Op;
-const yi = () => _o, Bp = () => Op ? _o : "en";
+let yo = "en", Op;
+const yi = () => yo, Bp = () => Op ? yo : "en";
 function vi(o) {
   const e = o?.locale?.language || o?.language;
-  !e || e === _o || (_o = e, Op = Np(e), window.dispatchEvent(new CustomEvent("glass-lang", { detail: e })));
+  !e || e === yo || (yo = e, Op = Np(e), window.dispatchEvent(new CustomEvent("glass-lang", { detail: e })));
 }
 function v(o, e) {
   return jp(Bp(), o, e);
@@ -5349,7 +5349,7 @@ function Cr(o, e) {
 function Dr(o) {
   return se.w && se.h && o === se.mode ? { w: se.w, h: se.h } : o === "desktop" ? { w: 1600, h: 900 } : o === "tablet" ? { w: 1280, h: 800 } : { w: 412, h: 915 };
 }
-const vn = {
+const wn = {
   // panels in glass, room cards and chips in the Apple Home material
   liquid: { glass: "liquid", tile_glass: "home", control_glass: "home" },
   frosted: { glass: "frosted", tile_glass: "home", control_glass: "home" },
@@ -5368,7 +5368,7 @@ const vn = {
     sidebar: "home",
     sidebar_areas: { mobile: ["header", "top"] }
   }
-}, to = (o) => o && o in vn ? vn[o] : vn.liquid, qp = La(`
+}, ao = (o) => o && o in wn ? wn[o] : wn.liquid, qp = La(`
     --glass-room-bg: linear-gradient(rgba(246, 246, 248, 0.8), rgba(246, 246, 248, 0.8));
     --glass-room-fg: #1c1c1e;
     --glass-room-fg-2: rgba(60, 60, 67, 0.68);
@@ -5505,7 +5505,7 @@ const vn = {
     color: var(--g-text);
     -webkit-tap-highlight-color: transparent;
   }
-`, yo = La(`
+`, vo = La(`
     --glass-text: var(--glass-home-side-text, #fff);
     --glass-text-secondary: var(--glass-home-side-text-2, rgba(235, 235, 245, 0.6));
     --glass-text-shadow: none;
@@ -5536,7 +5536,7 @@ const vn = {
     --glass-home-shadow: none;
     --glass-home-border: rgba(255, 255, 255, 0.22);
     --glass-home-control: rgba(22, 30, 46, 0.2);
-`), vo = La(`
+`), wo = La(`
     --glass-accent-icon: var(--glass-side-icon, #fff);
     --glass-graph-color: #fff;
     --glass-graph-accent: #ff9f0a;
@@ -5912,7 +5912,7 @@ const vn = {
   /* a home panel is the Apple Home sidebar: dark, wallpaper-tinted frosting with
      white text and orange icons, in light and dark appearance alike */
   :host([glass="home"]:not([nested])) {
-    ${yo}
+    ${vo}
     /* dark liquid glass: the shader's night mode plus the sidebar tint */
     --glass-liquid-dark: 1;
     --glass-panel-tint: var(--glass-home-side-rgb, 22, 30, 46);
@@ -5969,7 +5969,7 @@ const vn = {
      The Apple Home sidebar's dark liquid glass (home on a panel of its own), for any card –
      in a panel too: the shader's night mode with the wallpaper-tinted dark, white text. */
   :host([glass="dark-liquid"]) {
-    ${yo}
+    ${vo}
     --glass-liquid-dark: 1;
     --glass-panel-tint: var(--glass-home-side-rgb, 22, 30, 46);
     --glass-panel-tint-a: var(--glass-home-side-a, 0.45);
@@ -6598,7 +6598,7 @@ function ld() {
   const o = Tc(document, "hui-view-background");
   return o ? Mc(o) : void 0;
 }
-function ao(o) {
+function io(o) {
   for (let e = o; e; e = e instanceof ShadowRoot ? e.host : e.parentNode)
     if (e instanceof HTMLElement && e.classList.contains("pv-frame")) return e.classList.contains("bg") ? Mc(e) : ld();
   return ld();
@@ -6632,7 +6632,7 @@ function Mc(o) {
   }
   const e = getComputedStyle(o), t = e.backgroundImage.match(/url\(["']?(.*?)["']?\)/);
   if (!t) return;
-  const a = o.getBoundingClientRect(), i = wo.get(t[1])?.img;
+  const a = o.getBoundingClientRect(), i = xo.get(t[1])?.img;
   if (!i || !i.naturalWidth) return { url: t[1], rect: { x: a.x, y: a.y, w: a.width, h: a.height } };
   const s = i.naturalWidth, n = i.naturalHeight;
   let r = s, l = n;
@@ -6644,18 +6644,18 @@ function Mc(o) {
   const [d, h] = e.backgroundPosition.split(" ").map((b) => b.endsWith("%") ? parseFloat(b) / 100 : NaN), u = a.x + (Number.isNaN(d) ? 0.5 : d) * (a.width - r), m = a.y + (Number.isNaN(h) ? 0.5 : h) * (a.height - l), f = e.filter && e.filter !== "none" ? e.filter : void 0;
   return { url: t[1], rect: { x: u, y: m, w: r, h: l }, filter: f };
 }
-let wn = null;
+let xn = null;
 function Tc(o, e) {
-  if (wn?.isConnected) return wn;
+  if (xn?.isConnected) return xn;
   const t = [o];
   for (; t.length; ) {
     const a = t.pop(), i = a.querySelector(e);
-    if (i) return wn = i;
+    if (i) return xn = i;
     a.querySelectorAll("*").forEach((s) => s.shadowRoot && t.push(s.shadowRoot));
   }
   return null;
 }
-const wo = /* @__PURE__ */ new Map(), hd = /* @__PURE__ */ new Map();
+const xo = /* @__PURE__ */ new Map(), hd = /* @__PURE__ */ new Map();
 function pd(o, e) {
   const t = `${o.src}|${e ?? ""}`;
   let a = hd.get(t);
@@ -6668,20 +6668,20 @@ function pd(o, e) {
   return a;
 }
 function Yp(o) {
-  let e = wo.get(o);
+  let e = xo.get(o);
   if (!e) {
     const t = new Image();
     t.crossOrigin = "anonymous";
     const a = new Promise((i, s) => {
       t.onload = () => i(), t.onerror = s;
     });
-    t.src = o, e = { img: t, ready: a }, wo.set(o, e);
+    t.src = o, e = { img: t, ready: a }, xo.set(o, e);
   }
   return e;
 }
 const Ls = /* @__PURE__ */ new Map();
 function Eg(o, e) {
-  const t = ao(o);
+  const t = io(o);
   if (!t) return;
   const a = `${t.url}|${t.filter ?? ""}`, i = Ls.get(a);
   if (i) return { url: i, rect: t.rect };
@@ -6811,9 +6811,9 @@ class Lg {
   }
   /** Contrast only (no glass), for transparent panels such as the date header. */
   legibility(e, t = 1) {
-    const a = ao(e);
+    const a = io(e);
     if (!a) return;
-    const i = wo.get(a.url);
+    const i = xo.get(a.url);
     if (!i?.img.naturalWidth) return;
     this.thumb = pd(i.img);
     const s = e.getBoundingClientRect();
@@ -6834,7 +6834,7 @@ class Lg {
   render(e, t, a, i) {
     if (!this.ok) return !1;
     i && i === kt() && (i = void 0);
-    const s = i ? Mc(i) : ao(e);
+    const s = i ? Mc(i) : io(e);
     if (!s) return !1;
     const n = s.video ? void 0 : Yp(s.url);
     if (n && (!n.img.complete || !n.img.naturalWidth))
@@ -6850,15 +6850,15 @@ class Lg {
     let m;
     const f = this.styled.get(e);
     s.video && f && performance.now() - f.at < 500 ? m = f.shade : (m = this.contrast(e, this.edgeLight(e, l, s.rect) ?? 0, a.contrast), this.styled.set(e, { at: performance.now(), shade: m })), this.canvas.width < h && (this.canvas.width = h), this.canvas.height < u && (this.canvas.height = u), r.viewport(0, 0, h, u), r.clearColor(0, 0, 0, 0), r.clear(r.COLOR_BUFFER_BIT), r.uniform1i(this.loc.u_bg, 0), r.uniform2f(this.loc.u_size, l.width, l.height), r.uniform2f(this.loc.u_origin, l.x, l.y), r.uniform4f(this.loc.u_bgRect, s.rect.x, s.rect.y, s.rect.w, s.rect.h);
-    const b = (z, S) => r.uniform1f(this.loc[z], S), y = i ? ao(e)?.rect.w : void 0, _ = y ? y / s.rect.w : 1;
+    const b = (z, S) => r.uniform1f(this.loc[z], S), y = i ? io(e)?.rect.w : void 0, _ = y ? y / s.rect.w : 1;
     b("u_radius", a.radius * c), b("u_edgeI", a.edgeIntensity * _), b("u_rimI", a.rimIntensity * _), b("u_baseI", a.baseIntensity * _), b("u_edgeD", a.edgeDistance), b("u_rimD", a.rimDistance), b("u_baseD", a.baseDistance), b("u_corner", a.cornerBoost * _), b("u_ripple", a.ripple), b("u_tint", a.tint), b("u_disp", a.dispersion * (i && i !== kt() ? 0.3 : 1)), b("u_spec", a.specular), b("u_rimL", a.rimLight), b("u_rimW", a.rimWidth * c), b("u_dark", a.dark), b("u_sq", a.squircle), b("u_shL", a.shapeLeft * c), r.uniform4f(this.loc.u_blob, a.blobX * c, a.blobY * c, a.blobR * c, a.blobK * c), b("u_shade", m), b("u_tintA", a.tintA ?? 0), r.uniform3f(this.loc.u_tintC, (a.tintR ?? 255) / 255, (a.tintG ?? 255) / 255, (a.tintB ?? 255) / 255), b("u_px", 1 / d), r.drawArrays(r.TRIANGLE_STRIP, 0, 4), t.width !== h && (t.width = h), t.height !== u && (t.height = u);
     const x = t.getContext("2d");
     return x.clearRect(0, 0, h, u), x.drawImage(this.canvas, 0, this.canvas.height - u, h, u, 0, 0, h, u), !0;
   }
 }
-let xn;
+let kn;
 function ud() {
-  return xn ??= new Lg(), xn.ok ? xn : void 0;
+  return kn ??= new Lg(), kn.ok ? kn : void 0;
 }
 const Nr = (() => {
   try {
@@ -6867,10 +6867,10 @@ const Nr = (() => {
     return !1;
   }
 })(), Vi = /* @__PURE__ */ new Set();
-let kn = 0;
+let $n = 0;
 function _t() {
-  kn || (kn = requestAnimationFrame(() => {
-    kn = 0, Vi.forEach((o) => o());
+  $n || ($n = requestAnimationFrame(() => {
+    $n = 0, Vi.forEach((o) => o());
   }));
 }
 function md(o) {
@@ -6879,7 +6879,7 @@ function md(o) {
   };
 }
 let Rg = 0;
-const $n = (() => {
+const Sn = (() => {
   try {
     return CSS.supports("backdrop-filter", "url(#a)") && /Chrome\/\d+/.test(navigator.userAgent);
   } catch {
@@ -6964,9 +6964,9 @@ const Xa = class Xa {
   }
   get active() {
     if (Og(this.host) || this.when && !this.when()) return !1;
-    if (this.under) return Nr || $n;
+    if (this.under) return Nr || Sn;
     const e = this.host.getAttribute("glass"), t = !this.host.hasAttribute("nested") || this.host.hasAttribute("own-tile"), a = e === "liquid" || e === "dark-liquid" || e === "home" && !this.host.hasAttribute("nested") || !!this.legibilitySelector && e === "none";
-    return (Nr || $n) && a && t;
+    return (Nr || Sn) && a && t;
   }
   /** Light glass: its own surface, on the wallpaper (not a bar over a photo). */
   get light() {
@@ -6988,7 +6988,7 @@ const Xa = class Xa {
       this.updateGl(e);
       return;
     }
-    if (!$n) return;
+    if (!Sn) return;
     const t = new Set(e.querySelectorAll(this.selector));
     for (const a of [...this.lenses.keys()])
       t.has(a) || (this.ro?.unobserve(a), a.style.removeProperty("backdrop-filter"), this.lenses.delete(a));
@@ -7453,7 +7453,7 @@ const Kg = /* @__PURE__ */ new Set([
   "or",
   "not",
   "conditions"
-]), Vg = /^[a-z_]+\.[a-z0-9_]+$/, xo = (o) => typeof o == "string" && Vg.test(o);
+]), Vg = /^[a-z_]+\.[a-z0-9_]+$/, ko = (o) => typeof o == "string" && Vg.test(o);
 function iu(o, e, t) {
   if (!e) return;
   const a = o.states[e];
@@ -7461,7 +7461,7 @@ function iu(o, e, t) {
     return t ? a.attributes[t] : a.state;
 }
 function yd(o, e) {
-  return xo(e) ? Number(iu(o, e)) : Number(e);
+  return ko(e) ? Number(iu(o, e)) : Number(e);
 }
 const ra = (o) => Array.isArray(o) ? o : [o];
 function ge(o, e, t) {
@@ -7490,7 +7490,7 @@ function He(o, e, t = /* @__PURE__ */ new Set()) {
     return o.forEach((i) => He(i, e, t)), t;
   const a = o.entity ?? e;
   a && (o.state !== void 0 || o.state_not !== void 0 || o.above !== void 0 || o.below !== void 0) && t.add(a);
-  for (const i of ["above", "below"]) xo(o[i]) && t.add(o[i]);
+  for (const i of ["above", "below"]) ko(o[i]) && t.add(o[i]);
   for (const i of ["and", "or", "not", "conditions"]) o[i] && He(o[i], e, t);
   return t;
 }
@@ -7503,7 +7503,7 @@ function su(o) {
   for (const [a, i] of Object.entries(o)) (Kg.has(a) ? e : t)[a] = i;
   return { when: e, set: t };
 }
-function ko(o, e, t, a) {
+function $o(o, e, t, a) {
   if (!e?.length) return o;
   let i = o;
   for (const s of e) {
@@ -7515,7 +7515,7 @@ function ko(o, e, t, a) {
 function Ir(o, e, t = /* @__PURE__ */ new Set()) {
   return o?.forEach((a) => {
     const { when: i, set: s } = su(a);
-    He(i, e, t), xo(s.entity) && t.add(s.entity), Array.isArray(s.entities) && s.entities.filter(xo).forEach((n) => t.add(n));
+    He(i, e, t), ko(s.entity) && t.add(s.entity), Array.isArray(s.entities) && s.entities.filter(ko).forEach((n) => t.add(n));
   }), t;
 }
 function qr(o) {
@@ -7530,7 +7530,7 @@ function ou(o, e) {
     return e in o.attributes ? o.attributes[e] : e.split(".").reduce((t, a) => t?.[a], o.attributes);
 }
 const gi = (o) => !o || Yg.has(o.state);
-function Sn(o, e, t) {
+function zn(o, e, t) {
   const a = o.locale?.number_format, i = a === "comma_decimal" ? "en-US" : a === "decimal_comma" ? "de" : a === "space_comma" ? "fr" : a === "none" ? "en-US" : e, s = { useGrouping: a !== "none" };
   return t !== void 0 ? (s.minimumFractionDigits = t, s.maximumFractionDigits = t) : s.maximumFractionDigits = 2, new Intl.NumberFormat(i, s);
 }
@@ -7565,7 +7565,7 @@ function nu(o, e) {
   if (c === "state") {
     if (s[0] !== "" && s[0] !== null && !Number.isNaN(Number(s[0])) && (e.precision !== void 0 || e.unit !== void 0 || !l)) {
       const m = Number(s[0]) * (e.scale ?? 1), f = e.abs ? Math.abs(m) : m;
-      return { value: Sn(o, i, e.precision).format(f), unit: e.unit ?? l ?? "", number: f, available: !0 };
+      return { value: zn(o, i, e.precision).format(f), unit: e.unit ?? l ?? "", number: f, available: !0 };
     }
     return { value: o.formatEntityState ? o.formatEntityState(r) : `${r.state}${l ? ` ${l}` : ""}`, unit: "", number: Number(s[0]), available: !0 };
   }
@@ -7591,13 +7591,13 @@ function nu(o, e) {
   if (c === "power" || c === "energy" || c === "data_rate") {
     const h = Zg(c, d, l);
     return {
-      value: Sn(o, i, e.precision ?? h.precision).format(h.value),
+      value: zn(o, i, e.precision ?? h.precision).format(h.value),
       unit: e.unit ?? h.unit,
       number: d,
       available: !0
     };
   }
-  return { value: Sn(o, i, e.precision).format(d), unit: e.unit ?? l ?? "", number: d, available: !0 };
+  return { value: zn(o, i, e.precision).format(d), unit: e.unit ?? l ?? "", number: d, available: !0 };
 }
 function Xg(o, e, t, a) {
   const i = a.entity ? e.states[a.entity] : void 0;
@@ -7622,7 +7622,7 @@ function xa(o, e) {
   const t = nu(o, e);
   return t.available ? e.text !== void 0 ? { text: Xg(e.text, o, t, e).replace(/\s+/g, " ").trim(), available: !0, number: t.number } : { text: t.unit ? `${t.value} ${t.unit}` : t.value, available: !0, number: t.number } : { text: "", available: !1, number: NaN };
 }
-const Vo = class Vo extends Ye {
+const Yo = class Yo extends Ye {
   constructor() {
     super(), this.items = [], this.cx = 0, this.cy = 0, this.radius = 0, this.labels = !1, this._onKey = (e) => {
       e.key === "Escape" && this.close();
@@ -7703,7 +7703,7 @@ const Vo = class Vo extends Ye {
     `;
   }
 };
-Vo.properties = { _open: { state: !0 }, _ready: { state: !0 } }, Vo.styles = ee`
+Yo.properties = { _open: { state: !0 }, _ready: { state: !0 } }, Yo.styles = ee`
     :host {
       position: fixed;
       inset: 0;
@@ -7810,7 +7810,7 @@ Vo.properties = { _open: { state: !0 }, _ready: { state: !0 } }, Vo.styles = ee`
       filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
     }
   `;
-let Fr = Vo;
+let Fr = Yo;
 customElements.get("glass-action-menu") || customElements.define("glass-action-menu", Fr);
 function Qg(o, e, t, a, i) {
   document.querySelectorAll("glass-action-menu").forEach((l) => l.close());
@@ -12624,7 +12624,7 @@ function vd(o, e, t) {
   const a = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${e}"/><stop offset="1" stop-color="${t}"/></linearGradient></defs><rect width="96" height="96" fill="url(#g)"/><text x="48" y="60" font-family="system-ui,sans-serif" font-size="38" font-weight="600" fill="white" text-anchor="middle">${o}</text></svg>`;
   return `data:image/svg+xml,${encodeURIComponent(a)}`;
 }
-const Gr = (/* @__PURE__ */ new Date()).getHours(), Yi = Gr >= 7 && Gr < 19, l0 = Yi ? Math.round(6e4 * Math.sin((Gr + 0.5 - 7) / 12 * Math.PI)) : 0, zn = (o, e, t) => [
+const Gr = (/* @__PURE__ */ new Date()).getHours(), Yi = Gr >= 7 && Gr < 19, l0 = Yi ? Math.round(6e4 * Math.sin((Gr + 0.5 - 7) / 12 * Math.PI)) : 0, An = (o, e, t) => [
   e > 0 ? "open" : "closed",
   { friendly_name: o, current_position: e, current_tilt_position: t, device_class: "blind", supported_features: 255 }
 ], c0 = {
@@ -12656,9 +12656,9 @@ const Gr = (/* @__PURE__ */ new Date()).getHours(), Yi = Gr >= 7 && Gr < 19, l0 
   "sensor.sun_sensor_luminance": [String(l0), { friendly_name: "Sun sensor luminance", unit_of_measurement: "lx", device_class: "illuminance", state_class: "measurement" }],
   "sensor.blinds_shading_level": [Yi ? "mid" : "open", { friendly_name: "Blinds shading level" }],
   "sensor.blinds_target_tilt": [Yi ? "45" : "100", { friendly_name: "Blinds target tilt", unit_of_measurement: "%" }],
-  "cover.office": zn("Office", 0, Yi ? 45 : 0),
-  "cover.kids_room": zn("Kids room", 0, Yi ? 45 : 0),
-  "cover.balcony": zn("Balcony", 100, 100),
+  "cover.office": An("Office", 0, Yi ? 45 : 0),
+  "cover.kids_room": An("Kids room", 0, Yi ? 45 : 0),
+  "cover.balcony": An("Balcony", 100, 100),
   // a gate that only opens and closes (no position), and can be stopped
   "cover.gate": ["closed", { friendly_name: "Gate", device_class: "gate", supported_features: 11 }],
   // the weather now: what the forecast (demoForecast) starts with, by day or night
@@ -12671,7 +12671,7 @@ const Gr = (/* @__PURE__ */ new Date()).getHours(), Yi = Gr >= 7 && Gr < 19, l0 
 }
 const d0 = (o, e) => {
   for (const [t, a] of e) o.set(t, a ? ["on", { brightness: a }] : ["off", { brightness: null }]);
-}, zi = (o, e) => (t) => d0(t, [[`light.${o}`, e[o] ?? 0]]), An = (o, e) => ({
+}, zi = (o, e) => (t) => d0(t, [[`light.${o}`, e[o] ?? 0]]), Mn = (o, e) => ({
   [`script.open_blinds_${o}`]: (t) => t.set(e, ["open", { current_position: 100 }]),
   [`script.close_blinds_${o}`]: (t) => t.set(e, ["closed", { current_position: 0 }]),
   [`script.tilt_blinds_${o}_min`]: (t) => t.set(e, ["open", { current_tilt_position: 20 }]),
@@ -12689,9 +12689,9 @@ const d0 = (o, e) => {
       [`scene.${o}_nightlight`, zi(o, { [o]: 18 })]
     ])
   ),
-  ...An("office", "cover.office"),
-  ...An("kids", "cover.kids_room"),
-  ...An("bedroom", "cover.balcony"),
+  ...Mn("office", "cover.office"),
+  ...Mn("kids", "cover.kids_room"),
+  ...Mn("bedroom", "cover.balcony"),
   "select.kitchen_led_preset=Lights off": Bs(!1, !1),
   "select.kitchen_led_preset=Upper light": Bs(!0, !1),
   "select.kitchen_led_preset=Lower light": Bs(!1, !0),
@@ -12788,14 +12788,14 @@ function u0(o) {
 }
 const Kr = {}, Vr = /* @__PURE__ */ new Set(), ru = /* @__PURE__ */ new Map(), Yr = /* @__PURE__ */ new Map();
 let xd = 0;
-const $o = (o) => String(o).padStart(2, "0"), So = (o) => `${o.getFullYear()}-${$o(o.getMonth() + 1)}-${$o(o.getDate())}`, m0 = (o) => {
+const So = (o) => String(o).padStart(2, "0"), zo = (o) => `${o.getFullYear()}-${So(o.getMonth() + 1)}-${So(o.getDate())}`, m0 = (o) => {
   const [e, t, a] = o.split("-").map(Number);
   return new Date(e, t - 1, a);
-}, zo = (o) => o.dateTime ? Date.parse(o.dateTime) : m0(o.date).getTime(), g0 = (o, e) => So(o).replace(/-/g, "") + (e ? "" : `T${$o(o.getHours())}${$o(o.getMinutes())}00`), kd = (o) => new Date(+o.slice(0, 4), +o.slice(4, 6) - 1, +o.slice(6, 8), +(o.slice(9, 11) || 0), +(o.slice(11, 13) || 0)).getTime();
+}, Ao = (o) => o.dateTime ? Date.parse(o.dateTime) : m0(o.date).getTime(), g0 = (o, e) => zo(o).replace(/-/g, "") + (e ? "" : `T${So(o.getHours())}${So(o.getMinutes())}00`), kd = (o) => new Date(+o.slice(0, 4), +o.slice(4, 6) - 1, +o.slice(6, 8), +(o.slice(9, 11) || 0), +(o.slice(11, 13) || 0)).getTime();
 function f0(o, e, t) {
   const a = /FREQ=(\w+)/.exec(o.rrule ?? "")?.[1];
   if (!a) return [o];
-  const i = !o.start.dateTime, s = new Date(zo(o.start)), n = zo(o.end) - s.getTime(), r = Math.round(n / 864e5), l = Yr.get(o.uid) ?? 1 / 0, c = [];
+  const i = !o.start.dateTime, s = new Date(Ao(o.start)), n = Ao(o.end) - s.getTime(), r = Math.round(n / 864e5), l = Yr.get(o.uid) ?? 1 / 0, c = [];
   for (let d = 0; d < 800; d++) {
     const h = new Date(s);
     a === "DAILY" ? h.setDate(h.getDate() + d) : a === "WEEKLY" ? h.setDate(h.getDate() + 7 * d) : a === "MONTHLY" ? h.setMonth(h.getMonth() + d) : h.setFullYear(h.getFullYear() + d);
@@ -12804,8 +12804,8 @@ function f0(o, e, t) {
     const m = i ? new Date(h.getFullYear(), h.getMonth(), h.getDate() + r) : new Date(u + n);
     m.getTime() <= e || c.push({
       ...o,
-      start: i ? { date: So(h) } : { dateTime: h.toISOString() },
-      end: i ? { date: So(m) } : { dateTime: m.toISOString() },
+      start: i ? { date: zo(h) } : { dateTime: h.toISOString() },
+      end: i ? { date: zo(m) } : { dateTime: m.toISOString() },
       recurrence_id: g0(h, i)
     });
   }
@@ -12814,7 +12814,7 @@ function f0(o, e, t) {
 function b0(o, e, t) {
   const a = (n, r, l = 0) => {
     const c = /* @__PURE__ */ new Date();
-    return c.setDate(c.getDate() + n), r === void 0 ? { date: So(c) } : (c.setHours(r, l, 0, 0), { dateTime: c.toISOString() });
+    return c.setDate(c.getDate() + n), r === void 0 ? { date: zo(c) } : (c.setHours(r, l, 0, 0), { dateTime: c.toISOString() });
   };
   return [...(o === "calendar.utilities" ? [
     { summary: "Paper and plastic", start: a(1), end: a(2) },
@@ -12825,7 +12825,7 @@ function b0(o, e, t) {
     { summary: "Dentist", start: a(1, 9, 0), end: a(1, 9, 45), location: "Main Street 12" },
     { summary: "Grandma's birthday", start: a(2), end: a(3) },
     { summary: "Car service", start: a(3, 8, 0), end: a(3, 10, 0) }
-  ]).map((n, r) => ({ ...n, uid: `${o}-${r}` })), ...Kr[o] ?? []].flatMap((n) => f0(n, e, t)).filter((n) => !Vr.has(n.uid) && !(n.recurrence_id && Vr.has(`${n.uid}|${n.recurrence_id}`))).map((n) => ({ ...n, ...ru.get(n.recurrence_id ? `${n.uid}|${n.recurrence_id}` : n.uid) ?? {} })).filter((n) => zo(n.start) < t && zo(n.end) > e);
+  ]).map((n, r) => ({ ...n, uid: `${o}-${r}` })), ...Kr[o] ?? []].flatMap((n) => f0(n, e, t)).filter((n) => !Vr.has(n.uid) && !(n.recurrence_id && Vr.has(`${n.uid}|${n.recurrence_id}`))).map((n) => ({ ...n, ...ru.get(n.recurrence_id ? `${n.uid}|${n.recurrence_id}` : n.uid) ?? {} })).filter((n) => Ao(n.start) < t && Ao(n.end) > e);
 }
 function _0(o) {
   const e = String(o.entity_id), t = String(o.uid ?? ""), a = o.recurrence_id ? String(o.recurrence_id) : void 0, i = o.recurrence_range === "THISANDFUTURE" && !!a, s = o.event ?? {}, n = (c) => c && c.length > 10 ? { dateTime: new Date(c).toISOString() } : { date: c }, r = () => ({
@@ -12838,7 +12838,7 @@ function _0(o) {
   }), l = a ? `${t}|${a}` : t;
   return o.type === "calendar/event/create" ? (Kr[e] ??= []).push({ ...r(), uid: `demo-${++xd}` }) : o.type === "calendar/event/delete" ? i ? Yr.set(t, kd(a)) : Vr.add(l) : o.type === "calendar/event/update" && (i ? (Yr.set(t, kd(a)), (Kr[e] ??= []).push({ ...r(), uid: `demo-${++xd}` })) : ru.set(l, { ...r(), rrule: a ? void 0 : s.rrule })), null;
 }
-const lu = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "panel", cards: [{ type: "custom:glass-dashboard", left_width: "minmax(340px, 0.36fr)", left: [{ type: "custom:glass-panel", padding: "26px 28px", cards: [{ type: "custom:glass-panel", layout: "row", align: "start", gap: 8, padding: 0, cards: [{ type: "custom:glass-date-header", align: "start", styles: { date_size: "15px", date_line_size: "13px" }, view_layout: { grow: 1 }, nameday: "sensor.nameday", holidays: "calendar.holidays" }, { type: "custom:glass-notifications", entity: "sensor.glass_notifications", size: 28, alerts: [{ id: "mower_error", level: "alert", icon: "mdi:robot-mower-outline", title: "The mower reports an error", message: "Probably stuck", condition: { entity: "lawn_mower.mower", state: "error" } }, { id: "mower_low", level: "warning", icon: "mdi:battery-alert-variant-outline", title: "The mower's battery is low", message: "Under 10 % and not charging", condition: { entity: "sensor.mower_battery", below: 10, and: { entity: "binary_sensor.mower_charging", state: "off" } } }, { id: "braava_error", level: "warning", icon: "mdi:robot-vacuum-alert", title: "The mop reports an error", message: "{state}", condition: { entity: "sensor.mop_error", state_not: ["unknown", "unavailable", "none", ""] } }], visible_on: ["tablet", "desktop"] }, { type: "custom:glass-people", people: [{ entity: "person.alex", battery: "sensor.alex_phone_battery", battery_state: "sensor.alex_phone_battery_state" }, { entity: "person.sam", battery: "sensor.sam_phone_battery", battery_state: "sensor.sam_phone_battery_state" }], responsive: { mobile: { size: 36, gap: 8, battery_style: "ring", show_location: "never", view_layout: { shrink: 0, align: "start" } } }, view_layout: { shrink: 0 }, visible_on: ["tablet", "desktop"], size: 30 }], view_layout: { height: "auto", grow: 0 }, glass: "none" }, { type: "custom:glass-clock-weather", weather: "weather.home", forecast_type: "hourly", forecast_rows: 5, show_weather: !1, clock_align: "center", temperature_entity: "sensor.heat_pump_outside_temperature" }, { type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, hourly_forecast: 5, rain_nowcast: !0, daily_forecast: 0, show_condition: !0, dividers: !0, now_style: "line", icon_style: "mdi", forecast_style: "columns", rain_bars: !1, now_align: "center", temperature_entity: "sensor.heat_pump_outside_temperature", icons: { weather: { color: "rgba(255,255,255,0.92)" } } }, { type: "custom:glass-divider" }, { type: "custom:glass-status-bar", items: [{ entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-check-outline", text: "Secured", visible: { state_not: ["disarmed", "unavailable", "unknown"] } }, { entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-off-outline", text: "Not secured", visible: { state: "disarmed" } }, { entity: "sensor.hot_water_temperature", icon: "dot", text: "Hot water {value}°", precision: 0, color: "blue", rules: [{ above: 43, color: "yellow" }, { above: 45, color: "red" }, { entity: "sensor.water_heating_on", state: "on", animation: "glow" }] }, { entity: "sensor.active_power", format: "power", abs: !0, icon: "mdi:arrow-up-bold", rules: [{ below: 0, icon: "mdi:arrow-down-bold" }, { state: ["0", "0.0"], icon: "mdi:minus", color: "gray" }] }, { entity: "sensor.energy_virtual_batery_day", icon: "mdi:battery-outline", unit: "kWh", rules: [{ above: 0, icon: "mdi:battery-charging" }], precision: 0 }, { entity: "sensor.router_download_speed", format: "data_rate", icon: "mdi:swap-vertical-bold", visible: { above: 0 } }, { entities: ["sensor.sabnzbd_speed", "sensor.qbittorrent_download_speed"], aggregate: "sum", format: "data_rate", icon: "mdi:download", visible: { or: [{ entity: "sensor.sabnzbd_status", state: "Downloading" }, { entity: "sensor.qbittorrent_status", state: ["downloading", "up_down"] }] } }, { entity: "sensor.washer_remaining_time", icon: "mdi:washing-machine", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }, { entity: "binary_sensor.heat_pump_compressor", icon: "mdi:heat-pump-outline", text: "Heat pump", animation: "pulse", visible: { state: "on" } }, { entity: "lawn_mower.mower", icon: "mdi:robot-mower", format: "none", animation: "bounce", visible: { state: "mowing" }, text: "Mowing" }, { entity: "input_boolean.alarmed_toggle", icon: "mdi:alarm-note", format: "none", visible: { state: "on" }, text: "Alarm" }, { entity: "sensor.media_server_streams", icon: "mdi:plex", text: "Plex: {value}", precision: 0, visible: { above: 0 } }], size: 26, gap: 5, wrap: !0, view_layout: { margin: "0 11px" }, pack: !0, styles: { chip_padding: "0 12px 0 10px" } }, { type: "custom:glass-calendar", calendar_view: { days_off: ["calendar.holidays"] }, days: 14, max_events: 6, calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], hide_empty: !0, fit: !0 }], visible_on: ["tablet", "desktop"], justify: "start", styles: { home_side_a: 0.35, liquid_edge_intensity: 0.18, liquid_edge_distance: 0.12 }, gap: 22 }], main: [{ type: "custom:glass-panel", layout: "column", gap: 14, padding: 20, cards: [{ type: "custom:glass-panel", layout: "grid", columns: 3, rows: 3, gap: 14, padding: 0, view_layout: { grow: 1, basis: "0" }, cards: [{ type: "custom:glass-room-card", name: "Living room", icon: "mdi:sofa", entities: [{ entity: "light.living_room", icon: "mdi:lightbulb-outline" }, { entity: "media_player.apple_tv_4k", icon: "mdi:television", name: "TV" }, { entity: "media_player.playstation_5", icon: "mdi:sony-playstation", active_states: ["on"], name: "PS5", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }], layout: "image-full", image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop", image_position: "center 92%", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, image_entities: ["light.living_room", "media_player.apple_tv_4k", "media_player.playstation_5"], max_entities: 2, bar: "split", contextual: [{ entity: "media_player.playstation_5", name: "PS5", icon: "mdi:sony-playstation", visible: { state_not: ["off", "standby", "unavailable", "unknown"] }, active: { state_not: ["off", "standby", "unavailable", "unknown"] }, artwork: !1 }] }, { type: "custom:glass-room-card", name: "Office", icon: "mdi:desk", entities: [{ entity: "sensor.portainer_containers_status", icon: "mdi:server-outline", tap_action: { action: "more-info" }, rules: [{ state: "running", color: "blue" }, { state: "unhealthy", color: "orange", animation: "pulse", badge: "!" }, { state: "stopped", color: "red", badge: "!" }] }, { entity: "cover.office", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_office_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_office_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_office_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_office", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_office", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.office_blinds_user_switch" }, active: { entity: "switch.office_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.office_blinds_user_switch", duration: 3600 } }] } }, { entity: "sensor.office_pc_cpu_load", icon: "mdi:laptop", name: "PC", active: { state_not: ["unavailable", "unknown"] } }], image: "https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature", precision: 1 }], max_entities: 2, image_position: "center 55%", image_on: { entity: "sensor.office_pc_cpu_load", state_not: ["unavailable", "unknown"] }, contextual: [{ entity: "sensor.office_pc_cpu_load", name: "PC", icon: "mdi:laptop", visible: { state_not: ["unavailable", "unknown"] }, active: { state_not: ["unavailable", "unknown"] } }] }, { type: "custom:glass-room-card", name: "Kitchen", icon: "mdi:silverware-fork-knife", entities: [{ entity: "binary_sensor.kitchen_lights_any_on", icon: "mdi:lightbulb-outline", active_color: "yellow", tap_action: { action: "menu", items: [{ icon: "mdi:power", active: { entity: "binary_sensor.kitchen_lights_off_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lights off" } }, { icon: "mdi:arrow-up-bold-circle", active: { entity: "binary_sensor.kitchen_lights_upper_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Upper light" } }, { icon: "mdi:arrow-down-bold-circle", active: { entity: "binary_sensor.kitchen_lights_lower_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lower light" } }, { icon: "mdi:lightbulb-group", active: { entity: "binary_sensor.kitchen_lights_all_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "All lights" } }, { icon: "mdi:ceiling-light", name: "Bar", perform_action: "light.toggle", target: { entity_id: "light.kitchen_bar" }, active: { entity: "light.kitchen_bar", state: "on" } }] }, active: { or: [{ entity: "binary_sensor.kitchen_lights_any_on", state: "on" }, { entity: "light.kitchen_bar", state: "on" }] }, count: ["binary_sensor.kitchen_lights_any_on", "light.kitchen_bar"] }, { entity: "media_player.office", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, max_entities: 1, bar: "split", contextual: [{ entity: "media_player.office", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_position: "center 60%" }, { type: "custom:glass-room-card", name: "Kids' room", icon: "mdi:teddy-bear", entities: [{ entity: "input_boolean.kids_radio", icon: "mdi:weather-night", name: "bedtime", active_color: "blue", active: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] }, tap_action: { action: "menu", labels: !0, items: [{ icon: "mdi:music-note", name: "Stories", tap_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" }, active: { entity: "input_boolean.kids_radio", state: "on" } }, { icon: "mdi:projector", name: "Projector", tap_action: { action: "perform-action", perform_action: "input_boolean.toggle", target: { entity_id: "input_boolean.star_projector" } }, active: { entity: "input_boolean.star_projector", state: "on" } }, { icon: "mdi:power", name: "Both off", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "off" } }, visible: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } }, { icon: "mdi:weather-night", name: "Both on", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "both" } }, visible: { not: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } } }] }, hold_action: { action: "perform-action", perform_action: "script.kids_bedtime" } }, { entity: "cover.kids_room", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_kids_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_kids_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_kids_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_kids", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_kids", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.kids_blinds_user_switch" }, active: { entity: "switch.kids_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.kids_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_4", precision: 1, visible: { entity: "input_boolean.kids_radio", state_not: "on" } }], image_entities: ["input_boolean.star_projector", "input_boolean.kids_radio"], max_entities: 2 }, { type: "custom:glass-room-card", name: "Bedroom", icon: "mdi:bed", entities: [{ entity: "media_player.bedroom_speaker", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music" }, { entity: "cover.balcony", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_bedroom_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_bedroom_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_bedroom_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_bedroom", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_bedroom", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.bedroom_blinds_user_switch" }, active: { entity: "switch.bedroom_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.bedroom_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_3", precision: 1 }], image_entities: ["media_player.bedroom_speaker"], max_entities: 2, image_position: "center 85%" }, { type: "custom:glass-room-card", name: "Laundry", icon: "mdi:tshirt-crew-outline", entities: [{ entity: "switch.wall_switch_2", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "sensor.washer_job_state", icon: "mdi:washing-machine", active_color: "blue", tap_action: { action: "more-info" } }], image: "glass:demo/laundry.jpg", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.washer_remaining_time", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }], max_entities: 2, image_position: "center 74%" }, { type: "custom:glass-room-card", name: "Bathroom", icon: "mdi:bathtub-outline", entities: [{ entity: "switch.switch_switch2", icon: "mdi:lightbulb-outline", active_color: "yellow", active: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, tap_action: { action: "perform-action", perform_action: "script.bathroom_lights_toggle" }, count: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"] }, { entity: "binary_sensor.motion_sensor", icon: "mdi:minus-circle", tap_action: { action: "none" }, active: { or: [{ state: "on" }, { entity: "media_player.bathroom", state: "playing" }] } }, { entity: "media_player.bathroom", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop", layout: "image-full", show_name: !0, info: [], max_entities: 2, image_position: "center 100%", contextual: [{ entity: "media_player.bathroom", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_on: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] } }], glass: "none" }, { type: "custom:glass-panel", layout: "grid", columns: 2, gap: 14, padding: 0, cards: [{ type: "custom:glass-room-card", name: "Hallway", icon: "mdi:coat-rack", entities: [{ entity: "light.hallway", icon: "mdi:lightbulb-outline" }], image: "https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_2", precision: 1 }], max_entities: 2, bar: "split" }, { type: "custom:glass-room-card", name: "Toilet", icon: "mdi:toilet", entities: [{ entity: "switch.wall_switch", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "binary_sensor.toilet_occupied", icon: "mdi:minus-circle", tap_action: { action: "none" }, name: "occupied" }], image: "https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_2", precision: 1 }], max_entities: 2, bar: "split", image_position: "35% 80%" }], view_layout: { height: "auto", shrink: 0 }, glass: "none" }], responsive: { mobile: { columns: 2, rows: null, gap: 8, padding: 6 } }, control_tint: { strength: 0, color: [0, 0, 0] }, styles: { home_border: "rgba(255, 255, 255, 0.12)", home_surface: "transparent" } }], breakpoints: { mobile: 700, desktop: 1500 }, responsive: { mobile: { gap: 12, padding: "10px 12px 12px", overlay_source: { dashboard: "glass-demo-popups", view: "mobile", nav: !1 }, styles: { room_button_size: "46px", room_icon_size: "40px" }, left: null, main: [{ type: "custom:glass-panel", glass: "none", layout: "row", align: "center", gap: 10, padding: 0, cards: [{ type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, hourly_forecast: 0, rain_nowcast: !0, daily_forecast: 0, show_condition: !0, dividers: !1, now_style: "line", icon_style: "mdi", forecast_style: "columns", rain_bars: !1, now_align: "start", temperature_entity: "sensor.heat_pump_outside_temperature", view_layout: { grow: 1 }, icons: { weather: { color: "rgba(255,255,255,0.92)" } }, glass: "none" }, { type: "custom:glass-people", people: [{ entity: "person.alex", battery: "sensor.alex_phone_battery", battery_state: "sensor.alex_phone_battery_state" }, { entity: "person.sam", battery: "sensor.sam_phone_battery", battery_state: "sensor.sam_phone_battery_state" }], view_layout: { shrink: 0 }, size: 34, gap: 6, battery_style: "ring", show_location: "never" }] }, { type: "custom:glass-date-header", greeting: !0, align: "start", styles: { date_size: "26px", date_line_size: "14px" } }, { type: "custom:glass-status-bar", items: [{ entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-check-outline", text: "Secured", visible: { state_not: ["disarmed", "unavailable", "unknown"] } }, { entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-off-outline", text: "Not secured", visible: { state: "disarmed" } }, { entity: "sensor.hot_water_temperature", icon: "dot", text: "Hot water {value}°", precision: 0, color: "blue", rules: [{ above: 43, color: "yellow" }, { above: 45, color: "red" }, { entity: "sensor.water_heating_on", state: "on", animation: "glow" }] }, { entity: "sensor.active_power", format: "power", abs: !0, icon: "mdi:arrow-up-bold", rules: [{ below: 0, icon: "mdi:arrow-down-bold" }, { state: ["0", "0.0"], icon: "mdi:minus", color: "gray" }] }, { entity: "sensor.energy_virtual_batery_day", icon: "mdi:battery-outline", unit: "kWh", rules: [{ above: 0, icon: "mdi:battery-charging" }], precision: 0 }, { entity: "sensor.router_download_speed", format: "data_rate", icon: "mdi:swap-vertical-bold", visible: { above: 0 } }, { entities: ["sensor.sabnzbd_speed", "sensor.qbittorrent_download_speed"], aggregate: "sum", format: "data_rate", icon: "mdi:download", visible: { or: [{ entity: "sensor.sabnzbd_status", state: "Downloading" }, { entity: "sensor.qbittorrent_status", state: ["downloading", "up_down"] }] } }, { entity: "sensor.washer_remaining_time", icon: "mdi:washing-machine", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }, { entity: "binary_sensor.heat_pump_compressor", icon: "mdi:heat-pump-outline", text: "Heat pump", animation: "pulse", visible: { state: "on" } }, { entity: "lawn_mower.mower", icon: "mdi:robot-mower", format: "none", animation: "bounce", visible: { state: "mowing" }, text: "Mowing" }, { entity: "input_boolean.alarmed_toggle", icon: "mdi:alarm-note", format: "none", visible: { state: "on" }, text: "Alarm" }, { entity: "sensor.media_server_streams", icon: "mdi:plex", text: "Plex: {value}", precision: 0, visible: { above: 0 } }], size: 26, gap: 5, wrap: !1 }, { type: "custom:glass-divider", name: "Rooms", line: !1 }, { type: "custom:glass-panel", glass: "none", layout: "row", scroll: !0, item_width: "max(150px, calc((100vw - 48px) / 2.25))", height: "clamp(200px, 34dvh, 320px)", gap: 12, padding: 0, cards: [{ type: "custom:glass-room-card", name: "Living room", icon: "mdi:sofa", entities: [{ entity: "light.living_room", icon: "mdi:lightbulb-outline" }, { entity: "media_player.apple_tv_4k", icon: "mdi:television", name: "TV" }, { entity: "media_player.playstation_5", icon: "mdi:sony-playstation", active_states: ["on"], name: "PS5", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }], layout: "image-full", image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop", image_position: "center 92%", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, image_entities: ["light.living_room", "media_player.apple_tv_4k", "media_player.playstation_5"], max_entities: 2, bar: "full", contextual: [{ entity: "media_player.playstation_5", name: "PS5", icon: "mdi:sony-playstation", visible: { state_not: ["off", "standby", "unavailable", "unknown"] }, active: { state_not: ["off", "standby", "unavailable", "unknown"] }, artwork: !1 }], status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Office", icon: "mdi:desk", entities: [{ entity: "sensor.portainer_containers_status", icon: "mdi:server-outline", tap_action: { action: "more-info" }, rules: [{ state: "running", color: "blue" }, { state: "unhealthy", color: "orange", animation: "pulse", badge: "!" }, { state: "stopped", color: "red", badge: "!" }] }, { entity: "cover.office", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_office_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_office_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_office_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_office", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_office", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.office_blinds_user_switch" }, active: { entity: "switch.office_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.office_blinds_user_switch", duration: 3600 } }] } }, { entity: "sensor.office_pc_cpu_load", icon: "mdi:laptop", name: "PC", active: { state_not: ["unavailable", "unknown"] } }], image: "https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature", precision: 1 }], max_entities: 2, image_position: "center 55%", image_on: { entity: "sensor.office_pc_cpu_load", state_not: ["unavailable", "unknown"] }, contextual: [{ entity: "sensor.office_pc_cpu_load", name: "PC", icon: "mdi:laptop", visible: { state_not: ["unavailable", "unknown"] }, active: { state_not: ["unavailable", "unknown"] } }], status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Kitchen", icon: "mdi:silverware-fork-knife", entities: [{ entity: "binary_sensor.kitchen_lights_any_on", icon: "mdi:lightbulb-outline", active_color: "yellow", tap_action: { action: "menu", items: [{ icon: "mdi:power", active: { entity: "binary_sensor.kitchen_lights_off_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lights off" } }, { icon: "mdi:arrow-up-bold-circle", active: { entity: "binary_sensor.kitchen_lights_upper_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Upper light" } }, { icon: "mdi:arrow-down-bold-circle", active: { entity: "binary_sensor.kitchen_lights_lower_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lower light" } }, { icon: "mdi:lightbulb-group", active: { entity: "binary_sensor.kitchen_lights_all_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "All lights" } }, { icon: "mdi:ceiling-light", name: "Bar", perform_action: "light.toggle", target: { entity_id: "light.kitchen_bar" }, active: { entity: "light.kitchen_bar", state: "on" } }] }, active: { or: [{ entity: "binary_sensor.kitchen_lights_any_on", state: "on" }, { entity: "light.kitchen_bar", state: "on" }] }, count: ["binary_sensor.kitchen_lights_any_on", "light.kitchen_bar"] }, { entity: "media_player.office", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, max_entities: 2, bar: "full", contextual: [{ entity: "media_player.office", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_position: "center 60%", status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Kids' room", icon: "mdi:teddy-bear", entities: [{ entity: "input_boolean.kids_radio", icon: "mdi:weather-night", name: "bedtime", active_color: "blue", active: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] }, tap_action: { action: "menu", labels: !0, items: [{ icon: "mdi:music-note", name: "Stories", tap_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" }, active: { entity: "input_boolean.kids_radio", state: "on" } }, { icon: "mdi:projector", name: "Projector", tap_action: { action: "perform-action", perform_action: "input_boolean.toggle", target: { entity_id: "input_boolean.star_projector" } }, active: { entity: "input_boolean.star_projector", state: "on" } }, { icon: "mdi:power", name: "Both off", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "off" } }, visible: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } }, { icon: "mdi:weather-night", name: "Both on", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "both" } }, visible: { not: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } } }] }, hold_action: { action: "perform-action", perform_action: "script.kids_bedtime" } }, { entity: "cover.kids_room", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_kids_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_kids_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_kids_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_kids", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_kids", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.kids_blinds_user_switch" }, active: { entity: "switch.kids_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.kids_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_4", precision: 1, visible: { entity: "input_boolean.kids_radio", state_not: "on" } }], image_entities: ["input_boolean.star_projector", "input_boolean.kids_radio"], max_entities: 2, status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Bedroom", icon: "mdi:bed", entities: [{ entity: "media_player.bedroom_speaker", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music" }, { entity: "cover.balcony", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_bedroom_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_bedroom_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_bedroom_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_bedroom", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_bedroom", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.bedroom_blinds_user_switch" }, active: { entity: "switch.bedroom_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.bedroom_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_3", precision: 1 }], image_entities: ["media_player.bedroom_speaker"], max_entities: 2, image_position: "center 85%", status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Laundry", icon: "mdi:tshirt-crew-outline", entities: [{ entity: "switch.wall_switch_2", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "sensor.washer_job_state", icon: "mdi:washing-machine", active_color: "blue", tap_action: { action: "more-info" } }], image: "glass:demo/laundry.jpg", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.washer_remaining_time", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }], max_entities: 2, image_position: "center 74%", status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Bathroom", icon: "mdi:bathtub-outline", entities: [{ entity: "switch.switch_switch2", icon: "mdi:lightbulb-outline", active_color: "yellow", active: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, tap_action: { action: "perform-action", perform_action: "script.bathroom_lights_toggle" }, count: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"] }, { entity: "binary_sensor.motion_sensor", icon: "mdi:minus-circle", tap_action: { action: "none" }, active: { or: [{ state: "on" }, { entity: "media_player.bathroom", state: "playing" }] } }, { entity: "media_player.bathroom", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop", layout: "image-full", show_name: !0, info: [], max_entities: 2, image_position: "center 100%", contextual: [{ entity: "media_player.bathroom", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_on: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Hallway", icon: "mdi:coat-rack", entities: [{ entity: "light.hallway", icon: "mdi:lightbulb-outline" }], image: "https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_2", precision: 1 }], max_entities: 2, bar: "full", status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Toilet", icon: "mdi:toilet", entities: [{ entity: "switch.wall_switch", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "binary_sensor.toilet_occupied", icon: "mdi:minus-circle", tap_action: { action: "none" }, name: "occupied" }], image: "https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_2", precision: 1 }], max_entities: 2, bar: "full", image_position: "35% 80%", status_below: !0, buttons: "top-center" }] }, { type: "custom:glass-divider", name: "Running now", line: !1 }, { type: "custom:glass-now", lights: [{ name: "Living room", entities: ["light.living_room"], icon: "mdi:sofa" }, { name: "Kitchen", entities: ["light.wled_segment_1", "light.wled_segment_2", "light.kitchen_bar"], icon: "mdi:silverware-fork-knife" }, { name: "Laundry", entities: ["switch.wall_switch_2"], icon: "mdi:tshirt-crew-outline" }, { name: "Bathroom", entities: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"], icon: "mdi:bathtub-outline" }, { name: "Hallway", entities: ["light.hallway"], icon: "mdi:coat-rack" }, { name: "Toilet", entities: ["switch.wall_switch"], icon: "mdi:toilet" }], items: [{ entity: "media_player.apple_tv_4k", name: "TV", room: "Living room", icon: "mdi:television" }, { entity: "media_player.playstation_5", name: "PS5", room: "Living room", icon: "mdi:sony-playstation", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }, { entity: "sensor.office_pc_cpu_load", name: "PC", room: "Office", icon: "mdi:laptop", detail: "sensor.office_pc_cpu_load" }, { entity: "media_player.office", name: "Music", room: "Kitchen", icon: "mdi:music-note" }, { entity: "media_player.bedroom_speaker", name: "Music", room: "Bedroom", icon: "mdi:music-note" }, { entity: "media_player.bathroom", name: "Music", room: "Bathroom", icon: "mdi:music-note" }, { entity: "input_boolean.kids_radio", name: "Stories", room: "Kids' room", icon: "mdi:music-note", off_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" } }, { entity: "input_boolean.star_projector", name: "Projector", room: "Kids' room", icon: "mdi:projector" }, { type: "washer", entity: "sensor.washer_job_state", name: "Washing machine", room: "Laundry" }, { type: "mower", entity: "lawn_mower.mower", name: "Mower", progress: "sensor.mower_progress", time_left: "sensor.mower_time_left", area: "sensor.mower_work_area" }, { type: "vacuum", entity: "vacuum.vacuum", name: "Vacuuming", room: "device_tracker.vacuum", progress: "sensor.vacuum_mission_progress" }, { type: "vacuum", entity: "vacuum.mop", name: "Mopping", icon: "mdi:robot-mop", room: "device_tracker.mop", progress: "sensor.mop_mission_progress" }] }, { type: "custom:glass-divider", name: "Soon", line: !1 }, { type: "custom:glass-calendar", calendar_view: { days_off: ["calendar.holidays"] }, days: 14, max_events: 2, calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], hide_empty: !0 }], overlay: [{ type: "custom:glass-alarm-ring" }, { type: "custom:glass-dock", items: [{ icon: "mdi:lightbulb-group", link: "#lights" }, { icon: "mdi:blinds-horizontal", link: "#blinds" }, { icon: "mdi:weather-partly-cloudy", link: "#weather" }, { icon: "mdi:music-note", link: "#media" }, { icon: "mdi:solar-power-variant", link: "#energy" }, { icon: "mdi:radiator", link: "#heating" }, { icon: "mdi:cctv", link: "#security" }, { icon: "mdi:broom", link: "#cleaning" }, { icon: "mdi:dots-horizontal-circle-outline", link: "#more" }], indicator: "dot", bare: !0, scroll: !0, fade: !0 }] } }, liquid: { rim_width: 1.25 }, appearance: "sun", time_tint: !1, overlay_source: { dashboard: "glass-demo-popups", view: "tablet", nav: !1 }, styles: { room_button_size: "46px", corner_shape: "round", liquid_squircle: 0, radius: "32px", room_strip_radius: "999px", liquid_edge_intensity: 0.09, liquid_edge_distance: 0.08, liquid_specular: 0.55, liquid_rim_light: 0.6, liquid_tint: 0.2 }, wallpaper: "glass:hills-day", look: "apple-home", overlay: [{ type: "custom:glass-alarm-ring" }, { type: "custom:glass-dock", items: [{ icon: "mdi:lightbulb-group", link: "#lights" }, { icon: "mdi:blinds-horizontal", link: "#blinds" }, { icon: "mdi:weather-partly-cloudy", link: "#weather" }, { icon: "mdi:music-note", link: "#media" }, { icon: "mdi:solar-power-variant", link: "#energy" }, { icon: "mdi:radiator", link: "#heating" }, { icon: "mdi:cctv", link: "#security" }, { icon: "mdi:broom", link: "#cleaning" }, { icon: "mdi:dots-horizontal-circle-outline", link: "#more" }], indicator: "dot", bare: !0, fade: !0 }], preset: "sidebar", dark: { wallpaper: "glass:hills-night-blue-soft" }, demo: !0 }] }] }, fn = { title: "Glass demo – pop-ups", views: [{ title: "Tablet", path: "tablet", type: "sections", max_columns: 4, sections: [{ type: "grid", cards: [{ type: "heading", heading: "Navigation" }, { type: "custom:bubble-card", card_type: "horizontal-buttons-stack", width_desktop: "620px", auto_order: !1, is_sidebar_hidden: !0, highlight_current_view: !0, hide_gradient: !0, styles: `
+const lu = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "panel", cards: [{ type: "custom:glass-dashboard", left_width: "minmax(340px, 0.36fr)", left: [{ type: "custom:glass-panel", padding: "26px 28px", cards: [{ type: "custom:glass-panel", layout: "row", align: "start", gap: 8, padding: 0, cards: [{ type: "custom:glass-date-header", align: "start", styles: { date_size: "15px", date_line_size: "13px" }, view_layout: { grow: 1 }, nameday: "sensor.nameday", holidays: "calendar.holidays" }, { type: "custom:glass-notifications", entity: "sensor.glass_notifications", size: 28, alerts: [{ id: "mower_error", level: "alert", icon: "mdi:robot-mower-outline", title: "The mower reports an error", message: "Probably stuck", condition: { entity: "lawn_mower.mower", state: "error" } }, { id: "mower_low", level: "warning", icon: "mdi:battery-alert-variant-outline", title: "The mower's battery is low", message: "Under 10 % and not charging", condition: { entity: "sensor.mower_battery", below: 10, and: { entity: "binary_sensor.mower_charging", state: "off" } } }, { id: "braava_error", level: "warning", icon: "mdi:robot-vacuum-alert", title: "The mop reports an error", message: "{state}", condition: { entity: "sensor.mop_error", state_not: ["unknown", "unavailable", "none", ""] } }], visible_on: ["tablet", "desktop"] }, { type: "custom:glass-people", people: [{ entity: "person.alex", battery: "sensor.alex_phone_battery", battery_state: "sensor.alex_phone_battery_state" }, { entity: "person.sam", battery: "sensor.sam_phone_battery", battery_state: "sensor.sam_phone_battery_state" }], responsive: { mobile: { size: 36, gap: 8, battery_style: "ring", show_location: "never", view_layout: { shrink: 0, align: "start" } } }, view_layout: { shrink: 0 }, visible_on: ["tablet", "desktop"], size: 30 }], view_layout: { height: "auto", grow: 0 }, glass: "none" }, { type: "custom:glass-clock-weather", weather: "weather.home", forecast_type: "hourly", forecast_rows: 5, show_weather: !1, clock_align: "center", temperature_entity: "sensor.heat_pump_outside_temperature" }, { type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, hourly_forecast: 5, rain_nowcast: !0, daily_forecast: 0, show_condition: !0, dividers: !0, now_style: "line", icon_style: "mdi", forecast_style: "columns", rain_bars: !1, now_align: "center", temperature_entity: "sensor.heat_pump_outside_temperature", icons: { weather: { color: "rgba(255,255,255,0.92)" } } }, { type: "custom:glass-divider" }, { type: "custom:glass-status-bar", items: [{ entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-check-outline", text: "Secured", visible: { state_not: ["disarmed", "unavailable", "unknown"] } }, { entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-off-outline", text: "Not secured", visible: { state: "disarmed" } }, { entity: "sensor.hot_water_temperature", icon: "dot", text: "Hot water {value}°", precision: 0, color: "blue", rules: [{ above: 43, color: "yellow" }, { above: 45, color: "red" }, { entity: "sensor.water_heating_on", state: "on", animation: "glow" }] }, { entity: "sensor.active_power", format: "power", abs: !0, icon: "mdi:arrow-up-bold", rules: [{ below: 0, icon: "mdi:arrow-down-bold" }, { state: ["0", "0.0"], icon: "mdi:minus", color: "gray" }] }, { entity: "sensor.energy_virtual_batery_day", icon: "mdi:battery-outline", unit: "kWh", rules: [{ above: 0, icon: "mdi:battery-charging" }], precision: 0 }, { entity: "sensor.router_download_speed", format: "data_rate", icon: "mdi:swap-vertical-bold", visible: { above: 0 } }, { entities: ["sensor.sabnzbd_speed", "sensor.qbittorrent_download_speed"], aggregate: "sum", format: "data_rate", icon: "mdi:download", visible: { or: [{ entity: "sensor.sabnzbd_status", state: "Downloading" }, { entity: "sensor.qbittorrent_status", state: ["downloading", "up_down"] }] } }, { entity: "sensor.washer_remaining_time", icon: "mdi:washing-machine", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }, { entity: "binary_sensor.heat_pump_compressor", icon: "mdi:heat-pump-outline", text: "Heat pump", animation: "pulse", visible: { state: "on" } }, { entity: "lawn_mower.mower", icon: "mdi:robot-mower", format: "none", animation: "bounce", visible: { state: "mowing" }, text: "Mowing" }, { entity: "input_boolean.alarmed_toggle", icon: "mdi:alarm-note", format: "none", visible: { state: "on" }, text: "Alarm" }, { entity: "sensor.media_server_streams", icon: "mdi:plex", text: "Plex: {value}", precision: 0, visible: { above: 0 } }], size: 26, gap: 5, wrap: !0, view_layout: { margin: "0 11px" }, pack: !0, styles: { chip_padding: "0 12px 0 10px" } }, { type: "custom:glass-calendar", calendar_view: { days_off: ["calendar.holidays"] }, days: 14, max_events: 6, calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], hide_empty: !0, fit: !0 }], visible_on: ["tablet", "desktop"], justify: "start", styles: { home_side_a: 0.35, liquid_edge_intensity: 0.18, liquid_edge_distance: 0.12 }, gap: 22 }], main: [{ type: "custom:glass-panel", layout: "column", gap: 14, padding: 20, cards: [{ type: "custom:glass-panel", layout: "grid", columns: 3, rows: 3, gap: 14, padding: 0, view_layout: { grow: 1, basis: "0" }, cards: [{ type: "custom:glass-room-card", name: "Living room", icon: "mdi:sofa", entities: [{ entity: "light.living_room", icon: "mdi:lightbulb-outline" }, { entity: "media_player.apple_tv_4k", icon: "mdi:television", name: "TV" }, { entity: "media_player.playstation_5", icon: "mdi:sony-playstation", active_states: ["on"], name: "PS5", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }], layout: "image-full", image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop", image_position: "center 92%", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, image_entities: ["light.living_room", "media_player.apple_tv_4k", "media_player.playstation_5"], max_entities: 2, bar: "split", contextual: [{ entity: "media_player.playstation_5", name: "PS5", icon: "mdi:sony-playstation", visible: { state_not: ["off", "standby", "unavailable", "unknown"] }, active: { state_not: ["off", "standby", "unavailable", "unknown"] }, artwork: !1 }] }, { type: "custom:glass-room-card", name: "Office", icon: "mdi:desk", entities: [{ entity: "sensor.portainer_containers_status", icon: "mdi:server-outline", tap_action: { action: "more-info" }, rules: [{ state: "running", color: "blue" }, { state: "unhealthy", color: "orange", animation: "pulse", badge: "!" }, { state: "stopped", color: "red", badge: "!" }] }, { entity: "cover.office", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_office_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_office_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_office_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_office", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_office", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.office_blinds_user_switch" }, active: { entity: "switch.office_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.office_blinds_user_switch", duration: 3600 } }] } }, { entity: "sensor.office_pc_cpu_load", icon: "mdi:laptop", name: "PC", active: { state_not: ["unavailable", "unknown"] } }], image: "https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature", precision: 1 }], max_entities: 2, image_position: "center 55%", image_on: { entity: "sensor.office_pc_cpu_load", state_not: ["unavailable", "unknown"] }, contextual: [{ entity: "sensor.office_pc_cpu_load", name: "PC", icon: "mdi:laptop", visible: { state_not: ["unavailable", "unknown"] }, active: { state_not: ["unavailable", "unknown"] } }] }, { type: "custom:glass-room-card", name: "Kitchen", icon: "mdi:silverware-fork-knife", entities: [{ entity: "binary_sensor.kitchen_lights_any_on", icon: "mdi:lightbulb-outline", active_color: "yellow", tap_action: { action: "menu", items: [{ icon: "mdi:power", active: { entity: "binary_sensor.kitchen_lights_off_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lights off" } }, { icon: "mdi:arrow-up-bold-circle", active: { entity: "binary_sensor.kitchen_lights_upper_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Upper light" } }, { icon: "mdi:arrow-down-bold-circle", active: { entity: "binary_sensor.kitchen_lights_lower_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lower light" } }, { icon: "mdi:lightbulb-group", active: { entity: "binary_sensor.kitchen_lights_all_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "All lights" } }, { icon: "mdi:ceiling-light", name: "Bar", perform_action: "light.toggle", target: { entity_id: "light.kitchen_bar" }, active: { entity: "light.kitchen_bar", state: "on" } }] }, active: { or: [{ entity: "binary_sensor.kitchen_lights_any_on", state: "on" }, { entity: "light.kitchen_bar", state: "on" }] }, count: ["binary_sensor.kitchen_lights_any_on", "light.kitchen_bar"] }, { entity: "media_player.office", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, max_entities: 1, bar: "split", contextual: [{ entity: "media_player.office", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_position: "center 60%" }, { type: "custom:glass-room-card", name: "Kids' room", icon: "mdi:teddy-bear", entities: [{ entity: "input_boolean.kids_radio", icon: "mdi:weather-night", name: "bedtime", active_color: "blue", active: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] }, tap_action: { action: "menu", labels: !0, items: [{ icon: "mdi:music-note", name: "Stories", tap_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" }, active: { entity: "input_boolean.kids_radio", state: "on" } }, { icon: "mdi:projector", name: "Projector", tap_action: { action: "perform-action", perform_action: "input_boolean.toggle", target: { entity_id: "input_boolean.star_projector" } }, active: { entity: "input_boolean.star_projector", state: "on" } }, { icon: "mdi:power", name: "Both off", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "off" } }, visible: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } }, { icon: "mdi:weather-night", name: "Both on", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "both" } }, visible: { not: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } } }] }, hold_action: { action: "perform-action", perform_action: "script.kids_bedtime" } }, { entity: "cover.kids_room", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_kids_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_kids_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_kids_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_kids", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_kids", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.kids_blinds_user_switch" }, active: { entity: "switch.kids_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.kids_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_4", precision: 1, visible: { entity: "input_boolean.kids_radio", state_not: "on" } }], image_entities: ["input_boolean.star_projector", "input_boolean.kids_radio"], max_entities: 2 }, { type: "custom:glass-room-card", name: "Bedroom", icon: "mdi:bed", entities: [{ entity: "media_player.bedroom_speaker", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music" }, { entity: "cover.balcony", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_bedroom_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_bedroom_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_bedroom_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_bedroom", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_bedroom", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.bedroom_blinds_user_switch" }, active: { entity: "switch.bedroom_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.bedroom_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_3", precision: 1 }], image_entities: ["media_player.bedroom_speaker"], max_entities: 2, image_position: "center 85%" }, { type: "custom:glass-room-card", name: "Laundry", icon: "mdi:tshirt-crew-outline", entities: [{ entity: "switch.wall_switch_2", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "sensor.washer_job_state", icon: "mdi:washing-machine", active_color: "blue", tap_action: { action: "more-info" } }], image: "glass:demo/laundry.jpg", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.washer_remaining_time", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }], max_entities: 2, image_position: "center 74%" }, { type: "custom:glass-room-card", name: "Bathroom", icon: "mdi:bathtub-outline", entities: [{ entity: "switch.switch_switch2", icon: "mdi:lightbulb-outline", active_color: "yellow", active: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, tap_action: { action: "perform-action", perform_action: "script.bathroom_lights_toggle" }, count: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"] }, { entity: "binary_sensor.motion_sensor", icon: "mdi:minus-circle", tap_action: { action: "none" }, active: { or: [{ state: "on" }, { entity: "media_player.bathroom", state: "playing" }] } }, { entity: "media_player.bathroom", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop", layout: "image-full", show_name: !0, info: [], max_entities: 2, image_position: "center 100%", contextual: [{ entity: "media_player.bathroom", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_on: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] } }], glass: "none" }, { type: "custom:glass-panel", layout: "grid", columns: 2, gap: 14, padding: 0, cards: [{ type: "custom:glass-room-card", name: "Hallway", icon: "mdi:coat-rack", entities: [{ entity: "light.hallway", icon: "mdi:lightbulb-outline" }], image: "https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_2", precision: 1 }], max_entities: 2, bar: "split" }, { type: "custom:glass-room-card", name: "Toilet", icon: "mdi:toilet", entities: [{ entity: "switch.wall_switch", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "binary_sensor.toilet_occupied", icon: "mdi:minus-circle", tap_action: { action: "none" }, name: "occupied" }], image: "https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_2", precision: 1 }], max_entities: 2, bar: "split", image_position: "35% 80%" }], view_layout: { height: "auto", shrink: 0 }, glass: "none" }], responsive: { mobile: { columns: 2, rows: null, gap: 8, padding: 6 } }, control_tint: { strength: 0, color: [0, 0, 0] }, styles: { home_border: "rgba(255, 255, 255, 0.12)", home_surface: "transparent" } }], breakpoints: { mobile: 700, desktop: 1500 }, responsive: { mobile: { gap: 12, padding: "10px 12px 12px", overlay_source: { dashboard: "glass-demo-popups", view: "mobile", nav: !1 }, styles: { room_button_size: "46px", room_icon_size: "40px" }, left: null, main: [{ type: "custom:glass-panel", glass: "none", layout: "row", align: "center", gap: 10, padding: 0, cards: [{ type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, hourly_forecast: 0, rain_nowcast: !0, daily_forecast: 0, show_condition: !0, dividers: !1, now_style: "line", icon_style: "mdi", forecast_style: "columns", rain_bars: !1, now_align: "start", temperature_entity: "sensor.heat_pump_outside_temperature", view_layout: { grow: 1 }, icons: { weather: { color: "rgba(255,255,255,0.92)" } }, glass: "none" }, { type: "custom:glass-people", people: [{ entity: "person.alex", battery: "sensor.alex_phone_battery", battery_state: "sensor.alex_phone_battery_state" }, { entity: "person.sam", battery: "sensor.sam_phone_battery", battery_state: "sensor.sam_phone_battery_state" }], view_layout: { shrink: 0 }, size: 34, gap: 6, battery_style: "ring", show_location: "never" }] }, { type: "custom:glass-date-header", greeting: !0, align: "start", styles: { date_size: "26px", date_line_size: "14px" } }, { type: "custom:glass-status-bar", items: [{ entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-check-outline", text: "Secured", visible: { state_not: ["disarmed", "unavailable", "unknown"] } }, { entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-off-outline", text: "Not secured", visible: { state: "disarmed" } }, { entity: "sensor.hot_water_temperature", icon: "dot", text: "Hot water {value}°", precision: 0, color: "blue", rules: [{ above: 43, color: "yellow" }, { above: 45, color: "red" }, { entity: "sensor.water_heating_on", state: "on", animation: "glow" }] }, { entity: "sensor.active_power", format: "power", abs: !0, icon: "mdi:arrow-up-bold", rules: [{ below: 0, icon: "mdi:arrow-down-bold" }, { state: ["0", "0.0"], icon: "mdi:minus", color: "gray" }] }, { entity: "sensor.energy_virtual_batery_day", icon: "mdi:battery-outline", unit: "kWh", rules: [{ above: 0, icon: "mdi:battery-charging" }], precision: 0 }, { entity: "sensor.router_download_speed", format: "data_rate", icon: "mdi:swap-vertical-bold", visible: { above: 0 } }, { entities: ["sensor.sabnzbd_speed", "sensor.qbittorrent_download_speed"], aggregate: "sum", format: "data_rate", icon: "mdi:download", visible: { or: [{ entity: "sensor.sabnzbd_status", state: "Downloading" }, { entity: "sensor.qbittorrent_status", state: ["downloading", "up_down"] }] } }, { entity: "sensor.washer_remaining_time", icon: "mdi:washing-machine", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }, { entity: "binary_sensor.heat_pump_compressor", icon: "mdi:heat-pump-outline", text: "Heat pump", animation: "pulse", visible: { state: "on" } }, { entity: "lawn_mower.mower", icon: "mdi:robot-mower", format: "none", animation: "bounce", visible: { state: "mowing" }, text: "Mowing" }, { entity: "input_boolean.alarmed_toggle", icon: "mdi:alarm-note", format: "none", visible: { state: "on" }, text: "Alarm" }, { entity: "sensor.media_server_streams", icon: "mdi:plex", text: "Plex: {value}", precision: 0, visible: { above: 0 } }], size: 26, gap: 5, wrap: !1 }, { type: "custom:glass-divider", name: "Rooms", line: !1 }, { type: "custom:glass-panel", glass: "none", layout: "row", scroll: !0, item_width: "max(150px, calc((100vw - 48px) / 2.25))", height: "clamp(200px, 34dvh, 320px)", gap: 12, padding: 0, cards: [{ type: "custom:glass-room-card", name: "Living room", icon: "mdi:sofa", entities: [{ entity: "light.living_room", icon: "mdi:lightbulb-outline" }, { entity: "media_player.apple_tv_4k", icon: "mdi:television", name: "TV" }, { entity: "media_player.playstation_5", icon: "mdi:sony-playstation", active_states: ["on"], name: "PS5", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }], layout: "image-full", image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop", image_position: "center 92%", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, image_entities: ["light.living_room", "media_player.apple_tv_4k", "media_player.playstation_5"], max_entities: 2, bar: "full", contextual: [{ entity: "media_player.playstation_5", name: "PS5", icon: "mdi:sony-playstation", visible: { state_not: ["off", "standby", "unavailable", "unknown"] }, active: { state_not: ["off", "standby", "unavailable", "unknown"] }, artwork: !1 }], status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Office", icon: "mdi:desk", entities: [{ entity: "sensor.portainer_containers_status", icon: "mdi:server-outline", tap_action: { action: "more-info" }, rules: [{ state: "running", color: "blue" }, { state: "unhealthy", color: "orange", animation: "pulse", badge: "!" }, { state: "stopped", color: "red", badge: "!" }] }, { entity: "cover.office", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_office_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_office_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_office_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_office", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_office", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.office_blinds_user_switch" }, active: { entity: "switch.office_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.office_blinds_user_switch", duration: 3600 } }] } }, { entity: "sensor.office_pc_cpu_load", icon: "mdi:laptop", name: "PC", active: { state_not: ["unavailable", "unknown"] } }], image: "https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature", precision: 1 }], max_entities: 2, image_position: "center 55%", image_on: { entity: "sensor.office_pc_cpu_load", state_not: ["unavailable", "unknown"] }, contextual: [{ entity: "sensor.office_pc_cpu_load", name: "PC", icon: "mdi:laptop", visible: { state_not: ["unavailable", "unknown"] }, active: { state_not: ["unavailable", "unknown"] } }], status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Kitchen", icon: "mdi:silverware-fork-knife", entities: [{ entity: "binary_sensor.kitchen_lights_any_on", icon: "mdi:lightbulb-outline", active_color: "yellow", tap_action: { action: "menu", items: [{ icon: "mdi:power", active: { entity: "binary_sensor.kitchen_lights_off_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lights off" } }, { icon: "mdi:arrow-up-bold-circle", active: { entity: "binary_sensor.kitchen_lights_upper_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Upper light" } }, { icon: "mdi:arrow-down-bold-circle", active: { entity: "binary_sensor.kitchen_lights_lower_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lower light" } }, { icon: "mdi:lightbulb-group", active: { entity: "binary_sensor.kitchen_lights_all_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "All lights" } }, { icon: "mdi:ceiling-light", name: "Bar", perform_action: "light.toggle", target: { entity_id: "light.kitchen_bar" }, active: { entity: "light.kitchen_bar", state: "on" } }] }, active: { or: [{ entity: "binary_sensor.kitchen_lights_any_on", state: "on" }, { entity: "light.kitchen_bar", state: "on" }] }, count: ["binary_sensor.kitchen_lights_any_on", "light.kitchen_bar"] }, { entity: "media_player.office", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, max_entities: 2, bar: "full", contextual: [{ entity: "media_player.office", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_position: "center 60%", status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Kids' room", icon: "mdi:teddy-bear", entities: [{ entity: "input_boolean.kids_radio", icon: "mdi:weather-night", name: "bedtime", active_color: "blue", active: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] }, tap_action: { action: "menu", labels: !0, items: [{ icon: "mdi:music-note", name: "Stories", tap_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" }, active: { entity: "input_boolean.kids_radio", state: "on" } }, { icon: "mdi:projector", name: "Projector", tap_action: { action: "perform-action", perform_action: "input_boolean.toggle", target: { entity_id: "input_boolean.star_projector" } }, active: { entity: "input_boolean.star_projector", state: "on" } }, { icon: "mdi:power", name: "Both off", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "off" } }, visible: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } }, { icon: "mdi:weather-night", name: "Both on", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "both" } }, visible: { not: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } } }] }, hold_action: { action: "perform-action", perform_action: "script.kids_bedtime" } }, { entity: "cover.kids_room", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_kids_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_kids_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_kids_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_kids", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_kids", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.kids_blinds_user_switch" }, active: { entity: "switch.kids_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.kids_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_4", precision: 1, visible: { entity: "input_boolean.kids_radio", state_not: "on" } }], image_entities: ["input_boolean.star_projector", "input_boolean.kids_radio"], max_entities: 2, status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Bedroom", icon: "mdi:bed", entities: [{ entity: "media_player.bedroom_speaker", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music" }, { entity: "cover.balcony", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_bedroom_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_bedroom_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_bedroom_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_bedroom", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_bedroom", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.bedroom_blinds_user_switch" }, active: { entity: "switch.bedroom_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.bedroom_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_3", precision: 1 }], image_entities: ["media_player.bedroom_speaker"], max_entities: 2, image_position: "center 85%", status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Laundry", icon: "mdi:tshirt-crew-outline", entities: [{ entity: "switch.wall_switch_2", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "sensor.washer_job_state", icon: "mdi:washing-machine", active_color: "blue", tap_action: { action: "more-info" } }], image: "glass:demo/laundry.jpg", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.washer_remaining_time", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }], max_entities: 2, image_position: "center 74%", status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Bathroom", icon: "mdi:bathtub-outline", entities: [{ entity: "switch.switch_switch2", icon: "mdi:lightbulb-outline", active_color: "yellow", active: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, tap_action: { action: "perform-action", perform_action: "script.bathroom_lights_toggle" }, count: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"] }, { entity: "binary_sensor.motion_sensor", icon: "mdi:minus-circle", tap_action: { action: "none" }, active: { or: [{ state: "on" }, { entity: "media_player.bathroom", state: "playing" }] } }, { entity: "media_player.bathroom", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop", layout: "image-full", show_name: !0, info: [], max_entities: 2, image_position: "center 100%", contextual: [{ entity: "media_player.bathroom", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_on: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Hallway", icon: "mdi:coat-rack", entities: [{ entity: "light.hallway", icon: "mdi:lightbulb-outline" }], image: "https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_2", precision: 1 }], max_entities: 2, bar: "full", status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Toilet", icon: "mdi:toilet", entities: [{ entity: "switch.wall_switch", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "binary_sensor.toilet_occupied", icon: "mdi:minus-circle", tap_action: { action: "none" }, name: "occupied" }], image: "https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_2", precision: 1 }], max_entities: 2, bar: "full", image_position: "35% 80%", status_below: !0, buttons: "top-center" }] }, { type: "custom:glass-divider", name: "Running now", line: !1 }, { type: "custom:glass-now", lights: [{ name: "Living room", entities: ["light.living_room"], icon: "mdi:sofa" }, { name: "Kitchen", entities: ["light.wled_segment_1", "light.wled_segment_2", "light.kitchen_bar"], icon: "mdi:silverware-fork-knife" }, { name: "Laundry", entities: ["switch.wall_switch_2"], icon: "mdi:tshirt-crew-outline" }, { name: "Bathroom", entities: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"], icon: "mdi:bathtub-outline" }, { name: "Hallway", entities: ["light.hallway"], icon: "mdi:coat-rack" }, { name: "Toilet", entities: ["switch.wall_switch"], icon: "mdi:toilet" }], items: [{ entity: "media_player.apple_tv_4k", name: "TV", room: "Living room", icon: "mdi:television" }, { entity: "media_player.playstation_5", name: "PS5", room: "Living room", icon: "mdi:sony-playstation", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }, { entity: "sensor.office_pc_cpu_load", name: "PC", room: "Office", icon: "mdi:laptop", detail: "sensor.office_pc_cpu_load" }, { entity: "media_player.office", name: "Music", room: "Kitchen", icon: "mdi:music-note" }, { entity: "media_player.bedroom_speaker", name: "Music", room: "Bedroom", icon: "mdi:music-note" }, { entity: "media_player.bathroom", name: "Music", room: "Bathroom", icon: "mdi:music-note" }, { entity: "input_boolean.kids_radio", name: "Stories", room: "Kids' room", icon: "mdi:music-note", off_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" } }, { entity: "input_boolean.star_projector", name: "Projector", room: "Kids' room", icon: "mdi:projector" }, { type: "washer", entity: "sensor.washer_job_state", name: "Washing machine", room: "Laundry" }, { type: "mower", entity: "lawn_mower.mower", name: "Mower", progress: "sensor.mower_progress", time_left: "sensor.mower_time_left", area: "sensor.mower_work_area" }, { type: "vacuum", entity: "vacuum.vacuum", name: "Vacuuming", room: "device_tracker.vacuum", progress: "sensor.vacuum_mission_progress" }, { type: "vacuum", entity: "vacuum.mop", name: "Mopping", icon: "mdi:robot-mop", room: "device_tracker.mop", progress: "sensor.mop_mission_progress" }] }, { type: "custom:glass-divider", name: "Soon", line: !1 }, { type: "custom:glass-calendar", calendar_view: { days_off: ["calendar.holidays"] }, days: 14, max_events: 2, calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], hide_empty: !0 }], overlay: [{ type: "custom:glass-alarm-ring" }, { type: "custom:glass-dock", items: [{ icon: "mdi:lightbulb-group", link: "#lights" }, { icon: "mdi:blinds-horizontal", link: "#blinds" }, { icon: "mdi:weather-partly-cloudy", link: "#weather" }, { icon: "mdi:music-note", link: "#media" }, { icon: "mdi:solar-power-variant", link: "#energy" }, { icon: "mdi:radiator", link: "#heating" }, { icon: "mdi:cctv", link: "#security" }, { icon: "mdi:broom", link: "#cleaning" }, { icon: "mdi:dots-horizontal-circle-outline", link: "#more" }], indicator: "dot", bare: !0, scroll: !0, fade: !0 }] } }, liquid: { rim_width: 1.25 }, appearance: "sun", time_tint: !1, overlay_source: { dashboard: "glass-demo-popups", view: "tablet", nav: !1 }, styles: { room_button_size: "46px", corner_shape: "round", liquid_squircle: 0, radius: "32px", room_strip_radius: "999px", liquid_edge_intensity: 0.09, liquid_edge_distance: 0.08, liquid_specular: 0.55, liquid_rim_light: 0.6, liquid_tint: 0.2 }, wallpaper: "glass:hills-day", look: "apple-home", overlay: [{ type: "custom:glass-alarm-ring" }, { type: "custom:glass-dock", items: [{ icon: "mdi:lightbulb-group", link: "#lights" }, { icon: "mdi:blinds-horizontal", link: "#blinds" }, { icon: "mdi:weather-partly-cloudy", link: "#weather" }, { icon: "mdi:music-note", link: "#media" }, { icon: "mdi:solar-power-variant", link: "#energy" }, { icon: "mdi:radiator", link: "#heating" }, { icon: "mdi:cctv", link: "#security" }, { icon: "mdi:broom", link: "#cleaning" }, { icon: "mdi:dots-horizontal-circle-outline", link: "#more" }], indicator: "dot", bare: !0, fade: !0 }], preset: "sidebar", dark: { wallpaper: "glass:hills-night-blue-soft" }, demo: !0 }] }] }, bn = { title: "Glass demo – pop-ups", views: [{ title: "Tablet", path: "tablet", type: "sections", max_columns: 4, sections: [{ type: "grid", cards: [{ type: "heading", heading: "Navigation" }, { type: "custom:bubble-card", card_type: "horizontal-buttons-stack", width_desktop: "620px", auto_order: !1, is_sidebar_hidden: !0, highlight_current_view: !0, hide_gradient: !0, styles: `
  .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color, .more > .bubble-background-color {
   background: var(--button-card-background) !important;
   border: 1px solid var(--button-card-border) !important;
@@ -12942,7 +12942,7 @@ const lu = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
 `, group_by: { func: "sum" } }], apex_config: { yaxis: [{ labels: { show: !1 }, axisBorder: { show: !1 }, axisTicks: { show: !1 } }] } }, height: 200 }, { type: "custom:glass-divider", name: "Export to the grid", icon: "mdi:transmission-tower-import", margin: 0, line: !1 }, { type: "custom:glass-chart", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", card: { type: "custom:apexcharts-card", apex_config: { chart: { type: "area" } }, yaxis: [{ decimals: 0 }] }, day: { series: [{ entity: "sensor.active_power", transform: "return x/1000", unit: "kW", type: "column", group_by: { duration: "15m", func: "max" }, name: "Export" }], update_interval: "15m" }, month: { series: [{ entity: "sensor.pnd_data", unit: "kW", type: "column", attribute: "production", data_generator: `return entity.attributes.pnddate.map((pnd, index) => {
   return [new Date(pnd).getTime(), Number(entity.attributes.production[index])];
 });
-`, group_by: { func: "sum" }, name: "Export" }] }, year: { series: [{ entity: "sensor.total_energy_buy", unit: "kWh", type: "column", group_by: { func: "diff", start_with_last: !0 }, name: "Export" }], update_interval: "1h" }, height: 170 }], bar: !0 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#security", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:cctv", margin_top_desktop: "-35px", name: "Security", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Security", icon: "mdi:cctv", view_layout: { height: "auto" } }, { type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", layout: "header", modes: ["home", "away", "night"], align: "stretch" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", justify: "start", gap: 10, padding: 12, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, buttons: [{ name: "Entrance", icon: "mdi:door", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_2" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_1" }] } }, active: { entity: "input_boolean.switch_security_camera_1", state: "on" } }, { name: "Garden", icon: "mdi:tree-outline", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_1" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_2" }] } }, active: { entity: "input_boolean.switch_security_camera_2", state: "on" } }] }, { type: "custom:glass-camera", layout: "stacked", list_glass: "dark-liquid", player_glass: "liquid-gl", badge_glass: "liquid-gl", show_timeline: !0, cameras: [{ camera: "camera.front_door", name: "Entrance", icon: "mdi:door", frigate_camera: "frontdoor", active: { entity: "input_boolean.switch_security_camera_1", state: "on" }, items: [{ entity: "switch.front_door_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.front_door_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }, { camera: "camera.garden", name: "Garden", icon: "mdi:tree-outline", frigate_camera: "garden", active: { entity: "input_boolean.switch_security_camera_2", state: "on" }, items: [{ entity: "switch.garden_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.garden_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#more", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:dots-horizontal-circle-outline", margin_top_desktop: "-35px", name: "More", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "More", icon: "mdi:dots-horizontal-circle-outline", view_layout: { height: "auto" } }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Security", icon: "mdi:shield-home", description: "Arm and disarm the alarm – the keypad and what's open", cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarms", icon: "mdi:alarm", description: "Wake-up alarms – their times, days and sound", cards: [{ type: "custom:glass-alarms", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarm ringing", icon: "mdi:alarm-bell", description: "An alarm over the whole dashboard – snooze it or slide to stop", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Ring an alarm", image: "glass:demo/alarm-morning.jpg", status: "info", info: [{ text: "Kids' room – snooze it or slide to stop" }], tap_action: { action: "perform-action", perform_action: "input_boolean.turn_on", target: { entity_id: "input_boolean.glass_alarm_1_ringing" } }, entities: [{ entity: "input_boolean.glass_alarm_1_ringing", icon: "mdi:alarm-bell", name: "Ring" }], view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Screensaver player", icon: "mdi:monitor-screenshot", description: "The media player as the whole screen – a kiosk's screensaver", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Open the screensaver", image: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj", status: "info", info: [{ text: "What plays, big – a touch for the buttons" }], tap_action: { action: "navigate", navigation_path: "#screensaver" }, view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Calendar", icon: "mdi:calendar-month", description: "The family's month and week – tap a day to add an event", cards: [{ type: "custom:glass-calendar-view", height: "600px", close: !1, days_off: ["calendar.holidays"], calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], view_layout: { height: "auto" } }] }] }], show_header: !1 }] }] }] }, es = "glass-demo-popups", Ao = { "home|": { title: "Home", media_class: "directory", media_content_type: "home", media_content_id: "", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Today's biggest hits", media_class: "playlist", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/JhukEr_gsgy7LuD0aFWmmTpcrAkB0Amk5zoFgAtPE3LBWwRXfbkZPP3epGFAp9HLcNkVZ-AyD0kX-a7e=w544-h544-l90-rj" }, { title: "All hits", media_class: "playlist", media_content_type: "home2", media_content_id: "All hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }, { title: "Trending songs for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Music videos for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Covers and remixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Song mixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/_cBCKUoFjuJsTPKvNViql9pqLTD_NfiNNn3y13rh1iXXIwpZ2dyQcyn9H2dneW9J9F9-I6zM13zFe4qV=w544-h544-l90-rj" }, { title: "New releases", media_class: "playlist", media_content_type: "home2", media_content_id: "New releases", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Live performances", media_class: "playlist", media_content_type: "home2", media_content_id: "Live performances", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, "home2|Song mixes": { title: "Song mixes", media_class: "directory", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard) - Justice", media_class: "playlist", media_content_type: "track", media_content_id: "JWxoRY7AFSw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Stop The Wedding! - Ashe", media_class: "playlist", media_content_type: "track", media_content_id: "BVR3k32x9h0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me - Kelsy Karter & The Heroines", media_class: "playlist", media_content_type: "track", media_content_id: "VdlCbji1CAg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti - KATSEYE", media_class: "playlist", media_content_type: "track", media_content_id: "HY397w59MT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album) - Tove Lo", media_class: "playlist", media_content_type: "track", media_content_id: "0lI_KzhfIBk", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden - HUNTR/X", media_class: "playlist", media_content_type: "track", media_content_id: "9_bTl2vvYQg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "BbY WOW - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "ljAH6jNaApU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/GdW-pwzDkHLGvvf0pe_dgTcBYkJ2UFgsW6Zldnxyz-kX3l8I-QrRMow8IooEm7njIEAJauyWfoSV1rM=w544-h544-l90-rj" }, { title: "You’re Under Arrest - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "qsqvJpOgrWw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EQNyUqxuYcONem8DYLwrXvMdc0rs-ryUcSgdgpxVkqtx53WRKr5YtBwEnaHBgnN5iWk90JBbdkrpSq4=w544-h544-l90-rj" }, { title: "COQUETA - Fuerza Regida", media_class: "playlist", media_content_type: "track", media_content_id: "fPczdTA1xU0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/llYLq4jy6rSfhDDnEwL5rsxS80eBMvPzcZoryVzEQhbZCCOJMgcrkhtWiXTMLnASubnA0Ga99l6lVdUg=w544-h544-l90-rj" }, { title: "Don't Stop The Music - Bisken", media_class: "playlist", media_content_type: "track", media_content_id: "7WIWltd6CiM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/qn1AKHBdT_xmKUxMmseOxhFlTVQ4zoDO60JyXcMRiy3DSvdT8HOCmty-wQyPD3F2BRN-1kKzrMWcZKjyjw=w544-h544-l90-rj" }, { title: "Love Options - BESTie", media_class: "playlist", media_content_type: "track", media_content_id: "jWwdHeJ8XeU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/e_KhStFaUpXtdfyncHtYOBGibpgdw3fVixG8H0_E8aIW6G0Op9wo4jQqWsfHCEMaI96DnhsqlHM9Yzck=w544-h544-l90-rj" }, { title: "Sakuranbo - YENA", media_class: "playlist", media_content_type: "track", media_content_id: "6POlUfjBIB4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/_RWfWayKDftrngXQ8sGahDtVVmqfhzji0cR1WTE2DWsW8VO7NJnDMStdjFYWj1lqoACBSxW8e5dnheHbIg=w544-h544-l90-rj" }, { title: "Hong Kong", media_class: "playlist", media_content_type: "track", media_content_id: "cUnEvW5aS80", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/X_xAPVJ2PYZCimHbT1dLd6JNQRNIzelWVSjUak_sBJXVUy2wajg7DHX__2B7O_fpi5iCKrOufTphwH3_=w544-h544-l90-rj" }, { title: "I Want You - ENHYPEN", media_class: "playlist", media_content_type: "track", media_content_id: "dBv5ju-TGZQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/p03tt4dCfQUZILU6EFkRanxOdpHXfKJi93xgjChLZkyUQS76s-ap-_QtjwHCtFy-QqdTdrdO4eNoaOMR=w544-h544-l90-rj" }, { title: "REDRED - CORTIS", media_class: "playlist", media_content_type: "track", media_content_id: "5sOgJQ3N03Q", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QwlA1MsRGQRVG6kIPLEB068OXqVk4QKHWXeAIX0C-QaZ7Mzgh4f9JbXLj03itMK14uRL5EsnVmslkzN2=w544-h544-l90-rj" }, { title: "like JENNIE - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "HMQlkbXjSTM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Z3gufPaLCcWuJNE4NH6KhlbUSrnx3hvUQgnhwQBrUDNzEgAp1aNMuCr0nv0gJxU8XcS2Rp9I-BHPZt_i=w544-h544-l90-rj" }] }, "home2|Covers and remixes": { title: "Covers and remixes", media_class: "directory", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Save Your Tears ((Remix) Bonus Track) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "lS9Kgp6PsWY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Ds4HZUl-Cziy9wW0zGv5_rRw0fGc01a3rMZ6mB27HkSTtVLaPwUpPaXdoISHAH3XprkYyPfIEcSpmPy-=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight) - Syzz", media_class: "playlist", media_content_type: "track", media_content_id: "maY-KIK3EDI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Remember Our Summer CYNIX Remix - CYNIX", media_class: "playlist", media_content_type: "track", media_content_id: "1x0e5svjyoA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/1x0e5svjyoA/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3m6b1RsrcKkQCPkyDTNx2HXM7wmpA" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "DXO288FnB-A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Flo Rida feat. T-Pain - Low (FNZ Remix) - FNZ", media_class: "playlist", media_content_type: "track", media_content_id: "8s5o9JS9dsM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/8s5o9JS9dsM/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3lhK_a8liz1kba7el0JWShA6hq2Eg" }, { title: "Stand by Me - Seal", media_class: "playlist", media_content_type: "track", media_content_id: "zRafBMo9t_A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Die For You (Remix) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "AySMGpXQ1Mo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/liKrw5t_WphMbkiYKDHQj1rf8S8GSwxgMRUmB7tkHhPF862BRcqIYxFEj9QwKr51ge2ma6u0C_wI4jNo=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "6KjVYeQ9SRw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/FQsPsZdaGUkT3_Q-9iilsYnS6xc0CAerb6pIhUou-skal6-jMQQ-xUigopbvfqVP_e-msHiabmCN2wCl=w544-h544-l90-rj" }, { title: "Cold Heart (PNAU Remix) - Elton John", media_class: "playlist", media_content_type: "track", media_content_id: "e-S1k9-soT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Love Me Like You Do - Elena Gray", media_class: "playlist", media_content_type: "track", media_content_id: "Q9HxtBBqmHA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }] }, "home2|Trending songs for you": { title: "Trending songs for you", media_class: "directory", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Go Easy (from GTAVI: The Album) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "eqQRPRcoIYo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat - MOONLGHT", media_class: "playlist", media_content_type: "track", media_content_id: "LOvFNEryrOA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack) - Lena Vril", media_class: "playlist", media_content_type: "track", media_content_id: "zLilheGY7OY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man - FINNEAS", media_class: "playlist", media_content_type: "track", media_content_id: "pQ_3P-0WwvU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Sexy Magic (from GTAVI: The Album) (feat. Grand Theft Auto VI) - CA7RIEL & Paco Amoroso", media_class: "playlist", media_content_type: "track", media_content_id: "VBKnzlBP95A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/hbpSyosNXpw2uZ6_KOx0YjBLO-rMJx6gLxEE7Suz-sYnWYhoWu8FVk5FXJEDwJdncjWifi9UIbmDTJEU=w544-h544-l90-rj" }, { title: "Babydoll - Jamie Miller", media_class: "playlist", media_content_type: "track", media_content_id: "7MAs5b7EJyc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love - Keyshia Cole", media_class: "playlist", media_content_type: "track", media_content_id: "8M_-aaZUs4o", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }, { title: "Innerbloom XI - RÜFÜS DU SOL", media_class: "playlist", media_content_type: "track", media_content_id: "MyeUOTWUNsE", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gk6GLgNgat-oez8Yl8tirJNj80jCNuN1HnnaoyhLPGazQP76XMGXzB67nL7KBJUz6wead6n8mH_jBFdk=w544-h544-l90-rj" }, { title: "Power Trip (from GTAVI: The Album) - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "3uC4yshW6Yc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AwqUl_c3gIFWtvPf7h_tDz_gIlM8pLyTTxeVyIT14W1eoVCKfcmnrox73QDxI-YIntjKdKZGvh-c1twq=w544-h544-l90-rj" }, { title: "Leave With Me - LISA", media_class: "playlist", media_content_type: "track", media_content_id: "r58jywvd-Rw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EAgD2-ySGHKQdBxH3kj9IGjyJiXYP8Lkoa2dMvXb3KZUw1N_6ghCLiB9hklwRqZHqt8cVpnVviQ3r-Zo=w544-h544-l90-rj" }, { title: 'Sun Showers (From "The Angry Birds Movie 3”) - JISOO', media_class: "playlist", media_content_type: "track", media_content_id: "nfvXvCwqChY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/M4Bx2xs5rppzER-NHQvimkZ29gyD9t99yKBBWvAk4PSTOcTKGyfUbKhdVeHuAQwbtrRAGGNNzCWwWGsv=w544-h544-l90-rj" }, { title: "ICONIC - CL", media_class: "playlist", media_content_type: "track", media_content_id: "6v-TZZKvADw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/gDaFchnWU4AGuYCAPgHjkZ3oTkN_LU7IK9aYpkDED9zgZUUqxLgOjXE9W5338xoqLoIaTfunleAMnIxSQw=w544-h544-l90-rj" }, { title: "BABY ANGEL - NAYEON", media_class: "playlist", media_content_type: "track", media_content_id: "Z8ehh3ANZak", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/di75B_1bBuBn_TwuiQ_bMUNmHYLtVncpVY8KH5iVPvGRZ1jNMB20tIzhtuluWltcx4AF0YAaf1k3yZc=w544-h544-l90-rj" }, { title: "Tremendo Desastre - Myke Towers", media_class: "playlist", media_content_type: "track", media_content_id: "PWIQFC5YZPA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Nm_lkqCGk6JtexgRCc-XQsiYx_aWPexSC7KDP66iCA2v0cV-CmhwUTBkdxQ6sLEt0aYM2jEibDFDCdOeCw=w544-h544-l90-rj" }, { title: "Angel Bite - TOMORROW X TOGETHER", media_class: "playlist", media_content_type: "track", media_content_id: "5JkTq9rOYI8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/JlSvnvfKfrsSqmYacyjKZUyGT5lDaON6lYGMobOoQSFMY6jZix3Uc6zCLUVdwt1oyDhXc3-4EGOeI6M=w544-h544-l90-rj" }, { title: "El Ojo Alegre - Lucero", media_class: "playlist", media_content_type: "track", media_content_id: "_ulXageeMis", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/sdnkjwUO2m4zxwGl3iG0ax205A0w6o584Rz125r7qxet41QMDdzK6LTuT6U9Oh943OGn1DIGhpzroed76A=w544-h544-l90-rj" }] }, "home2|New releases": { title: "New releases", media_class: "directory", media_content_type: "home2", media_content_id: "New releases", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "New Release Mix", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDTMAK5uy_lr0LWzGrq6FU9GIxWvFHTRPQD2LHMqlFA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://music.youtube.com/image/mixart?r=ENgEGNgEMiAIBxoNL2cvMTF0ZzJ2a3IxehoNL2cvMTF2azhtMV81c2IICgYKBAoCZW4" }, { title: "Grand Theft Auto VI: The Album (Deluxe Edition)", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_TINpB57piQG", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/wSeM_CFdxBOWkA26uiVcmIGhsfwRtoU3QFaXRZm7i3BQnjm_H6HkQXhSX7QmF3oUjiWNOftVM86dBMKT=w544-h544-l90-rj" }, { title: "Live in Mexico City", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_eMs4ZDFJwXq", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Oh My Little Baby Boy", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_1VNQRlCRafA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/0g39YYG1TCisyYWef7EzNyrPHHMQ5zHRpHT3jQvD0SP2Qzk9ireD0ynEi78_mGq9HWpu-BoeseOrE0hK=w544-h544-l90-rj" }] }, "home2|All hits": { title: "All hits", media_class: "directory", media_content_type: "home2", media_content_id: "All hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_n9PTezEY6LrODsz6rl2KDtFzC9e5Qzz9Y", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QrISu_Bk4sR6MN_TUD2bbWO4ZyfdSFJVE8JPpCD4P9uCRmyQtE1e3HjxtwsiomjiR0idTKD7Wl6w9A=w544-h544-l90-rj" }, { title: "Huge Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kWiJXUNLZM9EyS3GBGznl1ku8_cOos97U", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Lld802Wk-_qbAttIghD3-R2U9wjKT87qsY-9sUbxl1G4AQ4VKwA02HGg6QF56thp9HA-u6VCj76W=w544-h544-l90-rj" }, { title: "Pop Gold", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nHSqCJjDrW9HBhCNdF6tWPdnOMngOv0wA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/rAUuEbLF7CYEYBXU3yAY4npMCzTgPxMhlD-ygH9iv_SuDXGDuDvO0Z4MTh33xAI6o3UnpWFe26MS_hBZ=w544-h544-l90-rj" }, { title: "Hip-Hop Classics", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kP2172rQNb3KFXz880xp6M98R_ME5CIKA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QbaOnF8DHmwx70wCX4E3e8QcmkZNaO91jkIqz1U-UcW_PFYzA2419D7icVlUZRrWwsDqxAal_RzCOg=w544-h544-l90-rj" }, { title: "Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_k6PkYWus1Mt-aKrbb0Ne8SkA2BgAk1Yy4", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BJEqYDBiNwOS5x7siLvlpqISZOjTNTNmWBk5QzBF70y8RotdBrkHg24o5VFLxfrfheO8SFYyhUqAUJY=w544-h544-l90-rj" }, { title: "Hip-Hop Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nMRqcKbbYRujfKKitokBwvLQSFHnsomls", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/fhbtBeL6Pglzk0DfmwOTxX2cO7hkhFulB-uqDgKyEdoPQs6zcQFtm_eWFqltKv2W17LRNEkpZJBNpw=w544-h544-l90-rj" }, { title: "Pop's Biggest Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nmS3YoxSwVVQk9lEQJ0UX4ZCjXsW_psU8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/ih5QdpqpkVNRXtD-joBWj3jo1woxAXJFyAoA3hWYNWAKX0M9B825HH2VOh7aDX-unf67oyCyJGN9TljR=w544-h544-l90-rj" }, { title: "Drum & Bass Room", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lwP-V7kSIhX3CJEV7zRd9P8Nj0F1l5RbY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Qcd9QnCfMmsjdl8mXNlxHf9N0csfuOr3Gb_2aH7WCcr1RbIRXRvpnoiyTeKlL54d3PT9s0YbQznsAxU=w544-h544-l90-rj" }, { title: "Heavy Hitters", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nVT2-bFfxplES7OQSLcnwlJqpsQ9gn0yY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }] }, "home2|Today's biggest hits": { title: "Today's biggest hits", media_class: "directory", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Pop Certified", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lBNUteBRencHzKelu5iDHwLF6mYqjL-JU", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BchO1e_VlImwqaOcFKhjEmQj9x_gfumqInfztMvIlbSoxfpFeyu3uJoMkIDtx22Hng_PCtg2XmWm_g=w544-h544-l90-rj" }, { title: "Chroma: Today's Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kLWIr9gv1XLlPbaDS965-Db4TrBoUTxQ8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bgyYaDg4vQmS4TB1A5vZbnTO0X3Dp2K466u7ZJcEKB7fY4o8Mg3BAObHle4ZMGhEVBWGJ17YMoYqgQ=w544-h544-l90-rj" }, { title: "Hits Remixed", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_l2zLaMIWOqWSePvTSmt49GcuR8460ZR10", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/8QAvBU7EabmeoXp8wtBoFPROpZy0LVDU5CqrMmKy6ubrwixctxAJdWs7u9ZkZIx1dbB37hAnx6tHXRgh=w544-h544-l90-rj" }, { title: "EDM 2026", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mOGSCVBsZurORfvybL5lEwxKsNFlZ8cPY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/DJhVFzpwJJBcnOQpHEjnZgqon_9TFlQNiss38auB9zqNItAv9ivXZmbaWNiXErYhEE1MVvq51c-3zw=w544-h544-l90-rj" }, { title: "Hits Unplugged ", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mdwsZFtQhJyGQPuQA612VoRPXp-OJfzx8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/t4ITg7S7zqTh93EXNlRoPSaAXIR7nQrdpo3BlGtJ3lkaqsRz5Pu-nWHXjcd7hMlzCirM6-HZ00PvrCKc=w544-h544-l90-rj" }] }, "home2|Music videos for you": { title: "Music videos for you", media_class: "directory", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "I Don't Want To Talk About It (Live) - Rod Stewart", media_class: "playlist", media_content_type: "track", media_content_id: "w46bWxS9IjY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/w46bWxS9IjY/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kPxizLkdJBFIu9K4f7uo7NjTP2KQ" }, { title: "I Knew It, I Knew You/ Our Song (Live) - Taylor Swift", media_class: "playlist", media_content_type: "track", media_content_id: "LJC7mgjp5FQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/LJC7mgjp5FQ/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mM4YESRNfhv97MCbjSE09Hpz_s2A" }, { title: "Training Season (Live) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "3DcoC8p9az8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Dusk Till Dawn (feat. Sia) - ZAYN", media_class: "playlist", media_content_type: "track", media_content_id: "tt2k8PGm-TI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/tt2k8PGm-TI/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mwQETV3eMp1l7fpqqCQirCg9x7PA" }, { title: "ADDICTED - JISOO", media_class: "playlist", media_content_type: "track", media_content_id: "Pksr9T8m_aA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/Pksr9T8m_aA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nthnoizeIpaXcWtt98-BPcJ6ZSXg" }, { title: "TQG - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "jZGpkLElSu8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/jZGpkLElSu8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mcWVQ9jm77acjGdDNvQ8VeKgaDRw" }, { title: "It's Me - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "bMhDJ0S0OBA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/bMhDJ0S0OBA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3lRd-ngPHNZ1KbFt6pba5wdAVIEwQ" }, { title: "HOLLYWOOD - Peso Pluma", media_class: "playlist", media_content_type: "track", media_content_id: "rCL8-CiGSmc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/rCL8-CiGSmc/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mOpJu1dMkOEnAVOczmJsUo7D2lpg" }] }, "home2|Featured playlists for you": { title: "Featured playlists for you", media_class: "directory", media_content_type: "home2", media_content_id: "Featured playlists for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Top 100 Music Videos Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn5kI81J1fYWK5eZRl1zJ5kM", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/9FVtwu1BWibyR39Mv1wIGDkpQXTuhAcHMM1D3RQLEDOeMDz9jtRFG_GnliUGMXXP8HoJJ1w0og=s544" }, { title: "Daily Top Music Videos - Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn6t3TXLGiiJdD-sZbrG3tG0", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/zXfgdEQFwlHIbhe_h5F7LQly0XtWbbk-k3hoffmDNOyfNiZx6XAOEzYW7ojOG-LlGi9w9qyfJ8cw=s544" }] }, "home2|Live performances": { title: "Live performances", media_class: "directory", media_content_type: "home2", media_content_id: "Live performances", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Let Me Love You - Mario", media_class: "playlist", media_content_type: "track", media_content_id: "D6vCMxmkMKI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/ld8MgzxD57OHR1UWFbqPHQ1tFMu7KeiWz89gMxhqlH3Vmk6pGsKTR1T8JKtur1P8jj6oq1aa-knevkY=w544-h544-l90-rj" }, { title: "Training Season (Live from the Royal Albert Hall) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "2tw2QDSeBQQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/mRy_-GXuXaHpjkGh4pyMTDh9nw5Yzr-5EcvOgmfUA8xVCVQ0Ewdx_Xt1kzc1GvXNxHrUxmbHXh1xH1HC=w544-h544-l90-rj" }, { title: "Lost On You (Live) - LP", media_class: "playlist", media_content_type: "track", media_content_id: "wDjeBNv6ip0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/wDjeBNv6ip0/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kHFkLOnqkOC1EQ9Y-WFg63tYlYGQ" }, { title: "El Perdedor - Aventura", media_class: "playlist", media_content_type: "track", media_content_id: "EJuxDbSkwmQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, root: { title: "Media Library", media_class: "directory", media_content_type: "library", media_content_id: "library", children_media_class: "directory", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Home", media_class: "playlist", media_content_type: "home", media_content_id: "", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: null }] } }, $a = [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard)", artist: "Justice", picture: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight)", artist: "Syzz", picture: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE)", artist: "Tame Impala", picture: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Stop The Wedding!", artist: "Ashe", picture: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me", artist: "Kelsy Karter & The Heroines", picture: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti", artist: "KATSEYE", picture: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album)", artist: "Tove Lo", picture: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden", artist: "HUNTR/X", picture: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "Stand by Me", artist: "Seal", picture: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Love Me Like You Do", artist: "Elena Gray", picture: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }, { title: "Go Easy (from GTAVI: The Album)", artist: "Dua Lipa", picture: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat", artist: "MOONLGHT", picture: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack)", artist: "Lena Vril", picture: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man", artist: "FINNEAS", picture: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Babydoll", artist: "Jamie Miller", picture: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love", artist: "Keyshia Cole", picture: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }], Zi = "media_player.youtube_music", y0 = ["media_player.kitchen_speaker", "media_player.office_speaker", "media_player.living_room_speaker", "media_player.bathroom_speaker"], js = 842303, v0 = 449471, Mo = (o, e = 0, t = 214) => {
+`, group_by: { func: "sum" }, name: "Export" }] }, year: { series: [{ entity: "sensor.total_energy_buy", unit: "kWh", type: "column", group_by: { func: "diff", start_with_last: !0 }, name: "Export" }], update_interval: "1h" }, height: 170 }], bar: !0 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#security", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:cctv", margin_top_desktop: "-35px", name: "Security", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Security", icon: "mdi:cctv", view_layout: { height: "auto" } }, { type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", layout: "header", modes: ["home", "away", "night"], align: "stretch" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", justify: "start", gap: 10, padding: 12, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, buttons: [{ name: "Entrance", icon: "mdi:door", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_2" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_1" }] } }, active: { entity: "input_boolean.switch_security_camera_1", state: "on" } }, { name: "Garden", icon: "mdi:tree-outline", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_1" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_2" }] } }, active: { entity: "input_boolean.switch_security_camera_2", state: "on" } }] }, { type: "custom:glass-camera", layout: "stacked", list_glass: "dark-liquid", player_glass: "liquid-gl", badge_glass: "liquid-gl", show_timeline: !0, cameras: [{ camera: "camera.front_door", name: "Entrance", icon: "mdi:door", frigate_camera: "frontdoor", active: { entity: "input_boolean.switch_security_camera_1", state: "on" }, items: [{ entity: "switch.front_door_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.front_door_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }, { camera: "camera.garden", name: "Garden", icon: "mdi:tree-outline", frigate_camera: "garden", active: { entity: "input_boolean.switch_security_camera_2", state: "on" }, items: [{ entity: "switch.garden_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.garden_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#more", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:dots-horizontal-circle-outline", margin_top_desktop: "-35px", name: "More", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "More", icon: "mdi:dots-horizontal-circle-outline", view_layout: { height: "auto" } }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Security", icon: "mdi:shield-home", description: "Arm and disarm the alarm – the keypad and what's open", cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarms", icon: "mdi:alarm", description: "Wake-up alarms – their times, days and sound", cards: [{ type: "custom:glass-alarms", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarm ringing", icon: "mdi:alarm-bell", description: "An alarm over the whole dashboard – snooze it or slide to stop", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Ring an alarm", image: "glass:demo/alarm-morning.jpg", status: "info", info: [{ text: "Kids' room – snooze it or slide to stop" }], tap_action: { action: "perform-action", perform_action: "input_boolean.turn_on", target: { entity_id: "input_boolean.glass_alarm_1_ringing" } }, entities: [{ entity: "input_boolean.glass_alarm_1_ringing", icon: "mdi:alarm-bell", name: "Ring" }], view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Screensaver player", icon: "mdi:monitor-screenshot", description: "The media player as the whole screen – a kiosk's screensaver", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Open the screensaver", image: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj", status: "info", info: [{ text: "What plays, big – a touch for the buttons" }], tap_action: { action: "navigate", navigation_path: "#screensaver" }, view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Calendar", icon: "mdi:calendar-month", description: "The family's month and week – tap a day to add an event", cards: [{ type: "custom:glass-calendar-view", height: "600px", close: !1, days_off: ["calendar.holidays"], calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], view_layout: { height: "auto" } }] }] }], show_header: !1 }] }] }] }, es = "glass-demo-popups", Mo = { "home|": { title: "Home", media_class: "directory", media_content_type: "home", media_content_id: "", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Today's biggest hits", media_class: "playlist", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/JhukEr_gsgy7LuD0aFWmmTpcrAkB0Amk5zoFgAtPE3LBWwRXfbkZPP3epGFAp9HLcNkVZ-AyD0kX-a7e=w544-h544-l90-rj" }, { title: "All hits", media_class: "playlist", media_content_type: "home2", media_content_id: "All hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }, { title: "Trending songs for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Music videos for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Covers and remixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Song mixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/_cBCKUoFjuJsTPKvNViql9pqLTD_NfiNNn3y13rh1iXXIwpZ2dyQcyn9H2dneW9J9F9-I6zM13zFe4qV=w544-h544-l90-rj" }, { title: "New releases", media_class: "playlist", media_content_type: "home2", media_content_id: "New releases", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Live performances", media_class: "playlist", media_content_type: "home2", media_content_id: "Live performances", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, "home2|Song mixes": { title: "Song mixes", media_class: "directory", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard) - Justice", media_class: "playlist", media_content_type: "track", media_content_id: "JWxoRY7AFSw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Stop The Wedding! - Ashe", media_class: "playlist", media_content_type: "track", media_content_id: "BVR3k32x9h0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me - Kelsy Karter & The Heroines", media_class: "playlist", media_content_type: "track", media_content_id: "VdlCbji1CAg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti - KATSEYE", media_class: "playlist", media_content_type: "track", media_content_id: "HY397w59MT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album) - Tove Lo", media_class: "playlist", media_content_type: "track", media_content_id: "0lI_KzhfIBk", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden - HUNTR/X", media_class: "playlist", media_content_type: "track", media_content_id: "9_bTl2vvYQg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "BbY WOW - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "ljAH6jNaApU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/GdW-pwzDkHLGvvf0pe_dgTcBYkJ2UFgsW6Zldnxyz-kX3l8I-QrRMow8IooEm7njIEAJauyWfoSV1rM=w544-h544-l90-rj" }, { title: "You’re Under Arrest - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "qsqvJpOgrWw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EQNyUqxuYcONem8DYLwrXvMdc0rs-ryUcSgdgpxVkqtx53WRKr5YtBwEnaHBgnN5iWk90JBbdkrpSq4=w544-h544-l90-rj" }, { title: "COQUETA - Fuerza Regida", media_class: "playlist", media_content_type: "track", media_content_id: "fPczdTA1xU0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/llYLq4jy6rSfhDDnEwL5rsxS80eBMvPzcZoryVzEQhbZCCOJMgcrkhtWiXTMLnASubnA0Ga99l6lVdUg=w544-h544-l90-rj" }, { title: "Don't Stop The Music - Bisken", media_class: "playlist", media_content_type: "track", media_content_id: "7WIWltd6CiM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/qn1AKHBdT_xmKUxMmseOxhFlTVQ4zoDO60JyXcMRiy3DSvdT8HOCmty-wQyPD3F2BRN-1kKzrMWcZKjyjw=w544-h544-l90-rj" }, { title: "Love Options - BESTie", media_class: "playlist", media_content_type: "track", media_content_id: "jWwdHeJ8XeU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/e_KhStFaUpXtdfyncHtYOBGibpgdw3fVixG8H0_E8aIW6G0Op9wo4jQqWsfHCEMaI96DnhsqlHM9Yzck=w544-h544-l90-rj" }, { title: "Sakuranbo - YENA", media_class: "playlist", media_content_type: "track", media_content_id: "6POlUfjBIB4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/_RWfWayKDftrngXQ8sGahDtVVmqfhzji0cR1WTE2DWsW8VO7NJnDMStdjFYWj1lqoACBSxW8e5dnheHbIg=w544-h544-l90-rj" }, { title: "Hong Kong", media_class: "playlist", media_content_type: "track", media_content_id: "cUnEvW5aS80", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/X_xAPVJ2PYZCimHbT1dLd6JNQRNIzelWVSjUak_sBJXVUy2wajg7DHX__2B7O_fpi5iCKrOufTphwH3_=w544-h544-l90-rj" }, { title: "I Want You - ENHYPEN", media_class: "playlist", media_content_type: "track", media_content_id: "dBv5ju-TGZQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/p03tt4dCfQUZILU6EFkRanxOdpHXfKJi93xgjChLZkyUQS76s-ap-_QtjwHCtFy-QqdTdrdO4eNoaOMR=w544-h544-l90-rj" }, { title: "REDRED - CORTIS", media_class: "playlist", media_content_type: "track", media_content_id: "5sOgJQ3N03Q", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QwlA1MsRGQRVG6kIPLEB068OXqVk4QKHWXeAIX0C-QaZ7Mzgh4f9JbXLj03itMK14uRL5EsnVmslkzN2=w544-h544-l90-rj" }, { title: "like JENNIE - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "HMQlkbXjSTM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Z3gufPaLCcWuJNE4NH6KhlbUSrnx3hvUQgnhwQBrUDNzEgAp1aNMuCr0nv0gJxU8XcS2Rp9I-BHPZt_i=w544-h544-l90-rj" }] }, "home2|Covers and remixes": { title: "Covers and remixes", media_class: "directory", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Save Your Tears ((Remix) Bonus Track) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "lS9Kgp6PsWY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Ds4HZUl-Cziy9wW0zGv5_rRw0fGc01a3rMZ6mB27HkSTtVLaPwUpPaXdoISHAH3XprkYyPfIEcSpmPy-=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight) - Syzz", media_class: "playlist", media_content_type: "track", media_content_id: "maY-KIK3EDI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Remember Our Summer CYNIX Remix - CYNIX", media_class: "playlist", media_content_type: "track", media_content_id: "1x0e5svjyoA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/1x0e5svjyoA/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3m6b1RsrcKkQCPkyDTNx2HXM7wmpA" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "DXO288FnB-A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Flo Rida feat. T-Pain - Low (FNZ Remix) - FNZ", media_class: "playlist", media_content_type: "track", media_content_id: "8s5o9JS9dsM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/8s5o9JS9dsM/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3lhK_a8liz1kba7el0JWShA6hq2Eg" }, { title: "Stand by Me - Seal", media_class: "playlist", media_content_type: "track", media_content_id: "zRafBMo9t_A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Die For You (Remix) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "AySMGpXQ1Mo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/liKrw5t_WphMbkiYKDHQj1rf8S8GSwxgMRUmB7tkHhPF862BRcqIYxFEj9QwKr51ge2ma6u0C_wI4jNo=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "6KjVYeQ9SRw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/FQsPsZdaGUkT3_Q-9iilsYnS6xc0CAerb6pIhUou-skal6-jMQQ-xUigopbvfqVP_e-msHiabmCN2wCl=w544-h544-l90-rj" }, { title: "Cold Heart (PNAU Remix) - Elton John", media_class: "playlist", media_content_type: "track", media_content_id: "e-S1k9-soT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Love Me Like You Do - Elena Gray", media_class: "playlist", media_content_type: "track", media_content_id: "Q9HxtBBqmHA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }] }, "home2|Trending songs for you": { title: "Trending songs for you", media_class: "directory", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Go Easy (from GTAVI: The Album) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "eqQRPRcoIYo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat - MOONLGHT", media_class: "playlist", media_content_type: "track", media_content_id: "LOvFNEryrOA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack) - Lena Vril", media_class: "playlist", media_content_type: "track", media_content_id: "zLilheGY7OY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man - FINNEAS", media_class: "playlist", media_content_type: "track", media_content_id: "pQ_3P-0WwvU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Sexy Magic (from GTAVI: The Album) (feat. Grand Theft Auto VI) - CA7RIEL & Paco Amoroso", media_class: "playlist", media_content_type: "track", media_content_id: "VBKnzlBP95A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/hbpSyosNXpw2uZ6_KOx0YjBLO-rMJx6gLxEE7Suz-sYnWYhoWu8FVk5FXJEDwJdncjWifi9UIbmDTJEU=w544-h544-l90-rj" }, { title: "Babydoll - Jamie Miller", media_class: "playlist", media_content_type: "track", media_content_id: "7MAs5b7EJyc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love - Keyshia Cole", media_class: "playlist", media_content_type: "track", media_content_id: "8M_-aaZUs4o", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }, { title: "Innerbloom XI - RÜFÜS DU SOL", media_class: "playlist", media_content_type: "track", media_content_id: "MyeUOTWUNsE", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gk6GLgNgat-oez8Yl8tirJNj80jCNuN1HnnaoyhLPGazQP76XMGXzB67nL7KBJUz6wead6n8mH_jBFdk=w544-h544-l90-rj" }, { title: "Power Trip (from GTAVI: The Album) - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "3uC4yshW6Yc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AwqUl_c3gIFWtvPf7h_tDz_gIlM8pLyTTxeVyIT14W1eoVCKfcmnrox73QDxI-YIntjKdKZGvh-c1twq=w544-h544-l90-rj" }, { title: "Leave With Me - LISA", media_class: "playlist", media_content_type: "track", media_content_id: "r58jywvd-Rw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EAgD2-ySGHKQdBxH3kj9IGjyJiXYP8Lkoa2dMvXb3KZUw1N_6ghCLiB9hklwRqZHqt8cVpnVviQ3r-Zo=w544-h544-l90-rj" }, { title: 'Sun Showers (From "The Angry Birds Movie 3”) - JISOO', media_class: "playlist", media_content_type: "track", media_content_id: "nfvXvCwqChY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/M4Bx2xs5rppzER-NHQvimkZ29gyD9t99yKBBWvAk4PSTOcTKGyfUbKhdVeHuAQwbtrRAGGNNzCWwWGsv=w544-h544-l90-rj" }, { title: "ICONIC - CL", media_class: "playlist", media_content_type: "track", media_content_id: "6v-TZZKvADw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/gDaFchnWU4AGuYCAPgHjkZ3oTkN_LU7IK9aYpkDED9zgZUUqxLgOjXE9W5338xoqLoIaTfunleAMnIxSQw=w544-h544-l90-rj" }, { title: "BABY ANGEL - NAYEON", media_class: "playlist", media_content_type: "track", media_content_id: "Z8ehh3ANZak", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/di75B_1bBuBn_TwuiQ_bMUNmHYLtVncpVY8KH5iVPvGRZ1jNMB20tIzhtuluWltcx4AF0YAaf1k3yZc=w544-h544-l90-rj" }, { title: "Tremendo Desastre - Myke Towers", media_class: "playlist", media_content_type: "track", media_content_id: "PWIQFC5YZPA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Nm_lkqCGk6JtexgRCc-XQsiYx_aWPexSC7KDP66iCA2v0cV-CmhwUTBkdxQ6sLEt0aYM2jEibDFDCdOeCw=w544-h544-l90-rj" }, { title: "Angel Bite - TOMORROW X TOGETHER", media_class: "playlist", media_content_type: "track", media_content_id: "5JkTq9rOYI8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/JlSvnvfKfrsSqmYacyjKZUyGT5lDaON6lYGMobOoQSFMY6jZix3Uc6zCLUVdwt1oyDhXc3-4EGOeI6M=w544-h544-l90-rj" }, { title: "El Ojo Alegre - Lucero", media_class: "playlist", media_content_type: "track", media_content_id: "_ulXageeMis", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/sdnkjwUO2m4zxwGl3iG0ax205A0w6o584Rz125r7qxet41QMDdzK6LTuT6U9Oh943OGn1DIGhpzroed76A=w544-h544-l90-rj" }] }, "home2|New releases": { title: "New releases", media_class: "directory", media_content_type: "home2", media_content_id: "New releases", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "New Release Mix", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDTMAK5uy_lr0LWzGrq6FU9GIxWvFHTRPQD2LHMqlFA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://music.youtube.com/image/mixart?r=ENgEGNgEMiAIBxoNL2cvMTF0ZzJ2a3IxehoNL2cvMTF2azhtMV81c2IICgYKBAoCZW4" }, { title: "Grand Theft Auto VI: The Album (Deluxe Edition)", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_TINpB57piQG", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/wSeM_CFdxBOWkA26uiVcmIGhsfwRtoU3QFaXRZm7i3BQnjm_H6HkQXhSX7QmF3oUjiWNOftVM86dBMKT=w544-h544-l90-rj" }, { title: "Live in Mexico City", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_eMs4ZDFJwXq", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Oh My Little Baby Boy", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_1VNQRlCRafA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/0g39YYG1TCisyYWef7EzNyrPHHMQ5zHRpHT3jQvD0SP2Qzk9ireD0ynEi78_mGq9HWpu-BoeseOrE0hK=w544-h544-l90-rj" }] }, "home2|All hits": { title: "All hits", media_class: "directory", media_content_type: "home2", media_content_id: "All hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_n9PTezEY6LrODsz6rl2KDtFzC9e5Qzz9Y", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QrISu_Bk4sR6MN_TUD2bbWO4ZyfdSFJVE8JPpCD4P9uCRmyQtE1e3HjxtwsiomjiR0idTKD7Wl6w9A=w544-h544-l90-rj" }, { title: "Huge Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kWiJXUNLZM9EyS3GBGznl1ku8_cOos97U", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Lld802Wk-_qbAttIghD3-R2U9wjKT87qsY-9sUbxl1G4AQ4VKwA02HGg6QF56thp9HA-u6VCj76W=w544-h544-l90-rj" }, { title: "Pop Gold", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nHSqCJjDrW9HBhCNdF6tWPdnOMngOv0wA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/rAUuEbLF7CYEYBXU3yAY4npMCzTgPxMhlD-ygH9iv_SuDXGDuDvO0Z4MTh33xAI6o3UnpWFe26MS_hBZ=w544-h544-l90-rj" }, { title: "Hip-Hop Classics", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kP2172rQNb3KFXz880xp6M98R_ME5CIKA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QbaOnF8DHmwx70wCX4E3e8QcmkZNaO91jkIqz1U-UcW_PFYzA2419D7icVlUZRrWwsDqxAal_RzCOg=w544-h544-l90-rj" }, { title: "Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_k6PkYWus1Mt-aKrbb0Ne8SkA2BgAk1Yy4", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BJEqYDBiNwOS5x7siLvlpqISZOjTNTNmWBk5QzBF70y8RotdBrkHg24o5VFLxfrfheO8SFYyhUqAUJY=w544-h544-l90-rj" }, { title: "Hip-Hop Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nMRqcKbbYRujfKKitokBwvLQSFHnsomls", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/fhbtBeL6Pglzk0DfmwOTxX2cO7hkhFulB-uqDgKyEdoPQs6zcQFtm_eWFqltKv2W17LRNEkpZJBNpw=w544-h544-l90-rj" }, { title: "Pop's Biggest Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nmS3YoxSwVVQk9lEQJ0UX4ZCjXsW_psU8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/ih5QdpqpkVNRXtD-joBWj3jo1woxAXJFyAoA3hWYNWAKX0M9B825HH2VOh7aDX-unf67oyCyJGN9TljR=w544-h544-l90-rj" }, { title: "Drum & Bass Room", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lwP-V7kSIhX3CJEV7zRd9P8Nj0F1l5RbY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Qcd9QnCfMmsjdl8mXNlxHf9N0csfuOr3Gb_2aH7WCcr1RbIRXRvpnoiyTeKlL54d3PT9s0YbQznsAxU=w544-h544-l90-rj" }, { title: "Heavy Hitters", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nVT2-bFfxplES7OQSLcnwlJqpsQ9gn0yY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }] }, "home2|Today's biggest hits": { title: "Today's biggest hits", media_class: "directory", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Pop Certified", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lBNUteBRencHzKelu5iDHwLF6mYqjL-JU", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BchO1e_VlImwqaOcFKhjEmQj9x_gfumqInfztMvIlbSoxfpFeyu3uJoMkIDtx22Hng_PCtg2XmWm_g=w544-h544-l90-rj" }, { title: "Chroma: Today's Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kLWIr9gv1XLlPbaDS965-Db4TrBoUTxQ8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bgyYaDg4vQmS4TB1A5vZbnTO0X3Dp2K466u7ZJcEKB7fY4o8Mg3BAObHle4ZMGhEVBWGJ17YMoYqgQ=w544-h544-l90-rj" }, { title: "Hits Remixed", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_l2zLaMIWOqWSePvTSmt49GcuR8460ZR10", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/8QAvBU7EabmeoXp8wtBoFPROpZy0LVDU5CqrMmKy6ubrwixctxAJdWs7u9ZkZIx1dbB37hAnx6tHXRgh=w544-h544-l90-rj" }, { title: "EDM 2026", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mOGSCVBsZurORfvybL5lEwxKsNFlZ8cPY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/DJhVFzpwJJBcnOQpHEjnZgqon_9TFlQNiss38auB9zqNItAv9ivXZmbaWNiXErYhEE1MVvq51c-3zw=w544-h544-l90-rj" }, { title: "Hits Unplugged ", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mdwsZFtQhJyGQPuQA612VoRPXp-OJfzx8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/t4ITg7S7zqTh93EXNlRoPSaAXIR7nQrdpo3BlGtJ3lkaqsRz5Pu-nWHXjcd7hMlzCirM6-HZ00PvrCKc=w544-h544-l90-rj" }] }, "home2|Music videos for you": { title: "Music videos for you", media_class: "directory", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "I Don't Want To Talk About It (Live) - Rod Stewart", media_class: "playlist", media_content_type: "track", media_content_id: "w46bWxS9IjY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/w46bWxS9IjY/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kPxizLkdJBFIu9K4f7uo7NjTP2KQ" }, { title: "I Knew It, I Knew You/ Our Song (Live) - Taylor Swift", media_class: "playlist", media_content_type: "track", media_content_id: "LJC7mgjp5FQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/LJC7mgjp5FQ/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mM4YESRNfhv97MCbjSE09Hpz_s2A" }, { title: "Training Season (Live) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "3DcoC8p9az8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Dusk Till Dawn (feat. Sia) - ZAYN", media_class: "playlist", media_content_type: "track", media_content_id: "tt2k8PGm-TI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/tt2k8PGm-TI/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mwQETV3eMp1l7fpqqCQirCg9x7PA" }, { title: "ADDICTED - JISOO", media_class: "playlist", media_content_type: "track", media_content_id: "Pksr9T8m_aA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/Pksr9T8m_aA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nthnoizeIpaXcWtt98-BPcJ6ZSXg" }, { title: "TQG - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "jZGpkLElSu8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/jZGpkLElSu8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mcWVQ9jm77acjGdDNvQ8VeKgaDRw" }, { title: "It's Me - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "bMhDJ0S0OBA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/bMhDJ0S0OBA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3lRd-ngPHNZ1KbFt6pba5wdAVIEwQ" }, { title: "HOLLYWOOD - Peso Pluma", media_class: "playlist", media_content_type: "track", media_content_id: "rCL8-CiGSmc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/rCL8-CiGSmc/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mOpJu1dMkOEnAVOczmJsUo7D2lpg" }] }, "home2|Featured playlists for you": { title: "Featured playlists for you", media_class: "directory", media_content_type: "home2", media_content_id: "Featured playlists for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Top 100 Music Videos Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn5kI81J1fYWK5eZRl1zJ5kM", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/9FVtwu1BWibyR39Mv1wIGDkpQXTuhAcHMM1D3RQLEDOeMDz9jtRFG_GnliUGMXXP8HoJJ1w0og=s544" }, { title: "Daily Top Music Videos - Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn6t3TXLGiiJdD-sZbrG3tG0", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/zXfgdEQFwlHIbhe_h5F7LQly0XtWbbk-k3hoffmDNOyfNiZx6XAOEzYW7ojOG-LlGi9w9qyfJ8cw=s544" }] }, "home2|Live performances": { title: "Live performances", media_class: "directory", media_content_type: "home2", media_content_id: "Live performances", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Let Me Love You - Mario", media_class: "playlist", media_content_type: "track", media_content_id: "D6vCMxmkMKI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/ld8MgzxD57OHR1UWFbqPHQ1tFMu7KeiWz89gMxhqlH3Vmk6pGsKTR1T8JKtur1P8jj6oq1aa-knevkY=w544-h544-l90-rj" }, { title: "Training Season (Live from the Royal Albert Hall) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "2tw2QDSeBQQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/mRy_-GXuXaHpjkGh4pyMTDh9nw5Yzr-5EcvOgmfUA8xVCVQ0Ewdx_Xt1kzc1GvXNxHrUxmbHXh1xH1HC=w544-h544-l90-rj" }, { title: "Lost On You (Live) - LP", media_class: "playlist", media_content_type: "track", media_content_id: "wDjeBNv6ip0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/wDjeBNv6ip0/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kHFkLOnqkOC1EQ9Y-WFg63tYlYGQ" }, { title: "El Perdedor - Aventura", media_class: "playlist", media_content_type: "track", media_content_id: "EJuxDbSkwmQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, root: { title: "Media Library", media_class: "directory", media_content_type: "library", media_content_id: "library", children_media_class: "directory", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Home", media_class: "playlist", media_content_type: "home", media_content_id: "", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: null }] } }, $a = [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard)", artist: "Justice", picture: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight)", artist: "Syzz", picture: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE)", artist: "Tame Impala", picture: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Stop The Wedding!", artist: "Ashe", picture: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me", artist: "Kelsy Karter & The Heroines", picture: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti", artist: "KATSEYE", picture: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album)", artist: "Tove Lo", picture: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden", artist: "HUNTR/X", picture: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "Stand by Me", artist: "Seal", picture: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Love Me Like You Do", artist: "Elena Gray", picture: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }, { title: "Go Easy (from GTAVI: The Album)", artist: "Dua Lipa", picture: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat", artist: "MOONLGHT", picture: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack)", artist: "Lena Vril", picture: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man", artist: "FINNEAS", picture: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Babydoll", artist: "Jamie Miller", picture: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love", artist: "Keyshia Cole", picture: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }], Zi = "media_player.youtube_music", y0 = ["media_player.kitchen_speaker", "media_player.office_speaker", "media_player.living_room_speaker", "media_player.bathroom_speaker"], js = 842303, v0 = 449471, To = (o, e = 0, t = 214) => {
   const a = $a[o % $a.length];
   return {
     media_title: a.title,
@@ -12960,7 +12960,7 @@ const lu = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
   media_duration: 3600,
   media_position: 1312,
   media_position_updated_at: (/* @__PURE__ */ new Date()).toISOString()
-}, io = {
+}, so = {
   "media_player.living_room_speaker": [
     "playing",
     {
@@ -12983,11 +12983,11 @@ const lu = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
   ],
   "media_player.kitchen_speaker": [
     "playing",
-    { friendly_name: "Kitchen", device_class: "speaker", supported_features: js, volume_level: 0.22, is_volume_muted: !1, shuffle: !1, repeat: "all", group_members: $d, ...Mo(0, 74) }
+    { friendly_name: "Kitchen", device_class: "speaker", supported_features: js, volume_level: 0.22, is_volume_muted: !1, shuffle: !1, repeat: "all", group_members: $d, ...To(0, 74) }
   ],
   "media_player.office_speaker": [
     "playing",
-    { friendly_name: "Office", device_class: "speaker", supported_features: js, volume_level: 0.26, is_volume_muted: !1, shuffle: !1, repeat: "all", group_members: $d, ...Mo(0, 74) }
+    { friendly_name: "Office", device_class: "speaker", supported_features: js, volume_level: 0.26, is_volume_muted: !1, shuffle: !1, repeat: "all", group_members: $d, ...To(0, 74) }
   ],
   "media_player.bathroom_speaker": [
     "idle",
@@ -12997,10 +12997,10 @@ const lu = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
 };
 function w0(o) {
   if (o.entity_id !== Zi) return;
-  const e = o.media_content_type === void 0 ? "root" : `${o.media_content_type}|${o.media_content_id ?? ""}`, t = Ao[e];
+  const e = o.media_content_type === void 0 ? "root" : `${o.media_content_type}|${o.media_content_id ?? ""}`, t = Mo[e];
   if (t) return structuredClone(t);
   if (o.media_content_type !== void 0 && /playlist|album/i.test(String(o.media_content_type))) {
-    const a = Object.values(Ao).flatMap((n) => n.children ?? []).filter((n) => !n.can_expand && / - /.test(String(n.title))), i = [...String(o.media_content_id ?? "")].reduce((n, r) => (n * 31 + r.charCodeAt(0)) % 997, 7), s = a.length ? Array.from({ length: Math.min(14, a.length) }, (n, r) => a[(i + r * 7) % a.length]) : [];
+    const a = Object.values(Mo).flatMap((n) => n.children ?? []).filter((n) => !n.can_expand && / - /.test(String(n.title))), i = [...String(o.media_content_id ?? "")].reduce((n, r) => (n * 31 + r.charCodeAt(0)) % 997, 7), s = a.length ? Array.from({ length: Math.min(14, a.length) }, (n, r) => a[(i + r * 7) % a.length]) : [];
     return {
       title: String(o.media_content_id ?? ""),
       media_class: "playlist",
@@ -13014,13 +13014,13 @@ function w0(o) {
   return { title: String(o.media_content_id ?? "YouTube Music"), media_class: "directory", media_content_type: o.media_content_type, media_content_id: o.media_content_id ?? "", can_play: !1, can_expand: !0, children: [] };
 }
 function x0(o) {
-  for (const e of Object.values(Ao)) for (const t of e.children ?? []) if (t.media_content_id === o) return t;
+  for (const e of Object.values(Mo)) for (const t of e.children ?? []) if (t.media_content_id === o) return t;
 }
 function k0(o) {
   return Object.fromEntries(["media_title", "media_artist", "entity_picture", "media_duration", "media_position", "media_position_updated_at", "track", "shuffle", "repeat"].filter((t) => t in o).map((t) => [t, o[t]]));
 }
 function $0(o, e, t, a, i) {
-  const s = e.filter((c) => c in io);
+  const s = e.filter((c) => c in so);
   if (!s.length) return !1;
   const n = (c) => {
     const d = a(c)?.attributes.group_members ?? [c];
@@ -13042,7 +13042,7 @@ function $0(o, e, t, a, i) {
       case "media_next_track":
       case "media_previous_track": {
         const u = Number(h.track ?? 0) + (o === "media_next_track" ? 1 : $a.length - 1);
-        for (const m of r(c, h)) i(m, ["playing", Mo(u)]);
+        for (const m of r(c, h)) i(m, ["playing", To(u)]);
         break;
       }
       case "media_seek":
@@ -13067,10 +13067,10 @@ function $0(o, e, t, a, i) {
         i(c, ["off", {}]);
         break;
       case "select_source":
-        c === Zi && typeof t.source == "string" && t.source in io && i(c, [d.state, { remote_player_id: t.source }]);
+        c === Zi && typeof t.source == "string" && t.source in so && i(c, [d.state, { remote_player_id: t.source }]);
         break;
       case "join": {
-        const u = (Array.isArray(t.group_members) ? t.group_members : [t.group_members]).filter((f) => f in io), m = [.../* @__PURE__ */ new Set([...n(c), ...u])];
+        const u = (Array.isArray(t.group_members) ? t.group_members : [t.group_members]).filter((f) => f in so), m = [.../* @__PURE__ */ new Set([...n(c), ...u])];
         for (const f of m) i(f, [d.state, { group_members: m, ...f === c ? {} : k0(h) }]);
         break;
       }
@@ -13082,7 +13082,7 @@ function $0(o, e, t, a, i) {
       }
       case "play_media": {
         const u = x0(String(t.media_content_id ?? "")), m = c === Zi ? String(h.remote_player_id ?? y0[0]) : c, f = String(u?.title ?? "Music"), b = f.lastIndexOf(" - "), y = {
-          ...Mo(Number(h.track ?? 0) + 1),
+          ...To(Number(h.track ?? 0) + 1),
           media_title: b > 0 ? f.slice(0, b) : f,
           media_artist: b > 0 ? f.slice(b + 3) : "YouTube Music",
           ...u?.thumbnail ? { entity_picture: u.thumbnail } : {}
@@ -13097,7 +13097,7 @@ function $0(o, e, t, a, i) {
   }
   return !0;
 }
-const S0 = (o) => Ao[`home2|${o}`]?.children ?? [], cu = (o) => o ? { path: o, type: "thumb", provider: "ytmusic", remotely_accessible: !0 } : void 0, Mn = (o, e) => ({
+const S0 = (o) => Mo[`home2|${o}`]?.children ?? [], cu = (o) => o ? { path: o, type: "thumb", provider: "ytmusic", remotely_accessible: !0 } : void 0, Tn = (o, e) => ({
   item_id: `t${e}`,
   provider: "ytmusic",
   media_type: "track",
@@ -13105,40 +13105,40 @@ const S0 = (o) => Ao[`home2|${o}`]?.children ?? [], cu = (o) => o ? { path: o, t
   name: o.title,
   artists: [{ name: o.artist }],
   image: cu(o.picture)
-}), Tn = (o, e) => S0(o).filter((t) => t.thumbnail).map((t, a) => ({ item_id: `${o}-${a}`, provider: "ytmusic", media_type: e, uri: String(t.media_content_id), name: String(t.title), owner: "YouTube Music", image: cu(String(t.thumbnail)) })), zd = ["Dua Lipa", "Tame Impala", "Seal", "FINNEAS", "Tove Lo", "Ashe"], z0 = () => [...$a].sort((o, e) => (zd.indexOf(o.artist) + 99) % 99 - (zd.indexOf(e.artist) + 99) % 99 || 0);
+}), Cn = (o, e) => S0(o).filter((t) => t.thumbnail).map((t, a) => ({ item_id: `${o}-${a}`, provider: "ytmusic", media_type: e, uri: String(t.media_content_id), name: String(t.title), owner: "YouTube Music", image: cu(String(t.thumbnail)) })), zd = ["Dua Lipa", "Tame Impala", "Seal", "FINNEAS", "Tove Lo", "Ashe"], z0 = () => [...$a].sort((o, e) => (zd.indexOf(o.artist) + 99) % 99 - (zd.indexOf(e.artist) + 99) % 99 || 0);
 function A0(o) {
   switch (o) {
     case "music/recommendations":
       return [
-        { item_id: "listen", provider: "ytmusic", name: "Listen again", items: z0().map(Mn) },
-        { item_id: "mixed", provider: "ytmusic", name: "Mixed for you", items: [...Tn("Today's biggest hits", "playlist"), ...Tn("All hits", "playlist")].filter((e) => !/Gaming/.test(e.name)) },
-        { item_id: "albums", provider: "ytmusic", name: "Albums for you", items: Tn("New releases", "album") },
-        { item_id: "recent", provider: "library", name: "Recently played", items: [...$a].reverse().map(Mn) }
+        { item_id: "listen", provider: "ytmusic", name: "Listen again", items: z0().map(Tn) },
+        { item_id: "mixed", provider: "ytmusic", name: "Mixed for you", items: [...Cn("Today's biggest hits", "playlist"), ...Cn("All hits", "playlist")].filter((e) => !/Gaming/.test(e.name)) },
+        { item_id: "albums", provider: "ytmusic", name: "Albums for you", items: Cn("New releases", "album") },
+        { item_id: "recent", provider: "library", name: "Recently played", items: [...$a].reverse().map(Tn) }
       ];
     case "music/playlists/playlist_tracks":
     case "music/albums/album_tracks":
-      return $a.map(Mn);
+      return $a.map(Tn);
     default:
       return [];
   }
 }
 globalThis.__glassMaDemo = A0;
-const De = {}, Zr = /* @__PURE__ */ new Set(), To = (/* @__PURE__ */ new Date()).toISOString();
+const De = {}, Zr = /* @__PURE__ */ new Set(), Co = (/* @__PURE__ */ new Date()).toISOString();
 function me(o, e) {
   const t = De[o], [a, i = {}] = typeof e == "string" ? [e, {}] : e, s = !t || t.state !== a, n = (/* @__PURE__ */ new Date()).toISOString();
   De[o] = {
     entity_id: o,
     state: a,
     attributes: { ...t?.attributes ?? {}, ...i },
-    last_changed: s ? t ? n : To : t.last_changed,
-    last_updated: t ? n : To
+    last_changed: s ? t ? n : Co : t.last_changed,
+    last_updated: t ? n : Co
   };
 }
-for (const [o, e] of Object.entries({ ...Ur, ...io })) me(o, e);
-let Cn = 0;
+for (const [o, e] of Object.entries({ ...Ur, ...so })) me(o, e);
+let Dn = 0;
 function Ht() {
-  Cn || (Cn = requestAnimationFrame(() => {
-    Cn = 0, Zr.forEach((o) => o());
+  Dn || (Dn = requestAnimationFrame(() => {
+    Dn = 0, Zr.forEach((o) => o());
   }));
 }
 function Pc(o) {
@@ -13158,18 +13158,18 @@ function D0(o, e) {
   const t = e?.entity_id ?? o?.entity_id;
   return (Array.isArray(t) ? t : t ? [t] : []).filter((a) => De[a]);
 }
-function Dn(o, e, t = {}) {
+function Pn(o, e, t = {}) {
   const a = o.split(".")[0], [i, s] = T0[a] ?? ["on", "off"];
   a === "light" && e && !De[o].attributes.brightness && !t.brightness && (t = { brightness: 200, ...t }), a === "light" && !e && (t = { brightness: null, ...t }), a === "cover" && (t = { current_position: e ? 100 : 0, ...t }), me(o, [e ? i : s, t]);
 }
-const Co = /* @__PURE__ */ new Map();
-function Pn(o, e) {
-  clearInterval(Co.get(o));
+const Do = /* @__PURE__ */ new Map();
+function En(o, e) {
+  clearInterval(Do.get(o));
   const t = De[o].attributes.current_position !== void 0;
   let a = t ? Number(De[o].attributes.current_position) : De[o].state === "open" ? 100 : 0;
   if (Math.abs(a - e) < 1) return;
   const i = e > a;
-  me(o, [i ? "opening" : "closing", {}]), Co.set(
+  me(o, [i ? "opening" : "closing", {}]), Do.set(
     o,
     window.setInterval(() => {
       a = i ? Math.min(e, a + 5) : Math.max(e, a - 5);
@@ -13179,13 +13179,13 @@ function Pn(o, e) {
   );
 }
 function du(o) {
-  clearInterval(Co.get(o)), Co.delete(o);
+  clearInterval(Do.get(o)), Do.delete(o);
 }
 function P0(o) {
   const e = {};
   return o.brightness_pct !== void 0 && (e.brightness = Math.round(Number(o.brightness_pct) / 100 * 255)), o.brightness !== void 0 && (e.brightness = Number(o.brightness)), o.color_temp_kelvin !== void 0 && (e.color_temp_kelvin = Number(o.color_temp_kelvin)), o.hs_color !== void 0 && (e.hs_color = o.hs_color), o.rgb_color !== void 0 && (e.rgb_color = o.rgb_color), e;
 }
-async function Do(o, e, t, a) {
+async function Po(o, e, t, a) {
   const i = D0(t, a), s = t ?? {};
   if ((o === "scene" || o === "script") && (e === "turn_on" || e === "toggle")) {
     for (const n of i) la[n]?.(s);
@@ -13195,7 +13195,7 @@ async function Do(o, e, t, a) {
   if (o === "script" && Array.isArray(s.actions)) {
     for (const n of s.actions) {
       const [r, l] = String(n.service ?? n.action ?? "").split(".");
-      r && l && Do(r, l, { ...n.data ?? {}, ...n.entity_id ? { entity_id: n.entity_id } : {} }, n.target);
+      r && l && Po(r, l, { ...n.data ?? {}, ...n.entity_id ? { entity_id: n.entity_id } : {} }, n.target);
     }
     return;
   }
@@ -13211,13 +13211,13 @@ async function Do(o, e, t, a) {
     const r = De[n], l = n.split(".")[0];
     switch (e) {
       case "toggle":
-        Dn(n, !C0(r));
+        Pn(n, !C0(r));
         break;
       case "turn_on":
-        Dn(n, !0, l === "light" ? P0(s) : {});
+        Pn(n, !0, l === "light" ? P0(s) : {});
         break;
       case "turn_off":
-        Dn(n, !1);
+        Pn(n, !1);
         break;
       case "media_play":
         me(n, "playing");
@@ -13230,10 +13230,10 @@ async function Do(o, e, t, a) {
         me(n, r.state === "playing" ? "paused" : "playing");
         break;
       case "open_cover":
-        Pn(n, 100);
+        En(n, 100);
         break;
       case "close_cover":
-        Pn(n, 0);
+        En(n, 0);
         break;
       case "stop_cover": {
         du(n);
@@ -13242,7 +13242,7 @@ async function Do(o, e, t, a) {
         break;
       }
       case "set_cover_position":
-        Pn(n, Number(s.position));
+        En(n, Number(s.position));
         break;
       case "set_cover_tilt_position":
         me(n, [r.state, { current_tilt_position: Number(s.tilt_position) }]);
@@ -13332,11 +13332,11 @@ function Jr(o) {
 function E0(o, e) {
   switch (o.action) {
     case "toggle":
-      return e && Do(e.split(".")[0], "toggle", { entity_id: e }), !0;
+      return e && Po(e.split(".")[0], "toggle", { entity_id: e }), !0;
     case "perform-action":
     case "call-service": {
       const t = String(o.perform_action ?? o.service ?? ""), [a, i] = t.split(".");
-      return a && i && Do(a, i, o.data ?? o.service_data, o.target), !0;
+      return a && i && Po(a, i, o.data ?? o.service_data, o.target), !0;
     }
     case "more-info":
       return !0;
@@ -13361,8 +13361,8 @@ function L0(o, e) {
       rising: t < 13,
       friendly_name: "Sun"
     },
-    last_changed: To,
-    last_updated: To
+    last_changed: Co,
+    last_updated: Co
   };
 }
 const R0 = (o, e) => {
@@ -13428,7 +13428,7 @@ function Ec(o) {
     // a service for real entities only (not the demo's) goes to Home Assistant
     callService: async (s, n, r, l, c, d) => {
       const h = l?.entity_id ?? r?.entity_id, u = Array.isArray(h) ? h : h ? [h] : [];
-      return o?.callService && u.length && u.every((m) => !De[m]) ? o.callService(s, n, r, l, c, d) : Do(s, n, r, l);
+      return o?.callService && u.length && u.every((m) => !De[m]) ? o.callService(s, n, r, l, c, d) : Po(s, n, r, l);
     },
     callWS: async (s) => {
       if (s.type === "history/history_during_period") {
@@ -13452,7 +13452,7 @@ function Ec(o) {
       }
       if (s.type === "lovelace/config" && typeof s.url_path == "string" && /^glass-demo(-[\w-]+)?-popups$/.test(s.url_path)) {
         const r = (o?.callWS ? await o.callWS(s).catch(() => {
-        }) : void 0) ?? (s.url_path === es ? structuredClone(fn) : void 0);
+        }) : void 0) ?? (s.url_path === es ? structuredClone(bn) : void 0);
         if (!r) throw Object.assign(new Error("No such dashboard"), { code: "config_not_found" });
         return Jr(r);
       }
@@ -13483,24 +13483,24 @@ function Xr(o, e, t, a, i = O0) {
   return `M${mt(o + r)} ${mt(e + l)}L${mt(t + r)} ${mt(a + l)}A${n} ${n} 0 0 0 ${mt(t - r)} ${mt(a - l)}L${mt(o - r)} ${mt(e - l)}A${n} ${n} 0 0 0 ${mt(o + r)} ${mt(e + l)}Z`;
 }
 const Md = [10, 15, 20];
-function so(o) {
+function oo(o) {
   const e = (100 - Math.min(100, Math.max(0, o))) / 100, t = o >= 99 ? [8.5] : Md.slice(0, Math.max(1, Math.ceil(e * Md.length - 1e-3)));
   return Xr(3, 4.5, 21, 4.5) + t.map((a) => Xr(5.5, a, 18.5, a)).join("");
 }
-function oo(o) {
+function no(o) {
   const e = o * Math.PI / 180, t = Math.max(3, 5.5 - Math.max(0, o - 40) / 20 * 2.5), a = Math.cos(e) * t, i = Math.abs(Math.sin(e) * t), s = Math.min(6 + 2 * Math.abs(Math.sin(e)), 10.6 - i);
   return [12 - s, 12, 12 + s].map((n) => Xr(12 - a, n - i, 12 + a, n + i)).join("");
 }
-const no = (o) => {
+const ro = (o) => {
   const e = Math.min(100, Math.max(0, o)) / 100;
   return e <= 0.5 ? 60 - 40 * e : 80 * (1 - e);
 }, Td = {
-  blind: { path: so(0), keywords: ["blind", "cover", "down", "closed", "shade"] },
-  "blind-half": { path: so(50), keywords: ["blind", "cover", "half"] },
-  "blind-open": { path: so(100), keywords: ["blind", "cover", "up", "open"] },
-  "slats-shut": { path: oo(no(0)), keywords: ["slats", "tilt", "shut", "closed", "blind"] },
-  "slats-half": { path: oo(no(50)), keywords: ["slats", "tilt", "half", "blind"] },
-  "slats-open": { path: oo(no(100)), keywords: ["slats", "tilt", "open", "blind"] }
+  blind: { path: oo(0), keywords: ["blind", "cover", "down", "closed", "shade"] },
+  "blind-half": { path: oo(50), keywords: ["blind", "cover", "half"] },
+  "blind-open": { path: oo(100), keywords: ["blind", "cover", "up", "open"] },
+  "slats-shut": { path: no(ro(0)), keywords: ["slats", "tilt", "shut", "closed", "blind"] },
+  "slats-half": { path: no(ro(50)), keywords: ["slats", "tilt", "half", "blind"] },
+  "slats-open": { path: no(ro(100)), keywords: ["slats", "tilt", "open", "blind"] }
 };
 function B0() {
   const o = window;
@@ -13528,28 +13528,28 @@ const qe = {
   },
   stacked: { label: "No side column", columns: () => "minmax(0, 1fr)", rows: "auto auto minmax(0, 1fr)", areas: ["header", "top", "main"], thumb: { cols: "1fr", rows: "1fr 1fr 3fr" } },
   single: { label: "Main area only", columns: () => "minmax(0, 1fr)", rows: "minmax(0, 1fr)", areas: ["main"], thumb: { cols: "1fr", rows: "1fr" } }
-}, bn = (o) => o.trim().replace(/[^A-Za-z0-9_-]/g, "_");
+}, _n = (o) => o.trim().replace(/[^A-Za-z0-9_-]/g, "_");
 function Yt(o) {
   return o ? (Array.isArray(o) ? o : o.match(/"[^"]*"/g) ?? o.split(`
-`)).map((t) => t.replace(/"/g, "").trim().split(/\s+/).filter(Boolean).map((a) => /^\.+$/.test(a) ? "." : bn(a))).filter((t) => t.length) : [];
+`)).map((t) => t.replace(/"/g, "").trim().split(/\s+/).filter(Boolean).map((a) => /^\.+$/.test(a) ? "." : _n(a))).filter((t) => t.length) : [];
 }
 function We(o) {
   const e = [];
   for (const t of o) for (const a of t) a !== "." && !e.includes(a) && e.push(a);
   return e;
 }
-function Po(o, e, t = 0) {
+function Eo(o, e, t = 0) {
   if (!(!o || typeof o != "object" || t > 6)) {
     if (e(o)) return o;
     for (const a of [...Array.isArray(o.cards) ? o.cards : [], o.card].filter(Boolean)) {
-      const i = Po(a, e, t + 1);
+      const i = Eo(a, e, t + 1);
       if (i) return i;
     }
   }
 }
 const Qr = /* @__PURE__ */ new Map();
 function $e(o) {
-  const e = Po(o, (t) => t.type === "custom:bubble-card" && t.card_type === "pop-up");
+  const e = Eo(o, (t) => t.type === "custom:bubble-card" && t.card_type === "pop-up");
   return e?.hash ? { hash: String(e.hash), name: e.name, icon: e.icon, card: e } : void 0;
 }
 function hu(o, e) {
@@ -13561,14 +13561,14 @@ function hu(o, e) {
   t && window.dispatchEvent(new Event("glass-popups"));
 }
 function xt(o) {
-  return Po(o, (e) => e.type === "custom:bubble-card" && e.card_type === "pop-up") ? "popup" : Po(o, (e) => e.type === "custom:bubble-card" && e.card_type === "horizontal-buttons-stack") ? "nav" : "other";
+  return Eo(o, (e) => e.type === "custom:bubble-card" && e.card_type === "pop-up") ? "popup" : Eo(o, (e) => e.type === "custom:bubble-card" && e.card_type === "horizontal-buttons-stack") ? "nav" : "other";
 }
-const En = /* @__PURE__ */ new Map();
+const Ln = /* @__PURE__ */ new Map();
 function j0(o, e) {
-  let t = En.get(e);
+  let t = Ln.get(e);
   return t || (t = o.callWS({ type: "lovelace/config", url_path: e }).catch((a) => {
-    console.warn(`glass-cards: overlay_source ${e} could not be loaded`, a), En.delete(e);
-  }), En.set(e, t)), t;
+    console.warn(`glass-cards: overlay_source ${e} could not be loaded`, a), Ln.delete(e);
+  }), Ln.set(e, t)), t;
 }
 function I0(o) {
   if (!o || !Object.keys(o).length) return;
@@ -13603,13 +13603,13 @@ async function Lc(o, e) {
   ).flatMap((r) => [...r.cards ?? [], ...(r.sections ?? []).flatMap(q0)]), n = e.filter === "all" ? s : s.filter((r) => xt(r) !== "other");
   return hu(n, e.dashboard), e.nav === !1 ? n.filter((r) => xt(r) !== "nav") : n;
 }
-function Eo(o) {
+function Lo(o) {
   return o.replace(/(\d*\.?\d+)([dsl]?)(vw|vh)\b/g, (e, t, a, i) => `calc(${t} * var(--glass-${i}, 1${a}${i}))`);
 }
 function el(o) {
-  return /^\d*\.?\d+$/.test(o) ? `minmax(0,${o}fr)` : o.endsWith("fr") ? `minmax(0,${o})` : Eo(o);
+  return /^\d*\.?\d+$/.test(o) ? `minmax(0,${o}fr)` : o.endsWith("fr") ? `minmax(0,${o})` : Lo(o);
 }
-function Ln(o) {
+function Rn(o) {
   const e = st(o);
   return e.length ? e.map(el).join(" ") : void 0;
 }
@@ -13648,16 +13648,16 @@ function uu(o) {
   return o.map((t, a) => a === e ? "1" : `${Math.round(t)}px`);
 }
 const mu = "glass-cards-editor-lang";
-let Lo = (() => {
+let Ro = (() => {
   try {
     return localStorage.getItem(mu) || "auto";
   } catch {
     return "auto";
   }
 })();
-const Ro = () => Lo, gu = () => Lo === "auto" ? Bp() : Lo;
+const No = () => Ro, gu = () => Ro === "auto" ? Bp() : Ro;
 function fu(o) {
-  Lo = o;
+  Ro = o;
   try {
     localStorage.setItem(mu, o);
   } catch {
@@ -13678,7 +13678,7 @@ function W0(o) {
   };
   return e(o);
 }
-const Rn = (o) => o.localName.startsWith("glass-"), al = (o) => !!o && typeof o == "object" && !Array.isArray(o);
+const Nn = (o) => o.localName.startsWith("glass-"), al = (o) => !!o && typeof o == "object" && !Array.isArray(o);
 function bu(o, e) {
   const t = { ...o };
   for (const [a, i] of Object.entries(e))
@@ -13737,7 +13737,7 @@ function Ca(o, e, t) {
     const f = r.find((_) => !l.has(_) && Na.get(_).json === d);
     if (f) return f;
     const b = r[m], y = b && Na.get(b);
-    if (b && !l.has(b) && y.type === h && y.layout === u && Rn(b) && b.setConfig) return b;
+    if (b && !l.has(b) && y.type === h && y.layout === u && Nn(b) && b.setConfig) return b;
   };
   for (const d of a) {
     const h = Zt(d, i);
@@ -13750,13 +13750,13 @@ function Ca(o, e, t) {
         } catch (x) {
           console.warn("glass-cards: card config", x);
         }
-        Na.set(b, { json: u, opts: n, layout: m, type: f }), Rn(b) && Dd(b, h, t);
+        Na.set(b, { json: u, opts: n, layout: m, type: f }), Nn(b) && Dd(b, h, t);
       }
       Ve.set(b, d), s.push(b);
       continue;
     }
     const y = xs(h, e);
-    Ve.set(y, d), Na.set(y, { json: u, opts: n, layout: m, type: f }), Rn(y) && (t.nested && y.setAttribute("nested", ""), t.bare && y.setAttribute("on-bare", ""), Dd(y, h, t), y.setMode?.(i)), K0(y, U0(h.view_layout, h.card_size));
+    Ve.set(y, d), Na.set(y, { json: u, opts: n, layout: m, type: f }), Nn(y) && (t.nested && y.setAttribute("nested", ""), t.bare && y.setAttribute("on-bare", ""), Dd(y, h, t), y.setMode?.(i)), K0(y, U0(h.view_layout, h.card_size));
     const _ = h.view_layout?.shadow_css;
     _ && F0(y, _), s.push(y);
   }
@@ -13777,10 +13777,10 @@ function V0(o, e) {
 function Rt(o, e) {
   for (const t of o) t.hass = e;
 }
-const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "mint", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange", "brown", "grey", "blue-grey", "black", "white"], Y0 = (o) => `#${o.map((e) => Math.max(0, Math.min(255, Math.round(e))).toString(16).padStart(2, "0")).join("")}`, Z0 = (o) => {
+const On = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "mint", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange", "brown", "grey", "blue-grey", "black", "white"], Y0 = (o) => `#${o.map((e) => Math.max(0, Math.min(255, Math.round(e))).toString(16).padStart(2, "0")).join("")}`, Z0 = (o) => {
   const e = o.replace("#", "");
   return e.length === 6 ? [0, 2, 4].map((t) => parseInt(e.slice(t, t + 2), 16)) : void 0;
-}, Yo = class Yo extends Ye {
+}, Zo = class Zo extends Ye {
   constructor() {
     super(), this._open = !1;
   }
@@ -13792,7 +13792,7 @@ const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo
     const e = this.value;
     if (e == null || e === "" || e === "none") return {};
     if (Array.isArray(e)) {
-      const t = Y0(e), a = Nn.find((i) => na[i]?.toLowerCase() === t);
+      const t = Y0(e), a = On.find((i) => na[i]?.toLowerCase() === t);
       return { css: t, hex: t, name: a };
     }
     return e === "primary" || e === "accent" ? { css: `var(--${e}-color)`, name: e } : na[e] ? { css: na[e], hex: na[e], name: e } : { css: e, hex: /^#[0-9a-f]{6}$/i.test(e) ? e : void 0 };
@@ -13806,7 +13806,7 @@ const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo
     this.value = t, this.dispatchEvent(new CustomEvent("value-changed", { detail: { value: t }, bubbles: !0, composed: !0 }));
   }
   render() {
-    const e = this._shown(), t = this._rgb ? Nn.filter((i) => na[i]) : Nn, a = e.name ? w(Pd(e.name)) : e.hex ? e.hex.toUpperCase() : w("Default");
+    const e = this._shown(), t = this._rgb ? On.filter((i) => na[i]) : On, a = e.name ? w(Pd(e.name)) : e.hex ? e.hex.toUpperCase() : w("Default");
     return p`<div class="field ${this.disabled ? "off" : ""}">
       <button class="trigger" ?disabled=${this.disabled} @click=${() => this._open = !this._open} aria-expanded=${this._open ? "true" : "false"}>
         <span class="lbl">${this.label ?? ""}</span>
@@ -13845,7 +13845,7 @@ const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo
     </div>`;
   }
 };
-Yo.properties = {
+Zo.properties = {
   hass: { attribute: !1 },
   selector: { attribute: !1 },
   value: { attribute: !1 },
@@ -13853,7 +13853,7 @@ Yo.properties = {
   helper: {},
   disabled: { type: Boolean },
   _open: { state: !0 }
-}, Yo.styles = ee`
+}, Zo.styles = ee`
     :host {
       display: block;
     }
@@ -13974,7 +13974,7 @@ Yo.properties = {
       color: var(--secondary-text-color);
     }
   `;
-let sl = Yo;
+let sl = Zo;
 function Pd(o) {
   return o.replace(/-/g, " ").replace(/^./, (e) => e.toUpperCase());
 }
@@ -14029,7 +14029,7 @@ function yu(o, e, t) {
   const { visible_on: i, ...s } = o;
   return a.length === si.length ? s : { ...s, visible_on: a.includes("tablet") ? [...a, "desktop"] : a };
 }
-function ro(o, e) {
+function lo(o, e) {
   const t = o.responsive?.[e]?.view_layout?.order ?? o.view_layout?.order;
   return t === void 0 ? "" : String(t);
 }
@@ -14133,12 +14133,12 @@ function af(o, e) {
   }
   return Object.keys(i.areas).length || delete i.areas, i;
 }
-const No = {
+const Oo = {
   "custom:glass-dock": "bubble-card",
   "custom:glass-popup-header": "bubble-card",
   "custom:glass-chart": "apexcharts-card",
   "custom:glass-camera": "webrtc-camera"
-}, sf = { "bubble-card": "Bubble Card", "apexcharts-card": "apexcharts-card", "webrtc-camera": "WebRTC Camera" }, xu = (o) => !No[o] || !!customElements.get(No[o]), ku = (o) => xu(o) ? void 0 : `${w("Requires")} ${sf[No[o]] ?? No[o]} (HACS) – ${w("install it first")}`, nl = () => !!customElements.get("bubble-card"), $u = "https://buymeacoffee.com/argii", Su = "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png", zu = [
+}, sf = { "bubble-card": "Bubble Card", "apexcharts-card": "apexcharts-card", "webrtc-camera": "WebRTC Camera" }, xu = (o) => !Oo[o] || !!customElements.get(Oo[o]), ku = (o) => xu(o) ? void 0 : `${w("Requires")} ${sf[Oo[o]] ?? Oo[o]} (HACS) – ${w("install it first")}`, nl = () => !!customElements.get("bubble-card"), $u = "https://buymeacoffee.com/argii", Su = "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png", zu = [
   ["custom:glass-room-card", "Room", "mdi:sofa-outline", "Room icon or photo with device buttons"],
   ["custom:glass-panel", "Panel", "mdi:view-dashboard-outline", "Glass frame that holds other cards"],
   ["custom:glass-status-bar", "Status bar", "mdi:dots-horizontal-circle-outline", "Chips with values (temperature, power…)"],
@@ -14484,13 +14484,13 @@ function Rc(o) {
   const e = o?.type;
   return typeof e == "string" && !e.startsWith("custom:glass-") && !uf.includes(e) && xt(o) === "other";
 }
-const Oo = "__auto";
+const Bo = "__auto";
 function Mu(o) {
   return o.map((e) => {
     if (e.type === "grid" && Array.isArray(e.schema)) return { ...e, schema: Mu(e.schema) };
     const t = e.selector?.select?.options;
     if (!Array.isArray(t) || !t.some((i) => (typeof i == "string" ? i : i?.value) === "")) return e;
-    const a = t.map((i) => typeof i == "string" ? i === "" ? { value: Oo, label: "" } : i : i?.value === "" ? { ...i, value: Oo } : i);
+    const a = t.map((i) => typeof i == "string" ? i === "" ? { value: Bo, label: "" } : i : i?.value === "" ? { ...i, value: Bo } : i);
     return { ...e, selector: { ...e.selector, select: { ...e.selector.select, options: a } } };
   });
 }
@@ -14530,7 +14530,7 @@ function cl(o) {
 function dl(o, e) {
   const t = Zt(o, e) ?? {}, a = /* @__PURE__ */ new Set();
   for (const i of yt) Array.isArray(t[i]) && t[i].length && a.add(i);
-  for (const [i, s] of Object.entries(t.areas ?? {})) Array.isArray(s) && s.length && a.add(bn(i));
+  for (const [i, s] of Object.entries(t.areas ?? {})) Array.isArray(s) && s.length && a.add(_n(i));
   return a;
 }
 const mf = /* @__PURE__ */ new Set(["dashboard", "panel", "dock", "tabs"]), Wd = (o) => !mf.has(o) && !!window.customCards?.some((e) => e.type === `glass-${o}`), gf = /* @__PURE__ */ new Set(["image-full", "compact"]);
@@ -14575,7 +14575,7 @@ function Nc(o) {
 function _f(o) {
   return Rc(o) ? p`<div class="bubble-notice"><ha-icon .icon=${"mdi:information-outline"}></ha-icon><span>${w("Not a glass card: the glass type, colours and the day / night look do not reach it – it keeps its own look (theme, card_mod).")}</span></div>` : g;
 }
-function lo() {
+function co() {
   return customElements.get("bubble-card") ? g : p`<div class="bubble-notice">
     <ha-icon .icon=${"mdi:alert-circle-outline"}></ha-icon>
     <span>
@@ -14593,7 +14593,7 @@ function va(o) {
   window.dispatchEvent(new Event("glass-clipboard"));
 }
 let ca;
-const Zo = class Zo extends Ye {
+const Jo = class Jo extends Ye {
   constructor() {
     super(), this.noCards = !1, this._label = (e) => e.label ?? w(Bd[e.name] ?? e.name), this._helper = (e) => e.helper ?? (jd[e.name] && (e.name !== "layout" || this.spec.previewSwitch) ? w(jd[e.name]) : void 0), this._views = {}, this._popupCards = {}, this._paint = "main", this._painting = !1, this._newArea = "", this._panelEditors = /* @__PURE__ */ new Map(), this._onLang = () => this.requestUpdate(), this._autoOpened = !1, this._open = {};
   }
@@ -14633,7 +14633,7 @@ const Zo = class Zo extends Ye {
   }
   _form(e, t, a) {
     const i = Tu(t), s = i.size ? { ...e } : e;
-    for (const n of i) (s[n] === void 0 || s[n] === "") && (s[n] = Oo);
+    for (const n of i) (s[n] === void 0 || s[n] === "") && (s[n] = Bo);
     return p`<ha-form
       .hass=${this.hass}
       .data=${s}
@@ -14643,7 +14643,7 @@ const Zo = class Zo extends Ye {
       @value-changed=${(n) => {
       n.stopPropagation();
       const r = { ...n.detail.value };
-      for (const l of i) r[l] === Oo && (r[l] = void 0);
+      for (const l of i) r[l] === Bo && (r[l] = void 0);
       a(r);
     }}
     ></ha-form>`;
@@ -14668,7 +14668,7 @@ const Zo = class Zo extends Ye {
                 ${this._form(
         { ...e.defaults, ...r },
         e.item(r, t?.parent),
-        (c) => i(a.map((d, h) => h === l ? Hd(On(c), r, e.defaults) : d))
+        (c) => i(a.map((d, h) => h === l ? Hd(Bn(c), r, e.defaults) : d))
       )}
                 ${/"(tap|hold)_action"/.test(JSON.stringify(e.item(r, t?.parent))) || r.tap_action?.action === "menu" || r.hold_action?.action === "menu" ? ["tap_action", "hold_action"].map(
         (c) => this._menu(r, c, `${e.name}:${l}`, (d) => i(a.map((h, u) => u === l ? d : h)))
@@ -14693,7 +14693,7 @@ const Zo = class Zo extends Ye {
       // an item written short (just an entity id) as the form edits it
       items: (n[e.name] ?? []).map((r) => typeof r == "string" ? { entity: r } : r),
       parent: n,
-      set: (r) => this._emit({ ...this._config, [t]: s.map((l, c) => c === a ? On({ ...l, [e.name]: r.length ? r : void 0 }) : l) }),
+      set: (r) => this._emit({ ...this._config, [t]: s.map((l, c) => c === a ? Bn({ ...l, [e.name]: r.length ? r : void 0 }) : l) }),
       id: `${t}:${a}:${e.name}`,
       title: i
     }) : g;
@@ -14745,7 +14745,7 @@ const Zo = class Zo extends Ye {
           V("active"),
           V("visible")
         ],
-        (b) => c(r.map((y, _) => _ === f ? On(b) : y))
+        (b) => c(r.map((y, _) => _ === f ? Bn(b) : y))
       )}
               </div>` : g}
         </div>`
@@ -14907,7 +14907,7 @@ const Zo = class Zo extends Ye {
                     placeholder=${w("Order")}
                     title=${w("Order among the cards next to it (lower first, empty = as listed)")}
                     ?disabled=${!ya(_, z)}
-                    .value=${ro(_, z)}
+                    .value=${lo(_, z)}
                     @change=${(S) => s(i.map((A, k) => k === x ? vu(A, z, S.target.value) : A))}
                   />
                 </div>`
@@ -15057,7 +15057,7 @@ const Zo = class Zo extends Ye {
       { value: "solid", label: w("Solid (fastest)") },
       { value: "none", label: w("None (no glass)") },
       { value: "home", label: w("Home (Apple Home look)") }
-    ], b = (k, $, C = !1) => f(k, C).filter((T) => !$ || !T.value || $.includes(T.value)), y = (k, $, C = !1) => w(f($, C).find((T) => T.value === (k ?? ($ ? "" : "liquid")))?.label ?? k ?? ""), _ = t.look ?? "liquid", x = to(_), z = ["glass", "tile_glass", "control_glass"].some((k) => t[k] !== void 0 && t[k] !== x[k]) || fi(t).some(
+    ], b = (k, $, C = !1) => f(k, C).filter((T) => !$ || !T.value || $.includes(T.value)), y = (k, $, C = !1) => w(f($, C).find((T) => T.value === (k ?? ($ ? "" : "liquid")))?.label ?? k ?? ""), _ = t.look ?? "liquid", x = ao(_), z = ["glass", "tile_glass", "control_glass"].some((k) => t[k] !== void 0 && t[k] !== x[k]) || fi(t).some(
       ([, k]) => k.some(($) => $ && ($.tile_glass !== void 0 || $.control_glass !== void 0 || $.glass !== void 0 && $.glass !== "none"))
     ), S = z ? "custom" : _, A = this._open.night === 1;
     if (e === "wallpaper")
@@ -15227,7 +15227,7 @@ const Zo = class Zo extends Ye {
       const d = { ...e.responsive ?? {}, mobile: c };
       Object.keys(c).length || delete d.mobile, this._emit({ ...e, responsive: Object.keys(d).length ? d : void 0 });
     };
-    return p`${lo()}
+    return p`${co()}
       <div class="list-hint">
         ${w("Pop-ups are Bubble Card pop-ups. New ones live in this dashboard (Pop-ups in the tree); they can also come from another dashboard and are saved back there. Pop-ups from YAML dashboards can only be shown.")}
       </div>
@@ -15406,7 +15406,7 @@ const Zo = class Zo extends Ye {
             @input=${(T) => this._newArea = T.target.value}
             @keydown=${(T) => {
       if (T.key !== "Enter") return;
-      const P = bn(this._newArea);
+      const P = _n(this._newArea);
       P && (this._paint = P, this._newArea = "", this.requestUpdate());
     }}
           />
@@ -15502,8 +15502,8 @@ const Zo = class Zo extends Ye {
     return p`<div class="lang">
       <ha-icon icon="mdi:translate"></ha-icon>
       <select aria-label=${w("Editor language")} @change=${(e) => fu(e.target.value)}>
-        <option value="auto" ?selected=${Ro() === "auto"}>${w("As Home Assistant")}</option>
-        ${Rp.map(([e, t]) => p`<option value=${e} ?selected=${Ro() === e}>${t}</option>`)}
+        <option value="auto" ?selected=${No() === "auto"}>${w("As Home Assistant")}</option>
+        ${Rp.map(([e, t]) => p`<option value=${e} ?selected=${No() === e}>${t}</option>`)}
       </select>
     </div>`;
   }
@@ -15745,7 +15745,7 @@ const Zo = class Zo extends Ye {
       </div>`;
   }
 };
-Zo.properties = { hass: { attribute: !1 }, lovelace: { attribute: !1 }, _cfg: { state: !0 }, _open: { state: !0 } }, Zo.styles = ee`
+Jo.properties = { hass: { attribute: !1 }, lovelace: { attribute: !1 }, _cfg: { state: !0 }, _open: { state: !0 } }, Jo.styles = ee`
     :host {
       display: block;
     }
@@ -16551,7 +16551,7 @@ Zo.properties = { hass: { attribute: !1 }, lovelace: { attribute: !1 }, _cfg: { 
       font-weight: 500;
     }
   `;
-let hl = Zo;
+let hl = Jo;
 function Wt(o, e, t) {
   const a = [...o], [i] = a.splice(e, 1);
   return a.splice(t, 0, i), a;
@@ -16562,7 +16562,7 @@ function Hd(o, e, t) {
   for (const [s, n] of Object.entries(t)) i(a[s], n) && e[s] === void 0 && delete a[s];
   return a;
 }
-function On(o) {
+function Bn(o) {
   return Object.fromEntries(Object.entries(o).filter(([, e]) => e !== void 0 && e !== "" && e !== null));
 }
 customElements.get("glass-card-editor") || customElements.define("glass-card-editor", hl);
@@ -19085,8 +19085,8 @@ const qf = {
       custom: "section",
       key: "scenes",
       title: "Scenes",
-      secondary: Bn(o) ? "" : "Optional",
-      open: !!Bn(o),
+      secondary: jn(o) ? "" : "Optional",
+      open: !!jn(o),
       schema: [
         { custom: "hint", text: "Round buttons with a photo, in the drawer under a light's bar; under the whole card when not meant for one light." },
         // each light's own, then the card's
@@ -19130,7 +19130,7 @@ const qf = {
         ...O("Modes", M({ ...D("modes_glass", [["", "Default"], ...U]), label: "Picked mode material" }, { ...B("modes_color"), label: "Picked mode colour" })),
         ...O("Presets", M({ ...D("presets_glass", [["", "Default"], ...U]), label: "Picked preset material" }, { ...B("presets_color"), label: "Picked preset colour" })),
         // scene buttons: only when it has scenes (its own or a light's)
-        ...Bn(o) ? O("Scenes", M({ ...D("scenes_glass", [["", "Default"], ...U]), label: "Scene buttons material" }, { ...B("scenes_color"), label: "Scene buttons colour" })) : [],
+        ...jn(o) ? O("Scenes", M({ ...D("scenes_glass", [["", "Default"], ...U]), label: "Scene buttons material" }, { ...B("scenes_color"), label: "Scene buttons colour" })) : [],
         ...O("Drawer", M({ ...D("tray_glass", [["", "Default"], ...U]), label: "Drawer material" }, { ...B("tray_color"), label: "Drawer colour" }))
       ]
     },
@@ -19180,7 +19180,7 @@ const qf = {
     }
   ]
 };
-function Bn(o) {
+function jn(o) {
   return (o.scenes ?? []).length + (o.lights ?? []).reduce((e, t) => e + (t.scenes ?? []).length, 0);
 }
 const sb = {
@@ -20353,7 +20353,7 @@ const { I: kb } = kg, eh = (o) => o, th = () => document.createComment(""), Ti =
     }
   }
   return t;
-}, da = (o, e, t = o) => (o._$AI(e, t), o), $b = {}, pm = (o, e = $b) => o._$AH = e, Sb = (o) => o._$AH, jn = (o) => {
+}, da = (o, e, t = o) => (o._$AI(e, t), o), $b = {}, pm = (o, e = $b) => o._$AH = e, Sb = (o) => o._$AH, In = (o) => {
   o._$AR(), o._$AA.remove();
 };
 /**
@@ -20398,28 +20398,28 @@ const ah = (o, e, t) => {
         da(_, s[m]), l[m] = _;
       } else l[m] = da(y, s[m]), Ti(o, i[h], y), i[b] = null;
       m++;
-    } else jn(i[u]), u--;
-    else jn(i[h]), h++;
+    } else In(i[u]), u--;
+    else In(i[h]), h++;
     for (; m <= f; ) {
       const b = Ti(o, l[f + 1]);
       da(b, s[m]), l[m++] = b;
     }
     for (; h <= u; ) {
       const b = i[h++];
-      b !== null && jn(b);
+      b !== null && In(b);
     }
     return this.ut = n, pm(o, l), Ma;
   }
 }), zb = /* @__PURE__ */ new Set(["on", "heat", "heating", "open", "true", "home"]), Ab = /* @__PURE__ */ new Set(["off", "idle", "closed", "false", "not_home"]);
-function Bo(o) {
+function jo(o) {
   if (o === void 0) return NaN;
   const e = parseFloat(o);
   return Number.isNaN(e) ? zb.has(o) ? 1 : Ab.has(o) ? 0 : NaN : e;
 }
-const In = /* @__PURE__ */ new Map(), Mb = 300 * 1e3;
+const qn = /* @__PURE__ */ new Map(), Mb = 300 * 1e3;
 async function um(o, e, t) {
   const a = Date.now(), i = e.filter((n) => {
-    const r = In.get(`${n}|${t}`);
+    const r = qn.get(`${n}|${t}`);
     return !r || a - r.at > Mb;
   });
   if (i.length) {
@@ -20432,15 +20432,15 @@ async function um(o, e, t) {
       significant_changes_only: !1
     }).catch(() => ({}));
     for (const r of i)
-      In.set(`${r}|${t}`, {
+      qn.set(`${r}|${t}`, {
         at: a,
         data: n.then(
-          (l) => (l[r] ?? []).map((c) => ({ t: (c.lu ?? c.lc ?? 0) * 1e3, v: Bo(c.s) })).filter((c) => c.t && !Number.isNaN(c.v))
+          (l) => (l[r] ?? []).map((c) => ({ t: (c.lu ?? c.lc ?? 0) * 1e3, v: jo(c.s) })).filter((c) => c.t && !Number.isNaN(c.v))
         )
       });
   }
   const s = {};
-  return await Promise.all(e.map(async (n) => s[n] = [...await In.get(`${n}|${t}`)?.data ?? []])), s;
+  return await Promise.all(e.map(async (n) => s[n] = [...await qn.get(`${n}|${t}`)?.data ?? []])), s;
 }
 function ml(o, e, t, a, i = 1) {
   const s = [];
@@ -20605,7 +20605,7 @@ const ns = class ns extends F {
   hassChanged(e) {
     const t = this._config.graph?.entity, a = t ? e.states[t] : void 0;
     if (a && this._fetchedAt) {
-      const i = Bo(a.state), s = Date.parse(a.last_updated), n = this._points[this._points.length - 1];
+      const i = jo(a.state), s = Date.parse(a.last_updated), n = this._points[this._points.length - 1];
       !Number.isNaN(i) && (!n || n.t < s) && this._points.push({ t: s, v: i });
     }
     this._ensureHistory();
@@ -20633,7 +20633,7 @@ const ns = class ns extends F {
   _chip(e, t) {
     const a = this._hass;
     if (!ge(e.visible, a, e.entity)) return g;
-    const i = ko(e, e.rules, a, e.entity);
+    const i = $o(e, e.rules, a, e.entity);
     if (i.hidden) return g;
     const s = i.entity ? a.states[i.entity] : void 0;
     if ((i.hide_unavailable ?? !0) && i.entity && !i.entities && gi(s)) return g;
@@ -21169,7 +21169,7 @@ function Db(o, e) {
   const t = Math.max(10, Math.min(100, Math.ceil(o / 10) * 10));
   return t === 100 ? e ? "mdi:battery-charging-100" : "mdi:battery" : `${e ? "mdi:battery-charging" : "mdi:battery"}-${t}`;
 }
-const Jo = class Jo extends F {
+const Xo = class Xo extends F {
   constructor() {
     super(), new le(this, ".person");
   }
@@ -21264,7 +21264,7 @@ const Jo = class Jo extends F {
     </div>`;
   }
 };
-Jo.parts = Uu, Jo.styles = [
+Xo.parts = Uu, Xo.styles = [
   F.styles,
   xe,
   Oe,
@@ -21484,7 +21484,7 @@ Jo.parts = Uu, Jo.styles = [
       }
     `
 ];
-let bl = Jo;
+let bl = Xo;
 ce("glass-people", bl, {
   name: "Glass – people",
   description: "Avatar, location and phone battery for each person."
@@ -21895,7 +21895,7 @@ const qc = (o) => {
   returning: ["mdi:home-import-outline", "returning"],
   paused: ["mdi:pause", "paused"],
   error: ["mdi:alert-circle-outline", "error"]
-}, Ci = (o) => o && !["unavailable", "unknown", ""].includes(o.state) ? o.state : void 0, Xo = class Xo extends F {
+}, Ci = (o) => o && !["unavailable", "unknown", ""].includes(o.state) ? o.state : void 0, Qo = class Qo extends F {
   constructor() {
     super(), new le(this);
   }
@@ -22136,7 +22136,7 @@ const qc = (o) => {
     return this.tile ? p`<div class=${this.tile}>${s}</div>` : s;
   }
 };
-Xo.parts = Hu, Xo.styles = [
+Qo.parts = Hu, Qo.styles = [
   F.styles,
   xe,
   Oe,
@@ -22276,7 +22276,7 @@ Xo.parts = Hu, Xo.styles = [
       }
     `
 ];
-let yl = Xo;
+let yl = Qo;
 ce("glass-now", yl, {
   name: "Glass – running now",
   description: "What is on in the whole home, each with a button to switch it off or the state it is in."
@@ -22337,7 +22337,7 @@ function bm(o, e, t, a) {
   const d = r.toDataURL("image/png");
   return sh.set(i, d), d;
 }
-const Qo = class Qo extends F {
+const en = class en extends F {
   constructor() {
     super(), this._fitRows = 0, this._bgCols = 3, this._page = 0, this._widths = /* @__PURE__ */ new Map(), this._ctxCount = /* @__PURE__ */ new Map(), new le(this), new le(this, ".full .strip.liq", void 0, void 0, (e) => e.closest(".tile")?.querySelector(".pic")), new le(this, ".tile.cmp.liq", void 0, void 0, () => kt()), this._btnsGlass = new le(this, ".full .btns.liq", void 0, void 0, (e) => e.closest(".tile")?.querySelector(".pic"));
   }
@@ -22485,7 +22485,7 @@ const Qo = class Qo extends F {
       color: e.color ?? (r ? e.active_color ?? this._config?.active_color ?? Hb[n] ?? "blue" : void 0),
       icon: r && e.icon_active || s && e.state_icons?.[s.state] || e.icon,
       animation: e.animation ?? Gb(s)
-    }, c = ko(l, e.rules, i, e.entity), d = Pr(c.animation), h = je(c.color), u = Y(c.color), m = Ot(c), f = Ze(
+    }, c = $o(l, e.rules, i, e.entity), d = Pr(c.animation), h = je(c.color), u = Y(c.color), m = Ot(c), f = Ze(
       () => m,
       (x, z) => Se(this, i, m, x, z)
     ), b = c.name ?? s?.attributes.friendly_name ?? c.entity, y = c.label ? xa(i, { entity: c.entity, text: c.label }).text : "", _ = (c.artwork ?? !1) && r && n === "media_player" ? s?.attributes.entity_picture : void 0;
@@ -22578,7 +22578,7 @@ const Qo = class Qo extends F {
   }
   render() {
     if (!this._config || !this._hass) return g;
-    const e = this._hass, t = ko(this._config, this._config.rules, e);
+    const e = this._hass, t = $o(this._config, this._config.rules, e);
     if (t.layout === "image-full" || t.layout === "compact") {
       const E = { tap_action: t.tap_action, hold_action: t.hold_action, double_tap_action: t.double_tap_action }, L = Ze(
         () => E,
@@ -22649,7 +22649,7 @@ const Qo = class Qo extends F {
     </div>`;
   }
 };
-Qo.parts = Iu, Qo.styles = [
+en.parts = Iu, en.styles = [
   F.styles,
   xe,
   Oe,
@@ -23439,7 +23439,7 @@ Qo.parts = Iu, Qo.styles = [
       }
     `
 ];
-let wl = Qo;
+let wl = en;
 ce("glass-room-card", wl, {
   name: "Glass – room",
   description: "Room icon or photo with entity buttons, custom colors, icons and animations."
@@ -23465,12 +23465,12 @@ const oh = j`<svg width="0" height="0" style="position:absolute" aria-hidden="tr
   (e) => j`<rect x="30.6" y="6" width="2.8" height="8" rx="1.4" fill="url(#wi-ray)" transform="rotate(${e} 32 32)"/>`
 )}</g>
   <circle cx="32" cy="32" r="12.5" fill="url(#wi-sun)" filter="url(#wi-soft)"/>
-</g>`, qn = (o = "") => j`<g transform=${o}><g class="moon">
+</g>`, Wn = (o = "") => j`<g transform=${o}><g class="moon">
   <path d="M38.5 14.5a17 17 0 1 0 11 27.8A14 14 0 0 1 38.5 14.5z" fill="url(#wi-moon)" filter="url(#wi-soft)"/>
 </g></g>`, Je = (o = "wi-cloud", e = "", t = "cloud") => j`<g transform=${e}><g class=${t}><path d=${Kb} fill="url(#${o})" filter="url(#wi-soft)"/></g></g>`, Is = (o) => j`<g class="drops">${Array.from({ length: o }, (e, t) => {
   const a = 22 + t * (20 / Math.max(1, o - 1));
   return j`<path class="drop" style="animation-delay:${t * 0.23}s" d="M${a} 50.5l-2 5.5a2.1 2.1 0 1 0 4 0z" fill="url(#wi-drop)"/>`;
-})}</g>`, Wn = (o) => j`<g class="flakes">${Array.from({ length: o }, (e, t) => {
+})}</g>`, Fn = (o) => j`<g class="flakes">${Array.from({ length: o }, (e, t) => {
   const a = 23 + t * (18 / Math.max(1, o - 1));
   return j`<circle class="flake" style="animation-delay:${t * 0.4}s" cx=${a} cy="54" r="2.1" fill="#fff" stroke="#c7d6ea" stroke-width=".6"/>`;
 })}</g>`, rh = j`<path class="bolt" d="M33 44l-6 10h5l-3 8 9-12h-5l3-6z" fill="url(#wi-bolt)" filter="url(#wi-soft)"/>`, Vb = j`<g class="fog" stroke="#e8eef6" stroke-width="3" stroke-linecap="round">
@@ -23478,15 +23478,15 @@ const oh = j`<svg width="0" height="0" style="position:absolute" aria-hidden="tr
 </g>`, lh = j`<g class="wind" fill="none" stroke="#eef4fb" stroke-width="3" stroke-linecap="round">
   <path d="M10 26h28a6 6 0 1 0-6-6"/><path d="M10 34h38a6 6 0 1 1-6 6"/><path d="M10 42h18"/>
 </g>`;
-function Fn(o, e = !1) {
+function Hn(o, e = !1) {
   let t;
-  const a = (i) => e ? qn(i) : nh(i);
+  const a = (i) => e ? Wn(i) : nh(i);
   switch (o) {
     case "sunny":
-      t = e ? qn() : nh();
+      t = e ? Wn() : nh();
       break;
     case "clear-night":
-      t = qn();
+      t = Wn();
       break;
     case "partlycloudy":
       t = j`${a("translate(-7 -8) scale(.82)")}${Je("wi-cloud", "translate(4 5)")}`;
@@ -23504,13 +23504,13 @@ function Fn(o, e = !1) {
       t = j`${Je("wi-cloud-dark", "translate(0 -6)")}${Is(5)}`;
       break;
     case "snowy":
-      t = j`${Je("wi-cloud", "translate(0 -6)")}${Wn(3)}`;
+      t = j`${Je("wi-cloud", "translate(0 -6)")}${Fn(3)}`;
       break;
     case "snowy-rainy":
-      t = j`${Je("wi-cloud", "translate(0 -6)")}${Is(2)}${Wn(2)}`;
+      t = j`${Je("wi-cloud", "translate(0 -6)")}${Is(2)}${Fn(2)}`;
       break;
     case "hail":
-      t = j`${Je("wi-cloud-dark", "translate(0 -6)")}${Wn(4)}`;
+      t = j`${Je("wi-cloud-dark", "translate(0 -6)")}${Fn(4)}`;
       break;
     case "lightning":
       t = j`${Je("wi-cloud-dark", "translate(0 -8)")}${rh}`;
@@ -23793,7 +23793,7 @@ const Yb = ee`
   <circle cx="50" cy="50" r="24" fill="url(#gs-ball)"/>
   <circle cx="50" cy="50" r="17" fill="none" stroke="#fff3b0" stroke-opacity=".28" stroke-width="1.2"/>
   <ellipse cx="50" cy="38" rx="17" ry="10" fill="url(#gs-gloss)" opacity=".75"/>
-</g>`, Hn = (o = "") => j`<g transform=${o}>
+</g>`, Gn = (o = "") => j`<g transform=${o}>
   <circle cx="50" cy="50" r="38" fill="url(#gs-orb-glow)"/>
   <g class="moon">
     <circle cx="50" cy="50" r="24" fill="url(#gs-orb)"/>
@@ -23812,7 +23812,7 @@ const Yb = ee`
       <path d="M${i} ${s}c-3.9 6-6 9.6-6 12.6a6 6 0 0 0 12 0c0-3-2.1-6.6-6-12.6z" fill="url(#wr-drop)" opacity=${e ? 0.97 : 0.93} filter="url(#wr-shadow)"/>
       <ellipse cx=${i - 2} cy=${s + 10.5} rx="1.3" ry="2.4" fill="#fff" opacity=".75"/>
     </g>`;
-})}</g>`, Gn = (o, e = !1) => j`<g class="flakes">${Array.from({ length: o }, (t, a) => {
+})}</g>`, Un = (o, e = !1) => j`<g class="flakes">${Array.from({ length: o }, (t, a) => {
   const i = 34 + a * (32 / Math.max(1, o - 1)), s = 82 + a % 2 * 5;
   return e ? j`<circle class="flake" style="animation-delay:${a * 0.3}s" cx=${i} cy=${s} r="3.2" fill="#f4f9ff" stroke="#b8c9e0" stroke-width=".8"/>` : j`<g class="flake" style="animation-delay:${a * 0.4}s" stroke="#fff" stroke-width="1.1" stroke-linecap="round" filter="url(#wr-glow)">
           ${[0, 60, 120].map((n) => j`<line x1=${i - 3.4} y1=${s} x2=${i + 3.4} y2=${s} transform="rotate(${n} ${i} ${s})"/>`)}
@@ -23826,13 +23826,13 @@ const Yb = ee`
 </g>`;
 function _m(o, e = !1) {
   let t;
-  const a = (i) => e ? Hn(i) : ch(i);
+  const a = (i) => e ? Gn(i) : ch(i);
   switch (o) {
     case "sunny":
-      t = e ? Hn() : ch();
+      t = e ? Gn() : ch();
       break;
     case "clear-night":
-      t = Hn();
+      t = Gn();
       break;
     case "partlycloudy":
       t = j`${a("translate(-10 -14) scale(.85)")}${Xe("translate(2 10) scale(1.02)")}`;
@@ -23850,13 +23850,13 @@ function _m(o, e = !1) {
       t = j`${Xe("translate(0 -8)", !0)}${qs(5, !0)}`;
       break;
     case "snowy":
-      t = j`${Xe("translate(0 -6)")}${Gn(3)}`;
+      t = j`${Xe("translate(0 -6)")}${Un(3)}`;
       break;
     case "snowy-rainy":
-      t = j`${Xe("translate(0 -6)")}${qs(2)}${Gn(2)}`;
+      t = j`${Xe("translate(0 -6)")}${qs(2)}${Un(2)}`;
       break;
     case "hail":
-      t = j`${Xe("translate(0 -8)", !0)}${Gn(4, !0)}`;
+      t = j`${Xe("translate(0 -8)", !0)}${Un(4, !0)}`;
       break;
     case "lightning":
       t = j`${Xe("translate(0 -10)", !0)}${hh}`;
@@ -23875,7 +23875,7 @@ function _m(o, e = !1) {
   }
   return j`<svg class="wi wi3d" viewBox="0 0 100 100" role="img" aria-label=${o ?? ""}>${t}</svg>`;
 }
-function Un(o, e = !1) {
+function Kn(o, e = !1) {
   return {
     "clear-night": "mdi:weather-night",
     cloudy: "mdi:weather-cloudy",
@@ -23991,7 +23991,7 @@ const ym = ee`
       animation: none !important;
     }
   }
-`, Oa = (o) => o.mm >= 0.1, uh = (o) => o.charAt(0).toUpperCase() + o.slice(1), Kn = { daily: 1, hourly: 2, twice_daily: 4 };
+`, Oa = (o) => o.mm >= 0.1, uh = (o) => o.charAt(0).toUpperCase() + o.slice(1), Vn = { daily: 1, hourly: 2, twice_daily: 4 };
 function mh(o) {
   const e = /* @__PURE__ */ new Map();
   for (const t of o) {
@@ -24012,7 +24012,7 @@ const ha = [
   [28, [255, 159, 10]],
   [35, [255, 95, 87]]
 ];
-function Vn(o) {
+function Yn(o) {
   if (o <= ha[0][0]) return `rgb(${ha[0][1].join(",")})`;
   for (let e = 1; e < ha.length; e++) {
     const [t, a] = ha[e], [i, s] = ha[e - 1];
@@ -24134,7 +24134,7 @@ const gh = {
   }
   _subscribe(e) {
     if (!this._config) return;
-    const t = Number(e.states[this._config.weather]?.attributes.supported_features ?? 0), a = (n) => !t || t & Kn[n] ? n : n === "daily" && t & Kn.twice_daily ? "twice_daily" : t & Kn.hourly ? "hourly" : n, i = [...new Set(this._blocks().map((n) => a(n.type)))], s = `${this._config.weather}|${i.join(",")}`;
+    const t = Number(e.states[this._config.weather]?.attributes.supported_features ?? 0), a = (n) => !t || t & Vn[n] ? n : n === "daily" && t & Vn.twice_daily ? "twice_daily" : t & Vn.hourly ? "hourly" : n, i = [...new Set(this._blocks().map((n) => a(n.type)))], s = `${this._config.weather}|${i.join(",")}`;
     if (s !== this._subKey) {
       this._unsubscribe(), this._subKey = s;
       for (const n of i)
@@ -24178,9 +24178,9 @@ const gh = {
     const a = this._wasMono ? "mdi" : this._config.icon_style ?? "flat";
     if (a === "mdi") {
       const i = Y(this._config.icons?.weather?.color);
-      return p`<ha-icon class="mdi" .icon=${Un(e, t)} style=${i ? `color:${i}` : ""}></ha-icon>`;
+      return p`<ha-icon class="mdi" .icon=${Kn(e, t)} style=${i ? `color:${i}` : ""}></ha-icon>`;
     }
-    return a === "flat" ? Fn(e, t) : _m(e, t);
+    return a === "flat" ? Hn(e, t) : _m(e, t);
   }
   _clock(e) {
     const t = this._config, a = /* @__PURE__ */ new Date(), i = Ce(this._hass) ?? !1, s = new Intl.DateTimeFormat(e, {
@@ -24270,7 +24270,7 @@ const gh = {
         return p`<div class="col">
             <span class="when">${uh(b.format(A))}</span>
             <span class="mini-icon"
-              >${y || s.icon_style === "mdi" ? p`<ha-icon class="mdi" .icon=${Un(S.condition, k)} style=${$ ? `color:${$}` : ""}></ha-icon>` : Fn(S.condition, k)}</span
+              >${y || s.icon_style === "mdi" ? p`<ha-icon class="mdi" .icon=${Kn(S.condition, k)} style=${$ ? `color:${$}` : ""}></ha-icon>` : Hn(S.condition, k)}</span
             >
             <span class="t">${S.templow !== void 0 ? p`${Math.round(S.templow)}° / ` : g}${Math.round(S.temperature)}°</span>
           </div>`;
@@ -24283,16 +24283,16 @@ const gh = {
       return p`<div class="row">
           <span class="when">${b.format(A)}</span>
           <span class="mini-icon"
-            >${y ? p`<ha-icon class="mdi" .icon=${Un(S.condition, k)}></ha-icon>` : Fn(S.condition, k)}</span
+            >${y ? p`<ha-icon class="mdi" .icon=${Kn(S.condition, k)}></ha-icon>` : Hn(S.condition, k)}</span
           >
           <span class="t lo">${Math.round($)}${z}</span>
           <span class="bar">
             ${S.templow !== void 0 ? p`<i
                   class="range"
-                  style="left:${f($)}%;width:${Math.max(4, f(S.temperature) - f($))}%;background:${_ ? "var(--glass-bar-mono, currentColor)" : `linear-gradient(90deg,${Vn($)},${Vn(S.temperature)})`}"
+                  style="left:${f($)}%;width:${Math.max(4, f(S.temperature) - f($))}%;background:${_ ? "var(--glass-bar-mono, currentColor)" : `linear-gradient(90deg,${Yn($)},${Yn(S.temperature)})`}"
                 ></i>` : p`<i
                   class="dot"
-                  style="left:calc(10px + (100% - 20px) * ${f(S.temperature) / 100});background:${_ ? "var(--glass-bar-mono, currentColor)" : Vn(S.temperature)}"
+                  style="left:calc(10px + (100% - 20px) * ${f(S.temperature) / 100});background:${_ ? "var(--glass-bar-mono, currentColor)" : Yn(S.temperature)}"
                 ></i>`}
           </span>
           <span class="t hi">${Math.round(S.temperature)}${z}</span>
@@ -25255,7 +25255,7 @@ function vm(o) {
   }
   return t.size ? t : void 0;
 }
-const co = (o) => o?.size ? Te.filter((e) => o.has(e)).join(",") : "once", ni = (o, e) => !!o && o.size === e.length && e.every((t) => o.has(t)), fh = (o) => Te[(o.getDay() + 6) % 7], wm = (o) => `${o.getFullYear()}-${String(o.getMonth() + 1).padStart(2, "0")}-${String(o.getDate()).padStart(2, "0")}`, Xb = new Set(
+const ho = (o) => o?.size ? Te.filter((e) => o.has(e)).join(",") : "once", ni = (o, e) => !!o && o.size === e.length && e.every((t) => o.has(t)), fh = (o) => Te[(o.getDay() + 6) % 7], wm = (o) => `${o.getFullYear()}-${String(o.getMonth() + 1).padStart(2, "0")}-${String(o.getDate()).padStart(2, "0")}`, Xb = new Set(
   "AD AL AM AT AZ BA BE BG BY CH CY CZ DE DK EE ES FI FO FR GB GE GG GI GR HR HU IE IM IS IT JE LI LT LU LV MC MD ME MK MT NL NO PL PT RO RS RU SE SI SK SM TR UA VA XK".split(" ")
 );
 function Qb(o) {
@@ -25344,13 +25344,13 @@ function a_(o, e, t) {
   }).catch(() => (r.at = 0, r.pending = void 0, r.days)), bh.set(e, r), r.pending.then(t), r.days;
 }
 function i_(o, e, t) {
-  const a = ho(e);
+  const a = po(e);
   if (!a.length) return;
   const i = /* @__PURE__ */ new Map();
   for (const s of a) for (const [n, r] of a_(o, s, t) ?? []) i.has(n) || i.set(n, r);
   return i;
 }
-const ho = (o) => (Array.isArray(o) ? o : o ? [o] : []).filter((e) => typeof e == "string" && e.startsWith("calendar."));
+const po = (o) => (Array.isArray(o) ? o : o ? [o] : []).filter((e) => typeof e == "string" && e.startsWith("calendar."));
 function Qt() {
   const o = import.meta.url;
   return new URL("./sound-birds.mp3", o).pathname;
@@ -25358,9 +25358,9 @@ function Qt() {
 function Sm(o) {
   return !o || o === Qt() || /sound-birds\.mp3$/.test(o) ? v("Birds") : decodeURIComponent(o.split(/[/?#]/).filter(Boolean).pop() ?? o).replace(/\.(mp3|ogg|wav|m4a|flac|aac)$/i, "");
 }
-const _n = "glass_alarm_", Fc = "glass-cards/glass_alarm.yaml";
+const yn = "glass_alarm_", Fc = "glass-cards/glass_alarm.yaml";
 function ea(o) {
-  const e = `${_n}${o}`;
+  const e = `${yn}${o}`;
   return {
     entity: `input_datetime.${e}_time`,
     switch: `input_boolean.${e}`,
@@ -25393,7 +25393,7 @@ async function o_(o, e) {
   const i = `Glass alarm ${a}`, s = (r) => o.callWS(r);
   await s({ type: "input_boolean/create", name: i, icon: "mdi:alarm" }), await s({ type: "input_datetime/create", name: `${i} time`, has_date: !1, has_time: !0, icon: "mdi:clock-outline" }), await s({ type: "input_text/create", name: `${i} days`, max: 100, icon: "mdi:calendar-week" }), await s({ type: "input_text/create", name: `${i} name`, max: 100, icon: "mdi:label-outline" }), await s({ type: "input_text/create", name: `${i} player`, max: 255, icon: "mdi:speaker" }), await s({ type: "input_text/create", name: `${i} sound`, max: 255, icon: "mdi:music-note" }), await s({ type: "input_boolean/create", name: `${i} holidays`, icon: "mdi:calendar-star" }), await zm(o, a);
   const n = ea(a);
-  return await d_(o, [n.entity, n.days, n.name, n.player, n.sound]), await o.callService("input_datetime", "set_datetime", { entity_id: n.entity, time: e.time }), await o.callService("input_text", "set_value", { entity_id: n.days, value: e.days }), e.name && await o.callService("input_text", "set_value", { entity_id: n.name, value: e.name }), e.player && await o.callService("input_text", "set_value", { entity_id: n.player, value: e.player }), await o.callService("input_text", "set_value", { entity_id: n.sound, value: e.sound || Qt() }), await o.callService("input_boolean", "turn_on", { entity_id: e.skip === !1 ? n.switch : [n.switch, n.skip_holidays] }), await Tm(o), await o.callApi("POST", `config/automation/config/${_n}${a}`, {
+  return await d_(o, [n.entity, n.days, n.name, n.player, n.sound]), await o.callService("input_datetime", "set_datetime", { entity_id: n.entity, time: e.time }), await o.callService("input_text", "set_value", { entity_id: n.days, value: e.days }), e.name && await o.callService("input_text", "set_value", { entity_id: n.name, value: e.name }), e.player && await o.callService("input_text", "set_value", { entity_id: n.player, value: e.player }), await o.callService("input_text", "set_value", { entity_id: n.sound, value: e.sound || Qt() }), await o.callService("input_boolean", "turn_on", { entity_id: e.skip === !1 ? n.switch : [n.switch, n.skip_holidays] }), await Tm(o), await o.callApi("POST", `config/automation/config/${yn}${a}`, {
     alias: i,
     description: "Rings the alarm set in the Glass alarm cards. Created by the cards: change it there.",
     use_blueprint: {
@@ -25417,7 +25417,7 @@ async function n_(o) {
     const t = ea(e);
     if (o.states[t.ringing] && o.states[t.snooze]) continue;
     await zm(o, e);
-    const a = `${_n}${e}`, i = await o.callApi("GET", `config/automation/config/${a}`).catch(() => {
+    const a = `${yn}${e}`, i = await o.callApi("GET", `config/automation/config/${a}`).catch(() => {
     });
     i?.use_blueprint && (i.use_blueprint.input = { ...i.use_blueprint.input, ringing_entity: t.ringing, snooze_entity: t.snooze }, await o.callApi("POST", `config/automation/config/${a}`, i));
   }
@@ -25462,7 +25462,7 @@ async function Cm(o) {
   }
 }
 async function c_(o, e) {
-  await o.callApi("DELETE", `config/automation/config/${_n}${e}`).catch(() => {
+  await o.callApi("DELETE", `config/automation/config/${yn}${e}`).catch(() => {
   });
   const t = ea(e);
   for (const a of Object.values(t)) {
@@ -25492,7 +25492,7 @@ const h_ = [
   "--mat-home-bg",
   "--glass-blur-scale",
   "--glass-font"
-], p_ = 600, en = class en extends Ye {
+], p_ = 600, tn = class tn extends Ye {
   constructor() {
     super(), this._liquid = new le(this, ".sheet.surface"), this._parts = new le(this, Cc, void 0, void 0, () => kt()), this._onResize = () => this.requestUpdate(), this._onKey = (e) => {
       e.key === "Enter" && this.opts.onEnter && !(e.composedPath()[0] instanceof HTMLInputElement) && this.opts.onEnter();
@@ -25553,7 +25553,7 @@ const h_ = [
     </dialog>`;
   }
 };
-en.properties = { _open: { state: !0 } }, en.styles = [
+tn.properties = { _open: { state: !0 } }, tn.styles = [
   Sc,
   xe,
   ee`
@@ -26040,7 +26040,7 @@ en.properties = { _open: { state: !0 } }, en.styles = [
   // last: an element's material wins over its rules above
   ke
 ];
-let zl = en;
+let zl = tn;
 customElements.get("glass-sheet") || customElements.define("glass-sheet", zl);
 function u_(o) {
   document.querySelectorAll("glass-sheet").forEach((t) => t.close());
@@ -26053,7 +26053,7 @@ function u_(o) {
     }
   };
 }
-const Ws = 40, m_ = 5, tn = class tn extends Ye {
+const Ws = 40, m_ = 5, an = class an extends Ye {
   constructor() {
     super(), this._timers = /* @__PURE__ */ new Map(), this.hours = 7, this.minutes = 0, this.hour12 = !1, this.step = 1;
   }
@@ -26131,7 +26131,7 @@ const Ws = 40, m_ = 5, tn = class tn extends Ye {
     </div>`;
   }
 };
-tn.properties = { hours: { type: Number }, minutes: { type: Number }, hour12: { type: Boolean }, step: { type: Number } }, tn.styles = ee`
+an.properties = { hours: { type: Number }, minutes: { type: Number }, hour12: { type: Boolean }, step: { type: Number } }, an.styles = ee`
     :host {
       display: block;
     }
@@ -26206,7 +26206,7 @@ tn.properties = { hours: { type: Number }, minutes: { type: Number }, hour12: { 
       margin-top: -3px;
     }
   `;
-let Al = tn;
+let Al = an;
 customElements.get("glass-time-wheels") || customElements.define("glass-time-wheels", Al);
 const g_ = (o) => (o ?? "").split(/[\s,;]+/).map((e) => e.trim()).filter((e) => e.includes("."));
 function Dm(o, e) {
@@ -26223,7 +26223,7 @@ function Dm(o, e) {
 }
 async function f_(o, e, t, a) {
   const i = [], s = `${String(t.hours).padStart(2, "0")}:${String(t.minutes).padStart(2, "0")}:00`;
-  (t.hours !== a.hours || t.minutes !== a.minutes) && i.push(o.callService("input_datetime", "set_datetime", { entity_id: e.entity, time: s })), e.days && co(t.days) !== co(a.days) && i.push(o.callService("input_text", "set_value", { entity_id: e.days, value: co(t.days) })), e.skip_holidays && t.skip !== a.skip && i.push(o.callService(b_(e.skip_holidays), t.skip ? "turn_on" : "turn_off", { entity_id: e.skip_holidays })), e.name?.startsWith("input_text.") && t.name !== a.name && i.push(o.callService("input_text", "set_value", { entity_id: e.name, value: t.name.slice(0, 100) })), e.player && t.players.join(",") !== a.players.join(",") && i.push(o.callService("input_text", "set_value", { entity_id: e.player, value: t.players.join(",").slice(0, 255) })), e.sound && t.sound !== a.sound && i.push(o.callService("input_text", "set_value", { entity_id: e.sound, value: t.sound.slice(0, 255) })), await Promise.all(i);
+  (t.hours !== a.hours || t.minutes !== a.minutes) && i.push(o.callService("input_datetime", "set_datetime", { entity_id: e.entity, time: s })), e.days && ho(t.days) !== ho(a.days) && i.push(o.callService("input_text", "set_value", { entity_id: e.days, value: ho(t.days) })), e.skip_holidays && t.skip !== a.skip && i.push(o.callService(b_(e.skip_holidays), t.skip ? "turn_on" : "turn_off", { entity_id: e.skip_holidays })), e.name?.startsWith("input_text.") && t.name !== a.name && i.push(o.callService("input_text", "set_value", { entity_id: e.name, value: t.name.slice(0, 100) })), e.player && t.players.join(",") !== a.players.join(",") && i.push(o.callService("input_text", "set_value", { entity_id: e.player, value: t.players.join(",").slice(0, 255) })), e.sound && t.sound !== a.sound && i.push(o.callService("input_text", "set_value", { entity_id: e.sound, value: t.sound.slice(0, 255) })), await Promise.all(i);
 }
 const b_ = (o) => o.split(".")[0] === "switch" ? "switch" : "input_boolean";
 function yh(o) {
@@ -26334,12 +26334,12 @@ function yh(o) {
   };
   return S;
 }
-const __ = () => ({ name: "", hours: 7, minutes: 0, days: new Set($s), skip: !0, players: [], sound: "" }), Di = (o, e) => o.states[e]?.attributes.friendly_name ?? e, vh = (o, e) => !o || o === Qt() || /sound-birds\.mp3$/.test(o) || !!e?.some((t) => t.url === o), jo = (o) => !!o && o !== "none";
+const __ = () => ({ name: "", hours: 7, minutes: 0, days: new Set($s), skip: !0, players: [], sound: "" }), Di = (o, e) => o.states[e]?.attributes.friendly_name ?? e, vh = (o, e) => !o || o === Qt() || /sound-birds\.mp3$/.test(o) || !!e?.some((t) => t.url === o), Io = (o) => !!o && o !== "none";
 function ot(o, e, t) {
-  const a = o ?? (jo(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: re(jo(e) ? e : void 0) } : void 0;
+  const a = o ?? (Io(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: re(Io(e) ? e : void 0) } : void 0;
 }
-const an = class an extends F {
+const sn = class sn extends F {
   constructor() {
     super(), this._busy = !1, this._sent = /* @__PURE__ */ new Map(), this._key = "", this._slide = 0, new le(this, ".frame");
   }
@@ -26350,7 +26350,7 @@ const an = class an extends F {
     return { title: v("Alarms") };
   }
   watchedEntities(e) {
-    return ho(e.skip_calendars);
+    return po(e.skip_calendars);
   }
   /** The created alarms come and go: any glass_alarm_ helper changing redraws the list (every hass, before the base's check). */
   forwardHass(e) {
@@ -26387,7 +26387,7 @@ const an = class an extends F {
     return {
       dark: Lt(this._hass, this),
       accent: Y(e.active_color ?? "blue"),
-      calendars: ho(e.skip_calendars),
+      calendars: po(e.skip_calendars),
       players: e.players,
       sounds: e.sounds,
       minuteStep: Number(e.minute_step) || 1,
@@ -26430,11 +26430,11 @@ const an = class an extends F {
           await o_(e, {
             name: a.name,
             time: `${String(a.hours).padStart(2, "0")}:${String(a.minutes).padStart(2, "0")}:00`,
-            days: co(a.days),
+            days: ho(a.days),
             player: a.players.join(","),
             sound: a.sound || Qt(),
             skip: a.skip,
-            calendars: ho(this._config.skip_calendars)
+            calendars: po(this._config.skip_calendars)
           });
         } finally {
           this._busy = !1;
@@ -26458,7 +26458,7 @@ const an = class an extends F {
     const a = !!t.user?.is_admin, i = i_(t, e.skip_calendars, () => this.requestUpdate()), s = this._alarms().map((m) => {
       const f = this._on(m), b = km(t, m.entity), y = m.days ? vm(t.states[m.days]?.state) : new Set(Te), _ = !!i && (!m.skip_holidays || t.states[m.skip_holidays]?.state === "on"), x = t_(b, !0, y, _ ? i : void 0);
       return { a: m, on: f, t: b, days: y, next: f ? x : void 0, date: x?.at, skipped: f ? x?.skipped?.name : void 0, dayOff: f ? x?.dayOff : void 0 };
-    }), n = this._soonest(s), r = e.layout === "carousel" && s.length > 1, l = ot(e.add_glass, e.add_color, "flat"), c = ot(e.list_glass, e.list_color, "flat"), d = a ? p`<button class="add ${l?.cls ?? ""}" style=${l?.style ?? ""} title=${v("New alarm")} aria-label=${v("New alarm")} @click=${() => this._add()}><ha-icon .icon=${"mdi:plus"}></ha-icon></button>` : g, h = Y(e.active_color ?? "blue") ?? "transparent", u = `--c-on:${h};--c-sw:${jo(e.switch_color) && Y(e.switch_color) || h};--c-days:${jo(e.days_color) && Y(e.days_color) || h}`;
+    }), n = this._soonest(s), r = e.layout === "carousel" && s.length > 1, l = ot(e.add_glass, e.add_color, "flat"), c = ot(e.list_glass, e.list_color, "flat"), d = a ? p`<button class="add ${l?.cls ?? ""}" style=${l?.style ?? ""} title=${v("New alarm")} aria-label=${v("New alarm")} @click=${() => this._add()}><ha-icon .icon=${"mdi:plus"}></ha-icon></button>` : g, h = Y(e.active_color ?? "blue") ?? "transparent", u = `--c-on:${h};--c-sw:${Io(e.switch_color) && Y(e.switch_color) || h};--c-days:${Io(e.days_color) && Y(e.days_color) || h}`;
     return p`<div class="frame surface ${r ? "carousel" : ""}" style=${u}>
       <div class="head">
         ${e.title ? p`<span class="title">${e.title}</span>` : p`<span class="title"></span>`}
@@ -26506,7 +26506,7 @@ const an = class an extends F {
     t?.scrollTo({ left: e * t.clientWidth, behavior: "smooth" });
   }
 };
-an.parts = Ou, an.styles = [
+sn.parts = Ou, sn.styles = [
   F.styles,
   xe,
   ee`
@@ -26847,7 +26847,7 @@ an.parts = Ou, an.styles = [
   // last: an element's material wins over its rules above
   ke
 ];
-let Ml = an;
+let Ml = sn;
 ce("glass-alarms", Ml, {
   name: "Glass – alarms",
   description: "Several alarms in one list: a switch on each, their time, days, speakers and sound in a modal; + creates an alarm (its helpers and automation)."
@@ -26869,7 +26869,7 @@ function y_(o) {
   }
   return !1;
 }
-const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], xh = { month: "mdi:calendar-month-outline", week: "mdi:calendar-week-outline", day: "mdi:calendar-today-outline", agenda: "mdi:format-list-bulleted" }, kh = { month: "Month", week: "Week", day: "Day", agenda: "Agenda" }, Ge = 44, Yn = 1, v_ = 2, $h = 4, Zn = [
+const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], xh = { month: "mdi:calendar-month-outline", week: "mdi:calendar-week-outline", day: "mdi:calendar-today-outline", agenda: "mdi:format-list-bulleted" }, kh = { month: "Month", week: "Week", day: "Day", agenda: "Agenda" }, Ge = 44, Zn = 1, v_ = 2, $h = 4, Jn = [
   ["", "Doesn't repeat"],
   ["FREQ=DAILY", "Every day"],
   ["FREQ=WEEKLY", "Every week"],
@@ -27073,7 +27073,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     return !!(Number(this._hass?.states[e]?.attributes.supported_features ?? 0) & t);
   }
   _canAdd() {
-    return this._cals.some((e) => this._can(e.entity, Yn));
+    return this._cals.some((e) => this._can(e.entity, Zn));
   }
   _refresh() {
     this._range = "", this._fetch();
@@ -27091,7 +27091,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   /** a new event, half an hour long: at a time (a tap on the time line), on a day (a tap on the
    *  month's day, the all-day row) or the day shown */
   _newEvent(e, t = !1) {
-    const a = this._cals.filter((r) => this._can(r.entity, Yn));
+    const a = this._cals.filter((r) => this._can(r.entity, Zn));
     if (!a.length) return;
     W("selection");
     const i = a.find((r) => !r.off && !this._hidden.has(r.entity)) ?? a[0], s = e ?? this._startOn(this._cursor), n = new Date(s.getTime() + 30 * 6e4);
@@ -27604,7 +27604,7 @@ const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   /** a new event, or one changed – as Apple's: Cancel, the title and Add on top; the name and the
    *  place; when; repeat and calendar; notes. Every field a pill. */
   _formSheet(e, t) {
-    const a = this._cals.filter((_) => this._can(_.entity, Yn) || _.entity === e.cal), i = this._cals.find((_) => _.entity === e.cal)?.color ?? "#888", s = ot(this._config.sheet_glass ?? this._config.panel_glass, this._config.sheet_color ?? this._config.panel_color, "frosted"), n = Zn.some(([_]) => _ === e.rrule) ? Zn : [...Zn, [e.rrule, v("As set in the calendar")]], r = !!e.ev?.recurrenceId, l = (_) => _.target.value, c = Ce(this._hass), d = new Intl.DateTimeFormat(t, { weekday: "short", day: "numeric", month: "short" }), h = new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: c }), u = (_) => (W("selection"), this._set({ open: e.open === _ ? void 0 : _, mon: void 0 })), m = (_) => p`<button class="pill date ${e.open === _ ? "open" : ""}" @click=${() => u(_)}>${Ba(d.format(Qe(e[_])))}</button>`, f = (_) => p`<button class="pill time ${e.open === _ ? "open" : ""}" @click=${() => u(_)}>${h.format(/* @__PURE__ */ new Date(`2000-01-01T${e[_]}`))}</button>`, b = (_) => e.open === `${_}d` ? this._miniMonth(e, `${_}d`, t) : e.open === `${_}t` ? p`<div class="wheels-row">
+    const a = this._cals.filter((_) => this._can(_.entity, Zn) || _.entity === e.cal), i = this._cals.find((_) => _.entity === e.cal)?.color ?? "#888", s = ot(this._config.sheet_glass ?? this._config.panel_glass, this._config.sheet_color ?? this._config.panel_color, "frosted"), n = Jn.some(([_]) => _ === e.rrule) ? Jn : [...Jn, [e.rrule, v("As set in the calendar")]], r = !!e.ev?.recurrenceId, l = (_) => _.target.value, c = Ce(this._hass), d = new Intl.DateTimeFormat(t, { weekday: "short", day: "numeric", month: "short" }), h = new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: c }), u = (_) => (W("selection"), this._set({ open: e.open === _ ? void 0 : _, mon: void 0 })), m = (_) => p`<button class="pill date ${e.open === _ ? "open" : ""}" @click=${() => u(_)}>${Ba(d.format(Qe(e[_])))}</button>`, f = (_) => p`<button class="pill time ${e.open === _ ? "open" : ""}" @click=${() => u(_)}>${h.format(/* @__PURE__ */ new Date(`2000-01-01T${e[_]}`))}</button>`, b = (_) => e.open === `${_}d` ? this._miniMonth(e, `${_}d`, t) : e.open === `${_}t` ? p`<div class="wheels-row">
               <glass-time-wheels
                 .hours=${Number(e[`${_}t`].slice(0, 2))}
                 .minutes=${Number(e[`${_}t`].slice(3, 5))}
@@ -29408,10 +29408,10 @@ ce("glass-calendar", Dl, {
   name: "Glass – calendar",
   description: "Upcoming events from HA calendars, grouped by day."
 });
-const Io = (o) => !!o && o !== "none";
-function Jn(o, e, t) {
-  const a = o ?? (Io(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: Io(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
+const qo = (o) => !!o && o !== "none";
+function Xn(o, e, t) {
+  const a = o ?? (qo(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: qo(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
 }
 const Ah = {
   satellite: "Clouds",
@@ -29454,15 +29454,15 @@ function A_(o) {
   return e;
 }
 const ja = 600, M_ = (o) => Array.from({ length: o }, () => !0), T_ = 600 * 1e3, C_ = 6378137, Li = 2 * Math.PI * C_;
-let Ri, Xn;
+let Ri, Qn;
 function D_() {
-  return Ri && Date.now() - Ri.at < 300 * 1e3 ? Promise.resolve(Ri) : (Xn ??= fetch("https://api.rainviewer.com/public/weather-maps.json").then((o) => o.json()).then((o) => Ri = { at: Date.now(), host: o.host, frames: (o.radar?.past ?? []).map((e) => ({ time: e.time, path: e.path })) }).catch(() => Ri).finally(() => Xn = void 0), Xn);
+  return Ri && Date.now() - Ri.at < 300 * 1e3 ? Promise.resolve(Ri) : (Qn ??= fetch("https://api.rainviewer.com/public/weather-maps.json").then((o) => o.json()).then((o) => Ri = { at: Date.now(), host: o.host, frames: (o.radar?.past ?? []).map((e) => ({ time: e.time, path: e.path })) }).catch(() => Ri).finally(() => Qn = void 0), Qn);
 }
 function P_(o, e, t) {
   const a = 256 * 2 ** t, i = Math.sin(Math.max(-85, Math.min(85, o)) * Math.PI / 180);
   return { x: (e + 180) / 360 * a, y: (0.5 - Math.log((1 + i) / (1 - i)) / (4 * Math.PI)) * a, size: a };
 }
-function Qn(o, e, t, a, i, s, n) {
+function er(o, e, t, a, i, s, n) {
   const r = 2 ** (t - a), l = 2 ** a, c = o / r - i / 2 / r, d = e / r - s / 2 / r, h = [];
   for (let u = Math.floor(d / 256); u <= Math.floor((d + s / r) / 256); u++)
     if (!(u < 0 || u >= l))
@@ -29759,12 +29759,12 @@ const hs = class hs extends F {
     this._ready = M_(this._frames.length);
     const f = Lt(e, this);
     this.toggleAttribute("light", !f && this._style !== "satellite");
-    const b = Math.min(i, 7), y = a.radar_color ?? 2, _ = (I) => (ae, q, Z) => `https://server.arcgisonline.com/ArcGIS/rest/services/${I}/MapServer/tile/${Z}/${q}/${ae}`, x = (I) => (ae, q, Z) => `https://basemaps.cartocdn.com/${I}/${Z}/${ae}/${q}.png`, z = a.map_provider ?? "esri", S = z === "carto" ? x(f ? "dark_nolabels" : "light_nolabels") : z === "osm" ? (I, ae, q) => `https://tile.openstreetmap.org/${q}/${I}/${ae}.png` : _(f ? "Canvas/World_Dark_Gray_Base" : "Canvas/World_Light_Gray_Base"), A = h ? _("Reference/World_Boundaries_and_Places") : z === "carto" ? x(f ? "dark_only_labels" : "light_only_labels") : z === "osm" ? void 0 : _(f ? "Canvas/World_Dark_Gray_Reference" : "Canvas/World_Light_Gray_Reference"), k = Jn(a.controls_glass, a.controls_color, "liquid"), $ = Jn(a.play_glass, a.play_color, "liquid"), C = Jn(a.tab_glass, a.tab_color, "liquid"), T = (I, ae) => I.map(
+    const b = Math.min(i, 7), y = a.radar_color ?? 2, _ = (I) => (ae, q, Z) => `https://server.arcgisonline.com/ArcGIS/rest/services/${I}/MapServer/tile/${Z}/${q}/${ae}`, x = (I) => (ae, q, Z) => `https://basemaps.cartocdn.com/${I}/${Z}/${ae}/${q}.png`, z = a.map_provider ?? "esri", S = z === "carto" ? x(f ? "dark_nolabels" : "light_nolabels") : z === "osm" ? (I, ae, q) => `https://tile.openstreetmap.org/${q}/${I}/${ae}.png` : _(f ? "Canvas/World_Dark_Gray_Base" : "Canvas/World_Light_Gray_Base"), A = h ? _("Reference/World_Boundaries_and_Places") : z === "carto" ? x(f ? "dark_only_labels" : "light_only_labels") : z === "osm" ? void 0 : _(f ? "Canvas/World_Dark_Gray_Reference" : "Canvas/World_Light_Gray_Reference"), k = Xn(a.controls_glass, a.controls_color, "liquid"), $ = Xn(a.play_glass, a.play_color, "liquid"), C = Xn(a.tab_glass, a.tab_color, "liquid"), T = (I, ae) => I.map(
       (q) => p`<img class=${ae} crossorigin="anonymous" src=${q.url} style="left:${q.left}px;top:${q.top}px;width:${q.size}px;height:${q.size}px" alt="" draggable="false" @load=${this._composeSoon} />`
     ), P = this._frames, N = P[this._idx], E = Ce(e), L = (I) => new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: E }).format(new Date(I * 1e3)), G = N ? Math.round((Date.now() / 1e3 - N.time) / 60) : 0, H = Math.max(1, Math.round(-G / 60)), te = N?.fc ? v("forecast in {n} h", { n: H }) : G < 5 ? v("now") : v("{n} min ago", { n: G });
     return p`<canvas class="glass-src" aria-hidden="true"></canvas>
       <div class="pan">
-      ${h && !u ? g : p`<div class="base ${z}">${T(Qn(l.x, l.y, i, i, c, d, S), "t")}</div>`}
+      ${h && !u ? g : p`<div class="base ${z}">${T(er(l.x, l.y, i, i, c, d, S), "t")}</div>`}
       ${P.map(
       (I, ae) => p`<div class="frame-layer ${ae === this._idx ? "on" : ae === this._prev ? "prev" : ""}">
           ${h ? u ? (() => {
@@ -29784,7 +29784,7 @@ const hs = class hs extends F {
               />` : g}
           ${a.radar !== !1 && I.path ? p`<div class="radar" style="opacity:${a.radar_opacity ?? 0.85}">
                 ${T(
-        Qn(l.x, l.y, i, b, c, d, (q, Z, he) => `${this._host}${I.path}/256/${he}/${q}/${Z}/${y}/1_1.png`),
+        er(l.x, l.y, i, b, c, d, (q, Z, he) => `${this._host}${I.path}/256/${he}/${q}/${Z}/${y}/1_1.png`),
         "t"
       )}
               </div>` : g}
@@ -29794,15 +29794,15 @@ const hs = class hs extends F {
       const I = `url("https://view.eumetsat.int/geoserver/wms?service=WMS&version=1.3.0&request=GetMap&styles=&crs=EPSG:3857&format=image/png&transparent=true&layers=osmgray:ne_10m_admin_0_boundary_lines_land${this._box(l.x, l.y, l.size)}")`;
       return p`<div class="borders" style="-webkit-mask-image:${I};mask-image:${I}"></div>`;
     })()}
-      ${a.labels === !1 || !A ? g : p`<div class="labels">${T(Qn(l.x, l.y, i, Math.min(i, 13), c, d, A), "t")}</div>`}
-      ${a.marker === !1 ? g : p`<i class="marker" style="${Io(a.marker_color) ? `--mk:${Y(a.marker_color)};` : ""}left:${c / 2 + (s.x - n.x) * r}px;top:${d / 2 + (s.y - n.y) * r}px"></i>`}
+      ${a.labels === !1 || !A ? g : p`<div class="labels">${T(er(l.x, l.y, i, Math.min(i, 13), c, d, A), "t")}</div>`}
+      ${a.marker === !1 ? g : p`<i class="marker" style="${qo(a.marker_color) ? `--mk:${Y(a.marker_color)};` : ""}left:${c / 2 + (s.x - n.x) * r}px;top:${d / 2 + (s.y - n.y) * r}px"></i>`}
       </div>
       <div class="zoom ${k.cls}" style=${k.style} @click=${(I) => I.stopPropagation()}>
         <button @click=${() => this._setZoom(1)} ?disabled=${i >= 10} aria-label="zoom in"><ha-icon icon="mdi:plus"></ha-icon></button>
         <button @click=${() => this._setZoom(-1)} ?disabled=${i <= 4} aria-label="zoom out"><ha-icon icon="mdi:minus"></ha-icon></button>
         ${this._view ? p`<button @click=${() => this._recenter()} aria-label="home"><ha-icon icon="mdi:crosshairs-gps"></ha-icon></button>` : g}
       </div>
-      ${P.length ? p`<div class="bar ${k.cls}" style="${k.style};${Io(a.timeline_color) ? `--tl:${Y(a.timeline_color)}` : ""}" @click=${(I) => I.stopPropagation()}>
+      ${P.length ? p`<div class="bar ${k.cls}" style="${k.style};${qo(a.timeline_color) ? `--tl:${Y(a.timeline_color)}` : ""}" @click=${(I) => I.stopPropagation()}>
             <button class="play ${$.cls}" style=${$.style} @click=${this._toggle} aria-label=${this._playing ? "pause" : "play"}>
               <ha-icon icon=${this._playing ? "mdi:pause" : "mdi:play"}></ha-icon>
             </button>
@@ -30229,7 +30229,7 @@ const N_ = [
   ["#22252c", "#55534d"],
   ["#262220", "#5c4f42"],
   ["#241c18", "#57463a"]
-], B_ = [1, 0.9, 0.7, 0.45, 0.3, 0.18], j_ = [0, 0.18, 0.36, 0.55, 0.72, 0.85], er = ["#fff4c2", "#fff0bd", "#ffe3a8", "#ffcf8f", "#ffb877", "#ff9f66"], I_ = [
+], B_ = [1, 0.9, 0.7, 0.45, 0.3, 0.18], j_ = [0, 0.18, 0.36, 0.55, 0.72, 0.85], tr = ["#fff4c2", "#fff0bd", "#ffe3a8", "#ffcf8f", "#ffb877", "#ff9f66"], I_ = [
   ["M0 92 C30 78 55 80 80 88 C105 96 130 74 160 76 C180 78 192 84 200 86 V140 H0Z", "#a9c1df", "#2f4268"],
   ["M0 104 C25 94 50 92 78 100 C104 108 128 92 152 94 C172 96 188 102 200 100 V140 H0Z", "#86a6cf", "#27375a"],
   ["M0 118 C30 108 60 110 92 116 C122 122 150 108 176 110 C188 111 196 114 200 115 V140 H0Z", "#6489ba", "#1e2c4a"]
@@ -30239,7 +30239,7 @@ const N_ = [
       <ellipse cx="9" cy="-4" rx="9" ry="7"></ellipse>
       <ellipse cx="-8" cy="-2" rx="7" ry="5"></ellipse>
     </g>
-  </g>`, tr = (o, e, t) => j`<g class="bird" style="--d:${t}s" transform="translate(${o} ${e})">
+  </g>`, ar = (o, e, t) => j`<g class="bird" style="--d:${t}s" transform="translate(${o} ${e})">
     <path class="wing" d="M-3 0 Q-1.5 -1.6 0 0 Q1.5 -1.6 3 0"></path>
   </g>`, q_ = [
   { houses: 0, day: "#ffffff", night: "#9aa3b5", op: 0, k: 1 },
@@ -30281,8 +30281,8 @@ function U_(o, e) {
         <stop offset="1" stop-color=${i}></stop>
       </linearGradient>
       <radialGradient id="as-glow">
-        <stop offset="0" stop-color=${e ? "#f4f1e0" : er[t]} stop-opacity="0.9"></stop>
-        <stop offset="1" stop-color=${e ? "#f4f1e0" : er[t]} stop-opacity="0"></stop>
+        <stop offset="0" stop-color=${e ? "#f4f1e0" : tr[t]} stop-opacity="0.9"></stop>
+        <stop offset="1" stop-color=${e ? "#f4f1e0" : tr[t]} stop-opacity="0"></stop>
       </radialGradient>
       <linearGradient id="as-haze" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stop-color=${n} stop-opacity="0"></stop>
@@ -30318,12 +30318,12 @@ function U_(o, e) {
               <circle cx="150" cy="36" r="8" fill="#fff"></circle>
               <circle cx="153.5" cy="33" r="7.5" fill="#000"></circle>
             </mask>
-            <circle cx="150" cy="36" r="8" fill="#f2eedd" mask="url(#as-crescent)"></circle>` : j`<circle cx="150" cy="36" r="10" fill=${er[t]}></circle>`}
+            <circle cx="150" cy="36" r="8" fill="#f2eedd" mask="url(#as-crescent)"></circle>` : j`<circle cx="150" cy="36" r="10" fill=${tr[t]}></circle>`}
     </g>
     <g class="clouds" fill=${e ? "#55627d" : t >= 3 ? "#cfc6b4" : "#ffffff"} style="opacity:${e ? 0.45 : 0.85 - t * 0.08}">
       ${Gs(30, 1, 90, 0.25)}${Gs(22, 0.8, 110, 0.75)}${Gs(48, 0.7, 70, 0.55)}${Gs(40, 0.6, 80, 0.05)}
     </g>
-    ${t <= 1 && !e ? j`<g class="birds">${tr(30, 54, 0)}${tr(38, 50, 0.3)}${tr(25, 47, 0.6)}</g>` : null}
+    ${t <= 1 && !e ? j`<g class="birds">${ar(30, 54, 0)}${ar(38, 50, 0.3)}${ar(25, 47, 0.6)}</g>` : null}
     ${I_.map(
     ([l, c, d], h) => j`
         <path d=${l} fill=${e ? d : c}></path>
@@ -30541,7 +30541,7 @@ function Y_(o) {
 const Th = (o, e) => {
   const t = Y_(e).findIndex((a) => o <= a);
   return zs[t < 0 ? zs.length - 1 : t];
-}, ar = [
+}, ir = [
   [/pm_?2[._]?5|pm25/i, "PM2.5"],
   [/pm_?10/i, "PM10"],
   [/pm_?1(?!\d)/i, "PM1"],
@@ -30550,7 +30550,7 @@ const Th = (o, e) => {
   [/sulph?ur_?dioxide|\bso2\b/i, "SO₂"],
   [/carbon_?monoxide|\bco\b/i, "CO"],
   [/ozone|\bo3\b/i, "O₃"]
-], sn = class sn extends F {
+], on = class on extends F {
   constructor() {
     super(), this._list = [], this._lastWatched = "", new le(this, ".frame");
   }
@@ -30594,8 +30594,8 @@ const Th = (o, e) => {
     const e = this._hass, t = this._config;
     if (!e || !t) return [];
     const a = e.entities, i = a?.[t.entity]?.device_id, s = t.entity.replace(/_[^_]+$/, ""), n = Object.keys(e.states).filter(
-      (l) => l !== t.entity && l.startsWith("sensor.") && (i ? a?.[l]?.device_id === i : l.startsWith(s)) && !Number.isNaN(parseFloat(e.states[l].state)) && ar.some(([c]) => c.test(l))
-    ), r = (l) => ar.findIndex(([c]) => c.test(l));
+      (l) => l !== t.entity && l.startsWith("sensor.") && (i ? a?.[l]?.device_id === i : l.startsWith(s)) && !Number.isNaN(parseFloat(e.states[l].state)) && ir.some(([c]) => c.test(l))
+    ), r = (l) => ir.findIndex(([c]) => c.test(l));
     return n.sort((l, c) => r(l) - r(c)).map((l) => ({ entity: l }));
   }
   /** Re-evaluate auto-discovered pollutants once the registry is there. */
@@ -30606,7 +30606,7 @@ const Th = (o, e) => {
     }
   }
   _meta(e, t) {
-    const a = ar.find(([i]) => i.test(e.entity) || i.test(t?.attributes.friendly_name ?? ""));
+    const a = ir.find(([i]) => i.test(e.entity) || i.test(t?.attributes.friendly_name ?? ""));
     return { name: e.name ?? a?.[1] ?? t?.attributes.friendly_name ?? e.entity };
   }
   render() {
@@ -30647,7 +30647,7 @@ const Th = (o, e) => {
     </div>`;
   }
 };
-sn.parts = Xu, sn.styles = [
+on.parts = Xu, on.styles = [
   F.styles,
   xe,
   K_,
@@ -30920,7 +30920,7 @@ sn.parts = Xu, sn.styles = [
   // after the card's own rules: a picked material replaces the default glass
   ke
 ];
-let El = sn;
+let El = on;
 ce("glass-air-quality", El, {
   name: "Glass – air quality",
   description: "Air quality index with a gauge, its meaning and every pollutant on the same scale."
@@ -30940,7 +30940,7 @@ const li = dm(class extends hm {
   update(o, [e, t]) {
     return e !== this.key && (pm(o), this.key = e), t;
   }
-}), Ch = 72, on = class on extends F {
+}), Ch = 72, nn = class nn extends F {
   constructor() {
     super(), this._series = {}, this._fetchedAt = 0, this._loading = !1, this._outside = (e) => {
       e.composedPath().includes(this) || this._untrack();
@@ -30998,7 +30998,7 @@ const li = dm(class extends hm {
     for (const t of this._ids()) {
       const a = e.states[t], i = this._series[t];
       if (!a || !i) continue;
-      const s = Bo(a.state), n = Date.parse(a.last_updated);
+      const s = jo(a.state), n = Date.parse(a.last_updated);
       !Number.isNaN(s) && (!i.length || i[i.length - 1].t < n) && i.push({ t: n, v: s });
     }
     this._pending !== void 0 && this._sendTimer === void 0 && e.states[this._config.entity]?.attributes.temperature === this._pending && (this._pending = void 0), this._ensureHistory();
@@ -31033,7 +31033,7 @@ const li = dm(class extends hm {
     if (e.graph === !1) return g;
     const t = Date.now(), a = t - (e.hours ?? 24) * 3600 * 1e3, i = this._lineEntity, s = Math.max(0, Math.min(12, Math.round(e.smoothing ?? 1))), n = i ? ml(this._series[i] ?? [], a, t, Ch, s) : [], r = e.graph_entities.map((A) => {
       const k = this._series[A] ?? [], $ = this._hass.states[A];
-      return A.startsWith("binary_sensor.") || ($ ? Number.isNaN(parseFloat($.state)) && !Number.isNaN(Bo($.state)) : !1) ? { spans: Tb(k, a, t) } : { values: ml(k, a, t, Ch, s) };
+      return A.startsWith("binary_sensor.") || ($ ? Number.isNaN(parseFloat($.state)) && !Number.isNaN(jo($.state)) : !1) ? { spans: Tb(k, a, t) } : { values: ml(k, a, t, Ch, s) };
     }), l = [...n, ...r.flatMap((A) => A.values ?? [])].filter((A) => A !== void 0);
     if (!l.length) return p`<div class="graph"></div>`;
     let c = Math.min(...l), d = Math.max(...l);
@@ -31131,7 +31131,7 @@ const li = dm(class extends hm {
     return { columns: 6, rows: 3, min_rows: 2 };
   }
 };
-on.parts = ju, on.styles = [
+nn.parts = ju, nn.styles = [
   F.styles,
   xe,
   Oe,
@@ -31555,7 +31555,7 @@ on.parts = ju, on.styles = [
   // after the card's own rules: a picked material replaces the default glass
   ke
 ];
-let Ll = on;
+let Ll = nn;
 ce("glass-thermostat", Ll, {
   name: "Glass – thermostat",
   description: "Room temperature with set point controls and a soft history graph, styled like the room cards."
@@ -31580,11 +31580,11 @@ const Z_ = [
   ["rod_hours", "sensor", /heating_rod_hours$/],
   ["pressure", "sensor", /supply_pressure$|pressure$/],
   ["flow", "sensor", /volumetric_flow$/]
-], J_ = "#0084FF", Dh = "#ff9500", X_ = "#ff3b30", Q_ = "rgba(160, 160, 165, 0.78)", Oi = 300, dt = 96, at = 22, it = 34, qo = [26, it], bt = [110, it], Hc = [194, it], Za = [274, it], qa = {
-  out: `M${qo[0] + at + 2},${it} L${bt[0] - at - 2},${it}`,
+], J_ = "#0084FF", Dh = "#ff9500", X_ = "#ff3b30", Q_ = "rgba(160, 160, 165, 0.78)", Oi = 300, dt = 96, at = 22, it = 34, Wo = [26, it], bt = [110, it], Hc = [194, it], Za = [274, it], qa = {
+  out: `M${Wo[0] + at + 2},${it} L${bt[0] - at - 2},${it}`,
   heat: `M${bt[0] + at + 2},${it} L${Hc[0] - at - 2},${it}`,
   dhw: `M${bt[0]},${it + at + 2} L${bt[0]},${dt - 22} Q${bt[0]},${dt - 10} ${bt[0] + 12},${dt - 10} L${Za[0] - 12},${dt - 10} Q${Za[0]},${dt - 10} ${Za[0]},${dt - 22} L${Za[0]},${it + at + 2}`
-}, ir = { out: bt[0] - qo[0] - 2 * at - 4, heat: Hc[0] - bt[0] - 2 * at - 4, dhw: Za[0] - bt[0] + 2 * (dt - 10 - it - at) }, ey = 40, ty = 34, Us = 20, ay = {
+}, sr = { out: bt[0] - Wo[0] - 2 * at - 4, heat: Hc[0] - bt[0] - 2 * at - 4, dhw: Za[0] - bt[0] + 2 * (dt - 10 - it - at) }, ey = 40, ty = 34, Us = 20, ay = {
   comfort: "Comfort",
   home: "Home",
   sleep: "Sleep",
@@ -31605,7 +31605,7 @@ const Z_ = [
   defrost: "defrosting",
   preparing: "starting",
   pause: "pause"
-}, nn = class nn extends F {
+}, rn = class rn extends F {
   constructor() {
     super(), this._ids = {}, this._fromDevice = !1, this._pending = /* @__PURE__ */ new Map(), this._timers = /* @__PURE__ */ new Map(), this._open = !1, this._toggle = (e) => {
       e?.stopPropagation(), this._open = !this._open, this.toggleAttribute("glass-expanded", this._open), this.requestUpdate();
@@ -31717,14 +31717,14 @@ const Z_ = [
         <path class="pipe" d=${qa.out}></path>
         <path class="pipe" d=${qa.heat}></path>
         ${s.dhw || r ? j`<path class="pipe" d=${qa.dhw}></path>` : g}
-        ${A && l ? this._beam(qa.out, ir.out, _, b) : g}
-        ${A && u ? this._beam(qa.heat, ir.heat, x, b) : g}
-        ${A && h && (s.dhw || r) ? this._beam(qa.dhw, ir.dhw, z, b) : g}
+        ${A && l ? this._beam(qa.out, sr.out, _, b) : g}
+        ${A && u ? this._beam(qa.heat, sr.heat, x, b) : g}
+        ${A && h && (s.dhw || r) ? this._beam(qa.dhw, sr.dhw, z, b) : g}
       </svg>
-      ${this._node(qo, l ? _ : void 0, "mdi:weather-windy", this._st("outside") ? `${i(this._num("outside"))}°` : "", v("Outside"))}
+      ${this._node(Wo, l ? _ : void 0, "mdi:weather-windy", this._st("outside") ? `${i(this._num("outside"))}°` : "", v("Outside"))}
       ${m ? p`<span
             class="badge on frost"
-            style="left:${(qo[0] + at * 0.72) / Oi * 100}%;top:${(it - at * 0.72) / dt * 100}%"
+            style="left:${(Wo[0] + at * 0.72) / Oi * 100}%;top:${(it - at * 0.72) / dt * 100}%"
             title=${v("Frost protection on")}
             ><ha-icon icon="mdi:snowflake"></ha-icon
           ></span>` : g}
@@ -31865,7 +31865,7 @@ const Z_ = [
     for (const e of this._timers.values()) clearTimeout(e);
   }
 };
-nn.parts = Wu, nn.styles = [
+rn.parts = Wu, rn.styles = [
   F.styles,
   xe,
   ee`
@@ -32316,7 +32316,7 @@ nn.parts = Wu, nn.styles = [
       }
     `
 ];
-let Rl = nn;
+let Rl = rn;
 ce("glass-heat-pump", Rl, {
   name: "Glass – heat pump",
   description: "Heat pump: the heat flow like the energy card, heating mode, hot water and the heating curve."
@@ -32327,11 +32327,11 @@ const Ph = 4, Eh = 8, oy = 176, ny = ["gate", "garage", "door", "window", "dampe
   door: ["mdi:door-closed", "mdi:door-open"],
   window: ["mdi:window-closed", "mdi:window-open"]
 }, as = (o) => !!o && o !== "none";
-function sr(o, e, t) {
+function or(o, e, t) {
   const a = o ?? (as(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: re(as(e) ? e : void 0) } : void 0;
 }
-const ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${so(o)}></path></svg>`, cy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${oo(o)}></path></svg>`, ps = class ps extends F {
+const ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${oo(o)}></path></svg>`, cy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${no(o)}></path></svg>`, ps = class ps extends F {
   constructor() {
     super(), this._sent = /* @__PURE__ */ new Map(), new le(this, ".frame");
   }
@@ -32463,7 +32463,7 @@ const ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
       { name: v("Down"), icon: "mdi:chevron-down", value: 0 }
     ]), m = this._can(Ph, "current_position"), f = this._can(Eh), b = (e.tilts ?? cm()).map((Z, he, Ie) => ({
       ...Z,
-      deg: no(typeof Z.value == "number" ? Z.value : he / Math.max(1, Ie.length - 1) * 100)
+      deg: ro(typeof Z.value == "number" ? Z.value : he / Math.max(1, Ie.length - 1) * 100)
     })), y = e.percent_only === !0, _ = c === void 0 ? "–" : y && m ? `${c} %` : c >= 99 ? v("cover.is_open") : c <= 1 ? v("cover.is_closed") : `${v("Partially open")} · ${c} %`, x = n && !(y && m) ? v(s ? n === "closing" ? "cover.closing" : "cover.opening" : n === "closing" ? "Closing" : "Opening") : "", z = 15, S = 2 * Math.PI * z, A = (c ?? 100) < 99, k = s ? c ?? 0 : 100 - (c ?? 100), $ = k > 1, C = this._target(), T = C === void 0 ? void 0 : s ? C : 100 - C, P = i === "blind" && e.slats !== "none", N = d === void 0 || !A && this._drag?.bar !== "tilt" ? "–" : y ? `${d} %` : d >= 90 ? v("cover.is_open") : d <= 10 ? v("cover.is_closed") : `${v("Partially open")} · ${d} %`, E = (Z, he) => p`<button class="mode mat-${e.positions_glass ?? "none"}" style=${re(e.choices_color)} title=${he.name ?? ""} aria-label=${he.name ?? ""} @click=${() => this._choose(Z, he)}>
       <ha-icon .icon=${he.icon ?? "mdi:circle-small"}></ha-icon>
     </button>`, L = (Z, he) => {
@@ -32471,7 +32471,7 @@ const ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
       return p`<button class="round side mat-${e.tilts_glass ?? "dark"} ${e.tilts_glass ? "" : "auto"} ${$t ? "cur" : ""}" style=${re(e.choices_color)} title=${he.name ?? ""} aria-label=${he.name ?? ""} @click=${() => this._choose(Z, he)}>
         ${he.deg !== void 0 && !he.icon ? cy(he.deg) : p`<ha-icon .icon=${he.icon ?? "mdi:circle-small"}></ha-icon>`}
       </button>`;
-    }, G = sr(e.bar_glass, e.bar_color, "frosted"), H = sr(e.slats_glass, e.slats_color, "flat"), te = sr(e.tray_glass, e.tray_color, "flat"), I = this._icon($, r), ae = ry[a.attributes.device_class] ?? ["glass:blind", "glass:blind-open"], q = (Z) => (he) => this._slide(Z, he);
+    }, G = or(e.bar_glass, e.bar_color, "frosted"), H = or(e.slats_glass, e.slats_color, "flat"), te = or(e.tray_glass, e.tray_color, "flat"), I = this._icon($, r), ae = ry[a.attributes.device_class] ?? ["glass:blind", "glass:blind-open"], q = (Z) => (he) => this._slide(Z, he);
     return p`<div class="frame surface" style="--c-on:${Y(r) ?? "transparent"};--fill:${as(e.fill_color) ? Y(e.fill_color) : "var(--c-on)"};--c-pause:${Y(e.pause_color ?? r) ?? "transparent"}">
       ${e.show_title === !1 && !(e.pause && !e.hide_pause) ? g : p`<div class="title ${e.show_title === !1 ? "bare" : ""}">
         ${e.show_title === !1 ? g : p`${e.icon ? p`<ha-icon class="ricon" .icon=${e.icon}></ha-icon>` : g}
@@ -33133,7 +33133,7 @@ function dy() {
 function hy() {
   return new URL("./demo-alarm-night.jpg?v=1", import.meta.url).href;
 }
-const Ks = /* @__PURE__ */ new Map(), or = /* @__PURE__ */ new Map();
+const Ks = /* @__PURE__ */ new Map(), nr = /* @__PURE__ */ new Map();
 function py(o) {
   try {
     const e = document.createElement("canvas");
@@ -33205,7 +33205,7 @@ const us = class us extends F {
     }, a.onload = () => {
       a.naturalWidth && a.naturalHeight && Ks.set(e, a.naturalWidth / a.naturalHeight);
       const i = py(a);
-      i && or.set(e, i), this.requestUpdate();
+      i && nr.set(e, i), this.requestUpdate();
     }, a.src = e;
   }
   validateConfig(e) {
@@ -33308,7 +33308,7 @@ const us = class us extends F {
     const s = e.style !== "simple", n = /* @__PURE__ */ new Date(), r = xm(this._hass, n.getHours(), n.getMinutes()), l = new Intl.DateTimeFormat(be(this._hass), { weekday: "long", day: "numeric", month: "long" }).format(n), c = s && this._night(), d = s ? c ? ot(e.night_panel_glass ?? "dark-liquid-gl", e.night_panel_color, "dark-liquid-gl") : ot(e.panel_glass ?? "liquid-gl", e.panel_color, "liquid-gl") : void 0, h = c ? e.night_image || hy() : e.image || dy(), u = s ? this._ratio(h) : void 0, m = ot(e.controls_glass, e.controls_color, "dark"), f = e.snooze ?? 10, b = t.length > 1 ? p`<span class="more">+${t.length - 1}</span>` : g;
     return p`<div
       class="frame ${this.tile} ${s ? "photo-style" : "simple"} ${c ? "night" : ""}"
-      style=${[u ? `--ring-photo-ratio:${u}` : "", or.has(h) ? `--ring-under:${or.get(h)}` : ""].join(";")}
+      style=${[u ? `--ring-photo-ratio:${u}` : "", nr.has(h) ? `--ring-under:${nr.get(h)}` : ""].join(";")}
       @pointerdown=${this._onUpDown}
       @pointerup=${(y) => this._onUpEnd(y, i)}
       @pointercancel=${() => this._up = void 0}
@@ -33756,8 +33756,8 @@ const gy = {
   rabbit: "Rabbit",
   bus: "Bus",
   truck: "Truck"
-}, Nh = (o) => gy[o] ?? "mdi:shape-outline", nr = (o) => Rh[o] ? v(Rh[o]) : o.replace(/_/g, " ").replace(/^./, (e) => e.toUpperCase()), Oh = 6 * 3600, Bh = /* @__PURE__ */ new Map();
-async function rr(o, e) {
+}, Nh = (o) => gy[o] ?? "mdi:shape-outline", rr = (o) => Rh[o] ? v(Rh[o]) : o.replace(/_/g, " ").replace(/^./, (e) => e.toUpperCase()), Oh = 6 * 3600, Bh = /* @__PURE__ */ new Map();
+async function lr(o, e) {
   const t = Bh.get(e);
   if (t && t.until > Date.now()) return t.url;
   const a = await o.callWS({ type: "auth/sign_path", path: e, expires: Oh });
@@ -33768,7 +33768,7 @@ function Lm(o) {
   const e = import.meta.url;
   return new URL(`./demo-${o}`, e).href;
 }
-const Wa = (o, e) => fy(o) && !!e && !e.url && !e.streams && !e.live_card && !e.frigate_instance, lr = (o) => /garden|zahrad/i.test(`${o.frigate_camera ?? ""} ${o.camera ?? ""} ${o.name ?? ""}`) ? "garden" : "front", by = {
+const Wa = (o, e) => fy(o) && !!e && !e.url && !e.streams && !e.live_card && !e.frigate_instance, cr = (o) => /garden|zahrad/i.test(`${o.frigate_camera ?? ""} ${o.camera ?? ""} ${o.name ?? ""}`) ? "garden" : "front", by = {
   front: [
     [4, 18, 24, ["dog"], !1],
     [3, 165, 41, ["person"], !0],
@@ -33955,7 +33955,7 @@ const ms = class ms extends F {
   }
   /** Frigate's instance and camera name for a camera of the card (none: not a Frigate camera). */
   _frigate(e) {
-    if (Wa(this._hass, e)) return { inst: "demo", cam: lr(e) };
+    if (Wa(this._hass, e)) return { inst: "demo", cam: cr(e) };
     const t = e.camera ? this._hass?.states[e.camera] : void 0, a = e.frigate_instance ?? t?.attributes.client_id, i = e.frigate_camera ?? t?.attributes.camera_name, s = e.camera ?? e.frigate_camera ?? "";
     return a && i ? (this._fmemo.set(s, { inst: a, cam: i }), { inst: a, cam: i }) : this._fmemo.get(s);
   }
@@ -34023,7 +34023,7 @@ const ms = class ms extends F {
     }
     const l = this._sevNow();
     if (s.length && s.every((c) => Wa(e, i[c]))) {
-      this._recs = yy(s.map((c) => ({ i: c, cam: lr(i[c]) }))).filter((c) => l === "all" || c.alert === (l === "alert"));
+      this._recs = yy(s.map((c) => ({ i: c, cam: cr(i[c]) }))).filter((c) => l === "all" || c.alert === (l === "alert"));
       return;
     }
     try {
@@ -34063,7 +34063,7 @@ const ms = class ms extends F {
         for (const y of c)
           y.clip || (y.clip = `${m}/recording/${y.fcam}/start/${Math.floor(y.start - 2)}/end/${Math.ceil((y.end ?? Date.now() / 1e3) + 2)}`);
       }
-      if (c.sort((d, h) => h.start - d.start), t !== this._fetchKey || (await Promise.all(c.map(async (d) => d.thumb = await rr(e, d.thumb).catch(() => ""))), t !== this._fetchKey)) return;
+      if (c.sort((d, h) => h.start - d.start), t !== this._fetchKey || (await Promise.all(c.map(async (d) => d.thumb = await lr(e, d.thumb).catch(() => ""))), t !== this._fetchKey)) return;
       this._recs = c, this._subscribe([...r.keys()][0]);
     } catch (c) {
       console.warn("glass-camera: recordings", c), t === this._fetchKey && (this._recs = "error");
@@ -34130,7 +34130,7 @@ const ms = class ms extends F {
         return;
       }
       try {
-        const a = await rr(t, e.clip);
+        const a = await lr(t, e.clip);
         this._play = { rec: e, url: a, dl: a, at: e.start }, this._paused = !1, this._pos = 0, clearTimeout(this._back);
       } catch (a) {
         console.warn("glass-camera: clip", a);
@@ -34151,7 +34151,7 @@ const ms = class ms extends F {
     W("selection");
     const c = `/api/frigate/${encodeURIComponent(r.inst)}/recording/${r.cam}/start/${Math.floor(e)}/end/${Math.floor(e + 120)}`;
     try {
-      const d = await rr(t, c);
+      const d = await lr(t, c);
       this._play = { from: e, url: d, dl: d, at: e }, this._paused = !1, this._pos = 0;
     } catch (d) {
       console.warn("glass-camera: recording", d);
@@ -34295,7 +34295,7 @@ const ms = class ms extends F {
   _labels(e, t = "") {
     const a = pa(this._config.label_glass, this._config.label_color, "dark");
     return e.slice(0, 3).map(
-      (i) => p`<span class="tag ${t} ${a.cls || "plain"}" style=${a.style}><ha-icon .icon=${Nh(i)}></ha-icon><span>${nr(i)}</span></span>`
+      (i) => p`<span class="tag ${t} ${a.cls || "plain"}" style=${a.style}><ha-icon .icon=${Nh(i)}></ha-icon><span>${rr(i)}</span></span>`
     );
   }
   _stage(e) {
@@ -34317,7 +34317,7 @@ const ms = class ms extends F {
       @click=${{ handleEvent: this._onClickCapture, capture: !0 }}
       @dblclick=${this._onDbl}
     >
-      ${Wa(this._hass, a) && (i?.rec || !i && c) ? p`<video class="live demo" muted autoplay playsinline .srcObject=${_y(i?.rec ? i.rec.thumb : Lm(`camera-${lr(a)}.jpg`))}></video>` : i ? p`<video
+      ${Wa(this._hass, a) && (i?.rec || !i && c) ? p`<video class="live demo" muted autoplay playsinline .srcObject=${_y(i?.rec ? i.rec.thumb : Lm(`camera-${cr(a)}.jpg`))}></video>` : i ? p`<video
             class="clip"
             .src=${i.url}
             autoplay
@@ -34341,7 +34341,7 @@ const ms = class ms extends F {
               ><i></i><span>${v("Live")}</span>${a?.name || s?.attributes.friendly_name ? p`<span class="cam">${a?.name ?? s?.attributes.friendly_name}</span>` : g}</span
             >`}
         <span class="grow"></span>
-        ${i ? g : r.map((f) => p`<span class="pill seen ${h.cls || "plain"}" style=${h.style}><ha-icon .icon=${Nh(f.label)}></ha-icon><span>${nr(f.label)}</span></span>`)}
+        ${i ? g : r.map((f) => p`<span class="pill seen ${h.cls || "plain"}" style=${h.style}><ha-icon .icon=${Nh(f.label)}></ha-icon><span>${rr(f.label)}</span></span>`)}
       </div>
       ${i && !this._narrow ? this._bar(i) : g} ${l && !i ? p`<div class="over-ctl">${l}</div>` : g}
       ${i ? g : this._fsButton(`pill fs at-${m} ${d.cls || "plain"}`, d.style)}
@@ -34505,7 +34505,7 @@ const ms = class ms extends F {
       <button class="nav" title=${v("Earlier")} @click=${() => z(-1)}><ha-icon .icon=${"mdi:chevron-left"}></ha-icon></button>
       <div class="track" @pointerdown=${y} @pointermove=${_} @pointerup=${x} @pointercancel=${() => this._tlDrag = void 0}>
         ${(this._cover?.segs ?? []).map(([k, $]) => $ < i || k > s ? g : p`<i class="cov" style="left:${r(k)};width:calc(${r($)} - ${r(k)})"></i>`)}
-        ${c.map((k) => p`<i class="mark ${k.alert ? "alert" : ""}" style="left:${r(k.start)};width:max(3px, calc(${r(k.end ?? a)} - ${r(k.start)}))" title=${`${this._time(k.start)} ${k.labels.map(nr).join(", ")}`}></i>`)}
+        ${c.map((k) => p`<i class="mark ${k.alert ? "alert" : ""}" style="left:${r(k.start)};width:max(3px, calc(${r(k.end ?? a)} - ${r(k.start)}))" title=${`${this._time(k.start)} ${k.labels.map(rr).join(", ")}`}></i>`)}
         ${h.map((k) => p`<span class="tick" style="left:${r(k)}">${u(k)}</span>`)}
         ${b !== void 0 && b >= i && b <= s ? p`<i class="ph" style="left:${r(b)}"></i>` : g}
         ${A ? p`<span class="tl-empty"
@@ -34579,7 +34579,7 @@ const ms = class ms extends F {
   render() {
     const e = this._config;
     if (!e || !this._hass) return g;
-    const t = this._cur(), a = e.show_controls !== !1 && e.controls !== "overlay" ? this._ctl[t] : void 0, i = this._stage(t), s = this._narrow && this._play ? this._bar(this._play, !0) : g, n = p`${i}${s}${this._timeline(t)}${this._switcher(t)}${a ? p`<div class="ctl">${a}</div>` : g}`, r = e.height === "fill" ? this._fillH ? `${this._fillH}px` : "" : e.height ? Eo(e.height) : "", l = `${r ? `height:${r};` : ""}${e.alert_color ? `--cam-alert:${Y(e.alert_color)};` : ""}${e.selected_color ? `--cam-cur:${Y(e.selected_color)};` : ""}`, c = this._list(t), d = i === g;
+    const t = this._cur(), a = e.show_controls !== !1 && e.controls !== "overlay" ? this._ctl[t] : void 0, i = this._stage(t), s = this._narrow && this._play ? this._bar(this._play, !0) : g, n = p`${i}${s}${this._timeline(t)}${this._switcher(t)}${a ? p`<div class="ctl">${a}</div>` : g}`, r = e.height === "fill" ? this._fillH ? `${this._fillH}px` : "" : e.height ? Lo(e.height) : "", l = `${r ? `height:${r};` : ""}${e.alert_color ? `--cam-alert:${Y(e.alert_color)};` : ""}${e.selected_color ? `--cam-cur:${Y(e.selected_color)};` : ""}`, c = this._list(t), d = i === g;
     return this._wide && c !== g && !d ? p`<div class="frame surface side ${r ? "fixed" : ""}" style="grid-template-columns:${e.list_width ?? "minmax(320px, 0.36fr)"} minmax(0, 1fr);${l}">
         ${c}
         <div class="main">${n}</div>
@@ -35473,7 +35473,7 @@ ce("glass-camera", jl, {
   name: "Glass – camera",
   description: "Live picture and Frigate's recordings in one card: a tap plays a recording in place of live; the camera's light, night vision… under it."
 });
-const vy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, cr = ["away", "home", "night", "vacation", "custom_bypass"], At = {
+const vy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, dr = ["away", "home", "night", "vacation", "custom_bypass"], At = {
   away: { label: "Away", icon: "mdi:shield-lock" },
   home: { label: "Home", icon: "mdi:shield-home" },
   night: { label: "Night", icon: "mdi:shield-moon" },
@@ -35511,10 +35511,10 @@ const vy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, cr =
 function It(o, e) {
   return o ? { cls: `mat mat-${o}`, style: Rm(e) ? re(e) : "" } : { cls: "", style: "" };
 }
-let dr, Fh;
+let hr, Fh;
 function xy(o) {
-  return (!dr || Fh?.connection !== o.connection) && (Fh = o, dr = o.callWS({ type: "alarmo/entities" }).then((e) => new Map(e.map((t) => [t.entity_id, String(t.area_id)]))).catch(() => {
-  })), dr;
+  return (!hr || Fh?.connection !== o.connection) && (Fh = o, hr = o.callWS({ type: "alarmo/entities" }).then((e) => new Map(e.map((t) => [t.entity_id, String(t.area_id)]))).catch(() => {
+  })), hr;
 }
 const Vc = class Vc extends Ye {
   constructor() {
@@ -35660,7 +35660,7 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
               break;
             case "failed_to_arm": {
               const i = Object.keys(a.open_sensors ?? {}), s = String(a.command ?? "").replace(/^arm_/, "");
-              this._blocked = i.length && cr.includes(s) ? { mode: s, sensors: i } : void 0, i.length && this._sensors?.length && (this._drawer = !0), this._say(i.length ? v("Can't arm: {sensors}", { sensors: this._names(i) }) : v("Can't arm now"), "warn", 8e3);
+              this._blocked = i.length && dr.includes(s) ? { mode: s, sensors: i } : void 0, i.length && this._sensors?.length && (this._drawer = !0), this._say(i.length ? v("Can't arm: {sensors}", { sensors: this._names(i) }) : v("Can't arm now"), "warn", 8e3);
               break;
             }
             case "ready_to_arm_modes_changed":
@@ -35745,8 +35745,8 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
   }
   /* ---------- drawing ---------- */
   _modes(e) {
-    const t = Number(e.attributes.supported_features ?? 0), a = cr.filter((i) => t & vy[i]);
-    return this._config.modes?.length ? this._config.modes.filter((i) => cr.includes(i) && (!t || a.includes(i))) : a;
+    const t = Number(e.attributes.supported_features ?? 0), a = dr.filter((i) => t & vy[i]);
+    return this._config.modes?.length ? this._config.modes.filter((i) => dr.includes(i) && (!t || a.includes(i))) : a;
   }
   /** a code is needed for what can be done now */
   _needsCode(e) {
@@ -37040,7 +37040,7 @@ const Gc = ee`
     font-size: 12px;
     color: var(--g-text-2);
   }
-`, Wo = (o) => "frame", Qa = class Qa extends F {
+`, Fo = (o) => "frame", Qa = class Qa extends F {
   static getConfigElement() {
     return de(fb);
   }
@@ -37100,9 +37100,9 @@ const Gc = ee`
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
     const a = e.entity ? t.states[e.entity] : void 0;
-    if (!a) return p`<div class=${Wo()}><span class="hint">${e.entity || v("Choose an automation")}</span></div>`;
+    if (!a) return p`<div class=${Fo()}><span class="hint">${e.entity || v("Choose an automation")}</span></div>`;
     const i = a.state === "on", s = e.title ?? a.attributes.friendly_name ?? v("Automation");
-    return p`<div class=${Wo()} style=${e.color ? `--on:${Y(e.color)}` : ""}>
+    return p`<div class=${Fo()} style=${e.color ? `--on:${Y(e.color)}` : ""}>
       ${e.show_title === !1 ? g : p`<span class="gtitle">${s}</span>`}
       <div class="row">
         <span class="lbl state">
@@ -37293,7 +37293,7 @@ const Hh = {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
     const a = (A) => A ? t.states[A] : void 0, i = a(e.sun ?? "sun.sun"), s = a(e.light), n = a(e.shading)?.state, r = (A) => e.labels?.[A] ?? (Hh[A] ? v(Hh[A]) : A), l = a(e.target_tilt)?.state, c = n !== "open" && l && !Number.isNaN(parseFloat(l)) ? Math.round(parseFloat(l)) : void 0, d = Number(i?.attributes.elevation), h = Number(i?.attributes.azimuth), u = Number.isFinite(d) && Number.isFinite(h), m = u && d > (e.horizon ?? 0), f = u ? this._band(d) : void 0, b = !!f && m && (h - f[0] + 360) % 360 <= (f[1] - f[0] + 360) % 360, y = s ? parseFloat(s.state) : NaN, _ = a(e.shading)?.attributes[e.thresholds_attribute ?? "prahy_lux"], x = (A) => Math.round(A).toLocaleString(yi()), z = e.show_compass !== !1 && u, S = e.show_details !== !1;
-    return p`<div class=${Wo()}>
+    return p`<div class=${Fo()}>
       ${e.show_title === !1 ? g : p`<span class="gtitle">${e.title ?? v("Current state")}</span>`}
       <div class="sky ${e.layout === "below" ? "below" : ""}" style="--size:${e.size ?? 124}px;--band:${Y(e.band_color ?? "orange") ?? "transparent"};--lux:${Y(e.light_color ?? "amber") ?? "transparent"}">
         ${z ? this._dial(d, h, m, f, b, Number.isFinite(y) ? y : void 0, _) : g}
@@ -37549,7 +37549,7 @@ const bs = class bs extends F {
       <span class="sp ${this._n.pending.has(h) ? "pending" : ""}">${u(this._n.value(h))}</span>
       <button aria-label="+" @click=${() => this._n.nudge(h, 1)}><ha-icon icon="mdi:plus"></ha-icon></button>
     </div>`, l = e.show_months === !1 ? [] : a.filter((h) => h.months_from && h.months_to && t.states[h.months_from] && t.states[h.months_to]), c = e.unit ? ` ${e.unit}` : "", d = Y(e.active_color);
-    return p`<div class=${Wo()} style=${d ? `--accent-c:${d}` : ""}>
+    return p`<div class=${Fo()} style=${d ? `--accent-c:${d}` : ""}>
       ${l.map(
       (h) => p`<span class="gtitle">${h.name ?? ""}</span>
           <div class="months">
@@ -37623,9 +37623,9 @@ ce("glass-value-grid", Hl, {
   name: "Glass – value grid",
   description: "Numbers in a table with − / +, a column per mode (season); the current one marked by months or a state."
 });
-const po = (o) => !!o && o !== "none";
+const uo = (o) => !!o && o !== "none";
 function ji(o, e, t) {
-  const a = o ?? (po(e) ? t : void 0);
+  const a = o ?? (uo(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: re(e) } : void 0;
 }
 function Gl(o) {
@@ -37642,11 +37642,11 @@ function Sy(o) {
   const e = o.attributes.supported_color_modes ?? [], t = ["b"];
   return e.includes("color_temp") && t.push("t"), e.some((a) => $y.includes(a)) && t.push("c"), t;
 }
-const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.attributes.max_color_temp_kelvin) || 6500], zy = [
+const pr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.attributes.max_color_temp_kelvin) || 6500], zy = [
   [2700, "Warm"],
   [4e3, "Neutral"],
   [6500, "Cool"]
-], Ay = [0, 30, 330, 280, 220, 130], My = { b: "mdi:brightness-6", t: "mdi:thermometer", c: "mdi:palette" }, rn = class rn extends F {
+], Ay = [0, 30, 330, 280, 220, 130], My = { b: "mdi:brightness-6", t: "mdi:thermometer", c: "mdi:palette" }, ln = class ln extends F {
   constructor() {
     super(), this._lights = [], this._scenes = [], this._drag = /* @__PURE__ */ new Map(), this._sendTimer = /* @__PURE__ */ new Map(), this._pending = /* @__PURE__ */ new Map(), this._mode = /* @__PURE__ */ new Map(), this._modeTimer = /* @__PURE__ */ new Map(), new le(this, ".frame");
   }
@@ -37709,7 +37709,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
         const s = Math.min(100, Math.max(1, Math.round(a * 100)));
         this._pending.set(e, s), this._hass.callService("light", "turn_on", { entity_id: e, brightness_pct: s });
       } else if (t === "t") {
-        const [s, n] = hr(i);
+        const [s, n] = pr(i);
         this._hass.callService("light", "turn_on", { entity_id: e, color_temp_kelvin: Math.round(s + a * (n - s)) });
       } else
         this._hass.callService("light", "turn_on", { entity_id: e, hs_color: [Math.round(a * 360) % 360, 100] });
@@ -37735,13 +37735,13 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     } else this._sendTimer.has(l) || this._sendTimer.set(l, window.setTimeout(c, 300));
   }
   _bar(e, t, a) {
-    const i = t.states[e.entity], s = this._isOn(e, i), n = Gl(i), r = Sy(i), l = r.includes(this._mode.get(e.entity)) ? this._mode.get(e.entity) : "b", c = this._drag.get(`${e.entity}|${l}`), d = this._config.active_color ?? "yellow", h = i?.attributes.rgb_color, u = this._config, m = po(u.fill_color) ? Y(u.fill_color) : s && h && u.fill_source !== "accent" ? `rgb(${h.join(",")})` : Y(d), f = e.name ?? i?.attributes.friendly_name ?? e.entity;
+    const i = t.states[e.entity], s = this._isOn(e, i), n = Gl(i), r = Sy(i), l = r.includes(this._mode.get(e.entity)) ? this._mode.get(e.entity) : "b", c = this._drag.get(`${e.entity}|${l}`), d = this._config.active_color ?? "yellow", h = i?.attributes.rgb_color, u = this._config, m = uo(u.fill_color) ? Y(u.fill_color) : s && h && u.fill_source !== "accent" ? `rgb(${h.join(",")})` : Y(d), f = e.name ?? i?.attributes.friendly_name ?? e.entity;
     let b = 0, y = v(i ? s ? "On" : "Off" : "Unavailable");
     if (i && l === "b" && n !== void 0) {
       const K = c !== void 0 ? Math.max(1, Math.round(c * 100)) : this._pending.get(e.entity) ?? n;
       b = s ? K / 100 : 0, s && (y = `${K} %`);
     } else if (i && l === "t") {
-      const [K, oe] = hr(i), ze = c !== void 0 ? K + c * (oe - K) : Number(i.attributes.color_temp_kelvin) || K;
+      const [K, oe] = pr(i), ze = c !== void 0 ? K + c * (oe - K) : Number(i.attributes.color_temp_kelvin) || K;
       b = (ze - K) / (oe - K || 1), y = i.attributes.color_mode === "color_temp" || c !== void 0 ? `${Math.round(ze / 50) * 50} K` : v("Colour");
     } else if (i && l === "c") {
       const K = i.attributes.hs_color;
@@ -37768,7 +37768,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     )}
       </div>`;
     if (l === "t" && i) {
-      const [K, oe] = hr(i), ze = Number(i.attributes.color_temp_kelvin), J = s && i.attributes.color_mode === "color_temp";
+      const [K, oe] = pr(i), ze = Number(i.attributes.color_temp_kelvin), J = s && i.attributes.color_mode === "color_temp";
       P = E(
         zy.map(([ye, Le], ut) => {
           const St = Math.min(oe, Math.max(K, ye));
@@ -37849,7 +37849,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
   }
   /** The bulb's button: own material / backing / symbol colours (icon_*), else the control glass lit by `active_color`. */
   _icon(e) {
-    const t = this._config, a = t.active_color ?? "yellow", i = e ? je(a) : void 0, s = Y(a), n = !!t.icon_background, r = !!i && !n, l = t.icons?.icon_on?.color, c = t.icons?.icon?.color, d = e ? po(l) ? Y(l) : n ? s : void 0 : po(c) ? Y(c) : void 0, h = t.icon_background === "none" ? "transparent" : n ? je(t.icon_background) : void 0, u = e ? t.icon_on_glass : t.icon_glass;
+    const t = this._config, a = t.active_color ?? "yellow", i = e ? je(a) : void 0, s = Y(a), n = !!t.icon_background, r = !!i && !n, l = t.icons?.icon_on?.color, c = t.icons?.icon?.color, d = e ? uo(l) ? Y(l) : n ? s : void 0 : uo(c) ? Y(c) : void 0, h = t.icon_background === "none" ? "transparent" : n ? je(t.icon_background) : void 0, u = e ? t.icon_on_glass : t.icon_glass;
     return u ? {
       cls: `mat mat-${u} ${r ? "on" : ""} ${e ? "glow" : ""}`,
       style: `${n ? h === "transparent" ? "" : `${re(t.icon_background)};` : r ? `${re(a, 70)};` : ""}${d ? `color:${d};` : ""}--glow:${s}`
@@ -37923,7 +37923,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     return { columns: 6, rows: 3, min_rows: 2 };
   }
 };
-rn.parts = Ru, rn.styles = [
+ln.parts = Ru, ln.styles = [
   F.styles,
   xe,
   Oe,
@@ -38502,7 +38502,7 @@ rn.parts = Ru, rn.styles = [
   // after the card's own rules: a picked material replaces the default glass
   ke
 ];
-let Ul = rn;
+let Ul = ln;
 ce("glass-light", Ul, {
   name: "Glass – lights",
   description: "Room lights tile: scenes as round buttons and a liquid glass brightness bar per light."
@@ -38532,7 +38532,7 @@ const wa = ["ring", "bars", "orbit"], et = 48, ie = 32, rt = Math.PI * 2, Ue = (
   for (let t = 0; t < o.length; t++) e = Math.imul(e ^ o.charCodeAt(t), 16777619);
   return (e >>> 0) % 1e5 / 7.3;
 }, Ha = /* @__PURE__ */ new Map();
-function uo(o) {
+function mo(o) {
   const e = document.createElement("canvas");
   e.width = e.height = ie;
   const t = e.getContext("2d"), a = o && !o.includes("var(") ? [o, "#ffffff", o] : ["#5b8def", "#b06ee6", "#ef7a6b"], i = t.createLinearGradient(0, 0, ie, ie);
@@ -38584,7 +38584,7 @@ function Ly(o) {
         r.imageSmoothingEnabled = !0, r.imageSmoothingQuality = "high", r.drawImage(s, (s.naturalWidth - l) / 2, (s.naturalHeight - l) / 2, l, l, 0, 0, ie, ie), Ey(r), t({ img: s, px: n, glow: Om(n) });
       }, s.onerror = () => {
         if (i) return a(!1);
-        Ha.delete(o), t(uo());
+        Ha.delete(o), t(mo());
       }, s.src = o;
     };
     a(new URL(o, location.href).origin !== location.origin);
@@ -38592,7 +38592,7 @@ function Ly(o) {
 }
 class Ry {
   constructor(e) {
-    this.cv = e, this.art = uo(), this.onLight = !1, this.track = { playing: !1, pos: 0, at: 0, dur: 0, seed: "" }, this.seed = 0, this.bpm = 112, this.four = !0, this.style = "ring", this.bands = new Float32Array(et), this.target = new Float32Array(et), this.peaks = new Float32Array(et), this.kick = 0, this.lastKick = 0, this.energy = 0, this.rot = 0, this.flying = [], this.raf = 0, this.last = 0, this.size = 0, this.dpr = 1, this.visible = !0, this.calm = matchMedia("(prefers-reduced-motion: reduce)"), this.wake = () => {
+    this.cv = e, this.art = mo(), this.onLight = !1, this.track = { playing: !1, pos: 0, at: 0, dur: 0, seed: "" }, this.seed = 0, this.bpm = 112, this.four = !0, this.style = "ring", this.bands = new Float32Array(et), this.target = new Float32Array(et), this.peaks = new Float32Array(et), this.kick = 0, this.lastKick = 0, this.energy = 0, this.rot = 0, this.flying = [], this.raf = 0, this.last = 0, this.size = 0, this.dpr = 1, this.visible = !0, this.calm = matchMedia("(prefers-reduced-motion: reduce)"), this.wake = () => {
       !this.raf && this.visible && !document.hidden && this.cv.isConnected && (this.last = performance.now(), this.raf = requestAnimationFrame(this.frame));
     }, this.frame = (t) => {
       if (this.raf = 0, !this.visible || document.hidden || !this.cv.isConnected) return;
@@ -38625,11 +38625,11 @@ class Ry {
   setArt(e, t) {
     if (!(e === this.artUrl && t === this.accent)) {
       if (this.artUrl = e, this.accent = t, !e) {
-        this.art = uo(t);
+        this.art = mo(t);
         return;
       }
       Ly(e).then((a) => {
-        this.artUrl === e && (this.art = a.img ? a : uo(t));
+        this.artUrl === e && (this.art = a.img ? a : mo(t));
       });
     }
   }
@@ -38849,14 +38849,14 @@ function Va(o, e, t, a) {
   let n = Gh.get(s);
   return n || Gh.set(s, n = new Ny(o, e)), n.command(t, a);
 }
-function pr(o, e) {
+function ur(o, e) {
   const t = [e?.image, ...e?.metadata?.images ?? []].filter(Boolean), a = t.find((i) => i.type === "thumb") ?? t[0];
   if (a?.path)
     return /^https?:\/\//.test(a.path) && a.remotely_accessible !== !1 ? a.path : a.proxy_id ? `${o.replace(/\/$/, "")}/imageproxy/${a.proxy_id}?size=256` : void 0;
 }
-const ur = /* @__PURE__ */ new Map();
+const mr = /* @__PURE__ */ new Map();
 function Oy(o, e) {
-  const t = `${o}|${e}`, a = ur.get(t);
+  const t = `${o}|${e}`, a = mr.get(t);
   if (a && Date.now() - a.at < 3e5) return a.p;
   const i = Va(o, e, "players/all").then((s) => {
     const n = /* @__PURE__ */ new Map();
@@ -38870,7 +38870,7 @@ function Oy(o, e) {
     }
     return n;
   });
-  return i.catch(() => ur.delete(t)), ur.set(t, { at: Date.now(), p: i }), i;
+  return i.catch(() => mr.delete(t)), mr.set(t, { at: Date.now(), p: i }), i;
 }
 const Uh = (o, e) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${o}"><path d="${e}"/></svg>`)}")`, By = {
   chromecast: Uh("0 0 21.97425 21.97425", "m0,17v3h3c0,-1.7-1.3,-3-3,-3zm0,-4v2c2.8,0 5,2.2 5,5h2c0,-3.9-3.1,-7-7,-7zM0,9V11c5,0 9,4 9,9h2C11,13.9 6.1,9 0,9ZM20,2H2c-1.1,0-2,0.9-2,2v3h2v-3H20V18h-7v2h7c1.1,0 2,-0.9 2,-2V4c0,-1.1-0.9,-2-2,-2z"),
@@ -38886,7 +38886,7 @@ const Uh = (o, e) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="
   bluesound: "mdi:speaker",
   hass: "mdi:home-assistant",
   ma: "mdi:music-circle-outline"
-}, mo = {
+}, go = {
   sonos: "Sonos",
   chromecast: "Chromecast",
   sendspin: "Sendspin",
@@ -38903,7 +38903,7 @@ function Iy(o) {
 }
 function qy(o) {
   if (o)
-    return o === "hass" || o === "hass_players" ? "hass" : o === "cast" || o === "google_cast" ? "chromecast" : o === "slimproto" ? "squeezelite" : mo[o] ? o : "ma";
+    return o === "hass" || o === "hass_players" ? "hass" : o === "cast" || o === "google_cast" ? "chromecast" : o === "slimproto" ? "squeezelite" : go[o] ? o : "ma";
 }
 function Wy(o, e) {
   const t = `${o ?? ""} ${e ?? ""}`;
@@ -39029,7 +39029,7 @@ function Xh() {
   }
   Zl.dispatchEvent(new Event("change"));
 }
-const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, qi = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), ve = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), Jy = 32, mr = /* @__PURE__ */ new WeakMap(), ft = (o) => !!o?.attributes.mass_player_type;
+const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, qi = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), ve = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), Jy = 32, gr = /* @__PURE__ */ new WeakMap(), ft = (o) => !!o?.attributes.mass_player_type;
 function Xy(o) {
   const e = o.media_content_id;
   if (!e) return;
@@ -39039,28 +39039,28 @@ function Xy(o) {
   if (t === "album") return `ytmusic://album/${e}`;
   if (t === "artist") return `ytmusic://artist/${e}`;
 }
-const Ke = /* @__PURE__ */ new Map(), Qy = 5 * 6e4, jm = "glass-media-players", Fo = /* @__PURE__ */ new Map();
+const Ke = /* @__PURE__ */ new Map(), Qy = 5 * 6e4, jm = "glass-media-players", Ho = /* @__PURE__ */ new Map();
 try {
   const o = JSON.parse(localStorage.getItem(jm) ?? "{}");
   for (const [e, t] of Object.entries(o))
-    t?.pick && typeof t.pick.id == "string" && Ke.set(e, { id: t.pick.id, at: Number(t.pick.at) || 0 }), typeof t?.shown == "string" && Fo.set(e, t.shown);
+    t?.pick && typeof t.pick.id == "string" && Ke.set(e, { id: t.pick.id, at: Number(t.pick.at) || 0 }), typeof t?.shown == "string" && Ho.set(e, t.shown);
 } catch {
 }
 function Wi() {
   const o = {};
   for (const [e, t] of Ke) o[e] = { pick: { id: t.id, at: t.at } };
-  for (const [e, t] of Fo) (o[e] ??= {}).shown = t;
+  for (const [e, t] of Ho) (o[e] ??= {}).shown = t;
   try {
     localStorage.setItem(jm, JSON.stringify(o));
   } catch {
   }
 }
-const ev = /* @__PURE__ */ new Set(["media_next_track", "media_previous_track", "shuffle_set", "repeat_set", "media_play", "media_pause", "media_seek"]), Fi = new EventTarget(), Mt = /* @__PURE__ */ new Map(), nt = /* @__PURE__ */ new Map(), Im = 36e5, Jl = new EventTarget(), Qh = /* @__PURE__ */ new Map(), As = /* @__PURE__ */ new Map(), qm = 4e3, Ho = 2e4;
+const ev = /* @__PURE__ */ new Set(["media_next_track", "media_previous_track", "shuffle_set", "repeat_set", "media_play", "media_pause", "media_seek"]), Fi = new EventTarget(), Mt = /* @__PURE__ */ new Map(), nt = /* @__PURE__ */ new Map(), Im = 36e5, Jl = new EventTarget(), Qh = /* @__PURE__ */ new Map(), As = /* @__PURE__ */ new Map(), qm = 4e3, Go = 2e4;
 function ep(o, ...e) {
-  return o && e.some((t) => Date.now() - (As.get(t) ?? 0) < Ho) ? Ho : 8e3;
+  return o && e.some((t) => Date.now() - (As.get(t) ?? 0) < Go) ? Go : 8e3;
 }
 const tv = 8e3, tp = 1500;
-function gr(o, e = !1) {
+function Xs(o, e = !1) {
   if (!o) return o;
   const t = o.entity_id;
   let a = Qh.get(t);
@@ -39092,8 +39092,8 @@ function gr(o, e = !1) {
   return iv(o, a, t, s, l, i, e);
 }
 function av(o, e, t, a, i, s) {
-  const n = (As.get(t) ?? 0) > i - 5e3 && s - (As.get(t) ?? 0) < Ho;
-  if (o.state === "idle" && e.last && s - i < (n ? Ho : qm)) {
+  const n = (As.get(t) ?? 0) > i - 5e3 && s - (As.get(t) ?? 0) < Go;
+  if (o.state === "idle" && e.last && s - i < (n ? Go : qm)) {
     const r = e.last.attributes.media_title;
     if (a && r && a !== r)
       return nt.delete(t), { ...o, state: e.last.state, attributes: { ...o.attributes, media_position: 0, media_position_updated_at: new Date(s).toISOString(), media_position_frozen: !0 } };
@@ -39131,7 +39131,7 @@ function iv(o, e, t, a, i, s, n) {
     }
   } : (n && !ve.has(o.state) && (e.last = void 0), o);
 }
-const fr = /* @__PURE__ */ new Map(), br = /* @__PURE__ */ new Map(), Xs = /* @__PURE__ */ new Map(), Wm = /* @__PURE__ */ new Map(), Xl = /* @__PURE__ */ new Set();
+const fr = /* @__PURE__ */ new Map(), br = /* @__PURE__ */ new Map(), Qs = /* @__PURE__ */ new Map(), Wm = /* @__PURE__ */ new Map(), Xl = /* @__PURE__ */ new Set();
 function ap(o) {
   const e = fr.get(o);
   if (e === "ok" || e === "fail") return e;
@@ -39186,7 +39186,7 @@ const Tt = (o) => ({
   o = Math.max(0, Math.floor(o));
   const e = Math.floor(o / 3600), t = Math.floor(o % 3600 / 60), a = String(o % 60).padStart(2, "0");
   return e ? `${e}:${String(t).padStart(2, "0")}:${a}` : `${t}:${a}`;
-}, ln = class ln extends F {
+}, cn = class cn extends F {
   constructor() {
     super(), this._ids = [], this._moved = /* @__PURE__ */ new Set(), this._drag = /* @__PURE__ */ new Map(), this._sendTimer = /* @__PURE__ */ new Map(), this._pending = /* @__PURE__ */ new Map(), this._open = !1, this._twins = /* @__PURE__ */ new Map(), this._twinLast = /* @__PURE__ */ new Map(), this._pickOpen = !1, this._onPick = (e) => {
       e.detail === this._linkKey && (this._chosen = Ke.get(this._linkKey), this._stack = [], this._pickOpen = !1, this.requestUpdate());
@@ -39282,7 +39282,7 @@ const Tt = (o) => ({
    * position and modes come from YouTube Music; the volume stays the speaker's).
    */
   _shownState(e = this._main()) {
-    const t = this._kind(e) === "sonos", a = gr(this.stateOf(e), t), i = this._via(e);
+    const t = this._kind(e) === "sonos", a = Xs(this.stateOf(e), t), i = this._via(e);
     if (!i && a && this._tvSet(e)) {
       const b = { ...a.attributes };
       for (const y of ["media_title", "media_artist", "media_album_name", "entity_picture", "entity_picture_local", "media_duration", "media_position", "app_name"]) delete b[y];
@@ -39324,7 +39324,7 @@ const Tt = (o) => ({
       const b = this._twinPlays(e);
       if (b) {
         c = !0;
-        const y = gr(this.stateOf(b), t);
+        const y = Xs(this.stateOf(b), t);
         r && y && y.attributes.media_title === r.title ? s = y : y && ve.has(y.state) ? (this._twinLast.set(b, y), s = y) : y && Date.now() - Date.parse(y.last_changed) < ep(this._kind(e) === "sonos", e, b) && (s = this._twinLast.get(b));
       }
     }
@@ -39478,30 +39478,30 @@ const Tt = (o) => ({
   _main() {
     const e = this._hass?.states;
     if (!e || this._ids.length === 1) return this._ids[0];
-    this._shown ??= Fo.get(this._linkKey);
+    this._shown ??= Ho.get(this._linkKey);
     const t = this._shown, a = this._pickMain(e);
-    return a !== t && (Fo.set(this._linkKey, a), Wi()), a;
+    return a !== t && (Ho.set(this._linkKey, a), Wi()), a;
   }
   _pickMain(e) {
-    const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (l) => Date.parse(e[l]?.last_changed ?? "") || 0, i = (l) => ve.has(e[l]?.state ?? "") || Mt.has(l) || nt.has(l), s = new Set(this._ids.map((l) => e[l]?.attributes.remote_player_id).filter(Boolean)), n = Ke.get(this._linkKey) ?? this._chosen;
+    const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (d) => Date.parse(e[d]?.last_changed ?? "") || 0, i = (d) => this._kind(d) === "chromecast" || this._hass?.entities?.[d]?.platform === "cast", s = (d) => i(d) && !!e[d] && ve.has(Xs(e[d], !1)?.state ?? ""), n = (d) => ve.has(e[d]?.state ?? "") || Mt.has(d) || nt.has(d) || s(d), r = new Set(this._ids.map((d) => e[d]?.attributes.remote_player_id).filter(Boolean)), l = Ke.get(this._linkKey) ?? this._chosen;
     if (this._config.follow_playing === !1) {
-      const l = n && n.id !== this._ids[0] && this._ids.includes(n.id) && (this._busy(n) || i(n.id) || Date.now() - n.at < Qy);
-      return this._shown = l ? n.id : this._ids[0];
+      const d = l && l.id !== this._ids[0] && this._ids.includes(l.id) && (this._busy(l) || n(l.id) || Date.now() - l.at < Qy);
+      return this._shown = d ? l.id : this._ids[0];
     }
-    if (n && this._ids.includes(n.id)) {
-      if (this._busy(n)) return this._shown = n.id;
-      const l = this._ids.find((c) => c !== n.id && !s.has(c) && e[c]?.state === "playing" && a(c) > n.at && !i(n.id));
-      return l ? (this._chosen = void 0, Ke.get(this._linkKey) === n && (Ke.delete(this._linkKey), Wi()), this._shown = l) : this._shown = n.id;
+    if (l && this._ids.includes(l.id)) {
+      if (this._busy(l)) return this._shown = l.id;
+      const d = this._ids.find((h) => h !== l.id && !r.has(h) && e[h]?.state === "playing" && a(h) > l.at && !n(l.id));
+      return d ? (this._chosen = void 0, Ke.get(this._linkKey) === l && (Ke.delete(this._linkKey), Wi()), this._shown = d) : this._shown = l.id;
     }
-    const r = t?.attributes.remote_player_id;
-    if (t && r && e[r]?.state === "playing") return t.entity_id;
-    if (t && (qi.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && ve.has(gr(t, !0)?.state ?? ""))) {
-      const l = this._ids.find(
-        (c) => c !== t.entity_id && !s.has(c) && e[c]?.state === "playing" && a(c) > a(t.entity_id) && !i(t.entity_id)
+    const c = t?.attributes.remote_player_id;
+    if (t && c && e[c]?.state === "playing") return t.entity_id;
+    if (t && (qi.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && ve.has(Xs(t, !0)?.state ?? "") || s(t.entity_id))) {
+      const d = this._ids.find(
+        (h) => h !== t.entity_id && !r.has(h) && e[h]?.state === "playing" && a(h) > a(t.entity_id) && !n(t.entity_id)
       );
-      this._shown = l ?? t.entity_id;
+      this._shown = d ?? t.entity_id;
     } else
-      this._shown = this._ids.find((l) => !s.has(l) && e[l]?.state === "playing") ?? this._ids.find((l) => e[l]?.state === "playing") ?? this._ids.find((l) => qi.has(e[l]?.state ?? "")) ?? this._ids[0];
+      this._shown = this._ids.find((d) => !r.has(d) && e[d]?.state === "playing") ?? this._ids.find((d) => e[d]?.state === "playing") ?? this._ids.find((d) => qi.has(e[d]?.state ?? "")) ?? this._ids[0];
     return this._shown;
   }
   _busyOn(e) {
@@ -39632,20 +39632,20 @@ const Tt = (o) => ({
   }
   _kindBadge(e) {
     const t = this._kind(e), a = Iy(t);
-    return a.word ? p`<i class="pkind word" title=${mo[t]}>${a.word}</i>` : p`<i class="pkind" title=${mo[t]} aria-label=${mo[t]}
+    return a.word ? p`<i class="pkind word" title=${go[t]}>${a.word}</i>` : p`<i class="pkind" title=${go[t]} aria-label=${go[t]}
       >${a.mask ? p`<b style=${`-webkit-mask-image:${a.mask};mask-image:${a.mask}`}></b>` : p`<ha-icon .icon=${a.mdi}></ha-icon>`}</i
     >`;
   }
   /** An app's icon by its bundle id (com.google.ios.youtube), from the App Store – once looked up. */
   _appIcon(e) {
     if (typeof e != "string" || !/^[\w-]+(\.[\w-]+){2,}$/.test(e)) return;
-    const t = Xs.get(e);
+    const t = Qs.get(e);
     if (typeof t == "string") return t;
     if (t !== void 0) return;
     const a = String(this._hass?.config?.country ?? "us").toLowerCase(), i = (s) => fetch(`https://itunes.apple.com/lookup?bundleId=${encodeURIComponent(e)}&country=${s}`).then((n) => n.json()).then((n) => n?.results?.[0]?.artworkUrl100 ?? n?.results?.[0]?.artworkUrl60);
-    Xs.set(
+    Qs.set(
       e,
-      i(a).then((s) => s ?? (a === "us" ? void 0 : i("us"))).then((s) => void Xs.set(e, s ?? null)).catch(() => void Xs.set(e, null)).then(() => this.requestUpdate())
+      i(a).then((s) => s ?? (a === "us" ? void 0 : i("us"))).then((s) => void Qs.set(e, s ?? null)).catch(() => void Qs.set(e, null)).then(() => this.requestUpdate())
     );
   }
   /** The card's players to pick from: each with its art (or icon), name and what it does. */
@@ -40098,7 +40098,7 @@ const Tt = (o) => ({
             from: u,
             // Music Assistant marks YouTube's own mixes "(YouTube Music)": the row says where they're from
             name: [String(f.name ?? "").replace(/\s*\(YouTube Music\)$/, ""), f.version ? `(${f.version})` : ""].filter(Boolean).join(" "),
-            image: pr(e, f),
+            image: ur(e, f),
             kind: f.media_type === "track" ? "track" : f.media_type,
             play: !0,
             ma_uri: f.uri,
@@ -40276,7 +40276,7 @@ const Tt = (o) => ({
         a.items = (l ?? []).filter((c) => c?.uri).slice(0, 300).map((c) => ({
           name: [c.name, c.version ? `(${c.version})` : ""].filter(Boolean).join(" "),
           sub: [(c.artists ?? []).map((d) => d?.name).filter(Boolean).join(", "), t.kind === "album" ? "" : c.album?.name].filter(Boolean).join(" • ") || void 0,
-          image: t.kind === "album" ? void 0 : pr(i, c) ?? pr(i, c.album),
+          image: t.kind === "album" ? void 0 : ur(i, c) ?? ur(i, c.album),
           kind: "track",
           play: !0,
           ma_uri: c.uri,
@@ -40870,12 +40870,12 @@ const Tt = (o) => ({
       for (const e of this.renderRoot.querySelectorAll(".mqi")) {
         const t = e.parentElement;
         if (!t || e.closest(".subw")) continue;
-        const a = e.textContent ?? "", i = t.clientWidth, s = mr.get(e);
+        const a = e.textContent ?? "", i = t.clientWidth, s = gr.get(e);
         if (s && s.text === a && s.w === i) continue;
         s?.anim?.cancel(), t.classList.remove("mq");
         const n = Math.ceil(e.getBoundingClientRect().width - i);
         if (!i || n < 3) {
-          mr.set(e, { text: a, w: i });
+          gr.set(e, { text: a, w: i });
           continue;
         }
         t.classList.add("mq");
@@ -40889,7 +40889,7 @@ const Tt = (o) => ({
           ],
           { duration: h, iterations: 1 / 0 }
         );
-        mr.set(e, { text: a, w: i, anim: m });
+        gr.set(e, { text: a, w: i, anim: m });
       }
   }
   /** The media keys: what plays on the shown player, for the system's controls (macOS, Windows). */
@@ -40947,7 +40947,7 @@ const Tt = (o) => ({
     return this._config?.layout === "tile" ? { columns: 6, rows: 1, min_rows: 1 } : { columns: 6, rows: 3, min_rows: 2 };
   }
 };
-ln.parts = om, ln.styles = [
+cn.parts = om, cn.styles = [
   F.styles,
   xe,
   Oe,
@@ -43598,7 +43598,7 @@ ln.parts = om, ln.styles = [
     `,
   ke
 ];
-let Ql = ln;
+let Ql = cn;
 ce("glass-media", Ql, {
   name: "Glass – media player",
   description: "What plays with its album art, the controls, a liquid glass volume bar and the speakers to group."
@@ -43619,7 +43619,7 @@ function lv(o, e) {
   const t = o.trim().toLowerCase();
   return rv.find(([, a]) => a.some((i) => t.startsWith(i)))?.[0];
 }
-function go(o, e, t = ["day", "month", "year"]) {
+function fo(o, e, t = ["day", "month", "year"]) {
   if (Gt(e)) {
     const r = Number(o?.states[e.offset_entity]?.state), l = e.select_entity ? o?.states[e.select_entity]?.state : void 0;
     return { kind: lv(l, e.kinds) ?? "day", offset: Number.isFinite(r) ? Math.min(0, r) : 0 };
@@ -43700,14 +43700,14 @@ const ei = class ei extends F {
   _step(e) {
     const t = this._config;
     if (W(), this._hit = e, clearTimeout(this._hitTimer), this._hitTimer = window.setTimeout(() => this._hit = void 0, 260), !Gt(t)) {
-      const a = go(this._hass, t, this._periods);
+      const a = fo(this._hass, t, this._periods);
       return yr(t, { ...a, offset: a.offset + e });
     }
     this._call("input_number", e > 0 ? "increment" : "decrement", { entity_id: t.offset_entity }), t.current_entity && this._call("input_boolean", "turn_off", { entity_id: t.current_entity });
   }
   _now() {
     const e = this._config;
-    if (W(), !Gt(e)) return yr(e, { ...go(this._hass, e, this._periods), offset: 0 });
+    if (W(), !Gt(e)) return yr(e, { ...fo(this._hass, e, this._periods), offset: 0 });
     const t = this._hass.states[e.offset_entity];
     this._call("input_number", "set_value", { entity_id: e.offset_entity, value: Number(t?.attributes.max ?? 0) }), e.current_entity && this._call("input_boolean", "turn_on", { entity_id: e.current_entity });
   }
@@ -43722,7 +43722,7 @@ const ei = class ei extends F {
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = go(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, hv($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${np(n, a)}</span><span class="short">${np(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), z = p`<span class="gap"></span>`, S = vr(e.bar_glass, e.bar_color, "frosted"), A = vr(e.buttons_glass, e.buttons_color, "dark"), k = h ? A : vr(e.now_glass, e.now_color, "home");
+    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = fo(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, hv($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${np(n, a)}</span><span class="short">${np(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), z = p`<span class="gap"></span>`, S = vr(e.bar_glass, e.bar_color, "frosted"), A = vr(e.buttons_glass, e.buttons_color, "dark"), k = h ? A : vr(e.now_glass, e.now_color, "home");
     return this._btn = A, p`<div class="bar lbar ${S.cls || "control"} ${e.spread ? "spread" : ""}" style=${S.style}>
         ${e.spread ? g : z}
         ${x("now") ? p`<button class="now ${h ? "on" : ""} ${k.cls}" style=${k.style} aria-label=${e.now_label ?? v("Now")} @click=${() => this._now()}>
@@ -44156,7 +44156,7 @@ ha-card { background: none !important; border: 0 !important; box-shadow: none !i
   }
   /** The chart for the current period; the same one until the period (or the day) changes. */
   _chart() {
-    const e = this._config, t = cp(e) ? go(this._hass, e) : void 0, a = t ? `${t.kind}:${Ts(t).getTime()}` : "fixed";
+    const e = this._config, t = cp(e) ? fo(this._hass, e) : void 0, a = t ? `${t.kind}:${Ts(t).getTime()}` : "fixed";
     if (a !== this._key || !this._card) {
       this._key = a;
       const i = t ? e[t.kind] : void 0;
@@ -44723,7 +44723,7 @@ const dp = {
   mowing: "Mowing",
   unavailable: "Unavailable",
   unknown: "Unknown"
-}, yv = (o) => Array.isArray(o) ? o : [o], vv = { vacuum: ["cleaning", "paused", "returning"], mower: ["mowing", "paused", "returning"] }, wv = ["on", "charging", "recharging", "charging_mid_mission"], xv = (o) => o >= 95 ? "mdi:battery" : o < 5 ? "mdi:battery-outline" : `mdi:battery-${Math.round(o / 10) * 10}`, cn = class cn extends F {
+}, yv = (o) => Array.isArray(o) ? o : [o], vv = { vacuum: ["cleaning", "paused", "returning"], mower: ["mowing", "paused", "returning"] }, wv = ["on", "charging", "recharging", "charging_mid_mission"], xv = (o) => o >= 95 ? "mdi:battery" : o < 5 ? "mdi:battery-outline" : `mdi:battery-${Math.round(o / 10) * 10}`, dn = class dn extends F {
   constructor() {
     super(), new le(this, ".list");
   }
@@ -44956,7 +44956,7 @@ const dp = {
     return 2;
   }
 };
-cn.properties = { ...F.properties, _sel: { state: !0 } }, cn.styles = [
+dn.properties = { ...F.properties, _sel: { state: !0 } }, dn.styles = [
   F.styles,
   xe,
   Oe,
@@ -45370,7 +45370,7 @@ cn.properties = { ...F.properties, _sel: { state: !0 } }, cn.styles = [
     `,
   ke
 ];
-let oc = cn;
+let oc = dn;
 ce("glass-appliance", oc, {
   name: "Glass – appliances",
   description: "Vacuums, mowers and washers as liquid glass bars with a drawer of controls or the washing cycle's stages."
@@ -45489,10 +45489,10 @@ ce("glass-tabs", nc, {
   name: "Glass – tabs",
   description: "A segmented switch: cards in a panel show for the picked tab (visibility: picked in a group)."
 });
-const Go = (o) => !!o && o !== "none";
+const Uo = (o) => !!o && o !== "none";
 function Ga(o, e, t) {
-  const a = o ?? (Go(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: Go(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
+  const a = o ?? (Uo(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: Uo(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
 }
 function kv(o) {
   if (!o || o.length < 3) return;
@@ -45577,7 +45577,7 @@ function zv(o) {
     }
   return r;
 }
-const dn = class dn extends F {
+const hn = class hn extends F {
   constructor() {
     super(), this._pointers = /* @__PURE__ */ new Map(), this._moved = 0, this._dragEnd = 0, this._streamAt = 0, this._spots = /* @__PURE__ */ new Map(), this._pending = /* @__PURE__ */ new Map(), this._taskSeen = /* @__PURE__ */ new Map(), this._outside = (e) => {
       e.composedPath().includes(this) || this._open(void 0);
@@ -46033,7 +46033,7 @@ const dn = class dn extends F {
             ${this._labels(r, this._box ? Math.max(k.view[2] / this._box[0], k.view[3] / this._box[1]) : 1)}
           </svg>` : g}`;
     }
-    const c = this._picked.length, d = this._recharging(), h = d ? v("Continue") : s ? v("End and dock") : i ? c ? v("Mow selected ({n})", { n: c }) : v("Mow all") : c ? v("Clean selected ({n})", { n: c }) : v("Clean all"), u = e.settings, m = this._liveIds(e), f = s ? this._routeAngle() : void 0, b = this._num(u?.angle), y = f !== void 0 && b !== void 0 && Math.abs((f - b + 270) % 180 - 90) <= 5, _ = s ? y ? b : f ?? b : void 0, x = Ga(e.rooms_glass, e.rooms_color, "home"), z = Ga(e.picked_glass, e.picked_color, "frosted"), S = Ga(e.button_glass, e.button_color, "dark"), A = `${Go(e.accent_color) ? `--rm-accent:${Y(e.accent_color)};` : ""}${Go(e.settings_fill_color) ? `--rm-fill:${Y(e.settings_fill_color)};` : ""}`;
+    const c = this._picked.length, d = this._recharging(), h = d ? v("Continue") : s ? v("End and dock") : i ? c ? v("Mow selected ({n})", { n: c }) : v("Mow all") : c ? v("Clean selected ({n})", { n: c }) : v("Clean all"), u = e.settings, m = this._liveIds(e), f = s ? this._routeAngle() : void 0, b = this._num(u?.angle), y = f !== void 0 && b !== void 0 && Math.abs((f - b + 270) % 180 - 90) <= 5, _ = s ? y ? b : f ?? b : void 0, x = Ga(e.rooms_glass, e.rooms_color, "home"), z = Ga(e.picked_glass, e.picked_color, "frosted"), S = Ga(e.button_glass, e.button_color, "dark"), A = `${Uo(e.accent_color) ? `--rm-accent:${Y(e.accent_color)};` : ""}${Uo(e.settings_fill_color) ? `--rm-fill:${Y(e.settings_fill_color)};` : ""}`;
     return p`<div class="wrap ${this.tile}" style=${A}>
       <div class="map ${i ? "lawn" : e.picture ? "" : "rooms-drawn"} ${this._busy ? "busy" : ""}">${l}</div>
       ${e.options?.length ? p`<div class="tune">${e.options.map((k) => this._option(k))}</div>` : g}
@@ -46067,7 +46067,7 @@ const dn = class dn extends F {
     return 6;
   }
 };
-dn.properties = {
+hn.properties = {
   ...F.properties,
   _picked: { state: !0 },
   _size: { state: !0 },
@@ -46078,7 +46078,7 @@ dn.properties = {
   _zoom: { state: !0 },
   _pan: { state: !0 },
   _menu: { state: !0 }
-}, dn.styles = [
+}, hn.styles = [
   F.styles,
   xe,
   Oe,
@@ -46685,12 +46685,12 @@ dn.properties = {
     `,
   ke
 ];
-let dc = dn;
+let dc = hn;
 ce("glass-room-map", dc, {
   name: "Glass – room map",
   description: "A robot's map (vacuum rooms or Mammotion lawn zones): pick them on the map or in the list and clean / mow just those."
 });
-const hn = class hn extends F {
+const pn = class pn extends F {
   constructor() {
     super(), this._children = [], this._mode = pe.mode, this._onResize = () => {
       (this._config?.cards ?? []).some((e) => Wr(e.visibility)) && this.requestUpdate();
@@ -46912,8 +46912,8 @@ const hn = class hn extends F {
     if (!this._config) return g;
     const e = this._config, t = e.layout ?? "column", a = this._bare ? "0" : typeof e.padding == "number" ? `${e.padding}px` : e.padding ?? "20px", i = e.equal_rows, s = t === "grid" && !!e.masonry, n = s ? !1 : i === void 0 || i === "" ? this._mode !== "mobile" : i === !0 || i === "true";
     this.toggleAttribute("grid", t === "grid" && n && !st(e.row_heights).length);
-    const r = t === "grid" ? `display:grid;grid-template-columns:${Ln(e.column_widths) ?? (e.min_column_width ? `repeat(auto-fill,minmax(min(100%,${e.min_column_width}px),1fr))` : `repeat(${e.columns ?? 3},minmax(0,1fr))`)};${s ? `grid-auto-rows:1px;row-gap:0;--masonry-gap:${e.gap ?? 16}px;` : Ln(e.row_heights) ? `grid-template-rows:${Ln(e.row_heights)};` : e.rows ? `grid-template-rows:repeat(${e.rows},${n ? "minmax(0,1fr)" : "auto"});${n ? "" : "align-content:start;"}` : n ? "grid-auto-rows:1fr;" : "grid-auto-rows:auto;"}--room-grow:${n ? 0 : 1};${this._mode === "mobile" ? "" : "--room-min:0px;--room-max:100%;"}` : `display:flex;flex-direction:${t};${e.wrap ? "flex-wrap:wrap;" : ""}`, l = this._bare, c = Ne(e.tile_glass ?? pe.tile_glass ?? e.glass) === "home";
-    return p`<div class="panel surface ${l ? "transparent" : ""} ${e.bar && !e.glass ? "barglass" : ""} ${l && c ? "tiles" : ""}" style="padding:${a};${e.height ? `height:${Eo(e.height)};` : ""}">
+    const r = t === "grid" ? `display:grid;grid-template-columns:${Rn(e.column_widths) ?? (e.min_column_width ? `repeat(auto-fill,minmax(min(100%,${e.min_column_width}px),1fr))` : `repeat(${e.columns ?? 3},minmax(0,1fr))`)};${s ? `grid-auto-rows:1px;row-gap:0;--masonry-gap:${e.gap ?? 16}px;` : Rn(e.row_heights) ? `grid-template-rows:${Rn(e.row_heights)};` : e.rows ? `grid-template-rows:repeat(${e.rows},${n ? "minmax(0,1fr)" : "auto"});${n ? "" : "align-content:start;"}` : n ? "grid-auto-rows:1fr;" : "grid-auto-rows:auto;"}--room-grow:${n ? 0 : 1};${this._mode === "mobile" ? "" : "--room-min:0px;--room-max:100%;"}` : `display:flex;flex-direction:${t};${e.wrap ? "flex-wrap:wrap;" : ""}`, l = this._bare, c = Ne(e.tile_glass ?? pe.tile_glass ?? e.glass) === "home";
+    return p`<div class="panel surface ${l ? "transparent" : ""} ${e.bar && !e.glass ? "barglass" : ""} ${l && c ? "tiles" : ""}" style="padding:${a};${e.height ? `height:${Lo(e.height)};` : ""}">
       ${e.collapsible ? p`<button class="fold ${this._isOpen ? "open" : ""}" aria-expanded=${this._isOpen ? "true" : "false"} @click=${this._toggle}>
             ${e.icon ? p`<ha-icon .icon=${e.icon}></ha-icon>` : g}
             <span class="ftxt"><b>${e.title ?? ""}</b>${e.description ? p`<small>${e.description}</small>` : g}</span>
@@ -46923,7 +46923,7 @@ const hn = class hn extends F {
             </div>` : g}
       ${e.collapsible && !this._isOpen ? g : p`<div
         class="body ${e.scroll && t === "row" ? "scroll" : ""} ${t !== "grid" && !e.scroll && e.height && this._children.length === 1 ? "lone" : ""}"
-        style="${r}${s ? "column-gap" : "gap"}:${e.gap ?? 16}px;--grip-gap:${e.gap ?? 16}px;${this._gripsOn() || this._flexGripsOn() ? "position:relative;" : ""}align-items:${e.align ?? "stretch"};justify-content:${e.justify ?? "start"};${e.item_width !== void 0 ? `--item-width:${typeof e.item_width == "number" ? `${e.item_width}px` : Eo(e.item_width)};` : ""}"
+        style="${r}${s ? "column-gap" : "gap"}:${e.gap ?? 16}px;--grip-gap:${e.gap ?? 16}px;${this._gripsOn() || this._flexGripsOn() ? "position:relative;" : ""}align-items:${e.align ?? "stretch"};justify-content:${e.justify ?? "start"};${e.item_width !== void 0 ? `--item-width:${typeof e.item_width == "number" ? `${e.item_width}px` : Lo(e.item_width)};` : ""}"
       >
         ${this._children.length || !this._inEditor() ? V0(this._children, this._hass) : p`<div class="empty">${v("Empty panel – add a card")}</div>`}${this._grips()}${this._flexGrips()}
       </div>`}
@@ -46943,7 +46943,7 @@ const hn = class hn extends F {
     return !1;
   }
 };
-hn.parts = em, hn.styles = [
+pn.parts = em, pn.styles = [
   F.styles,
   zc,
   xe,
@@ -47016,15 +47016,15 @@ hn.parts = em, hn.styles = [
       /* same as the dashboard's side column (.area.side) */
       :host([side]) {
         ${Fp}
-        ${vo}
+        ${wo}
       }
       :host([side][glass="frosted"]:not([dark])),
       :host([side][glass="light"]:not([dark])) {
         ${Hp}
       }
       :host([side][dark]) {
-        ${yo}
         ${vo}
+        ${wo}
       }
       .panel {
         height: 100%;
@@ -47192,7 +47192,7 @@ hn.parts = em, hn.styles = [
       }
     `
 ];
-let hc = hn;
+let hc = pn;
 ce("glass-panel", hc, {
   name: "Glass – panel",
   description: "Glass container that arranges other cards in a row, column or grid."
@@ -47828,16 +47828,16 @@ function Hm(o) {
 const mc = (o) => {
   const { glass_demo: e, ...t } = o;
   return Hm(uc(t));
-}, Uo = Hm(uc(lu) + uc(fn));
-function Ko(o, e, t) {
-  return o === e ? t : Array.isArray(o) ? o.map((a) => Ko(a, e, t)) : o && typeof o == "object" ? Object.fromEntries(Object.entries(o).map(([a, i]) => [a, Ko(i, e, t)])) : o;
+}, Ko = Hm(uc(lu) + uc(bn));
+function Vo(o, e, t) {
+  return o === e ? t : Array.isArray(o) ? o.map((a) => Vo(a, e, t)) : o && typeof o == "object" ? Object.fromEntries(Object.entries(o).map(([a, i]) => [a, Vo(i, e, t)])) : o;
 }
-const Gm = (o) => ({ ...o, glass_demo: { v: Uo, sum: mc(o), news: Fm.length } }), Av = { [Et]: "Glass demo", [vt]: "Glass demo – newest" };
+const Gm = (o) => ({ ...o, glass_demo: { v: Ko, sum: mc(o), news: Fm.length } }), Av = { [Et]: "Glass demo", [vt]: "Glass demo – newest" };
 async function Ds(o) {
   return o.callWS({ type: "lovelace/dashboards/list" });
 }
 async function Ps(o, e, t = Av[e] ?? "Glass demo") {
-  const a = await Ds(o), i = Vt(e), s = { ...Ko(structuredClone(lu), es, i), title: t }, n = { ...structuredClone(fn), title: `${t} – pop-ups` };
+  const a = await Ds(o), i = Vt(e), s = { ...Vo(structuredClone(lu), es, i), title: t }, n = { ...structuredClone(bn), title: `${t} – pop-ups` };
   for (const [r, l, c] of [
     [i, n, !1],
     [e, s, !0]
@@ -47853,14 +47853,14 @@ async function Ps(o, e, t = Av[e] ?? "Glass demo") {
 }
 async function Um(o) {
   const e = await Ds(o);
-  return e.some((t) => t.url_path === Et) ? (e.some((t) => t.url_path === es) || (await o.callWS({ type: "lovelace/dashboards/create", url_path: es, title: "Glass demo – pop-ups", icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, es, Gm(structuredClone(fn)))), Et) : (await Ps(o, Et), Et);
+  return e.some((t) => t.url_path === Et) ? (e.some((t) => t.url_path === es) || (await o.callWS({ type: "lovelace/dashboards/create", url_path: es, title: "Glass demo – pop-ups", icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, es, Gm(structuredClone(bn)))), Et) : (await Ps(o, Et), Et);
 }
 async function Mv(o, e) {
   const [t, a] = await Promise.all([Pt(o, e).catch(() => {
   }), Pt(o, Vt(e)).catch(() => {
   })]);
   if (!t?.views?.length) return;
-  const i = t.glass_demo, s = a?.glass_demo, n = i?.v !== Uo, r = !i || i.sum !== mc(t) || !!a?.views?.length && (!s || s.sum !== mc(a));
+  const i = t.glass_demo, s = a?.glass_demo, n = i?.v !== Ko, r = !i || i.sum !== mc(t) || !!a?.views?.length && (!s || s.sum !== mc(a));
   return { url: e, outdated: n, changed: r, news: Fm.slice(i?.news ?? 0) };
 }
 async function Km(o, e) {
@@ -47893,7 +47893,7 @@ async function Ev(o, e) {
     const { glass_demo: d, ...h } = c;
     return h;
   };
-  return r?.views?.length && (await o.callWS({ type: "lovelace/dashboards/create", url_path: Vt(i), title: `${s} – pop-ups`, icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, Vt(i), { ...l(r), title: `${s} – pop-ups` })), await o.callWS({ type: "lovelace/dashboards/create", url_path: i, title: s, icon: "mdi:creation-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Ea(o, i, { ...Ko(l(n), Vt(e), Vt(i)), title: s }), await Ps(o, e), i;
+  return r?.views?.length && (await o.callWS({ type: "lovelace/dashboards/create", url_path: Vt(i), title: `${s} – pop-ups`, icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, Vt(i), { ...l(r), title: `${s} – pop-ups` })), await o.callWS({ type: "lovelace/dashboards/create", url_path: i, title: s, icon: "mdi:creation-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Ea(o, i, { ...Vo(l(n), Vt(e), Vt(i)), title: s }), await Ps(o, e), i;
 }
 async function Lv(o, e) {
   const t = await Ds(o);
@@ -47978,7 +47978,7 @@ class Iv extends HTMLElement {
   }
 }
 customElements.get("glass-overlay-view") || customElements.define("glass-overlay-view", Iv);
-const pn = class pn extends F {
+const un = class un extends F {
   constructor() {
     super(), this._areas = {}, this._pvBar = [], this._grid = {
       columns: "",
@@ -48061,9 +48061,9 @@ const pn = class pn extends F {
    * mobile ↔ tablet swaps in the other mode's cards instead of rebuilding them all.
    */
   _areasFor(e) {
-    const t = Zt(this._config, e), a = to(t.look), i = Ne(t.glass ?? a?.glass), s = {};
+    const t = Zt(this._config, e), a = ao(t.look), i = Ne(t.glass ?? a?.glass), s = {};
     for (const c of jv) t[c] && (s[c] = t[c]);
-    for (const [c, d] of Object.entries(t.areas ?? {})) s[bn(c)] = d;
+    for (const [c, d] of Object.entries(t.areas ?? {})) s[_n(c)] = d;
     const n = i, r = (c, d) => {
       const h = a?.sidebar && (a.sidebar_areas?.[e] ?? ["left"]).includes(c) ? a.sidebar : n, u = `${h}|${JSON.stringify(d ?? null)}`, m = this._cache.get(`${e}|${c}`);
       if (m && m.key === u) return m.els;
@@ -48266,7 +48266,7 @@ const pn = class pn extends F {
   }
   setConfig(e) {
     this._rawConfig = e;
-    const t = Qi(e, this.nightNow()), a = to(t.look);
+    const t = Qi(e, this.nightNow()), a = ao(t.look);
     if (pe.glass = t.glass ?? a?.glass ?? "auto", pe.tile_glass = t.tile_glass ?? a?.tile_glass, pe.control_glass = t.control_glass ?? a?.control_glass, pe.sidebar = a?.sidebar, pe.bar_glass = a?.bar_glass, super.setConfig(e), this._syncDemo(), this._preview || this.isConnected && this._inEditor()) {
       if (this._preview = !0, clearTimeout(this._pending), this.isConnected && this._hiddenPreview()) {
         this._stale = !0;
@@ -48328,7 +48328,7 @@ const pn = class pn extends F {
   }
   render() {
     if (!this._config) return g;
-    const e = this._eff ?? this._config, t = this._mode === "mobile", a = !t && this._dockTop != null, i = to(e.look), s = i.sidebar ? [] : i.sidebar_areas?.[this._mode] ?? ["left"], n = ["frosted", "light"].includes(Ne(e.glass ?? i.glass)), r = [
+    const e = this._eff ?? this._config, t = this._mode === "mobile", a = !t && this._dockTop != null, i = ao(e.look), s = i.sidebar ? [] : i.sidebar_areas?.[this._mode] ?? ["left"], n = ["frosted", "light"].includes(Ne(e.glass ?? i.glass)), r = [
       `--left:${e.left_width ?? "minmax(320px, 0.36fr)"}`,
       `--gap:${e.gap ?? 22}px`,
       `--pad:${e.padding ?? (t ? "12px 14px 16px" : a ? "30px 24px 14px" : "14px 24px 24px")}`,
@@ -48360,7 +48360,7 @@ const pn = class pn extends F {
       ${f}`;
   }
 };
-pn.properties = { ...F.properties, _mode: { state: !0 } }, pn.styles = [
+un.properties = { ...F.properties, _mode: { state: !0 } }, un.styles = [
   F.styles,
   zc,
   Gp,
@@ -48417,7 +48417,7 @@ pn.properties = { ...F.properties, _mode: { state: !0 } }, pn.styles = [
       }
       .area.side {
         ${Fp}
-        ${vo}
+        ${wo}
       }
       /* graphite by day only: at night the side column's white comes back (the night set doesn't
          name the clock's or the temperature's colour, so the day's would stay) */
@@ -48425,8 +48425,8 @@ pn.properties = { ...F.properties, _mode: { state: !0 } }, pn.styles = [
         ${Hp}
       }
       :host([dark]) .area.side {
-        ${yo}
         ${vo}
+        ${wo}
       }
       .header {
         justify-content: center;
@@ -48530,7 +48530,7 @@ pn.properties = { ...F.properties, _mode: { state: !0 } }, pn.styles = [
       }
     `
 ];
-let fc = pn;
+let fc = un;
 ce("glass-dashboard", fc, {
   name: "Glass – dashboard",
   description: "Full-screen layout of named areas (presets or a custom grid). Use it in a Panel view."
@@ -48875,7 +48875,7 @@ const $r = ["header", "top", "left", "main", "right"], X = (o, e) => e.reduce((t
 function lt(o) {
   if (Array.isArray(o?.cards)) return { key: "cards", list: o.cards };
 }
-const Qs = [
+const eo = [
   { name: "Phone – small (iPhone SE)", w: 375, h: 667 },
   { name: "Phone (Galaxy S24)", w: 360, h: 780 },
   { name: "Phone (iPhone 16)", w: 393, h: 852 },
@@ -48893,7 +48893,7 @@ function bc() {
   const o = parseFloat(getComputedStyle(document.querySelector("home-assistant") ?? document.documentElement).getPropertyValue("--header-height")) || 56;
   return { w: window.innerWidth, h: window.innerHeight - o };
 }
-function fo() {
+function bo() {
   let o = {};
   try {
     o = JSON.parse(localStorage.getItem(Qm) ?? "{}");
@@ -48903,7 +48903,7 @@ function fo() {
   for (const t of ["mobile", "tablet"]) o[t]?.name === hi && (o[t] = { ...e, name: hi });
   return !o.tablet && e.w >= 700 && (o.tablet = { ...e, name: hi }), o;
 }
-const un = class un extends Ye {
+const mn = class mn extends Ye {
   constructor() {
     super(), this._yamlRev = 0, this.standalone = !1, this._demoChecked = !1, this._srcBase = {}, this._past = [], this._future = [], this._demoRev = 0, this._demoWas = !1, this._json = /* @__PURE__ */ new WeakMap(), this._dragged = !1, this._overStage = !1, this._space = !1, this._panned = !1, this._onSpace = (e) => {
       if (e.code !== "Space" && e.key !== " " || e.composedPath()[0]?.matches?.("input, textarea, select, [contenteditable], ha-code-editor, .cm-content") || !this.isConnected) return;
@@ -49273,8 +49273,8 @@ const un = class un extends Ye {
    */
   _reorder(e, t, a) {
     const i = se.mode, s = X(this._config, e), n = this._sel.length ? X(this._config, this._sel) : void 0;
-    if (!s || !n || !s.some((m) => ro(m, i) !== "")) return;
-    const r = (m, f) => (ro(m, i) === "" ? 0 : Number(ro(m, i))) * 1e3 + f, c = s.map((m, f) => ({ c: m, k: r(m, f) })).sort((m, f) => m.k - f.k).map((m) => m.c).filter((m) => m !== n), d = c.findIndex((m) => this._jsonOf(m) === this._jsonOf(t));
+    if (!s || !n || !s.some((m) => lo(m, i) !== "")) return;
+    const r = (m, f) => (lo(m, i) === "" ? 0 : Number(lo(m, i))) * 1e3 + f, c = s.map((m, f) => ({ c: m, k: r(m, f) })).sort((m, f) => m.k - f.k).map((m) => m.c).filter((m) => m !== n), d = c.findIndex((m) => this._jsonOf(m) === this._jsonOf(t));
     if (d < 0) return;
     c.splice(a ? d + 1 : d, 0, n);
     const h = this._draft(e), u = X(h, e);
@@ -49688,30 +49688,30 @@ const un = class un extends Ye {
   }
   _device(e) {
     const t = this._popOpen, a = t && this._popAt && Ct(this._sel, this._popAt);
-    Cr(e, fo()[e]), t && this._reopen(t, !!a), this._sel.length && X(this._config, this._sel) === void 0 && (this._sel = []), this.requestUpdate();
+    Cr(e, bo()[e]), t && this._reopen(t, !!a), this._sel.length && X(this._config, this._sel) === void 0 && (this._sel = []), this.requestUpdate();
   }
   /** A screen size: mobile below the dashboard's mobile breakpoint, tablet / computer above. */
   _setSize(e, t, a) {
     e = Math.round(Math.min(3840, Math.max(240, e || 0))), t = Math.round(Math.min(2400, Math.max(240, t || 0)));
     const i = this._config, s = e < (i.breakpoints?.mobile ?? i.breakpoint ?? 700) ? "mobile" : "tablet";
     try {
-      localStorage.setItem(Qm, JSON.stringify({ ...fo(), [s]: { w: e, h: t, name: a } }));
+      localStorage.setItem(Qm, JSON.stringify({ ...bo(), [s]: { w: e, h: t, name: a } }));
     } catch {
     }
     s !== se.mode ? this._device(s) : (Cr(s, { w: e, h: t }), this.requestUpdate());
   }
   _sizeBar() {
-    const { w: e, h: t } = Dr(se.mode), a = fo()[se.mode]?.name, i = (d) => d.w === e && d.h === t, s = Qs.findIndex((d) => i(d) && d.name === a), n = bc(), r = a === hi && n.w === e && n.h === t, l = r ? -2 : s >= 0 ? s : Qs.findIndex(i), c = (d, h, u) => p`<input type="number" title=${w(u)} .value=${String(d)} min="240" max="3840" @change=${(m) => h(Number(m.target.value))} />`;
+    const { w: e, h: t } = Dr(se.mode), a = bo()[se.mode]?.name, i = (d) => d.w === e && d.h === t, s = eo.findIndex((d) => i(d) && d.name === a), n = bc(), r = a === hi && n.w === e && n.h === t, l = r ? -2 : s >= 0 ? s : eo.findIndex(i), c = (d, h, u) => p`<input type="number" title=${w(u)} .value=${String(d)} min="240" max="3840" @change=${(m) => h(Number(m.target.value))} />`;
     return p`<span class="size">
       <select
         title=${w("Device")}
         @change=${(d) => {
-      const h = Number(d.target.value), u = h === -2 ? { ...bc(), name: hi } : Qs[h];
+      const h = Number(d.target.value), u = h === -2 ? { ...bc(), name: hi } : eo[h];
       u && this._setSize(u.w, u.h, u.name);
     }}
       >
         <option value="-2" ?selected=${r}>${w(hi)} (${n.w} × ${n.h})</option>
-        ${Qs.map((d, h) => p`<option value=${h} ?selected=${h === l}>${w(d.name)}</option>`)}
+        ${eo.map((d, h) => p`<option value=${h} ?selected=${h === l}>${w(d.name)}</option>`)}
         <option value="-1" ?selected=${l === -1} disabled>${w("Custom size")}</option>
       </select>
       ${c(e, (d) => this._setSize(d, t), "Width (px)")}<span class="x">×</span>${c(t, (d) => this._setSize(e, d), "Height (px)")}
@@ -50007,7 +50007,7 @@ const un = class un extends Ye {
           </div>` : g}
       ${!nl() && !s.length && !n.length ? g : p`<div class="area">
         ${this._row(w("Pop-ups"), `${s.length + n.reduce((d, h) => d + h.items.length, 0)} · ${w("opened by a #link")}`, "mdi:window-maximize", t.path, 0, { badges: c, fold: "pops" })}
-        ${nl() ? g : p`<div class="tree-notice">${lo()}</div>`}
+        ${nl() ? g : p`<div class="tree-notice">${co()}</div>`}
         ${this._isOpen("pops") ? p`${e(a, t.path, 1, (d) => !!$e(d))}
         ${n.map(
       (d) => d.editable ? p`<div class="node static" style="--depth:1">
@@ -50407,7 +50407,7 @@ const un = class un extends Ye {
       const n = e[e.length - 1] === "overlay";
       return p`${n ? p`<div class="pane-title">${w("New pop-up")}</div>
               <div class="hint">${w("A Bubble Card pop-up opened by a #link – from the dock, a room or a radial menu.")}</div>
-              ${lo()}
+              ${co()}
               <div class="newpop">
                 <input
                   placeholder=${w("Name, e.g. Kitchen")}
@@ -50442,7 +50442,7 @@ const un = class un extends Ye {
           <ha-icon .icon=${"mdi:delete-outline"}></ha-icon>
         </button>
       </div>
-      ${$e(a) ? lo() : _f(a)}
+      ${$e(a) ? co() : _f(a)}
       ${$e(a) ? p`<div class="popline">
             <ha-icon .icon=${"mdi:link-variant"}></ha-icon><code>${$e(a).hash}</code>
             <span class="grow"></span>
@@ -50637,7 +50637,7 @@ const un = class un extends Ye {
     });
     e && (e.updated.length && (this._dashList = await qt(this.hass).catch(() => this._dashList), this.standalone && e.updated.includes(this._host?.url ?? "") && !this._dirty && await this.openDashboard(this._host.url), this._notice = { kind: "ok", text: w("The demo dashboard was brought up to the newest demo.") }), this._demoOffer = e.outdated.filter((t) => {
       try {
-        return localStorage.getItem(`glass-demo-skip:${t.url}`) !== Uo;
+        return localStorage.getItem(`glass-demo-skip:${t.url}`) !== Ko;
       } catch {
         return !0;
       }
@@ -50650,7 +50650,7 @@ const un = class un extends Ye {
   async _demoAct(e, t) {
     if (t === "later")
       try {
-        localStorage.setItem(`glass-demo-skip:${e.url}`, Uo);
+        localStorage.setItem(`glass-demo-skip:${e.url}`, Ko);
       } catch {
       }
     if (!(t === "replace" && !confirm(w("Replace it with the newest demo? What you changed is kept in this browser – Undo the last save puts it back."))) && (this._demoOffer = this._demoOffer?.filter((a) => a !== e), t !== "later")) {
@@ -50807,8 +50807,8 @@ const un = class un extends Ye {
         <label class="lang" title=${w("Language of the studio – the cards follow your HA profile")}>
           <ha-icon .icon=${"mdi:translate"}></ha-icon>
           <select @change=${(t) => fu(t.target.value)}>
-            <option value="auto" ?selected=${Ro() === "auto"}>${w("As Home Assistant")}</option>
-            ${Rp.map(([t, a]) => p`<option value=${t} ?selected=${Ro() === t}>${a}</option>`)}
+            <option value="auto" ?selected=${No() === "auto"}>${w("As Home Assistant")}</option>
+            ${Rp.map(([t, a]) => p`<option value=${t} ?selected=${No() === t}>${a}</option>`)}
           </select>
         </label>
         ${this.hass?.demo ? g : p`<a class="coffee" href=${$u} target="_blank" rel="noreferrer" title=${w("Support glass cards")}>
@@ -50981,7 +50981,7 @@ const un = class un extends Ye {
       ${this.haDialog || this.standalone || this.footer === "" ? g : p`<div class="foot">${this.footer ?? w("Changes go to the card editor behind this window – save them there with Save.")}</div>`}`;
   }
 };
-un.properties = {
+mn.properties = {
   _config: { state: !0 },
   _sel: { state: !0 },
   _hover: { state: !0 },
@@ -51022,7 +51022,7 @@ un.properties = {
   _hideInspector: { state: !0 },
   _wide: { state: !0 },
   _yamlErr: { state: !0 }
-}, un.styles = ee`
+}, mn.styles = ee`
     :host {
       position: fixed;
       inset: 0;
@@ -52242,11 +52242,11 @@ un.properties = {
       }
     }
   `;
-let _c = un;
+let _c = mn;
 customElements.get("glass-studio") || customElements.define("glass-studio", _c);
 function tg(o) {
   o.mode && (se.mode = o.mode), se.mode === "desktop" && (se.mode = "tablet");
-  const e = fo()[se.mode];
+  const e = bo()[se.mode];
   se.w = e?.w, se.h = e?.h;
   const t = document.createElement("dialog");
   t.className = "glass-studio-dialog", t.style.cssText = "position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:none;background:transparent;overflow:hidden";
@@ -52392,7 +52392,7 @@ const yc = "1.11.10", Sp = {
   lit: { LitElement: Ye, html: p, css: ee, svg: j, nothing: g },
   registerCard: ce,
   createCard: xs,
-  conditions: { evalCondition: ge, applyRules: ko },
+  conditions: { evalCondition: ge, applyRules: $o },
   format: { displayText: xa, computeValue: nu },
   colors: { cssColor: Y, tint: je },
   actions: { pressHandlers: Ze, runAction: Se, withDefaults: Ot },

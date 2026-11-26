@@ -1052,7 +1052,10 @@ class GlassMedia extends GlassElement<MediaConfig> {
     const shown = this._shown && this._ids.includes(this._shown) ? s[this._shown] : undefined;
     const since = (id: string) => Date.parse(s[id]?.last_changed ?? "") || 0;
     // something on it – playing or paused (a Sonos paused from the card says idle: see pausedHere)
-    const loaded = (id: string) => LOADED.has(s[id]?.state ?? "") || pausedHere.has(id) || heldPause.has(id);
+    // a Chromecast blinks idle between two songs (after next): still on, as the card shows it
+    const cast = (id: string) => this._kind(id) === "chromecast" || (this._hass as any)?.entities?.[id]?.platform === "cast";
+    const castOn = (id: string) => cast(id) && !!s[id] && LOADED.has(steady(s[id], false)?.state ?? "");
+    const loaded = (id: string) => LOADED.has(s[id]?.state ?? "") || pausedHere.has(id) || heldPause.has(id) || castOn(id);
     // picked by hand: it stays until another one starts playing after the pick
     // a player that plays through another (YouTube Music on a speaker): that speaker is never
     // the one to move to – it plays the same thing
@@ -1083,7 +1086,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
     const relay = shown?.attributes.remote_player_id as string | undefined;
     if (shown && relay && s[relay]?.state === "playing") return shown.entity_id;
     // between two songs (idle a moment after next) or paused (MA says idle): still on
-    if (shown && (ACTIVE.has(shown.state) || pausedHere.has(shown.entity_id) || (this._kind(shown.entity_id) === "sonos" && LOADED.has(steady(shown, true)?.state ?? "")))) {
+    if (shown && (ACTIVE.has(shown.state) || pausedHere.has(shown.entity_id) || (this._kind(shown.entity_id) === "sonos" && LOADED.has(steady(shown, true)?.state ?? "")) || castOn(shown.entity_id))) {
       const newer = this._ids.find(
         (id) => id !== shown.entity_id && !relays.has(id) && s[id]?.state === "playing" && since(id) > since(shown.entity_id) && !loaded(shown.entity_id),
       );
