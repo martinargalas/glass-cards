@@ -2792,17 +2792,29 @@ class GlassMedia extends GlassElement<MediaConfig> {
     if (!st || st.state === "unavailable") return nothing;
     // a soundbar on the TV's sound: joining would take it from the TV
     if (this._tvSet(st.entity_id)) return nothing;
-    const joins = this._playingElsewhere(st.entity_id);
+    // a soundbar on the TV with nothing on the TV: nothing to join
+    const joins = this._playingElsewhere(st.entity_id).filter((j) => {
+      if (!this._tvSet(j.entity_id)) return true;
+      const w = this._shownState(j.entity_id);
+      return !!w && LOADED.has(w.state) && !!w.attributes.media_title;
+    });
     if (!joins.length) return nothing;
     const busy = this._busyOn(st.entity_id);
     return html`<div class="joins">
       ${joins.map((j) => {
-        const art = this._artUrl(j);
+        // a soundbar on the TV: what plays there (its picture, title, the app's icon), not "TV Audio"
+        const tv = !!this._tvSet(j.entity_id);
+        const w = (tv && this._shownState(j.entity_id)) || j;
+        const playing = LOADED.has(w.state) && !!w.attributes.media_title;
+        const art = playing ? this._artUrl(w) : undefined;
+        const app = tv ? this._appIcon(w.attributes.glass_app) : undefined;
         return html`<button class="joinbar" @click=${() => this._joinTo(st.entity_id, j.entity_id)} ?disabled=${busy}>
-          ${art ? html`<img src=${art} alt="" />` : html`<ha-icon icon="mdi:speaker-multiple"></ha-icon>`}
+          ${art
+            ? html`<i class="jpic"><img src=${art} alt="" />${app ? html`<img class="appi" src=${app} alt="" />` : nothing}</i>`
+            : html`<ha-icon icon=${tv ? "mdi:television" : "mdi:speaker-multiple"}></ha-icon>`}
           <span class="jt">
             <span class="jn">${tr("Playing in {name}", { name: this._groupName(j) })}</span>
-            <span class="js">${[j.attributes.media_title, j.attributes.media_artist].filter(Boolean).join(" · ")}</span>
+            <span class="js">${[w.attributes.media_title, w.attributes.media_artist].filter(Boolean).join(" · ")}</span>
           </span>
           <span class="jgo">${busy && this._joining === j.entity_id ? html`<i class="spin"></i>` : tr("Join")}</span>
         </button>`;
@@ -4756,6 +4768,20 @@ class GlassMedia extends GlassElement<MediaConfig> {
         place-items: center;
         --mdc-icon-size: 20px;
         color: var(--g-text-2);
+      }
+      .joinbar .jpic {
+        position: relative;
+        flex: none;
+        display: flex;
+      }
+      .joinbar .jpic img.appi {
+        position: absolute;
+        right: -3px;
+        bottom: -3px;
+        width: 15px;
+        height: 15px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
       }
       .joinbar .jt {
         min-width: 0;

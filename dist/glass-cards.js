@@ -7651,7 +7651,7 @@ const Vo = class Vo extends Ye {
       data: e.data,
       target: e.target
     };
-    this.host && $e(this.host, this.hass, { entity: e.entity ?? this.entity, tap_action: t }, "tap"), this.close();
+    this.host && Se(this.host, this.hass, { entity: e.entity ?? this.entity, tap_action: t }, "tap"), this.close();
   }
   /**
    * Item angles: the same half ring above the anchor (left → over the top → right)
@@ -7837,7 +7837,7 @@ const Hr = (o) => !!o && o.action !== "none";
 function W(o = "light") {
   window.dispatchEvent(new CustomEvent("haptic", { detail: o }));
 }
-function $e(o, e, t, a, i) {
+function Se(o, e, t, a, i) {
   const s = t[`${a}_action`];
   if (!Hr(s)) return;
   if (W(a === "hold" ? "medium" : "light"), s.action === "menu") {
@@ -13548,14 +13548,14 @@ function Po(o, e, t = 0) {
   }
 }
 const Qr = /* @__PURE__ */ new Map();
-function ke(o) {
+function $e(o) {
   const e = Po(o, (t) => t.type === "custom:bubble-card" && t.card_type === "pop-up");
   return e?.hash ? { hash: String(e.hash), name: e.name, icon: e.icon, card: e } : void 0;
 }
 function hu(o, e) {
   let t = !1;
   for (const a of o ?? []) {
-    const i = ke(a);
+    const i = $e(a);
     i && !Qr.has(i.hash) && (Qr.set(i.hash, { name: i.name, icon: i.icon, source: e }), t = !0);
   }
   t && window.dispatchEvent(new Event("glass-popups"));
@@ -16740,7 +16740,7 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   ["flat", "No blur"],
   ["home", "Home (light grey)"],
   ["none", "None"]
-], wi = "radial-gradient(120% 90% at 30% 15%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 55%)", re = (o, e = 55) => o ? `--mat-tint:${je(o, e)};--mat-tinted:1;--mat-sheen:${wi}` : "", xe = ee`
+], wi = "radial-gradient(120% 90% at 30% 15%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 55%)", re = (o, e = 55) => o ? `--mat-tint:${je(o, e)};--mat-tinted:1;--mat-sheen:${wi}` : "", ke = ee`
   canvas.lg {
     position: absolute;
     inset: 0;
@@ -20637,7 +20637,7 @@ const ns = class ns extends F {
     if (i.hidden) return g;
     const s = i.entity ? a.states[i.entity] : void 0;
     if ((i.hide_unavailable ?? !0) && i.entity && !i.entities && gi(s)) return g;
-    const n = i.text?.includes("{changed}") ? ih(s?.last_changed, a, be(a)) || "–" : "", r = xa(a, n ? { ...i, text: i.text.replace("{changed}", n) } : i), l = i.icon === "dot", c = l ? void 0 : i.icon ?? s?.attributes.icon, d = Pr(i.animation), h = Y(i.icon_color ?? i.color), u = Ot(i), f = Ze(() => u, (_, x) => $e(this, a, Ot(i), _, x)), b = !r.text;
+    const n = i.text?.includes("{changed}") ? ih(s?.last_changed, a, be(a)) || "–" : "", r = xa(a, n ? { ...i, text: i.text.replace("{changed}", n) } : i), l = i.icon === "dot", c = l ? void 0 : i.icon ?? s?.attributes.icon, d = Pr(i.animation), h = Y(i.icon_color ?? i.color), u = Ot(i), f = Ze(() => u, (_, x) => Se(this, a, Ot(i), _, x)), b = !r.text;
     if (this._config.layout === "pills") {
       const _ = h ? je(i.icon_color ?? i.color) : void 0, { icon_background: x, pill_color: S } = this._config, z = this._config.icons?.icon_on?.color, M = this._config.icons?.icon?.color, k = this._config.pill_glass ?? (S && S !== "none" ? "frosted" : void 0), $ = _ ? this._config.icon_on_glass ?? this._config.icon_glass : this._config.icon_glass, C = !!x, T = x === "none", P = _ && !C, N = _ ? z && z !== "none" ? Y(z) : C ? h : void 0 : M && M !== "none" ? Y(M) : void 0, E = $ ? `${C ? T ? "" : `${re(x)};` : P ? `${re(i.icon_color ?? i.color, 70)};` : ""}${N ? `color:${N};` : ""}` : `${C ? T ? "--bg:transparent;" : `--bg:${je(x)};--sheen:${wi};` : P ? `--bg:${_};--accent:${h};` : ""}${N ? `--fg:${N};` : ""}`, L = i.dropdown ? s?.attributes.options ?? [] : [], G = (I) => i.option_names?.[I] ?? I, H = i.dropdown && L.length && i.entity, te = H && this._menu === t;
       return p`<div class="pill-wrap">
@@ -20777,7 +20777,7 @@ ns.parts = qu, ns.properties = { ...F.properties, _menu: { state: !0 } }, ns.sty
   F.styles,
   we,
   Oe,
-  xe,
+  ke,
   Ac,
   ee`
       :host {
@@ -21198,7 +21198,7 @@ const Jo = class Jo extends F {
     if (!a) return p`<div class="person control missing">${e.entity}</div>`;
     const i = this._config, s = a.state === "home", n = gi(a), r = e.driving && t.states[e.driving]?.state === "on", l = !s && a.state !== "not_home" ? this._zone(t, a.state) : void 0, c = r ? "mdi:car" : n ? "mdi:help" : s ? "mdi:home-variant" : e.zone_icons?.[a.state] ?? l?.attributes.icon ?? (a.state === "not_home" ? "mdi:home-export-outline" : "mdi:map-marker"), d = r ? "red" : n ? "gray" : s ? "blue" : "green", h = t.formatEntityState ? t.formatEntityState(a) : a.state, u = (i.battery_style ?? "ring") === "ring", m = i.show_location ?? (u ? "never" : "away"), f = !n && (m === "always" || m === "away" && !s), b = e.battery ? t.states[e.battery] : void 0, y = b && !gi(b) ? Number(b.state) : NaN, _ = e.battery_state ? t.states[e.battery_state]?.state?.toLowerCase() : "", x = _ === "charging" || _ === "full" || _ === "on", S = y <= 20 ? "red" : y <= 40 ? "yellow" : "green", z = e.picture ?? a.attributes.entity_picture, M = e.name ?? a.attributes.friendly_name ?? e.entity, k = { entity: e.entity, tap_action: e.tap_action ?? { action: "more-info" }, hold_action: e.hold_action }, $ = Ze(
       () => k,
-      (H) => $e(this, t, k, H)
+      (H) => Se(this, t, k, H)
     ), C = (i.show_battery ?? !0) && !Number.isNaN(y), T = C && u, P = C && !u, N = !(i.show_name || f || P), E = i.size ?? 44, L = Math.max(0, Math.min(100, y)), G = [M, h, C ? `${Math.round(y)} %${x ? " ⚡" : ""}` : ""].filter(Boolean).join(" · ");
     return p`<div
       class="person control glass ${N ? "round" : ""}"
@@ -21587,7 +21587,7 @@ const rs = class rs extends F {
       return;
     }
     const i = e.tap_action ?? { action: "navigate", navigation_path: e.home ? location.pathname : e.link };
-    $e(this, this._hass, { tap_action: i }, "tap", t.currentTarget), setTimeout(this._onNav, 50);
+    Se(this, this._hass, { tap_action: i }, "tap", t.currentTarget), setTimeout(this._onNav, 50);
   }
   render() {
     if (!this._config) return g;
@@ -21988,7 +21988,7 @@ const qc = (o) => {
           ...r.map(({ g: u, ids: m }) => ({ icon: u.icon ?? "mdi:lightbulb-off-outline", name: u.name, tap_action: d(m) })),
           { icon: "mdi:lightbulb-group-off-outline", name: v("All"), tap_action: d(i) }
         ];
-        $e(this, e, { tap_action: { action: "menu", labels: !0, items: h } }, "tap", c?.currentTarget);
+        Se(this, e, { tap_action: { action: "menu", labels: !0, items: h } }, "tap", c?.currentTarget);
       } : () => this._off(i)
     });
     const l = new Intl.DateTimeFormat(be(e), {
@@ -21999,7 +21999,7 @@ const qc = (o) => {
     for (const c of t.items ?? []) {
       const d = e.states[c.entity];
       if (!d) continue;
-      const h = c.type ?? "entity", u = this._room(c), m = c.name ?? d.attributes.friendly_name ?? c.entity, f = () => $e(
+      const h = c.type ?? "entity", u = this._room(c), m = c.name ?? d.attributes.friendly_name ?? c.entity, f = () => Se(
         this,
         e,
         {
@@ -22084,7 +22084,7 @@ const qc = (o) => {
           x ? `${x}${_?.attributes.unit_of_measurement ? ` ${_.attributes.unit_of_measurement}` : ""}` : ""
         ].filter(Boolean).join(" · "),
         off: z === !1 || z === void 0 && b === "sensor" ? void 0 : z ? () => {
-          W("light"), $e(
+          W("light"), Se(
             this,
             e,
             { entity: c.entity, tap_action: z },
@@ -22487,7 +22487,7 @@ const Qo = class Qo extends F {
       animation: e.animation ?? Gb(s)
     }, c = ko(l, e.rules, i, e.entity), d = Pr(c.animation), h = je(c.color), u = Y(c.color), m = Ot(c), f = Ze(
       () => m,
-      (x, S) => $e(this, i, m, x, S)
+      (x, S) => Se(this, i, m, x, S)
     ), b = c.name ?? s?.attributes.friendly_name ?? c.entity, y = c.label ? xa(i, { entity: c.entity, text: c.label }).text : "", _ = (c.artwork ?? !1) && r && n === "media_player" ? s?.attributes.entity_picture : void 0;
     return p`<div class="slot ${a}">
       <div
@@ -22582,7 +22582,7 @@ const Qo = class Qo extends F {
     if (t.layout === "image-full" || t.layout === "compact") {
       const E = { tap_action: t.tap_action, hold_action: t.hold_action, double_tap_action: t.double_tap_action }, L = Ze(
         () => E,
-        (I) => $e(this, e, E, I)
+        (I) => Se(this, e, E, I)
       ), G = (I) => (ae) => {
         ae.composedPath().some((q) => q.classList?.contains("btn")) || I(ae);
       }, H = t.entities ?? [], te = t.image_on !== void 0 ? ge(t.image_on, e) : t.image_color === "always" ? !0 : t.image_entities?.length ? t.image_entities.some((I) => jt({ entity: I }, e.states[I], e)) : H.some((I) => jt(I, e.states[I.entity], e));
@@ -22590,7 +22590,7 @@ const Qo = class Qo extends F {
     }
     const a = (t.entities ?? []).slice(0, t.max_entities ?? 6), i = t.columns ?? Math.max(1, Math.min(a.length, 4)), s = { tap_action: t.tap_action, hold_action: t.hold_action, double_tap_action: t.double_tap_action }, n = Ze(
       () => s,
-      (E) => $e(this, e, s, E)
+      (E) => Se(this, e, s, E)
     ), r = (E) => (L) => {
       L.composedPath().some((G) => G.classList?.contains("btn")) || E(L);
     }, l = Pr(t.animation), c = (t.info ?? []).map((E) => ({ i: E, t: xa(e, E) })).filter(({ t: E }) => E.available && E.text), d = Y(t.icons?.icon?.color), h = { stacked: "top", "image-bottom": "bottom", "image-left": "left", "image-right": "right", "image-background": "bg" }[t.layout ?? "stacked"] ?? "top", u = h === "left" || h === "right", m = h === "bg", f = (u || m) && !!t.show_name && !!t.name, b = this._imageUrl(t.image), y = t.image_on !== void 0 ? ge(t.image_on, e) : t.image_color === "active" ? t.image_entities?.length ? t.image_entities.some((E) => jt({ entity: E }, e.states[E], e)) : a.some((E) => jt(E, e.states[E.entity], e)) : !0, _ = t.rows ?? Math.max(1, Math.min(a.length, 2)), x = Math.ceil(a.length / _), S = t.button_gap, z = u ? `--cols:${x};--rows:${_};grid-auto-flow:column${S !== void 0 ? `;--bgap:${S}px` : ""}` : m ? "" : `grid-template-columns:repeat(${i}, 1fr)${S !== void 0 ? `;gap:${S}px` : ""}`, M = this._bgCols, k = m && this._fitRows ? this._fitRows * M : a.length, $ = Math.max(1, Math.ceil(a.length / Math.max(1, k)));
@@ -24319,7 +24319,7 @@ const gh = {
     if (!this._config || !this._hass) return g;
     const e = this._hass, t = this._config, a = e.states[t.weather], i = be(e), s = { entity: t.weather, tap_action: t.tap_action ?? { action: "more-info" } }, n = Ze(
       () => s,
-      (c) => $e(this, e, s, c)
+      (c) => Se(this, e, s, c)
     );
     if (t.variant === "compact") return this._compact(e, a, i, n);
     const r = (c, d) => c && c !== "none" ? `${d}:${Y(c)};` : "", l = r(t.bar_color, "--glass-bar-mono") + r(t.track_color, "--glass-bar-track") + r(t.precip_color, "--cw-precip") + r(t.rain_color, "--cw-rain") + r(t.divider_color, "--glass-divider-color") + (t.divider_size ? `--glass-divider-size:${t.divider_size}px;` : "");
@@ -26038,7 +26038,7 @@ en.properties = { _open: { state: !0 } }, en.styles = [
     }
   `,
   // last: an element's material wins over its rules above
-  xe
+  ke
 ];
 let zl = en;
 customElements.get("glass-sheet") || customElements.define("glass-sheet", zl);
@@ -26845,7 +26845,7 @@ an.parts = Ou, an.styles = [
       }
     `,
   // last: an element's material wins over its rules above
-  xe
+  ke
 ];
 let Ml = an;
 ce("glass-alarms", Ml, {
@@ -29148,7 +29148,7 @@ Ut.properties = {
       }
     `,
   // after the card's own rules: a material picked for a part replaces its default glass
-  xe
+  ke
 ];
 let Cl = Ut;
 function k_(o, e, t) {
@@ -29268,7 +29268,7 @@ const Sh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
         if (h === "tap" && !e.tap_action && e.tap_opens !== "ha") {
           const u = e.calendars ?? e.entities;
           this._full = k_(this, t, { ...u ? { calendars: u } : {}, ...e.calendar_view ?? {} });
-        } else $e(this, t, c, h);
+        } else Se(this, t, c, h);
       }
     );
     return this.toggleAttribute("fit", !!e.fit), p`<div class="cal ${this.tile}" role="button" tabindex="0" @pointerdown=${d.down} @pointermove=${d.move} @pointerup=${d.up} @pointercancel=${d.cancel} @keydown=${d.key}>
@@ -30208,7 +30208,7 @@ hs.parts = Qu, hs.properties = {
       }
     `,
   // after the card's own rules: a picked material replaces the default glass
-  xe
+  ke
 ];
 let Pl = hs;
 ce("glass-radar", Pl, {
@@ -30918,7 +30918,7 @@ sn.parts = Xu, sn.styles = [
       }
     `,
   // after the card's own rules: a picked material replaces the default glass
-  xe
+  ke
 ];
 let El = sn;
 ce("glass-air-quality", El, {
@@ -31073,14 +31073,14 @@ const li = dm(class extends hm {
       { tap_action: { action: "none" }, hold_action: { action: "none" } }
     ), y = [b.tap_action, b.hold_action, b.double_tap_action].some((K) => K && K.action !== "none"), _ = Ze(
       () => b,
-      (K) => $e(this, t, b, K)
+      (K) => Se(this, t, b, K)
     ), x = (K) => (oe) => {
-      oe.composedPath().some((Se) => ["set", "toggle"].some((J) => Se.classList?.contains(J))) || K(oe);
+      oe.composedPath().some((ze) => ["set", "toggle"].some((J) => ze.classList?.contains(J))) || K(oe);
     }, S = a?.attributes.temperature, z = this._pending ?? S, M = this._graph();
     let k;
     const $ = this._lineEntity;
     if (e.min_max && $ && this._series[$]?.length) {
-      const K = typeof e.min_max == "number" ? Math.min(e.min_max, e.hours ?? 24) : e.hours ?? 24, oe = Date.now() - K * 3600 * 1e3, Se = this._series[$], J = Se.filter((ye, Le) => ye.t >= oe || Se[Le + 1]?.t > oe).map((ye) => ye.v);
+      const K = typeof e.min_max == "number" ? Math.min(e.min_max, e.hours ?? 24) : e.hours ?? 24, oe = Date.now() - K * 3600 * 1e3, ze = this._series[$], J = ze.filter((ye, Le) => ye.t >= oe || ze[Le + 1]?.t > oe).map((ye) => ye.v);
       J.length && (k = { hi: Math.max(...J), lo: Math.min(...J) });
     }
     const C = this._hoverInfo, T = C ? new Intl.DateTimeFormat(i, { hour: "numeric", minute: "2-digit" }).format(new Date(C.t)) : "", P = a?.state === "off", N = (K) => K.stopPropagation(), E = (K) => !!K && K !== "none", L = e.pill_glass ?? (E(e.pill_color) ? "frosted" : void 0), G = e.buttons_glass ?? (E(e.buttons_color) ? "dark" : void 0), H = !!e.icon_background, te = !!m && !H, I = e.icons?.icon_on?.color, ae = e.icons?.icon?.color, q = m ? E(I) ? Y(I) : H ? f : void 0 : E(ae) ? Y(ae) : void 0, Z = e.icon_background === "none" ? "transparent" : H ? je(e.icon_background) : void 0, he = h ? e.icon_on_glass : e.icon_glass, Ie = he ? `mat mat-${he} ${te ? "on" : ""}` : `control ${te ? "active" : ""} ${H ? "own-bg" : ""} ${q ? "own-fg" : ""}`, $t = he ? `${H ? Z === "transparent" ? "" : `${re(e.icon_background)};` : te ? `${re(u, 70)};` : ""}${q ? `color:${q};` : ""}` : `${H ? `--bg:${Z};${Z === "transparent" ? "" : `--sheen:${wi};`}` : te ? `--bg:${m};--accent:${f};` : ""}${q ? `--fg:${q};` : ""}`, Bt = e.show_name === !1 ? void 0 : e.name ?? (a ? void 0 : `${e.entity}?`);
@@ -31553,7 +31553,7 @@ on.parts = ju, on.styles = [
       }
     `,
   // after the card's own rules: a picked material replaces the default glass
-  xe
+  ke
 ];
 let Ll = on;
 ce("glass-thermostat", Ll, {
@@ -31840,8 +31840,8 @@ const Z_ = [
       ["rod_hours", v("Heating rod hours"), "h"],
       ["pressure", v("Pressure"), "bar"],
       ["flow", v("Flow"), "m³/h"]
-    ].filter(([J]) => this._st(J)), Se = `${e.idle_color && e.idle_color !== "none" ? `--hp-idle:${Y(e.idle_color)};` : ""}`;
-    return p`<div class="frame ${M ? "" : "still"} ${this.tile}" style=${Se}>
+    ].filter(([J]) => this._st(J)), ze = `${e.idle_color && e.idle_color !== "none" ? `--hp-idle:${Y(e.idle_color)};` : ""}`;
+    return p`<div class="frame ${M ? "" : "still"} ${this.tile}" style=${ze}>
       ${e.name ? p`<div class="title">${e.name}</div>` : g} ${k}
       ${$.length ? p`<div class="chips">${$}</div>` : g}
       ${ae !== g || he !== g ? p`<div class="rows">${ae} ${he}</div>` : g}
@@ -32309,7 +32309,7 @@ nn.parts = Wu, nn.styles = [
       }
     `,
   // after the card's own rules: a picked material replaces the default glass
-  xe,
+  ke,
   ee`
       .seg.mat {
         box-shadow: none;
@@ -33119,7 +33119,7 @@ ps.parts = Nu, ps.properties = { ...F.properties, _drag: { state: !0 } }, ps.sty
       }
     `,
   // last: an element's material wins over its rules above
-  xe
+  ke
 ];
 let Nl = ps;
 ce("glass-blind", Nl, {
@@ -33673,7 +33673,7 @@ us.parts = Bu, us.properties = { ...F.properties, preview: { type: Boolean } }, 
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
       }
     `,
-  xe
+  ke
 ];
 let Ol = us;
 ce("glass-alarm-ring", Ol, {
@@ -35465,7 +35465,7 @@ ms.parts = am, ms.properties = {
         container: camera / inline-size;
       }
     `,
-  xe
+  ke
 ];
 let jl = ms;
 ce("glass-camera", jl, {
@@ -36077,7 +36077,7 @@ gs.parts = im, gs.properties = {
   we,
   Oe,
   aa,
-  xe,
+  ke,
   ee`
       :host {
         display: block;
@@ -37261,7 +37261,7 @@ Qa.wrapTile = !0, Qa.parts = xi, Qa.properties = { ...F.properties, _menu: { sta
         display: flex;
       }
     `,
-  xe
+  ke
 ];
 let Wl = Qa;
 ce("glass-automation", Wl, {
@@ -37493,7 +37493,7 @@ fs.wrapTile = !0, fs.parts = xi, fs.styles = [
         color: var(--band);
       }
     `,
-  xe
+  ke
 ];
 let Fl = fs;
 ce("glass-sun-shading", Fl, {
@@ -37616,7 +37616,7 @@ bs.wrapTile = !0, bs.parts = xi, bs.styles = [
         color: var(--g-text-2);
       }
     `,
-  xe
+  ke
 ];
 let Hl = bs;
 ce("glass-value-grid", Hl, {
@@ -37741,8 +37741,8 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
       const K = c !== void 0 ? Math.max(1, Math.round(c * 100)) : this._pending.get(e.entity) ?? n;
       b = s ? K / 100 : 0, s && (y = `${K} %`);
     } else if (i && l === "t") {
-      const [K, oe] = hr(i), Se = c !== void 0 ? K + c * (oe - K) : Number(i.attributes.color_temp_kelvin) || K;
-      b = (Se - K) / (oe - K || 1), y = i.attributes.color_mode === "color_temp" || c !== void 0 ? `${Math.round(Se / 50) * 50} K` : v("Colour");
+      const [K, oe] = hr(i), ze = c !== void 0 ? K + c * (oe - K) : Number(i.attributes.color_temp_kelvin) || K;
+      b = (ze - K) / (oe - K || 1), y = i.attributes.color_mode === "color_temp" || c !== void 0 ? `${Math.round(ze / 50) * 50} K` : v("Colour");
     } else if (i && l === "c") {
       const K = i.attributes.hs_color;
       b = (c !== void 0 ? c * 360 : K?.[0] ?? 0) / 360, y = v("Hue");
@@ -37750,7 +37750,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     const _ = Ot({ entity: e.entity, tap_action: { action: "none" }, hold_action: e.hold_action ?? { action: "more-info" } }), x = Ze(
       () => _,
       // tap switches the light, hold opens its details – never both
-      (K) => K === "tap" ? this._switch(e) : $e(this, t, _, K)
+      (K) => K === "tap" ? this._switch(e) : Se(this, t, _, K)
     ), S = e.presets ? t.states[e.presets] : void 0, z = S?.attributes.options ?? [], M = (e.preset_options?.length ? e.preset_options : z).map((K) => typeof K == "string" ? { option: K } : K).filter((K) => z.includes(K.option)), k = n !== void 0 ? e.levels ?? [] : [], $ = (K) => this._hass?.callService("light", "turn_on", { entity_id: e.entity, ...K }), C = n !== void 0, T = (K) => this._slide(e.entity, l, K, e.levels ?? []);
     let P = g;
     const N = ji(this._config.presets_glass, this._config.presets_color, "liquid"), E = (K) => p`<div class="seg">
@@ -37768,23 +37768,23 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     )}
       </div>`;
     if (l === "t" && i) {
-      const [K, oe] = hr(i), Se = Number(i.attributes.color_temp_kelvin), J = s && i.attributes.color_mode === "color_temp";
+      const [K, oe] = hr(i), ze = Number(i.attributes.color_temp_kelvin), J = s && i.attributes.color_mode === "color_temp";
       P = E(
         zy.map(([ye, Le], ut) => {
           const St = Math.min(oe, Math.max(K, ye));
-          return { cur: J && Math.abs(Se - St) <= 250, dot: ["#ffb35c", "#fff4e0", "#cfe2ff"][ut], label: v(Le), act: () => $({ color_temp_kelvin: St }) };
+          return { cur: J && Math.abs(ze - St) <= 250, dot: ["#ffb35c", "#fff4e0", "#cfe2ff"][ut], label: v(Le), act: () => $({ color_temp_kelvin: St }) };
         })
       );
     } else if (l === "c") {
       const K = i?.attributes.hs_color, oe = s && !!K && i?.attributes.color_mode !== "color_temp";
       P = p`<div class="swatches">
-        ${Ay.map((Se) => {
-        const J = K ? Math.abs((K[0] - Se + 540) % 360 - 180) : 999;
+        ${Ay.map((ze) => {
+        const J = K ? Math.abs((K[0] - ze + 540) % 360 - 180) : 999;
         return p`<button
             class="swatch control ${oe && J <= 12 ? "cur" : ""}"
-            aria-label=${`${Se}°`}
-            style="--sw:hsl(${Se} 90% 55%)"
-            @click=${() => $({ hs_color: [Se, 100] })}
+            aria-label=${`${ze}°`}
+            style="--sw:hsl(${ze} 90% 55%)"
+            @click=${() => $({ hs_color: [ze, 100] })}
           ></button>`;
       })}
       </div>`;
@@ -37802,8 +37802,8 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
                 class="mode ${oe === l ? `cur ${Bt?.cls ?? ""}` : ""}"
                 style=${oe === l ? Bt?.style ?? "" : ""}
                 aria-label=${oe}
-                @pointerdown=${(Se) => Se.stopPropagation()}
-                @click=${(Se) => (Se.stopPropagation(), this._setMode(e.entity, oe))}
+                @pointerdown=${(ze) => ze.stopPropagation()}
+                @click=${(ze) => (ze.stopPropagation(), this._setMode(e.entity, oe))}
               >
                 <ha-icon .icon=${My[oe]}></ha-icon>
               </button>`
@@ -37886,7 +37886,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     const a = t.states[e.entity], i = this._isOn(e, a), s = e.name ?? a?.attributes.friendly_name ?? e.entity, n = Ot({ entity: e.entity, tap_action: { action: "none" }, hold_action: e.hold_action ?? { action: "more-info" } }), r = Ze(
       () => n,
       // tap switches the light, hold opens its details – never both
-      (c) => c === "tap" ? this._switch(e) : $e(this, t, n, c)
+      (c) => c === "tap" ? this._switch(e) : Se(this, t, n, c)
     ), l = this._icon(i);
     return p`<div class="bitem">
       <div
@@ -38500,7 +38500,7 @@ rn.parts = Ru, rn.styles = [
       }
     `,
   // after the card's own rules: a picked material replaces the default glass
-  xe
+  ke
 ];
 let Ul = rn;
 ce("glass-light", Ul, {
@@ -39029,7 +39029,7 @@ function Xh() {
   }
   Zl.dispatchEvent(new Event("change"));
 }
-const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, qi = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), ze = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), Jy = 32, mr = /* @__PURE__ */ new WeakMap(), ft = (o) => !!o?.attributes.mass_player_type;
+const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, qi = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), xe = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), Jy = 32, mr = /* @__PURE__ */ new WeakMap(), ft = (o) => !!o?.attributes.mass_player_type;
 function Xy(o) {
   const e = o.media_content_id;
   if (!e) return;
@@ -39066,7 +39066,7 @@ function gr(o, e = !1) {
   let a = Qh.get(t);
   a || Qh.set(t, a = { lastAt: 0, replacedAt: 0 });
   const i = Date.now(), s = o.attributes.media_title, n = nt.get(t), r = Date.parse(o.last_changed) > n?.at;
-  if (n && ((o.state === "playing" || o.state === "buffering") && r || o.state === "off" || o.state === "unavailable" || s && s !== n.title || i - n.at > Im) && nt.delete(t), ze.has(o.state)) {
+  if (n && ((o.state === "playing" || o.state === "buffering") && r || o.state === "off" || o.state === "unavailable" || s && s !== n.title || i - n.at > Im) && nt.delete(t), xe.has(o.state)) {
     a.idle = void 0;
     const c = a.last?.attributes.media_title;
     if (a.last && s && c && s !== c && !((As.get(t) ?? 0) > a.replacedAt) && i - a.replacedAt < tv) {
@@ -39129,7 +39129,7 @@ function iv(o, e, t, a, i, s, n) {
       media_position_updated_at: new Date(r.at).toISOString(),
       media_position_frozen: !0
     }
-  } : (n && !ze.has(o.state) && (e.last = void 0), o);
+  } : (n && !xe.has(o.state) && (e.last = void 0), o);
 }
 const fr = /* @__PURE__ */ new Map(), br = /* @__PURE__ */ new Map(), Xs = /* @__PURE__ */ new Map(), Wm = /* @__PURE__ */ new Map(), Xl = /* @__PURE__ */ new Set();
 function ap(o) {
@@ -39325,7 +39325,7 @@ const Tt = (o) => ({
       if (b) {
         c = !0;
         const y = gr(this.stateOf(b), t);
-        r && y && y.attributes.media_title === r.title ? s = y : y && ze.has(y.state) ? (this._twinLast.set(b, y), s = y) : y && Date.now() - Date.parse(y.last_changed) < ep(this._kind(e) === "sonos", e, b) && (s = this._twinLast.get(b));
+        r && y && y.attributes.media_title === r.title ? s = y : y && xe.has(y.state) ? (this._twinLast.set(b, y), s = y) : y && Date.now() - Date.parse(y.last_changed) < ep(this._kind(e) === "sonos", e, b) && (s = this._twinLast.get(b));
       }
     }
     if (a && !s && c && a.state === "playing") {
@@ -39346,14 +39346,14 @@ const Tt = (o) => ({
       const y = [b?.name, d.media_artist, d.media_title && d.media_series_title, d.app_name, d.source, s.attributes.friendly_name];
       h.media_artist = y.find((S) => S && S !== h.media_title), h.glass_tv = !0;
       const _ = this._tvSet(e), x = [s, ...(_?.sources ?? []).map((S) => this._hass?.states[typeof S == "string" ? S : S.entity])].find(
-        (S) => S && ze.has(S.state) && typeof S.attributes.app_id == "string"
+        (S) => S && xe.has(S.state) && typeof S.attributes.app_id == "string"
       )?.attributes.app_id;
       x && (h.glass_app = x);
     }
     for (const b of n) b in d && !(u && (b === "media_title" || b === "media_artist")) && (h[b] = d[b]);
     const m = ne.NEXT | ne.PREVIOUS | ne.SHUFFLE | ne.REPEAT | ne.SEEK | (u ? ne.PAUSE | ne.PLAY : 0);
     h.supported_features = (Number(a.attributes.supported_features) || 0) & ~m | (Number(d.supported_features) || 0) & m;
-    let f = ze.has(s.state) ? s.state : a.state;
+    let f = xe.has(s.state) ? s.state : a.state;
     return c && r && s.attributes.media_title === r.title ? (f = r.resume ? "playing" : "paused", h.media_position = r.pos, h.media_position_updated_at = new Date(r.at).toISOString()) : c && f === "playing" && a.state !== "playing" && Date.parse(a.last_changed) > Date.parse(s.last_changed) && Date.now() - Date.parse(a.last_changed) > 12e3 && (f = "paused"), { ...a, state: f, attributes: h };
   }
   /** Whose library shows: the shown player's – or library_from's for the other players. */
@@ -39377,7 +39377,7 @@ const Tt = (o) => ({
     const t = this._config.tv_sources, a = this._hass?.states;
     if (!t?.length || !a) return;
     const i = a[e], s = i?.attributes ?? {};
-    if (!ze.has(i?.state ?? "") || !(s.app_id === "tv" || /^(tv|hdmi)/i.test(String(s.source ?? "")))) return;
+    if (!xe.has(i?.state ?? "") || !(s.app_id === "tv" || /^(tv|hdmi)/i.test(String(s.source ?? "")))) return;
     const n = this._twins.get(e);
     return t.find((r) => {
       const l = r.speaker ?? this._ids[0];
@@ -39394,7 +39394,7 @@ const Tt = (o) => ({
       if (!f.length) return a.tv;
       i = f;
     }
-    const r = (f, b) => !!f.input && i.slice(b + 1).some((y) => y.input === f.input), l = i.filter(r).map((f) => f.entity).filter((f) => ze.has(t[f]?.state ?? "")), c = i.filter((f, b) => !r(f, b)).map((f) => f.entity).filter((f) => ze.has(t[f]?.state ?? ""));
+    const r = (f, b) => !!f.input && i.slice(b + 1).some((y) => y.input === f.input), l = i.filter(r).map((f) => f.entity).filter((f) => xe.has(t[f]?.state ?? "")), c = i.filter((f, b) => !r(f, b)).map((f) => f.entity).filter((f) => xe.has(t[f]?.state ?? ""));
     if (!c.length) return;
     const d = (f) => Date.parse(t[f].last_changed) || 0, h = c.reduce((f, b) => d(b) > d(f) ? b : f);
     if (!t[h].attributes.media_title && !t[h].attributes.media_series_title) return;
@@ -39470,7 +39470,7 @@ const Tt = (o) => ({
     const t = this._twins.get(e), a = this._hass?.states, i = t ? a?.[t] : void 0, s = a?.[e];
     if (!i || !s || !i.attributes.media_title || i.attributes.app_id !== "music_assistant" && i.attributes.source !== "Music Assistant Queue") return;
     const n = /^https?:/.test(String(s.attributes.media_content_id ?? "")), r = this._twinLast.has(t) && Date.now() - Date.parse(i.last_changed) < ep(this._kind(e) === "sonos", e, t), l = Mt.get(e);
-    return !!l && l.title === i.attributes.media_title && s.state !== "playing" || (n ? ze.has(i.state) || ze.has(s.state) || r : i.state === "playing" || ze.has(i.state) && s.state !== "playing") ? t ?? void 0 : void 0;
+    return !!l && l.title === i.attributes.media_title && s.state !== "playing" || (n ? xe.has(i.state) || xe.has(s.state) || r : i.state === "playing" || xe.has(i.state) && s.state !== "playing") ? t ?? void 0 : void 0;
   }
   /** The player shown: the one playing (a group's leader), else the first. */
   _main() {
@@ -39481,7 +39481,7 @@ const Tt = (o) => ({
     return a !== t && (Fo.set(this._linkKey, a), Wi()), a;
   }
   _pickMain(e) {
-    const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (l) => Date.parse(e[l]?.last_changed ?? "") || 0, i = (l) => ze.has(e[l]?.state ?? "") || Mt.has(l) || nt.has(l), s = new Set(this._ids.map((l) => e[l]?.attributes.remote_player_id).filter(Boolean)), n = Ke.get(this._linkKey) ?? this._chosen;
+    const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (l) => Date.parse(e[l]?.last_changed ?? "") || 0, i = (l) => xe.has(e[l]?.state ?? "") || Mt.has(l) || nt.has(l), s = new Set(this._ids.map((l) => e[l]?.attributes.remote_player_id).filter(Boolean)), n = Ke.get(this._linkKey) ?? this._chosen;
     if (this._config.follow_playing === !1) {
       const l = n && n.id !== this._ids[0] && this._ids.includes(n.id) && (this._busy(n) || i(n.id) || Date.now() - n.at < Qy);
       return this._shown = l ? n.id : this._ids[0];
@@ -39493,7 +39493,7 @@ const Tt = (o) => ({
     }
     const r = t?.attributes.remote_player_id;
     if (t && r && e[r]?.state === "playing") return t.entity_id;
-    if (t && (qi.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && ze.has(gr(t, !0)?.state ?? ""))) {
+    if (t && (qi.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && xe.has(gr(t, !0)?.state ?? ""))) {
       const l = this._ids.find(
         (c) => c !== t.entity_id && !s.has(c) && e[c]?.state === "playing" && a(c) > a(t.entity_id) && !i(t.entity_id)
       );
@@ -39652,7 +39652,7 @@ const Tt = (o) => ({
     return this._loadKinds(), p`<div class="scrim" @click=${() => (this._pickOpen = !1, this.requestUpdate())}></div>
       <div class="spks plist" role="listbox">
         ${this._ids.map((a) => {
-      const i = this._tvSet(a) ? this._shownState(a) : t.states[a], s = i?.attributes ?? {}, n = i && ze.has(i.state) && s.media_title ? this._artUrl(i) : void 0, r = s.device_class === "tv" ? "mdi:television" : s.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker", l = !i || i.state === "unavailable" ? v("Unavailable") : i.state === "off" ? v("Off") : ze.has(i.state) && s.media_title ? [s.media_title, s.media_artist].filter(Boolean).join(" · ") : v("Nothing playing");
+      const i = this._tvSet(a) ? this._shownState(a) : t.states[a], s = i?.attributes ?? {}, n = i && xe.has(i.state) && s.media_title ? this._artUrl(i) : void 0, r = s.device_class === "tv" ? "mdi:television" : s.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker", l = !i || i.state === "unavailable" ? v("Unavailable") : i.state === "off" ? v("Off") : xe.has(i.state) && s.media_title ? [s.media_title, s.media_artist].filter(Boolean).join(" · ") : v("Nothing playing");
       return p`<button class="prow ${a === e ? "in" : ""}" role="option" aria-selected=${a === e ? "true" : "false"} @click=${() => this._choose(a)}>
             <i class="pic" style=${n ? `background-image:${ma(n)}` : ""}
               >${n ? g : p`<ha-icon .icon=${r}></ha-icon>`}${(() => {
@@ -39733,7 +39733,7 @@ const Tt = (o) => ({
    */
   _tone(e) {
     if (this._light === void 0 || this._config.art_background === !1 || !this._artUrl(e)) return "";
-    const t = this._artDark(), a = !ze.has(e?.state ?? ""), i = t ? a ? 0.18 : 0.4 : a ? 0.25 : 0.55;
+    const t = this._artDark(), a = !xe.has(e?.state ?? ""), i = t ? a ? 0.18 : 0.4 : a ? 0.25 : 0.55;
     return (t ? i * this._light * 0.7 + (1 - i) * 0.15 : i * this._light + (1 - i) * 0.92) > 0.58 ? "ink-dark" : "ink-light";
   }
   _call(e, t = {}, a = this._main()) {
@@ -39912,7 +39912,7 @@ const Tt = (o) => ({
     );
     return Ze(
       () => i,
-      (s, n) => s === "tap" && t ? t() : $e(this, this._hass, i, s, n)
+      (s, n) => s === "tap" && t ? t() : Se(this, this._hass, i, s, n)
     );
   }
   /** Whether the cover shows as the visualizer. */
@@ -40527,17 +40527,21 @@ const Tt = (o) => ({
   /** Music elsewhere in the house, each with Join (a speaker at rest). */
   _joinBars(e) {
     if (!e || e.state === "unavailable" || this._tvSet(e.entity_id)) return g;
-    const t = this._playingElsewhere(e.entity_id);
+    const t = this._playingElsewhere(e.entity_id).filter((i) => {
+      if (!this._tvSet(i.entity_id)) return !0;
+      const s = this._shownState(i.entity_id);
+      return !!s && xe.has(s.state) && !!s.attributes.media_title;
+    });
     if (!t.length) return g;
     const a = this._busyOn(e.entity_id);
     return p`<div class="joins">
       ${t.map((i) => {
-      const s = this._artUrl(i);
+      const s = !!this._tvSet(i.entity_id), n = s && this._shownState(i.entity_id) || i, l = xe.has(n.state) && !!n.attributes.media_title ? this._artUrl(n) : void 0, c = s ? this._appIcon(n.attributes.glass_app) : void 0;
       return p`<button class="joinbar" @click=${() => this._joinTo(e.entity_id, i.entity_id)} ?disabled=${a}>
-          ${s ? p`<img src=${s} alt="" />` : p`<ha-icon icon="mdi:speaker-multiple"></ha-icon>`}
+          ${l ? p`<i class="jpic"><img src=${l} alt="" />${c ? p`<img class="appi" src=${c} alt="" />` : g}</i>` : p`<ha-icon icon=${s ? "mdi:television" : "mdi:speaker-multiple"}></ha-icon>`}
           <span class="jt">
             <span class="jn">${v("Playing in {name}", { name: this._groupName(i) })}</span>
-            <span class="js">${[i.attributes.media_title, i.attributes.media_artist].filter(Boolean).join(" · ")}</span>
+            <span class="js">${[n.attributes.media_title, n.attributes.media_artist].filter(Boolean).join(" · ")}</span>
           </span>
           <span class="jgo">${a && this._joining === i.entity_id ? p`<i class="spin"></i>` : v("Join")}</span>
         </button>`;
@@ -40632,7 +40636,7 @@ const Tt = (o) => ({
   }
   /** layout: screen – the whole screen: the cover big over itself blurred, the song, the time. */
   _screen(e) {
-    const t = this._config, a = this._main(), i = e?.attributes ?? {}, s = this._isPlaying(e), n = !s && !ze.has(e?.state ?? ""), r = n ? void 0 : this._artUrl(e), l = t.name ?? i.friendly_name ?? a, c = i.media_title ?? i.media_series_title ?? "", d = i.media_artist ?? i.media_album_artist ?? i.app_name ?? i.source ?? "", h = i.media_album_name && i.media_album_name !== c ? i.media_album_name : "", u = /* @__PURE__ */ new Date(), m = be(this._hass), f = u.toLocaleTimeString(m, { hour: "numeric", minute: "2-digit", hour12: Ce(this._hass) }), b = u.toLocaleDateString(m, { weekday: "long", day: "numeric", month: "long" }), y = t.clock !== !1;
+    const t = this._config, a = this._main(), i = e?.attributes ?? {}, s = this._isPlaying(e), n = !s && !xe.has(e?.state ?? ""), r = n ? void 0 : this._artUrl(e), l = t.name ?? i.friendly_name ?? a, c = i.media_title ?? i.media_series_title ?? "", d = i.media_artist ?? i.media_album_artist ?? i.app_name ?? i.source ?? "", h = i.media_album_name && i.media_album_name !== c ? i.media_album_name : "", u = /* @__PURE__ */ new Date(), m = be(this._hass), f = u.toLocaleTimeString(m, { hour: "numeric", minute: "2-digit", hour12: Ce(this._hass) }), b = u.toLocaleDateString(m, { weekday: "long", day: "numeric", month: "long" }), y = t.clock !== !1;
     return p`<div
       class="screen ink-light ${s ? "playing" : ""} ${n ? "rest" : ""} ${this._calm ? "calm" : ""}"
       style=${this._color ? `--sc:${this._color}` : ""}
@@ -40672,7 +40676,7 @@ const Tt = (o) => ({
     return p`<div class="frame surface tilef ${l ? "playing" : ""} ${this._tone(e)}">
       ${this._bg(e)}
       <div
-        class="lbar tile ${a !== void 0 ? "slides" : ""} ${ze.has(e?.state ?? "") || this._drag.has(`vol|${t}`) ? "lit" : ""}"
+        class="lbar tile ${a !== void 0 ? "slides" : ""} ${xe.has(e?.state ?? "") || this._drag.has(`vol|${t}`) ? "lit" : ""}"
         style="--pct:${Math.round((a ?? 0) * 100)}"
         @pointerdown=${n?.down}
         @pointermove=${n?.move}
@@ -40745,7 +40749,7 @@ const Tt = (o) => ({
     ) : g}`;
   }
   _card(e) {
-    const t = this._main(), [a, i, s] = this._what(e), n = this._config.name ?? e?.attributes.friendly_name ?? t, r = this._volume(t), l = r !== void 0 ? this._volEvents(t) : void 0, c = this._isMuted(e) && !this._drag.has(`vol|${t}`) && !this._pending.has(t), d = this._config.speakers === !1 ? [] : this._speakerIds().filter((x) => x !== t), h = e?.attributes.group_members ?? [], u = d.filter((x) => this._inGroup(t, x, h)).length, m = this._isPlaying(e), f = this._ctl(), b = !m && !ze.has(e?.state ?? "");
+    const t = this._main(), [a, i, s] = this._what(e), n = this._config.name ?? e?.attributes.friendly_name ?? t, r = this._volume(t), l = r !== void 0 ? this._volEvents(t) : void 0, c = this._isMuted(e) && !this._drag.has(`vol|${t}`) && !this._pending.has(t), d = this._config.speakers === !1 ? [] : this._speakerIds().filter((x) => x !== t), h = e?.attributes.group_members ?? [], u = d.filter((x) => this._inGroup(t, x, h)).length, m = this._isPlaying(e), f = this._ctl(), b = !m && !xe.has(e?.state ?? "");
     this._handleTpl = g;
     const y = this._below, _ = y ? g : this._sheet(t, b, r !== void 0 || d.length ? 54 : 12);
     return p`<div class="frame surface cardf ${m ? "playing" : ""} ${b ? "rest" : ""} ${y ? "stacked" : ""} ${this._fillH ? "filled" : ""} ${this._tone(e)}">
@@ -40889,7 +40893,7 @@ const Tt = (o) => ({
   /** The media keys: what plays on the shown player, for the system's controls (macOS, Windows). */
   mediaKeyInfo() {
     const e = this._shownState();
-    if (!e || !ze.has(e.state)) return;
+    if (!e || !xe.has(e.state)) return;
     const t = e.attributes;
     return {
       title: t.media_title ?? t.media_series_title,
@@ -42246,6 +42250,20 @@ ln.parts = om, ln.styles = [
         --mdc-icon-size: 20px;
         color: var(--g-text-2);
       }
+      .joinbar .jpic {
+        position: relative;
+        flex: none;
+        display: flex;
+      }
+      .joinbar .jpic img.appi {
+        position: absolute;
+        right: -3px;
+        bottom: -3px;
+        width: 15px;
+        height: 15px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+      }
       .joinbar .jt {
         min-width: 0;
         display: flex;
@@ -43575,7 +43593,7 @@ ln.parts = om, ln.styles = [
         }
       }
     `,
-  xe
+  ke
 ];
 let Ql = ln;
 ce("glass-media", Ql, {
@@ -44004,7 +44022,7 @@ ei.wrapTile = !0, ei.parts = Ku, ei.properties = { ...F.properties, _open: { sta
         --mdc-icon-size: 18px;
       }
     `,
-  xe
+  ke
 ];
 let ec = ei;
 ce("glass-period-bar", ec, {
@@ -44272,7 +44290,7 @@ const ai = class ai extends F {
       const a = this._config.buttons.indexOf(t);
       if (a === this._ask) {
         const r = (l) => {
-          this._setAsk(-1), $e(this, this._hass, { tap_action: t.tap_action }, "tap", l.currentTarget);
+          this._setAsk(-1), Se(this, this._hass, { tap_action: t.tap_action }, "tap", l.currentTarget);
         };
         return p`<span class="act ask ${t.name ? "" : "round"}" aria-label=${t.name ?? ""}>
           <span class="keep" aria-hidden="true">
@@ -44293,7 +44311,7 @@ const ai = class ai extends F {
         class="act ${t.name ? "" : "round"} ${i ? "off" : ""} ${n.cls}"
         style=${n.style}
         aria-label=${t.name ?? t.icon ?? ""}
-        @click=${(r) => t.confirm ? (W(), this._setAsk(a)) : $e(this, this._hass, { tap_action: t.tap_action }, "tap", r.currentTarget)}
+        @click=${(r) => t.confirm ? (W(), this._setAsk(a)) : Se(this, this._hass, { tap_action: t.tap_action }, "tap", r.currentTarget)}
       >
         ${t.icon ? p`<ha-icon .icon=${t.icon}></ha-icon>` : g}${t.name ? p`<span>${t.name}</span>` : g}
       </button>`;
@@ -44679,7 +44697,7 @@ ai.wrapTile = !0, ai.parts = sm, ai.properties = { ...F.properties, _ask: { stat
       }
     `,
   // after the header's own rules: a picked material replaces the default glass
-  xe
+  ke
 ];
 let sc = ai;
 ce("glass-popup-header", sc, {
@@ -44787,7 +44805,7 @@ const dp = {
     W(), this._hass?.callService(e, t, { entity_id: a });
   }
   _act(e, t) {
-    e && $e(this, this._hass, { entity: t, tap_action: e }, "tap");
+    e && Se(this, this._hass, { entity: t, tap_action: e }, "tap");
   }
   /** The icon: the obvious next step – start, pause or resume. */
   _primary(e, t) {
@@ -44814,7 +44832,7 @@ const dp = {
     const _ = Ot({ entity: e.entity, tap_action: { action: "none" }, hold_action: e.hold_action ?? { action: "more-info" } }), x = this._config, S = d ? Gi(x.picked_glass, x.picked_color, "liquid") : Gi(x.bar_glass, x.bar_color, "frosted"), z = this._icon(l, n), M = Gi(x.tray_glass, x.tray_color, "flat"), k = Ze(
       () => _,
       // the icon shows, it doesn't start anything – the drawer's buttons do; hold for details
-      ($) => $e(this, t, _, $)
+      ($) => Se(this, t, _, $)
     );
     return p`<div class="item">
       <div
@@ -45347,7 +45365,7 @@ cn.properties = { ...F.properties, _sel: { state: !0 } }, cn.styles = [
         color: var(--g-text);
       }
     `,
-  xe
+  ke
 ];
 let oc = cn;
 ce("glass-appliance", oc, {
@@ -45461,7 +45479,7 @@ _s.wrapTile = !0, _s.properties = { ...F.properties, _cur: { state: !0 } }, _s.s
         backdrop-filter: var(--glass-control-backdrop, none);
       }
     `,
-  xe
+  ke
 ];
 let nc = _s;
 ce("glass-tabs", nc, {
@@ -46662,7 +46680,7 @@ dn.properties = {
         border-radius: 999px;
       }
     `,
-  xe
+  ke
 ];
 let dc = dn;
 ce("glass-room-map", dc, {
@@ -49158,7 +49176,7 @@ const un = class un extends Ye {
       for (const b of this._areas()) f(X(this._config, b.path) ?? [], b.path);
       for (const b of this._srcLists())
         b.list.forEach((y, _) => {
-          ke(y) && m(y, [...b.path, _]);
+          $e(y) && m(y, [...b.path, _]);
         });
       this._index = a;
     }
@@ -49842,7 +49860,7 @@ const un = class un extends Ye {
         dashboard: n.dashboard,
         src: n,
         editable: l && !!(s[n.dashboard] ?? this._config.__sources?.[n.dashboard]),
-        items: r.map((c) => ke(c) ? { ...ke(c), card: c } : void 0).filter(Boolean)
+        items: r.map((c) => $e(c) ? { ...$e(c), card: c } : void 0).filter(Boolean)
       });
     }
     t === this._srcKey && (Object.keys(s).length && this._attachSources(s), this._srcPops = a);
@@ -49866,13 +49884,13 @@ const un = class un extends Ye {
   }
   /** "#hash" links used anywhere but in the pop-ups themselves (dock, actions, menus). */
   _usedLinks() {
-    const e = (t) => Array.isArray(t) ? t.map(e) : !t || typeof t != "object" ? t : ke(t) ? null : Object.fromEntries(Object.entries(t).map(([a, i]) => [a, e(i)]));
+    const e = (t) => Array.isArray(t) ? t.map(e) : !t || typeof t != "object" ? t : $e(t) ? null : Object.fromEntries(Object.entries(t).map(([a, i]) => [a, e(i)]));
     return new Set(JSON.stringify(e(this._main())).match(/#[A-Za-z0-9_-]+/g) ?? []);
   }
   /** What a pop-up shows: a standalone pop-up's own `cards`, or the cards after it in its stack. */
   _popContent(e) {
     if (e.type === "custom:bubble-card" && Array.isArray(e.cards)) return e.cards;
-    const t = Array.isArray(e.cards) ? e.cards : [], a = t.findIndex((s) => ke(s));
+    const t = Array.isArray(e.cards) ? e.cards : [], a = t.findIndex((s) => $e(s));
     if (a < 0) return [];
     const i = t[a];
     return i.type === "custom:bubble-card" && Array.isArray(i.cards) ? i.cards : t.slice(a + 1);
@@ -49885,7 +49903,7 @@ const un = class un extends Ye {
   _showPopup(e) {
     const t = this._popPath(e), a = (t ? X(this._config, t) : void 0) ?? this._srcPops?.flatMap((x) => x.items).find((x) => x.hash === e)?.card, i = se.mode === "mobile", s = this._dash?.shadowRoot?.querySelector(i ? ".pv-frame.phone, .dash" : ".dash");
     if (!a || !s) return;
-    const n = ke(a), r = n.card;
+    const n = $e(a), r = n.card;
     let l = this._popOpen === e ? s.querySelector(":scope > .glass-studio-pop") : null;
     if (!l) {
       this._closePopup(), l = document.createElement("div"), l.className = "glass-studio-pop";
@@ -49929,10 +49947,10 @@ const un = class un extends Ye {
   }
   /** A pop-up's place: this dashboard's own overlay, else an opened pop-up dashboard. */
   _popPath(e) {
-    const t = this._areas().find((s) => s.name === "overlay"), i = (t ? X(this._config, t.path) ?? [] : []).findIndex((s) => ke(s)?.hash === e);
+    const t = this._areas().find((s) => s.name === "overlay"), i = (t ? X(this._config, t.path) ?? [] : []).findIndex((s) => $e(s)?.hash === e);
     if (t && i >= 0) return [...t.path, i];
     for (const s of this._sources().flatMap((n) => this._srcLists(n))) {
-      const n = s.list.findIndex((r) => ke(r)?.hash === e);
+      const n = s.list.findIndex((r) => $e(r)?.hash === e);
       if (n >= 0) return [...s.path, n];
     }
   }
@@ -49940,7 +49958,7 @@ const un = class un extends Ye {
   _popList(e) {
     const t = X(this._config, e);
     if (t?.type === "custom:bubble-card" && Array.isArray(t.cards)) return [...e, "cards"];
-    const a = Array.isArray(t?.cards) ? t.cards : [], i = a.findIndex((n) => ke(n)), s = a[i];
+    const a = Array.isArray(t?.cards) ? t.cards : [], i = a.findIndex((n) => $e(n)), s = a[i];
     return s?.type === "custom:bubble-card" && Array.isArray(s.cards) ? [...e, "cards", i, "cards"] : [...e, "cards"];
   }
   /** The pop-up a picked node belongs to (the pop-up itself or anything in it). */
@@ -49949,7 +49967,7 @@ const un = class un extends Ye {
     if (!a && !i) return;
     const s = a ? t.path.length + 1 : 6;
     if (!(e.length < s))
-      return ke(X(this._config, e.slice(0, s)) ?? {})?.hash;
+      return $e(X(this._config, e.slice(0, s)) ?? {})?.hash;
   }
   _closePopup() {
     this._popOpen = void 0, this._popAt = void 0, this._popEls = [], this._dash?.shadowRoot?.querySelectorAll(".glass-studio-pop").forEach((e) => e.remove());
@@ -49974,7 +49992,7 @@ const un = class un extends Ye {
   _overlayTree(e) {
     const t = this._areas().find((d) => d.name === "overlay");
     if (!t) return g;
-    const a = X(this._config, t.path) ?? [], i = a.filter((d) => !ke(d)), s = a.filter((d) => ke(d)), n = this._srcPops ?? [], r = this._usedLinks(), l = (d) => r.has(d) ? [] : [w("unused")], c = t.own ? [w(fa[se.mode])] : [];
+    const a = X(this._config, t.path) ?? [], i = a.filter((d) => !$e(d)), s = a.filter((d) => $e(d)), n = this._srcPops ?? [], r = this._usedLinks(), l = (d) => r.has(d) ? [] : [w("unused")], c = t.own ? [w(fa[se.mode])] : [];
     return p`${i.length ? p`<div class="area">
             <div class="node static" style="--depth:0">
               ${this._twisty("bar")}
@@ -49982,12 +50000,12 @@ const un = class un extends Ye {
               <span class="label"><b>${w("Bottom bar")}</b><small>${w("Over the whole dashboard")}</small></span>
               ${c.map((d) => p`<span class="badge">${d}</span>`)}
             </div>
-            ${this._isOpen("bar") ? e(a, t.path, 1, (d) => !ke(d)) : g}
+            ${this._isOpen("bar") ? e(a, t.path, 1, (d) => !$e(d)) : g}
           </div>` : g}
       ${!nl() && !s.length && !n.length ? g : p`<div class="area">
         ${this._row(w("Pop-ups"), `${s.length + n.reduce((d, h) => d + h.items.length, 0)} · ${w("opened by a #link")}`, "mdi:window-maximize", t.path, 0, { badges: c, fold: "pops" })}
         ${nl() ? g : p`<div class="tree-notice">${lo()}</div>`}
-        ${this._isOpen("pops") ? p`${e(a, t.path, 1, (d) => !!ke(d))}
+        ${this._isOpen("pops") ? p`${e(a, t.path, 1, (d) => !!$e(d))}
         ${n.map(
       (d) => d.editable ? p`<div class="node static" style="--depth:1">
                   ${this._twisty()}
@@ -49995,7 +50013,7 @@ const un = class un extends Ye {
                   <span class="label"><b>${d.label}</b><small>${w("Pop-ups from another dashboard")} · ${w("saved there with Save")}</small></span>
                   <a class="ext" href=${`${d.url}?edit=1`} target="_blank" title=${w("Edit there")}><ha-icon .icon=${"mdi:open-in-new"}></ha-icon></a>
                 </div>
-                ${this._srcLists(d.src).map((h) => e(h.list, h.path, 2, (u) => !!ke(u)))}` : d.items.map(
+                ${this._srcLists(d.src).map((h) => e(h.list, h.path, 2, (u) => !!$e(u)))}` : d.items.map(
         (h) => p`<div class="node ${this._popOpen === h.hash ? "on" : ""}" style="--depth:1" @click=${() => this._showPopup(h.hash)}>
               ${this._twisty()}
               <ha-icon .icon=${h.icon ?? "mdi:window-maximize"}></ha-icon>
@@ -50160,7 +50178,7 @@ const un = class un extends Ye {
     if (this._popOpen) {
       const r = this._popAt;
       if (!r) return p`<div class="hint">${w("This pop-up is in a YAML dashboard – it can only be shown here, not edited.")}</div>`;
-      const l = this._popList(r), c = X(this._config, l) ?? [], d = ke(X(this._config, r) ?? {});
+      const l = this._popList(r), c = X(this._config, l) ?? [], d = $e(X(this._config, r) ?? {});
       return p`<div class="wire" style="grid-template-columns:minmax(0, 1fr)" @pointermove=${this._onWireMove} @pointerleave=${this._onWireLeave}>
         <section class="warea" data-path=${JSON.stringify(l)} data-layout="column">
           <div class="wlabel">${w("Pop-up")}: ${d?.name ?? this._popOpen}</div>
@@ -50421,11 +50439,11 @@ const un = class un extends Ye {
           <ha-icon .icon=${"mdi:delete-outline"}></ha-icon>
         </button>
       </div>
-      ${ke(a) ? lo() : _f(a)}
-      ${ke(a) ? p`<div class="popline">
-            <ha-icon .icon=${"mdi:link-variant"}></ha-icon><code>${ke(a).hash}</code>
+      ${$e(a) ? lo() : _f(a)}
+      ${$e(a) ? p`<div class="popline">
+            <ha-icon .icon=${"mdi:link-variant"}></ha-icon><code>${$e(a).hash}</code>
             <span class="grow"></span>
-            <button class="link" @click=${() => this._showPopup(ke(a).hash)}><ha-icon .icon=${"mdi:eye-outline"}></ha-icon> ${w("Show in the preview")}</button>
+            <button class="link" @click=${() => this._showPopup($e(a).hash)}><ha-icon .icon=${"mdi:eye-outline"}></ha-icon> ${w("Show in the preview")}</button>
           </div>` : g}
       ${this._placement(e, a)}
       ${s ? p`<div class="sub-add">
@@ -52374,7 +52392,7 @@ const yc = "1.11.10", Sp = {
   conditions: { evalCondition: ge, applyRules: ko },
   format: { displayText: xa, computeValue: nu },
   colors: { cssColor: Y, tint: je },
-  actions: { pressHandlers: Ze, runAction: $e, withDefaults: Ot },
+  actions: { pressHandlers: Ze, runAction: Se, withDefaults: Ot },
   styles: { tokens: Sc, surface: we, control: Oe, animations: Ac },
   LiquidController: le,
   settings: pe,
