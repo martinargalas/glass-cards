@@ -11,7 +11,7 @@ export const YTM_LIBRARY: Record<string, any> = {"home|":{"title":"Home","media_
 export const TRACKS: { title: string; artist: string; picture: string }[] = [{"title":"Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard)","artist":"Justice","picture":"https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj"},{"title":"Gimme Gimme Gimme (a man after midnight)","artist":"Syzz","picture":"https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj"},{"title":"Dracula (feat. JENNIE)","artist":"Tame Impala","picture":"https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj"},{"title":"Stop The Wedding!","artist":"Ashe","picture":"https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj"},{"title":"Call Me","artist":"Kelsy Karter & The Heroines","picture":"https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj"},{"title":"Hootie Frutti","artist":"KATSEYE","picture":"https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj"},{"title":"Blood In Your Eyes (from GTAVI: The Album)","artist":"Tove Lo","picture":"https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj"},{"title":"Golden","artist":"HUNTR/X","picture":"https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj"},{"title":"Stand by Me","artist":"Seal","picture":"https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj"},{"title":"Love Me Like You Do","artist":"Elena Gray","picture":"https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj"},{"title":"Go Easy (from GTAVI: The Album)","artist":"Dua Lipa","picture":"https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj"},{"title":"Beauty And A Beat","artist":"MOONLGHT","picture":"https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj"},{"title":"Devil Woman (GTA 6 Soundtrack)","artist":"Lena Vril","picture":"https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj"},{"title":"My Moon My Man","artist":"FINNEAS","picture":"https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj"},{"title":"Babydoll","artist":"Jamie Miller","picture":"https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj"},{"title":"Love","artist":"Keyshia Cole","picture":"https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj"}]; // i18n-ok: song and album names as YouTube Music gives them
 
 export const MEDIA_SOURCE = "media_player.youtube_music";
-export const SPEAKERS = ["media_player.living_room_speaker", "media_player.kitchen_speaker", "media_player.bathroom_speaker"];
+export const SPEAKERS = ["media_player.kitchen_speaker", "media_player.office_speaker", "media_player.living_room_speaker", "media_player.bathroom_speaker"];
 // what a speaker of the demo does: play, pause, seek, volume, next, shuffle, repeat, grouping
 const SPEAKER = 842303;
 // YouTube Music: the same without grouping, and a library to browse
@@ -31,21 +31,49 @@ const song = (i: number, at = 0, dur = 214): Attrs => {
   };
 };
 
-const PAIR = ["media_player.living_room_speaker", "media_player.kitchen_speaker"];
+const PAIR = ["media_player.kitchen_speaker", "media_player.office_speaker"];
+// the living room's soundbar plays the TV's sound: YouTube on the Apple TV (the card's tv_sources)
+const VIDEO = {
+  media_title: "synthwave radio 🌌 beats to chill/game to",
+  media_content_type: "video",
+  media_duration: 3600,
+  media_position: 1312,
+  media_position_updated_at: new Date().toISOString(),
+};
 export const MEDIA_STATES: Record<string, DemoState> = {
   "media_player.living_room_speaker": [
     "playing",
-    { friendly_name: "Living room", device_class: "speaker", supported_features: SPEAKER, volume_level: 0.34, is_volume_muted: false, shuffle: false, repeat: "all", group_members: PAIR, ...song(0, 74) },
+    {
+      friendly_name: "Living room",
+      device_class: "speaker",
+      supported_features: SPEAKER,
+      volume_level: 0.34,
+      is_volume_muted: false,
+      group_members: ["media_player.living_room_speaker"],
+      source: "TV",
+      media_title: "TV Audio",
+      media_content_type: "music",
+    },
+  ],
+  "media_player.living_room_tv": ["on", { friendly_name: "Living room TV", device_class: "tv", source: "Apple TV", source_list: ["Apple TV", "PS5", "Netflix", "YouTube"] }],
+  "media_player.living_room_apple_tv": ["playing", { friendly_name: "Apple TV", supported_features: 21437, app_id: "com.google.ios.youtube", app_name: "YouTube", ...VIDEO }],
+  "media_player.living_room_youtube": [
+    "playing",
+    { friendly_name: "YouTube on TV", supported_features: 21437, media_artist: "Lofi Girl", entity_picture: "https://i.ytimg.com/vi/4xDzrJKXOOY/hqdefault.jpg", ...VIDEO },
   ],
   "media_player.kitchen_speaker": [
     "playing",
     { friendly_name: "Kitchen", device_class: "speaker", supported_features: SPEAKER, volume_level: 0.22, is_volume_muted: false, shuffle: false, repeat: "all", group_members: PAIR, ...song(0, 74) },
   ],
+  "media_player.office_speaker": [
+    "playing",
+    { friendly_name: "Office", device_class: "speaker", supported_features: SPEAKER, volume_level: 0.26, is_volume_muted: false, shuffle: false, repeat: "all", group_members: PAIR, ...song(0, 74) },
+  ],
   "media_player.bathroom_speaker": [
     "idle",
     { friendly_name: "Bathroom", device_class: "speaker", supported_features: SPEAKER, volume_level: 0.18, is_volume_muted: false, shuffle: false, repeat: "off", group_members: ["media_player.bathroom_speaker"] },
   ],
-  "media_player.youtube_music": ["idle", { friendly_name: "YouTube Music", supported_features: SOURCE, shuffle: true, repeat: "all", remote_player_id: "media_player.living_room_speaker" }],
+  "media_player.youtube_music": ["idle", { friendly_name: "YouTube Music", supported_features: SOURCE, shuffle: true, repeat: "all", remote_player_id: "media_player.kitchen_speaker" }],
 };
 
 /** browse_media of the demo's YouTube Music: the snapshot, folder by folder. */

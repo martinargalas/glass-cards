@@ -1104,22 +1104,40 @@ views:
                     padding: 22
                     cards:
                       - type: custom:glass-media
-                        entity: media_player.living_room_speaker
+                        entity: media_player.kitchen_speaker
                         entities:
-                          - media_player.kitchen_speaker
+                          - media_player.office_speaker
+                          - media_player.living_room_speaker
                           - media_player.bathroom_speaker
                         library_from: media_player.youtube_music
                         music_assistant_url: http://music-assistant.demo.invalid:8095   # the demo's own Music Assistant
                         music_assistant_token: demo
+                        tv_sources:   # the living room's soundbar plays the TV's sound: YouTube on the Apple TV
+                          - speaker: media_player.living_room_speaker
+                            tv: media_player.living_room_tv
+                            sources:
+                              - entity: media_player.living_room_youtube
+                                input: Apple TV
+                              - entity: media_player.living_room_apple_tv
+                                input: Apple TV
                         show: player
                   - type: custom:glass-media
-                    entity: media_player.living_room_speaker
+                    entity: media_player.kitchen_speaker
                     entities:
-                      - media_player.kitchen_speaker
+                      - media_player.office_speaker
+                      - media_player.living_room_speaker
                       - media_player.bathroom_speaker
                     library_from: media_player.youtube_music
                     music_assistant_url: http://music-assistant.demo.invalid:8095   # the demo's own Music Assistant
                     music_assistant_token: demo
+                    tv_sources:   # the living room's soundbar plays the TV's sound: YouTube on the Apple TV
+                      - speaker: media_player.living_room_speaker
+                        tv: media_player.living_room_tv
+                        sources:
+                          - entity: media_player.living_room_youtube
+                            input: Apple TV
+                          - entity: media_player.living_room_apple_tv
+                            input: Apple TV
                     show: library
                     view_layout:
                       grow: 1
@@ -2912,13 +2930,22 @@ views:
                     view_layout:
                       height: auto
                   - type: custom:glass-media
-                    entity: media_player.living_room_speaker
+                    entity: media_player.kitchen_speaker
                     entities:
-                      - media_player.kitchen_speaker
+                      - media_player.office_speaker
+                      - media_player.living_room_speaker
                       - media_player.bathroom_speaker
                     library_from: media_player.youtube_music
                     music_assistant_url: http://music-assistant.demo.invalid:8095   # the demo's own Music Assistant
                     music_assistant_token: demo
+                    tv_sources:   # the living room's soundbar plays the TV's sound: YouTube on the Apple TV
+                      - speaker: media_player.living_room_speaker
+                        tv: media_player.living_room_tv
+                        sources:
+                          - entity: media_player.living_room_youtube
+                            input: Apple TV
+                          - entity: media_player.living_room_apple_tv
+                            input: Apple TV
                     show: all
                     fill_height: true
                     view_layout:

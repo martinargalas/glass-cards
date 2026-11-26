@@ -3,8 +3,8 @@
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const Qs = globalThis, vc = Qs.ShadowRoot && (Qs.ShadyCSS === void 0 || Qs.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, wc = Symbol(), Zc = /* @__PURE__ */ new WeakMap();
-let Sp = class {
+const eo = globalThis, vc = eo.ShadowRoot && (eo.ShadyCSS === void 0 || eo.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, wc = Symbol(), Zc = /* @__PURE__ */ new WeakMap();
+let zp = class {
   constructor(e, t, a) {
     if (this._$cssResult$ = !0, a !== wc) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
     this.cssText = e, this.t = t;
@@ -22,17 +22,17 @@ let Sp = class {
     return this.cssText;
   }
 };
-const La = (o) => new Sp(typeof o == "string" ? o : o + "", void 0, wc), ee = (o, ...e) => {
+const La = (o) => new zp(typeof o == "string" ? o : o + "", void 0, wc), ee = (o, ...e) => {
   const t = o.length === 1 ? o[0] : e.reduce((a, i, s) => a + ((n) => {
     if (n._$cssResult$ === !0) return n.cssText;
     if (typeof n == "number") return n;
     throw Error("Value passed to 'css' function must be a 'css' function result: " + n + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
   })(i) + o[s + 1], o[0]);
-  return new Sp(t, o, wc);
-}, og = (o, e) => {
+  return new zp(t, o, wc);
+}, ng = (o, e) => {
   if (vc) o.adoptedStyleSheets = e.map((t) => t instanceof CSSStyleSheet ? t : t.styleSheet);
   else for (const t of e) {
-    const a = document.createElement("style"), i = Qs.litNonce;
+    const a = document.createElement("style"), i = eo.litNonce;
     i !== void 0 && a.setAttribute("nonce", i), a.textContent = t.cssText, o.appendChild(a);
   }
 }, Jc = vc ? (o) => o : (o) => o instanceof CSSStyleSheet ? ((e) => {
@@ -45,10 +45,10 @@ const La = (o) => new Sp(typeof o == "string" ? o : o + "", void 0, wc), ee = (o
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { is: ng, defineProperty: rg, getOwnPropertyDescriptor: lg, getOwnPropertyNames: cg, getOwnPropertySymbols: dg, getPrototypeOf: hg } = Object, un = globalThis, Xc = un.trustedTypes, pg = Xc ? Xc.emptyScript : "", ug = un.reactiveElementPolyfillSupport, Xi = (o, e) => o, Mr = { toAttribute(o, e) {
+const { is: rg, defineProperty: lg, getOwnPropertyDescriptor: cg, getOwnPropertyNames: dg, getOwnPropertySymbols: hg, getPrototypeOf: pg } = Object, mn = globalThis, Xc = mn.trustedTypes, ug = Xc ? Xc.emptyScript : "", mg = mn.reactiveElementPolyfillSupport, Xi = (o, e) => o, Mr = { toAttribute(o, e) {
   switch (e) {
     case Boolean:
-      o = o ? pg : null;
+      o = o ? ug : null;
       break;
     case Object:
     case Array:
@@ -73,8 +73,8 @@ const { is: ng, defineProperty: rg, getOwnPropertyDescriptor: lg, getOwnProperty
       }
   }
   return t;
-} }, zp = (o, e) => !ng(o, e), Qc = { attribute: !0, type: String, converter: Mr, reflect: !1, useDefault: !1, hasChanged: zp };
-Symbol.metadata ??= Symbol("metadata"), un.litPropertyMetadata ??= /* @__PURE__ */ new WeakMap();
+} }, Ap = (o, e) => !rg(o, e), Qc = { attribute: !0, type: String, converter: Mr, reflect: !1, useDefault: !1, hasChanged: Ap };
+Symbol.metadata ??= Symbol("metadata"), mn.litPropertyMetadata ??= /* @__PURE__ */ new WeakMap();
 let Ua = class extends HTMLElement {
   static addInitializer(e) {
     this._$Ei(), (this.l ??= []).push(e);
@@ -85,11 +85,11 @@ let Ua = class extends HTMLElement {
   static createProperty(e, t = Qc) {
     if (t.state && (t.attribute = !1), this._$Ei(), this.prototype.hasOwnProperty(e) && ((t = Object.create(t)).wrapped = !0), this.elementProperties.set(e, t), !t.noAccessor) {
       const a = Symbol(), i = this.getPropertyDescriptor(e, a, t);
-      i !== void 0 && rg(this.prototype, e, i);
+      i !== void 0 && lg(this.prototype, e, i);
     }
   }
   static getPropertyDescriptor(e, t, a) {
-    const { get: i, set: s } = lg(this.prototype, e) ?? { get() {
+    const { get: i, set: s } = cg(this.prototype, e) ?? { get() {
       return this[t];
     }, set(n) {
       this[t] = n;
@@ -104,13 +104,13 @@ let Ua = class extends HTMLElement {
   }
   static _$Ei() {
     if (this.hasOwnProperty(Xi("elementProperties"))) return;
-    const e = hg(this);
+    const e = pg(this);
     e.finalize(), e.l !== void 0 && (this.l = [...e.l]), this.elementProperties = new Map(e.elementProperties);
   }
   static finalize() {
     if (this.hasOwnProperty(Xi("finalized"))) return;
     if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(Xi("properties"))) {
-      const t = this.properties, a = [...cg(t), ...dg(t)];
+      const t = this.properties, a = [...dg(t), ...hg(t)];
       for (const i of a) this.createProperty(i, t[i]);
     }
     const e = this[Symbol.metadata];
@@ -156,7 +156,7 @@ let Ua = class extends HTMLElement {
   }
   createRenderRoot() {
     const e = this.shadowRoot ?? this.attachShadow(this.constructor.shadowRootOptions);
-    return og(e, this.constructor.elementStyles), e;
+    return ng(e, this.constructor.elementStyles), e;
   }
   connectedCallback() {
     this.renderRoot ??= this.createRenderRoot(), this.enableUpdating(!0), this._$EO?.forEach((e) => e.hostConnected?.());
@@ -188,7 +188,7 @@ let Ua = class extends HTMLElement {
   requestUpdate(e, t, a, i = !1, s) {
     if (e !== void 0) {
       const n = this.constructor;
-      if (i === !1 && (s = this[e]), a ??= n.getPropertyOptions(e), !((a.hasChanged ?? zp)(s, t) || a.useDefault && a.reflect && s === this._$Ej?.get(e) && !this.hasAttribute(n._$Eu(e, a)))) return;
+      if (i === !1 && (s = this[e]), a ??= n.getPropertyOptions(e), !((a.hasChanged ?? Ap)(s, t) || a.useDefault && a.reflect && s === this._$Ej?.get(e) && !this.hasAttribute(n._$Eu(e, a)))) return;
       this.C(e, t, a);
     }
     this.isUpdatePending === !1 && (this._$ES = this._$EP());
@@ -256,56 +256,56 @@ let Ua = class extends HTMLElement {
   firstUpdated(e) {
   }
 };
-Ua.elementStyles = [], Ua.shadowRootOptions = { mode: "open" }, Ua[Xi("elementProperties")] = /* @__PURE__ */ new Map(), Ua[Xi("finalized")] = /* @__PURE__ */ new Map(), ug?.({ ReactiveElement: Ua }), (un.reactiveElementVersions ??= []).push("2.1.2");
+Ua.elementStyles = [], Ua.shadowRootOptions = { mode: "open" }, Ua[Xi("elementProperties")] = /* @__PURE__ */ new Map(), Ua[Xi("finalized")] = /* @__PURE__ */ new Map(), mg?.({ ReactiveElement: Ua }), (mn.reactiveElementVersions ??= []).push("2.1.2");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const xc = globalThis, ed = (o) => o, fo = xc.trustedTypes, td = fo ? fo.createPolicy("lit-html", { createHTML: (o) => o }) : void 0, Ap = "$lit$", Kt = `lit$${Math.random().toFixed(9).slice(2)}$`, Mp = "?" + Kt, mg = `<${Mp}>`, Aa = document, ys = () => Aa.createComment(""), vs = (o) => o === null || typeof o != "object" && typeof o != "function", kc = Array.isArray, gg = (o) => kc(o) || typeof o?.[Symbol.iterator] == "function", _n = `[ 	
-\f\r]`, ki = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, ad = /-->/g, id = />/g, sa = RegExp(`>|${_n}(?:([^\\s"'>=/]+)(${_n}*=${_n}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), sd = /'/g, od = /"/g, Tp = /^(?:script|style|textarea|title)$/i, Cp = (o) => (e, ...t) => ({ _$litType$: o, strings: e, values: t }), p = Cp(1), j = Cp(2), Ma = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), nd = /* @__PURE__ */ new WeakMap(), ba = Aa.createTreeWalker(Aa, 129);
-function Dp(o, e) {
+const xc = globalThis, ed = (o) => o, bo = xc.trustedTypes, td = bo ? bo.createPolicy("lit-html", { createHTML: (o) => o }) : void 0, Mp = "$lit$", Kt = `lit$${Math.random().toFixed(9).slice(2)}$`, Tp = "?" + Kt, gg = `<${Tp}>`, Aa = document, ys = () => Aa.createComment(""), vs = (o) => o === null || typeof o != "object" && typeof o != "function", kc = Array.isArray, fg = (o) => kc(o) || typeof o?.[Symbol.iterator] == "function", yn = `[ 	
+\f\r]`, ki = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, ad = /-->/g, id = />/g, sa = RegExp(`>|${yn}(?:([^\\s"'>=/]+)(${yn}*=${yn}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`, "g"), sd = /'/g, od = /"/g, Cp = /^(?:script|style|textarea|title)$/i, Dp = (o) => (e, ...t) => ({ _$litType$: o, strings: e, values: t }), p = Dp(1), j = Dp(2), Ma = Symbol.for("lit-noChange"), g = Symbol.for("lit-nothing"), nd = /* @__PURE__ */ new WeakMap(), ba = Aa.createTreeWalker(Aa, 129);
+function Pp(o, e) {
   if (!kc(o) || !o.hasOwnProperty("raw")) throw Error("invalid template strings array");
   return td !== void 0 ? td.createHTML(e) : e;
 }
-const fg = (o, e) => {
+const bg = (o, e) => {
   const t = o.length - 1, a = [];
   let i, s = e === 2 ? "<svg>" : e === 3 ? "<math>" : "", n = ki;
   for (let r = 0; r < t; r++) {
     const l = o[r];
     let c, d, h = -1, u = 0;
-    for (; u < l.length && (n.lastIndex = u, d = n.exec(l), d !== null); ) u = n.lastIndex, n === ki ? d[1] === "!--" ? n = ad : d[1] !== void 0 ? n = id : d[2] !== void 0 ? (Tp.test(d[2]) && (i = RegExp("</" + d[2], "g")), n = sa) : d[3] !== void 0 && (n = sa) : n === sa ? d[0] === ">" ? (n = i ?? ki, h = -1) : d[1] === void 0 ? h = -2 : (h = n.lastIndex - d[2].length, c = d[1], n = d[3] === void 0 ? sa : d[3] === '"' ? od : sd) : n === od || n === sd ? n = sa : n === ad || n === id ? n = ki : (n = sa, i = void 0);
+    for (; u < l.length && (n.lastIndex = u, d = n.exec(l), d !== null); ) u = n.lastIndex, n === ki ? d[1] === "!--" ? n = ad : d[1] !== void 0 ? n = id : d[2] !== void 0 ? (Cp.test(d[2]) && (i = RegExp("</" + d[2], "g")), n = sa) : d[3] !== void 0 && (n = sa) : n === sa ? d[0] === ">" ? (n = i ?? ki, h = -1) : d[1] === void 0 ? h = -2 : (h = n.lastIndex - d[2].length, c = d[1], n = d[3] === void 0 ? sa : d[3] === '"' ? od : sd) : n === od || n === sd ? n = sa : n === ad || n === id ? n = ki : (n = sa, i = void 0);
     const m = n === sa && o[r + 1].startsWith("/>") ? " " : "";
-    s += n === ki ? l + mg : h >= 0 ? (a.push(c), l.slice(0, h) + Ap + l.slice(h) + Kt + m) : l + Kt + (h === -2 ? r : m);
+    s += n === ki ? l + gg : h >= 0 ? (a.push(c), l.slice(0, h) + Mp + l.slice(h) + Kt + m) : l + Kt + (h === -2 ? r : m);
   }
-  return [Dp(o, s + (o[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), a];
+  return [Pp(o, s + (o[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), a];
 };
-let Tr = class Pp {
+let Tr = class Ep {
   constructor({ strings: e, _$litType$: t }, a) {
     let i;
     this.parts = [];
     let s = 0, n = 0;
-    const r = e.length - 1, l = this.parts, [c, d] = fg(e, t);
-    if (this.el = Pp.createElement(c, a), ba.currentNode = this.el.content, t === 2 || t === 3) {
+    const r = e.length - 1, l = this.parts, [c, d] = bg(e, t);
+    if (this.el = Ep.createElement(c, a), ba.currentNode = this.el.content, t === 2 || t === 3) {
       const h = this.el.content.firstChild;
       h.replaceWith(...h.childNodes);
     }
     for (; (i = ba.nextNode()) !== null && l.length < r; ) {
       if (i.nodeType === 1) {
-        if (i.hasAttributes()) for (const h of i.getAttributeNames()) if (h.endsWith(Ap)) {
+        if (i.hasAttributes()) for (const h of i.getAttributeNames()) if (h.endsWith(Mp)) {
           const u = d[n++], m = i.getAttribute(h).split(Kt), f = /([.?@])?(.*)/.exec(u);
-          l.push({ type: 1, index: s, name: f[2], strings: m, ctor: f[1] === "." ? _g : f[1] === "?" ? yg : f[1] === "@" ? vg : mn }), i.removeAttribute(h);
+          l.push({ type: 1, index: s, name: f[2], strings: m, ctor: f[1] === "." ? yg : f[1] === "?" ? vg : f[1] === "@" ? wg : gn }), i.removeAttribute(h);
         } else h.startsWith(Kt) && (l.push({ type: 6, index: s }), i.removeAttribute(h));
-        if (Tp.test(i.tagName)) {
+        if (Cp.test(i.tagName)) {
           const h = i.textContent.split(Kt), u = h.length - 1;
           if (u > 0) {
-            i.textContent = fo ? fo.emptyScript : "";
+            i.textContent = bo ? bo.emptyScript : "";
             for (let m = 0; m < u; m++) i.append(h[m], ys()), ba.nextNode(), l.push({ type: 2, index: ++s });
             i.append(h[u], ys());
           }
         }
-      } else if (i.nodeType === 8) if (i.data === Mp) l.push({ type: 2, index: s });
+      } else if (i.nodeType === 8) if (i.data === Tp) l.push({ type: 2, index: s });
       else {
         let h = -1;
         for (; (h = i.data.indexOf(Kt, h + 1)) !== -1; ) l.push({ type: 7, index: s }), h += Kt.length - 1;
@@ -324,7 +324,7 @@ function pi(o, e, t = o, a) {
   const s = vs(e) ? void 0 : e._$litDirective$;
   return i?.constructor !== s && (i?._$AO?.(!1), s === void 0 ? i = void 0 : (i = new s(o), i._$AT(o, t, a)), a !== void 0 ? (t._$Co ??= [])[a] = i : t._$Cl = i), i !== void 0 && (e = pi(o, i._$AS(o, e.values), i, a)), e;
 }
-let bg = class {
+let _g = class {
   constructor(e, t) {
     this._$AV = [], this._$AN = void 0, this._$AD = e, this._$AM = t;
   }
@@ -341,7 +341,7 @@ let bg = class {
     for (; l !== void 0; ) {
       if (n === l.index) {
         let c;
-        l.type === 2 ? c = new _i(s, s.nextSibling, this, e) : l.type === 1 ? c = new l.ctor(s, l.name, l.strings, this, e) : l.type === 6 && (c = new wg(s, this, e)), this._$AV.push(c), l = a[++r];
+        l.type === 2 ? c = new _i(s, s.nextSibling, this, e) : l.type === 1 ? c = new l.ctor(s, l.name, l.strings, this, e) : l.type === 6 && (c = new xg(s, this, e)), this._$AV.push(c), l = a[++r];
       }
       n !== l?.index && (s = ba.nextNode(), n++);
     }
@@ -371,7 +371,7 @@ class _i {
     return this._$AB;
   }
   _$AI(e, t = this) {
-    e = pi(this, e, t), vs(e) ? e === g || e == null || e === "" ? (this._$AH !== g && this._$AR(), this._$AH = g) : e !== this._$AH && e !== Ma && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : gg(e) ? this.k(e) : this._(e);
+    e = pi(this, e, t), vs(e) ? e === g || e == null || e === "" ? (this._$AH !== g && this._$AR(), this._$AH = g) : e !== this._$AH && e !== Ma && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : fg(e) ? this.k(e) : this._(e);
   }
   O(e) {
     return this._$AA.parentNode.insertBefore(e, this._$AB);
@@ -383,10 +383,10 @@ class _i {
     this._$AH !== g && vs(this._$AH) ? this._$AA.nextSibling.data = e : this.T(Aa.createTextNode(e)), this._$AH = e;
   }
   $(e) {
-    const { values: t, _$litType$: a } = e, i = typeof a == "number" ? this._$AC(e) : (a.el === void 0 && (a.el = Tr.createElement(Dp(a.h, a.h[0]), this.options)), a);
+    const { values: t, _$litType$: a } = e, i = typeof a == "number" ? this._$AC(e) : (a.el === void 0 && (a.el = Tr.createElement(Pp(a.h, a.h[0]), this.options)), a);
     if (this._$AH?._$AD === i) this._$AH.p(t);
     else {
-      const s = new bg(i, this), n = s.u(this.options);
+      const s = new _g(i, this), n = s.u(this.options);
       s.p(t), this.T(n), this._$AH = s;
     }
   }
@@ -411,7 +411,7 @@ class _i {
     this._$AM === void 0 && (this._$Cv = e, this._$AP?.(e));
   }
 }
-let mn = class {
+let gn = class {
   get tagName() {
     return this.element.tagName;
   }
@@ -436,7 +436,7 @@ let mn = class {
     e === g ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
   }
 };
-class _g extends mn {
+class yg extends gn {
   constructor() {
     super(...arguments), this.type = 3;
   }
@@ -444,7 +444,7 @@ class _g extends mn {
     this.element[this.name] = e === g ? void 0 : e;
   }
 }
-class yg extends mn {
+class vg extends gn {
   constructor() {
     super(...arguments), this.type = 4;
   }
@@ -452,7 +452,7 @@ class yg extends mn {
     this.element.toggleAttribute(this.name, !!e && e !== g);
   }
 }
-class vg extends mn {
+class wg extends gn {
   constructor(e, t, a, i, s) {
     super(e, t, a, i, s), this.type = 5;
   }
@@ -465,7 +465,7 @@ class vg extends mn {
     typeof this._$AH == "function" ? this._$AH.call(this.options?.host ?? this.element, e) : this._$AH.handleEvent(e);
   }
 }
-let wg = class {
+let xg = class {
   constructor(e, t, a) {
     this.element = e, this.type = 6, this._$AN = void 0, this._$AM = t, this.options = a;
   }
@@ -476,9 +476,9 @@ let wg = class {
     pi(this, e);
   }
 };
-const xg = { I: _i }, kg = xc.litHtmlPolyfillSupport;
-kg?.(Tr, _i), (xc.litHtmlVersions ??= []).push("3.3.3");
-const Ep = (o, e, t) => {
+const kg = { I: _i }, $g = xc.litHtmlPolyfillSupport;
+$g?.(Tr, _i), (xc.litHtmlVersions ??= []).push("3.3.3");
+const Lp = (o, e, t) => {
   const a = t?.renderBefore ?? e;
   let i = a._$litPart$;
   if (i === void 0) {
@@ -503,7 +503,7 @@ let Ye = class extends Ua {
   }
   update(e) {
     const t = this.render();
-    this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(e), this._$Do = Ep(t, this.renderRoot, this.renderOptions);
+    this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(e), this._$Do = Lp(t, this.renderRoot, this.renderOptions);
   }
   connectedCallback() {
     super.connectedCallback(), this._$Do?.setConnected(!0);
@@ -516,10 +516,10 @@ let Ye = class extends Ua {
   }
 };
 Ye._$litElement$ = !0, Ye.finalized = !0, $c.litElementHydrateSupport?.({ LitElement: Ye });
-const $g = $c.litElementPolyfillSupport;
-$g?.({ LitElement: Ye });
+const Sg = $c.litElementPolyfillSupport;
+Sg?.({ LitElement: Ye });
 ($c.litElementVersions ??= []).push("4.2.2");
-const Sg = {
+const zg = {
   "Any colour": "Libovolná barva",
   Primary: "Hlavní (motiv)",
   Accent: "Zvýrazňující (motiv)",
@@ -2889,7 +2889,7 @@ const Sg = {
   "The TV's input": "Vstup TV",
   "Where the device is plugged in, as the TV calls it": "Kde je zařízení zapojené, jak to TV nazývá",
   "As the TV entity calls it (its source) – pick the TV above for a list": "Jak ho nazývá entita TV (její source) – vyber TV výše a dostaneš seznam"
-}, zg = {
+}, Ag = {
   "Any colour": "Beliebige Farbe",
   Primary: "Primär (Design)",
   Accent: "Akzent (Design)",
@@ -5259,7 +5259,7 @@ const Sg = {
   "The TV's input": "Eingang des TVs",
   "Where the device is plugged in, as the TV calls it": "Wo das Gerät angeschlossen ist, wie der TV es nennt",
   "As the TV entity calls it (its source) – pick the TV above for a list": "Wie die TV-Entität ihn nennt (source) – wähle oben den TV für eine Liste"
-}, Ag = {
+}, Mg = {
   "{n} lights": { one: "{n} light", other: "{n} lights" },
   "{n} cards": { one: "{n} card", other: "{n} cards" },
   "{n} pop-ups": { one: "{n} pop-up", other: "{n} pop-ups" },
@@ -5279,24 +5279,24 @@ const Sg = {
   "cover.is_closed": "Closed",
   "cover.opening": "Opening",
   "cover.closing": "Closing"
-}, rd = { cs: Sg, de: zg }, Lp = [
+}, rd = { cs: zg, de: Ag }, Rp = [
   ["en", "English"],
   ["cs", "Čeština"],
   // i18n-ok
   ["de", "Deutsch"]
-], Rp = (o) => rd[o] ?? rd[o.split("-")[0]];
-let bo = "en", Np;
-const yi = () => bo, Op = () => Np ? bo : "en";
+], Np = (o) => rd[o] ?? rd[o.split("-")[0]];
+let _o = "en", Op;
+const yi = () => _o, Bp = () => Op ? _o : "en";
 function vi(o) {
   const e = o?.locale?.language || o?.language;
-  !e || e === bo || (bo = e, Np = Rp(e), window.dispatchEvent(new CustomEvent("glass-lang", { detail: e })));
+  !e || e === _o || (_o = e, Op = Np(e), window.dispatchEvent(new CustomEvent("glass-lang", { detail: e })));
 }
 function v(o, e) {
-  return Bp(Op(), o, e);
+  return jp(Bp(), o, e);
 }
-function Bp(o, e, t) {
-  const a = o === "en" ? void 0 : Rp(o);
-  let i = a?.[e] ?? Ag[e] ?? e;
+function jp(o, e, t) {
+  const a = o === "en" ? void 0 : Np(o);
+  let i = a?.[e] ?? Mg[e] ?? e;
   if (typeof i == "object") {
     const s = Number(t?.n ?? 0);
     i = i[new Intl.PluralRules(a ? o : "en").select(s)] ?? i.other ?? e;
@@ -5305,12 +5305,12 @@ function Bp(o, e, t) {
 }
 const pe = { glass: "auto", mode: "tablet" };
 function Lt(o, e) {
-  return jp(e, "glassNight") ?? pe.dark ?? !!o?.themes?.darkMode;
+  return Ip(e, "glassNight") ?? pe.dark ?? !!o?.themes?.darkMode;
 }
-function Mg(o) {
-  return jp(o, "glassPreviewNight");
+function Tg(o) {
+  return Ip(o, "glassPreviewNight");
 }
-function jp(o, e) {
+function Ip(o, e) {
   for (let t = o?.parentNode; t; t = t instanceof ShadowRoot ? t.host : t.parentNode) {
     const a = t[e]?.();
     if (a !== void 0) return a;
@@ -5349,7 +5349,7 @@ function Cr(o, e) {
 function Dr(o) {
   return se.w && se.h && o === se.mode ? { w: se.w, h: se.h } : o === "desktop" ? { w: 1600, h: 900 } : o === "tablet" ? { w: 1280, h: 800 } : { w: 412, h: 915 };
 }
-const yn = {
+const vn = {
   // panels in glass, room cards and chips in the Apple Home material
   liquid: { glass: "liquid", tile_glass: "home", control_glass: "home" },
   frosted: { glass: "frosted", tile_glass: "home", control_glass: "home" },
@@ -5368,14 +5368,14 @@ const yn = {
     sidebar: "home",
     sidebar_areas: { mobile: ["header", "top"] }
   }
-}, eo = (o) => o && o in yn ? yn[o] : yn.liquid, Ip = La(`
+}, to = (o) => o && o in vn ? vn[o] : vn.liquid, qp = La(`
     --glass-room-bg: linear-gradient(rgba(246, 246, 248, 0.8), rgba(246, 246, 248, 0.8));
     --glass-room-fg: #1c1c1e;
     --glass-room-fg-2: rgba(60, 60, 67, 0.68);
     --glass-room-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     --glass-room-solid: rgba(246, 246, 248, 0.94);
     --glass-room-level-filter: brightness(0.72) saturate(1.4);
-`), qp = La(`
+`), Wp = La(`
     --glass-surface: rgba(18, 20, 30, 0.38);
     --glass-surface-nested: rgba(255, 255, 255, 0.06);
     --glass-border: rgba(255, 255, 255, 0.12);
@@ -5472,10 +5472,10 @@ const yn = {
     --mat-home-text: rgba(255, 255, 255, 0.76);
   }
   :host([standalone]) {
-    ${Ip}
+    ${qp}
   }
   :host([dark][standalone]) {
-    ${qp}
+    ${Wp}
   }
   :host([dark]) {
     --glass-control-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 60%),
@@ -5505,7 +5505,7 @@ const yn = {
     color: var(--g-text);
     -webkit-tap-highlight-color: transparent;
   }
-`, _o = La(`
+`, yo = La(`
     --glass-text: var(--glass-home-side-text, #fff);
     --glass-text-secondary: var(--glass-home-side-text-2, rgba(235, 235, 245, 0.6));
     --glass-text-shadow: none;
@@ -5517,7 +5517,7 @@ const yn = {
     --glass-divider-color: rgba(255, 255, 255, 0.28);
     --glass-divider-size: 2px;
     --glass-bar-mono: var(--glass-home-side-bar, rgba(255, 255, 255, 0.92));
-`), Wp = La(`
+`), Fp = La(`
     --glass-text: #fff;
     --glass-text-secondary: rgba(255, 255, 255, 0.86);
     --glass-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.32), 0 0 10px rgba(0, 0, 0, 0.18);
@@ -5536,12 +5536,12 @@ const yn = {
     --glass-home-shadow: none;
     --glass-home-border: rgba(255, 255, 255, 0.22);
     --glass-home-control: rgba(22, 30, 46, 0.2);
-`), yo = La(`
+`), vo = La(`
     --glass-accent-icon: var(--glass-side-icon, #fff);
     --glass-graph-color: #fff;
     --glass-graph-accent: #ff9f0a;
     --glass-graph-span: 0.28;
-`), Fp = La(`
+`), Hp = La(`
     --glass-text: var(--glass-side-frosted-text, #2c2c2e);
     --glass-text-secondary: rgba(60, 60, 67, 0.7);
     --glass-text-shadow: none;
@@ -5912,7 +5912,7 @@ const yn = {
   /* a home panel is the Apple Home sidebar: dark, wallpaper-tinted frosting with
      white text and orange icons, in light and dark appearance alike */
   :host([glass="home"]:not([nested])) {
-    ${_o}
+    ${yo}
     /* dark liquid glass: the shader's night mode plus the sidebar tint */
     --glass-liquid-dark: 1;
     --glass-panel-tint: var(--glass-home-side-rgb, 22, 30, 46);
@@ -5969,7 +5969,7 @@ const yn = {
      The Apple Home sidebar's dark liquid glass (home on a panel of its own), for any card –
      in a panel too: the shader's night mode with the wallpaper-tinted dark, white text. */
   :host([glass="dark-liquid"]) {
-    ${_o}
+    ${yo}
     --glass-liquid-dark: 1;
     --glass-panel-tint: var(--glass-home-side-rgb, 22, 30, 46);
     --glass-panel-tint-a: var(--glass-home-side-a, 0.45);
@@ -6348,7 +6348,7 @@ function Pr(o) {
   }
   return { cls: "" };
 }
-const Hp = ee`
+const Gp = ee`
       /* large editor: the lines between the layout's columns / rows, in the middle of the gap */
       .grid-grip {
         position: absolute;
@@ -6416,13 +6416,13 @@ const Hp = ee`
   blobY: 0,
   blobR: 0,
   blobK: 0
-}, Tg = `
+}, Cg = `
 attribute vec2 a_pos;
 varying vec2 v_uv;
 void main() {
   v_uv = vec2((a_pos.x + 1.0) * 0.5, (1.0 - a_pos.y) * 0.5);
   gl_Position = vec4(a_pos, 0.0, 1.0);
-}`, Cg = `
+}`, Dg = `
 precision highp float;
 uniform sampler2D u_bg;
 uniform vec2 u_size;
@@ -6573,8 +6573,8 @@ function _a(o) {
   const t = import.meta.url, a = new URL(e[1].includes("/") ? `./${e[1].replace("/", "-")}` : `./wallpaper-${e[1]}.jpg`, t);
   return a.search = new URL(t).search, a.href;
 }
-const Gp = _a;
-function Up(o) {
+const Up = _a;
+function Kp(o) {
   o = _a(o);
   const e = Tc(document, "hui-view-background");
   if (!e) return !1;
@@ -6598,23 +6598,23 @@ function ld() {
   const o = Tc(document, "hui-view-background");
   return o ? Mc(o) : void 0;
 }
-function to(o) {
+function ao(o) {
   for (let e = o; e; e = e instanceof ShadowRoot ? e.host : e.parentNode)
     if (e instanceof HTMLElement && e.classList.contains("pv-frame")) return e.classList.contains("bg") ? Mc(e) : ld();
   return ld();
 }
 const cd = /* @__PURE__ */ new WeakMap();
-let Kp = !1;
+let Vp = !1;
 function dd(o) {
-  Kp = o;
+  Vp = o;
 }
 function Lr(o, e = !1) {
   const t = performance.now(), a = cd.get(o);
-  if (Kp && a && t - a.at < 500) return a;
+  if (Vp && a && t - a.at < 500) return a;
   const i = { r: o.getBoundingClientRect(), fit: e ? getComputedStyle(o).objectFit : void 0, at: t };
   return cd.set(o, i), i;
 }
-function Dg(o) {
+function Pg(o) {
   Rr.set(o, (Rr.get(o) ?? 0) + 1);
 }
 const Rr = /* @__PURE__ */ new WeakMap();
@@ -6632,7 +6632,7 @@ function Mc(o) {
   }
   const e = getComputedStyle(o), t = e.backgroundImage.match(/url\(["']?(.*?)["']?\)/);
   if (!t) return;
-  const a = o.getBoundingClientRect(), i = vo.get(t[1])?.img;
+  const a = o.getBoundingClientRect(), i = wo.get(t[1])?.img;
   if (!i || !i.naturalWidth) return { url: t[1], rect: { x: a.x, y: a.y, w: a.width, h: a.height } };
   const s = i.naturalWidth, n = i.naturalHeight;
   let r = s, l = n;
@@ -6644,18 +6644,18 @@ function Mc(o) {
   const [d, h] = e.backgroundPosition.split(" ").map((b) => b.endsWith("%") ? parseFloat(b) / 100 : NaN), u = a.x + (Number.isNaN(d) ? 0.5 : d) * (a.width - r), m = a.y + (Number.isNaN(h) ? 0.5 : h) * (a.height - l), f = e.filter && e.filter !== "none" ? e.filter : void 0;
   return { url: t[1], rect: { x: u, y: m, w: r, h: l }, filter: f };
 }
-let vn = null;
+let wn = null;
 function Tc(o, e) {
-  if (vn?.isConnected) return vn;
+  if (wn?.isConnected) return wn;
   const t = [o];
   for (; t.length; ) {
     const a = t.pop(), i = a.querySelector(e);
-    if (i) return vn = i;
+    if (i) return wn = i;
     a.querySelectorAll("*").forEach((s) => s.shadowRoot && t.push(s.shadowRoot));
   }
   return null;
 }
-const vo = /* @__PURE__ */ new Map(), hd = /* @__PURE__ */ new Map();
+const wo = /* @__PURE__ */ new Map(), hd = /* @__PURE__ */ new Map();
 function pd(o, e) {
   const t = `${o.src}|${e ?? ""}`;
   let a = hd.get(t);
@@ -6667,27 +6667,27 @@ function pd(o, e) {
   }
   return a;
 }
-function Vp(o) {
-  let e = vo.get(o);
+function Yp(o) {
+  let e = wo.get(o);
   if (!e) {
     const t = new Image();
     t.crossOrigin = "anonymous";
     const a = new Promise((i, s) => {
       t.onload = () => i(), t.onerror = s;
     });
-    t.src = o, e = { img: t, ready: a }, vo.set(o, e);
+    t.src = o, e = { img: t, ready: a }, wo.set(o, e);
   }
   return e;
 }
 const Ls = /* @__PURE__ */ new Map();
-function Pg(o, e) {
-  const t = to(o);
+function Eg(o, e) {
+  const t = ao(o);
   if (!t) return;
   const a = `${t.url}|${t.filter ?? ""}`, i = Ls.get(a);
   if (i) return { url: i, rect: t.rect };
   if (i === void 0) {
     Ls.set(a, null);
-    const { img: s, ready: n } = Vp(t.url);
+    const { img: s, ready: n } = Yp(t.url);
     n.then(() => {
       const l = Math.max(1, Math.round(480 * s.naturalHeight / s.naturalWidth)), c = document.createElement("canvas");
       c.width = 480, c.height = l;
@@ -6700,7 +6700,7 @@ function Pg(o, e) {
     }).catch(() => Ls.delete(a));
   }
 }
-class Eg {
+class Lg {
   constructor() {
     this.canvas = document.createElement("canvas"), this.texs = /* @__PURE__ */ new Map(), this.loc = {}, this.styled = /* @__PURE__ */ new WeakMap(), this.vkey = "", this.vcanvas = document.createElement("canvas"), this.vthumb = document.createElement("canvas"), this.vthumbAt = 0, this.vblank = !1, this.gl = this.canvas.getContext("webgl", { premultipliedAlpha: !0, preserveDrawingBuffer: !0, antialias: !1 }), this.gl && this.init(this.gl);
   }
@@ -6715,7 +6715,7 @@ class Eg {
     };
     try {
       const a = e.createProgram();
-      if (e.attachShader(a, t(e.VERTEX_SHADER, Tg)), e.attachShader(a, t(e.FRAGMENT_SHADER, Cg)), e.linkProgram(a), !e.getProgramParameter(a, e.LINK_STATUS)) throw new Error("link");
+      if (e.attachShader(a, t(e.VERTEX_SHADER, Cg)), e.attachShader(a, t(e.FRAGMENT_SHADER, Dg)), e.linkProgram(a), !e.getProgramParameter(a, e.LINK_STATUS)) throw new Error("link");
       e.useProgram(a);
       const i = e.createBuffer();
       e.bindBuffer(e.ARRAY_BUFFER, i), e.bufferData(e.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), e.STATIC_DRAW);
@@ -6811,9 +6811,9 @@ class Eg {
   }
   /** Contrast only (no glass), for transparent panels such as the date header. */
   legibility(e, t = 1) {
-    const a = to(e);
+    const a = ao(e);
     if (!a) return;
-    const i = vo.get(a.url);
+    const i = wo.get(a.url);
     if (!i?.img.naturalWidth) return;
     this.thumb = pd(i.img);
     const s = e.getBoundingClientRect();
@@ -6834,9 +6834,9 @@ class Eg {
   render(e, t, a, i) {
     if (!this.ok) return !1;
     i && i === kt() && (i = void 0);
-    const s = i ? Mc(i) : to(e);
+    const s = i ? Mc(i) : ao(e);
     if (!s) return !1;
-    const n = s.video ? void 0 : Vp(s.url);
+    const n = s.video ? void 0 : Yp(s.url);
     if (n && (!n.img.complete || !n.img.naturalWidth))
       return n.ready.then(() => _t()).catch(() => {
       }), !1;
@@ -6850,15 +6850,15 @@ class Eg {
     let m;
     const f = this.styled.get(e);
     s.video && f && performance.now() - f.at < 500 ? m = f.shade : (m = this.contrast(e, this.edgeLight(e, l, s.rect) ?? 0, a.contrast), this.styled.set(e, { at: performance.now(), shade: m })), this.canvas.width < h && (this.canvas.width = h), this.canvas.height < u && (this.canvas.height = u), r.viewport(0, 0, h, u), r.clearColor(0, 0, 0, 0), r.clear(r.COLOR_BUFFER_BIT), r.uniform1i(this.loc.u_bg, 0), r.uniform2f(this.loc.u_size, l.width, l.height), r.uniform2f(this.loc.u_origin, l.x, l.y), r.uniform4f(this.loc.u_bgRect, s.rect.x, s.rect.y, s.rect.w, s.rect.h);
-    const b = (S, z) => r.uniform1f(this.loc[S], z), y = i ? to(e)?.rect.w : void 0, _ = y ? y / s.rect.w : 1;
+    const b = (S, z) => r.uniform1f(this.loc[S], z), y = i ? ao(e)?.rect.w : void 0, _ = y ? y / s.rect.w : 1;
     b("u_radius", a.radius * c), b("u_edgeI", a.edgeIntensity * _), b("u_rimI", a.rimIntensity * _), b("u_baseI", a.baseIntensity * _), b("u_edgeD", a.edgeDistance), b("u_rimD", a.rimDistance), b("u_baseD", a.baseDistance), b("u_corner", a.cornerBoost * _), b("u_ripple", a.ripple), b("u_tint", a.tint), b("u_disp", a.dispersion * (i && i !== kt() ? 0.3 : 1)), b("u_spec", a.specular), b("u_rimL", a.rimLight), b("u_rimW", a.rimWidth * c), b("u_dark", a.dark), b("u_sq", a.squircle), b("u_shL", a.shapeLeft * c), r.uniform4f(this.loc.u_blob, a.blobX * c, a.blobY * c, a.blobR * c, a.blobK * c), b("u_shade", m), b("u_tintA", a.tintA ?? 0), r.uniform3f(this.loc.u_tintC, (a.tintR ?? 255) / 255, (a.tintG ?? 255) / 255, (a.tintB ?? 255) / 255), b("u_px", 1 / d), r.drawArrays(r.TRIANGLE_STRIP, 0, 4), t.width !== h && (t.width = h), t.height !== u && (t.height = u);
     const x = t.getContext("2d");
     return x.clearRect(0, 0, h, u), x.drawImage(this.canvas, 0, this.canvas.height - u, h, u, 0, 0, h, u), !0;
   }
 }
-let wn;
+let xn;
 function ud() {
-  return wn ??= new Eg(), wn.ok ? wn : void 0;
+  return xn ??= new Lg(), xn.ok ? xn : void 0;
 }
 const Nr = (() => {
   try {
@@ -6867,10 +6867,10 @@ const Nr = (() => {
     return !1;
   }
 })(), Vi = /* @__PURE__ */ new Set();
-let xn = 0;
+let kn = 0;
 function _t() {
-  xn || (xn = requestAnimationFrame(() => {
-    xn = 0, Vi.forEach((o) => o());
+  kn || (kn = requestAnimationFrame(() => {
+    kn = 0, Vi.forEach((o) => o());
   }));
 }
 function md(o) {
@@ -6878,15 +6878,15 @@ function md(o) {
     Vi.delete(o), Vi.size || (window.removeEventListener("resize", _t), window.removeEventListener("scroll", _t, { capture: !0 }));
   };
 }
-let Lg = 0;
-const kn = (() => {
+let Rg = 0;
+const $n = (() => {
   try {
     return CSS.supports("backdrop-filter", "url(#a)") && /Chrome\/\d+/.test(navigator.userAgent);
   } catch {
     return !1;
   }
 })(), gd = /* @__PURE__ */ new Map(), Rs = 0.25;
-function Rg(o, e, t, a) {
+function Ng(o, e, t, a) {
   const i = `${o}x${e}r${t}b${a}`, s = gd.get(i);
   if (s) return s;
   const n = Math.max(2, Math.round(o * Rs)), r = Math.max(2, Math.round(e * Rs)), l = document.createElement("canvas");
@@ -6907,14 +6907,14 @@ function Rg(o, e, t, a) {
   const f = l.toDataURL("image/png");
   return gd.set(i, f), f;
 }
-function Ng(o) {
+function Og(o) {
   for (let e = o; e; e = e instanceof ShadowRoot ? e.host : e.parentNode)
     if (e.hasAttribute?.("glass-fast")) return !0;
   return !1;
 }
-const Og = ".mat-liquid-gl, .mat-dark-liquid-gl", Cc = [".mat-liquid-gl", ".mat-dark-liquid-gl"].map((o) => `${o}:not(input):not(textarea):not(select):not(.on):not(.cur):not(.active):not(.lit)`).join(", ");
+const Bg = ".mat-liquid-gl, .mat-dark-liquid-gl", Cc = [".mat-liquid-gl", ".mat-dark-liquid-gl"].map((o) => `${o}:not(input):not(textarea):not(select):not(.on):not(.cur):not(.active):not(.lit)`).join(", ");
 let oa;
-function Bg(o) {
+function jg(o) {
   const e = o.trim();
   if (!e || e === "initial") return;
   oa ??= Object.assign(document.createElement("i"), { hidden: !0 }), oa.isConnected || document.body.append(oa), oa.style.color = "", oa.style.color = e;
@@ -6951,7 +6951,7 @@ const Xa = class Xa {
     }, this.fakes = /* @__PURE__ */ new Set(), this.placeFake = () => {
       for (const r of this.fakes) {
         if (!r.isConnected) continue;
-        const l = Pg(r, () => this.placeFake());
+        const l = Eg(r, () => this.placeFake());
         if (!l) continue;
         const c = r.getBoundingClientRect(), d = r.offsetWidth ? c.width / r.offsetWidth : 1;
         r.style.setProperty("--fake-img", `url("${l.url}")`), r.style.setProperty("--fake-size", `${l.rect.w / d}px ${l.rect.h / d}px`), r.style.setProperty("--fake-pos", `${(l.rect.x - c.x) / d}px ${(l.rect.y - c.y) / d}px`), r.classList.add("fake-on");
@@ -6963,10 +6963,10 @@ const Xa = class Xa {
     for (const e of Xa.connected) e.host.requestUpdate();
   }
   get active() {
-    if (Ng(this.host) || this.when && !this.when()) return !1;
-    if (this.under) return Nr || kn;
+    if (Og(this.host) || this.when && !this.when()) return !1;
+    if (this.under) return Nr || $n;
     const e = this.host.getAttribute("glass"), t = !this.host.hasAttribute("nested") || this.host.hasAttribute("own-tile"), a = e === "liquid" || e === "dark-liquid" || e === "home" && !this.host.hasAttribute("nested") || !!this.legibilitySelector && e === "none";
-    return (Nr || kn) && a && t;
+    return (Nr || $n) && a && t;
   }
   /** Light glass: its own surface, on the wallpaper (not a bar over a photo). */
   get light() {
@@ -6988,7 +6988,7 @@ const Xa = class Xa {
       this.updateGl(e);
       return;
     }
-    if (!kn) return;
+    if (!$n) return;
     const t = new Set(e.querySelectorAll(this.selector));
     for (const a of [...this.lenses.keys()])
       t.has(a) || (this.ro?.unobserve(a), a.style.removeProperty("backdrop-filter"), this.lenses.delete(a));
@@ -6998,7 +6998,7 @@ const Xa = class Xa {
       i && this.flush();
     });
     for (const a of t)
-      this.lenses.has(a) || (this.lenses.set(a, { id: `glass-liquid-${++Lg}`, w: 0, h: 0, markup: "" }), this.ro.observe(a));
+      this.lenses.has(a) || (this.lenses.set(a, { id: `glass-liquid-${++Rg}`, w: 0, h: 0, markup: "" }), this.ro.observe(a));
   }
   hostConnected() {
     Xa.connected.add(this), this.host.hasUpdated && this.host.requestUpdate();
@@ -7016,7 +7016,7 @@ const Xa = class Xa {
     }
     const i = t.getPropertyValue("--glass-panel-tint").split(",").map((r) => parseFloat(r)), s = parseFloat(t.getPropertyValue("--glass-panel-tint-a"));
     i.length === 3 && i.every((r) => !Number.isNaN(r)) && !Number.isNaN(s) && ([a.tintR, a.tintG, a.tintB] = i, a.tintA = s);
-    const n = e.matches(Og) && t.getPropertyValue("--mat-tinted").trim() === "1" ? Bg(t.getPropertyValue("--mat-tint")) : void 0;
+    const n = e.matches(Bg) && t.getPropertyValue("--mat-tinted").trim() === "1" ? jg(t.getPropertyValue("--mat-tint")) : void 0;
     return n && ([a.tintR, a.tintG, a.tintB, a.tintA] = n), a;
   }
   /** Re-renders the glass now – for cards animating its shape (--glass-liquid-blob-*). With
@@ -7070,7 +7070,7 @@ const Xa = class Xa {
     const a = Math.round(e.offsetWidth), i = Math.round(e.offsetHeight);
     if (!a || !i || a === t.w && i === t.h) return !1;
     t.w = a, t.h = i;
-    const s = Math.min(parseFloat(getComputedStyle(e).borderTopLeftRadius) || 24, a / 2, i / 2), n = Math.max(6, Math.min(30, Math.min(a, i) / 3)), r = this.strength ?? Math.round(Math.min(56, n * 1.9)), l = parseFloat(getComputedStyle(this.host).getPropertyValue("--glass-liquid-dispersion")), c = Number.isNaN(l) ? 1 : l, d = `<feImage href="${Rg(a, i, s, n)}" x="0" y="0" width="${a}" height="${i}" preserveAspectRatio="none" result="map"/>`, h = (y, _) => `<feDisplacementMap in="SourceGraphic" in2="map" scale="${(r * y).toFixed(1)}" xChannelSelector="R" yChannelSelector="G" result="${_}"/>`, u = (y, _, x) => {
+    const s = Math.min(parseFloat(getComputedStyle(e).borderTopLeftRadius) || 24, a / 2, i / 2), n = Math.max(6, Math.min(30, Math.min(a, i) / 3)), r = this.strength ?? Math.round(Math.min(56, n * 1.9)), l = parseFloat(getComputedStyle(this.host).getPropertyValue("--glass-liquid-dispersion")), c = Number.isNaN(l) ? 1 : l, d = `<feImage href="${Ng(a, i, s, n)}" x="0" y="0" width="${a}" height="${i}" preserveAspectRatio="none" result="map"/>`, h = (y, _) => `<feDisplacementMap in="SourceGraphic" in2="map" scale="${(r * y).toFixed(1)}" xChannelSelector="R" yChannelSelector="G" result="${_}"/>`, u = (y, _, x) => {
       const S = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
       return S[_ * 5 + _] = 1, `<feColorMatrix in="${y}" type="matrix" values="${S.join(" ")}" result="${x}"/>`;
     }, m = 0.08 * c, f = c > 0 ? `${d}${h(1, "dr")}${h(1 - m, "dg")}${h(1 - m * 2, "db")}${u("dr", 0, "r")}${u("dg", 1, "g")}${u("db", 2, "b")}<feBlend in="r" in2="g" mode="screen" result="rg"/><feBlend in="rg" in2="b" mode="screen"/>` : `${d}${h(1, "out")}`;
@@ -7119,25 +7119,25 @@ const Or = {
   "blue-grey": "#7d8ea3",
   "light-grey": "#d1d1d6",
   "dark-grey": "#48484a"
-}, na = Or, jg = /* @__PURE__ */ new Set(["none", "state", ""]);
+}, na = Or, Ig = /* @__PURE__ */ new Set(["none", "state", ""]);
 function Y(o) {
   if (!o) return;
   const e = o.trim().toLowerCase();
-  if (!jg.has(e))
+  if (!Ig.has(e))
     return e === "primary" || e === "accent" ? `var(--${e}-color)` : Or[e] ? `var(--glass-color-${e}, ${Or[e]})` : o;
 }
 function je(o, e = 68) {
   const t = Y(o);
   return t ? `color-mix(in srgb, ${t} ${e}%, transparent)` : void 0;
 }
-const Ig = new Set(
+const qg = new Set(
   ["roboto", "system-ui", "-apple-system", "sf pro", "sf pro display", "sf pro text", "helvetica", "helvetica neue", "arial", "sans-serif", "serif", "monospace", "inherit"].map(
     (o) => o.toLowerCase()
   )
 ), fd = /* @__PURE__ */ new Set();
-function qg(o, e, t) {
+function Wg(o, e, t) {
   const a = o.trim();
-  if (!a || Ig.has(a.toLowerCase())) return;
+  if (!a || qg.has(a.toLowerCase())) return;
   const i = String(e ?? 400), s = `${a}|${i}|${t}`;
   if (fd.has(s)) return;
   fd.add(s);
@@ -7145,7 +7145,7 @@ function qg(o, e, t) {
   n.rel = "stylesheet", n.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(a).replace(/%20/g, "+")}:ital,wght@${t ? 1 : 0},${i}&display=swap`, document.head.appendChild(n);
 }
 const Br = (o) => o === void 0 || o === "" ? void 0 : typeof o == "number" ? `${o}px` : o;
-function Wg(o) {
+function Fg(o) {
   if (!o) return "";
   let e = "";
   for (const [t, a] of Object.entries(o)) {
@@ -7153,11 +7153,11 @@ function Wg(o) {
     const i = (s, n) => {
       n !== void 0 && n !== "" && (e += `--gt-${t}-${s}:${n};`);
     };
-    a.font && (qg(a.font, a.weight, a.style === "italic"), i("font", `"${a.font.replace(/"/g, "")}", var(--g-font)`)), i("size", Br(a.size)), i("weight", a.weight !== void 0 ? String(a.weight) : void 0), i("style", a.style), i("color", Y(a.color)), i("spacing", Br(a.spacing));
+    a.font && (Wg(a.font, a.weight, a.style === "italic"), i("font", `"${a.font.replace(/"/g, "")}", var(--g-font)`)), i("size", Br(a.size)), i("weight", a.weight !== void 0 ? String(a.weight) : void 0), i("style", a.style), i("color", Y(a.color)), i("spacing", Br(a.spacing));
   }
   return e;
 }
-function Fg(o) {
+function Hg(o) {
   if (!o) return "";
   let e = "";
   for (const [t, a] of Object.entries(o)) {
@@ -7169,8 +7169,8 @@ function Fg(o) {
   }
   return e;
 }
-const R = (o, e, t, a, i, s = !0) => ({ key: o, kind: "text", sel: e, on: i, title: t, group: a, size: s }), Fe = (o) => ({ ...o, always: !0 }), bd = (o, e, t, a, i) => ({ key: o, kind: "icon", sel: e, on: i, title: t, group: a, svg: !0 }), Q = (o, e, t, a, i) => ({ key: o, kind: "icon", sel: e, on: i, title: t, group: a }), Hg = (o) => o === void 0 || o === "" || o === null ? void 0 : typeof o == "number" || /^\d*\.?\d+$/.test(o) ? `${o}px` : o;
-function Yp(o, e, t) {
+const R = (o, e, t, a, i, s = !0) => ({ key: o, kind: "text", sel: e, on: i, title: t, group: a, size: s }), Fe = (o) => ({ ...o, always: !0 }), bd = (o, e, t, a, i) => ({ key: o, kind: "icon", sel: e, on: i, title: t, group: a, svg: !0 }), Q = (o, e, t, a, i) => ({ key: o, kind: "icon", sel: e, on: i, title: t, group: a }), Gg = (o) => o === void 0 || o === "" || o === null ? void 0 : typeof o == "number" || /^\d*\.?\d+$/.test(o) ? `${o}px` : o;
+function Zp(o, e, t) {
   let a = "";
   for (const i of [!1, !0])
     for (const s of o) {
@@ -7181,37 +7181,37 @@ function Yp(o, e, t) {
       let c = "";
       const d = Y(l.color);
       d && (c += `color:${d} !important;`);
-      const h = s.size === !1 ? void 0 : Hg(l.size);
+      const h = s.size === !1 ? void 0 : Gg(l.size);
       h && (c += s.svg ? `width:${h} !important;height:${h} !important;` : s.kind === "icon" ? `--mdc-icon-size:${h} !important;` : `font-size:${h} !important;`), s.kind === "text" && l.weight !== void 0 && l.weight !== "" && (c += `font-weight:${l.weight} !important;`), c && (a += `${n}{${c}}
 `);
     }
   return a;
 }
 const ws = (o) => !!o && typeof o == "object" && !Array.isArray(o);
-function Zp(o, e) {
+function Jp(o, e) {
   const t = { ...o };
-  for (const [a, i] of Object.entries(e)) t[a] = ws(i) && ws(o[a]) ? Zp(o[a], i) : i;
+  for (const [a, i] of Object.entries(e)) t[a] = ws(i) && ws(o[a]) ? Jp(o[a], i) : i;
   return t;
 }
 function Qi(o, e) {
   const { dark: t, ...a } = o ?? {};
   if (!e || !ws(t)) return a;
   const { appearance: i, ...s } = t;
-  return Zp(a, s);
+  return Jp(a, s);
 }
-function Jp(o, e) {
+function Xp(o, e) {
   const t = {};
   for (const a of /* @__PURE__ */ new Set([...Object.keys(o), ...Object.keys(e)])) {
     if (a === "dark") continue;
     const i = o[a], s = e[a];
     if (ws(i) && ws(s)) {
-      const n = Jp(i, s);
+      const n = Xp(i, s);
       n && (t[a] = n);
     } else JSON.stringify(i) !== JSON.stringify(s) && s !== void 0 && (t[a] = s);
   }
   return Object.keys(t).length ? t : void 0;
 }
-function Gg(o) {
+function Ug(o) {
   if (!o || typeof o != "object") return;
   let e;
   if (Array.isArray(o.color) && o.color.length === 3) e = o.color.map(Number);
@@ -7240,7 +7240,7 @@ const ss = class ss extends Ye {
   applyParts() {
     const e = this.constructor.parts, t = this.shadowRoot;
     if (!e?.length || !t) return;
-    const a = this.styleConfig(), i = Yp(e, a?.fonts, a?.icons);
+    const a = this.styleConfig(), i = Zp(e, a?.fonts, a?.icons);
     i !== this._partsCss && (this._partsCss = i, this._partsSheet || (this._partsSheet = new CSSStyleSheet(), t.adoptedStyleSheets = [...t.adoptedStyleSheets, this._partsSheet]), this._partsSheet.replaceSync(i));
   }
   set hass(e) {
@@ -7312,7 +7312,7 @@ const ss = class ss extends Ye {
   updated(e) {
     super.updated(e), this.applyStyleOverrides(), this.applyParts();
     const t = this.styleConfig(), a = JSON.stringify([t?.bar_glass, t?.bar_tint]);
-    this._barKey !== void 0 && a !== this._barKey && this.shadowRoot && Xp(this.shadowRoot), this._barKey = a;
+    this._barKey !== void 0 && a !== this._barKey && this.shadowRoot && Qp(this.shadowRoot), this._barKey = a;
   }
   /** Config whose `styles:` / `fonts:` apply (containers return their per-mode config). */
   styleConfig() {
@@ -7323,7 +7323,7 @@ const ss = class ss extends Ye {
     for (const n of this._appliedStyles) this.style.removeProperty(n);
     this._appliedStyles = [];
     const t = this.styleConfig();
-    for (const n of `${Wg(t?.fonts)}${Fg(t?.icons)}`.split(";")) {
+    for (const n of `${Fg(t?.fonts)}${Hg(t?.icons)}`.split(";")) {
       const r = n.indexOf(":");
       if (r < 0) continue;
       const l = n.slice(0, r);
@@ -7341,7 +7341,7 @@ const ss = class ss extends Ye {
       ["glass_tint", "own"]
     ];
     for (const [n, r] of s) {
-      const l = Gg(a?.[n]);
+      const l = Ug(a?.[n]);
       if (l)
         for (const [c, d] of [["", l.rgb], ["-a", l.a]]) {
           const h = `--glass-${r}-tint${c}`;
@@ -7363,9 +7363,9 @@ const ss = class ss extends Ye {
 };
 ss.properties = { _config: { state: !0 } }, ss.styles = [Sc, we], ss.wrapTile = !1;
 let F = ss;
-function Xp(o) {
+function Qp(o) {
   for (const e of o.querySelectorAll("*"))
-    e.requestUpdate?.(), e.shadowRoot && Xp(e.shadowRoot);
+    e.requestUpdate?.(), e.shadowRoot && Qp(e.shadowRoot);
 }
 function ce(o, e, t) {
   if (customElements.get(o) || customElements.define(o, e), window.customCards = window.customCards || [], !window.customCards.some((a) => a.type === o)) {
@@ -7410,28 +7410,28 @@ function _d(o, e) {
   const t = document.createElement("div");
   return t.style.cssText = "padding:12px 16px;border-radius:18px;background:rgba(255,69,58,.25);color:#fff;font:500 13px/1.4 Roboto,system-ui;border:1px solid rgba(255,69,58,.6)", t.textContent = `${e?.type ?? "card"}: ${o}`, t;
 }
-const ui = "glass-select", Qp = (o) => `glass-select:${o}`, jr = /* @__PURE__ */ new Map();
-function eu(o) {
+const ui = "glass-select", eu = (o) => `glass-select:${o}`, jr = /* @__PURE__ */ new Map();
+function tu(o) {
   try {
-    return sessionStorage.getItem(Qp(o));
+    return sessionStorage.getItem(eu(o));
   } catch {
     return null;
   }
 }
 function Ta(o, e) {
-  return eu(o) ?? e ?? jr.get(o);
+  return tu(o) ?? e ?? jr.get(o);
 }
 function Dc(o, e) {
-  jr.get(o) !== e && (jr.set(o, e), eu(o) === null && window.dispatchEvent(new CustomEvent(ui, { detail: { group: o, id: e } })));
+  jr.get(o) !== e && (jr.set(o, e), tu(o) === null && window.dispatchEvent(new CustomEvent(ui, { detail: { group: o, id: e } })));
 }
 function Cs(o, e) {
   try {
-    sessionStorage.setItem(Qp(o), e);
+    sessionStorage.setItem(eu(o), e);
   } catch {
   }
   window.dispatchEvent(new CustomEvent(ui, { detail: { group: o, id: e } }));
 }
-function tu(o) {
+function au(o) {
   return window.addEventListener(ui, o), () => window.removeEventListener(ui, o);
 }
 function mi(o, e) {
@@ -7441,7 +7441,7 @@ function mi(o, e) {
   };
   return window.addEventListener(ui, t), () => window.removeEventListener(ui, t);
 }
-const Ug = /* @__PURE__ */ new Set([
+const Kg = /* @__PURE__ */ new Set([
   "condition",
   "entity",
   "attribute",
@@ -7453,15 +7453,15 @@ const Ug = /* @__PURE__ */ new Set([
   "or",
   "not",
   "conditions"
-]), Kg = /^[a-z_]+\.[a-z0-9_]+$/, wo = (o) => typeof o == "string" && Kg.test(o);
-function au(o, e, t) {
+]), Vg = /^[a-z_]+\.[a-z0-9_]+$/, xo = (o) => typeof o == "string" && Vg.test(o);
+function iu(o, e, t) {
   if (!e) return;
   const a = o.states[e];
   if (a)
     return t ? a.attributes[t] : a.state;
 }
 function yd(o, e) {
-  return wo(e) ? Number(au(o, e)) : Number(e);
+  return xo(e) ? Number(iu(o, e)) : Number(e);
 }
 const ra = (o) => Array.isArray(o) ? o : [o];
 function ge(o, e, t) {
@@ -7476,7 +7476,7 @@ function ge(o, e, t) {
   if (a === "user") return ra(o.users ?? []).includes(e.user?.id);
   if (a === "select") return !o.group || ra(o.id).map(String).includes(String(Ta(o.group)));
   if (o.and && !ge(o.and, e, t) || o.or && !ra(o.or).some((r) => ge(r, e, t)) || o.not && ge(o.not, e, t)) return !1;
-  const s = o.entity ?? t, n = au(e, s, o.attribute);
+  const s = o.entity ?? t, n = iu(e, s, o.attribute);
   if (o.state !== void 0 && !ra(o.state).map(String).includes(String(n)) || o.state_not !== void 0 && ra(o.state_not).map(String).includes(String(n))) return !1;
   if (o.above !== void 0 || o.below !== void 0) {
     const r = Number(n);
@@ -7490,32 +7490,32 @@ function He(o, e, t = /* @__PURE__ */ new Set()) {
     return o.forEach((i) => He(i, e, t)), t;
   const a = o.entity ?? e;
   a && (o.state !== void 0 || o.state_not !== void 0 || o.above !== void 0 || o.below !== void 0) && t.add(a);
-  for (const i of ["above", "below"]) wo(o[i]) && t.add(o[i]);
+  for (const i of ["above", "below"]) xo(o[i]) && t.add(o[i]);
   for (const i of ["and", "or", "not", "conditions"]) o[i] && He(o[i], e, t);
   return t;
 }
-function iu(o) {
+function su(o) {
   if (o.when !== void 0) {
     const { when: a, ...i } = o;
     return { when: a, set: i };
   }
   const e = {}, t = {};
-  for (const [a, i] of Object.entries(o)) (Ug.has(a) ? e : t)[a] = i;
+  for (const [a, i] of Object.entries(o)) (Kg.has(a) ? e : t)[a] = i;
   return { when: e, set: t };
 }
-function xo(o, e, t, a) {
+function ko(o, e, t, a) {
   if (!e?.length) return o;
   let i = o;
   for (const s of e) {
-    const { when: n, set: r } = iu(s);
+    const { when: n, set: r } = su(s);
     ge(n, t, a) && (i = { ...i, ...r });
   }
   return i;
 }
 function Ir(o, e, t = /* @__PURE__ */ new Set()) {
   return o?.forEach((a) => {
-    const { when: i, set: s } = iu(a);
-    He(i, e, t), wo(s.entity) && t.add(s.entity), Array.isArray(s.entities) && s.entities.filter(wo).forEach((n) => t.add(n));
+    const { when: i, set: s } = su(a);
+    He(i, e, t), xo(s.entity) && t.add(s.entity), Array.isArray(s.entities) && s.entities.filter(xo).forEach((n) => t.add(n));
   }), t;
 }
 function qr(o) {
@@ -7524,17 +7524,17 @@ function qr(o) {
 function Wr(o) {
   return !o || typeof o != "object" ? !1 : Array.isArray(o) ? o.some(Wr) : o.condition === "screen" || ["and", "or", "not", "conditions"].some((e) => Wr(o[e]));
 }
-const Vg = /* @__PURE__ */ new Set(["unavailable", "unknown"]);
-function su(o, e) {
+const Yg = /* @__PURE__ */ new Set(["unavailable", "unknown"]);
+function ou(o, e) {
   if (o)
     return e in o.attributes ? o.attributes[e] : e.split(".").reduce((t, a) => t?.[a], o.attributes);
 }
-const gi = (o) => !o || Vg.has(o.state);
-function $n(o, e, t) {
+const gi = (o) => !o || Yg.has(o.state);
+function Sn(o, e, t) {
   const a = o.locale?.number_format, i = a === "comma_decimal" ? "en-US" : a === "decimal_comma" ? "de" : a === "space_comma" ? "fr" : a === "none" ? "en-US" : e, s = { useGrouping: a !== "none" };
   return t !== void 0 ? (s.minimumFractionDigits = t, s.maximumFractionDigits = t) : s.maximumFractionDigits = 2, new Intl.NumberFormat(i, s);
 }
-function Yg(o, e, t) {
+function Zg(o, e, t) {
   switch (o) {
     case "power": {
       const a = t === "kW" ? e * 1e3 : e;
@@ -7552,20 +7552,20 @@ function Yg(o, e, t) {
       return { value: e, unit: t ?? "", precision: 1 };
   }
 }
-function Zg(o) {
+function Jg(o) {
   const e = Math.max(0, Math.round(o)), t = Math.floor(e / 3600), a = Math.floor(e % 3600 / 60);
   return t ? `${t} h ${a.toString().padStart(2, "0")} min` : a ? `${a} min` : `${e} s`;
 }
-function ou(o, e) {
+function nu(o, e) {
   const t = e.entities ?? (e.entity ? [e.entity] : []), a = t.map((h) => o.states[h]), i = be(o);
   if (!t.length) return { value: "", unit: "", number: NaN, available: !0 };
   if (a.every(gi)) return { value: "", unit: "", number: NaN, available: !1 };
-  const s = a.map((h) => h ? e.attribute ? su(h, e.attribute) : h.state : void 0), n = s.map(Number).filter((h) => !Number.isNaN(h)), r = a.find((h) => h), l = e.attribute ? void 0 : r.attributes.unit_of_measurement, c = e.format ?? (e.attribute || t.length > 1 ? "number" : "state");
+  const s = a.map((h) => h ? e.attribute ? ou(h, e.attribute) : h.state : void 0), n = s.map(Number).filter((h) => !Number.isNaN(h)), r = a.find((h) => h), l = e.attribute ? void 0 : r.attributes.unit_of_measurement, c = e.format ?? (e.attribute || t.length > 1 ? "number" : "state");
   if (c === "none") return { value: "", unit: "", number: n[0] ?? NaN, available: !0 };
   if (c === "state") {
     if (s[0] !== "" && s[0] !== null && !Number.isNaN(Number(s[0])) && (e.precision !== void 0 || e.unit !== void 0 || !l)) {
       const m = Number(s[0]) * (e.scale ?? 1), f = e.abs ? Math.abs(m) : m;
-      return { value: $n(o, i, e.precision).format(f), unit: e.unit ?? l ?? "", number: f, available: !0 };
+      return { value: Sn(o, i, e.precision).format(f), unit: e.unit ?? l ?? "", number: f, available: !0 };
     }
     return { value: o.formatEntityState ? o.formatEntityState(r) : `${r.state}${l ? ` ${l}` : ""}`, unit: "", number: Number(s[0]), available: !0 };
   }
@@ -7586,20 +7586,20 @@ function ou(o, e) {
   }
   if (d *= e.scale ?? 1, e.abs && (d = Math.abs(d)), c === "duration") {
     const h = l === "min" ? d * 60 : l === "h" ? d * 3600 : d;
-    return { value: Zg(h), unit: "", number: d, available: !0 };
+    return { value: Jg(h), unit: "", number: d, available: !0 };
   }
   if (c === "power" || c === "energy" || c === "data_rate") {
-    const h = Yg(c, d, l);
+    const h = Zg(c, d, l);
     return {
-      value: $n(o, i, e.precision ?? h.precision).format(h.value),
+      value: Sn(o, i, e.precision ?? h.precision).format(h.value),
       unit: e.unit ?? h.unit,
       number: d,
       available: !0
     };
   }
-  return { value: $n(o, i, e.precision).format(d), unit: e.unit ?? l ?? "", number: d, available: !0 };
+  return { value: Sn(o, i, e.precision).format(d), unit: e.unit ?? l ?? "", number: d, available: !0 };
 }
-function Jg(o, e, t, a) {
+function Xg(o, e, t, a) {
   const i = a.entity ? e.states[a.entity] : void 0;
   return o.replace(/\{([a-z_]+)(?::([^}]+))?\}/gi, (s, n, r) => {
     switch (n) {
@@ -7612,17 +7612,17 @@ function Jg(o, e, t, a) {
       case "state":
         return r ? e.states[r]?.state ?? "" : i?.state ?? "";
       case "attr":
-        return r && i ? String(su(i, r) ?? "") : "";
+        return r && i ? String(ou(i, r) ?? "") : "";
       default:
         return "";
     }
   });
 }
 function xa(o, e) {
-  const t = ou(o, e);
-  return t.available ? e.text !== void 0 ? { text: Jg(e.text, o, t, e).replace(/\s+/g, " ").trim(), available: !0, number: t.number } : { text: t.unit ? `${t.value} ${t.unit}` : t.value, available: !0, number: t.number } : { text: "", available: !1, number: NaN };
+  const t = nu(o, e);
+  return t.available ? e.text !== void 0 ? { text: Xg(e.text, o, t, e).replace(/\s+/g, " ").trim(), available: !0, number: t.number } : { text: t.unit ? `${t.value} ${t.unit}` : t.value, available: !0, number: t.number } : { text: "", available: !1, number: NaN };
 }
-const Ko = class Ko extends Ye {
+const Vo = class Vo extends Ye {
   constructor() {
     super(), this.items = [], this.cx = 0, this.cy = 0, this.radius = 0, this.labels = !1, this._onKey = (e) => {
       e.key === "Escape" && this.close();
@@ -7703,7 +7703,7 @@ const Ko = class Ko extends Ye {
     `;
   }
 };
-Ko.properties = { _open: { state: !0 }, _ready: { state: !0 } }, Ko.styles = ee`
+Vo.properties = { _open: { state: !0 }, _ready: { state: !0 } }, Vo.styles = ee`
     :host {
       position: fixed;
       inset: 0;
@@ -7810,9 +7810,9 @@ Ko.properties = { _open: { state: !0 }, _ready: { state: !0 } }, Ko.styles = ee`
       filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
     }
   `;
-let Fr = Ko;
+let Fr = Vo;
 customElements.get("glass-action-menu") || customElements.define("glass-action-menu", Fr);
-function Xg(o, e, t, a, i) {
+function Qg(o, e, t, a, i) {
   document.querySelectorAll("glass-action-menu").forEach((l) => l.close());
   const n = (i ?? o).getBoundingClientRect(), r = document.createElement("glass-action-menu");
   if (r.host = o, r.hass = e, r.entity = a, r.items = t.items ?? [], t.radius && (r.radius = Number(t.radius)), r.labels = !!t.labels, i) {
@@ -7821,14 +7821,14 @@ function Xg(o, e, t, a, i) {
   }
   r.cx = n.left + n.width / 2, r.cy = n.top + n.height / 2, document.body.appendChild(r);
 }
-const Qg = /* @__PURE__ */ new Set(["light", "switch", "input_boolean", "fan", "siren", "humidifier", "script", "group"]);
-function e0(o) {
-  return o ? Qg.has(o.split(".")[0]) ? { action: "toggle" } : { action: "more-info" } : { action: "none" };
+const e0 = /* @__PURE__ */ new Set(["light", "switch", "input_boolean", "fan", "siren", "humidifier", "script", "group"]);
+function t0(o) {
+  return o ? e0.has(o.split(".")[0]) ? { action: "toggle" } : { action: "more-info" } : { action: "none" };
 }
 function Ot(o, e = {}) {
   return {
     entity: o.entity,
-    tap_action: o.tap_action ?? e.tap_action ?? e0(o.entity),
+    tap_action: o.tap_action ?? e.tap_action ?? t0(o.entity),
     hold_action: o.hold_action ?? e.hold_action ?? (o.entity ? { action: "more-info" } : void 0),
     double_tap_action: o.double_tap_action ?? e.double_tap_action
   };
@@ -7841,7 +7841,7 @@ function $e(o, e, t, a, i) {
   const s = t[`${a}_action`];
   if (!Hr(s)) return;
   if (W(a === "hold" ? "medium" : "light"), s.action === "menu") {
-    e && Xg(o, e, s, t.entity, i);
+    e && Qg(o, e, s, t.entity, i);
     return;
   }
   e?.demo?.action(s, t.entity) || o.dispatchEvent(
@@ -7852,7 +7852,7 @@ function $e(o, e, t, a, i) {
     })
   );
 }
-const Si = /* @__PURE__ */ new WeakMap(), t0 = 500, a0 = 250, Os = 10;
+const Si = /* @__PURE__ */ new WeakMap(), a0 = 500, i0 = 250, Os = 10;
 function Ze(o, e) {
   return {
     down: (t) => {
@@ -7860,7 +7860,7 @@ function Ze(o, e) {
       const a = t.currentTarget, i = Si.get(a), s = { held: !1, x: t.clientX, y: t.clientY, pending: i?.pending ?? !1, tapTimer: i?.tapTimer };
       Si.set(a, s), Hr(o().hold_action) && (s.timer = window.setTimeout(() => {
         s.held = !0, e("hold", a);
-      }, t0));
+      }, a0));
     },
     move: (t) => {
       const a = Si.get(t.currentTarget);
@@ -7875,7 +7875,7 @@ function Ze(o, e) {
         if (Hr(o().double_tap_action)) {
           i.pending ? (clearTimeout(i.tapTimer), i.pending = !1, e("double_tap", a)) : (i.pending = !0, i.tapTimer = window.setTimeout(() => {
             i.pending = !1, e("tap", a);
-          }, a0));
+          }, i0));
           return;
         }
         e("tap", a);
@@ -7891,7 +7891,7 @@ function Ze(o, e) {
     context: (t) => t.preventDefault()
   };
 }
-const i0 = {
+const s0 = {
   "input_boolean.glass_alarm_1_ringing": [
     "off",
     {
@@ -12619,15 +12619,15 @@ const i0 = {
       friendly_name: "Mower zone By the path 2"
     }
   ]
-}, s0 = { type: "FeatureCollection", features: [{ type: "Feature", geometry: { type: "Point", coordinates: [13.9999386, 49.9999513] }, properties: { hash: 0, title: "Dock", type_name: "station", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.000143, 50.0001273], [14.000134, 50.000132], [14.0001311, 50.0001324], [14.0001141, 50.0001303], [14.0001132, 50.0001301], [14.0001039, 50.0001273], [14.0000972, 50.0001266], [14.0000949, 50.0001256], [14.0000948, 50.0001253], [14.0000887, 50.0001243], [14.0000771, 50.0001252], [14.0000763, 50.0001252], [14.0000666, 50.0001246], [14.0000658, 50.0001245], [14.0000559, 50.0001222], [14.0000549, 50.0001218], [14.0000514, 50.0001201], [14.00005, 50.0001178], [14.0000512, 50.0001134], [14.0000515, 50.0001128], [14.0000576, 50.0001047], [14.000057, 50.000101], [14.0000541, 50.0000983], [14.0000459, 50.000095], [14.0000376, 50.0000952], [14.0000328, 50.0000969], [14.0000301, 50.0000993], [14.0000284, 50.0001022], [14.0000282, 50.0001052], [14.000029, 50.0001071], [14.0000347, 50.0001118], [14.0000353, 50.0001139], [14.0000335, 50.0001181], [14.0000324, 50.0001192], [14.0000299, 50.0001208], [14.0000272, 50.0001214], [13.9999909, 50.0001194], [13.999988, 50.0001193], [13.9999861, 50.0001189], [13.99998, 50.000116], [13.9999787, 50.0001148], [13.999977, 50.000111], [13.9999775, 50.000109], [13.9999812, 50.0001055], [13.9999831, 50.0001046], [13.9999932, 50.0001025], [13.9999943, 50.0001014], [13.9999943, 50.0001008], [13.9999934, 50.0000996], [13.9999858, 50.0000963], [13.9999847, 50.0000955], [13.9999787, 50.0000893], [13.9999783, 50.0000875], [13.99998, 50.0000835], [13.9999793, 50.0000797], [13.9999795, 50.0000787], [13.9999826, 50.0000726], [13.9999825, 50.0000725], [13.9999743, 50.0000708], [13.9999707, 50.0000716], [13.9999666, 50.000074], [13.9999634, 50.0000745], [13.9999508, 50.0000728], [13.9999499, 50.0000726], [13.9999414, 50.0000698], [13.9999397, 50.0000686], [13.999937, 50.0000645], [13.9999367, 50.0000634], [13.9999411, 50.0000321], [13.9999411, 50.000032], [13.999946, 50.0000067], [13.999946, 50.0000065], [13.9999537, 49.999983], [13.9999537, 49.9999828], [13.999961, 49.9999663], [13.9999628, 49.9999648], [13.9999649, 49.9999641], [13.9999673, 49.9999639], [14.000081, 49.9999789], [14.0000973, 49.9999742], [14.0000977, 49.9999718], [14.000097, 49.999968], [14.0000973, 49.9999667], [14.0001004, 49.9999628], [14.000102, 49.9999618], [14.0001042, 49.9999616], [14.0001245, 49.9999639], [14.0001268, 49.9999634], [14.0001293, 49.9999478], [14.0001307, 49.9999466], [14.0001267, 49.9999427], [14.0001261, 49.9999414], [14.0001261, 49.9999392], [14.0001269, 49.9999377], [14.0001328, 49.999933], [14.0001359, 49.9999322], [14.0001435, 49.9999327], [14.0001455, 49.9999332], [14.0001708, 49.9999473], [14.0001719, 49.9999485], [14.0001752, 49.9999568], [14.0001798, 49.9999635], [14.0001882, 49.99997], [14.0001981, 49.9999753], [14.0002056, 49.9999775], [14.0002197, 49.9999787], [14.0002212, 49.9999791], [14.0002255, 49.9999808], [14.0002264, 49.9999813], [14.0002333, 49.999987], [14.000234, 49.9999883], [14.0002343, 49.9999925], [14.0002342, 49.999993], [14.0002325, 50.0000001], [14.0002322, 50.0000008], [14.0002289, 50.0000048], [14.0002281, 50.0000055], [14.0002242, 50.0000077], [14.0002234, 50.0000081], [14.0002137, 50.0000113], [14.0002123, 50.0000116], [14.000203, 50.000012], [14.000198, 50.0000129], [14.0001961, 50.0000137], [14.0001935, 50.0000164], [14.0001903, 50.0000275], [14.0001901, 50.000028], [14.0001873, 50.0000321], [14.0001872, 50.0000345], [14.0001878, 50.0000352], [14.0001974, 50.0000384], [14.000198, 50.0000387], [14.0002029, 50.0000414], [14.0002042, 50.0000428], [14.0002057, 50.0000493], [14.0002187, 50.0000685], [14.0002236, 50.0000738], [14.0002281, 50.0000754], [14.0002494, 50.0000744], [14.0002501, 50.0000744], [14.0002699, 50.0000759], [14.0002924, 50.0000759], [14.000293, 50.000076], [14.0003106, 50.0000776], [14.0003107, 50.0000776], [14.0003338, 50.0000802], [14.0003345, 50.0000803], [14.0003417, 50.0000821], [14.0003429, 50.0000826], [14.0003489, 50.0000863], [14.00035, 50.0000877], [14.0003494, 50.0000892], [14.0003454, 50.0000934], [14.0003414, 50.0001092], [14.0003397, 50.0001109], [14.0003374, 50.0001117], [14.0003363, 50.000112], [14.0003233, 50.0001137], [14.0003229, 50.0001141], [14.0003207, 50.0001146], [14.0002952, 50.0001144], [14.0002948, 50.0001144], [14.0002857, 50.0001136], [14.0002843, 50.0001141], [14.0002754, 50.0001212], [14.0002743, 50.0001245], [14.0002757, 50.000127], [14.0002804, 50.0001306], [14.0002811, 50.0001329], [14.000274, 50.0001458], [14.0002724, 50.00015], [14.0002722, 50.0001503], [14.0002708, 50.0001526], [14.0002698, 50.0001535], [14.0002661, 50.0001555], [14.0002646, 50.000156], [14.0002612, 50.0001565], [14.0002576, 50.0001586], [14.0002541, 50.0001592], [14.0002488, 50.0001581], [14.0002467, 50.000157], [14.0002432, 50.0001529], [14.0002345, 50.0001499], [14.0002331, 50.000149], [14.0002312, 50.000147], [14.0002307, 50.0001463], [14.0002293, 50.0001426], [14.0002213, 50.000143], [14.0002108, 50.0001465], [14.0002071, 50.0001463], [14.0002051, 50.0001454], [14.0002036, 50.000143], [14.0002171, 50.0001043], [14.0002118, 50.0001029], [14.0001976, 50.0001012], [14.0001974, 50.0001012], [14.0001759, 50.0000974], [14.0001721, 50.0001015], [14.0001633, 50.0001227], [14.0001624, 50.0001237], [14.0001608, 50.0001248], [14.0001594, 50.0001253], [14.0001528, 50.0001269], [14.0001517, 50.0001271], [14.000143, 50.0001273]]] }, properties: { hash: 1, title: "Middle", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9993357, 50.0002443], [13.9993523, 50.0001759], [13.9993523, 50.0001758], [13.9993691, 50.000125], [13.9993692, 50.0001247], [13.9993759, 50.0001123], [13.9993816, 50.0000964], [13.9993922, 50.0000602], [13.9993927, 50.0000593], [13.9993948, 50.0000573], [13.9993965, 50.0000564], [13.999403, 50.0000548], [13.9994057, 50.0000548], [13.9994116, 50.0000564], [13.999422, 50.0000552], [13.9994231, 50.0000552], [13.9994469, 50.0000574], [13.9994547, 50.0000575], [13.9994753, 50.0000532], [13.9994761, 50.0000531], [13.9994844, 50.0000527], [13.9994856, 50.0000527], [13.9994907, 50.0000536], [13.9994929, 50.0000535], [13.9994962, 50.0000521], [13.9995007, 50.0000487], [13.9995016, 50.0000482], [13.9995068, 50.0000463], [13.9995089, 50.000046], [13.9995188, 50.0000466], [13.9995251, 50.0000448], [13.9995265, 50.0000446], [13.9995421, 50.0000443], [13.9995436, 50.0000445], [13.9995492, 50.0000462], [13.9995502, 50.0000466], [13.9995566, 50.0000505], [13.9995598, 50.0000506], [13.9995734, 50.0000474], [13.9995798, 50.0000445], [13.9995813, 50.0000441], [13.9995916, 50.000043], [13.9995918, 50.0000424], [13.9995942, 50.0000414], [13.9996019, 50.0000407], [13.9996031, 50.0000407], [13.9996111, 50.0000417], [13.999613, 50.0000424], [13.9996131, 50.000043], [13.9996138, 50.0000433], [13.9996157, 50.0000476], [13.9996159, 50.0000479], [13.999619, 50.0000625], [13.999619, 50.0000627], [13.9996195, 50.0000675], [13.9996203, 50.0000706], [13.9996221, 50.0000746], [13.9996222, 50.0000749], [13.9996265, 50.0000902], [13.9996265, 50.000091], [13.9996229, 50.0001052], [13.9996246, 50.0001114], [13.9996332, 50.000132], [13.9996333, 50.0001322], [13.9996382, 50.0001515], [13.9996422, 50.0001597], [13.9996423, 50.00016], [13.9996435, 50.0001654], [13.999644, 50.0001656], [13.9996454, 50.0001666], [13.9996475, 50.0001695], [13.9996478, 50.0001704], [13.9996487, 50.0001795], [13.9996486, 50.0001803], [13.9996465, 50.0001846], [13.9996464, 50.0001868], [13.9996513, 50.0001974], [13.9996514, 50.000198], [13.9996526, 50.0002117], [13.999654, 50.0002168], [13.9996592, 50.0002258], [13.999671, 50.000242], [13.9996713, 50.0002428], [13.9996715, 50.0002444], [13.999672, 50.0002472], [13.9996719, 50.0002481], [13.9996699, 50.0002528], [13.9996682, 50.0002542], [13.9996667, 50.0002543], [13.9996637, 50.000255], [13.9996638, 50.0002556], [13.9996634, 50.0002568], [13.9996612, 50.0002596], [13.9996586, 50.0002672], [13.9996583, 50.0002677], [13.999656, 50.000271], [13.9996553, 50.0002748], [13.9996615, 50.0003012], [13.9996629, 50.0003038], [13.9996696, 50.0003095], [13.9996701, 50.0003101], [13.9996732, 50.0003159], [13.9996723, 50.0003184], [13.9996654, 50.0003226], [13.9996628, 50.0003232], [13.999635, 50.0003225], [13.9996334, 50.0003223], [13.9996314, 50.0003216], [13.9996298, 50.0003203], [13.9996277, 50.0003165], [13.9996275, 50.0003155], [13.9996287, 50.000308], [13.9996238, 50.000302], [13.9996126, 50.000299], [13.9996019, 50.0002988], [13.9995915, 50.0003001], [13.9995799, 50.0003057], [13.9995774, 50.0003061], [13.999575, 50.0003053], [13.9995707, 50.000302], [13.9995688, 50.0003022], [13.999561, 50.0003045], [13.9995591, 50.0003047], [13.9995465, 50.0003039], [13.9995459, 50.0003038], [13.9994647, 50.0002896], [13.9994644, 50.0002895], [13.9994478, 50.0002856], [13.9994198, 50.0002815], [13.9993998, 50.0002795], [13.9993995, 50.0002795], [13.9993321, 50.0002687], [13.9993297, 50.0002675], [13.9993288, 50.0002663], [13.9993285, 50.0002648], [13.9993357, 50.0002443]]] }, properties: { hash: 2, title: "Meadow", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0001265, 49.9998736], [14.0001342, 49.9998578], [14.0001413, 49.9998351], [14.000143, 49.9998335], [14.0001469, 49.999832], [14.0001482, 49.9998318], [14.0001541, 49.9998312], [14.0001552, 49.9998312], [14.0001743, 49.9998332], [14.0001748, 49.9998333], [14.0001833, 49.9998351], [14.0001852, 49.999836], [14.0001878, 49.9998385], [14.0001883, 49.9998391], [14.0001925, 49.9998475], [14.0001927, 49.9998483], [14.0001923, 49.9998619], [14.0001922, 49.9998623], [14.0001878, 49.9998781], [14.0001877, 49.9998783], [14.0001814, 49.9998938], [14.0001757, 49.9999125], [14.0001755, 49.9999128], [14.0001706, 49.999921], [14.0001693, 49.999922], [14.0001648, 49.9999241], [14.0001633, 49.9999245], [14.0001517, 49.9999257], [14.0001488, 49.9999252], [14.0001336, 49.9999168], [14.0001308, 49.9999163], [14.0001271, 49.9999168], [14.0001252, 49.9999168], [14.000123, 49.9999163], [14.000122, 49.999916], [14.0001146, 49.9999125], [14.0001098, 49.9999107], [14.0001092, 49.9999105], [14.0001083, 49.99991], [14.0001073, 49.9999091], [14.0001065, 49.9999078], [14.0001063, 49.9999073], [14.0001052, 49.9999031], [14.0001053, 49.9999026], [14.0001051, 49.9999025], [14.0001063, 49.9998939], [14.0001064, 49.9998937], [14.0001095, 49.9998827], [14.0001104, 49.9998816], [14.0001136, 49.9998792], [14.0001143, 49.9998788], [14.0001265, 49.9998736]]] }, properties: { hash: 3, title: "Area 3", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999226, 49.9998488], [13.9999312, 49.999833], [13.9999338, 49.9998231], [13.9999309, 49.9998087], [13.9999309, 49.9998081], [13.9999317, 49.9998026], [13.9999329, 49.999801], [13.9999354, 49.9997997], [13.9999374, 49.9997992], [13.9999481, 49.9997986], [13.9999515, 49.9997997], [13.9999531, 49.9998015], [13.9999536, 49.9998029], [13.9999531, 49.9998065], [13.9999528, 49.9998072], [13.9999465, 49.9998165], [13.9999464, 49.9998206], [13.9999462, 49.9998212], [13.9999387, 49.9998375], [13.9999386, 49.9998377], [13.9999283, 49.9998536], [13.9999185, 49.9998868], [13.9999176, 49.9998879], [13.9999122, 49.9998918], [13.9999115, 49.9998922], [13.9999004, 49.9998967], [13.9998998, 49.9998969], [13.9998968, 49.9998977], [13.9998964, 49.9998977], [13.999893, 49.9998984], [13.9998926, 49.9998984], [13.9998891, 49.9998987], [13.9998884, 49.9998988], [13.999885, 49.9998986], [13.9998828, 49.999898], [13.9998817, 49.9998966], [13.9998813, 49.9998949], [13.9998797, 49.9998906], [13.9998798, 49.9998892], [13.9998799, 49.9998891], [13.9998799, 49.9998891], [13.9998821, 49.9998859], [13.9998847, 49.9998846], [13.99989, 49.9998839], [13.9998907, 49.9998838], [13.9999024, 49.9998838], [13.999907, 49.9998813], [13.9999093, 49.9998759], [13.9999107, 49.9998654], [13.9999109, 49.999865], [13.9999135, 49.9998588], [13.9999139, 49.9998583], [13.9999226, 49.9998488]]] }, properties: { hash: 4, title: "Rockery", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996513, 49.9997271], [13.9996898, 49.9997318], [13.9996904, 49.9997319], [13.9997068, 49.9997358], [13.9997078, 49.9997363], [13.9997081, 49.9997363], [13.9997129, 49.9997395], [13.9997131, 49.9997396], [13.9997166, 49.9997423], [13.9997174, 49.9997444], [13.9997164, 49.9997471], [13.9997143, 49.9997488], [13.999707, 49.9997507], [13.9997043, 49.9997507], [13.9996921, 49.9997474], [13.9996701, 49.9997473], [13.9996698, 49.9997473], [13.9996528, 49.9997462], [13.9996388, 49.9997471], [13.9996372, 49.9997469], [13.9996217, 49.9997432], [13.9996001, 49.9997407], [13.9995999, 49.9997406], [13.9995647, 49.9997349], [13.9995641, 49.9997348], [13.9995576, 49.9997329], [13.9995327, 49.9997307], [13.9995323, 49.9997307], [13.9995079, 49.9997265], [13.9995063, 49.9997258], [13.9995034, 49.9997239], [13.9995024, 49.9997221], [13.9995039, 49.9997104], [13.9995051, 49.9997088], [13.999508, 49.9997072], [13.9995097, 49.9997067], [13.9995135, 49.9997062], [13.9995149, 49.9997062], [13.9996082, 49.9997195], [13.9996083, 49.9997196], [13.9996513, 49.9997271]]] }, properties: { hash: 5, title: "Area 5", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000416, 49.9998131], [14.0000417, 49.9998131], [14.0000751, 49.9998186], [14.000077, 49.9998193], [14.0000828, 49.9998239], [14.0000936, 49.9998262], [14.0000963, 49.999826], [14.0001019, 49.9998234], [14.0001038, 49.999823], [14.0001114, 49.9998227], [14.0001142, 49.9998234], [14.0001152, 49.9998251], [14.0001151, 49.9998278], [14.000115, 49.9998281], [14.0001073, 49.9998554], [14.0001073, 49.9998555], [14.0001053, 49.9998612], [14.0001047, 49.999862], [14.0001019, 49.9998645], [14.000101, 49.999865], [14.0000961, 49.999867], [14.0000941, 49.9998674], [14.0000827, 49.9998672], [14.0000821, 49.9998671], [14.0000549, 49.9998634], [14.0000434, 49.9998625], [14.0000403, 49.9998606], [14.0000377, 49.9998526], [14.0000335, 49.9998495], [14.0000309, 49.9998488], [14.0000267, 49.9998488], [14.0000227, 49.9998504], [14.0000201, 49.9998544], [14.000019, 49.9998553], [14.0000172, 49.9998562], [14.0000154, 49.9998567], [14.0000056, 49.9998572], [14.0000049, 49.9998572], [13.9999745, 49.9998553], [13.9999716, 49.9998538], [13.9999699, 49.9998512], [13.9999696, 49.9998502], [13.9999699, 49.9998472], [13.9999701, 49.9998466], [13.9999776, 49.9998313], [13.9999782, 49.9998306], [13.9999812, 49.999828], [13.9999834, 49.9998226], [13.9999835, 49.9998224], [13.9999836, 49.9998223], [13.9999839, 49.9998218], [13.9999855, 49.9998202], [13.999987, 49.9998169], [13.9999872, 49.9998166], [13.9999899, 49.9998129], [13.9999905, 49.9998115], [13.9999931, 49.9998098], [13.9999984, 49.999809], [13.9999992, 49.9998089], [14.0000048, 49.9998088], [14.0000052, 49.9998088], [14.0000107, 49.9998091], [14.0000111, 49.9998092], [14.0000415, 49.9998131], [14.0000416, 49.9998131]]] }, properties: { hash: 6, title: "Front garden", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996035, 49.9999805], [13.9995973, 49.9999618], [13.9995972, 49.9999613], [13.9995973, 49.9999587], [13.999598, 49.9999573], [13.9996059, 49.9999508], [13.9996072, 49.9999473], [13.9995946, 49.9999006], [13.9995902, 49.9998886], [13.9995874, 49.9998857], [13.9995869, 49.9998848], [13.999586, 49.999881], [13.9995861, 49.99988], [13.9995882, 49.9998756], [13.9995904, 49.9998741], [13.9995959, 49.9998728], [13.9995972, 49.9998727], [13.9996021, 49.9998727], [13.9996028, 49.9998728], [13.999663, 49.9998815], [13.999664, 49.9998818], [13.999674, 49.9998854], [13.9996755, 49.9998864], [13.9996758, 49.9998879], [13.9996751, 49.9998898], [13.9996757, 49.9998928], [13.9996764, 49.9998935], [13.9996994, 49.9998975], [13.9997019, 49.9998974], [13.999705, 49.9998962], [13.9997124, 49.9998913], [13.9997146, 49.9998883], [13.9997145, 49.9998839], [13.9997152, 49.9998825], [13.9997172, 49.9998807], [13.9997196, 49.9998798], [13.9997261, 49.9998791], [13.999727, 49.9998791], [13.9997394, 49.99988], [13.9997398, 49.9998801], [13.9998752, 49.999898], [13.9998759, 49.9998982], [13.9998809, 49.9998995], [13.9998826, 49.9999004], [13.9998831, 49.9999019], [13.9998827, 49.9999048], [13.9998824, 49.9999056], [13.9998779, 49.9999121], [13.9998797, 49.999915], [13.9998811, 49.9999161], [13.9998857, 49.9999178], [13.9998979, 49.9999172], [13.9998995, 49.9999173], [13.9999095, 49.9999198], [13.9999276, 49.9999204], [13.99993, 49.9999211], [13.9999322, 49.9999225], [13.9999332, 49.9999245], [13.9999259, 49.9999529], [13.9999267, 49.9999552], [13.9999378, 49.9999559], [13.9999392, 49.9999562], [13.9999423, 49.9999574], [13.9999435, 49.9999581], [13.9999466, 49.9999609], [13.9999483, 49.9999617], [13.9999684, 49.9999642], [13.9999696, 49.9999645], [13.9999734, 49.9999659], [13.9999751, 49.9999678], [13.9999753, 49.9999716], [13.9999752, 49.9999721], [13.9999592, 50.0000245], [13.9999517, 50.0000602], [13.9999515, 50.0000606], [13.9999489, 50.0000655], [13.9999476, 50.0000666], [13.9999446, 50.0000681], [13.9999425, 50.0000685], [13.9999392, 50.0000686], [13.9999381, 50.0000685], [13.9999241, 50.0000659], [13.9998301, 50.0000551], [13.9998299, 50.0000551], [13.9998205, 50.0000536], [13.9998197, 50.0000548], [13.9998194, 50.0000621], [13.9998194, 50.0000625], [13.9998168, 50.0000712], [13.9998158, 50.0000835], [13.9998154, 50.0000845], [13.9998144, 50.0000858], [13.9998107, 50.000087], [13.9997942, 50.0000856], [13.9997937, 50.0000855], [13.9997697, 50.0000812], [13.9997677, 50.0000803], [13.9997664, 50.0000791], [13.9997657, 50.0000782], [13.9997645, 50.0000738], [13.9997645, 50.000073], [13.9997664, 50.000064], [13.9997655, 50.0000621], [13.9997637, 50.0000617], [13.9997427, 50.0000602], [13.9997424, 50.0000604], [13.9997411, 50.0000657], [13.9997401, 50.0000669], [13.9997328, 50.0000718], [13.9997316, 50.000075], [13.9997316, 50.0000768], [13.9997318, 50.0000781], [13.9997303, 50.0000802], [13.9997286, 50.000081], [13.9997274, 50.0000814], [13.9997244, 50.0000819], [13.9997226, 50.0000819], [13.999716, 50.0000809], [13.999634, 50.0000697], [13.9996321, 50.000069], [13.999628, 50.0000662], [13.9996272, 50.0000653], [13.9996243, 50.000059], [13.9996242, 50.0000587], [13.9996212, 50.0000473], [13.9996213, 50.0000463], [13.9996235, 50.0000412], [13.9996236, 50.000038], [13.9996211, 50.0000318], [13.9996201, 50.0000307], [13.9996198, 50.0000302], [13.999615, 50.0000209], [13.9996149, 50.0000203], [13.9996144, 50.000016], [13.9996145, 50.0000153], [13.9996159, 50.0000118], [13.9996167, 50.0000108], [13.9996224, 50.0000068], [13.9996258, 50.0000003], [13.9996232, 49.9999991], [13.9996118, 49.9999957], [13.9996107, 49.9999952], [13.9996073, 49.999993], [13.9996066, 49.9999922], [13.9996052, 49.9999901], [13.999605, 49.9999895], [13.9996035, 49.9999805]]] }, properties: { hash: 7, title: "Upper", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004296, 50.0000534], [14.0004387, 50.0000558], [14.0004447, 50.0000562], [14.0004557, 50.000054], [14.0004587, 50.0000527], [14.0004646, 50.000043], [14.0004656, 50.0000421], [14.0004702, 50.0000394], [14.0004725, 50.0000368], [14.000473, 50.0000331], [14.0004707, 50.0000208], [14.0004701, 50.0000203], [14.0004622, 50.0000171], [14.000461, 50.0000162], [14.0004593, 50.0000143], [14.0004589, 50.0000132], [14.0004589, 50.0000109], [14.0004593, 50.0000097], [14.0004611, 50.0000077], [14.0004623, 50.0000069], [14.0004655, 50.0000055], [14.0004674, 50.0000051], [14.0004781, 50.000005], [14.0004798, 50.0000053], [14.000484, 50.0000068], [14.0004858, 50.0000083], [14.0004871, 50.000012], [14.0004877, 50.0000124], [14.0004882, 50.0000125], [14.0004887, 50.0000127], [14.00049, 50.0000132], [14.0005127, 50.0000151], [14.0005132, 50.0000151], [14.0005151, 50.0000071], [14.0005154, 50.0000065], [14.0005186, 50.0000019], [14.00052, 50.0000009], [14.0005229, 49.9999997], [14.0005258, 49.9999995], [14.0005352, 50.0000012], [14.0005361, 50.0000014], [14.0005448, 50.0000049], [14.0005464, 50.0000073], [14.000544, 50.0000161], [14.0005448, 50.0000174], [14.0005468, 50.0000173], [14.0005601, 50.0000193], [14.0005809, 50.000021], [14.0005812, 50.000021], [14.0006019, 50.0000239], [14.0006033, 50.0000243], [14.000608, 50.0000267], [14.0006093, 50.0000288], [14.0006076, 50.0000398], [14.0006067, 50.0000607], [14.0006067, 50.000061], [14.0006036, 50.0000742], [14.0006043, 50.0000766], [14.000605, 50.0000779], [14.0006052, 50.0000787], [14.0006041, 50.0000993], [14.000604, 50.0000999], [14.0006004, 50.0001079], [14.0005993, 50.000109], [14.0005882, 50.0001153], [14.0005874, 50.0001229], [14.000591, 50.0001263], [14.0005978, 50.0001288], [14.0005995, 50.0001303], [14.0006009, 50.0001341], [14.000601, 50.0001348], [14.0005977, 50.0001696], [14.0005977, 50.0001698], [14.0005952, 50.0001789], [14.0005948, 50.0001796], [14.0005915, 50.0001835], [14.0005924, 50.0001846], [14.0005911, 50.0001968], [14.0005904, 50.0001979], [14.0005865, 50.0002017], [14.0005827, 50.0002027], [14.0005791, 50.0002022], [14.0005781, 50.0002019], [14.0005732, 50.0002], [14.0005517, 50.0001956], [14.0005425, 50.0001944], [14.0005419, 50.0001943], [14.00052, 50.0001887], [14.0005152, 50.0001885], [14.000502, 50.0001901], [14.0005004, 50.0001901], [14.0004945, 50.0001891], [14.0004934, 50.0001888], [14.0004877, 50.0001862], [14.000481, 50.0001871], [14.0004774, 50.0001863], [14.000473, 50.0001828], [14.0004621, 50.0001846], [14.0004573, 50.000187], [14.0004556, 50.0001875], [14.0004532, 50.0001877], [14.0004518, 50.0001877], [14.0004405, 50.0001858], [14.0004395, 50.0001855], [14.0004302, 50.000182], [14.0004288, 50.0001811], [14.0004258, 50.0001775], [14.0004221, 50.0001754], [14.0004185, 50.0001745], [14.000412, 50.000174], [14.0004101, 50.0001736], [14.0003905, 50.0001636], [14.0003833, 50.0001606], [14.0003742, 50.0001589], [14.0003512, 50.0001568], [14.0003494, 50.0001563], [14.0003353, 50.0001485], [14.0003273, 50.0001515], [14.0003183, 50.0001566], [14.0003172, 50.000157], [14.0003072, 50.0001595], [14.0003006, 50.0001645], [14.0002983, 50.0001654], [14.0002957, 50.0001649], [14.0002887, 50.0001615], [14.0002876, 50.0001608], [14.0002857, 50.0001583], [14.0002733, 50.0001558], [14.0002722, 50.0001555], [14.0002656, 50.0001524], [14.0002641, 50.0001508], [14.000263, 50.0001455], [14.000263, 50.0001446], [14.0002668, 50.0001358], [14.0002671, 50.0001353], [14.0002699, 50.0001321], [14.0002712, 50.0001312], [14.0002777, 50.0001287], [14.0002789, 50.0001285], [14.0002885, 50.0001273], [14.0002916, 50.0001279], [14.0003121, 50.00014], [14.0003244, 50.0001308], [14.0003229, 50.000129], [14.0003226, 50.0001285], [14.0003207, 50.000124], [14.0003207, 50.0001226], [14.0003218, 50.0001207], [14.0003223, 50.0001175], [14.0003224, 50.000117], [14.0003402, 50.0000793], [14.0003397, 50.0000788], [14.0003394, 50.000077], [14.0003411, 50.0000756], [14.0003519, 50.0000715], [14.0003542, 50.00007], [14.0003604, 50.0000488], [14.000361, 50.0000479], [14.0003641, 50.0000451], [14.0003655, 50.0000443], [14.0003743, 50.0000416], [14.0003756, 50.0000413], [14.000384, 50.000041], [14.0003852, 50.000041], [14.000413, 50.0000457], [14.0004137, 50.0000458], [14.0004182, 50.0000473], [14.0004188, 50.0000476], [14.0004296, 50.0000534]]] }, properties: { hash: 8, title: "Lower", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999244, 49.9997925], [13.9999243, 49.9997925], [13.9998962, 49.999788], [13.999894, 49.999787], [13.9998915, 49.9997845], [13.9998909, 49.9997828], [13.9998919, 49.9997793], [13.9998923, 49.9997786], [13.9998967, 49.9997731], [13.9998976, 49.9997724], [13.999903, 49.9997696], [13.9999042, 49.9997692], [13.9999081, 49.9997684], [13.9999097, 49.9997683], [13.9999393, 49.9997713], [13.9999397, 49.9997713], [13.9999596, 49.9997749], [13.9999602, 49.9997751], [13.9999615, 49.9997755], [13.9999623, 49.9997759], [13.9999644, 49.9997771], [13.9999651, 49.9997777], [13.9999669, 49.99978], [13.9999672, 49.9997805], [13.9999679, 49.9997822], [13.999968, 49.999783], [13.9999671, 49.9997892], [13.999967, 49.9997895], [13.9999657, 49.9997929], [13.9999636, 49.9997945], [13.9999585, 49.9997959], [13.9999572, 49.9997961], [13.9999517, 49.9997961], [13.9999511, 49.9997961], [13.9999456, 49.9997956], [13.9999453, 49.9997956], [13.9999244, 49.9997925], [13.9999244, 49.9997925]]] }, properties: { hash: 9, title: "By the path 1", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000003, 49.9997807], [14.0000017, 49.9997802], [14.000006, 49.9997805], [14.0000064, 49.9997806], [14.0000776, 49.9997907], [14.0000778, 49.9997907], [14.0001306, 49.9997999], [14.0001314, 49.9998002], [14.0001533, 49.999808], [14.0001547, 49.9998089], [14.000157, 49.9998117], [14.0001573, 49.9998122], [14.0001594, 49.9998179], [14.000162, 49.9998203], [14.0001644, 49.9998213], [14.000166, 49.9998226], [14.0001665, 49.9998239], [14.0001664, 49.9998255], [14.0001647, 49.9998266], [14.0001607, 49.9998279], [14.0001591, 49.9998281], [14.0001537, 49.9998281], [14.0001528, 49.9998281], [14.0000033, 49.9998049], [14.0000018, 49.9998044], [13.9999971, 49.999802], [13.9999958, 49.9998004], [13.9999948, 49.9997953], [13.9999945, 49.9997946], [13.9999944, 49.999794], [13.9999943, 49.9997905], [13.9999944, 49.9997902], [13.9999948, 49.9997876], [13.9999951, 49.9997869], [13.9999963, 49.9997852], [13.9999969, 49.9997845], [13.9999974, 49.9997842], [13.9999974, 49.9997841], [13.9999977, 49.9997822], [13.9999981, 49.9997817], [13.999998, 49.9997815], [13.9999983, 49.9997814], [13.9999987, 49.9997809], [14.0000003, 49.9997807]]] }, properties: { hash: 10, title: "By the path 2", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9996111, 50.0000457], [13.9996258, 50.0000444]] }, properties: { hash: 11, title: "Path 1", type_name: "path", parent_hash_a: 7, parent_hash_b: 2 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9998843, 49.999893], [13.9998825, 49.9998989], [13.9998785, 49.9999014]] }, properties: { hash: 12, title: "Path 2", type_name: "path", parent_hash_a: 7, parent_hash_b: 4 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[14.0000027, 49.9998112], [13.9999754, 49.999807], [13.9999623, 49.9998073], [13.9999475, 49.9998093]] }, properties: { hash: 13, title: "Path 4", type_name: "path", parent_hash_a: 4, parent_hash_b: 6 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.999926, 49.9999381], [13.9999418, 49.9999398]] }, properties: { hash: 14, title: "Path 5", type_name: "path", parent_hash_a: 0, parent_hash_b: 7 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9997126, 49.9997429], [13.9997507, 49.9997464], [13.9997941, 49.999754], [13.9998382, 49.9997574], [13.9998707, 49.9997613], [13.9999008, 49.9997662], [13.9999048, 49.9997682], [13.9999074, 49.9997709]] }, properties: { hash: 15, title: "Path 6", type_name: "path", parent_hash_a: 9, parent_hash_b: 5 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9999639, 49.9997865], [13.9999695, 49.9997903], [13.9999714, 49.9997937], [13.9999665, 49.9998095], [13.9999633, 49.9998125], [13.9999592, 49.999814], [13.9999441, 49.9998144]] }, properties: { hash: 16, title: "Path 7", type_name: "path", parent_hash_a: 4, parent_hash_b: 9 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9999999, 49.9997859], [13.9999849, 49.9997826], [13.9999628, 49.99978]] }, properties: { hash: 17, title: "Path 9", type_name: "path", parent_hash_a: 9, parent_hash_b: 10 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004199, 50.0000686], [14.0004178, 50.0000688], [14.0004168, 50.0000706], [14.0004164, 50.0000712], [14.0004142, 50.0000731], [14.0004142, 50.0000734], [14.0004159, 50.0000745], [14.000431, 50.0000762], [14.0004337, 50.0000776], [14.000436, 50.0000813], [14.0004404, 50.0000822], [14.0004446, 50.0000811], [14.0004446, 50.0000797], [14.0004412, 50.0000749], [14.0004344, 50.0000707], [14.0004309, 50.0000705], [14.0004301, 50.0000705], [14.0004199, 50.0000686]]] }, properties: { hash: 18, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0002795, 50.0001467], [14.0002807, 50.0001468], [14.0002813, 50.0001464], [14.0002821, 50.0001439], [14.0002818, 50.0001434], [14.0002795, 50.0001416], [14.0002772, 50.0001416], [14.0002762, 50.0001445], [14.0002773, 50.000146], [14.0002795, 50.0001467]]] }, properties: { hash: 19, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0003435, 50.0001347], [14.0003446, 50.0001341], [14.0003451, 50.000134], [14.0003451, 50.0001338], [14.0003442, 50.0001327], [14.0003429, 50.0001324], [14.0003414, 50.0001329], [14.0003411, 50.000133], [14.000342, 50.0001339], [14.0003424, 50.0001346], [14.0003435, 50.0001347]]] }, properties: { hash: 20, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0002957, 50.0001491], [14.0002992, 50.0001487], [14.0002991, 50.0001485], [14.0002989, 50.0001472], [14.0002997, 50.0001442], [14.0002981, 50.0001437], [14.0002972, 50.0001429], [14.0002963, 50.0001428], [14.000293, 50.0001437], [14.0002919, 50.0001463], [14.0002922, 50.0001477], [14.0002939, 50.0001488], [14.0002957, 50.0001491]]] }, properties: { hash: 21, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999844, 49.9998433], [13.9999855, 49.9998433], [13.9999862, 49.9998421], [13.999986, 49.9998415], [13.9999854, 49.999841], [13.9999827, 49.9998412], [13.9999817, 49.9998423], [13.9999817, 49.9998425], [13.9999844, 49.9998433]]] }, properties: { hash: 22, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000739, 49.9998309], [14.0000711, 49.9998307], [14.0000709, 49.9998312], [14.0000727, 49.9998326], [14.0000746, 49.9998329], [14.0000756, 49.9998325], [14.0000756, 49.999832], [14.0000739, 49.9998309]]] }, properties: { hash: 23, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0003634, 50.0001358], [14.0003626, 50.0001353], [14.0003624, 50.0001357], [14.0003628, 50.0001364], [14.0003631, 50.0001366], [14.0003639, 50.0001364], [14.0003634, 50.0001358]]] }, properties: { hash: 24, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000183, 49.9998359], [14.0000251, 49.9998336], [14.0000269, 49.9998324], [14.0000319, 49.9998259], [14.0000334, 49.9998216], [14.000034, 49.9998207], [14.0000355, 49.9998195], [14.0000321, 49.9998187], [14.0000026, 49.9998217], [13.9999989, 49.9998232], [13.9999981, 49.9998248], [13.9999984, 49.9998271], [14.0000071, 49.9998351], [14.0000183, 49.9998359]]] }, properties: { hash: 25, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9997037, 50.0000559], [13.9997025, 50.0000561], [13.9997022, 50.0000563], [13.9997024, 50.0000588], [13.9997024, 50.0000592], [13.9997002, 50.0000695], [13.9997044, 50.0000696], [13.9997051, 50.0000696], [13.9997218, 50.0000719], [13.9997227, 50.0000718], [13.9997265, 50.0000606], [13.9997264, 50.0000586], [13.9997261, 50.0000585], [13.9997181, 50.0000581], [13.9997176, 50.000058], [13.9997037, 50.0000559]]] }, properties: { hash: 26, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.999854, 50], [13.9998592, 49.9999965], [13.9998587, 49.9999949], [13.9998556, 49.9999904], [13.9998513, 49.9999899], [13.9998486, 49.9999909], [13.9998476, 49.9999921], [13.9998469, 49.9999952], [13.9998485, 49.9999981], [13.9998508, 49.9999997], [13.999854, 50]]] }, properties: { hash: 27, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999828, 50.0000065], [13.9999786, 50.0000101], [13.9999751, 50.0000184], [13.9999746, 50.0000217], [13.9999772, 50.0000238], [13.9999832, 50.0000245], [13.9999869, 50.0000244], [13.9999883, 50.0000232], [13.9999929, 50.0000116], [13.9999928, 50.0000113], [13.9999887, 50.0000069], [13.9999864, 50.0000058], [13.9999828, 50.0000065]]] }, properties: { hash: 28, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996089, 49.9998909], [13.999614, 49.9998893], [13.9996173, 49.9998874], [13.9996177, 49.9998867], [13.9996177, 49.9998832], [13.9996165, 49.9998824], [13.9996101, 49.9998801], [13.9996063, 49.9998801], [13.9996031, 49.9998812], [13.9996017, 49.9998824], [13.9996006, 49.9998855], [13.9996008, 49.9998878], [13.9996033, 49.9998914], [13.9996035, 49.9998913], [13.9996089, 49.9998909]]] }, properties: { hash: 29, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000917, 50.0000282], [14.0001014, 50.000026], [14.0001019, 50.0000259], [14.0001119, 50.0000246], [14.0001178, 50.0000189], [14.0001192, 50.0000181], [14.000122, 50.0000172], [14.0001215, 50.0000163], [14.0001124, 50.0000113], [14.0001112, 50.0000101], [14.0001104, 50.0000078], [14.0001078, 50.0000055], [14.0001072, 50.0000041], [14.0001072, 50.0000041], [14.0001072, 50.0000026], [14.0001024, 50.0000004], [14.0001009, 49.9999991], [14.0001002, 49.9999975], [14.0000995, 49.9999971], [14.000092, 49.9999984], [14.0000912, 49.9999987], [14.0000899, 50.0000009], [14.0000871, 50.0000023], [14.0000848, 50.0000026], [14.0000823, 50.0000022], [14.0000786, 50.0000007], [14.000076, 50.0000013], [14.0000739, 50.000001], [14.0000712, 49.9999994], [14.0000704, 49.9999979], [14.0000685, 49.9999985], [14.0000672, 49.9999995], [14.0000662, 50.000003], [14.0000658, 50.0000037], [14.0000638, 50.000006], [14.000062, 50.0000071], [14.0000595, 50.0000071], [14.0000591, 50.000007], [14.0000549, 50.0000078], [14.000047, 50.0000148], [14.0000453, 50.000018], [14.0000465, 50.0000189], [14.0000504, 50.0000199], [14.0000619, 50.0000204], [14.0000627, 50.0000205], [14.0000725, 50.0000223], [14.0000731, 50.0000224], [14.0000917, 50.0000282]]] }, properties: { hash: 30, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9998745, 49.9999647], [13.9998744, 49.9999648], [13.9998716, 49.9999746], [13.9998721, 49.9999757], [13.9998867, 49.9999779], [13.9998881, 49.9999776], [13.9998908, 49.9999661], [13.9998893, 49.9999658], [13.9998745, 49.9999647]]] }, properties: { hash: 31, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.999749, 49.9999215], [13.9997401, 49.9999227], [13.9997385, 49.9999227], [13.9997278, 49.9999211], [13.9997181, 49.9999212], [13.9997176, 49.9999212], [13.9996967, 49.9999195], [13.9996894, 49.9999222], [13.9996871, 49.9999239], [13.9996837, 49.9999281], [13.9996753, 49.9999453], [13.9996741, 49.9999464], [13.9996568, 49.9999552], [13.999656, 49.9999575], [13.999656, 49.9999629], [13.9996576, 49.9999698], [13.999661, 49.9999722], [13.9996661, 49.9999738], [13.9996849, 49.9999746], [13.9996861, 49.9999747], [13.9996939, 49.9999768], [13.9996955, 49.9999776], [13.9997034, 49.9999852], [13.9997077, 49.999988], [13.9997164, 49.9999917], [13.9997237, 49.9999935], [13.9997303, 49.9999941], [13.9997389, 49.999994], [13.9997551, 49.9999901], [13.9997568, 49.99999], [13.9997972, 49.9999932], [13.9998015, 49.9999928], [13.9998079, 49.9999909], [13.999809, 49.9999907], [13.9998145, 49.9999903], [13.9998157, 49.9999904], [13.9998284, 49.9999922], [13.9998297, 49.999992], [13.9998297, 49.999992], [13.9998402, 49.9999446], [13.9998403, 49.9999444], [13.999843, 49.9999367], [13.9998425, 49.9999364], [13.9997992, 49.9999335], [13.9997985, 49.9999334], [13.9997879, 49.9999313], [13.999773, 49.9999305], [13.999772, 49.9999303], [13.9997556, 49.9999263], [13.9997539, 49.9999255], [13.9997496, 49.9999216], [13.999749, 49.9999215]]] }, properties: { hash: 32, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996405, 49.9999033], [13.9996349, 49.9999039], [13.9996303, 49.9999054], [13.9996265, 49.9999084], [13.9996245, 49.9999113], [13.9996222, 49.9999216], [13.9996229, 49.9999305], [13.9996237, 49.9999322], [13.9996271, 49.9999352], [13.9996301, 49.9999362], [13.999656, 49.999921], [13.9996594, 49.9999149], [13.9996599, 49.9999122], [13.9996564, 49.999909], [13.9996465, 49.9999042], [13.9996405, 49.9999033]]] }, properties: { hash: 33, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004415, 50.000107], [14.0004374, 50.0001104], [14.0004365, 50.0001109], [14.0004328, 50.0001124], [14.0004317, 50.0001132], [14.0004315, 50.0001146], [14.0004329, 50.0001172], [14.0004353, 50.0001186], [14.0004457, 50.0001174], [14.0004474, 50.0001164], [14.0004483, 50.0001144], [14.0004477, 50.0001106], [14.000444, 50.0001078], [14.0004419, 50.000107], [14.0004415, 50.000107]]] }, properties: { hash: 34, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000008, 50.0000491], [13.9999979, 50.0000516], [13.9999973, 50.0000572], [13.9999981, 50.0000596], [14.0000059, 50.0000628], [14.0000085, 50.0000556], [14.0000081, 50.0000533], [14.0000065, 50.0000511], [14.0000008, 50.0000491]]] }, properties: { hash: 35, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }] }, o0 = { "sensor.heat_pump_supply_temperature": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85740, "60.3"], [85680, "59.8"], [85621, "36.8"], [85560, "30.4"], [85380, "29.9"], [84957, "29.9"], [84897, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74756, "41.8"], [74336, "41.3"], [73856, "41.8"], [73796, "39.3"], [73736, "38.8"], [73676, "38.3"], [73196, "37.8"], [72522, "37.3"], [71945, "36.8"], [71434, "36.3"], [70954, "35.8"], [70414, "35.3"], [69934, "34.8"], [69454, "34.3"], [68973, "33.8"], [68434, "33.3"], [67954, "32.8"], [67354, "32.3"], [66874, "31.8"], [66274, "31.3"], [65674, "30.8"], [65074, "30.3"], [64414, "29.8"], [63754, "29.3"], [63094, "28.8"], [62314, "28.3"], [61534, "27.8"], [60694, "27.3"], [59854, "26.8"], [58894, "26.3"], [57874, "25.8"], [56734, "25.3"], [55594, "24.8"], [54394, "24.3"], [52954, "23.8"], [51454, "23.3"], [49774, "22.8"], [47974, "22.3"], [47194, "22.9"], [47134, "32.3"], [47074, "32.8"], [45394, "27.9"], [45334, "23.6"], [45274, "20.7"], [40338, "20.2"], [38238, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35898, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32598, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32298, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29418, "60.4"], [29358, "57.4"], [29298, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.current_water_temperature": [[86186, "47.6"], [78865, "46.6"], [75685, "45.6"], [74758, "45.6"], [74696, "45.6"], [68395, "44.6"], [63175, "43.6"], [58855, "42.6"], [51235, "41.9"], [43915, "40.9"], [40315, "39.9"], [38574, "38.9"], [37974, "37.9"], [37794, "36.9"], [37614, "35.9"], [36234, "34.9"], [34254, "33.9"], [33354, "34.9"], [33114, "35.9"], [32934, "36.9"], [32754, "37.9"], [32454, "38.9"], [31493, "39.9"], [31314, "40.9"], [31299, "40.9"], [31134, "41.9"], [30954, "42.9"], [30714, "43.9"], [30534, "44.9"], [30293, "45.9"], [30137, "46.9"], [29813, "47.9"], [29502, "47.9"], [24773, "46.9"], [17213, "46.5"], [9593, "45.9"], [2873, "44.9"]], "sensor.water_temperature": [[74758, "47"], [74696, "47"], [34254, "47"], [31299, "47"], [29502, "47"]], "sensor.heating_on": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85766, "60.8"], [85740, "60.3"], [84865, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74758, "41.8"], [74696, "41.8"], [74336, "41.3"], [73856, "41.8"], [38214, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36114, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35874, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32574, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32274, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31299, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29453, "60.9"], [29418, "60.4"], [29358, "57.4"], [29273, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.water_heating_on": [[85231, "off"], [74758, "off"], [33138, "on"], [31300, "off"], [31300, "on"], [31299, "on"], [29502, "on"], [28698, "off"]] }, n0 = (o) => new Date(Date.now() + o * 6e4).toISOString();
+}, o0 = { type: "FeatureCollection", features: [{ type: "Feature", geometry: { type: "Point", coordinates: [13.9999386, 49.9999513] }, properties: { hash: 0, title: "Dock", type_name: "station", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.000143, 50.0001273], [14.000134, 50.000132], [14.0001311, 50.0001324], [14.0001141, 50.0001303], [14.0001132, 50.0001301], [14.0001039, 50.0001273], [14.0000972, 50.0001266], [14.0000949, 50.0001256], [14.0000948, 50.0001253], [14.0000887, 50.0001243], [14.0000771, 50.0001252], [14.0000763, 50.0001252], [14.0000666, 50.0001246], [14.0000658, 50.0001245], [14.0000559, 50.0001222], [14.0000549, 50.0001218], [14.0000514, 50.0001201], [14.00005, 50.0001178], [14.0000512, 50.0001134], [14.0000515, 50.0001128], [14.0000576, 50.0001047], [14.000057, 50.000101], [14.0000541, 50.0000983], [14.0000459, 50.000095], [14.0000376, 50.0000952], [14.0000328, 50.0000969], [14.0000301, 50.0000993], [14.0000284, 50.0001022], [14.0000282, 50.0001052], [14.000029, 50.0001071], [14.0000347, 50.0001118], [14.0000353, 50.0001139], [14.0000335, 50.0001181], [14.0000324, 50.0001192], [14.0000299, 50.0001208], [14.0000272, 50.0001214], [13.9999909, 50.0001194], [13.999988, 50.0001193], [13.9999861, 50.0001189], [13.99998, 50.000116], [13.9999787, 50.0001148], [13.999977, 50.000111], [13.9999775, 50.000109], [13.9999812, 50.0001055], [13.9999831, 50.0001046], [13.9999932, 50.0001025], [13.9999943, 50.0001014], [13.9999943, 50.0001008], [13.9999934, 50.0000996], [13.9999858, 50.0000963], [13.9999847, 50.0000955], [13.9999787, 50.0000893], [13.9999783, 50.0000875], [13.99998, 50.0000835], [13.9999793, 50.0000797], [13.9999795, 50.0000787], [13.9999826, 50.0000726], [13.9999825, 50.0000725], [13.9999743, 50.0000708], [13.9999707, 50.0000716], [13.9999666, 50.000074], [13.9999634, 50.0000745], [13.9999508, 50.0000728], [13.9999499, 50.0000726], [13.9999414, 50.0000698], [13.9999397, 50.0000686], [13.999937, 50.0000645], [13.9999367, 50.0000634], [13.9999411, 50.0000321], [13.9999411, 50.000032], [13.999946, 50.0000067], [13.999946, 50.0000065], [13.9999537, 49.999983], [13.9999537, 49.9999828], [13.999961, 49.9999663], [13.9999628, 49.9999648], [13.9999649, 49.9999641], [13.9999673, 49.9999639], [14.000081, 49.9999789], [14.0000973, 49.9999742], [14.0000977, 49.9999718], [14.000097, 49.999968], [14.0000973, 49.9999667], [14.0001004, 49.9999628], [14.000102, 49.9999618], [14.0001042, 49.9999616], [14.0001245, 49.9999639], [14.0001268, 49.9999634], [14.0001293, 49.9999478], [14.0001307, 49.9999466], [14.0001267, 49.9999427], [14.0001261, 49.9999414], [14.0001261, 49.9999392], [14.0001269, 49.9999377], [14.0001328, 49.999933], [14.0001359, 49.9999322], [14.0001435, 49.9999327], [14.0001455, 49.9999332], [14.0001708, 49.9999473], [14.0001719, 49.9999485], [14.0001752, 49.9999568], [14.0001798, 49.9999635], [14.0001882, 49.99997], [14.0001981, 49.9999753], [14.0002056, 49.9999775], [14.0002197, 49.9999787], [14.0002212, 49.9999791], [14.0002255, 49.9999808], [14.0002264, 49.9999813], [14.0002333, 49.999987], [14.000234, 49.9999883], [14.0002343, 49.9999925], [14.0002342, 49.999993], [14.0002325, 50.0000001], [14.0002322, 50.0000008], [14.0002289, 50.0000048], [14.0002281, 50.0000055], [14.0002242, 50.0000077], [14.0002234, 50.0000081], [14.0002137, 50.0000113], [14.0002123, 50.0000116], [14.000203, 50.000012], [14.000198, 50.0000129], [14.0001961, 50.0000137], [14.0001935, 50.0000164], [14.0001903, 50.0000275], [14.0001901, 50.000028], [14.0001873, 50.0000321], [14.0001872, 50.0000345], [14.0001878, 50.0000352], [14.0001974, 50.0000384], [14.000198, 50.0000387], [14.0002029, 50.0000414], [14.0002042, 50.0000428], [14.0002057, 50.0000493], [14.0002187, 50.0000685], [14.0002236, 50.0000738], [14.0002281, 50.0000754], [14.0002494, 50.0000744], [14.0002501, 50.0000744], [14.0002699, 50.0000759], [14.0002924, 50.0000759], [14.000293, 50.000076], [14.0003106, 50.0000776], [14.0003107, 50.0000776], [14.0003338, 50.0000802], [14.0003345, 50.0000803], [14.0003417, 50.0000821], [14.0003429, 50.0000826], [14.0003489, 50.0000863], [14.00035, 50.0000877], [14.0003494, 50.0000892], [14.0003454, 50.0000934], [14.0003414, 50.0001092], [14.0003397, 50.0001109], [14.0003374, 50.0001117], [14.0003363, 50.000112], [14.0003233, 50.0001137], [14.0003229, 50.0001141], [14.0003207, 50.0001146], [14.0002952, 50.0001144], [14.0002948, 50.0001144], [14.0002857, 50.0001136], [14.0002843, 50.0001141], [14.0002754, 50.0001212], [14.0002743, 50.0001245], [14.0002757, 50.000127], [14.0002804, 50.0001306], [14.0002811, 50.0001329], [14.000274, 50.0001458], [14.0002724, 50.00015], [14.0002722, 50.0001503], [14.0002708, 50.0001526], [14.0002698, 50.0001535], [14.0002661, 50.0001555], [14.0002646, 50.000156], [14.0002612, 50.0001565], [14.0002576, 50.0001586], [14.0002541, 50.0001592], [14.0002488, 50.0001581], [14.0002467, 50.000157], [14.0002432, 50.0001529], [14.0002345, 50.0001499], [14.0002331, 50.000149], [14.0002312, 50.000147], [14.0002307, 50.0001463], [14.0002293, 50.0001426], [14.0002213, 50.000143], [14.0002108, 50.0001465], [14.0002071, 50.0001463], [14.0002051, 50.0001454], [14.0002036, 50.000143], [14.0002171, 50.0001043], [14.0002118, 50.0001029], [14.0001976, 50.0001012], [14.0001974, 50.0001012], [14.0001759, 50.0000974], [14.0001721, 50.0001015], [14.0001633, 50.0001227], [14.0001624, 50.0001237], [14.0001608, 50.0001248], [14.0001594, 50.0001253], [14.0001528, 50.0001269], [14.0001517, 50.0001271], [14.000143, 50.0001273]]] }, properties: { hash: 1, title: "Middle", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9993357, 50.0002443], [13.9993523, 50.0001759], [13.9993523, 50.0001758], [13.9993691, 50.000125], [13.9993692, 50.0001247], [13.9993759, 50.0001123], [13.9993816, 50.0000964], [13.9993922, 50.0000602], [13.9993927, 50.0000593], [13.9993948, 50.0000573], [13.9993965, 50.0000564], [13.999403, 50.0000548], [13.9994057, 50.0000548], [13.9994116, 50.0000564], [13.999422, 50.0000552], [13.9994231, 50.0000552], [13.9994469, 50.0000574], [13.9994547, 50.0000575], [13.9994753, 50.0000532], [13.9994761, 50.0000531], [13.9994844, 50.0000527], [13.9994856, 50.0000527], [13.9994907, 50.0000536], [13.9994929, 50.0000535], [13.9994962, 50.0000521], [13.9995007, 50.0000487], [13.9995016, 50.0000482], [13.9995068, 50.0000463], [13.9995089, 50.000046], [13.9995188, 50.0000466], [13.9995251, 50.0000448], [13.9995265, 50.0000446], [13.9995421, 50.0000443], [13.9995436, 50.0000445], [13.9995492, 50.0000462], [13.9995502, 50.0000466], [13.9995566, 50.0000505], [13.9995598, 50.0000506], [13.9995734, 50.0000474], [13.9995798, 50.0000445], [13.9995813, 50.0000441], [13.9995916, 50.000043], [13.9995918, 50.0000424], [13.9995942, 50.0000414], [13.9996019, 50.0000407], [13.9996031, 50.0000407], [13.9996111, 50.0000417], [13.999613, 50.0000424], [13.9996131, 50.000043], [13.9996138, 50.0000433], [13.9996157, 50.0000476], [13.9996159, 50.0000479], [13.999619, 50.0000625], [13.999619, 50.0000627], [13.9996195, 50.0000675], [13.9996203, 50.0000706], [13.9996221, 50.0000746], [13.9996222, 50.0000749], [13.9996265, 50.0000902], [13.9996265, 50.000091], [13.9996229, 50.0001052], [13.9996246, 50.0001114], [13.9996332, 50.000132], [13.9996333, 50.0001322], [13.9996382, 50.0001515], [13.9996422, 50.0001597], [13.9996423, 50.00016], [13.9996435, 50.0001654], [13.999644, 50.0001656], [13.9996454, 50.0001666], [13.9996475, 50.0001695], [13.9996478, 50.0001704], [13.9996487, 50.0001795], [13.9996486, 50.0001803], [13.9996465, 50.0001846], [13.9996464, 50.0001868], [13.9996513, 50.0001974], [13.9996514, 50.000198], [13.9996526, 50.0002117], [13.999654, 50.0002168], [13.9996592, 50.0002258], [13.999671, 50.000242], [13.9996713, 50.0002428], [13.9996715, 50.0002444], [13.999672, 50.0002472], [13.9996719, 50.0002481], [13.9996699, 50.0002528], [13.9996682, 50.0002542], [13.9996667, 50.0002543], [13.9996637, 50.000255], [13.9996638, 50.0002556], [13.9996634, 50.0002568], [13.9996612, 50.0002596], [13.9996586, 50.0002672], [13.9996583, 50.0002677], [13.999656, 50.000271], [13.9996553, 50.0002748], [13.9996615, 50.0003012], [13.9996629, 50.0003038], [13.9996696, 50.0003095], [13.9996701, 50.0003101], [13.9996732, 50.0003159], [13.9996723, 50.0003184], [13.9996654, 50.0003226], [13.9996628, 50.0003232], [13.999635, 50.0003225], [13.9996334, 50.0003223], [13.9996314, 50.0003216], [13.9996298, 50.0003203], [13.9996277, 50.0003165], [13.9996275, 50.0003155], [13.9996287, 50.000308], [13.9996238, 50.000302], [13.9996126, 50.000299], [13.9996019, 50.0002988], [13.9995915, 50.0003001], [13.9995799, 50.0003057], [13.9995774, 50.0003061], [13.999575, 50.0003053], [13.9995707, 50.000302], [13.9995688, 50.0003022], [13.999561, 50.0003045], [13.9995591, 50.0003047], [13.9995465, 50.0003039], [13.9995459, 50.0003038], [13.9994647, 50.0002896], [13.9994644, 50.0002895], [13.9994478, 50.0002856], [13.9994198, 50.0002815], [13.9993998, 50.0002795], [13.9993995, 50.0002795], [13.9993321, 50.0002687], [13.9993297, 50.0002675], [13.9993288, 50.0002663], [13.9993285, 50.0002648], [13.9993357, 50.0002443]]] }, properties: { hash: 2, title: "Meadow", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0001265, 49.9998736], [14.0001342, 49.9998578], [14.0001413, 49.9998351], [14.000143, 49.9998335], [14.0001469, 49.999832], [14.0001482, 49.9998318], [14.0001541, 49.9998312], [14.0001552, 49.9998312], [14.0001743, 49.9998332], [14.0001748, 49.9998333], [14.0001833, 49.9998351], [14.0001852, 49.999836], [14.0001878, 49.9998385], [14.0001883, 49.9998391], [14.0001925, 49.9998475], [14.0001927, 49.9998483], [14.0001923, 49.9998619], [14.0001922, 49.9998623], [14.0001878, 49.9998781], [14.0001877, 49.9998783], [14.0001814, 49.9998938], [14.0001757, 49.9999125], [14.0001755, 49.9999128], [14.0001706, 49.999921], [14.0001693, 49.999922], [14.0001648, 49.9999241], [14.0001633, 49.9999245], [14.0001517, 49.9999257], [14.0001488, 49.9999252], [14.0001336, 49.9999168], [14.0001308, 49.9999163], [14.0001271, 49.9999168], [14.0001252, 49.9999168], [14.000123, 49.9999163], [14.000122, 49.999916], [14.0001146, 49.9999125], [14.0001098, 49.9999107], [14.0001092, 49.9999105], [14.0001083, 49.99991], [14.0001073, 49.9999091], [14.0001065, 49.9999078], [14.0001063, 49.9999073], [14.0001052, 49.9999031], [14.0001053, 49.9999026], [14.0001051, 49.9999025], [14.0001063, 49.9998939], [14.0001064, 49.9998937], [14.0001095, 49.9998827], [14.0001104, 49.9998816], [14.0001136, 49.9998792], [14.0001143, 49.9998788], [14.0001265, 49.9998736]]] }, properties: { hash: 3, title: "Area 3", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999226, 49.9998488], [13.9999312, 49.999833], [13.9999338, 49.9998231], [13.9999309, 49.9998087], [13.9999309, 49.9998081], [13.9999317, 49.9998026], [13.9999329, 49.999801], [13.9999354, 49.9997997], [13.9999374, 49.9997992], [13.9999481, 49.9997986], [13.9999515, 49.9997997], [13.9999531, 49.9998015], [13.9999536, 49.9998029], [13.9999531, 49.9998065], [13.9999528, 49.9998072], [13.9999465, 49.9998165], [13.9999464, 49.9998206], [13.9999462, 49.9998212], [13.9999387, 49.9998375], [13.9999386, 49.9998377], [13.9999283, 49.9998536], [13.9999185, 49.9998868], [13.9999176, 49.9998879], [13.9999122, 49.9998918], [13.9999115, 49.9998922], [13.9999004, 49.9998967], [13.9998998, 49.9998969], [13.9998968, 49.9998977], [13.9998964, 49.9998977], [13.999893, 49.9998984], [13.9998926, 49.9998984], [13.9998891, 49.9998987], [13.9998884, 49.9998988], [13.999885, 49.9998986], [13.9998828, 49.999898], [13.9998817, 49.9998966], [13.9998813, 49.9998949], [13.9998797, 49.9998906], [13.9998798, 49.9998892], [13.9998799, 49.9998891], [13.9998799, 49.9998891], [13.9998821, 49.9998859], [13.9998847, 49.9998846], [13.99989, 49.9998839], [13.9998907, 49.9998838], [13.9999024, 49.9998838], [13.999907, 49.9998813], [13.9999093, 49.9998759], [13.9999107, 49.9998654], [13.9999109, 49.999865], [13.9999135, 49.9998588], [13.9999139, 49.9998583], [13.9999226, 49.9998488]]] }, properties: { hash: 4, title: "Rockery", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996513, 49.9997271], [13.9996898, 49.9997318], [13.9996904, 49.9997319], [13.9997068, 49.9997358], [13.9997078, 49.9997363], [13.9997081, 49.9997363], [13.9997129, 49.9997395], [13.9997131, 49.9997396], [13.9997166, 49.9997423], [13.9997174, 49.9997444], [13.9997164, 49.9997471], [13.9997143, 49.9997488], [13.999707, 49.9997507], [13.9997043, 49.9997507], [13.9996921, 49.9997474], [13.9996701, 49.9997473], [13.9996698, 49.9997473], [13.9996528, 49.9997462], [13.9996388, 49.9997471], [13.9996372, 49.9997469], [13.9996217, 49.9997432], [13.9996001, 49.9997407], [13.9995999, 49.9997406], [13.9995647, 49.9997349], [13.9995641, 49.9997348], [13.9995576, 49.9997329], [13.9995327, 49.9997307], [13.9995323, 49.9997307], [13.9995079, 49.9997265], [13.9995063, 49.9997258], [13.9995034, 49.9997239], [13.9995024, 49.9997221], [13.9995039, 49.9997104], [13.9995051, 49.9997088], [13.999508, 49.9997072], [13.9995097, 49.9997067], [13.9995135, 49.9997062], [13.9995149, 49.9997062], [13.9996082, 49.9997195], [13.9996083, 49.9997196], [13.9996513, 49.9997271]]] }, properties: { hash: 5, title: "Area 5", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000416, 49.9998131], [14.0000417, 49.9998131], [14.0000751, 49.9998186], [14.000077, 49.9998193], [14.0000828, 49.9998239], [14.0000936, 49.9998262], [14.0000963, 49.999826], [14.0001019, 49.9998234], [14.0001038, 49.999823], [14.0001114, 49.9998227], [14.0001142, 49.9998234], [14.0001152, 49.9998251], [14.0001151, 49.9998278], [14.000115, 49.9998281], [14.0001073, 49.9998554], [14.0001073, 49.9998555], [14.0001053, 49.9998612], [14.0001047, 49.999862], [14.0001019, 49.9998645], [14.000101, 49.999865], [14.0000961, 49.999867], [14.0000941, 49.9998674], [14.0000827, 49.9998672], [14.0000821, 49.9998671], [14.0000549, 49.9998634], [14.0000434, 49.9998625], [14.0000403, 49.9998606], [14.0000377, 49.9998526], [14.0000335, 49.9998495], [14.0000309, 49.9998488], [14.0000267, 49.9998488], [14.0000227, 49.9998504], [14.0000201, 49.9998544], [14.000019, 49.9998553], [14.0000172, 49.9998562], [14.0000154, 49.9998567], [14.0000056, 49.9998572], [14.0000049, 49.9998572], [13.9999745, 49.9998553], [13.9999716, 49.9998538], [13.9999699, 49.9998512], [13.9999696, 49.9998502], [13.9999699, 49.9998472], [13.9999701, 49.9998466], [13.9999776, 49.9998313], [13.9999782, 49.9998306], [13.9999812, 49.999828], [13.9999834, 49.9998226], [13.9999835, 49.9998224], [13.9999836, 49.9998223], [13.9999839, 49.9998218], [13.9999855, 49.9998202], [13.999987, 49.9998169], [13.9999872, 49.9998166], [13.9999899, 49.9998129], [13.9999905, 49.9998115], [13.9999931, 49.9998098], [13.9999984, 49.999809], [13.9999992, 49.9998089], [14.0000048, 49.9998088], [14.0000052, 49.9998088], [14.0000107, 49.9998091], [14.0000111, 49.9998092], [14.0000415, 49.9998131], [14.0000416, 49.9998131]]] }, properties: { hash: 6, title: "Front garden", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996035, 49.9999805], [13.9995973, 49.9999618], [13.9995972, 49.9999613], [13.9995973, 49.9999587], [13.999598, 49.9999573], [13.9996059, 49.9999508], [13.9996072, 49.9999473], [13.9995946, 49.9999006], [13.9995902, 49.9998886], [13.9995874, 49.9998857], [13.9995869, 49.9998848], [13.999586, 49.999881], [13.9995861, 49.99988], [13.9995882, 49.9998756], [13.9995904, 49.9998741], [13.9995959, 49.9998728], [13.9995972, 49.9998727], [13.9996021, 49.9998727], [13.9996028, 49.9998728], [13.999663, 49.9998815], [13.999664, 49.9998818], [13.999674, 49.9998854], [13.9996755, 49.9998864], [13.9996758, 49.9998879], [13.9996751, 49.9998898], [13.9996757, 49.9998928], [13.9996764, 49.9998935], [13.9996994, 49.9998975], [13.9997019, 49.9998974], [13.999705, 49.9998962], [13.9997124, 49.9998913], [13.9997146, 49.9998883], [13.9997145, 49.9998839], [13.9997152, 49.9998825], [13.9997172, 49.9998807], [13.9997196, 49.9998798], [13.9997261, 49.9998791], [13.999727, 49.9998791], [13.9997394, 49.99988], [13.9997398, 49.9998801], [13.9998752, 49.999898], [13.9998759, 49.9998982], [13.9998809, 49.9998995], [13.9998826, 49.9999004], [13.9998831, 49.9999019], [13.9998827, 49.9999048], [13.9998824, 49.9999056], [13.9998779, 49.9999121], [13.9998797, 49.999915], [13.9998811, 49.9999161], [13.9998857, 49.9999178], [13.9998979, 49.9999172], [13.9998995, 49.9999173], [13.9999095, 49.9999198], [13.9999276, 49.9999204], [13.99993, 49.9999211], [13.9999322, 49.9999225], [13.9999332, 49.9999245], [13.9999259, 49.9999529], [13.9999267, 49.9999552], [13.9999378, 49.9999559], [13.9999392, 49.9999562], [13.9999423, 49.9999574], [13.9999435, 49.9999581], [13.9999466, 49.9999609], [13.9999483, 49.9999617], [13.9999684, 49.9999642], [13.9999696, 49.9999645], [13.9999734, 49.9999659], [13.9999751, 49.9999678], [13.9999753, 49.9999716], [13.9999752, 49.9999721], [13.9999592, 50.0000245], [13.9999517, 50.0000602], [13.9999515, 50.0000606], [13.9999489, 50.0000655], [13.9999476, 50.0000666], [13.9999446, 50.0000681], [13.9999425, 50.0000685], [13.9999392, 50.0000686], [13.9999381, 50.0000685], [13.9999241, 50.0000659], [13.9998301, 50.0000551], [13.9998299, 50.0000551], [13.9998205, 50.0000536], [13.9998197, 50.0000548], [13.9998194, 50.0000621], [13.9998194, 50.0000625], [13.9998168, 50.0000712], [13.9998158, 50.0000835], [13.9998154, 50.0000845], [13.9998144, 50.0000858], [13.9998107, 50.000087], [13.9997942, 50.0000856], [13.9997937, 50.0000855], [13.9997697, 50.0000812], [13.9997677, 50.0000803], [13.9997664, 50.0000791], [13.9997657, 50.0000782], [13.9997645, 50.0000738], [13.9997645, 50.000073], [13.9997664, 50.000064], [13.9997655, 50.0000621], [13.9997637, 50.0000617], [13.9997427, 50.0000602], [13.9997424, 50.0000604], [13.9997411, 50.0000657], [13.9997401, 50.0000669], [13.9997328, 50.0000718], [13.9997316, 50.000075], [13.9997316, 50.0000768], [13.9997318, 50.0000781], [13.9997303, 50.0000802], [13.9997286, 50.000081], [13.9997274, 50.0000814], [13.9997244, 50.0000819], [13.9997226, 50.0000819], [13.999716, 50.0000809], [13.999634, 50.0000697], [13.9996321, 50.000069], [13.999628, 50.0000662], [13.9996272, 50.0000653], [13.9996243, 50.000059], [13.9996242, 50.0000587], [13.9996212, 50.0000473], [13.9996213, 50.0000463], [13.9996235, 50.0000412], [13.9996236, 50.000038], [13.9996211, 50.0000318], [13.9996201, 50.0000307], [13.9996198, 50.0000302], [13.999615, 50.0000209], [13.9996149, 50.0000203], [13.9996144, 50.000016], [13.9996145, 50.0000153], [13.9996159, 50.0000118], [13.9996167, 50.0000108], [13.9996224, 50.0000068], [13.9996258, 50.0000003], [13.9996232, 49.9999991], [13.9996118, 49.9999957], [13.9996107, 49.9999952], [13.9996073, 49.999993], [13.9996066, 49.9999922], [13.9996052, 49.9999901], [13.999605, 49.9999895], [13.9996035, 49.9999805]]] }, properties: { hash: 7, title: "Upper", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004296, 50.0000534], [14.0004387, 50.0000558], [14.0004447, 50.0000562], [14.0004557, 50.000054], [14.0004587, 50.0000527], [14.0004646, 50.000043], [14.0004656, 50.0000421], [14.0004702, 50.0000394], [14.0004725, 50.0000368], [14.000473, 50.0000331], [14.0004707, 50.0000208], [14.0004701, 50.0000203], [14.0004622, 50.0000171], [14.000461, 50.0000162], [14.0004593, 50.0000143], [14.0004589, 50.0000132], [14.0004589, 50.0000109], [14.0004593, 50.0000097], [14.0004611, 50.0000077], [14.0004623, 50.0000069], [14.0004655, 50.0000055], [14.0004674, 50.0000051], [14.0004781, 50.000005], [14.0004798, 50.0000053], [14.000484, 50.0000068], [14.0004858, 50.0000083], [14.0004871, 50.000012], [14.0004877, 50.0000124], [14.0004882, 50.0000125], [14.0004887, 50.0000127], [14.00049, 50.0000132], [14.0005127, 50.0000151], [14.0005132, 50.0000151], [14.0005151, 50.0000071], [14.0005154, 50.0000065], [14.0005186, 50.0000019], [14.00052, 50.0000009], [14.0005229, 49.9999997], [14.0005258, 49.9999995], [14.0005352, 50.0000012], [14.0005361, 50.0000014], [14.0005448, 50.0000049], [14.0005464, 50.0000073], [14.000544, 50.0000161], [14.0005448, 50.0000174], [14.0005468, 50.0000173], [14.0005601, 50.0000193], [14.0005809, 50.000021], [14.0005812, 50.000021], [14.0006019, 50.0000239], [14.0006033, 50.0000243], [14.000608, 50.0000267], [14.0006093, 50.0000288], [14.0006076, 50.0000398], [14.0006067, 50.0000607], [14.0006067, 50.000061], [14.0006036, 50.0000742], [14.0006043, 50.0000766], [14.000605, 50.0000779], [14.0006052, 50.0000787], [14.0006041, 50.0000993], [14.000604, 50.0000999], [14.0006004, 50.0001079], [14.0005993, 50.000109], [14.0005882, 50.0001153], [14.0005874, 50.0001229], [14.000591, 50.0001263], [14.0005978, 50.0001288], [14.0005995, 50.0001303], [14.0006009, 50.0001341], [14.000601, 50.0001348], [14.0005977, 50.0001696], [14.0005977, 50.0001698], [14.0005952, 50.0001789], [14.0005948, 50.0001796], [14.0005915, 50.0001835], [14.0005924, 50.0001846], [14.0005911, 50.0001968], [14.0005904, 50.0001979], [14.0005865, 50.0002017], [14.0005827, 50.0002027], [14.0005791, 50.0002022], [14.0005781, 50.0002019], [14.0005732, 50.0002], [14.0005517, 50.0001956], [14.0005425, 50.0001944], [14.0005419, 50.0001943], [14.00052, 50.0001887], [14.0005152, 50.0001885], [14.000502, 50.0001901], [14.0005004, 50.0001901], [14.0004945, 50.0001891], [14.0004934, 50.0001888], [14.0004877, 50.0001862], [14.000481, 50.0001871], [14.0004774, 50.0001863], [14.000473, 50.0001828], [14.0004621, 50.0001846], [14.0004573, 50.000187], [14.0004556, 50.0001875], [14.0004532, 50.0001877], [14.0004518, 50.0001877], [14.0004405, 50.0001858], [14.0004395, 50.0001855], [14.0004302, 50.000182], [14.0004288, 50.0001811], [14.0004258, 50.0001775], [14.0004221, 50.0001754], [14.0004185, 50.0001745], [14.000412, 50.000174], [14.0004101, 50.0001736], [14.0003905, 50.0001636], [14.0003833, 50.0001606], [14.0003742, 50.0001589], [14.0003512, 50.0001568], [14.0003494, 50.0001563], [14.0003353, 50.0001485], [14.0003273, 50.0001515], [14.0003183, 50.0001566], [14.0003172, 50.000157], [14.0003072, 50.0001595], [14.0003006, 50.0001645], [14.0002983, 50.0001654], [14.0002957, 50.0001649], [14.0002887, 50.0001615], [14.0002876, 50.0001608], [14.0002857, 50.0001583], [14.0002733, 50.0001558], [14.0002722, 50.0001555], [14.0002656, 50.0001524], [14.0002641, 50.0001508], [14.000263, 50.0001455], [14.000263, 50.0001446], [14.0002668, 50.0001358], [14.0002671, 50.0001353], [14.0002699, 50.0001321], [14.0002712, 50.0001312], [14.0002777, 50.0001287], [14.0002789, 50.0001285], [14.0002885, 50.0001273], [14.0002916, 50.0001279], [14.0003121, 50.00014], [14.0003244, 50.0001308], [14.0003229, 50.000129], [14.0003226, 50.0001285], [14.0003207, 50.000124], [14.0003207, 50.0001226], [14.0003218, 50.0001207], [14.0003223, 50.0001175], [14.0003224, 50.000117], [14.0003402, 50.0000793], [14.0003397, 50.0000788], [14.0003394, 50.000077], [14.0003411, 50.0000756], [14.0003519, 50.0000715], [14.0003542, 50.00007], [14.0003604, 50.0000488], [14.000361, 50.0000479], [14.0003641, 50.0000451], [14.0003655, 50.0000443], [14.0003743, 50.0000416], [14.0003756, 50.0000413], [14.000384, 50.000041], [14.0003852, 50.000041], [14.000413, 50.0000457], [14.0004137, 50.0000458], [14.0004182, 50.0000473], [14.0004188, 50.0000476], [14.0004296, 50.0000534]]] }, properties: { hash: 8, title: "Lower", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999244, 49.9997925], [13.9999243, 49.9997925], [13.9998962, 49.999788], [13.999894, 49.999787], [13.9998915, 49.9997845], [13.9998909, 49.9997828], [13.9998919, 49.9997793], [13.9998923, 49.9997786], [13.9998967, 49.9997731], [13.9998976, 49.9997724], [13.999903, 49.9997696], [13.9999042, 49.9997692], [13.9999081, 49.9997684], [13.9999097, 49.9997683], [13.9999393, 49.9997713], [13.9999397, 49.9997713], [13.9999596, 49.9997749], [13.9999602, 49.9997751], [13.9999615, 49.9997755], [13.9999623, 49.9997759], [13.9999644, 49.9997771], [13.9999651, 49.9997777], [13.9999669, 49.99978], [13.9999672, 49.9997805], [13.9999679, 49.9997822], [13.999968, 49.999783], [13.9999671, 49.9997892], [13.999967, 49.9997895], [13.9999657, 49.9997929], [13.9999636, 49.9997945], [13.9999585, 49.9997959], [13.9999572, 49.9997961], [13.9999517, 49.9997961], [13.9999511, 49.9997961], [13.9999456, 49.9997956], [13.9999453, 49.9997956], [13.9999244, 49.9997925], [13.9999244, 49.9997925]]] }, properties: { hash: 9, title: "By the path 1", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000003, 49.9997807], [14.0000017, 49.9997802], [14.000006, 49.9997805], [14.0000064, 49.9997806], [14.0000776, 49.9997907], [14.0000778, 49.9997907], [14.0001306, 49.9997999], [14.0001314, 49.9998002], [14.0001533, 49.999808], [14.0001547, 49.9998089], [14.000157, 49.9998117], [14.0001573, 49.9998122], [14.0001594, 49.9998179], [14.000162, 49.9998203], [14.0001644, 49.9998213], [14.000166, 49.9998226], [14.0001665, 49.9998239], [14.0001664, 49.9998255], [14.0001647, 49.9998266], [14.0001607, 49.9998279], [14.0001591, 49.9998281], [14.0001537, 49.9998281], [14.0001528, 49.9998281], [14.0000033, 49.9998049], [14.0000018, 49.9998044], [13.9999971, 49.999802], [13.9999958, 49.9998004], [13.9999948, 49.9997953], [13.9999945, 49.9997946], [13.9999944, 49.999794], [13.9999943, 49.9997905], [13.9999944, 49.9997902], [13.9999948, 49.9997876], [13.9999951, 49.9997869], [13.9999963, 49.9997852], [13.9999969, 49.9997845], [13.9999974, 49.9997842], [13.9999974, 49.9997841], [13.9999977, 49.9997822], [13.9999981, 49.9997817], [13.999998, 49.9997815], [13.9999983, 49.9997814], [13.9999987, 49.9997809], [14.0000003, 49.9997807]]] }, properties: { hash: 10, title: "By the path 2", type_name: "area", parent_hash_a: 0, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9996111, 50.0000457], [13.9996258, 50.0000444]] }, properties: { hash: 11, title: "Path 1", type_name: "path", parent_hash_a: 7, parent_hash_b: 2 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9998843, 49.999893], [13.9998825, 49.9998989], [13.9998785, 49.9999014]] }, properties: { hash: 12, title: "Path 2", type_name: "path", parent_hash_a: 7, parent_hash_b: 4 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[14.0000027, 49.9998112], [13.9999754, 49.999807], [13.9999623, 49.9998073], [13.9999475, 49.9998093]] }, properties: { hash: 13, title: "Path 4", type_name: "path", parent_hash_a: 4, parent_hash_b: 6 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.999926, 49.9999381], [13.9999418, 49.9999398]] }, properties: { hash: 14, title: "Path 5", type_name: "path", parent_hash_a: 0, parent_hash_b: 7 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9997126, 49.9997429], [13.9997507, 49.9997464], [13.9997941, 49.999754], [13.9998382, 49.9997574], [13.9998707, 49.9997613], [13.9999008, 49.9997662], [13.9999048, 49.9997682], [13.9999074, 49.9997709]] }, properties: { hash: 15, title: "Path 6", type_name: "path", parent_hash_a: 9, parent_hash_b: 5 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9999639, 49.9997865], [13.9999695, 49.9997903], [13.9999714, 49.9997937], [13.9999665, 49.9998095], [13.9999633, 49.9998125], [13.9999592, 49.999814], [13.9999441, 49.9998144]] }, properties: { hash: 16, title: "Path 7", type_name: "path", parent_hash_a: 4, parent_hash_b: 9 } }, { type: "Feature", geometry: { type: "LineString", coordinates: [[13.9999999, 49.9997859], [13.9999849, 49.9997826], [13.9999628, 49.99978]] }, properties: { hash: 17, title: "Path 9", type_name: "path", parent_hash_a: 9, parent_hash_b: 10 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004199, 50.0000686], [14.0004178, 50.0000688], [14.0004168, 50.0000706], [14.0004164, 50.0000712], [14.0004142, 50.0000731], [14.0004142, 50.0000734], [14.0004159, 50.0000745], [14.000431, 50.0000762], [14.0004337, 50.0000776], [14.000436, 50.0000813], [14.0004404, 50.0000822], [14.0004446, 50.0000811], [14.0004446, 50.0000797], [14.0004412, 50.0000749], [14.0004344, 50.0000707], [14.0004309, 50.0000705], [14.0004301, 50.0000705], [14.0004199, 50.0000686]]] }, properties: { hash: 18, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0002795, 50.0001467], [14.0002807, 50.0001468], [14.0002813, 50.0001464], [14.0002821, 50.0001439], [14.0002818, 50.0001434], [14.0002795, 50.0001416], [14.0002772, 50.0001416], [14.0002762, 50.0001445], [14.0002773, 50.000146], [14.0002795, 50.0001467]]] }, properties: { hash: 19, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0003435, 50.0001347], [14.0003446, 50.0001341], [14.0003451, 50.000134], [14.0003451, 50.0001338], [14.0003442, 50.0001327], [14.0003429, 50.0001324], [14.0003414, 50.0001329], [14.0003411, 50.000133], [14.000342, 50.0001339], [14.0003424, 50.0001346], [14.0003435, 50.0001347]]] }, properties: { hash: 20, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0002957, 50.0001491], [14.0002992, 50.0001487], [14.0002991, 50.0001485], [14.0002989, 50.0001472], [14.0002997, 50.0001442], [14.0002981, 50.0001437], [14.0002972, 50.0001429], [14.0002963, 50.0001428], [14.000293, 50.0001437], [14.0002919, 50.0001463], [14.0002922, 50.0001477], [14.0002939, 50.0001488], [14.0002957, 50.0001491]]] }, properties: { hash: 21, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999844, 49.9998433], [13.9999855, 49.9998433], [13.9999862, 49.9998421], [13.999986, 49.9998415], [13.9999854, 49.999841], [13.9999827, 49.9998412], [13.9999817, 49.9998423], [13.9999817, 49.9998425], [13.9999844, 49.9998433]]] }, properties: { hash: 22, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000739, 49.9998309], [14.0000711, 49.9998307], [14.0000709, 49.9998312], [14.0000727, 49.9998326], [14.0000746, 49.9998329], [14.0000756, 49.9998325], [14.0000756, 49.999832], [14.0000739, 49.9998309]]] }, properties: { hash: 23, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0003634, 50.0001358], [14.0003626, 50.0001353], [14.0003624, 50.0001357], [14.0003628, 50.0001364], [14.0003631, 50.0001366], [14.0003639, 50.0001364], [14.0003634, 50.0001358]]] }, properties: { hash: 24, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000183, 49.9998359], [14.0000251, 49.9998336], [14.0000269, 49.9998324], [14.0000319, 49.9998259], [14.0000334, 49.9998216], [14.000034, 49.9998207], [14.0000355, 49.9998195], [14.0000321, 49.9998187], [14.0000026, 49.9998217], [13.9999989, 49.9998232], [13.9999981, 49.9998248], [13.9999984, 49.9998271], [14.0000071, 49.9998351], [14.0000183, 49.9998359]]] }, properties: { hash: 25, title: "Obstacle", type_name: "obstacle", parent_hash_a: 6, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9997037, 50.0000559], [13.9997025, 50.0000561], [13.9997022, 50.0000563], [13.9997024, 50.0000588], [13.9997024, 50.0000592], [13.9997002, 50.0000695], [13.9997044, 50.0000696], [13.9997051, 50.0000696], [13.9997218, 50.0000719], [13.9997227, 50.0000718], [13.9997265, 50.0000606], [13.9997264, 50.0000586], [13.9997261, 50.0000585], [13.9997181, 50.0000581], [13.9997176, 50.000058], [13.9997037, 50.0000559]]] }, properties: { hash: 26, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.999854, 50], [13.9998592, 49.9999965], [13.9998587, 49.9999949], [13.9998556, 49.9999904], [13.9998513, 49.9999899], [13.9998486, 49.9999909], [13.9998476, 49.9999921], [13.9998469, 49.9999952], [13.9998485, 49.9999981], [13.9998508, 49.9999997], [13.999854, 50]]] }, properties: { hash: 27, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9999828, 50.0000065], [13.9999786, 50.0000101], [13.9999751, 50.0000184], [13.9999746, 50.0000217], [13.9999772, 50.0000238], [13.9999832, 50.0000245], [13.9999869, 50.0000244], [13.9999883, 50.0000232], [13.9999929, 50.0000116], [13.9999928, 50.0000113], [13.9999887, 50.0000069], [13.9999864, 50.0000058], [13.9999828, 50.0000065]]] }, properties: { hash: 28, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996089, 49.9998909], [13.999614, 49.9998893], [13.9996173, 49.9998874], [13.9996177, 49.9998867], [13.9996177, 49.9998832], [13.9996165, 49.9998824], [13.9996101, 49.9998801], [13.9996063, 49.9998801], [13.9996031, 49.9998812], [13.9996017, 49.9998824], [13.9996006, 49.9998855], [13.9996008, 49.9998878], [13.9996033, 49.9998914], [13.9996035, 49.9998913], [13.9996089, 49.9998909]]] }, properties: { hash: 29, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000917, 50.0000282], [14.0001014, 50.000026], [14.0001019, 50.0000259], [14.0001119, 50.0000246], [14.0001178, 50.0000189], [14.0001192, 50.0000181], [14.000122, 50.0000172], [14.0001215, 50.0000163], [14.0001124, 50.0000113], [14.0001112, 50.0000101], [14.0001104, 50.0000078], [14.0001078, 50.0000055], [14.0001072, 50.0000041], [14.0001072, 50.0000041], [14.0001072, 50.0000026], [14.0001024, 50.0000004], [14.0001009, 49.9999991], [14.0001002, 49.9999975], [14.0000995, 49.9999971], [14.000092, 49.9999984], [14.0000912, 49.9999987], [14.0000899, 50.0000009], [14.0000871, 50.0000023], [14.0000848, 50.0000026], [14.0000823, 50.0000022], [14.0000786, 50.0000007], [14.000076, 50.0000013], [14.0000739, 50.000001], [14.0000712, 49.9999994], [14.0000704, 49.9999979], [14.0000685, 49.9999985], [14.0000672, 49.9999995], [14.0000662, 50.000003], [14.0000658, 50.0000037], [14.0000638, 50.000006], [14.000062, 50.0000071], [14.0000595, 50.0000071], [14.0000591, 50.000007], [14.0000549, 50.0000078], [14.000047, 50.0000148], [14.0000453, 50.000018], [14.0000465, 50.0000189], [14.0000504, 50.0000199], [14.0000619, 50.0000204], [14.0000627, 50.0000205], [14.0000725, 50.0000223], [14.0000731, 50.0000224], [14.0000917, 50.0000282]]] }, properties: { hash: 30, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9998745, 49.9999647], [13.9998744, 49.9999648], [13.9998716, 49.9999746], [13.9998721, 49.9999757], [13.9998867, 49.9999779], [13.9998881, 49.9999776], [13.9998908, 49.9999661], [13.9998893, 49.9999658], [13.9998745, 49.9999647]]] }, properties: { hash: 31, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.999749, 49.9999215], [13.9997401, 49.9999227], [13.9997385, 49.9999227], [13.9997278, 49.9999211], [13.9997181, 49.9999212], [13.9997176, 49.9999212], [13.9996967, 49.9999195], [13.9996894, 49.9999222], [13.9996871, 49.9999239], [13.9996837, 49.9999281], [13.9996753, 49.9999453], [13.9996741, 49.9999464], [13.9996568, 49.9999552], [13.999656, 49.9999575], [13.999656, 49.9999629], [13.9996576, 49.9999698], [13.999661, 49.9999722], [13.9996661, 49.9999738], [13.9996849, 49.9999746], [13.9996861, 49.9999747], [13.9996939, 49.9999768], [13.9996955, 49.9999776], [13.9997034, 49.9999852], [13.9997077, 49.999988], [13.9997164, 49.9999917], [13.9997237, 49.9999935], [13.9997303, 49.9999941], [13.9997389, 49.999994], [13.9997551, 49.9999901], [13.9997568, 49.99999], [13.9997972, 49.9999932], [13.9998015, 49.9999928], [13.9998079, 49.9999909], [13.999809, 49.9999907], [13.9998145, 49.9999903], [13.9998157, 49.9999904], [13.9998284, 49.9999922], [13.9998297, 49.999992], [13.9998297, 49.999992], [13.9998402, 49.9999446], [13.9998403, 49.9999444], [13.999843, 49.9999367], [13.9998425, 49.9999364], [13.9997992, 49.9999335], [13.9997985, 49.9999334], [13.9997879, 49.9999313], [13.999773, 49.9999305], [13.999772, 49.9999303], [13.9997556, 49.9999263], [13.9997539, 49.9999255], [13.9997496, 49.9999216], [13.999749, 49.9999215]]] }, properties: { hash: 32, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[13.9996405, 49.9999033], [13.9996349, 49.9999039], [13.9996303, 49.9999054], [13.9996265, 49.9999084], [13.9996245, 49.9999113], [13.9996222, 49.9999216], [13.9996229, 49.9999305], [13.9996237, 49.9999322], [13.9996271, 49.9999352], [13.9996301, 49.9999362], [13.999656, 49.999921], [13.9996594, 49.9999149], [13.9996599, 49.9999122], [13.9996564, 49.999909], [13.9996465, 49.9999042], [13.9996405, 49.9999033]]] }, properties: { hash: 33, title: "Obstacle", type_name: "obstacle", parent_hash_a: 7, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0004415, 50.000107], [14.0004374, 50.0001104], [14.0004365, 50.0001109], [14.0004328, 50.0001124], [14.0004317, 50.0001132], [14.0004315, 50.0001146], [14.0004329, 50.0001172], [14.0004353, 50.0001186], [14.0004457, 50.0001174], [14.0004474, 50.0001164], [14.0004483, 50.0001144], [14.0004477, 50.0001106], [14.000444, 50.0001078], [14.0004419, 50.000107], [14.0004415, 50.000107]]] }, properties: { hash: 34, title: "Obstacle", type_name: "obstacle", parent_hash_a: 8, parent_hash_b: 0 } }, { type: "Feature", geometry: { type: "Polygon", coordinates: [[[14.0000008, 50.0000491], [13.9999979, 50.0000516], [13.9999973, 50.0000572], [13.9999981, 50.0000596], [14.0000059, 50.0000628], [14.0000085, 50.0000556], [14.0000081, 50.0000533], [14.0000065, 50.0000511], [14.0000008, 50.0000491]]] }, properties: { hash: 35, title: "Obstacle", type_name: "obstacle", parent_hash_a: 1, parent_hash_b: 0 } }] }, n0 = { "sensor.heat_pump_supply_temperature": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85740, "60.3"], [85680, "59.8"], [85621, "36.8"], [85560, "30.4"], [85380, "29.9"], [84957, "29.9"], [84897, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74756, "41.8"], [74336, "41.3"], [73856, "41.8"], [73796, "39.3"], [73736, "38.8"], [73676, "38.3"], [73196, "37.8"], [72522, "37.3"], [71945, "36.8"], [71434, "36.3"], [70954, "35.8"], [70414, "35.3"], [69934, "34.8"], [69454, "34.3"], [68973, "33.8"], [68434, "33.3"], [67954, "32.8"], [67354, "32.3"], [66874, "31.8"], [66274, "31.3"], [65674, "30.8"], [65074, "30.3"], [64414, "29.8"], [63754, "29.3"], [63094, "28.8"], [62314, "28.3"], [61534, "27.8"], [60694, "27.3"], [59854, "26.8"], [58894, "26.3"], [57874, "25.8"], [56734, "25.3"], [55594, "24.8"], [54394, "24.3"], [52954, "23.8"], [51454, "23.3"], [49774, "22.8"], [47974, "22.3"], [47194, "22.9"], [47134, "32.3"], [47074, "32.8"], [45394, "27.9"], [45334, "23.6"], [45274, "20.7"], [40338, "20.2"], [38238, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35898, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32598, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32298, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29418, "60.4"], [29358, "57.4"], [29298, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.current_water_temperature": [[86186, "47.6"], [78865, "46.6"], [75685, "45.6"], [74758, "45.6"], [74696, "45.6"], [68395, "44.6"], [63175, "43.6"], [58855, "42.6"], [51235, "41.9"], [43915, "40.9"], [40315, "39.9"], [38574, "38.9"], [37974, "37.9"], [37794, "36.9"], [37614, "35.9"], [36234, "34.9"], [34254, "33.9"], [33354, "34.9"], [33114, "35.9"], [32934, "36.9"], [32754, "37.9"], [32454, "38.9"], [31493, "39.9"], [31314, "40.9"], [31299, "40.9"], [31134, "41.9"], [30954, "42.9"], [30714, "43.9"], [30534, "44.9"], [30293, "45.9"], [30137, "46.9"], [29813, "47.9"], [29502, "47.9"], [24773, "46.9"], [17213, "46.5"], [9593, "45.9"], [2873, "44.9"]], "sensor.water_temperature": [[74758, "47"], [74696, "47"], [34254, "47"], [31299, "47"], [29502, "47"]], "sensor.heating_on": [[86359, "56.3"], [86299, "36.8"], [86238, "31.7"], [86177, "32.8"], [86057, "42.3"], [85998, "46.6"], [85937, "55.1"], [85878, "60.8"], [85766, "60.8"], [85740, "60.3"], [84865, "29.4"], [84838, "26.4"], [84776, "27.1"], [84715, "30.5"], [84655, "32.2"], [84595, "32.7"], [84474, "33.2"], [84414, "36.7"], [84354, "37.3"], [84234, "37.8"], [84174, "38.8"], [84114, "39.3"], [84054, "39.8"], [83994, "40.8"], [83934, "41.3"], [83753, "41.8"], [83574, "41.3"], [81173, "41.8"], [74758, "41.8"], [74696, "41.8"], [74336, "41.3"], [73856, "41.8"], [38214, "22"], [38178, "24.8"], [38118, "26"], [38058, "26.5"], [37998, "28.1"], [37938, "28.6"], [37878, "29.1"], [37818, "30.1"], [37758, "30.6"], [37698, "31.6"], [37638, "32.1"], [37578, "32.6"], [37517, "33.6"], [37458, "34.1"], [37398, "34.6"], [37338, "35.6"], [37278, "36.6"], [37218, "37.1"], [37158, "37.6"], [37098, "38.6"], [37038, "39.1"], [36978, "39.6"], [36918, "40.1"], [36858, "40.6"], [36738, "41.1"], [36678, "41.6"], [36558, "42.1"], [36498, "42.6"], [36378, "40.6"], [36318, "39.2"], [36258, "44.8"], [36198, "48.3"], [36114, "48.3"], [36077, "47.8"], [36018, "42"], [35958, "38.3"], [35874, "37.4"], [35838, "33.3"], [35778, "38.4"], [35718, "39.7"], [35658, "41.5"], [35598, "42"], [35538, "42.5"], [35478, "43"], [35418, "43.5"], [35358, "44.5"], [35178, "45"], [34938, "45.5"], [34818, "44.5"], [34698, "43.5"], [34638, "33.8"], [34578, "35.6"], [34518, "34.7"], [34398, "35.2"], [34338, "35.7"], [34278, "36.2"], [34218, "36.7"], [34158, "37.7"], [34098, "38.2"], [34038, "38.7"], [33978, "39.2"], [33918, "39.7"], [33858, "40.2"], [33798, "40.7"], [33738, "41.2"], [33678, "41.7"], [33618, "42.2"], [33498, "43.2"], [33438, "43.7"], [33318, "44.2"], [33258, "44.7"], [33138, "45.2"], [33078, "45.7"], [32958, "46.2"], [32898, "46.7"], [32778, "47.2"], [32718, "46.6"], [32658, "46.8"], [32574, "46.3"], [32478, "44.3"], [32417, "38.1"], [32358, "33.7"], [32274, "38.7"], [32238, "34.4"], [32178, "39"], [32118, "40.5"], [32058, "42.1"], [31998, "43.2"], [31938, "44.4"], [31878, "45.4"], [31818, "45.9"], [31758, "46.9"], [31698, "48.1"], [31638, "49.1"], [31578, "49.6"], [31518, "50.1"], [31458, "50.6"], [31299, "50.6"], [31278, "51.1"], [30978, "51.6"], [30918, "52.1"], [30858, "52.6"], [30798, "53.1"], [30618, "53.6"], [30498, "54.1"], [30438, "54.6"], [30378, "55.1"], [30258, "55.6"], [30138, "56.1"], [30078, "38.7"], [30018, "30.4"], [29958, "32.1"], [29838, "32.6"], [29778, "40.1"], [29718, "46.8"], [29658, "52.5"], [29598, "57.7"], [29538, "60.9"], [29453, "60.9"], [29418, "60.4"], [29358, "57.4"], [29273, "36.6"], [29238, "30.5"], [29178, "31.1"], [29118, "31.6"], [29058, "32.6"], [28938, "33.1"], [28818, "33.6"], [28757, "34.6"], [28698, "35.1"], [28578, "35.6"], [28518, "36.1"], [28398, "37.1"], [28338, "37.6"], [28218, "38.1"], [28158, "38.6"], [28098, "41.5"], [27978, "42"], [27918, "43"], [27858, "42"], [27798, "42.5"], [27678, "42"], [27258, "41.5"], [26358, "41"], [25638, "40.5"], [24797, "40"], [22697, "39.5"], [18437, "39"], [15797, "38.5"], [8176, "38.4"], [6976, "38.9"], [6256, "39.4"], [5956, "38.9"], [5416, "39.4"], [5236, "39.9"], [4996, "40.4"], [3676, "40.9"]], "sensor.water_heating_on": [[85231, "off"], [74758, "off"], [33138, "on"], [31300, "off"], [31300, "on"], [31299, "on"], [29502, "on"], [28698, "off"]] }, r0 = (o) => new Date(Date.now() + o * 6e4).toISOString();
 function vd(o, e, t) {
   const a = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${e}"/><stop offset="1" stop-color="${t}"/></linearGradient></defs><rect width="96" height="96" fill="url(#g)"/><text x="48" y="60" font-family="system-ui,sans-serif" font-size="38" font-weight="600" fill="white" text-anchor="middle">${o}</text></svg>`;
   return `data:image/svg+xml,${encodeURIComponent(a)}`;
 }
-const Gr = (/* @__PURE__ */ new Date()).getHours(), Yi = Gr >= 7 && Gr < 19, r0 = Yi ? Math.round(6e4 * Math.sin((Gr + 0.5 - 7) / 12 * Math.PI)) : 0, Sn = (o, e, t) => [
+const Gr = (/* @__PURE__ */ new Date()).getHours(), Yi = Gr >= 7 && Gr < 19, l0 = Yi ? Math.round(6e4 * Math.sin((Gr + 0.5 - 7) / 12 * Math.PI)) : 0, zn = (o, e, t) => [
   e > 0 ? "open" : "closed",
   { friendly_name: o, current_position: e, current_tilt_position: t, device_class: "blind", supported_features: 255 }
-], l0 = {
+], c0 = {
   "person.alex": ["home", { friendly_name: "Alex", entity_picture: vd("A", "#7aa7ff", "#5161d6") }],
   "person.sam": ["Work", { friendly_name: "Sam", entity_picture: vd("S", "#ffb37a", "#e0617d") }],
   "zone.work": ["0", { friendly_name: "Work", icon: "mdi:briefcase" }],
@@ -12640,7 +12640,7 @@ const Gr = (/* @__PURE__ */ new Date()).getHours(), Yi = Gr >= 7 && Gr < 19, r0 
   "sensor.washer_machine_state": ["run", { friendly_name: "Washer" }],
   "sensor.washer_job_state": ["rinse", { friendly_name: "Washer job" }],
   "sensor.washer_remaining_time": ["0:42", { friendly_name: "Washer time left" }],
-  "sensor.washer_completion_time": [n0(42), { device_class: "timestamp", friendly_name: "Washer done at" }],
+  "sensor.washer_completion_time": [r0(42), { device_class: "timestamp", friendly_name: "Washer done at" }],
   "binary_sensor.washer_power": ["on", { friendly_name: "Washer power" }],
   "binary_sensor.heat_pump_compressor": ["on", { friendly_name: "Compressor" }],
   "sensor.glass_notifications": [
@@ -12653,25 +12653,25 @@ const Gr = (/* @__PURE__ */ new Date()).getHours(), Yi = Gr >= 7 && Gr < 19, r0 
     }
   ],
   // the sun in the shading azimuth by day: the office and the kids' room shaded, the balcony open
-  "sensor.sun_sensor_luminance": [String(r0), { friendly_name: "Sun sensor luminance", unit_of_measurement: "lx", device_class: "illuminance", state_class: "measurement" }],
+  "sensor.sun_sensor_luminance": [String(l0), { friendly_name: "Sun sensor luminance", unit_of_measurement: "lx", device_class: "illuminance", state_class: "measurement" }],
   "sensor.blinds_shading_level": [Yi ? "mid" : "open", { friendly_name: "Blinds shading level" }],
   "sensor.blinds_target_tilt": [Yi ? "45" : "100", { friendly_name: "Blinds target tilt", unit_of_measurement: "%" }],
-  "cover.office": Sn("Office", 0, Yi ? 45 : 0),
-  "cover.kids_room": Sn("Kids room", 0, Yi ? 45 : 0),
-  "cover.balcony": Sn("Balcony", 100, 100),
+  "cover.office": zn("Office", 0, Yi ? 45 : 0),
+  "cover.kids_room": zn("Kids room", 0, Yi ? 45 : 0),
+  "cover.balcony": zn("Balcony", 100, 100),
   // a gate that only opens and closes (no position), and can be stopped
   "cover.gate": ["closed", { friendly_name: "Gate", device_class: "gate", supported_features: 11 }],
   // the weather now: what the forecast (demoForecast) starts with, by day or night
   "weather.home": [(/* @__PURE__ */ new Date()).getHours() >= 7 && (/* @__PURE__ */ new Date()).getHours() < 19 ? "partlycloudy" : "clear-night", { friendly_name: "Home", temperature: 14.6, temperature_unit: "°C", humidity: 64, pressure: 1016, pressure_unit: "hPa", wind_speed: 14, wind_speed_unit: "km/h", wind_bearing: 240, apparent_temperature: 13.2, cloud_coverage: 45, supported_features: 3 }],
   "sensor.heat_pump_outside_temperature": ["14.8", { unit_of_measurement: "°C", device_class: "temperature", state_class: "measurement", friendly_name: "Outside" }]
-}, Ur = { ...i0, ...l0 };
+}, Ur = { ...s0, ...c0 };
 {
   const o = Ur["calendar.family"];
   Array.isArray(o) && (Ur["calendar.family"] = [o[0], { ...o[1], supported_features: 7 }]);
 }
-const c0 = (o, e) => {
+const d0 = (o, e) => {
   for (const [t, a] of e) o.set(t, a ? ["on", { brightness: a }] : ["off", { brightness: null }]);
-}, zi = (o, e) => (t) => c0(t, [[`light.${o}`, e[o] ?? 0]]), zn = (o, e) => ({
+}, zi = (o, e) => (t) => d0(t, [[`light.${o}`, e[o] ?? 0]]), An = (o, e) => ({
   [`script.open_blinds_${o}`]: (t) => t.set(e, ["open", { current_position: 100 }]),
   [`script.close_blinds_${o}`]: (t) => t.set(e, ["closed", { current_position: 0 }]),
   [`script.tilt_blinds_${o}_min`]: (t) => t.set(e, ["open", { current_tilt_position: 20 }]),
@@ -12679,7 +12679,7 @@ const c0 = (o, e) => {
   [`script.tilt_blinds_${o}_max`]: (t) => t.set(e, ["open", { current_tilt_position: 90 }])
 }), Bs = (o, e) => (t) => {
   t.set("binary_sensor.kitchen_lights_upper_on", o ? "on" : "off"), t.set("binary_sensor.kitchen_lights_lower_on", e ? "on" : "off"), t.set("binary_sensor.kitchen_lights_all_on", o && e ? "on" : "off"), t.set("binary_sensor.kitchen_lights_off_on", !o && !e ? "on" : "off"), t.set("binary_sensor.kitchen_lights_any_on", o || e ? "on" : "off"), t.set("light.kitchen_led", o || e ? ["on", { brightness: 200 }] : "off");
-}, d0 = {
+}, h0 = {
   ...Object.fromEntries(
     ["living_room", "kitchen", "hallway"].flatMap((o) => [
       [`scene.${o}_relax`, zi(o, { [o]: 110 })],
@@ -12689,9 +12689,9 @@ const c0 = (o, e) => {
       [`scene.${o}_nightlight`, zi(o, { [o]: 18 })]
     ])
   ),
-  ...zn("office", "cover.office"),
-  ...zn("kids", "cover.kids_room"),
-  ...zn("bedroom", "cover.balcony"),
+  ...An("office", "cover.office"),
+  ...An("kids", "cover.kids_room"),
+  ...An("bedroom", "cover.balcony"),
   "select.kitchen_led_preset=Lights off": Bs(!1, !1),
   "select.kitchen_led_preset=Upper light": Bs(!0, !1),
   "select.kitchen_led_preset=Lower light": Bs(!1, !0),
@@ -12717,7 +12717,7 @@ function ka(o, e) {
   return (t >>> 0) % 1e3 / 1e3;
 }
 function wd(o, e, t, a) {
-  const i = [], s = o0[o];
+  const i = [], s = n0[o];
   if (s) {
     const d = s.findIndex(([h]) => a - h * 1e3 >= t);
     for (const [h, u] of s.slice(d < 0 ? -1 : Math.max(0, d - 1))) i.push({ s: u, lu: Math.max(t, a - h * 1e3) / 1e3 });
@@ -12750,7 +12750,7 @@ function wd(o, e, t, a) {
   }
   return i.push({ s: e.state, lu: a / 1e3 }), i;
 }
-function h0(o, e, t, a, i) {
+function p0(o, e, t, a, i) {
   const s = { "5minute": 3e5, hour: 36e5, day: 864e5, week: 6048e5, month: 2592e6 }[i] ?? 36e5, n = Math.abs(parseFloat(e.state)) || 1, r = [];
   let l = 0;
   for (let c = t, d = 0; c < a; c += s, d++) {
@@ -12760,7 +12760,7 @@ function h0(o, e, t, a, i) {
   return r;
 }
 const Ra = ["partlycloudy", "cloudy", "partlycloudy", "sunny", "rainy", "partlycloudy", "cloudy"];
-function p0(o) {
+function u0(o) {
   const e = /* @__PURE__ */ new Date();
   if (o === "daily")
     return Array.from({ length: 7 }, (a, i) => {
@@ -12786,16 +12786,16 @@ function p0(o) {
     };
   });
 }
-const Kr = {}, Vr = /* @__PURE__ */ new Set(), nu = /* @__PURE__ */ new Map(), Yr = /* @__PURE__ */ new Map();
+const Kr = {}, Vr = /* @__PURE__ */ new Set(), ru = /* @__PURE__ */ new Map(), Yr = /* @__PURE__ */ new Map();
 let xd = 0;
-const ko = (o) => String(o).padStart(2, "0"), $o = (o) => `${o.getFullYear()}-${ko(o.getMonth() + 1)}-${ko(o.getDate())}`, u0 = (o) => {
+const $o = (o) => String(o).padStart(2, "0"), So = (o) => `${o.getFullYear()}-${$o(o.getMonth() + 1)}-${$o(o.getDate())}`, m0 = (o) => {
   const [e, t, a] = o.split("-").map(Number);
   return new Date(e, t - 1, a);
-}, So = (o) => o.dateTime ? Date.parse(o.dateTime) : u0(o.date).getTime(), m0 = (o, e) => $o(o).replace(/-/g, "") + (e ? "" : `T${ko(o.getHours())}${ko(o.getMinutes())}00`), kd = (o) => new Date(+o.slice(0, 4), +o.slice(4, 6) - 1, +o.slice(6, 8), +(o.slice(9, 11) || 0), +(o.slice(11, 13) || 0)).getTime();
-function g0(o, e, t) {
+}, zo = (o) => o.dateTime ? Date.parse(o.dateTime) : m0(o.date).getTime(), g0 = (o, e) => So(o).replace(/-/g, "") + (e ? "" : `T${$o(o.getHours())}${$o(o.getMinutes())}00`), kd = (o) => new Date(+o.slice(0, 4), +o.slice(4, 6) - 1, +o.slice(6, 8), +(o.slice(9, 11) || 0), +(o.slice(11, 13) || 0)).getTime();
+function f0(o, e, t) {
   const a = /FREQ=(\w+)/.exec(o.rrule ?? "")?.[1];
   if (!a) return [o];
-  const i = !o.start.dateTime, s = new Date(So(o.start)), n = So(o.end) - s.getTime(), r = Math.round(n / 864e5), l = Yr.get(o.uid) ?? 1 / 0, c = [];
+  const i = !o.start.dateTime, s = new Date(zo(o.start)), n = zo(o.end) - s.getTime(), r = Math.round(n / 864e5), l = Yr.get(o.uid) ?? 1 / 0, c = [];
   for (let d = 0; d < 800; d++) {
     const h = new Date(s);
     a === "DAILY" ? h.setDate(h.getDate() + d) : a === "WEEKLY" ? h.setDate(h.getDate() + 7 * d) : a === "MONTHLY" ? h.setMonth(h.getMonth() + d) : h.setFullYear(h.getFullYear() + d);
@@ -12804,17 +12804,17 @@ function g0(o, e, t) {
     const m = i ? new Date(h.getFullYear(), h.getMonth(), h.getDate() + r) : new Date(u + n);
     m.getTime() <= e || c.push({
       ...o,
-      start: i ? { date: $o(h) } : { dateTime: h.toISOString() },
-      end: i ? { date: $o(m) } : { dateTime: m.toISOString() },
-      recurrence_id: m0(h, i)
+      start: i ? { date: So(h) } : { dateTime: h.toISOString() },
+      end: i ? { date: So(m) } : { dateTime: m.toISOString() },
+      recurrence_id: g0(h, i)
     });
   }
   return c;
 }
-function f0(o, e, t) {
+function b0(o, e, t) {
   const a = (n, r, l = 0) => {
     const c = /* @__PURE__ */ new Date();
-    return c.setDate(c.getDate() + n), r === void 0 ? { date: $o(c) } : (c.setHours(r, l, 0, 0), { dateTime: c.toISOString() });
+    return c.setDate(c.getDate() + n), r === void 0 ? { date: So(c) } : (c.setHours(r, l, 0, 0), { dateTime: c.toISOString() });
   };
   return [...(o === "calendar.utilities" ? [
     { summary: "Paper and plastic", start: a(1), end: a(2) },
@@ -12825,9 +12825,9 @@ function f0(o, e, t) {
     { summary: "Dentist", start: a(1, 9, 0), end: a(1, 9, 45), location: "Main Street 12" },
     { summary: "Grandma's birthday", start: a(2), end: a(3) },
     { summary: "Car service", start: a(3, 8, 0), end: a(3, 10, 0) }
-  ]).map((n, r) => ({ ...n, uid: `${o}-${r}` })), ...Kr[o] ?? []].flatMap((n) => g0(n, e, t)).filter((n) => !Vr.has(n.uid) && !(n.recurrence_id && Vr.has(`${n.uid}|${n.recurrence_id}`))).map((n) => ({ ...n, ...nu.get(n.recurrence_id ? `${n.uid}|${n.recurrence_id}` : n.uid) ?? {} })).filter((n) => So(n.start) < t && So(n.end) > e);
+  ]).map((n, r) => ({ ...n, uid: `${o}-${r}` })), ...Kr[o] ?? []].flatMap((n) => f0(n, e, t)).filter((n) => !Vr.has(n.uid) && !(n.recurrence_id && Vr.has(`${n.uid}|${n.recurrence_id}`))).map((n) => ({ ...n, ...ru.get(n.recurrence_id ? `${n.uid}|${n.recurrence_id}` : n.uid) ?? {} })).filter((n) => zo(n.start) < t && zo(n.end) > e);
 }
-function b0(o) {
+function _0(o) {
   const e = String(o.entity_id), t = String(o.uid ?? ""), a = o.recurrence_id ? String(o.recurrence_id) : void 0, i = o.recurrence_range === "THISANDFUTURE" && !!a, s = o.event ?? {}, n = (c) => c && c.length > 10 ? { dateTime: new Date(c).toISOString() } : { date: c }, r = () => ({
     summary: s.summary ?? "",
     start: n(s.dtstart),
@@ -12836,9 +12836,9 @@ function b0(o) {
     description: s.description,
     rrule: s.rrule
   }), l = a ? `${t}|${a}` : t;
-  return o.type === "calendar/event/create" ? (Kr[e] ??= []).push({ ...r(), uid: `demo-${++xd}` }) : o.type === "calendar/event/delete" ? i ? Yr.set(t, kd(a)) : Vr.add(l) : o.type === "calendar/event/update" && (i ? (Yr.set(t, kd(a)), (Kr[e] ??= []).push({ ...r(), uid: `demo-${++xd}` })) : nu.set(l, { ...r(), rrule: a ? void 0 : s.rrule })), null;
+  return o.type === "calendar/event/create" ? (Kr[e] ??= []).push({ ...r(), uid: `demo-${++xd}` }) : o.type === "calendar/event/delete" ? i ? Yr.set(t, kd(a)) : Vr.add(l) : o.type === "calendar/event/update" && (i ? (Yr.set(t, kd(a)), (Kr[e] ??= []).push({ ...r(), uid: `demo-${++xd}` })) : ru.set(l, { ...r(), rrule: a ? void 0 : s.rrule })), null;
 }
-const ru = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "panel", cards: [{ type: "custom:glass-dashboard", left_width: "minmax(340px, 0.36fr)", left: [{ type: "custom:glass-panel", padding: "26px 28px", cards: [{ type: "custom:glass-panel", layout: "row", align: "start", gap: 8, padding: 0, cards: [{ type: "custom:glass-date-header", align: "start", styles: { date_size: "15px", date_line_size: "13px" }, view_layout: { grow: 1 }, nameday: "sensor.nameday", holidays: "calendar.holidays" }, { type: "custom:glass-notifications", entity: "sensor.glass_notifications", size: 28, alerts: [{ id: "mower_error", level: "alert", icon: "mdi:robot-mower-outline", title: "The mower reports an error", message: "Probably stuck", condition: { entity: "lawn_mower.mower", state: "error" } }, { id: "mower_low", level: "warning", icon: "mdi:battery-alert-variant-outline", title: "The mower's battery is low", message: "Under 10 % and not charging", condition: { entity: "sensor.mower_battery", below: 10, and: { entity: "binary_sensor.mower_charging", state: "off" } } }, { id: "braava_error", level: "warning", icon: "mdi:robot-vacuum-alert", title: "The mop reports an error", message: "{state}", condition: { entity: "sensor.mop_error", state_not: ["unknown", "unavailable", "none", ""] } }], visible_on: ["tablet", "desktop"] }, { type: "custom:glass-people", people: [{ entity: "person.alex", battery: "sensor.alex_phone_battery", battery_state: "sensor.alex_phone_battery_state" }, { entity: "person.sam", battery: "sensor.sam_phone_battery", battery_state: "sensor.sam_phone_battery_state" }], responsive: { mobile: { size: 36, gap: 8, battery_style: "ring", show_location: "never", view_layout: { shrink: 0, align: "start" } } }, view_layout: { shrink: 0 }, visible_on: ["tablet", "desktop"], size: 30 }], view_layout: { height: "auto", grow: 0 }, glass: "none" }, { type: "custom:glass-clock-weather", weather: "weather.home", forecast_type: "hourly", forecast_rows: 5, show_weather: !1, clock_align: "center", temperature_entity: "sensor.heat_pump_outside_temperature" }, { type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, hourly_forecast: 5, rain_nowcast: !0, daily_forecast: 0, show_condition: !0, dividers: !0, now_style: "line", icon_style: "mdi", forecast_style: "columns", rain_bars: !1, now_align: "center", temperature_entity: "sensor.heat_pump_outside_temperature", icons: { weather: { color: "rgba(255,255,255,0.92)" } } }, { type: "custom:glass-divider" }, { type: "custom:glass-status-bar", items: [{ entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-check-outline", text: "Secured", visible: { state_not: ["disarmed", "unavailable", "unknown"] } }, { entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-off-outline", text: "Not secured", visible: { state: "disarmed" } }, { entity: "sensor.hot_water_temperature", icon: "dot", text: "Hot water {value}°", precision: 0, color: "blue", rules: [{ above: 43, color: "yellow" }, { above: 45, color: "red" }, { entity: "sensor.water_heating_on", state: "on", animation: "glow" }] }, { entity: "sensor.active_power", format: "power", abs: !0, icon: "mdi:arrow-up-bold", rules: [{ below: 0, icon: "mdi:arrow-down-bold" }, { state: ["0", "0.0"], icon: "mdi:minus", color: "gray" }] }, { entity: "sensor.energy_virtual_batery_day", icon: "mdi:battery-outline", unit: "kWh", rules: [{ above: 0, icon: "mdi:battery-charging" }], precision: 0 }, { entity: "sensor.router_download_speed", format: "data_rate", icon: "mdi:swap-vertical-bold", visible: { above: 0 } }, { entities: ["sensor.sabnzbd_speed", "sensor.qbittorrent_download_speed"], aggregate: "sum", format: "data_rate", icon: "mdi:download", visible: { or: [{ entity: "sensor.sabnzbd_status", state: "Downloading" }, { entity: "sensor.qbittorrent_status", state: ["downloading", "up_down"] }] } }, { entity: "sensor.washer_remaining_time", icon: "mdi:washing-machine", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }, { entity: "binary_sensor.heat_pump_compressor", icon: "mdi:heat-pump-outline", text: "Heat pump", animation: "pulse", visible: { state: "on" } }, { entity: "lawn_mower.mower", icon: "mdi:robot-mower", format: "none", animation: "bounce", visible: { state: "mowing" }, text: "Mowing" }, { entity: "input_boolean.alarmed_toggle", icon: "mdi:alarm-note", format: "none", visible: { state: "on" }, text: "Alarm" }, { entity: "sensor.media_server_streams", icon: "mdi:plex", text: "Plex: {value}", precision: 0, visible: { above: 0 } }], size: 26, gap: 5, wrap: !0, view_layout: { margin: "0 11px" }, pack: !0, styles: { chip_padding: "0 12px 0 10px" } }, { type: "custom:glass-calendar", calendar_view: { days_off: ["calendar.holidays"] }, days: 14, max_events: 6, calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], hide_empty: !0, fit: !0 }], visible_on: ["tablet", "desktop"], justify: "start", styles: { home_side_a: 0.35, liquid_edge_intensity: 0.18, liquid_edge_distance: 0.12 }, gap: 22 }], main: [{ type: "custom:glass-panel", layout: "column", gap: 14, padding: 20, cards: [{ type: "custom:glass-panel", layout: "grid", columns: 3, rows: 3, gap: 14, padding: 0, view_layout: { grow: 1, basis: "0" }, cards: [{ type: "custom:glass-room-card", name: "Living room", icon: "mdi:sofa", entities: [{ entity: "light.living_room", icon: "mdi:lightbulb-outline" }, { entity: "media_player.apple_tv_4k", icon: "mdi:television", name: "TV" }, { entity: "media_player.playstation_5", icon: "mdi:sony-playstation", active_states: ["on"], name: "PS5", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }], layout: "image-full", image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop", image_position: "center 92%", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, image_entities: ["light.living_room", "media_player.apple_tv_4k", "media_player.playstation_5"], max_entities: 2, bar: "split", contextual: [{ entity: "media_player.playstation_5", name: "PS5", icon: "mdi:sony-playstation", visible: { state_not: ["off", "standby", "unavailable", "unknown"] }, active: { state_not: ["off", "standby", "unavailable", "unknown"] }, artwork: !1 }] }, { type: "custom:glass-room-card", name: "Office", icon: "mdi:desk", entities: [{ entity: "sensor.portainer_containers_status", icon: "mdi:server-outline", tap_action: { action: "more-info" }, rules: [{ state: "running", color: "blue" }, { state: "unhealthy", color: "orange", animation: "pulse", badge: "!" }, { state: "stopped", color: "red", badge: "!" }] }, { entity: "cover.office", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_office_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_office_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_office_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_office", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_office", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.office_blinds_user_switch" }, active: { entity: "switch.office_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.office_blinds_user_switch", duration: 3600 } }] } }, { entity: "sensor.office_pc_cpu_load", icon: "mdi:laptop", name: "PC", active: { state_not: ["unavailable", "unknown"] } }], image: "https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature", precision: 1 }], max_entities: 2, image_position: "center 55%", image_on: { entity: "sensor.office_pc_cpu_load", state_not: ["unavailable", "unknown"] }, contextual: [{ entity: "sensor.office_pc_cpu_load", name: "PC", icon: "mdi:laptop", visible: { state_not: ["unavailable", "unknown"] }, active: { state_not: ["unavailable", "unknown"] } }] }, { type: "custom:glass-room-card", name: "Kitchen", icon: "mdi:silverware-fork-knife", entities: [{ entity: "binary_sensor.kitchen_lights_any_on", icon: "mdi:lightbulb-outline", active_color: "yellow", tap_action: { action: "menu", items: [{ icon: "mdi:power", active: { entity: "binary_sensor.kitchen_lights_off_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lights off" } }, { icon: "mdi:arrow-up-bold-circle", active: { entity: "binary_sensor.kitchen_lights_upper_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Upper light" } }, { icon: "mdi:arrow-down-bold-circle", active: { entity: "binary_sensor.kitchen_lights_lower_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lower light" } }, { icon: "mdi:lightbulb-group", active: { entity: "binary_sensor.kitchen_lights_all_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "All lights" } }, { icon: "mdi:ceiling-light", name: "Bar", perform_action: "light.toggle", target: { entity_id: "light.kitchen_bar" }, active: { entity: "light.kitchen_bar", state: "on" } }] }, active: { or: [{ entity: "binary_sensor.kitchen_lights_any_on", state: "on" }, { entity: "light.kitchen_bar", state: "on" }] }, count: ["binary_sensor.kitchen_lights_any_on", "light.kitchen_bar"] }, { entity: "media_player.office", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, max_entities: 1, bar: "split", contextual: [{ entity: "media_player.office", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_position: "center 60%" }, { type: "custom:glass-room-card", name: "Kids' room", icon: "mdi:teddy-bear", entities: [{ entity: "input_boolean.kids_radio", icon: "mdi:weather-night", name: "bedtime", active_color: "blue", active: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] }, tap_action: { action: "menu", labels: !0, items: [{ icon: "mdi:music-note", name: "Stories", tap_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" }, active: { entity: "input_boolean.kids_radio", state: "on" } }, { icon: "mdi:projector", name: "Projector", tap_action: { action: "perform-action", perform_action: "input_boolean.toggle", target: { entity_id: "input_boolean.star_projector" } }, active: { entity: "input_boolean.star_projector", state: "on" } }, { icon: "mdi:power", name: "Both off", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "off" } }, visible: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } }, { icon: "mdi:weather-night", name: "Both on", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "both" } }, visible: { not: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } } }] }, hold_action: { action: "perform-action", perform_action: "script.kids_bedtime" } }, { entity: "cover.kids_room", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_kids_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_kids_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_kids_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_kids", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_kids", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.kids_blinds_user_switch" }, active: { entity: "switch.kids_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.kids_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_4", precision: 1, visible: { entity: "input_boolean.kids_radio", state_not: "on" } }], image_entities: ["input_boolean.star_projector", "input_boolean.kids_radio"], max_entities: 2 }, { type: "custom:glass-room-card", name: "Bedroom", icon: "mdi:bed", entities: [{ entity: "media_player.bedroom_speaker", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music" }, { entity: "cover.balcony", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_bedroom_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_bedroom_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_bedroom_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_bedroom", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_bedroom", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.bedroom_blinds_user_switch" }, active: { entity: "switch.bedroom_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.bedroom_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_3", precision: 1 }], image_entities: ["media_player.bedroom_speaker"], max_entities: 2, image_position: "center 85%" }, { type: "custom:glass-room-card", name: "Laundry", icon: "mdi:tshirt-crew-outline", entities: [{ entity: "switch.wall_switch_2", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "sensor.washer_job_state", icon: "mdi:washing-machine", active_color: "blue", tap_action: { action: "more-info" } }], image: "glass:demo/laundry.jpg", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.washer_remaining_time", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }], max_entities: 2, image_position: "center 74%" }, { type: "custom:glass-room-card", name: "Bathroom", icon: "mdi:bathtub-outline", entities: [{ entity: "switch.switch_switch2", icon: "mdi:lightbulb-outline", active_color: "yellow", active: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, tap_action: { action: "perform-action", perform_action: "script.bathroom_lights_toggle" }, count: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"] }, { entity: "binary_sensor.motion_sensor", icon: "mdi:minus-circle", tap_action: { action: "none" }, active: { or: [{ state: "on" }, { entity: "media_player.bathroom", state: "playing" }] } }, { entity: "media_player.bathroom", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop", layout: "image-full", show_name: !0, info: [], max_entities: 2, image_position: "center 100%", contextual: [{ entity: "media_player.bathroom", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_on: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] } }], glass: "none" }, { type: "custom:glass-panel", layout: "grid", columns: 2, gap: 14, padding: 0, cards: [{ type: "custom:glass-room-card", name: "Hallway", icon: "mdi:coat-rack", entities: [{ entity: "light.hallway", icon: "mdi:lightbulb-outline" }], image: "https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_2", precision: 1 }], max_entities: 2, bar: "split" }, { type: "custom:glass-room-card", name: "Toilet", icon: "mdi:toilet", entities: [{ entity: "switch.wall_switch", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "binary_sensor.toilet_occupied", icon: "mdi:minus-circle", tap_action: { action: "none" }, name: "occupied" }], image: "https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_2", precision: 1 }], max_entities: 2, bar: "split", image_position: "35% 80%" }], view_layout: { height: "auto", shrink: 0 }, glass: "none" }], responsive: { mobile: { columns: 2, rows: null, gap: 8, padding: 6 } }, control_tint: { strength: 0, color: [0, 0, 0] }, styles: { home_border: "rgba(255, 255, 255, 0.12)", home_surface: "transparent" } }], breakpoints: { mobile: 700, desktop: 1500 }, responsive: { mobile: { gap: 12, padding: "10px 12px 12px", overlay_source: { dashboard: "glass-demo-popups", view: "mobile", nav: !1 }, styles: { room_button_size: "46px", room_icon_size: "40px" }, left: null, main: [{ type: "custom:glass-panel", glass: "none", layout: "row", align: "center", gap: 10, padding: 0, cards: [{ type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, hourly_forecast: 0, rain_nowcast: !0, daily_forecast: 0, show_condition: !0, dividers: !1, now_style: "line", icon_style: "mdi", forecast_style: "columns", rain_bars: !1, now_align: "start", temperature_entity: "sensor.heat_pump_outside_temperature", view_layout: { grow: 1 }, icons: { weather: { color: "rgba(255,255,255,0.92)" } }, glass: "none" }, { type: "custom:glass-people", people: [{ entity: "person.alex", battery: "sensor.alex_phone_battery", battery_state: "sensor.alex_phone_battery_state" }, { entity: "person.sam", battery: "sensor.sam_phone_battery", battery_state: "sensor.sam_phone_battery_state" }], view_layout: { shrink: 0 }, size: 34, gap: 6, battery_style: "ring", show_location: "never" }] }, { type: "custom:glass-date-header", greeting: !0, align: "start", styles: { date_size: "26px", date_line_size: "14px" } }, { type: "custom:glass-status-bar", items: [{ entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-check-outline", text: "Secured", visible: { state_not: ["disarmed", "unavailable", "unknown"] } }, { entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-off-outline", text: "Not secured", visible: { state: "disarmed" } }, { entity: "sensor.hot_water_temperature", icon: "dot", text: "Hot water {value}°", precision: 0, color: "blue", rules: [{ above: 43, color: "yellow" }, { above: 45, color: "red" }, { entity: "sensor.water_heating_on", state: "on", animation: "glow" }] }, { entity: "sensor.active_power", format: "power", abs: !0, icon: "mdi:arrow-up-bold", rules: [{ below: 0, icon: "mdi:arrow-down-bold" }, { state: ["0", "0.0"], icon: "mdi:minus", color: "gray" }] }, { entity: "sensor.energy_virtual_batery_day", icon: "mdi:battery-outline", unit: "kWh", rules: [{ above: 0, icon: "mdi:battery-charging" }], precision: 0 }, { entity: "sensor.router_download_speed", format: "data_rate", icon: "mdi:swap-vertical-bold", visible: { above: 0 } }, { entities: ["sensor.sabnzbd_speed", "sensor.qbittorrent_download_speed"], aggregate: "sum", format: "data_rate", icon: "mdi:download", visible: { or: [{ entity: "sensor.sabnzbd_status", state: "Downloading" }, { entity: "sensor.qbittorrent_status", state: ["downloading", "up_down"] }] } }, { entity: "sensor.washer_remaining_time", icon: "mdi:washing-machine", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }, { entity: "binary_sensor.heat_pump_compressor", icon: "mdi:heat-pump-outline", text: "Heat pump", animation: "pulse", visible: { state: "on" } }, { entity: "lawn_mower.mower", icon: "mdi:robot-mower", format: "none", animation: "bounce", visible: { state: "mowing" }, text: "Mowing" }, { entity: "input_boolean.alarmed_toggle", icon: "mdi:alarm-note", format: "none", visible: { state: "on" }, text: "Alarm" }, { entity: "sensor.media_server_streams", icon: "mdi:plex", text: "Plex: {value}", precision: 0, visible: { above: 0 } }], size: 26, gap: 5, wrap: !1 }, { type: "custom:glass-divider", name: "Rooms", line: !1 }, { type: "custom:glass-panel", glass: "none", layout: "row", scroll: !0, item_width: "max(150px, calc((100vw - 48px) / 2.25))", height: "clamp(200px, 34dvh, 320px)", gap: 12, padding: 0, cards: [{ type: "custom:glass-room-card", name: "Living room", icon: "mdi:sofa", entities: [{ entity: "light.living_room", icon: "mdi:lightbulb-outline" }, { entity: "media_player.apple_tv_4k", icon: "mdi:television", name: "TV" }, { entity: "media_player.playstation_5", icon: "mdi:sony-playstation", active_states: ["on"], name: "PS5", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }], layout: "image-full", image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop", image_position: "center 92%", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, image_entities: ["light.living_room", "media_player.apple_tv_4k", "media_player.playstation_5"], max_entities: 2, bar: "full", contextual: [{ entity: "media_player.playstation_5", name: "PS5", icon: "mdi:sony-playstation", visible: { state_not: ["off", "standby", "unavailable", "unknown"] }, active: { state_not: ["off", "standby", "unavailable", "unknown"] }, artwork: !1 }], status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Office", icon: "mdi:desk", entities: [{ entity: "sensor.portainer_containers_status", icon: "mdi:server-outline", tap_action: { action: "more-info" }, rules: [{ state: "running", color: "blue" }, { state: "unhealthy", color: "orange", animation: "pulse", badge: "!" }, { state: "stopped", color: "red", badge: "!" }] }, { entity: "cover.office", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_office_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_office_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_office_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_office", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_office", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.office_blinds_user_switch" }, active: { entity: "switch.office_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.office_blinds_user_switch", duration: 3600 } }] } }, { entity: "sensor.office_pc_cpu_load", icon: "mdi:laptop", name: "PC", active: { state_not: ["unavailable", "unknown"] } }], image: "https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature", precision: 1 }], max_entities: 2, image_position: "center 55%", image_on: { entity: "sensor.office_pc_cpu_load", state_not: ["unavailable", "unknown"] }, contextual: [{ entity: "sensor.office_pc_cpu_load", name: "PC", icon: "mdi:laptop", visible: { state_not: ["unavailable", "unknown"] }, active: { state_not: ["unavailable", "unknown"] } }], status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Kitchen", icon: "mdi:silverware-fork-knife", entities: [{ entity: "binary_sensor.kitchen_lights_any_on", icon: "mdi:lightbulb-outline", active_color: "yellow", tap_action: { action: "menu", items: [{ icon: "mdi:power", active: { entity: "binary_sensor.kitchen_lights_off_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lights off" } }, { icon: "mdi:arrow-up-bold-circle", active: { entity: "binary_sensor.kitchen_lights_upper_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Upper light" } }, { icon: "mdi:arrow-down-bold-circle", active: { entity: "binary_sensor.kitchen_lights_lower_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lower light" } }, { icon: "mdi:lightbulb-group", active: { entity: "binary_sensor.kitchen_lights_all_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "All lights" } }, { icon: "mdi:ceiling-light", name: "Bar", perform_action: "light.toggle", target: { entity_id: "light.kitchen_bar" }, active: { entity: "light.kitchen_bar", state: "on" } }] }, active: { or: [{ entity: "binary_sensor.kitchen_lights_any_on", state: "on" }, { entity: "light.kitchen_bar", state: "on" }] }, count: ["binary_sensor.kitchen_lights_any_on", "light.kitchen_bar"] }, { entity: "media_player.office", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, max_entities: 2, bar: "full", contextual: [{ entity: "media_player.office", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_position: "center 60%", status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Kids' room", icon: "mdi:teddy-bear", entities: [{ entity: "input_boolean.kids_radio", icon: "mdi:weather-night", name: "bedtime", active_color: "blue", active: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] }, tap_action: { action: "menu", labels: !0, items: [{ icon: "mdi:music-note", name: "Stories", tap_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" }, active: { entity: "input_boolean.kids_radio", state: "on" } }, { icon: "mdi:projector", name: "Projector", tap_action: { action: "perform-action", perform_action: "input_boolean.toggle", target: { entity_id: "input_boolean.star_projector" } }, active: { entity: "input_boolean.star_projector", state: "on" } }, { icon: "mdi:power", name: "Both off", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "off" } }, visible: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } }, { icon: "mdi:weather-night", name: "Both on", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "both" } }, visible: { not: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } } }] }, hold_action: { action: "perform-action", perform_action: "script.kids_bedtime" } }, { entity: "cover.kids_room", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_kids_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_kids_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_kids_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_kids", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_kids", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.kids_blinds_user_switch" }, active: { entity: "switch.kids_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.kids_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_4", precision: 1, visible: { entity: "input_boolean.kids_radio", state_not: "on" } }], image_entities: ["input_boolean.star_projector", "input_boolean.kids_radio"], max_entities: 2, status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Bedroom", icon: "mdi:bed", entities: [{ entity: "media_player.bedroom_speaker", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music" }, { entity: "cover.balcony", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_bedroom_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_bedroom_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_bedroom_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_bedroom", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_bedroom", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.bedroom_blinds_user_switch" }, active: { entity: "switch.bedroom_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.bedroom_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_3", precision: 1 }], image_entities: ["media_player.bedroom_speaker"], max_entities: 2, image_position: "center 85%", status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Laundry", icon: "mdi:tshirt-crew-outline", entities: [{ entity: "switch.wall_switch_2", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "sensor.washer_job_state", icon: "mdi:washing-machine", active_color: "blue", tap_action: { action: "more-info" } }], image: "glass:demo/laundry.jpg", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.washer_remaining_time", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }], max_entities: 2, image_position: "center 74%", status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Bathroom", icon: "mdi:bathtub-outline", entities: [{ entity: "switch.switch_switch2", icon: "mdi:lightbulb-outline", active_color: "yellow", active: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, tap_action: { action: "perform-action", perform_action: "script.bathroom_lights_toggle" }, count: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"] }, { entity: "binary_sensor.motion_sensor", icon: "mdi:minus-circle", tap_action: { action: "none" }, active: { or: [{ state: "on" }, { entity: "media_player.bathroom", state: "playing" }] } }, { entity: "media_player.bathroom", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop", layout: "image-full", show_name: !0, info: [], max_entities: 2, image_position: "center 100%", contextual: [{ entity: "media_player.bathroom", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_on: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Hallway", icon: "mdi:coat-rack", entities: [{ entity: "light.hallway", icon: "mdi:lightbulb-outline" }], image: "https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_2", precision: 1 }], max_entities: 2, bar: "full", status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Toilet", icon: "mdi:toilet", entities: [{ entity: "switch.wall_switch", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "binary_sensor.toilet_occupied", icon: "mdi:minus-circle", tap_action: { action: "none" }, name: "occupied" }], image: "https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_2", precision: 1 }], max_entities: 2, bar: "full", image_position: "35% 80%", status_below: !0, buttons: "top-center" }] }, { type: "custom:glass-divider", name: "Running now", line: !1 }, { type: "custom:glass-now", lights: [{ name: "Living room", entities: ["light.living_room"], icon: "mdi:sofa" }, { name: "Kitchen", entities: ["light.wled_segment_1", "light.wled_segment_2", "light.kitchen_bar"], icon: "mdi:silverware-fork-knife" }, { name: "Laundry", entities: ["switch.wall_switch_2"], icon: "mdi:tshirt-crew-outline" }, { name: "Bathroom", entities: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"], icon: "mdi:bathtub-outline" }, { name: "Hallway", entities: ["light.hallway"], icon: "mdi:coat-rack" }, { name: "Toilet", entities: ["switch.wall_switch"], icon: "mdi:toilet" }], items: [{ entity: "media_player.apple_tv_4k", name: "TV", room: "Living room", icon: "mdi:television" }, { entity: "media_player.playstation_5", name: "PS5", room: "Living room", icon: "mdi:sony-playstation", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }, { entity: "sensor.office_pc_cpu_load", name: "PC", room: "Office", icon: "mdi:laptop", detail: "sensor.office_pc_cpu_load" }, { entity: "media_player.office", name: "Music", room: "Kitchen", icon: "mdi:music-note" }, { entity: "media_player.bedroom_speaker", name: "Music", room: "Bedroom", icon: "mdi:music-note" }, { entity: "media_player.bathroom", name: "Music", room: "Bathroom", icon: "mdi:music-note" }, { entity: "input_boolean.kids_radio", name: "Stories", room: "Kids' room", icon: "mdi:music-note", off_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" } }, { entity: "input_boolean.star_projector", name: "Projector", room: "Kids' room", icon: "mdi:projector" }, { type: "washer", entity: "sensor.washer_job_state", name: "Washing machine", room: "Laundry" }, { type: "mower", entity: "lawn_mower.mower", name: "Mower", progress: "sensor.mower_progress", time_left: "sensor.mower_time_left", area: "sensor.mower_work_area" }, { type: "vacuum", entity: "vacuum.vacuum", name: "Vacuuming", room: "device_tracker.vacuum", progress: "sensor.vacuum_mission_progress" }, { type: "vacuum", entity: "vacuum.mop", name: "Mopping", icon: "mdi:robot-mop", room: "device_tracker.mop", progress: "sensor.mop_mission_progress" }] }, { type: "custom:glass-divider", name: "Soon", line: !1 }, { type: "custom:glass-calendar", calendar_view: { days_off: ["calendar.holidays"] }, days: 14, max_events: 2, calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], hide_empty: !0 }], overlay: [{ type: "custom:glass-alarm-ring" }, { type: "custom:glass-dock", items: [{ icon: "mdi:lightbulb-group", link: "#lights" }, { icon: "mdi:blinds-horizontal", link: "#blinds" }, { icon: "mdi:weather-partly-cloudy", link: "#weather" }, { icon: "mdi:music-note", link: "#media" }, { icon: "mdi:solar-power-variant", link: "#energy" }, { icon: "mdi:radiator", link: "#heating" }, { icon: "mdi:cctv", link: "#security" }, { icon: "mdi:broom", link: "#cleaning" }, { icon: "mdi:dots-horizontal-circle-outline", link: "#more" }], indicator: "dot", bare: !0, scroll: !0, fade: !0 }] } }, liquid: { rim_width: 1.25 }, appearance: "sun", time_tint: !1, overlay_source: { dashboard: "glass-demo-popups", view: "tablet", nav: !1 }, styles: { room_button_size: "46px", corner_shape: "round", liquid_squircle: 0, radius: "32px", room_strip_radius: "999px", liquid_edge_intensity: 0.09, liquid_edge_distance: 0.08, liquid_specular: 0.55, liquid_rim_light: 0.6, liquid_tint: 0.2 }, wallpaper: "glass:hills-day", look: "apple-home", overlay: [{ type: "custom:glass-alarm-ring" }, { type: "custom:glass-dock", items: [{ icon: "mdi:lightbulb-group", link: "#lights" }, { icon: "mdi:blinds-horizontal", link: "#blinds" }, { icon: "mdi:weather-partly-cloudy", link: "#weather" }, { icon: "mdi:music-note", link: "#media" }, { icon: "mdi:solar-power-variant", link: "#energy" }, { icon: "mdi:radiator", link: "#heating" }, { icon: "mdi:cctv", link: "#security" }, { icon: "mdi:broom", link: "#cleaning" }, { icon: "mdi:dots-horizontal-circle-outline", link: "#more" }], indicator: "dot", bare: !0, fade: !0 }], preset: "sidebar", dark: { wallpaper: "glass:hills-night-blue-soft" }, demo: !0 }] }] }, gn = { title: "Glass demo – pop-ups", views: [{ title: "Tablet", path: "tablet", type: "sections", max_columns: 4, sections: [{ type: "grid", cards: [{ type: "heading", heading: "Navigation" }, { type: "custom:bubble-card", card_type: "horizontal-buttons-stack", width_desktop: "620px", auto_order: !1, is_sidebar_hidden: !0, highlight_current_view: !0, hide_gradient: !0, styles: `
+const lu = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "panel", cards: [{ type: "custom:glass-dashboard", left_width: "minmax(340px, 0.36fr)", left: [{ type: "custom:glass-panel", padding: "26px 28px", cards: [{ type: "custom:glass-panel", layout: "row", align: "start", gap: 8, padding: 0, cards: [{ type: "custom:glass-date-header", align: "start", styles: { date_size: "15px", date_line_size: "13px" }, view_layout: { grow: 1 }, nameday: "sensor.nameday", holidays: "calendar.holidays" }, { type: "custom:glass-notifications", entity: "sensor.glass_notifications", size: 28, alerts: [{ id: "mower_error", level: "alert", icon: "mdi:robot-mower-outline", title: "The mower reports an error", message: "Probably stuck", condition: { entity: "lawn_mower.mower", state: "error" } }, { id: "mower_low", level: "warning", icon: "mdi:battery-alert-variant-outline", title: "The mower's battery is low", message: "Under 10 % and not charging", condition: { entity: "sensor.mower_battery", below: 10, and: { entity: "binary_sensor.mower_charging", state: "off" } } }, { id: "braava_error", level: "warning", icon: "mdi:robot-vacuum-alert", title: "The mop reports an error", message: "{state}", condition: { entity: "sensor.mop_error", state_not: ["unknown", "unavailable", "none", ""] } }], visible_on: ["tablet", "desktop"] }, { type: "custom:glass-people", people: [{ entity: "person.alex", battery: "sensor.alex_phone_battery", battery_state: "sensor.alex_phone_battery_state" }, { entity: "person.sam", battery: "sensor.sam_phone_battery", battery_state: "sensor.sam_phone_battery_state" }], responsive: { mobile: { size: 36, gap: 8, battery_style: "ring", show_location: "never", view_layout: { shrink: 0, align: "start" } } }, view_layout: { shrink: 0 }, visible_on: ["tablet", "desktop"], size: 30 }], view_layout: { height: "auto", grow: 0 }, glass: "none" }, { type: "custom:glass-clock-weather", weather: "weather.home", forecast_type: "hourly", forecast_rows: 5, show_weather: !1, clock_align: "center", temperature_entity: "sensor.heat_pump_outside_temperature" }, { type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, hourly_forecast: 5, rain_nowcast: !0, daily_forecast: 0, show_condition: !0, dividers: !0, now_style: "line", icon_style: "mdi", forecast_style: "columns", rain_bars: !1, now_align: "center", temperature_entity: "sensor.heat_pump_outside_temperature", icons: { weather: { color: "rgba(255,255,255,0.92)" } } }, { type: "custom:glass-divider" }, { type: "custom:glass-status-bar", items: [{ entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-check-outline", text: "Secured", visible: { state_not: ["disarmed", "unavailable", "unknown"] } }, { entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-off-outline", text: "Not secured", visible: { state: "disarmed" } }, { entity: "sensor.hot_water_temperature", icon: "dot", text: "Hot water {value}°", precision: 0, color: "blue", rules: [{ above: 43, color: "yellow" }, { above: 45, color: "red" }, { entity: "sensor.water_heating_on", state: "on", animation: "glow" }] }, { entity: "sensor.active_power", format: "power", abs: !0, icon: "mdi:arrow-up-bold", rules: [{ below: 0, icon: "mdi:arrow-down-bold" }, { state: ["0", "0.0"], icon: "mdi:minus", color: "gray" }] }, { entity: "sensor.energy_virtual_batery_day", icon: "mdi:battery-outline", unit: "kWh", rules: [{ above: 0, icon: "mdi:battery-charging" }], precision: 0 }, { entity: "sensor.router_download_speed", format: "data_rate", icon: "mdi:swap-vertical-bold", visible: { above: 0 } }, { entities: ["sensor.sabnzbd_speed", "sensor.qbittorrent_download_speed"], aggregate: "sum", format: "data_rate", icon: "mdi:download", visible: { or: [{ entity: "sensor.sabnzbd_status", state: "Downloading" }, { entity: "sensor.qbittorrent_status", state: ["downloading", "up_down"] }] } }, { entity: "sensor.washer_remaining_time", icon: "mdi:washing-machine", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }, { entity: "binary_sensor.heat_pump_compressor", icon: "mdi:heat-pump-outline", text: "Heat pump", animation: "pulse", visible: { state: "on" } }, { entity: "lawn_mower.mower", icon: "mdi:robot-mower", format: "none", animation: "bounce", visible: { state: "mowing" }, text: "Mowing" }, { entity: "input_boolean.alarmed_toggle", icon: "mdi:alarm-note", format: "none", visible: { state: "on" }, text: "Alarm" }, { entity: "sensor.media_server_streams", icon: "mdi:plex", text: "Plex: {value}", precision: 0, visible: { above: 0 } }], size: 26, gap: 5, wrap: !0, view_layout: { margin: "0 11px" }, pack: !0, styles: { chip_padding: "0 12px 0 10px" } }, { type: "custom:glass-calendar", calendar_view: { days_off: ["calendar.holidays"] }, days: 14, max_events: 6, calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], hide_empty: !0, fit: !0 }], visible_on: ["tablet", "desktop"], justify: "start", styles: { home_side_a: 0.35, liquid_edge_intensity: 0.18, liquid_edge_distance: 0.12 }, gap: 22 }], main: [{ type: "custom:glass-panel", layout: "column", gap: 14, padding: 20, cards: [{ type: "custom:glass-panel", layout: "grid", columns: 3, rows: 3, gap: 14, padding: 0, view_layout: { grow: 1, basis: "0" }, cards: [{ type: "custom:glass-room-card", name: "Living room", icon: "mdi:sofa", entities: [{ entity: "light.living_room", icon: "mdi:lightbulb-outline" }, { entity: "media_player.apple_tv_4k", icon: "mdi:television", name: "TV" }, { entity: "media_player.playstation_5", icon: "mdi:sony-playstation", active_states: ["on"], name: "PS5", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }], layout: "image-full", image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop", image_position: "center 92%", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, image_entities: ["light.living_room", "media_player.apple_tv_4k", "media_player.playstation_5"], max_entities: 2, bar: "split", contextual: [{ entity: "media_player.playstation_5", name: "PS5", icon: "mdi:sony-playstation", visible: { state_not: ["off", "standby", "unavailable", "unknown"] }, active: { state_not: ["off", "standby", "unavailable", "unknown"] }, artwork: !1 }] }, { type: "custom:glass-room-card", name: "Office", icon: "mdi:desk", entities: [{ entity: "sensor.portainer_containers_status", icon: "mdi:server-outline", tap_action: { action: "more-info" }, rules: [{ state: "running", color: "blue" }, { state: "unhealthy", color: "orange", animation: "pulse", badge: "!" }, { state: "stopped", color: "red", badge: "!" }] }, { entity: "cover.office", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_office_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_office_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_office_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_office", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_office", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.office_blinds_user_switch" }, active: { entity: "switch.office_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.office_blinds_user_switch", duration: 3600 } }] } }, { entity: "sensor.office_pc_cpu_load", icon: "mdi:laptop", name: "PC", active: { state_not: ["unavailable", "unknown"] } }], image: "https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature", precision: 1 }], max_entities: 2, image_position: "center 55%", image_on: { entity: "sensor.office_pc_cpu_load", state_not: ["unavailable", "unknown"] }, contextual: [{ entity: "sensor.office_pc_cpu_load", name: "PC", icon: "mdi:laptop", visible: { state_not: ["unavailable", "unknown"] }, active: { state_not: ["unavailable", "unknown"] } }] }, { type: "custom:glass-room-card", name: "Kitchen", icon: "mdi:silverware-fork-knife", entities: [{ entity: "binary_sensor.kitchen_lights_any_on", icon: "mdi:lightbulb-outline", active_color: "yellow", tap_action: { action: "menu", items: [{ icon: "mdi:power", active: { entity: "binary_sensor.kitchen_lights_off_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lights off" } }, { icon: "mdi:arrow-up-bold-circle", active: { entity: "binary_sensor.kitchen_lights_upper_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Upper light" } }, { icon: "mdi:arrow-down-bold-circle", active: { entity: "binary_sensor.kitchen_lights_lower_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lower light" } }, { icon: "mdi:lightbulb-group", active: { entity: "binary_sensor.kitchen_lights_all_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "All lights" } }, { icon: "mdi:ceiling-light", name: "Bar", perform_action: "light.toggle", target: { entity_id: "light.kitchen_bar" }, active: { entity: "light.kitchen_bar", state: "on" } }] }, active: { or: [{ entity: "binary_sensor.kitchen_lights_any_on", state: "on" }, { entity: "light.kitchen_bar", state: "on" }] }, count: ["binary_sensor.kitchen_lights_any_on", "light.kitchen_bar"] }, { entity: "media_player.office", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, max_entities: 1, bar: "split", contextual: [{ entity: "media_player.office", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_position: "center 60%" }, { type: "custom:glass-room-card", name: "Kids' room", icon: "mdi:teddy-bear", entities: [{ entity: "input_boolean.kids_radio", icon: "mdi:weather-night", name: "bedtime", active_color: "blue", active: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] }, tap_action: { action: "menu", labels: !0, items: [{ icon: "mdi:music-note", name: "Stories", tap_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" }, active: { entity: "input_boolean.kids_radio", state: "on" } }, { icon: "mdi:projector", name: "Projector", tap_action: { action: "perform-action", perform_action: "input_boolean.toggle", target: { entity_id: "input_boolean.star_projector" } }, active: { entity: "input_boolean.star_projector", state: "on" } }, { icon: "mdi:power", name: "Both off", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "off" } }, visible: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } }, { icon: "mdi:weather-night", name: "Both on", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "both" } }, visible: { not: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } } }] }, hold_action: { action: "perform-action", perform_action: "script.kids_bedtime" } }, { entity: "cover.kids_room", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_kids_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_kids_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_kids_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_kids", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_kids", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.kids_blinds_user_switch" }, active: { entity: "switch.kids_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.kids_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_4", precision: 1, visible: { entity: "input_boolean.kids_radio", state_not: "on" } }], image_entities: ["input_boolean.star_projector", "input_boolean.kids_radio"], max_entities: 2 }, { type: "custom:glass-room-card", name: "Bedroom", icon: "mdi:bed", entities: [{ entity: "media_player.bedroom_speaker", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music" }, { entity: "cover.balcony", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_bedroom_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_bedroom_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_bedroom_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_bedroom", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_bedroom", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.bedroom_blinds_user_switch" }, active: { entity: "switch.bedroom_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.bedroom_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_3", precision: 1 }], image_entities: ["media_player.bedroom_speaker"], max_entities: 2, image_position: "center 85%" }, { type: "custom:glass-room-card", name: "Laundry", icon: "mdi:tshirt-crew-outline", entities: [{ entity: "switch.wall_switch_2", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "sensor.washer_job_state", icon: "mdi:washing-machine", active_color: "blue", tap_action: { action: "more-info" } }], image: "glass:demo/laundry.jpg", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.washer_remaining_time", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }], max_entities: 2, image_position: "center 74%" }, { type: "custom:glass-room-card", name: "Bathroom", icon: "mdi:bathtub-outline", entities: [{ entity: "switch.switch_switch2", icon: "mdi:lightbulb-outline", active_color: "yellow", active: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, tap_action: { action: "perform-action", perform_action: "script.bathroom_lights_toggle" }, count: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"] }, { entity: "binary_sensor.motion_sensor", icon: "mdi:minus-circle", tap_action: { action: "none" }, active: { or: [{ state: "on" }, { entity: "media_player.bathroom", state: "playing" }] } }, { entity: "media_player.bathroom", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop", layout: "image-full", show_name: !0, info: [], max_entities: 2, image_position: "center 100%", contextual: [{ entity: "media_player.bathroom", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_on: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] } }], glass: "none" }, { type: "custom:glass-panel", layout: "grid", columns: 2, gap: 14, padding: 0, cards: [{ type: "custom:glass-room-card", name: "Hallway", icon: "mdi:coat-rack", entities: [{ entity: "light.hallway", icon: "mdi:lightbulb-outline" }], image: "https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_2", precision: 1 }], max_entities: 2, bar: "split" }, { type: "custom:glass-room-card", name: "Toilet", icon: "mdi:toilet", entities: [{ entity: "switch.wall_switch", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "binary_sensor.toilet_occupied", icon: "mdi:minus-circle", tap_action: { action: "none" }, name: "occupied" }], image: "https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_2", precision: 1 }], max_entities: 2, bar: "split", image_position: "35% 80%" }], view_layout: { height: "auto", shrink: 0 }, glass: "none" }], responsive: { mobile: { columns: 2, rows: null, gap: 8, padding: 6 } }, control_tint: { strength: 0, color: [0, 0, 0] }, styles: { home_border: "rgba(255, 255, 255, 0.12)", home_surface: "transparent" } }], breakpoints: { mobile: 700, desktop: 1500 }, responsive: { mobile: { gap: 12, padding: "10px 12px 12px", overlay_source: { dashboard: "glass-demo-popups", view: "mobile", nav: !1 }, styles: { room_button_size: "46px", room_icon_size: "40px" }, left: null, main: [{ type: "custom:glass-panel", glass: "none", layout: "row", align: "center", gap: 10, padding: 0, cards: [{ type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, hourly_forecast: 0, rain_nowcast: !0, daily_forecast: 0, show_condition: !0, dividers: !1, now_style: "line", icon_style: "mdi", forecast_style: "columns", rain_bars: !1, now_align: "start", temperature_entity: "sensor.heat_pump_outside_temperature", view_layout: { grow: 1 }, icons: { weather: { color: "rgba(255,255,255,0.92)" } }, glass: "none" }, { type: "custom:glass-people", people: [{ entity: "person.alex", battery: "sensor.alex_phone_battery", battery_state: "sensor.alex_phone_battery_state" }, { entity: "person.sam", battery: "sensor.sam_phone_battery", battery_state: "sensor.sam_phone_battery_state" }], view_layout: { shrink: 0 }, size: 34, gap: 6, battery_style: "ring", show_location: "never" }] }, { type: "custom:glass-date-header", greeting: !0, align: "start", styles: { date_size: "26px", date_line_size: "14px" } }, { type: "custom:glass-status-bar", items: [{ entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-check-outline", text: "Secured", visible: { state_not: ["disarmed", "unavailable", "unknown"] } }, { entity: "alarm_control_panel.home_alarm", icon: "mdi:shield-off-outline", text: "Not secured", visible: { state: "disarmed" } }, { entity: "sensor.hot_water_temperature", icon: "dot", text: "Hot water {value}°", precision: 0, color: "blue", rules: [{ above: 43, color: "yellow" }, { above: 45, color: "red" }, { entity: "sensor.water_heating_on", state: "on", animation: "glow" }] }, { entity: "sensor.active_power", format: "power", abs: !0, icon: "mdi:arrow-up-bold", rules: [{ below: 0, icon: "mdi:arrow-down-bold" }, { state: ["0", "0.0"], icon: "mdi:minus", color: "gray" }] }, { entity: "sensor.energy_virtual_batery_day", icon: "mdi:battery-outline", unit: "kWh", rules: [{ above: 0, icon: "mdi:battery-charging" }], precision: 0 }, { entity: "sensor.router_download_speed", format: "data_rate", icon: "mdi:swap-vertical-bold", visible: { above: 0 } }, { entities: ["sensor.sabnzbd_speed", "sensor.qbittorrent_download_speed"], aggregate: "sum", format: "data_rate", icon: "mdi:download", visible: { or: [{ entity: "sensor.sabnzbd_status", state: "Downloading" }, { entity: "sensor.qbittorrent_status", state: ["downloading", "up_down"] }] } }, { entity: "sensor.washer_remaining_time", icon: "mdi:washing-machine", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }, { entity: "binary_sensor.heat_pump_compressor", icon: "mdi:heat-pump-outline", text: "Heat pump", animation: "pulse", visible: { state: "on" } }, { entity: "lawn_mower.mower", icon: "mdi:robot-mower", format: "none", animation: "bounce", visible: { state: "mowing" }, text: "Mowing" }, { entity: "input_boolean.alarmed_toggle", icon: "mdi:alarm-note", format: "none", visible: { state: "on" }, text: "Alarm" }, { entity: "sensor.media_server_streams", icon: "mdi:plex", text: "Plex: {value}", precision: 0, visible: { above: 0 } }], size: 26, gap: 5, wrap: !1 }, { type: "custom:glass-divider", name: "Rooms", line: !1 }, { type: "custom:glass-panel", glass: "none", layout: "row", scroll: !0, item_width: "max(150px, calc((100vw - 48px) / 2.25))", height: "clamp(200px, 34dvh, 320px)", gap: 12, padding: 0, cards: [{ type: "custom:glass-room-card", name: "Living room", icon: "mdi:sofa", entities: [{ entity: "light.living_room", icon: "mdi:lightbulb-outline" }, { entity: "media_player.apple_tv_4k", icon: "mdi:television", name: "TV" }, { entity: "media_player.playstation_5", icon: "mdi:sony-playstation", active_states: ["on"], name: "PS5", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }], layout: "image-full", image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80&auto=format&fit=crop", image_position: "center 92%", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, image_entities: ["light.living_room", "media_player.apple_tv_4k", "media_player.playstation_5"], max_entities: 2, bar: "full", contextual: [{ entity: "media_player.playstation_5", name: "PS5", icon: "mdi:sony-playstation", visible: { state_not: ["off", "standby", "unavailable", "unknown"] }, active: { state_not: ["off", "standby", "unavailable", "unknown"] }, artwork: !1 }], status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Office", icon: "mdi:desk", entities: [{ entity: "sensor.portainer_containers_status", icon: "mdi:server-outline", tap_action: { action: "more-info" }, rules: [{ state: "running", color: "blue" }, { state: "unhealthy", color: "orange", animation: "pulse", badge: "!" }, { state: "stopped", color: "red", badge: "!" }] }, { entity: "cover.office", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_office_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_office_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_office_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_office", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_office", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.office_blinds_user_switch" }, active: { entity: "switch.office_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.office_blinds_user_switch", duration: 3600 } }] } }, { entity: "sensor.office_pc_cpu_load", icon: "mdi:laptop", name: "PC", active: { state_not: ["unavailable", "unknown"] } }], image: "https://images.unsplash.com/photo-1606223226350-4cf4cd93a221?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature", precision: 1 }], max_entities: 2, image_position: "center 55%", image_on: { entity: "sensor.office_pc_cpu_load", state_not: ["unavailable", "unknown"] }, contextual: [{ entity: "sensor.office_pc_cpu_load", name: "PC", icon: "mdi:laptop", visible: { state_not: ["unavailable", "unknown"] }, active: { state_not: ["unavailable", "unknown"] } }], status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Kitchen", icon: "mdi:silverware-fork-knife", entities: [{ entity: "binary_sensor.kitchen_lights_any_on", icon: "mdi:lightbulb-outline", active_color: "yellow", tap_action: { action: "menu", items: [{ icon: "mdi:power", active: { entity: "binary_sensor.kitchen_lights_off_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lights off" } }, { icon: "mdi:arrow-up-bold-circle", active: { entity: "binary_sensor.kitchen_lights_upper_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Upper light" } }, { icon: "mdi:arrow-down-bold-circle", active: { entity: "binary_sensor.kitchen_lights_lower_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "Lower light" } }, { icon: "mdi:lightbulb-group", active: { entity: "binary_sensor.kitchen_lights_all_on", state: "on" }, perform_action: "select.select_option", data: { entity_id: "select.kitchen_led_preset", option: "All lights" } }, { icon: "mdi:ceiling-light", name: "Bar", perform_action: "light.toggle", target: { entity_id: "light.kitchen_bar" }, active: { entity: "light.kitchen_bar", state: "on" } }] }, active: { or: [{ entity: "binary_sensor.kitchen_lights_any_on", state: "on" }, { entity: "light.kitchen_bar", state: "on" }] }, count: ["binary_sensor.kitchen_lights_any_on", "light.kitchen_bar"] }, { entity: "media_player.office", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1723470917889-31b8a36056f9?w=2400&q=82&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_4", precision: 1 }], view_layout: { span: 2 }, max_entities: 2, bar: "full", contextual: [{ entity: "media_player.office", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_position: "center 60%", status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Kids' room", icon: "mdi:teddy-bear", entities: [{ entity: "input_boolean.kids_radio", icon: "mdi:weather-night", name: "bedtime", active_color: "blue", active: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] }, tap_action: { action: "menu", labels: !0, items: [{ icon: "mdi:music-note", name: "Stories", tap_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" }, active: { entity: "input_boolean.kids_radio", state: "on" } }, { icon: "mdi:projector", name: "Projector", tap_action: { action: "perform-action", perform_action: "input_boolean.toggle", target: { entity_id: "input_boolean.star_projector" } }, active: { entity: "input_boolean.star_projector", state: "on" } }, { icon: "mdi:power", name: "Both off", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "off" } }, visible: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } }, { icon: "mdi:weather-night", name: "Both on", tap_action: { action: "perform-action", perform_action: "script.kids_bedtime", data: { volba: "both" } }, visible: { not: { or: [{ entity: "input_boolean.kids_radio", state: "on" }, { entity: "input_boolean.star_projector", state: "on" }] } } }] }, hold_action: { action: "perform-action", perform_action: "script.kids_bedtime" } }, { entity: "cover.kids_room", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_kids_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_kids_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_kids_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_kids", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_kids", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.kids_blinds_user_switch" }, active: { entity: "switch.kids_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.kids_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1721395288477-b546804ce392?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_4", precision: 1, visible: { entity: "input_boolean.kids_radio", state_not: "on" } }], image_entities: ["input_boolean.star_projector", "input_boolean.kids_radio"], max_entities: 2, status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Bedroom", icon: "mdi:bed", entities: [{ entity: "media_player.bedroom_speaker", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music" }, { entity: "cover.balcony", icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" }, tap_action: { action: "menu", items: [{ icon: "mdi:numeric-1-box", perform_action: "script.tilt_blinds_bedroom_min" }, { icon: "mdi:numeric-2-box", perform_action: "script.tilt_blinds_bedroom_mid" }, { icon: "mdi:numeric-3-box", perform_action: "script.tilt_blinds_bedroom_max" }, { icon: "mdi:window-shutter-open", perform_action: "script.open_blinds_bedroom", active: { state: "open" } }, { icon: "mdi:window-shutter", perform_action: "script.close_blinds_bedroom", active: { state: "closed" } }, { icon: "mdi:timer-pause-outline", name: "Pause the automation for an hour", perform_action: "switch.toggle", target: { entity_id: "switch.bedroom_blinds_user_switch" }, active: { entity: "switch.bedroom_blinds_user_switch", state: "on" }, color: "orange", countdown: { entity: "switch.bedroom_blinds_user_switch", duration: 3600 } }] } }], image: "https://images.unsplash.com/photo-1766431066492-9bec8410a57b?w=1100&q=80&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_3", precision: 1 }], image_entities: ["media_player.bedroom_speaker"], max_entities: 2, image_position: "center 85%", status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Laundry", icon: "mdi:tshirt-crew-outline", entities: [{ entity: "switch.wall_switch_2", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "sensor.washer_job_state", icon: "mdi:washing-machine", active_color: "blue", tap_action: { action: "more-info" } }], image: "glass:demo/laundry.jpg", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.washer_remaining_time", visible: { entity: "sensor.washer_machine_state", state: "run", and: { entity: "sensor.washer_job_state", state_not: ["finish", "none", "unknown", "unavailable"] } } }], max_entities: 2, image_position: "center 74%", status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Bathroom", icon: "mdi:bathtub-outline", entities: [{ entity: "switch.switch_switch2", icon: "mdi:lightbulb-outline", active_color: "yellow", active: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, tap_action: { action: "perform-action", perform_action: "script.bathroom_lights_toggle" }, count: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"] }, { entity: "binary_sensor.motion_sensor", icon: "mdi:minus-circle", tap_action: { action: "none" }, active: { or: [{ state: "on" }, { entity: "media_player.bathroom", state: "playing" }] } }, { entity: "media_player.bathroom", icon: "mdi:speaker", active_states: ["playing"], tap_action: { action: "toggle" }, name: "music", active: { state: "playing" } }], image: "https://images.unsplash.com/photo-1688786219616-598ed96aa19d?w=1100&q=80&auto=format&fit=crop", layout: "image-full", show_name: !0, info: [], max_entities: 2, image_position: "center 100%", contextual: [{ entity: "media_player.bathroom", name: "music", visible: { state: "playing" }, active: { state: "playing" }, icon: "mdi:music-note", artwork: !1 }], image_on: { or: [{ entity: "switch.switch", state: "on" }, { entity: "switch.switch_switch1", state: "on" }, { entity: "switch.switch_switch2", state: "on" }] }, status_below: !0, bar: "full", buttons: "top-center" }, { type: "custom:glass-room-card", name: "Hallway", icon: "mdi:coat-rack", entities: [{ entity: "light.hallway", icon: "mdi:lightbulb-outline" }], image: "https://images.unsplash.com/photo-1689263132088-c9d2233ca5b1?fm=jpg&q=70&w=900&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.room_temperature_2", precision: 1 }], max_entities: 2, bar: "full", status_below: !0, buttons: "top-center" }, { type: "custom:glass-room-card", name: "Toilet", icon: "mdi:toilet", entities: [{ entity: "switch.wall_switch", icon: "mdi:lightbulb-outline", active_color: "yellow" }, { entity: "binary_sensor.toilet_occupied", icon: "mdi:minus-circle", tap_action: { action: "none" }, name: "occupied" }], image: "https://images.unsplash.com/photo-1737233536991-8ee3f92b7781?w=900&q=75&auto=format&fit=crop", layout: "image-full", image_color: "active", show_name: !0, info: [{ entity: "sensor.radiator_current_temperature_2", precision: 1 }], max_entities: 2, bar: "full", image_position: "35% 80%", status_below: !0, buttons: "top-center" }] }, { type: "custom:glass-divider", name: "Running now", line: !1 }, { type: "custom:glass-now", lights: [{ name: "Living room", entities: ["light.living_room"], icon: "mdi:sofa" }, { name: "Kitchen", entities: ["light.wled_segment_1", "light.wled_segment_2", "light.kitchen_bar"], icon: "mdi:silverware-fork-knife" }, { name: "Laundry", entities: ["switch.wall_switch_2"], icon: "mdi:tshirt-crew-outline" }, { name: "Bathroom", entities: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"], icon: "mdi:bathtub-outline" }, { name: "Hallway", entities: ["light.hallway"], icon: "mdi:coat-rack" }, { name: "Toilet", entities: ["switch.wall_switch"], icon: "mdi:toilet" }], items: [{ entity: "media_player.apple_tv_4k", name: "TV", room: "Living room", icon: "mdi:television" }, { entity: "media_player.playstation_5", name: "PS5", room: "Living room", icon: "mdi:sony-playstation", active: { state_not: ["off", "standby", "unavailable", "unknown"] } }, { entity: "sensor.office_pc_cpu_load", name: "PC", room: "Office", icon: "mdi:laptop", detail: "sensor.office_pc_cpu_load" }, { entity: "media_player.office", name: "Music", room: "Kitchen", icon: "mdi:music-note" }, { entity: "media_player.bedroom_speaker", name: "Music", room: "Bedroom", icon: "mdi:music-note" }, { entity: "media_player.bathroom", name: "Music", room: "Bathroom", icon: "mdi:music-note" }, { entity: "input_boolean.kids_radio", name: "Stories", room: "Kids' room", icon: "mdi:music-note", off_action: { action: "perform-action", perform_action: "script.kids_radio_button_toggle" } }, { entity: "input_boolean.star_projector", name: "Projector", room: "Kids' room", icon: "mdi:projector" }, { type: "washer", entity: "sensor.washer_job_state", name: "Washing machine", room: "Laundry" }, { type: "mower", entity: "lawn_mower.mower", name: "Mower", progress: "sensor.mower_progress", time_left: "sensor.mower_time_left", area: "sensor.mower_work_area" }, { type: "vacuum", entity: "vacuum.vacuum", name: "Vacuuming", room: "device_tracker.vacuum", progress: "sensor.vacuum_mission_progress" }, { type: "vacuum", entity: "vacuum.mop", name: "Mopping", icon: "mdi:robot-mop", room: "device_tracker.mop", progress: "sensor.mop_mission_progress" }] }, { type: "custom:glass-divider", name: "Soon", line: !1 }, { type: "custom:glass-calendar", calendar_view: { days_off: ["calendar.holidays"] }, days: 14, max_events: 2, calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], hide_empty: !0 }], overlay: [{ type: "custom:glass-alarm-ring" }, { type: "custom:glass-dock", items: [{ icon: "mdi:lightbulb-group", link: "#lights" }, { icon: "mdi:blinds-horizontal", link: "#blinds" }, { icon: "mdi:weather-partly-cloudy", link: "#weather" }, { icon: "mdi:music-note", link: "#media" }, { icon: "mdi:solar-power-variant", link: "#energy" }, { icon: "mdi:radiator", link: "#heating" }, { icon: "mdi:cctv", link: "#security" }, { icon: "mdi:broom", link: "#cleaning" }, { icon: "mdi:dots-horizontal-circle-outline", link: "#more" }], indicator: "dot", bare: !0, scroll: !0, fade: !0 }] } }, liquid: { rim_width: 1.25 }, appearance: "sun", time_tint: !1, overlay_source: { dashboard: "glass-demo-popups", view: "tablet", nav: !1 }, styles: { room_button_size: "46px", corner_shape: "round", liquid_squircle: 0, radius: "32px", room_strip_radius: "999px", liquid_edge_intensity: 0.09, liquid_edge_distance: 0.08, liquid_specular: 0.55, liquid_rim_light: 0.6, liquid_tint: 0.2 }, wallpaper: "glass:hills-day", look: "apple-home", overlay: [{ type: "custom:glass-alarm-ring" }, { type: "custom:glass-dock", items: [{ icon: "mdi:lightbulb-group", link: "#lights" }, { icon: "mdi:blinds-horizontal", link: "#blinds" }, { icon: "mdi:weather-partly-cloudy", link: "#weather" }, { icon: "mdi:music-note", link: "#media" }, { icon: "mdi:solar-power-variant", link: "#energy" }, { icon: "mdi:radiator", link: "#heating" }, { icon: "mdi:cctv", link: "#security" }, { icon: "mdi:broom", link: "#cleaning" }, { icon: "mdi:dots-horizontal-circle-outline", link: "#more" }], indicator: "dot", bare: !0, fade: !0 }], preset: "sidebar", dark: { wallpaper: "glass:hills-night-blue-soft" }, demo: !0 }] }] }, fn = { title: "Glass demo – pop-ups", views: [{ title: "Tablet", path: "tablet", type: "sections", max_columns: 4, sections: [{ type: "grid", cards: [{ type: "heading", heading: "Navigation" }, { type: "custom:bubble-card", card_type: "horizontal-buttons-stack", width_desktop: "620px", auto_order: !1, is_sidebar_hidden: !0, highlight_current_view: !0, hide_gradient: !0, styles: `
  .lights > .bubble-background-color, .blinds > .bubble-background-color, .media > .bubble-background-color, .movies > .bubble-background-color, .weather > .bubble-background-color, .energy > .bubble-background-color, .heating > .bubble-background-color, .security > .bubble-background-color, .cleaning > .bubble-background-color, .more > .bubble-background-color {
   background: var(--button-card-background) !important;
   border: 1px solid var(--button-card-border) !important;
@@ -12874,7 +12874,7 @@ const ru = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
   box-shadow:
     0 10px 25px var(--button-card-shadow) !important,
     inset 0 1px 1px var(--button-card-inset-shadow) !important;
-}`, grid_options: { columns: "full" }, "1_link": "#lights", "1_name": "", "1_icon": "mdi:lightbulb-group", "2_link": "#blinds", "2_name": "", "2_icon": "mdi:blinds-horizontal", "3_link": "#weather", "3_name": "", "3_icon": "mdi:weather-partly-cloudy", "4_link": "#energy", "4_name": "", "4_icon": "mdi:solar-power-variant", "5_link": "#heating", "5_name": "", "5_icon": "mdi:radiator", "6_link": "#security", "6_name": "", "6_icon": "mdi:cctv", "7_link": "#cleaning", "7_name": "", "7_icon": "mdi:broom", "8_link": "#more", "8_name": "", "8_icon": "mdi:dots-horizontal-circle-outline" }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#heating", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:radiator", name: "Room heating", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Room heating", icon: "mdi:radiator" }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: "0 6px", align: "stretch", height: "624px", cards: [{ type: "custom:glass-panel", role: "sidebar", gap: 26, padding: 22, view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, cards: [{ type: "custom:glass-heat-pump", view_layout: { shrink: 0 }, entities: { climate: "climate.heat_pump_heating", water_heater: "water_heater.heat_pump_domestic_hot_water", compressor: "binary_sensor.heat_pump_compressor", pump: "binary_sensor.heat_pump_circulation_pump", frost: "binary_sensor.heat_pump_frost_protection", phase: "sensor.heat_pump_compressor_phase", outside: "sensor.heat_pump_outside_temperature", supply: "sensor.heat_pump_secondary_circuit_supply_temperature", return: "sensor.heat_pump_return_temperature", dhw: "sensor.hot_water_temperature", dhw_mode: "select.heat_pump_dhw_operating_mode", curve_shift: "number.heat_pump_heating_curve_shift", curve_slope: "number.heat_pump_heating_curve_slope", compressor_starts: "sensor.heat_pump_compressor_starts", compressor_hours: "sensor.heat_pump_compressor_hours", rod_starts: "sensor.heat_pump_heating_rod_starts", rod_hours: "sensor.heat_pump_heating_rod_hours", pressure: "sensor.heat_pump_supply_pressure", flow: "sensor.heat_pump_volumetric_flow", dhw_active: "sensor.water_heating_on", rod: "binary_sensor.heat_pump_heating_rod" }, show_dhw_setpoint: !1 }, { type: "custom:glass-thermostat", entity: "sensor.heat_pump_supply_temperature", name: "Heating water", icon: "mdi:radiator", hours: 12, graph_entities: ["sensor.heating_on"], active: { entity: "sensor.heating_on", state: "on" }, view_layout: { grow: 1, basis: "80px" }, smoothing: 4, active_color: "orange", inline_value: !0 }, { type: "custom:glass-thermostat", entity: "sensor.current_water_temperature", name: "Water temperature", icon: "mdi:water-boiler", hours: 12, graph_entities: ["sensor.water_temperature"], active: { entity: "sensor.water_heating_on", state: "on" }, view_layout: { grow: 1, basis: "80px" }, smoothing: 4, active_color: "orange", inline_value: !0 }] }, { type: "custom:glass-panel", glass: "none", layout: "grid", columns: 3, rows: 3, gap: 16, padding: 0, view_layout: { grow: 1, basis: "0px" }, cards: [{ type: "custom:glass-thermostat", entity: "climate.radiator_6", temperature_entity: "sensor.room_temperature_4", name: "Living room", icon: "mdi:sofa", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator_5", temperature_entity: "sensor.room_temperature_4", name: "Kitchen", icon: "mdi:silverware-fork-knife", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator", temperature_entity: "sensor.room_temperature", name: "Office", icon: "mdi:chair-rolling", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator_7", temperature_entity: "sensor.room_temperature_3", name: "Bedroom", icon: "mdi:bed-queen", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator_4", name: "Kids' room", icon: "mdi:teddy-bear", hours: 24, temperature_entity: "sensor.radiator_current_temperature_4" }, { type: "custom:glass-thermostat", entity: "climate.radiator_3", temperature_entity: "sensor.room_temperature_2", name: "Hallway", icon: "mdi:hanger", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator_2", name: "Toilet", icon: "mdi:toilet", hours: 24, temperature_entity: "sensor.radiator_current_temperature_2" }, { type: "custom:glass-thermostat", entity: "sensor.heat_pump_outside_temperature", name: "Outside", icon: "mdi:bench-back", hours: 48, view_layout: { span: 2 }, min_max: 24 }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#lights", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:lightbulb-group", name: "Lights", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Lights", icon: "mdi:lightbulb-group", buttons: [{ name: "All on", icon: "mdi:lightbulb-group", tap_action: { action: "perform-action", perform_action: "homeassistant.turn_on", target: { entity_id: ["light.living_room", "light.kitchen", "light.kitchen_led", "light.hallway", "switch.wall_switch", "switch.wall_switch_2", "switch.switch", "switch.switch_switch1", "switch.switch_switch2", "light.hub_light"] } } }, { name: "All off", icon: "mdi:lightbulb-group-off", tap_action: { action: "perform-action", perform_action: "homeassistant.turn_off", target: { entity_id: ["light.living_room", "light.kitchen", "light.kitchen_led", "light.hallway", "switch.wall_switch", "switch.wall_switch_2", "switch.switch", "switch.switch_switch1", "switch.switch_switch2", "light.hub_light"] } } }] }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: "0 6px", align: "stretch", height: "624px", cards: [{ type: "custom:glass-panel", role: "sidebar", layout: "column", gap: 18, padding: 22, justify: "space-between", view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, cards: [{ type: "custom:glass-status-bar", layout: "pills", columns: 1, items: [{ entity: "automation.living_room_lights_by_daylight", icon: "mdi:brightness-auto", name: "Living room by daylight", text: "Off", tap_action: { action: "perform-action", perform_action: "automation.toggle", target: { entity_id: ["automation.living_room_lights_by_daylight", "automation.living_room_ligts_luminance_day_on_bright", "automation.living_room_ligts_luminance_dusk_on", "automation.living_room_ligts_luminance_day_off", "automation.living_room_ligts_luminance_night_nightlight", "automation.living_room_ligts_luminance_night_off", "automation.living_room_lights_off_by_sensor"] } }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.living_room_circadian", icon: "mdi:sun-clock-outline", name: "Living room – circadian", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.netflix_playing_living_room", icon: "mdi:television-play", name: "Living room during TV", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.turn_wled_kitchen_presence_on", icon: "mdi:account-arrow-right", name: "Counter by presence", text: "Off", tap_action: { action: "perform-action", perform_action: "automation.toggle", target: { entity_id: ["automation.turn_wled_kitchen_presence_on", "automation.turn_wled_kitchen_presence_off"] } }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.lights_kitchen_wled_water_temperature", icon: "mdi:water-thermometer-outline", name: "Counter – water temperature", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.hallway_night_light", icon: "mdi:weather-night", name: "Hallway – night light", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.toilet_light_by_motion", icon: "mdi:motion-sensor", name: "Toilet by motion", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.lights_bathroom", icon: "mdi:motion-sensor", name: "Bathroom by motion", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.kids_star_projector", icon: "mdi:clock-star-four-points-outline", name: "Projector on a timer", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.garden_lights_at_the_entrance", icon: "mdi:walk", name: "Garden by the entrance", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }], view_layout: { grow: 1 }, gap: 6, styles: { pill_height: "44px" }, detail: "last_triggered" }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 16, padding: 0, view_layout: { grow: 1, basis: "0px" }, cards: [{ type: "custom:glass-panel", glass: "none", layout: "grid", columns: 3, gap: 16, padding: 0, view_layout: { shrink: 0, height: "auto" }, cards: [{ type: "custom:glass-light", name: "Living room", lights: [{ entity: "light.living_room", name: "Sofa", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.living_room_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.living_room_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.living_room_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.living_room_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.living_room_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }] }, { type: "custom:glass-light", name: "Kitchen", lights: [{ entity: "light.kitchen", name: "Bar", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.kitchen_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.kitchen_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.kitchen_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.kitchen_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.kitchen_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }, { entity: "light.kitchen_led", name: "Counter LED", presets: "select.kitchen_led_preset", preset_options: [{ option: "Upper light", name: "Upper", icon: "mdi:light-flood-up" }, { option: "Lower light", name: "Lower", icon: "mdi:light-flood-down" }, { option: "All lights", name: "All", icon: "mdi:led-strip-variant" }] }] }, { type: "custom:glass-light", name: "Hallway", lights: [{ entity: "light.hallway", name: "Ceiling", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.hallway_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.hallway_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.hallway_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.hallway_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.hallway_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }, { entity: "light.hub_light", name: "Hub", icon: "mdi:lightbulb-night-outline" }] }, { type: "custom:glass-light", name: "Kids' room", lights: [{ entity: "input_boolean.star_projector", name: "Star projector", icon: "mdi:star-shooting-outline" }] }, { type: "custom:glass-light", name: "Bathroom", lights: [{ entity: "switch.switch", entities: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"], name: "Lights", icon: "mdi:ceiling-light" }] }, { type: "custom:glass-light", name: "Toilet", lights: [{ entity: "switch.wall_switch", name: "Ceiling", icon: "mdi:ceiling-light" }] }, { type: "custom:glass-light", name: "Laundry", lights: [{ entity: "switch.wall_switch_2", name: "Ceiling", icon: "mdi:ceiling-light" }] }, { type: "custom:glass-light", name: "Garden", lights: [{ entity: "light.garden_front", name: "Path lights" }] }], equal_rows: !1, masonry: !0 }], justify: "start" }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#blinds", margin_top_desktop: "-7%", width_desktop: "1120px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, hide_backdrop: !0, icon: "mdi:blinds-horizontal", name: "Blinds", cards: [{ type: "custom:glass-popup-header", name: "Blinds", icon: "mdi:blinds-horizontal", buttons: [{ name: "All up", icon: "mdi:arrow-collapse-up", confirm: !0, tap_action: { action: "perform-action", perform_action: "cover.open_cover", target: { entity_id: ["cover.office", "cover.kids_room", "cover.balcony"] } } }, { name: "All down", icon: "mdi:arrow-collapse-down", confirm: !0, tap_action: { action: "perform-action", perform_action: "cover.close_cover", target: { entity_id: ["cover.office", "cover.kids_room", "cover.balcony"] } } }] }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: "0 6px", align: "stretch", cards: [{ type: "custom:glass-panel", role: "sidebar", gap: 20, padding: 22, view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, cards: [{ type: "custom:glass-automation", entity: "automation.blinds_auto", title: "Blinds automation", pause_for: "input_select.blinds_auto_pause", resume_at: "input_datetime.blinds_auto_resume", pause_until: "input_datetime.blinds_auto_until" }, { type: "custom:glass-sun-shading", sun: "sun.sun", light: "sensor.sun_sensor_luminance", shading: "sensor.blinds_shading_level", target_tilt: "sensor.blinds_target_tilt", horizon: 4, azimuth_from: 195, azimuth_to: 305, azimuth_high_from: 215, azimuth_high_to: 305, azimuth_high_above: 20 }, { type: "custom:glass-value-grid", title: "Slat tilt", columns: [{ name: "Strong sun", icon: "mdi:white-balance-sunny", months_from: "input_number.blinds_summer_from", months_to: "input_number.blinds_summer_to" }, { name: "Weak sun", icon: "mdi:weather-sunny-off" }], rows: [{ name: "Min", entities: ["input_number.blinds_summer_min", "input_number.blinds_winter_min"] }, { name: "Mid", entities: ["input_number.blinds_summer_medium", "input_number.blinds_winter_medium"] }, { name: "Max", entities: ["input_number.blinds_summer_max", "input_number.blinds_winter_max"] }] }] }, { type: "custom:glass-panel", glass: "none", layout: "grid", columns: 3, gap: 16, padding: 0, equal_rows: !1, view_layout: { grow: 1, basis: "0px" }, cards: [{ type: "custom:glass-blind", entity: "cover.office", name: "Office", icon: "mdi:desk", pause: "switch.office_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_office" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_office" }], tilts: [{ name: "Min", script: "script.tilt_blinds_office_min" }, { name: "Mid", script: "script.tilt_blinds_office_mid" }, { name: "Max", script: "script.tilt_blinds_office_max" }], view_layout: { align: "start" } }, { type: "custom:glass-blind", entity: "cover.kids_room", name: "Kids' room", icon: "mdi:teddy-bear", pause: "switch.kids_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_kids" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_kids" }], tilts: [{ name: "Min", script: "script.tilt_blinds_kids_min" }, { name: "Mid", script: "script.tilt_blinds_kids_mid" }, { name: "Max", script: "script.tilt_blinds_kids_max" }], view_layout: { align: "start" } }, { type: "custom:glass-blind", entity: "cover.balcony", name: "Bedroom", icon: "mdi:bed", pause: "switch.bedroom_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_bedroom" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_bedroom" }], tilts: [{ name: "Min", script: "script.tilt_blinds_bedroom_min" }, { name: "Mid", script: "script.tilt_blinds_bedroom_mid" }, { name: "Max", script: "script.tilt_blinds_bedroom_max" }], view_layout: { align: "start" } }], align: "start" }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#cleaning", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:broom", name: "Cleaning", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Cleaning", icon: "mdi:broom", buttons: [{ name: "Vacuum everywhere", icon: "mdi:robot-vacuum-variant", tap_action: { action: "perform-action", perform_action: "vacuum.start", target: { entity_id: "vacuum.vacuum" } }, confirm: !0 }, { name: "Mop everywhere", icon: "mdi:water-outline", tap_action: { action: "perform-action", perform_action: "vacuum.start", target: { entity_id: "vacuum.mop" } }, confirm: !0 }, { name: "Vacuum and mop", icon: "mdi:broom", tap_action: { action: "perform-action", perform_action: "script.turn_on", target: { entity_id: "script.vacuum_and_mop" } }, confirm: !0 }] }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: "0 6px", align: "stretch", height: "628px", cards: [{ type: "custom:glass-panel", role: "sidebar", layout: "column", gap: 18, padding: 22, view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, cards: [{ type: "custom:glass-appliance", select_group: "cleaning", entity: "vacuum.vacuum", name: "Vacuum", icon: "mdi:robot-vacuum-variant", battery: "sensor.vacuum_battery", select: "roomba", progress: "sensor.vacuum_mission_progress", charging: "sensor.vacuum_phase", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" } }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "vacuum.mop", name: "Mop", icon: "mdi:robot-vacuum", battery: "sensor.mop_battery", select: "braava", progress: "sensor.mop_mission_progress", charging: "sensor.mop_phase", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" } }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "lawn_mower.mower", name: "Mower", icon: "mdi:robot-mower", progress: "sensor.mower_progress", battery: "sensor.mower_battery", charging: "binary_sensor.mower_charging", pause: { action: "perform-action", perform_action: "script.mower_pause" }, resume: { action: "perform-action", perform_action: "script.mower_unpause" }, nudge: { up: "button.mower_emergency_nudge_forward", left: "button.mower_emergency_nudge_left", right: "button.mower_emergency_nudge_right", down: "button.mower_emergency_nudge_back" }, select: "mower", picked_first: !0 }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "sensor.washer_job_state", name: "Washing machine", icon: "mdi:washing-machine", machine: "sensor.washer_machine_state", remaining: "sensor.washer_remaining_time", kind: "washer" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", gap: 12, padding: 14, view_layout: { grow: 1, basis: "0px" }, cards: [{ type: "custom:glass-room-map", entity: "vacuum.vacuum", map: "image.vacuum_rooms_map", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" }, options: [{ entity: "select.vacuum_carpet_boost_select", name: "Suction", icon: "mdi:fan", option_names: { automatic: "Automatic", eco: "Eco", performance: "Strong" } }, { entity: "select.vacuum_cleaning_passes", name: "Passes", icon: "mdi:repeat", option_names: { Auto: "Automatic", "One pass": "Once", "Two passes": "Twice" } }], visibility: [{ condition: "select", group: "cleaning", id: "roomba" }], view_layout: { grow: 1 } }, { type: "custom:glass-room-map", entity: "vacuum.mop", map: "image.mop_rooms_map", room_names: { "Living room": "Living room", Hallway: "Hallway" }, options: [{ entity: "select.mop_reusable_pad_wetness", name: "Water", icon: "mdi:water-outline", option_names: { 1: "A little", 2: "Medium", 3: "A lot" } }], visibility: [{ condition: "select", group: "cleaning", id: "braava" }], view_layout: { grow: 1 } }, { type: "custom:glass-tabs", group: "cleaning_mower", default: "front", tabs: [{ id: "front", name: "Camera", icon: "mdi:cctv" }, { id: "zones", name: "Zones", icon: "mdi:map-marker-radius-outline" }], visibility: [{ condition: "select", group: "cleaning", id: "mower" }] }, { type: "picture", image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop&h=619", view_layout: { grow: 1 }, visibility: [{ condition: "select", group: "cleaning", id: "mower" }, { condition: "select", group: "cleaning_mower", id: "front" }] }, { type: "custom:glass-room-map", entity: "lawn_mower.mower", tracker: "device_tracker.mower", room_names: { "Area 3": "Zone 3", "Area 5": "Zone 5" }, settings: { angle: "number.mower_cutting_path_angle", height: "number.mower_blade_height", speed: "number.mower_working_speed", spacing: "number.mower_path_spacing" }, visibility: [{ condition: "select", group: "cleaning", id: "mower" }, { condition: "select", group: "cleaning_mower", id: "zones" }], view_layout: { grow: 1 }, satellite: !1 }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#weather", margin_top_desktop: "-7%", width_desktop: "1080px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:weather-partly-cloudy", name: "Weather", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Weather", icon: "mdi:weather-partly-cloudy" }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 16, padding: 0, align: "stretch", height: "624px", cards: [{ type: "custom:glass-panel", role: "sidebar", view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, padding: 22, cards: [{ type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, show_date: !1, show_condition: !0, daily_forecast: 5, hourly_forecast: 5, details: ["humidity", "pressure", "wind", "apparent_temperature", "cloud_coverage", "precipitation", "sunrise", "sunset"], details_columns: 2, tap_action: { action: "none" }, dividers: !0, temperature_entity: "sensor.heat_pump_outside_temperature" }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 16, padding: 0, view_layout: { grow: 1 }, cards: [{ type: "custom:glass-radar", controls_glass: "liquid-gl", zoom: 7, frames: 7, height: "fill", style: "rain", styles: ["rain", "clouds"], view_layout: { grow: 1, basis: "0px" }, forecast: 3 }, { type: "custom:glass-air-quality", entity: "sensor.air_quality_index_air_quality_index", view_layout: { shrink: 0 }, pollutants: ["sensor.air_quality_index_nitrogen_dioxide", "sensor.air_quality_index_ozone", "sensor.air_quality_index_pm10", "sensor.air_quality_index_pm2_5", "sensor.air_quality_index_sulphur_dioxide"] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#media", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 12e4, icon: "mdi:music-note", name: "Music", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Music", icon: "mdi:music-note", search: !0, search_placeholder: "Search music", title_width: "calc(max(340px, calc((100cqw - 22px) * 0.36 / 1.36)) - 20px)" }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 16, padding: 0, align: "stretch", height: "624px", cards: [{ type: "custom:glass-panel", role: "sidebar", view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, padding: 22, cards: [{ type: "custom:glass-media", entity: "media_player.living_room_speaker", entities: ["media_player.kitchen_speaker", "media_player.bathroom_speaker"], library_from: "media_player.youtube_music", music_assistant_url: "http://music-assistant.demo.invalid:8095", music_assistant_token: "demo", show: "player" }] }, { type: "custom:glass-media", entity: "media_player.living_room_speaker", entities: ["media_player.kitchen_speaker", "media_player.bathroom_speaker"], library_from: "media_player.youtube_music", music_assistant_url: "http://music-assistant.demo.invalid:8095", music_assistant_token: "demo", show: "library", view_layout: { grow: 1, basis: "0px" } }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#energy", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 50, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:solar-power-variant", name: "Energy", hide_backdrop: !0, cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 8, padding: "0 6px", height: "700px", cards: [{ type: "custom:glass-popup-header", name: "Energy", icon: "mdi:solar-power-variant", view_layout: { height: "auto" }, cards: [{ type: "custom:glass-period-bar", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", current_entity: "input_boolean.switch_current", now_label: "Now" }] }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: 0, align: "stretch", cards: [{ type: "custom:glass-panel", role: "sidebar", gap: 30, padding: 18, view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, styles: { "--mod-card-background": "transparent", "--mod-card-border": "transparent", "--mod-card-shadow": "transparent", "--mod-card-inset-shadow": "transparent", "--mod-card-gradient-start": "transparent", "--mod-card-gradient-mid": "transparent", "--mod-card-gradient-end": "transparent", "--text-color": "var(--glass-text, #fff)" }, cards: [{ type: "custom:solar-arc-card", arc: { solar_production: "sensor.pv_power", house_consumption: "sensor.house_consumption", grid_power: "sensor.active_power", arc_title_show: !1, flow_style: "laser", flow_count_slow: 4, flow_count_fast: 2, style: { arc_pill_bg_color: "var(--glass-energy-pill, rgba(255,255,255,0.14))", arc_pill_text_color: "var(--glass-energy-text, var(--glass-text, #fff))", arc_text_color: "var(--glass-energy-text, var(--glass-text, #fff))", arc_home_color: "#ff9f0a", arc_sun_flow_color: "#febc2e", arc_flow_line_color: "color-mix(in srgb, var(--glass-energy-text, var(--glass-text, #fff)) 12%, transparent)" } }, sankey: { sankey_show: !0, sankey_title_show: !1, layout: "horizontal", sections: [{ entities: [{ entity_id: "sensor.grid_consumption", name: "Grid", color: "#0084FF", children: ["sensor.house_consumption"] }, { entity_id: "sensor.pv_power", name: "Sun", color: "#febc2e", children: ["sensor.house_consumption", "sensor.power_sell"] }] }, { entities: [{ entity_id: "sensor.house_consumption", name: "House", color: "#ff9f0a", children: ["sensor.house_consumption_1floor", "sensor.house_consumption_0floor", "sensor.house_consumption_rest", "sensor.consumption_inverter"] }, { entity_id: "sensor.power_sell", type: "remaining_parent_state", name: "Export", color: "#32D74B" }] }, { entities: [{ entity_id: "sensor.house_consumption_1floor", name: "Phase 1", color: "#5AC8FA" }, { entity_id: "sensor.house_consumption_0floor", name: "Phase 2", color: "#5AC8FA" }, { entity_id: "sensor.house_consumption_rest", name: "Phase 3", color: "#5AC8FA" }, { entity_id: "sensor.consumption_inverter", name: "Inverter", color: "#5AC8FA" }] }], style: { sankey_text_color_primary: "var(--glass-energy-text, var(--glass-text, #fff))", sankey_text_color_secondary: "var(--glass-energy-text-2, var(--glass-text-secondary, rgba(235,235,245,0.85)))" }, sankey_title_icon_show: !1 }, view_layout: { shadow_css: ".card { background: none !important; border: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; padding: 0 !important; } .card::before, .card::after { display: none !important; } #sun-pill foreignObject { transform-box: fill-box; transform-origin: center; transform: scale(1.18); }" } }, { type: "custom:glass-status-bar", layout: "figures", columns: 3, items: [{ name: "Total", entity: "sensor.virtual_battery_contract", unit: "kWh", secondary: { entity: "sensor.electricity_cost_year", unit: "USD" }, tap_action: { action: "none" } }, { name: "Month", entity: "sensor.virtual_battery_month", unit: "kWh", secondary: { entity: "sensor.electricity_cost_month", unit: "USD" }, tap_action: { action: "none" } }, { name: "Today", entity: "sensor.energy_virtual_batery_day", unit: "kWh", secondary: { entity: "sensor.electricity_cost_day", unit: "USD" }, tap_action: { action: "none" } }], graph: { entity: "sensor.energy_virtual_batery_day", hours: 24 }, styles: { "--glass-graph-height": "44px" } }], justify: "start" }, { type: "custom:glass-panel", layout: "column", gap: 10, padding: 16, cards: [{ type: "custom:glass-status-bar", layout: "pills", columns: 4, items: [{ name: "Export", icon: "mdi:transmission-tower-import", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.Production", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_buy_daily", attribute: null }] }, { name: "Use", icon: "mdi:home-import-outline", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.Consumption", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_consumption_daily", attribute: null }] }, { name: "Bought", icon: "mdi:transmission-tower-export", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.GridBuy", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_sell_daily", attribute: null }] }, { name: "Solar", icon: "mdi:solar-power-variant-outline", icon_color: "orange", entity: "sensor.energy_generation_daily", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: { entity: "input_select.graph_day_month_year", state: "Month" }, entity: "sensor.energy_generation_monthly" }, { when: { entity: "input_select.graph_day_month_year", state: "Year" }, entity: "sensor.energy_generation_yearly" }] }] }, { type: "custom:glass-divider", name: "Solar and use", icon: "mdi:home-lightning-bolt-outline", margin: 0, line: !1 }, { type: "custom:glass-chart", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", card: { type: "custom:apexcharts-card", stacked: !0, apex_config: { chart: { type: "area" } } }, day: { update_interval: "15m", series: [{ entity: "sensor.total_load", name: "Use", unit: "kW", transform: "return -x", type: "column", group_by: { func: "diff", start_with_last: !0 }, opacity: 0.5 }, { entity: "sensor.today_s_pv_generation", name: "Solar", unit: "kW", type: "column", group_by: { func: "diff", start_with_last: !0 } }] }, month: { update_interval: "1h", series: [{ entity: "sensor.pnd_data", name: "Use", unit: "kW", type: "column", attribute: "consumption", data_generator: `return entity.attributes.pnddate.map((pnd, index) => {
+}`, grid_options: { columns: "full" }, "1_link": "#lights", "1_name": "", "1_icon": "mdi:lightbulb-group", "2_link": "#blinds", "2_name": "", "2_icon": "mdi:blinds-horizontal", "3_link": "#weather", "3_name": "", "3_icon": "mdi:weather-partly-cloudy", "4_link": "#energy", "4_name": "", "4_icon": "mdi:solar-power-variant", "5_link": "#heating", "5_name": "", "5_icon": "mdi:radiator", "6_link": "#security", "6_name": "", "6_icon": "mdi:cctv", "7_link": "#cleaning", "7_name": "", "7_icon": "mdi:broom", "8_link": "#more", "8_name": "", "8_icon": "mdi:dots-horizontal-circle-outline" }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#heating", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:radiator", name: "Room heating", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Room heating", icon: "mdi:radiator" }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: "0 6px", align: "stretch", height: "624px", cards: [{ type: "custom:glass-panel", role: "sidebar", gap: 26, padding: 22, view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, cards: [{ type: "custom:glass-heat-pump", view_layout: { shrink: 0 }, entities: { climate: "climate.heat_pump_heating", water_heater: "water_heater.heat_pump_domestic_hot_water", compressor: "binary_sensor.heat_pump_compressor", pump: "binary_sensor.heat_pump_circulation_pump", frost: "binary_sensor.heat_pump_frost_protection", phase: "sensor.heat_pump_compressor_phase", outside: "sensor.heat_pump_outside_temperature", supply: "sensor.heat_pump_secondary_circuit_supply_temperature", return: "sensor.heat_pump_return_temperature", dhw: "sensor.hot_water_temperature", dhw_mode: "select.heat_pump_dhw_operating_mode", curve_shift: "number.heat_pump_heating_curve_shift", curve_slope: "number.heat_pump_heating_curve_slope", compressor_starts: "sensor.heat_pump_compressor_starts", compressor_hours: "sensor.heat_pump_compressor_hours", rod_starts: "sensor.heat_pump_heating_rod_starts", rod_hours: "sensor.heat_pump_heating_rod_hours", pressure: "sensor.heat_pump_supply_pressure", flow: "sensor.heat_pump_volumetric_flow", dhw_active: "sensor.water_heating_on", rod: "binary_sensor.heat_pump_heating_rod" }, show_dhw_setpoint: !1 }, { type: "custom:glass-thermostat", entity: "sensor.heat_pump_supply_temperature", name: "Heating water", icon: "mdi:radiator", hours: 12, graph_entities: ["sensor.heating_on"], active: { entity: "sensor.heating_on", state: "on" }, view_layout: { grow: 1, basis: "80px" }, smoothing: 4, active_color: "orange", inline_value: !0 }, { type: "custom:glass-thermostat", entity: "sensor.current_water_temperature", name: "Water temperature", icon: "mdi:water-boiler", hours: 12, graph_entities: ["sensor.water_temperature"], active: { entity: "sensor.water_heating_on", state: "on" }, view_layout: { grow: 1, basis: "80px" }, smoothing: 4, active_color: "orange", inline_value: !0 }] }, { type: "custom:glass-panel", glass: "none", layout: "grid", columns: 3, rows: 3, gap: 16, padding: 0, view_layout: { grow: 1, basis: "0px" }, cards: [{ type: "custom:glass-thermostat", entity: "climate.radiator_6", temperature_entity: "sensor.room_temperature_4", name: "Living room", icon: "mdi:sofa", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator_5", temperature_entity: "sensor.room_temperature_4", name: "Kitchen", icon: "mdi:silverware-fork-knife", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator", temperature_entity: "sensor.room_temperature", name: "Office", icon: "mdi:chair-rolling", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator_7", temperature_entity: "sensor.room_temperature_3", name: "Bedroom", icon: "mdi:bed-queen", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator_4", name: "Kids' room", icon: "mdi:teddy-bear", hours: 24, temperature_entity: "sensor.radiator_current_temperature_4" }, { type: "custom:glass-thermostat", entity: "climate.radiator_3", temperature_entity: "sensor.room_temperature_2", name: "Hallway", icon: "mdi:hanger", hours: 24 }, { type: "custom:glass-thermostat", entity: "climate.radiator_2", name: "Toilet", icon: "mdi:toilet", hours: 24, temperature_entity: "sensor.radiator_current_temperature_2" }, { type: "custom:glass-thermostat", entity: "sensor.heat_pump_outside_temperature", name: "Outside", icon: "mdi:bench-back", hours: 48, view_layout: { span: 2 }, min_max: 24 }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#lights", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:lightbulb-group", name: "Lights", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Lights", icon: "mdi:lightbulb-group", buttons: [{ name: "All on", icon: "mdi:lightbulb-group", tap_action: { action: "perform-action", perform_action: "homeassistant.turn_on", target: { entity_id: ["light.living_room", "light.kitchen", "light.kitchen_led", "light.hallway", "switch.wall_switch", "switch.wall_switch_2", "switch.switch", "switch.switch_switch1", "switch.switch_switch2", "light.hub_light"] } } }, { name: "All off", icon: "mdi:lightbulb-group-off", tap_action: { action: "perform-action", perform_action: "homeassistant.turn_off", target: { entity_id: ["light.living_room", "light.kitchen", "light.kitchen_led", "light.hallway", "switch.wall_switch", "switch.wall_switch_2", "switch.switch", "switch.switch_switch1", "switch.switch_switch2", "light.hub_light"] } } }] }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: "0 6px", align: "stretch", height: "624px", cards: [{ type: "custom:glass-panel", role: "sidebar", layout: "column", gap: 18, padding: 22, justify: "space-between", view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, cards: [{ type: "custom:glass-status-bar", layout: "pills", columns: 1, items: [{ entity: "automation.living_room_lights_by_daylight", icon: "mdi:brightness-auto", name: "Living room by daylight", text: "Off", tap_action: { action: "perform-action", perform_action: "automation.toggle", target: { entity_id: ["automation.living_room_lights_by_daylight", "automation.living_room_ligts_luminance_day_on_bright", "automation.living_room_ligts_luminance_dusk_on", "automation.living_room_ligts_luminance_day_off", "automation.living_room_ligts_luminance_night_nightlight", "automation.living_room_ligts_luminance_night_off", "automation.living_room_lights_off_by_sensor"] } }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.living_room_circadian", icon: "mdi:sun-clock-outline", name: "Living room – circadian", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.netflix_playing_living_room", icon: "mdi:television-play", name: "Living room during TV", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.turn_wled_kitchen_presence_on", icon: "mdi:account-arrow-right", name: "Counter by presence", text: "Off", tap_action: { action: "perform-action", perform_action: "automation.toggle", target: { entity_id: ["automation.turn_wled_kitchen_presence_on", "automation.turn_wled_kitchen_presence_off"] } }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.lights_kitchen_wled_water_temperature", icon: "mdi:water-thermometer-outline", name: "Counter – water temperature", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.hallway_night_light", icon: "mdi:weather-night", name: "Hallway – night light", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.toilet_light_by_motion", icon: "mdi:motion-sensor", name: "Toilet by motion", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.lights_bathroom", icon: "mdi:motion-sensor", name: "Bathroom by motion", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.kids_star_projector", icon: "mdi:clock-star-four-points-outline", name: "Projector on a timer", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.garden_lights_at_the_entrance", icon: "mdi:walk", name: "Garden by the entrance", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }], view_layout: { grow: 1 }, gap: 6, styles: { pill_height: "44px" }, detail: "last_triggered" }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 16, padding: 0, view_layout: { grow: 1, basis: "0px" }, cards: [{ type: "custom:glass-panel", glass: "none", layout: "grid", columns: 3, gap: 16, padding: 0, view_layout: { shrink: 0, height: "auto" }, cards: [{ type: "custom:glass-light", name: "Living room", lights: [{ entity: "light.living_room", name: "Sofa", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.living_room_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.living_room_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.living_room_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.living_room_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.living_room_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }] }, { type: "custom:glass-light", name: "Kitchen", lights: [{ entity: "light.kitchen", name: "Bar", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.kitchen_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.kitchen_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.kitchen_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.kitchen_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.kitchen_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }, { entity: "light.kitchen_led", name: "Counter LED", presets: "select.kitchen_led_preset", preset_options: [{ option: "Upper light", name: "Upper", icon: "mdi:light-flood-up" }, { option: "Lower light", name: "Lower", icon: "mdi:light-flood-down" }, { option: "All lights", name: "All", icon: "mdi:led-strip-variant" }] }] }, { type: "custom:glass-light", name: "Hallway", lights: [{ entity: "light.hallway", name: "Ceiling", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.hallway_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.hallway_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.hallway_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.hallway_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.hallway_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }, { entity: "light.hub_light", name: "Hub", icon: "mdi:lightbulb-night-outline" }] }, { type: "custom:glass-light", name: "Kids' room", lights: [{ entity: "input_boolean.star_projector", name: "Star projector", icon: "mdi:star-shooting-outline" }] }, { type: "custom:glass-light", name: "Bathroom", lights: [{ entity: "switch.switch", entities: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"], name: "Lights", icon: "mdi:ceiling-light" }] }, { type: "custom:glass-light", name: "Toilet", lights: [{ entity: "switch.wall_switch", name: "Ceiling", icon: "mdi:ceiling-light" }] }, { type: "custom:glass-light", name: "Laundry", lights: [{ entity: "switch.wall_switch_2", name: "Ceiling", icon: "mdi:ceiling-light" }] }, { type: "custom:glass-light", name: "Garden", lights: [{ entity: "light.garden_front", name: "Path lights" }] }], equal_rows: !1, masonry: !0 }], justify: "start" }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#blinds", margin_top_desktop: "-7%", width_desktop: "1120px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, hide_backdrop: !0, icon: "mdi:blinds-horizontal", name: "Blinds", cards: [{ type: "custom:glass-popup-header", name: "Blinds", icon: "mdi:blinds-horizontal", buttons: [{ name: "All up", icon: "mdi:arrow-collapse-up", confirm: !0, tap_action: { action: "perform-action", perform_action: "cover.open_cover", target: { entity_id: ["cover.office", "cover.kids_room", "cover.balcony"] } } }, { name: "All down", icon: "mdi:arrow-collapse-down", confirm: !0, tap_action: { action: "perform-action", perform_action: "cover.close_cover", target: { entity_id: ["cover.office", "cover.kids_room", "cover.balcony"] } } }] }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: "0 6px", align: "stretch", cards: [{ type: "custom:glass-panel", role: "sidebar", gap: 20, padding: 22, view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, cards: [{ type: "custom:glass-automation", entity: "automation.blinds_auto", title: "Blinds automation", pause_for: "input_select.blinds_auto_pause", resume_at: "input_datetime.blinds_auto_resume", pause_until: "input_datetime.blinds_auto_until" }, { type: "custom:glass-sun-shading", sun: "sun.sun", light: "sensor.sun_sensor_luminance", shading: "sensor.blinds_shading_level", target_tilt: "sensor.blinds_target_tilt", horizon: 4, azimuth_from: 195, azimuth_to: 305, azimuth_high_from: 215, azimuth_high_to: 305, azimuth_high_above: 20 }, { type: "custom:glass-value-grid", title: "Slat tilt", columns: [{ name: "Strong sun", icon: "mdi:white-balance-sunny", months_from: "input_number.blinds_summer_from", months_to: "input_number.blinds_summer_to" }, { name: "Weak sun", icon: "mdi:weather-sunny-off" }], rows: [{ name: "Min", entities: ["input_number.blinds_summer_min", "input_number.blinds_winter_min"] }, { name: "Mid", entities: ["input_number.blinds_summer_medium", "input_number.blinds_winter_medium"] }, { name: "Max", entities: ["input_number.blinds_summer_max", "input_number.blinds_winter_max"] }] }] }, { type: "custom:glass-panel", glass: "none", layout: "grid", columns: 3, gap: 16, padding: 0, equal_rows: !1, view_layout: { grow: 1, basis: "0px" }, cards: [{ type: "custom:glass-blind", entity: "cover.office", name: "Office", icon: "mdi:desk", pause: "switch.office_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_office" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_office" }], tilts: [{ name: "Min", script: "script.tilt_blinds_office_min" }, { name: "Mid", script: "script.tilt_blinds_office_mid" }, { name: "Max", script: "script.tilt_blinds_office_max" }], view_layout: { align: "start" } }, { type: "custom:glass-blind", entity: "cover.kids_room", name: "Kids' room", icon: "mdi:teddy-bear", pause: "switch.kids_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_kids" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_kids" }], tilts: [{ name: "Min", script: "script.tilt_blinds_kids_min" }, { name: "Mid", script: "script.tilt_blinds_kids_mid" }, { name: "Max", script: "script.tilt_blinds_kids_max" }], view_layout: { align: "start" } }, { type: "custom:glass-blind", entity: "cover.balcony", name: "Bedroom", icon: "mdi:bed", pause: "switch.bedroom_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_bedroom" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_bedroom" }], tilts: [{ name: "Min", script: "script.tilt_blinds_bedroom_min" }, { name: "Mid", script: "script.tilt_blinds_bedroom_mid" }, { name: "Max", script: "script.tilt_blinds_bedroom_max" }], view_layout: { align: "start" } }], align: "start" }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#cleaning", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:broom", name: "Cleaning", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Cleaning", icon: "mdi:broom", buttons: [{ name: "Vacuum everywhere", icon: "mdi:robot-vacuum-variant", tap_action: { action: "perform-action", perform_action: "vacuum.start", target: { entity_id: "vacuum.vacuum" } }, confirm: !0 }, { name: "Mop everywhere", icon: "mdi:water-outline", tap_action: { action: "perform-action", perform_action: "vacuum.start", target: { entity_id: "vacuum.mop" } }, confirm: !0 }, { name: "Vacuum and mop", icon: "mdi:broom", tap_action: { action: "perform-action", perform_action: "script.turn_on", target: { entity_id: "script.vacuum_and_mop" } }, confirm: !0 }] }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: "0 6px", align: "stretch", height: "628px", cards: [{ type: "custom:glass-panel", role: "sidebar", layout: "column", gap: 18, padding: 22, view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, cards: [{ type: "custom:glass-appliance", select_group: "cleaning", entity: "vacuum.vacuum", name: "Vacuum", icon: "mdi:robot-vacuum-variant", battery: "sensor.vacuum_battery", select: "roomba", progress: "sensor.vacuum_mission_progress", charging: "sensor.vacuum_phase", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" } }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "vacuum.mop", name: "Mop", icon: "mdi:robot-vacuum", battery: "sensor.mop_battery", select: "braava", progress: "sensor.mop_mission_progress", charging: "sensor.mop_phase", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" } }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "lawn_mower.mower", name: "Mower", icon: "mdi:robot-mower", progress: "sensor.mower_progress", battery: "sensor.mower_battery", charging: "binary_sensor.mower_charging", pause: { action: "perform-action", perform_action: "script.mower_pause" }, resume: { action: "perform-action", perform_action: "script.mower_unpause" }, nudge: { up: "button.mower_emergency_nudge_forward", left: "button.mower_emergency_nudge_left", right: "button.mower_emergency_nudge_right", down: "button.mower_emergency_nudge_back" }, select: "mower", picked_first: !0 }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "sensor.washer_job_state", name: "Washing machine", icon: "mdi:washing-machine", machine: "sensor.washer_machine_state", remaining: "sensor.washer_remaining_time", kind: "washer" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", gap: 12, padding: 14, view_layout: { grow: 1, basis: "0px" }, cards: [{ type: "custom:glass-room-map", entity: "vacuum.vacuum", map: "image.vacuum_rooms_map", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" }, options: [{ entity: "select.vacuum_carpet_boost_select", name: "Suction", icon: "mdi:fan", option_names: { automatic: "Automatic", eco: "Eco", performance: "Strong" } }, { entity: "select.vacuum_cleaning_passes", name: "Passes", icon: "mdi:repeat", option_names: { Auto: "Automatic", "One pass": "Once", "Two passes": "Twice" } }], visibility: [{ condition: "select", group: "cleaning", id: "roomba" }], view_layout: { grow: 1 } }, { type: "custom:glass-room-map", entity: "vacuum.mop", map: "image.mop_rooms_map", room_names: { "Living room": "Living room", Hallway: "Hallway" }, options: [{ entity: "select.mop_reusable_pad_wetness", name: "Water", icon: "mdi:water-outline", option_names: { 1: "A little", 2: "Medium", 3: "A lot" } }], visibility: [{ condition: "select", group: "cleaning", id: "braava" }], view_layout: { grow: 1 } }, { type: "custom:glass-tabs", group: "cleaning_mower", default: "front", tabs: [{ id: "front", name: "Camera", icon: "mdi:cctv" }, { id: "zones", name: "Zones", icon: "mdi:map-marker-radius-outline" }], visibility: [{ condition: "select", group: "cleaning", id: "mower" }] }, { type: "picture", image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop&h=619", view_layout: { grow: 1 }, visibility: [{ condition: "select", group: "cleaning", id: "mower" }, { condition: "select", group: "cleaning_mower", id: "front" }] }, { type: "custom:glass-room-map", entity: "lawn_mower.mower", tracker: "device_tracker.mower", room_names: { "Area 3": "Zone 3", "Area 5": "Zone 5" }, settings: { angle: "number.mower_cutting_path_angle", height: "number.mower_blade_height", speed: "number.mower_working_speed", spacing: "number.mower_path_spacing" }, visibility: [{ condition: "select", group: "cleaning", id: "mower" }, { condition: "select", group: "cleaning_mower", id: "zones" }], view_layout: { grow: 1 }, satellite: !1 }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#weather", margin_top_desktop: "-7%", width_desktop: "1080px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:weather-partly-cloudy", name: "Weather", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Weather", icon: "mdi:weather-partly-cloudy" }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 16, padding: 0, align: "stretch", height: "624px", cards: [{ type: "custom:glass-panel", role: "sidebar", view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, padding: 22, cards: [{ type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, show_date: !1, show_condition: !0, daily_forecast: 5, hourly_forecast: 5, details: ["humidity", "pressure", "wind", "apparent_temperature", "cloud_coverage", "precipitation", "sunrise", "sunset"], details_columns: 2, tap_action: { action: "none" }, dividers: !0, temperature_entity: "sensor.heat_pump_outside_temperature" }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 16, padding: 0, view_layout: { grow: 1 }, cards: [{ type: "custom:glass-radar", controls_glass: "liquid-gl", zoom: 7, frames: 7, height: "fill", style: "rain", styles: ["rain", "clouds"], view_layout: { grow: 1, basis: "0px" }, forecast: 3 }, { type: "custom:glass-air-quality", entity: "sensor.air_quality_index_air_quality_index", view_layout: { shrink: 0 }, pollutants: ["sensor.air_quality_index_nitrogen_dioxide", "sensor.air_quality_index_ozone", "sensor.air_quality_index_pm10", "sensor.air_quality_index_pm2_5", "sensor.air_quality_index_sulphur_dioxide"] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#media", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 90, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 12e4, icon: "mdi:music-note", name: "Music", hide_backdrop: !0, cards: [{ type: "custom:glass-popup-header", name: "Music", icon: "mdi:music-note", search: !0, search_placeholder: "Search music", title_width: "calc(max(340px, calc((100cqw - 22px) * 0.36 / 1.36)) - 20px)" }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 16, padding: 0, align: "stretch", height: "624px", cards: [{ type: "custom:glass-panel", role: "sidebar", view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, padding: 22, cards: [{ type: "custom:glass-media", entity: "media_player.kitchen_speaker", entities: ["media_player.office_speaker", "media_player.living_room_speaker", "media_player.bathroom_speaker"], library_from: "media_player.youtube_music", music_assistant_url: "http://music-assistant.demo.invalid:8095", music_assistant_token: "demo", tv_sources: [{ speaker: "media_player.living_room_speaker", tv: "media_player.living_room_tv", sources: [{ entity: "media_player.living_room_youtube", input: "Apple TV" }, { entity: "media_player.living_room_apple_tv", input: "Apple TV" }] }], show: "player" }] }, { type: "custom:glass-media", entity: "media_player.kitchen_speaker", entities: ["media_player.office_speaker", "media_player.living_room_speaker", "media_player.bathroom_speaker"], library_from: "media_player.youtube_music", music_assistant_url: "http://music-assistant.demo.invalid:8095", music_assistant_token: "demo", tv_sources: [{ speaker: "media_player.living_room_speaker", tv: "media_player.living_room_tv", sources: [{ entity: "media_player.living_room_youtube", input: "Apple TV" }, { entity: "media_player.living_room_apple_tv", input: "Apple TV" }] }], show: "library", view_layout: { grow: 1, basis: "0px" } }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#energy", margin_top_desktop: "-7%", width_desktop: "1280px", bg_blur: 50, bg_opacity: 0, is_sidebar_hidden: !0, auto_close: 6e4, icon: "mdi:solar-power-variant", name: "Energy", hide_backdrop: !0, cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 8, padding: "0 6px", height: "700px", cards: [{ type: "custom:glass-popup-header", name: "Energy", icon: "mdi:solar-power-variant", view_layout: { height: "auto" }, cards: [{ type: "custom:glass-period-bar", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", current_entity: "input_boolean.switch_current", now_label: "Now" }] }, { type: "custom:glass-panel", glass: "none", layout: "row", gap: 22, padding: 0, align: "stretch", cards: [{ type: "custom:glass-panel", role: "sidebar", gap: 30, padding: 18, view_layout: { grow: 0, shrink: 0, basis: "max(340px, calc((100% - 22px) * 0.36 / 1.36))" }, styles: { "--mod-card-background": "transparent", "--mod-card-border": "transparent", "--mod-card-shadow": "transparent", "--mod-card-inset-shadow": "transparent", "--mod-card-gradient-start": "transparent", "--mod-card-gradient-mid": "transparent", "--mod-card-gradient-end": "transparent", "--text-color": "var(--glass-text, #fff)" }, cards: [{ type: "custom:solar-arc-card", arc: { solar_production: "sensor.pv_power", house_consumption: "sensor.house_consumption", grid_power: "sensor.active_power", arc_title_show: !1, flow_style: "laser", flow_count_slow: 4, flow_count_fast: 2, style: { arc_pill_bg_color: "var(--glass-energy-pill, rgba(255,255,255,0.14))", arc_pill_text_color: "var(--glass-energy-text, var(--glass-text, #fff))", arc_text_color: "var(--glass-energy-text, var(--glass-text, #fff))", arc_home_color: "#ff9f0a", arc_sun_flow_color: "#febc2e", arc_flow_line_color: "color-mix(in srgb, var(--glass-energy-text, var(--glass-text, #fff)) 12%, transparent)" } }, sankey: { sankey_show: !0, sankey_title_show: !1, layout: "horizontal", sections: [{ entities: [{ entity_id: "sensor.grid_consumption", name: "Grid", color: "#0084FF", children: ["sensor.house_consumption"] }, { entity_id: "sensor.pv_power", name: "Sun", color: "#febc2e", children: ["sensor.house_consumption", "sensor.power_sell"] }] }, { entities: [{ entity_id: "sensor.house_consumption", name: "House", color: "#ff9f0a", children: ["sensor.house_consumption_1floor", "sensor.house_consumption_0floor", "sensor.house_consumption_rest", "sensor.consumption_inverter"] }, { entity_id: "sensor.power_sell", type: "remaining_parent_state", name: "Export", color: "#32D74B" }] }, { entities: [{ entity_id: "sensor.house_consumption_1floor", name: "Phase 1", color: "#5AC8FA" }, { entity_id: "sensor.house_consumption_0floor", name: "Phase 2", color: "#5AC8FA" }, { entity_id: "sensor.house_consumption_rest", name: "Phase 3", color: "#5AC8FA" }, { entity_id: "sensor.consumption_inverter", name: "Inverter", color: "#5AC8FA" }] }], style: { sankey_text_color_primary: "var(--glass-energy-text, var(--glass-text, #fff))", sankey_text_color_secondary: "var(--glass-energy-text-2, var(--glass-text-secondary, rgba(235,235,245,0.85)))" }, sankey_title_icon_show: !1 }, view_layout: { shadow_css: ".card { background: none !important; border: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; padding: 0 !important; } .card::before, .card::after { display: none !important; } #sun-pill foreignObject { transform-box: fill-box; transform-origin: center; transform: scale(1.18); }" } }, { type: "custom:glass-status-bar", layout: "figures", columns: 3, items: [{ name: "Total", entity: "sensor.virtual_battery_contract", unit: "kWh", secondary: { entity: "sensor.electricity_cost_year", unit: "USD" }, tap_action: { action: "none" } }, { name: "Month", entity: "sensor.virtual_battery_month", unit: "kWh", secondary: { entity: "sensor.electricity_cost_month", unit: "USD" }, tap_action: { action: "none" } }, { name: "Today", entity: "sensor.energy_virtual_batery_day", unit: "kWh", secondary: { entity: "sensor.electricity_cost_day", unit: "USD" }, tap_action: { action: "none" } }], graph: { entity: "sensor.energy_virtual_batery_day", hours: 24 }, styles: { "--glass-graph-height": "44px" } }], justify: "start" }, { type: "custom:glass-panel", layout: "column", gap: 10, padding: 16, cards: [{ type: "custom:glass-status-bar", layout: "pills", columns: 4, items: [{ name: "Export", icon: "mdi:transmission-tower-import", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.Production", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_buy_daily", attribute: null }] }, { name: "Use", icon: "mdi:home-import-outline", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.Consumption", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_consumption_daily", attribute: null }] }, { name: "Bought", icon: "mdi:transmission-tower-export", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.GridBuy", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_sell_daily", attribute: null }] }, { name: "Solar", icon: "mdi:solar-power-variant-outline", icon_color: "orange", entity: "sensor.energy_generation_daily", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: { entity: "input_select.graph_day_month_year", state: "Month" }, entity: "sensor.energy_generation_monthly" }, { when: { entity: "input_select.graph_day_month_year", state: "Year" }, entity: "sensor.energy_generation_yearly" }] }] }, { type: "custom:glass-divider", name: "Solar and use", icon: "mdi:home-lightning-bolt-outline", margin: 0, line: !1 }, { type: "custom:glass-chart", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", card: { type: "custom:apexcharts-card", stacked: !0, apex_config: { chart: { type: "area" } } }, day: { update_interval: "15m", series: [{ entity: "sensor.total_load", name: "Use", unit: "kW", transform: "return -x", type: "column", group_by: { func: "diff", start_with_last: !0 }, opacity: 0.5 }, { entity: "sensor.today_s_pv_generation", name: "Solar", unit: "kW", type: "column", group_by: { func: "diff", start_with_last: !0 } }] }, month: { update_interval: "1h", series: [{ entity: "sensor.pnd_data", name: "Use", unit: "kW", type: "column", attribute: "consumption", data_generator: `return entity.attributes.pnddate.map((pnd, index) => {
   return [new Date(pnd).getTime(), Number(entity.attributes.consumption[index])];
 });
 `, invert: !0, group_by: { func: "sum" }, opacity: 0.5 }, { entity: "sensor.pnd_data", name: "Export", unit: "kW", type: "column", attribute: "production", data_generator: `return entity.attributes.pnddate.map((pnd, index) => {
@@ -12927,7 +12927,7 @@ const ru = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
   box-shadow:
     0 10px 25px var(--button-card-shadow) !important,
     inset 0 1px 1px var(--button-card-inset-shadow) !important;
-}`, grid_options: { columns: "full" }, "1_link": "#lights", "1_name": "", "1_icon": "mdi:lightbulb-group", "2_link": "#blinds", "2_name": "", "2_icon": "mdi:blinds-horizontal", "3_link": "#weather", "3_name": "", "3_icon": "mdi:weather-partly-cloudy", "4_link": "#energy", "4_name": "", "4_icon": "mdi:solar-power-variant", "5_link": "#heating", "5_name": "", "5_icon": "mdi:radiator", "6_link": "#security", "6_name": "", "6_icon": "mdi:cctv", "7_link": "#cleaning", "7_name": "", "7_icon": "mdi:broom", "8_link": "#more", "8_name": "", "8_icon": "mdi:dots-horizontal-circle-outline" }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#heating", width_desktop: "340px", margin: "8px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, is_sidebar_hidden: !0, icon: "mdi:radiator", name: "Room heating", hide_backdrop: !0, cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Room heating", icon: "mdi:radiator", view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", gap: 26, padding: 22, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-heat-pump", view_layout: { shrink: 0 }, entities: { climate: "climate.heat_pump_heating", water_heater: "water_heater.heat_pump_domestic_hot_water", compressor: "binary_sensor.heat_pump_compressor", pump: "binary_sensor.heat_pump_circulation_pump", frost: "binary_sensor.heat_pump_frost_protection", phase: "sensor.heat_pump_compressor_phase", outside: "sensor.heat_pump_outside_temperature", supply: "sensor.heat_pump_secondary_circuit_supply_temperature", return: "sensor.heat_pump_return_temperature", dhw: "sensor.hot_water_temperature", dhw_mode: "select.heat_pump_dhw_operating_mode", curve_shift: "number.heat_pump_heating_curve_shift", curve_slope: "number.heat_pump_heating_curve_slope", compressor_starts: "sensor.heat_pump_compressor_starts", compressor_hours: "sensor.heat_pump_compressor_hours", rod_starts: "sensor.heat_pump_heating_rod_starts", rod_hours: "sensor.heat_pump_heating_rod_hours", pressure: "sensor.heat_pump_supply_pressure", flow: "sensor.heat_pump_volumetric_flow", dhw_active: "sensor.water_heating_on", rod: "binary_sensor.heat_pump_heating_rod" }, show_dhw_setpoint: !1 }, { type: "custom:glass-thermostat", entity: "sensor.heat_pump_supply_temperature", name: "Heating water", icon: "mdi:radiator", hours: 12, graph_entities: ["sensor.heating_on"], active: { entity: "sensor.heating_on", state: "on" }, view_layout: { grow: 1, basis: "80px" }, smoothing: 4, active_color: "orange", inline_value: !0 }, { type: "custom:glass-thermostat", entity: "sensor.current_water_temperature", name: "Water temperature", icon: "mdi:water-boiler", hours: 12, graph_entities: ["sensor.water_temperature"], active: { entity: "sensor.water_heating_on", state: "on" }, view_layout: { grow: 1, basis: "80px" }, smoothing: 4, active_color: "orange", inline_value: !0 }] }, { type: "custom:glass-panel", glass: "none", layout: "grid", columns: 1, rows: 3, gap: 16, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-thermostat", entity: "climate.radiator_6", temperature_entity: "sensor.room_temperature_4", name: "Living room", icon: "mdi:sofa", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_5", temperature_entity: "sensor.room_temperature_4", name: "Kitchen", icon: "mdi:silverware-fork-knife", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator", temperature_entity: "sensor.room_temperature", name: "Office", icon: "mdi:chair-rolling", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_7", temperature_entity: "sensor.room_temperature_3", name: "Bedroom", icon: "mdi:bed-queen", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_4", name: "Kids' room", icon: "mdi:teddy-bear", hours: 24, temperature_entity: "sensor.radiator_current_temperature_4", compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_3", temperature_entity: "sensor.room_temperature_2", name: "Hallway", icon: "mdi:hanger", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_2", name: "Toilet", icon: "mdi:toilet", hours: 24, temperature_entity: "sensor.radiator_current_temperature_2", compact: !0 }, { type: "custom:glass-thermostat", entity: "sensor.heat_pump_outside_temperature", name: "Outside", icon: "mdi:bench-back", hours: 48, view_layout: {}, min_max: 24, compact: !0 }], min_column_width: 180 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#lights", width_desktop: "340px", margin: "8px", margin_top_mobile: "-56px", bg_color: "rgba(var(--color-background-black),1)", bg_blur: 50, bg_opacity: 0, is_sidebar_hidden: !0, icon: "mdi:lightbulb-group", margin_top_desktop: "-35px", name: "Lights", hide_backdrop: !0, cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Lights", icon: "mdi:lightbulb-group", view_layout: { height: "auto" }, buttons: [{ icon: "mdi:lightbulb-group", tap_action: { action: "perform-action", perform_action: "homeassistant.turn_on", target: { entity_id: ["light.living_room", "light.kitchen", "light.kitchen_led", "light.hallway", "switch.wall_switch", "switch.wall_switch_2", "switch.switch", "switch.switch_switch1", "switch.switch_switch2", "light.hub_light"] } } }, { icon: "mdi:lightbulb-group-off", tap_action: { action: "perform-action", perform_action: "homeassistant.turn_off", target: { entity_id: ["light.living_room", "light.kitchen", "light.kitchen_led", "light.hallway", "switch.wall_switch", "switch.wall_switch_2", "switch.switch", "switch.switch_switch1", "switch.switch_switch2", "light.hub_light"] } } }] }, { type: "custom:glass-panel", role: "sidebar", layout: "column", gap: 18, padding: 22, justify: "start", view_layout: { height: "auto", order: 1 }, cards: [{ type: "custom:glass-status-bar", layout: "pills", columns: 1, items: [{ entity: "automation.living_room_lights_by_daylight", icon: "mdi:brightness-auto", name: "Living room by daylight", text: "Off", tap_action: { action: "perform-action", perform_action: "automation.toggle", target: { entity_id: ["automation.living_room_lights_by_daylight", "automation.living_room_ligts_luminance_day_on_bright", "automation.living_room_ligts_luminance_dusk_on", "automation.living_room_ligts_luminance_day_off", "automation.living_room_ligts_luminance_night_nightlight", "automation.living_room_ligts_luminance_night_off", "automation.living_room_lights_off_by_sensor"] } }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.living_room_circadian", icon: "mdi:sun-clock-outline", name: "Living room – circadian", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.netflix_playing_living_room", icon: "mdi:television-play", name: "Living room during TV", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.turn_wled_kitchen_presence_on", icon: "mdi:account-arrow-right", name: "Counter by presence", text: "Off", tap_action: { action: "perform-action", perform_action: "automation.toggle", target: { entity_id: ["automation.turn_wled_kitchen_presence_on", "automation.turn_wled_kitchen_presence_off"] } }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.lights_kitchen_wled_water_temperature", icon: "mdi:water-thermometer-outline", name: "Counter – water temperature", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.hallway_night_light", icon: "mdi:weather-night", name: "Hallway – night light", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.toilet_light_by_motion", icon: "mdi:motion-sensor", name: "Toilet by motion", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.lights_bathroom", icon: "mdi:motion-sensor", name: "Bathroom by motion", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.kids_star_projector", icon: "mdi:clock-star-four-points-outline", name: "Projector on a timer", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.garden_lights_at_the_entrance", icon: "mdi:walk", name: "Garden by the entrance", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }], view_layout: {}, gap: 6, styles: { pill_height: "44px" }, detail: "last_triggered" }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 16, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-panel", glass: "none", layout: "grid", columns: 1, gap: 16, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-light", name: "Living room", lights: [{ entity: "light.living_room", name: "Sofa", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.living_room_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.living_room_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.living_room_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.living_room_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.living_room_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }], icon: "mdi:sofa" }, { type: "custom:glass-light", name: "Kitchen", lights: [{ entity: "light.kitchen", name: "Bar", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.kitchen_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.kitchen_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.kitchen_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.kitchen_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.kitchen_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }, { entity: "light.kitchen_led", name: "Counter LED", presets: "select.kitchen_led_preset", preset_options: [{ option: "Upper light", name: "Upper", icon: "mdi:light-flood-up" }, { option: "Lower light", name: "Lower", icon: "mdi:light-flood-down" }, { option: "All lights", name: "All", icon: "mdi:led-strip-variant" }] }], icon: "mdi:silverware-fork-knife" }, { type: "custom:glass-light", name: "Hallway", lights: [{ entity: "light.hallway", name: "Ceiling", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.hallway_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.hallway_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.hallway_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.hallway_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.hallway_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }, { entity: "light.hub_light", name: "Hub", icon: "mdi:lightbulb-night-outline" }], icon: "mdi:hanger" }, { type: "custom:glass-light", name: "Kids' room", lights: [{ entity: "input_boolean.star_projector", name: "Star projector", icon: "mdi:star-shooting-outline" }], icon: "mdi:teddy-bear" }, { type: "custom:glass-light", name: "Bathroom", lights: [{ entity: "switch.switch", entities: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"], name: "Lights", icon: "mdi:ceiling-light" }], icon: "mdi:shower" }, { type: "custom:glass-light", name: "Toilet", lights: [{ entity: "switch.wall_switch", name: "Ceiling", icon: "mdi:ceiling-light" }], icon: "mdi:toilet" }, { type: "custom:glass-light", name: "Laundry", lights: [{ entity: "switch.wall_switch_2", name: "Ceiling", icon: "mdi:ceiling-light" }], icon: "mdi:washing-machine" }, { type: "custom:glass-light", name: "Garden", lights: [{ entity: "light.garden_front", name: "Path lights" }], icon: "mdi:tree-outline" }], equal_rows: !1, masonry: !0, min_column_width: 180 }], justify: "start" }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#blinds", width_desktop: "340px", margin: "8px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, is_sidebar_hidden: !0, icon: "mdi:blinds-horizontal", margin_top_desktop: "-35px", name: "Blinds", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Blinds", icon: "mdi:blinds-horizontal", buttons: [{ icon: "mdi:arrow-collapse-up", confirm: !0, tap_action: { action: "perform-action", perform_action: "cover.open_cover", target: { entity_id: ["cover.office", "cover.kids_room", "cover.balcony"] } }, title: "All up" }, { icon: "mdi:arrow-collapse-down", confirm: !0, tap_action: { action: "perform-action", perform_action: "cover.close_cover", target: { entity_id: ["cover.office", "cover.kids_room", "cover.balcony"] } }, title: "All down" }], view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", gap: 16, padding: 18, view_layout: { height: "auto", order: 1 }, cards: [{ type: "custom:glass-automation", entity: "automation.blinds_auto", title: "Blinds automation", pause_for: "input_select.blinds_auto_pause", resume_at: "input_datetime.blinds_auto_resume", pause_until: "input_datetime.blinds_auto_until" }, { type: "custom:glass-sun-shading", sun: "sun.sun", light: "sensor.sun_sensor_luminance", shading: "sensor.blinds_shading_level", target_tilt: "sensor.blinds_target_tilt", horizon: 4, azimuth_from: 195, azimuth_to: 305, azimuth_high_from: 215, azimuth_high_to: 305, azimuth_high_above: 20 }, { type: "custom:glass-value-grid", title: "Slat tilt", columns: [{ name: "Strong sun", icon: "mdi:white-balance-sunny", months_from: "input_number.blinds_summer_from", months_to: "input_number.blinds_summer_to" }, { name: "Weak sun", icon: "mdi:weather-sunny-off" }], rows: [{ name: "Min", entities: ["input_number.blinds_summer_min", "input_number.blinds_winter_min"] }, { name: "Mid", entities: ["input_number.blinds_summer_medium", "input_number.blinds_winter_medium"] }, { name: "Max", entities: ["input_number.blinds_summer_max", "input_number.blinds_winter_max"] }] }] }, { type: "custom:glass-panel", glass: "none", layout: "grid", gap: 12, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-blind", entity: "cover.office", name: "Office", icon: "mdi:desk", pause: "switch.office_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_office" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_office" }], tilts: [{ name: "Min", script: "script.tilt_blinds_office_min" }, { name: "Mid", script: "script.tilt_blinds_office_mid" }, { name: "Max", script: "script.tilt_blinds_office_max" }], view_layout: { align: "start" } }, { type: "custom:glass-blind", entity: "cover.kids_room", name: "Kids' room", icon: "mdi:teddy-bear", pause: "switch.kids_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_kids" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_kids" }], tilts: [{ name: "Min", script: "script.tilt_blinds_kids_min" }, { name: "Mid", script: "script.tilt_blinds_kids_mid" }, { name: "Max", script: "script.tilt_blinds_kids_max" }], view_layout: { align: "start" } }, { type: "custom:glass-blind", entity: "cover.balcony", name: "Bedroom", icon: "mdi:bed", pause: "switch.bedroom_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_bedroom" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_bedroom" }], tilts: [{ name: "Min", script: "script.tilt_blinds_bedroom_min" }, { name: "Mid", script: "script.tilt_blinds_bedroom_mid" }, { name: "Max", script: "script.tilt_blinds_bedroom_max" }], view_layout: { align: "start" } }], columns: 2, equal_rows: !0 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#cleaning", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:broom", margin_top_desktop: "-35px", name: "Cleaning", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Cleaning", icon: "mdi:broom", buttons: [{ icon: "mdi:robot-vacuum-variant", tap_action: { action: "perform-action", perform_action: "vacuum.start", target: { entity_id: "vacuum.vacuum" } }, confirm: !0 }, { icon: "mdi:water-outline", tap_action: { action: "perform-action", perform_action: "vacuum.start", target: { entity_id: "vacuum.mop" } }, confirm: !0 }, { icon: "mdi:broom", tap_action: { action: "perform-action", perform_action: "script.turn_on", target: { entity_id: "script.vacuum_and_mop" } }, confirm: !0 }], view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", layout: "column", gap: 18, padding: 22, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-appliance", select_group: "cleaning", entity: "vacuum.vacuum", name: "Vacuum", icon: "mdi:robot-vacuum-variant", battery: "sensor.vacuum_battery", select: "roomba", progress: "sensor.vacuum_mission_progress", charging: "sensor.vacuum_phase", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" } }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "vacuum.mop", name: "Mop", icon: "mdi:robot-vacuum", battery: "sensor.mop_battery", select: "braava", progress: "sensor.mop_mission_progress", charging: "sensor.mop_phase", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" } }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "lawn_mower.mower", name: "Mower", icon: "mdi:robot-mower", progress: "sensor.mower_progress", battery: "sensor.mower_battery", charging: "binary_sensor.mower_charging", pause: { action: "perform-action", perform_action: "script.mower_pause" }, resume: { action: "perform-action", perform_action: "script.mower_unpause" }, nudge: { up: "button.mower_emergency_nudge_forward", left: "button.mower_emergency_nudge_left", right: "button.mower_emergency_nudge_right", down: "button.mower_emergency_nudge_back" }, select: "mower", picked_first: !0 }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "sensor.washer_job_state", name: "Washing machine", icon: "mdi:washing-machine", machine: "sensor.washer_machine_state", remaining: "sensor.washer_remaining_time", kind: "washer" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", gap: 12, padding: 14, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-room-map", entity: "vacuum.vacuum", map: "image.vacuum_rooms_map", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" }, options: [{ entity: "select.vacuum_carpet_boost_select", name: "Suction", icon: "mdi:fan", option_names: { automatic: "Automatic", eco: "Eco", performance: "Strong" } }, { entity: "select.vacuum_cleaning_passes", name: "Passes", icon: "mdi:repeat", option_names: { Auto: "Automatic", "One pass": "Once", "Two passes": "Twice" } }], visibility: [{ condition: "select", group: "cleaning", id: "roomba" }], view_layout: { grow: 1 } }, { type: "custom:glass-room-map", entity: "vacuum.mop", map: "image.mop_rooms_map", room_names: { "Living room": "Living room", Hallway: "Hallway" }, options: [{ entity: "select.mop_reusable_pad_wetness", name: "Water", icon: "mdi:water-outline", option_names: { 1: "A little", 2: "Medium", 3: "A lot" } }], visibility: [{ condition: "select", group: "cleaning", id: "braava" }], view_layout: { grow: 1 } }, { type: "custom:glass-tabs", group: "cleaning_mower", default: "front", tabs: [{ id: "front", name: "Camera", icon: "mdi:cctv" }, { id: "zones", name: "Zones", icon: "mdi:map-marker-radius-outline" }], visibility: [{ condition: "select", group: "cleaning", id: "mower" }] }, { type: "picture", image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop&h=619", view_layout: { grow: 1 }, visibility: [{ condition: "select", group: "cleaning", id: "mower" }, { condition: "select", group: "cleaning_mower", id: "front" }] }, { type: "custom:glass-room-map", entity: "lawn_mower.mower", tracker: "device_tracker.mower", room_names: { "Area 3": "Zone 3", "Area 5": "Zone 5" }, settings: { angle: "number.mower_cutting_path_angle", height: "number.mower_blade_height", speed: "number.mower_working_speed", spacing: "number.mower_path_spacing" }, visibility: [{ condition: "select", group: "cleaning", id: "mower" }, { condition: "select", group: "cleaning_mower", id: "zones" }], view_layout: { grow: 1 }, satellite: !1 }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#weather", margin: "8px", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:weather-partly-cloudy", margin_top_desktop: "-35px", name: "Weather", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Weather", icon: "mdi:weather-partly-cloudy", view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", view_layout: { height: "auto" }, padding: 22, cards: [{ type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, show_date: !1, show_condition: !0, daily_forecast: 5, hourly_forecast: 5, details: ["humidity", "pressure", "wind", "apparent_temperature", "cloud_coverage", "precipitation", "sunrise", "sunset"], details_columns: 2, tap_action: { action: "none" }, dividers: !0, temperature_entity: "sensor.heat_pump_outside_temperature" }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 16, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-radar", controls_glass: "liquid-gl", zoom: 7, frames: 7, height: 320, style: "rain", styles: ["rain", "clouds"], view_layout: {}, forecast: 3 }, { type: "custom:glass-air-quality", entity: "sensor.air_quality_index_air_quality_index", view_layout: {}, pollutants: ["sensor.air_quality_index_nitrogen_dioxide", "sensor.air_quality_index_ozone", "sensor.air_quality_index_pm10", "sensor.air_quality_index_pm2_5", "sensor.air_quality_index_sulphur_dioxide"] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#media", margin: "8px", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:music-note", margin_top_desktop: "-35px", name: "Music", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Music", icon: "mdi:music-note", search: !0, search_placeholder: "Search music", view_layout: { height: "auto" } }, { type: "custom:glass-media", entity: "media_player.living_room_speaker", entities: ["media_player.kitchen_speaker", "media_player.bathroom_speaker"], library_from: "media_player.youtube_music", music_assistant_url: "http://music-assistant.demo.invalid:8095", music_assistant_token: "demo", show: "all", fill_height: !0, view_layout: { height: "auto" } }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#energy", margin: "8px", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:solar-power-variant", margin_top_desktop: "-35px", name: "Energy", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Energy", icon: "mdi:solar-power-variant", view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", gap: 24, padding: 18, styles: { "--mod-card-background": "transparent", "--mod-card-border": "transparent", "--mod-card-shadow": "transparent", "--mod-card-inset-shadow": "transparent", "--mod-card-gradient-start": "transparent", "--mod-card-gradient-mid": "transparent", "--mod-card-gradient-end": "transparent", "--text-color": "var(--glass-text, #fff)" }, cards: [{ type: "custom:solar-arc-card", arc: { solar_production: "sensor.pv_power", house_consumption: "sensor.house_consumption", grid_power: "sensor.active_power", arc_title_show: !1, flow_style: "laser", flow_count_slow: 4, flow_count_fast: 2, style: { arc_pill_bg_color: "var(--glass-energy-pill, rgba(255,255,255,0.14))", arc_pill_text_color: "var(--glass-energy-text, var(--glass-text, #fff))", arc_text_color: "var(--glass-energy-text, var(--glass-text, #fff))", arc_home_color: "#ff9f0a", arc_sun_flow_color: "#febc2e", arc_flow_line_color: "color-mix(in srgb, var(--glass-energy-text, var(--glass-text, #fff)) 12%, transparent)" } }, sankey: { sankey_show: !0, sankey_title_show: !1, layout: "horizontal", sections: [{ entities: [{ entity_id: "sensor.grid_consumption", name: "Grid", color: "#0084FF", children: ["sensor.house_consumption"] }, { entity_id: "sensor.pv_power", name: "Sun", color: "#febc2e", children: ["sensor.house_consumption", "sensor.power_sell"] }] }, { entities: [{ entity_id: "sensor.house_consumption", name: "House", color: "#ff9f0a", children: ["sensor.house_consumption_1floor", "sensor.house_consumption_0floor", "sensor.house_consumption_rest", "sensor.consumption_inverter"] }, { entity_id: "sensor.power_sell", type: "remaining_parent_state", name: "Export", color: "#32D74B" }] }, { entities: [{ entity_id: "sensor.house_consumption_1floor", name: "Phase 1", color: "#5AC8FA" }, { entity_id: "sensor.house_consumption_0floor", name: "Phase 2", color: "#5AC8FA" }, { entity_id: "sensor.house_consumption_rest", name: "Phase 3", color: "#5AC8FA" }, { entity_id: "sensor.consumption_inverter", name: "Inverter", color: "#5AC8FA" }] }], style: { sankey_text_color_primary: "var(--glass-energy-text, var(--glass-text, #fff))", sankey_text_color_secondary: "var(--glass-energy-text-2, var(--glass-text-secondary, rgba(235,235,245,0.85)))" }, sankey_title_icon_show: !1 }, view_layout: { shadow_css: ".card { background: none !important; border: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; padding: 0 !important; } .card::before, .card::after { display: none !important; } #sun-pill foreignObject { transform-box: fill-box; transform-origin: center; transform: scale(1.18); }" } }, { type: "custom:glass-status-bar", layout: "figures", columns: 3, items: [{ name: "Total", entity: "sensor.virtual_battery_contract", unit: "kWh", secondary: { entity: "sensor.electricity_cost_year", unit: "USD" }, tap_action: { action: "none" } }, { name: "Month", entity: "sensor.virtual_battery_month", unit: "kWh", secondary: { entity: "sensor.electricity_cost_month", unit: "USD" }, tap_action: { action: "none" } }, { name: "Today", entity: "sensor.energy_virtual_batery_day", unit: "kWh", secondary: { entity: "sensor.electricity_cost_day", unit: "USD" }, tap_action: { action: "none" } }], graph: { entity: "sensor.energy_virtual_batery_day", hours: 24 }, styles: { "--glass-graph-height": "44px" } }], justify: "start", view_layout: { height: "auto" } }, { type: "custom:glass-period-bar", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", current_entity: "input_boolean.switch_current", now_label: "Today", compact: !0, view_layout: { height: "auto", z_index: 5 }, spread: !0 }, { type: "custom:glass-panel", layout: "column", gap: 10, padding: 14, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-status-bar", layout: "pills", columns: 2, items: [{ name: "Export", icon: "mdi:transmission-tower-import", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.Production", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_buy_daily", attribute: null }] }, { name: "Use", icon: "mdi:home-import-outline", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.Consumption", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_consumption_daily", attribute: null }] }, { name: "Bought", icon: "mdi:transmission-tower-export", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.GridBuy", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_sell_daily", attribute: null }] }, { name: "Solar", icon: "mdi:solar-power-variant-outline", icon_color: "orange", entity: "sensor.energy_generation_daily", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: { entity: "input_select.graph_day_month_year", state: "Month" }, entity: "sensor.energy_generation_monthly" }, { when: { entity: "input_select.graph_day_month_year", state: "Year" }, entity: "sensor.energy_generation_yearly" }] }] }, { type: "custom:glass-divider", name: "Solar and use", icon: "mdi:home-lightning-bolt-outline", margin: 0, line: !1 }, { type: "custom:glass-chart", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", card: { type: "custom:apexcharts-card", stacked: !0, apex_config: { chart: { type: "area" } } }, day: { update_interval: "15m", series: [{ entity: "sensor.total_load", name: "Use", unit: "kW", transform: "return -x", type: "column", group_by: { func: "diff", start_with_last: !0 }, opacity: 0.5 }, { entity: "sensor.today_s_pv_generation", name: "Solar", unit: "kW", type: "column", group_by: { func: "diff", start_with_last: !0 } }] }, month: { update_interval: "1h", series: [{ entity: "sensor.pnd_data", name: "Use", unit: "kW", type: "column", attribute: "consumption", data_generator: `return entity.attributes.pnddate.map((pnd, index) => {
+}`, grid_options: { columns: "full" }, "1_link": "#lights", "1_name": "", "1_icon": "mdi:lightbulb-group", "2_link": "#blinds", "2_name": "", "2_icon": "mdi:blinds-horizontal", "3_link": "#weather", "3_name": "", "3_icon": "mdi:weather-partly-cloudy", "4_link": "#energy", "4_name": "", "4_icon": "mdi:solar-power-variant", "5_link": "#heating", "5_name": "", "5_icon": "mdi:radiator", "6_link": "#security", "6_name": "", "6_icon": "mdi:cctv", "7_link": "#cleaning", "7_name": "", "7_icon": "mdi:broom", "8_link": "#more", "8_name": "", "8_icon": "mdi:dots-horizontal-circle-outline" }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#heating", width_desktop: "340px", margin: "8px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, is_sidebar_hidden: !0, icon: "mdi:radiator", name: "Room heating", hide_backdrop: !0, cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Room heating", icon: "mdi:radiator", view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", gap: 26, padding: 22, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-heat-pump", view_layout: { shrink: 0 }, entities: { climate: "climate.heat_pump_heating", water_heater: "water_heater.heat_pump_domestic_hot_water", compressor: "binary_sensor.heat_pump_compressor", pump: "binary_sensor.heat_pump_circulation_pump", frost: "binary_sensor.heat_pump_frost_protection", phase: "sensor.heat_pump_compressor_phase", outside: "sensor.heat_pump_outside_temperature", supply: "sensor.heat_pump_secondary_circuit_supply_temperature", return: "sensor.heat_pump_return_temperature", dhw: "sensor.hot_water_temperature", dhw_mode: "select.heat_pump_dhw_operating_mode", curve_shift: "number.heat_pump_heating_curve_shift", curve_slope: "number.heat_pump_heating_curve_slope", compressor_starts: "sensor.heat_pump_compressor_starts", compressor_hours: "sensor.heat_pump_compressor_hours", rod_starts: "sensor.heat_pump_heating_rod_starts", rod_hours: "sensor.heat_pump_heating_rod_hours", pressure: "sensor.heat_pump_supply_pressure", flow: "sensor.heat_pump_volumetric_flow", dhw_active: "sensor.water_heating_on", rod: "binary_sensor.heat_pump_heating_rod" }, show_dhw_setpoint: !1 }, { type: "custom:glass-thermostat", entity: "sensor.heat_pump_supply_temperature", name: "Heating water", icon: "mdi:radiator", hours: 12, graph_entities: ["sensor.heating_on"], active: { entity: "sensor.heating_on", state: "on" }, view_layout: { grow: 1, basis: "80px" }, smoothing: 4, active_color: "orange", inline_value: !0 }, { type: "custom:glass-thermostat", entity: "sensor.current_water_temperature", name: "Water temperature", icon: "mdi:water-boiler", hours: 12, graph_entities: ["sensor.water_temperature"], active: { entity: "sensor.water_heating_on", state: "on" }, view_layout: { grow: 1, basis: "80px" }, smoothing: 4, active_color: "orange", inline_value: !0 }] }, { type: "custom:glass-panel", glass: "none", layout: "grid", columns: 1, rows: 3, gap: 16, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-thermostat", entity: "climate.radiator_6", temperature_entity: "sensor.room_temperature_4", name: "Living room", icon: "mdi:sofa", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_5", temperature_entity: "sensor.room_temperature_4", name: "Kitchen", icon: "mdi:silverware-fork-knife", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator", temperature_entity: "sensor.room_temperature", name: "Office", icon: "mdi:chair-rolling", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_7", temperature_entity: "sensor.room_temperature_3", name: "Bedroom", icon: "mdi:bed-queen", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_4", name: "Kids' room", icon: "mdi:teddy-bear", hours: 24, temperature_entity: "sensor.radiator_current_temperature_4", compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_3", temperature_entity: "sensor.room_temperature_2", name: "Hallway", icon: "mdi:hanger", hours: 24, compact: !0 }, { type: "custom:glass-thermostat", entity: "climate.radiator_2", name: "Toilet", icon: "mdi:toilet", hours: 24, temperature_entity: "sensor.radiator_current_temperature_2", compact: !0 }, { type: "custom:glass-thermostat", entity: "sensor.heat_pump_outside_temperature", name: "Outside", icon: "mdi:bench-back", hours: 48, view_layout: {}, min_max: 24, compact: !0 }], min_column_width: 180 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#lights", width_desktop: "340px", margin: "8px", margin_top_mobile: "-56px", bg_color: "rgba(var(--color-background-black),1)", bg_blur: 50, bg_opacity: 0, is_sidebar_hidden: !0, icon: "mdi:lightbulb-group", margin_top_desktop: "-35px", name: "Lights", hide_backdrop: !0, cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Lights", icon: "mdi:lightbulb-group", view_layout: { height: "auto" }, buttons: [{ icon: "mdi:lightbulb-group", tap_action: { action: "perform-action", perform_action: "homeassistant.turn_on", target: { entity_id: ["light.living_room", "light.kitchen", "light.kitchen_led", "light.hallway", "switch.wall_switch", "switch.wall_switch_2", "switch.switch", "switch.switch_switch1", "switch.switch_switch2", "light.hub_light"] } } }, { icon: "mdi:lightbulb-group-off", tap_action: { action: "perform-action", perform_action: "homeassistant.turn_off", target: { entity_id: ["light.living_room", "light.kitchen", "light.kitchen_led", "light.hallway", "switch.wall_switch", "switch.wall_switch_2", "switch.switch", "switch.switch_switch1", "switch.switch_switch2", "light.hub_light"] } } }] }, { type: "custom:glass-panel", role: "sidebar", layout: "column", gap: 18, padding: 22, justify: "start", view_layout: { height: "auto", order: 1 }, cards: [{ type: "custom:glass-status-bar", layout: "pills", columns: 1, items: [{ entity: "automation.living_room_lights_by_daylight", icon: "mdi:brightness-auto", name: "Living room by daylight", text: "Off", tap_action: { action: "perform-action", perform_action: "automation.toggle", target: { entity_id: ["automation.living_room_lights_by_daylight", "automation.living_room_ligts_luminance_day_on_bright", "automation.living_room_ligts_luminance_dusk_on", "automation.living_room_ligts_luminance_day_off", "automation.living_room_ligts_luminance_night_nightlight", "automation.living_room_ligts_luminance_night_off", "automation.living_room_lights_off_by_sensor"] } }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.living_room_circadian", icon: "mdi:sun-clock-outline", name: "Living room – circadian", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.netflix_playing_living_room", icon: "mdi:television-play", name: "Living room during TV", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.turn_wled_kitchen_presence_on", icon: "mdi:account-arrow-right", name: "Counter by presence", text: "Off", tap_action: { action: "perform-action", perform_action: "automation.toggle", target: { entity_id: ["automation.turn_wled_kitchen_presence_on", "automation.turn_wled_kitchen_presence_off"] } }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.lights_kitchen_wled_water_temperature", icon: "mdi:water-thermometer-outline", name: "Counter – water temperature", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.hallway_night_light", icon: "mdi:weather-night", name: "Hallway – night light", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.toilet_light_by_motion", icon: "mdi:motion-sensor", name: "Toilet by motion", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.lights_bathroom", icon: "mdi:motion-sensor", name: "Bathroom by motion", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.kids_star_projector", icon: "mdi:clock-star-four-points-outline", name: "Projector on a timer", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "automation.garden_lights_at_the_entrance", icon: "mdi:walk", name: "Garden by the entrance", text: "Off", tap_action: { action: "toggle" }, rules: [{ state: "on", text: "On", icon_color: "orange" }] }], view_layout: {}, gap: 6, styles: { pill_height: "44px" }, detail: "last_triggered" }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 16, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-panel", glass: "none", layout: "grid", columns: 1, gap: 16, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-light", name: "Living room", lights: [{ entity: "light.living_room", name: "Sofa", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.living_room_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.living_room_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.living_room_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.living_room_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.living_room_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }], icon: "mdi:sofa" }, { type: "custom:glass-light", name: "Kitchen", lights: [{ entity: "light.kitchen", name: "Bar", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.kitchen_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.kitchen_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.kitchen_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.kitchen_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.kitchen_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }, { entity: "light.kitchen_led", name: "Counter LED", presets: "select.kitchen_led_preset", preset_options: [{ option: "Upper light", name: "Upper", icon: "mdi:light-flood-up" }, { option: "Lower light", name: "Lower", icon: "mdi:light-flood-down" }, { option: "All lights", name: "All", icon: "mdi:led-strip-variant" }] }], icon: "mdi:silverware-fork-knife" }, { type: "custom:glass-light", name: "Hallway", lights: [{ entity: "light.hallway", name: "Ceiling", levels: [25, 50, 75, 100], scenes: [{ entity: "scene.hallway_relax", name: "Relax", image: "glass:demo/scene-relax.png" }, { entity: "scene.hallway_concentrate", name: "Focus", image: "glass:demo/scene-concentrate.png" }, { entity: "scene.hallway_read", name: "Read", image: "glass:demo/scene-read.png" }, { entity: "scene.hallway_nightlight", name: "Night", image: "glass:demo/scene-night.png" }, { entity: "scene.hallway_natural_light", name: "Natural", image: "glass:demo/scene-natural.png" }] }, { entity: "light.hub_light", name: "Hub", icon: "mdi:lightbulb-night-outline" }], icon: "mdi:hanger" }, { type: "custom:glass-light", name: "Kids' room", lights: [{ entity: "input_boolean.star_projector", name: "Star projector", icon: "mdi:star-shooting-outline" }], icon: "mdi:teddy-bear" }, { type: "custom:glass-light", name: "Bathroom", lights: [{ entity: "switch.switch", entities: ["switch.switch", "switch.switch_switch1", "switch.switch_switch2"], name: "Lights", icon: "mdi:ceiling-light" }], icon: "mdi:shower" }, { type: "custom:glass-light", name: "Toilet", lights: [{ entity: "switch.wall_switch", name: "Ceiling", icon: "mdi:ceiling-light" }], icon: "mdi:toilet" }, { type: "custom:glass-light", name: "Laundry", lights: [{ entity: "switch.wall_switch_2", name: "Ceiling", icon: "mdi:ceiling-light" }], icon: "mdi:washing-machine" }, { type: "custom:glass-light", name: "Garden", lights: [{ entity: "light.garden_front", name: "Path lights" }], icon: "mdi:tree-outline" }], equal_rows: !1, masonry: !0, min_column_width: 180 }], justify: "start" }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#blinds", width_desktop: "340px", margin: "8px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, is_sidebar_hidden: !0, icon: "mdi:blinds-horizontal", margin_top_desktop: "-35px", name: "Blinds", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Blinds", icon: "mdi:blinds-horizontal", buttons: [{ icon: "mdi:arrow-collapse-up", confirm: !0, tap_action: { action: "perform-action", perform_action: "cover.open_cover", target: { entity_id: ["cover.office", "cover.kids_room", "cover.balcony"] } }, title: "All up" }, { icon: "mdi:arrow-collapse-down", confirm: !0, tap_action: { action: "perform-action", perform_action: "cover.close_cover", target: { entity_id: ["cover.office", "cover.kids_room", "cover.balcony"] } }, title: "All down" }], view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", gap: 16, padding: 18, view_layout: { height: "auto", order: 1 }, cards: [{ type: "custom:glass-automation", entity: "automation.blinds_auto", title: "Blinds automation", pause_for: "input_select.blinds_auto_pause", resume_at: "input_datetime.blinds_auto_resume", pause_until: "input_datetime.blinds_auto_until" }, { type: "custom:glass-sun-shading", sun: "sun.sun", light: "sensor.sun_sensor_luminance", shading: "sensor.blinds_shading_level", target_tilt: "sensor.blinds_target_tilt", horizon: 4, azimuth_from: 195, azimuth_to: 305, azimuth_high_from: 215, azimuth_high_to: 305, azimuth_high_above: 20 }, { type: "custom:glass-value-grid", title: "Slat tilt", columns: [{ name: "Strong sun", icon: "mdi:white-balance-sunny", months_from: "input_number.blinds_summer_from", months_to: "input_number.blinds_summer_to" }, { name: "Weak sun", icon: "mdi:weather-sunny-off" }], rows: [{ name: "Min", entities: ["input_number.blinds_summer_min", "input_number.blinds_winter_min"] }, { name: "Mid", entities: ["input_number.blinds_summer_medium", "input_number.blinds_winter_medium"] }, { name: "Max", entities: ["input_number.blinds_summer_max", "input_number.blinds_winter_max"] }] }] }, { type: "custom:glass-panel", glass: "none", layout: "grid", gap: 12, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-blind", entity: "cover.office", name: "Office", icon: "mdi:desk", pause: "switch.office_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_office" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_office" }], tilts: [{ name: "Min", script: "script.tilt_blinds_office_min" }, { name: "Mid", script: "script.tilt_blinds_office_mid" }, { name: "Max", script: "script.tilt_blinds_office_max" }], view_layout: { align: "start" } }, { type: "custom:glass-blind", entity: "cover.kids_room", name: "Kids' room", icon: "mdi:teddy-bear", pause: "switch.kids_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_kids" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_kids" }], tilts: [{ name: "Min", script: "script.tilt_blinds_kids_min" }, { name: "Mid", script: "script.tilt_blinds_kids_mid" }, { name: "Max", script: "script.tilt_blinds_kids_max" }], view_layout: { align: "start" } }, { type: "custom:glass-blind", entity: "cover.balcony", name: "Bedroom", icon: "mdi:bed", pause: "switch.bedroom_blinds_user_switch", pause_duration: 3600, positions: [{ name: "Up", icon: "mdi:chevron-up", script: "script.open_blinds_bedroom" }, { name: "Down", icon: "mdi:chevron-down", script: "script.close_blinds_bedroom" }], tilts: [{ name: "Min", script: "script.tilt_blinds_bedroom_min" }, { name: "Mid", script: "script.tilt_blinds_bedroom_mid" }, { name: "Max", script: "script.tilt_blinds_bedroom_max" }], view_layout: { align: "start" } }], columns: 2, equal_rows: !0 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#cleaning", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:broom", margin_top_desktop: "-35px", name: "Cleaning", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Cleaning", icon: "mdi:broom", buttons: [{ icon: "mdi:robot-vacuum-variant", tap_action: { action: "perform-action", perform_action: "vacuum.start", target: { entity_id: "vacuum.vacuum" } }, confirm: !0 }, { icon: "mdi:water-outline", tap_action: { action: "perform-action", perform_action: "vacuum.start", target: { entity_id: "vacuum.mop" } }, confirm: !0 }, { icon: "mdi:broom", tap_action: { action: "perform-action", perform_action: "script.turn_on", target: { entity_id: "script.vacuum_and_mop" } }, confirm: !0 }], view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", layout: "column", gap: 18, padding: 22, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-appliance", select_group: "cleaning", entity: "vacuum.vacuum", name: "Vacuum", icon: "mdi:robot-vacuum-variant", battery: "sensor.vacuum_battery", select: "roomba", progress: "sensor.vacuum_mission_progress", charging: "sensor.vacuum_phase", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" } }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "vacuum.mop", name: "Mop", icon: "mdi:robot-vacuum", battery: "sensor.mop_battery", select: "braava", progress: "sensor.mop_mission_progress", charging: "sensor.mop_phase", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" } }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "lawn_mower.mower", name: "Mower", icon: "mdi:robot-mower", progress: "sensor.mower_progress", battery: "sensor.mower_battery", charging: "binary_sensor.mower_charging", pause: { action: "perform-action", perform_action: "script.mower_pause" }, resume: { action: "perform-action", perform_action: "script.mower_unpause" }, nudge: { up: "button.mower_emergency_nudge_forward", left: "button.mower_emergency_nudge_left", right: "button.mower_emergency_nudge_right", down: "button.mower_emergency_nudge_back" }, select: "mower", picked_first: !0 }, { type: "custom:glass-appliance", select_group: "cleaning", entity: "sensor.washer_job_state", name: "Washing machine", icon: "mdi:washing-machine", machine: "sensor.washer_machine_state", remaining: "sensor.washer_remaining_time", kind: "washer" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", gap: 12, padding: 14, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-room-map", entity: "vacuum.vacuum", map: "image.vacuum_rooms_map", room_names: { Hallway: "Hallway", "Living Room": "Living room", Kitchen: "Kitchen" }, options: [{ entity: "select.vacuum_carpet_boost_select", name: "Suction", icon: "mdi:fan", option_names: { automatic: "Automatic", eco: "Eco", performance: "Strong" } }, { entity: "select.vacuum_cleaning_passes", name: "Passes", icon: "mdi:repeat", option_names: { Auto: "Automatic", "One pass": "Once", "Two passes": "Twice" } }], visibility: [{ condition: "select", group: "cleaning", id: "roomba" }], view_layout: { grow: 1 } }, { type: "custom:glass-room-map", entity: "vacuum.mop", map: "image.mop_rooms_map", room_names: { "Living room": "Living room", Hallway: "Hallway" }, options: [{ entity: "select.mop_reusable_pad_wetness", name: "Water", icon: "mdi:water-outline", option_names: { 1: "A little", 2: "Medium", 3: "A lot" } }], visibility: [{ condition: "select", group: "cleaning", id: "braava" }], view_layout: { grow: 1 } }, { type: "custom:glass-tabs", group: "cleaning_mower", default: "front", tabs: [{ id: "front", name: "Camera", icon: "mdi:cctv" }, { id: "zones", name: "Zones", icon: "mdi:map-marker-radius-outline" }], visibility: [{ condition: "select", group: "cleaning", id: "mower" }] }, { type: "picture", image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1100&q=80&auto=format&fit=crop&h=619", view_layout: { grow: 1 }, visibility: [{ condition: "select", group: "cleaning", id: "mower" }, { condition: "select", group: "cleaning_mower", id: "front" }] }, { type: "custom:glass-room-map", entity: "lawn_mower.mower", tracker: "device_tracker.mower", room_names: { "Area 3": "Zone 3", "Area 5": "Zone 5" }, settings: { angle: "number.mower_cutting_path_angle", height: "number.mower_blade_height", speed: "number.mower_working_speed", spacing: "number.mower_path_spacing" }, visibility: [{ condition: "select", group: "cleaning", id: "mower" }, { condition: "select", group: "cleaning_mower", id: "zones" }], view_layout: { grow: 1 }, satellite: !1 }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#weather", margin: "8px", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:weather-partly-cloudy", margin_top_desktop: "-35px", name: "Weather", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Weather", icon: "mdi:weather-partly-cloudy", view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", view_layout: { height: "auto" }, padding: 22, cards: [{ type: "custom:glass-clock-weather", weather: "weather.home", show_clock: !1, show_date: !1, show_condition: !0, daily_forecast: 5, hourly_forecast: 5, details: ["humidity", "pressure", "wind", "apparent_temperature", "cloud_coverage", "precipitation", "sunrise", "sunset"], details_columns: 2, tap_action: { action: "none" }, dividers: !0, temperature_entity: "sensor.heat_pump_outside_temperature" }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 16, padding: 0, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-radar", controls_glass: "liquid-gl", zoom: 7, frames: 7, height: 320, style: "rain", styles: ["rain", "clouds"], view_layout: {}, forecast: 3 }, { type: "custom:glass-air-quality", entity: "sensor.air_quality_index_air_quality_index", view_layout: {}, pollutants: ["sensor.air_quality_index_nitrogen_dioxide", "sensor.air_quality_index_ozone", "sensor.air_quality_index_pm10", "sensor.air_quality_index_pm2_5", "sensor.air_quality_index_sulphur_dioxide"] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#media", margin: "8px", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:music-note", margin_top_desktop: "-35px", name: "Music", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Music", icon: "mdi:music-note", search: !0, search_placeholder: "Search music", view_layout: { height: "auto" } }, { type: "custom:glass-media", entity: "media_player.kitchen_speaker", entities: ["media_player.office_speaker", "media_player.living_room_speaker", "media_player.bathroom_speaker"], library_from: "media_player.youtube_music", music_assistant_url: "http://music-assistant.demo.invalid:8095", music_assistant_token: "demo", tv_sources: [{ speaker: "media_player.living_room_speaker", tv: "media_player.living_room_tv", sources: [{ entity: "media_player.living_room_youtube", input: "Apple TV" }, { entity: "media_player.living_room_apple_tv", input: "Apple TV" }] }], show: "all", fill_height: !0, view_layout: { height: "auto" } }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#energy", margin: "8px", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:solar-power-variant", margin_top_desktop: "-35px", name: "Energy", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Energy", icon: "mdi:solar-power-variant", view_layout: { height: "auto" } }, { type: "custom:glass-panel", role: "sidebar", gap: 24, padding: 18, styles: { "--mod-card-background": "transparent", "--mod-card-border": "transparent", "--mod-card-shadow": "transparent", "--mod-card-inset-shadow": "transparent", "--mod-card-gradient-start": "transparent", "--mod-card-gradient-mid": "transparent", "--mod-card-gradient-end": "transparent", "--text-color": "var(--glass-text, #fff)" }, cards: [{ type: "custom:solar-arc-card", arc: { solar_production: "sensor.pv_power", house_consumption: "sensor.house_consumption", grid_power: "sensor.active_power", arc_title_show: !1, flow_style: "laser", flow_count_slow: 4, flow_count_fast: 2, style: { arc_pill_bg_color: "var(--glass-energy-pill, rgba(255,255,255,0.14))", arc_pill_text_color: "var(--glass-energy-text, var(--glass-text, #fff))", arc_text_color: "var(--glass-energy-text, var(--glass-text, #fff))", arc_home_color: "#ff9f0a", arc_sun_flow_color: "#febc2e", arc_flow_line_color: "color-mix(in srgb, var(--glass-energy-text, var(--glass-text, #fff)) 12%, transparent)" } }, sankey: { sankey_show: !0, sankey_title_show: !1, layout: "horizontal", sections: [{ entities: [{ entity_id: "sensor.grid_consumption", name: "Grid", color: "#0084FF", children: ["sensor.house_consumption"] }, { entity_id: "sensor.pv_power", name: "Sun", color: "#febc2e", children: ["sensor.house_consumption", "sensor.power_sell"] }] }, { entities: [{ entity_id: "sensor.house_consumption", name: "House", color: "#ff9f0a", children: ["sensor.house_consumption_1floor", "sensor.house_consumption_0floor", "sensor.house_consumption_rest", "sensor.consumption_inverter"] }, { entity_id: "sensor.power_sell", type: "remaining_parent_state", name: "Export", color: "#32D74B" }] }, { entities: [{ entity_id: "sensor.house_consumption_1floor", name: "Phase 1", color: "#5AC8FA" }, { entity_id: "sensor.house_consumption_0floor", name: "Phase 2", color: "#5AC8FA" }, { entity_id: "sensor.house_consumption_rest", name: "Phase 3", color: "#5AC8FA" }, { entity_id: "sensor.consumption_inverter", name: "Inverter", color: "#5AC8FA" }] }], style: { sankey_text_color_primary: "var(--glass-energy-text, var(--glass-text, #fff))", sankey_text_color_secondary: "var(--glass-energy-text-2, var(--glass-text-secondary, rgba(235,235,245,0.85)))" }, sankey_title_icon_show: !1 }, view_layout: { shadow_css: ".card { background: none !important; border: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; padding: 0 !important; } .card::before, .card::after { display: none !important; } #sun-pill foreignObject { transform-box: fill-box; transform-origin: center; transform: scale(1.18); }" } }, { type: "custom:glass-status-bar", layout: "figures", columns: 3, items: [{ name: "Total", entity: "sensor.virtual_battery_contract", unit: "kWh", secondary: { entity: "sensor.electricity_cost_year", unit: "USD" }, tap_action: { action: "none" } }, { name: "Month", entity: "sensor.virtual_battery_month", unit: "kWh", secondary: { entity: "sensor.electricity_cost_month", unit: "USD" }, tap_action: { action: "none" } }, { name: "Today", entity: "sensor.energy_virtual_batery_day", unit: "kWh", secondary: { entity: "sensor.electricity_cost_day", unit: "USD" }, tap_action: { action: "none" } }], graph: { entity: "sensor.energy_virtual_batery_day", hours: 24 }, styles: { "--glass-graph-height": "44px" } }], justify: "start", view_layout: { height: "auto" } }, { type: "custom:glass-period-bar", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", current_entity: "input_boolean.switch_current", now_label: "Today", compact: !0, view_layout: { height: "auto", z_index: 5 }, spread: !0 }, { type: "custom:glass-panel", layout: "column", gap: 10, padding: 14, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-status-bar", layout: "pills", columns: 2, items: [{ name: "Export", icon: "mdi:transmission-tower-import", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.Production", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_buy_daily", attribute: null }] }, { name: "Use", icon: "mdi:home-import-outline", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.Consumption", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_consumption_daily", attribute: null }] }, { name: "Bought", icon: "mdi:transmission-tower-export", icon_color: "orange", entity: "sensor.electricity_statistics", attribute: "data.GridBuy", unit: "kWh", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: [{ entity: "input_select.graph_day_month_year", state: "Day" }, { entity: "input_number.counter_graph", above: -1 }], entity: "sensor.energy_sell_daily", attribute: null }] }, { name: "Solar", icon: "mdi:solar-power-variant-outline", icon_color: "orange", entity: "sensor.energy_generation_daily", tap_action: { action: "none" }, hold_action: { action: "none" }, rules: [{ when: { entity: "input_select.graph_day_month_year", state: "Month" }, entity: "sensor.energy_generation_monthly" }, { when: { entity: "input_select.graph_day_month_year", state: "Year" }, entity: "sensor.energy_generation_yearly" }] }] }, { type: "custom:glass-divider", name: "Solar and use", icon: "mdi:home-lightning-bolt-outline", margin: 0, line: !1 }, { type: "custom:glass-chart", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", card: { type: "custom:apexcharts-card", stacked: !0, apex_config: { chart: { type: "area" } } }, day: { update_interval: "15m", series: [{ entity: "sensor.total_load", name: "Use", unit: "kW", transform: "return -x", type: "column", group_by: { func: "diff", start_with_last: !0 }, opacity: 0.5 }, { entity: "sensor.today_s_pv_generation", name: "Solar", unit: "kW", type: "column", group_by: { func: "diff", start_with_last: !0 } }] }, month: { update_interval: "1h", series: [{ entity: "sensor.pnd_data", name: "Use", unit: "kW", type: "column", attribute: "consumption", data_generator: `return entity.attributes.pnddate.map((pnd, index) => {
   return [new Date(pnd).getTime(), Number(entity.attributes.consumption[index])];
 });
 `, invert: !0, group_by: { func: "sum" }, opacity: 0.5 }, { entity: "sensor.pnd_data", name: "Export", unit: "kW", type: "column", attribute: "production", data_generator: `return entity.attributes.pnddate.map((pnd, index) => {
@@ -12942,7 +12942,7 @@ const ru = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
 `, group_by: { func: "sum" } }], apex_config: { yaxis: [{ labels: { show: !1 }, axisBorder: { show: !1 }, axisTicks: { show: !1 } }] } }, height: 200 }, { type: "custom:glass-divider", name: "Export to the grid", icon: "mdi:transmission-tower-import", margin: 0, line: !1 }, { type: "custom:glass-chart", offset_entity: "input_number.counter_graph", select_entity: "input_select.graph_day_month_year", card: { type: "custom:apexcharts-card", apex_config: { chart: { type: "area" } }, yaxis: [{ decimals: 0 }] }, day: { series: [{ entity: "sensor.active_power", transform: "return x/1000", unit: "kW", type: "column", group_by: { duration: "15m", func: "max" }, name: "Export" }], update_interval: "15m" }, month: { series: [{ entity: "sensor.pnd_data", unit: "kW", type: "column", attribute: "production", data_generator: `return entity.attributes.pnddate.map((pnd, index) => {
   return [new Date(pnd).getTime(), Number(entity.attributes.production[index])];
 });
-`, group_by: { func: "sum" }, name: "Export" }] }, year: { series: [{ entity: "sensor.total_energy_buy", unit: "kWh", type: "column", group_by: { func: "diff", start_with_last: !0 }, name: "Export" }], update_interval: "1h" }, height: 170 }], bar: !0 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#security", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:cctv", margin_top_desktop: "-35px", name: "Security", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Security", icon: "mdi:cctv", view_layout: { height: "auto" } }, { type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", layout: "header", modes: ["home", "away", "night"], align: "stretch" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", justify: "start", gap: 10, padding: 12, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, buttons: [{ name: "Entrance", icon: "mdi:door", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_2" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_1" }] } }, active: { entity: "input_boolean.switch_security_camera_1", state: "on" } }, { name: "Garden", icon: "mdi:tree-outline", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_1" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_2" }] } }, active: { entity: "input_boolean.switch_security_camera_2", state: "on" } }] }, { type: "custom:glass-camera", layout: "stacked", list_glass: "dark-liquid", player_glass: "liquid-gl", badge_glass: "liquid-gl", show_timeline: !0, cameras: [{ camera: "camera.front_door", name: "Entrance", icon: "mdi:door", frigate_camera: "frontdoor", active: { entity: "input_boolean.switch_security_camera_1", state: "on" }, items: [{ entity: "switch.front_door_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.front_door_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }, { camera: "camera.garden", name: "Garden", icon: "mdi:tree-outline", frigate_camera: "garden", active: { entity: "input_boolean.switch_security_camera_2", state: "on" }, items: [{ entity: "switch.garden_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.garden_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#more", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:dots-horizontal-circle-outline", margin_top_desktop: "-35px", name: "More", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "More", icon: "mdi:dots-horizontal-circle-outline", view_layout: { height: "auto" } }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Security", icon: "mdi:shield-home", description: "Arm and disarm the alarm – the keypad and what's open", cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarms", icon: "mdi:alarm", description: "Wake-up alarms – their times, days and sound", cards: [{ type: "custom:glass-alarms", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarm ringing", icon: "mdi:alarm-bell", description: "An alarm over the whole dashboard – snooze it or slide to stop", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Ring an alarm", image: "glass:demo/alarm-morning.jpg", status: "info", info: [{ text: "Kids' room – snooze it or slide to stop" }], tap_action: { action: "perform-action", perform_action: "input_boolean.turn_on", target: { entity_id: "input_boolean.glass_alarm_1_ringing" } }, entities: [{ entity: "input_boolean.glass_alarm_1_ringing", icon: "mdi:alarm-bell", name: "Ring" }], view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Screensaver player", icon: "mdi:monitor-screenshot", description: "The media player as the whole screen – a kiosk's screensaver", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Open the screensaver", image: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj", status: "info", info: [{ text: "What plays, big – a touch for the buttons" }], tap_action: { action: "navigate", navigation_path: "#screensaver" }, view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Calendar", icon: "mdi:calendar-month", description: "The family's month and week – tap a day to add an event", cards: [{ type: "custom:glass-calendar-view", height: "600px", close: !1, days_off: ["calendar.holidays"], calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], view_layout: { height: "auto" } }] }] }], show_header: !1 }] }] }] }, es = "glass-demo-popups", zo = { "home|": { title: "Home", media_class: "directory", media_content_type: "home", media_content_id: "", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Today's biggest hits", media_class: "playlist", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/JhukEr_gsgy7LuD0aFWmmTpcrAkB0Amk5zoFgAtPE3LBWwRXfbkZPP3epGFAp9HLcNkVZ-AyD0kX-a7e=w544-h544-l90-rj" }, { title: "All hits", media_class: "playlist", media_content_type: "home2", media_content_id: "All hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }, { title: "Trending songs for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Music videos for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Covers and remixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Song mixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/_cBCKUoFjuJsTPKvNViql9pqLTD_NfiNNn3y13rh1iXXIwpZ2dyQcyn9H2dneW9J9F9-I6zM13zFe4qV=w544-h544-l90-rj" }, { title: "New releases", media_class: "playlist", media_content_type: "home2", media_content_id: "New releases", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Live performances", media_class: "playlist", media_content_type: "home2", media_content_id: "Live performances", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, "home2|Song mixes": { title: "Song mixes", media_class: "directory", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard) - Justice", media_class: "playlist", media_content_type: "track", media_content_id: "JWxoRY7AFSw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Stop The Wedding! - Ashe", media_class: "playlist", media_content_type: "track", media_content_id: "BVR3k32x9h0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me - Kelsy Karter & The Heroines", media_class: "playlist", media_content_type: "track", media_content_id: "VdlCbji1CAg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti - KATSEYE", media_class: "playlist", media_content_type: "track", media_content_id: "HY397w59MT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album) - Tove Lo", media_class: "playlist", media_content_type: "track", media_content_id: "0lI_KzhfIBk", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden - HUNTR/X", media_class: "playlist", media_content_type: "track", media_content_id: "9_bTl2vvYQg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "BbY WOW - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "ljAH6jNaApU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/GdW-pwzDkHLGvvf0pe_dgTcBYkJ2UFgsW6Zldnxyz-kX3l8I-QrRMow8IooEm7njIEAJauyWfoSV1rM=w544-h544-l90-rj" }, { title: "You’re Under Arrest - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "qsqvJpOgrWw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EQNyUqxuYcONem8DYLwrXvMdc0rs-ryUcSgdgpxVkqtx53WRKr5YtBwEnaHBgnN5iWk90JBbdkrpSq4=w544-h544-l90-rj" }, { title: "COQUETA - Fuerza Regida", media_class: "playlist", media_content_type: "track", media_content_id: "fPczdTA1xU0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/llYLq4jy6rSfhDDnEwL5rsxS80eBMvPzcZoryVzEQhbZCCOJMgcrkhtWiXTMLnASubnA0Ga99l6lVdUg=w544-h544-l90-rj" }, { title: "Don't Stop The Music - Bisken", media_class: "playlist", media_content_type: "track", media_content_id: "7WIWltd6CiM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/qn1AKHBdT_xmKUxMmseOxhFlTVQ4zoDO60JyXcMRiy3DSvdT8HOCmty-wQyPD3F2BRN-1kKzrMWcZKjyjw=w544-h544-l90-rj" }, { title: "Love Options - BESTie", media_class: "playlist", media_content_type: "track", media_content_id: "jWwdHeJ8XeU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/e_KhStFaUpXtdfyncHtYOBGibpgdw3fVixG8H0_E8aIW6G0Op9wo4jQqWsfHCEMaI96DnhsqlHM9Yzck=w544-h544-l90-rj" }, { title: "Sakuranbo - YENA", media_class: "playlist", media_content_type: "track", media_content_id: "6POlUfjBIB4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/_RWfWayKDftrngXQ8sGahDtVVmqfhzji0cR1WTE2DWsW8VO7NJnDMStdjFYWj1lqoACBSxW8e5dnheHbIg=w544-h544-l90-rj" }, { title: "Hong Kong", media_class: "playlist", media_content_type: "track", media_content_id: "cUnEvW5aS80", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/X_xAPVJ2PYZCimHbT1dLd6JNQRNIzelWVSjUak_sBJXVUy2wajg7DHX__2B7O_fpi5iCKrOufTphwH3_=w544-h544-l90-rj" }, { title: "I Want You - ENHYPEN", media_class: "playlist", media_content_type: "track", media_content_id: "dBv5ju-TGZQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/p03tt4dCfQUZILU6EFkRanxOdpHXfKJi93xgjChLZkyUQS76s-ap-_QtjwHCtFy-QqdTdrdO4eNoaOMR=w544-h544-l90-rj" }, { title: "REDRED - CORTIS", media_class: "playlist", media_content_type: "track", media_content_id: "5sOgJQ3N03Q", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QwlA1MsRGQRVG6kIPLEB068OXqVk4QKHWXeAIX0C-QaZ7Mzgh4f9JbXLj03itMK14uRL5EsnVmslkzN2=w544-h544-l90-rj" }, { title: "like JENNIE - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "HMQlkbXjSTM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Z3gufPaLCcWuJNE4NH6KhlbUSrnx3hvUQgnhwQBrUDNzEgAp1aNMuCr0nv0gJxU8XcS2Rp9I-BHPZt_i=w544-h544-l90-rj" }] }, "home2|Covers and remixes": { title: "Covers and remixes", media_class: "directory", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Save Your Tears ((Remix) Bonus Track) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "lS9Kgp6PsWY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Ds4HZUl-Cziy9wW0zGv5_rRw0fGc01a3rMZ6mB27HkSTtVLaPwUpPaXdoISHAH3XprkYyPfIEcSpmPy-=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight) - Syzz", media_class: "playlist", media_content_type: "track", media_content_id: "maY-KIK3EDI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Remember Our Summer CYNIX Remix - CYNIX", media_class: "playlist", media_content_type: "track", media_content_id: "1x0e5svjyoA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/1x0e5svjyoA/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3m6b1RsrcKkQCPkyDTNx2HXM7wmpA" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "DXO288FnB-A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Flo Rida feat. T-Pain - Low (FNZ Remix) - FNZ", media_class: "playlist", media_content_type: "track", media_content_id: "8s5o9JS9dsM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/8s5o9JS9dsM/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3lhK_a8liz1kba7el0JWShA6hq2Eg" }, { title: "Stand by Me - Seal", media_class: "playlist", media_content_type: "track", media_content_id: "zRafBMo9t_A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Die For You (Remix) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "AySMGpXQ1Mo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/liKrw5t_WphMbkiYKDHQj1rf8S8GSwxgMRUmB7tkHhPF862BRcqIYxFEj9QwKr51ge2ma6u0C_wI4jNo=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "6KjVYeQ9SRw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/FQsPsZdaGUkT3_Q-9iilsYnS6xc0CAerb6pIhUou-skal6-jMQQ-xUigopbvfqVP_e-msHiabmCN2wCl=w544-h544-l90-rj" }, { title: "Cold Heart (PNAU Remix) - Elton John", media_class: "playlist", media_content_type: "track", media_content_id: "e-S1k9-soT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Love Me Like You Do - Elena Gray", media_class: "playlist", media_content_type: "track", media_content_id: "Q9HxtBBqmHA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }] }, "home2|Trending songs for you": { title: "Trending songs for you", media_class: "directory", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Go Easy (from GTAVI: The Album) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "eqQRPRcoIYo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat - MOONLGHT", media_class: "playlist", media_content_type: "track", media_content_id: "LOvFNEryrOA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack) - Lena Vril", media_class: "playlist", media_content_type: "track", media_content_id: "zLilheGY7OY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man - FINNEAS", media_class: "playlist", media_content_type: "track", media_content_id: "pQ_3P-0WwvU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Sexy Magic (from GTAVI: The Album) (feat. Grand Theft Auto VI) - CA7RIEL & Paco Amoroso", media_class: "playlist", media_content_type: "track", media_content_id: "VBKnzlBP95A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/hbpSyosNXpw2uZ6_KOx0YjBLO-rMJx6gLxEE7Suz-sYnWYhoWu8FVk5FXJEDwJdncjWifi9UIbmDTJEU=w544-h544-l90-rj" }, { title: "Babydoll - Jamie Miller", media_class: "playlist", media_content_type: "track", media_content_id: "7MAs5b7EJyc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love - Keyshia Cole", media_class: "playlist", media_content_type: "track", media_content_id: "8M_-aaZUs4o", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }, { title: "Innerbloom XI - RÜFÜS DU SOL", media_class: "playlist", media_content_type: "track", media_content_id: "MyeUOTWUNsE", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gk6GLgNgat-oez8Yl8tirJNj80jCNuN1HnnaoyhLPGazQP76XMGXzB67nL7KBJUz6wead6n8mH_jBFdk=w544-h544-l90-rj" }, { title: "Power Trip (from GTAVI: The Album) - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "3uC4yshW6Yc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AwqUl_c3gIFWtvPf7h_tDz_gIlM8pLyTTxeVyIT14W1eoVCKfcmnrox73QDxI-YIntjKdKZGvh-c1twq=w544-h544-l90-rj" }, { title: "Leave With Me - LISA", media_class: "playlist", media_content_type: "track", media_content_id: "r58jywvd-Rw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EAgD2-ySGHKQdBxH3kj9IGjyJiXYP8Lkoa2dMvXb3KZUw1N_6ghCLiB9hklwRqZHqt8cVpnVviQ3r-Zo=w544-h544-l90-rj" }, { title: 'Sun Showers (From "The Angry Birds Movie 3”) - JISOO', media_class: "playlist", media_content_type: "track", media_content_id: "nfvXvCwqChY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/M4Bx2xs5rppzER-NHQvimkZ29gyD9t99yKBBWvAk4PSTOcTKGyfUbKhdVeHuAQwbtrRAGGNNzCWwWGsv=w544-h544-l90-rj" }, { title: "ICONIC - CL", media_class: "playlist", media_content_type: "track", media_content_id: "6v-TZZKvADw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/gDaFchnWU4AGuYCAPgHjkZ3oTkN_LU7IK9aYpkDED9zgZUUqxLgOjXE9W5338xoqLoIaTfunleAMnIxSQw=w544-h544-l90-rj" }, { title: "BABY ANGEL - NAYEON", media_class: "playlist", media_content_type: "track", media_content_id: "Z8ehh3ANZak", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/di75B_1bBuBn_TwuiQ_bMUNmHYLtVncpVY8KH5iVPvGRZ1jNMB20tIzhtuluWltcx4AF0YAaf1k3yZc=w544-h544-l90-rj" }, { title: "Tremendo Desastre - Myke Towers", media_class: "playlist", media_content_type: "track", media_content_id: "PWIQFC5YZPA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Nm_lkqCGk6JtexgRCc-XQsiYx_aWPexSC7KDP66iCA2v0cV-CmhwUTBkdxQ6sLEt0aYM2jEibDFDCdOeCw=w544-h544-l90-rj" }, { title: "Angel Bite - TOMORROW X TOGETHER", media_class: "playlist", media_content_type: "track", media_content_id: "5JkTq9rOYI8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/JlSvnvfKfrsSqmYacyjKZUyGT5lDaON6lYGMobOoQSFMY6jZix3Uc6zCLUVdwt1oyDhXc3-4EGOeI6M=w544-h544-l90-rj" }, { title: "El Ojo Alegre - Lucero", media_class: "playlist", media_content_type: "track", media_content_id: "_ulXageeMis", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/sdnkjwUO2m4zxwGl3iG0ax205A0w6o584Rz125r7qxet41QMDdzK6LTuT6U9Oh943OGn1DIGhpzroed76A=w544-h544-l90-rj" }] }, "home2|New releases": { title: "New releases", media_class: "directory", media_content_type: "home2", media_content_id: "New releases", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "New Release Mix", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDTMAK5uy_lr0LWzGrq6FU9GIxWvFHTRPQD2LHMqlFA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://music.youtube.com/image/mixart?r=ENgEGNgEMiAIBxoNL2cvMTF0ZzJ2a3IxehoNL2cvMTF2azhtMV81c2IICgYKBAoCZW4" }, { title: "Grand Theft Auto VI: The Album (Deluxe Edition)", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_TINpB57piQG", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/wSeM_CFdxBOWkA26uiVcmIGhsfwRtoU3QFaXRZm7i3BQnjm_H6HkQXhSX7QmF3oUjiWNOftVM86dBMKT=w544-h544-l90-rj" }, { title: "Live in Mexico City", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_eMs4ZDFJwXq", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Oh My Little Baby Boy", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_1VNQRlCRafA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/0g39YYG1TCisyYWef7EzNyrPHHMQ5zHRpHT3jQvD0SP2Qzk9ireD0ynEi78_mGq9HWpu-BoeseOrE0hK=w544-h544-l90-rj" }] }, "home2|All hits": { title: "All hits", media_class: "directory", media_content_type: "home2", media_content_id: "All hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_n9PTezEY6LrODsz6rl2KDtFzC9e5Qzz9Y", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QrISu_Bk4sR6MN_TUD2bbWO4ZyfdSFJVE8JPpCD4P9uCRmyQtE1e3HjxtwsiomjiR0idTKD7Wl6w9A=w544-h544-l90-rj" }, { title: "Huge Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kWiJXUNLZM9EyS3GBGznl1ku8_cOos97U", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Lld802Wk-_qbAttIghD3-R2U9wjKT87qsY-9sUbxl1G4AQ4VKwA02HGg6QF56thp9HA-u6VCj76W=w544-h544-l90-rj" }, { title: "Pop Gold", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nHSqCJjDrW9HBhCNdF6tWPdnOMngOv0wA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/rAUuEbLF7CYEYBXU3yAY4npMCzTgPxMhlD-ygH9iv_SuDXGDuDvO0Z4MTh33xAI6o3UnpWFe26MS_hBZ=w544-h544-l90-rj" }, { title: "Hip-Hop Classics", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kP2172rQNb3KFXz880xp6M98R_ME5CIKA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QbaOnF8DHmwx70wCX4E3e8QcmkZNaO91jkIqz1U-UcW_PFYzA2419D7icVlUZRrWwsDqxAal_RzCOg=w544-h544-l90-rj" }, { title: "Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_k6PkYWus1Mt-aKrbb0Ne8SkA2BgAk1Yy4", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BJEqYDBiNwOS5x7siLvlpqISZOjTNTNmWBk5QzBF70y8RotdBrkHg24o5VFLxfrfheO8SFYyhUqAUJY=w544-h544-l90-rj" }, { title: "Hip-Hop Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nMRqcKbbYRujfKKitokBwvLQSFHnsomls", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/fhbtBeL6Pglzk0DfmwOTxX2cO7hkhFulB-uqDgKyEdoPQs6zcQFtm_eWFqltKv2W17LRNEkpZJBNpw=w544-h544-l90-rj" }, { title: "Pop's Biggest Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nmS3YoxSwVVQk9lEQJ0UX4ZCjXsW_psU8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/ih5QdpqpkVNRXtD-joBWj3jo1woxAXJFyAoA3hWYNWAKX0M9B825HH2VOh7aDX-unf67oyCyJGN9TljR=w544-h544-l90-rj" }, { title: "Drum & Bass Room", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lwP-V7kSIhX3CJEV7zRd9P8Nj0F1l5RbY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Qcd9QnCfMmsjdl8mXNlxHf9N0csfuOr3Gb_2aH7WCcr1RbIRXRvpnoiyTeKlL54d3PT9s0YbQznsAxU=w544-h544-l90-rj" }, { title: "Heavy Hitters", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nVT2-bFfxplES7OQSLcnwlJqpsQ9gn0yY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }] }, "home2|Today's biggest hits": { title: "Today's biggest hits", media_class: "directory", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Pop Certified", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lBNUteBRencHzKelu5iDHwLF6mYqjL-JU", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BchO1e_VlImwqaOcFKhjEmQj9x_gfumqInfztMvIlbSoxfpFeyu3uJoMkIDtx22Hng_PCtg2XmWm_g=w544-h544-l90-rj" }, { title: "Chroma: Today's Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kLWIr9gv1XLlPbaDS965-Db4TrBoUTxQ8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bgyYaDg4vQmS4TB1A5vZbnTO0X3Dp2K466u7ZJcEKB7fY4o8Mg3BAObHle4ZMGhEVBWGJ17YMoYqgQ=w544-h544-l90-rj" }, { title: "Hits Remixed", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_l2zLaMIWOqWSePvTSmt49GcuR8460ZR10", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/8QAvBU7EabmeoXp8wtBoFPROpZy0LVDU5CqrMmKy6ubrwixctxAJdWs7u9ZkZIx1dbB37hAnx6tHXRgh=w544-h544-l90-rj" }, { title: "EDM 2026", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mOGSCVBsZurORfvybL5lEwxKsNFlZ8cPY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/DJhVFzpwJJBcnOQpHEjnZgqon_9TFlQNiss38auB9zqNItAv9ivXZmbaWNiXErYhEE1MVvq51c-3zw=w544-h544-l90-rj" }, { title: "Hits Unplugged ", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mdwsZFtQhJyGQPuQA612VoRPXp-OJfzx8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/t4ITg7S7zqTh93EXNlRoPSaAXIR7nQrdpo3BlGtJ3lkaqsRz5Pu-nWHXjcd7hMlzCirM6-HZ00PvrCKc=w544-h544-l90-rj" }] }, "home2|Music videos for you": { title: "Music videos for you", media_class: "directory", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "I Don't Want To Talk About It (Live) - Rod Stewart", media_class: "playlist", media_content_type: "track", media_content_id: "w46bWxS9IjY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/w46bWxS9IjY/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kPxizLkdJBFIu9K4f7uo7NjTP2KQ" }, { title: "I Knew It, I Knew You/ Our Song (Live) - Taylor Swift", media_class: "playlist", media_content_type: "track", media_content_id: "LJC7mgjp5FQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/LJC7mgjp5FQ/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mM4YESRNfhv97MCbjSE09Hpz_s2A" }, { title: "Training Season (Live) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "3DcoC8p9az8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Dusk Till Dawn (feat. Sia) - ZAYN", media_class: "playlist", media_content_type: "track", media_content_id: "tt2k8PGm-TI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/tt2k8PGm-TI/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mwQETV3eMp1l7fpqqCQirCg9x7PA" }, { title: "ADDICTED - JISOO", media_class: "playlist", media_content_type: "track", media_content_id: "Pksr9T8m_aA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/Pksr9T8m_aA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nthnoizeIpaXcWtt98-BPcJ6ZSXg" }, { title: "TQG - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "jZGpkLElSu8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/jZGpkLElSu8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mcWVQ9jm77acjGdDNvQ8VeKgaDRw" }, { title: "It's Me - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "bMhDJ0S0OBA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/bMhDJ0S0OBA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3lRd-ngPHNZ1KbFt6pba5wdAVIEwQ" }, { title: "HOLLYWOOD - Peso Pluma", media_class: "playlist", media_content_type: "track", media_content_id: "rCL8-CiGSmc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/rCL8-CiGSmc/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mOpJu1dMkOEnAVOczmJsUo7D2lpg" }] }, "home2|Featured playlists for you": { title: "Featured playlists for you", media_class: "directory", media_content_type: "home2", media_content_id: "Featured playlists for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Top 100 Music Videos Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn5kI81J1fYWK5eZRl1zJ5kM", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/9FVtwu1BWibyR39Mv1wIGDkpQXTuhAcHMM1D3RQLEDOeMDz9jtRFG_GnliUGMXXP8HoJJ1w0og=s544" }, { title: "Daily Top Music Videos - Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn6t3TXLGiiJdD-sZbrG3tG0", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/zXfgdEQFwlHIbhe_h5F7LQly0XtWbbk-k3hoffmDNOyfNiZx6XAOEzYW7ojOG-LlGi9w9qyfJ8cw=s544" }] }, "home2|Live performances": { title: "Live performances", media_class: "directory", media_content_type: "home2", media_content_id: "Live performances", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Let Me Love You - Mario", media_class: "playlist", media_content_type: "track", media_content_id: "D6vCMxmkMKI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/ld8MgzxD57OHR1UWFbqPHQ1tFMu7KeiWz89gMxhqlH3Vmk6pGsKTR1T8JKtur1P8jj6oq1aa-knevkY=w544-h544-l90-rj" }, { title: "Training Season (Live from the Royal Albert Hall) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "2tw2QDSeBQQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/mRy_-GXuXaHpjkGh4pyMTDh9nw5Yzr-5EcvOgmfUA8xVCVQ0Ewdx_Xt1kzc1GvXNxHrUxmbHXh1xH1HC=w544-h544-l90-rj" }, { title: "Lost On You (Live) - LP", media_class: "playlist", media_content_type: "track", media_content_id: "wDjeBNv6ip0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/wDjeBNv6ip0/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kHFkLOnqkOC1EQ9Y-WFg63tYlYGQ" }, { title: "El Perdedor - Aventura", media_class: "playlist", media_content_type: "track", media_content_id: "EJuxDbSkwmQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, root: { title: "Media Library", media_class: "directory", media_content_type: "library", media_content_id: "library", children_media_class: "directory", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Home", media_class: "playlist", media_content_type: "home", media_content_id: "", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: null }] } }, $a = [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard)", artist: "Justice", picture: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight)", artist: "Syzz", picture: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE)", artist: "Tame Impala", picture: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Stop The Wedding!", artist: "Ashe", picture: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me", artist: "Kelsy Karter & The Heroines", picture: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti", artist: "KATSEYE", picture: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album)", artist: "Tove Lo", picture: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden", artist: "HUNTR/X", picture: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "Stand by Me", artist: "Seal", picture: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Love Me Like You Do", artist: "Elena Gray", picture: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }, { title: "Go Easy (from GTAVI: The Album)", artist: "Dua Lipa", picture: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat", artist: "MOONLGHT", picture: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack)", artist: "Lena Vril", picture: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man", artist: "FINNEAS", picture: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Babydoll", artist: "Jamie Miller", picture: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love", artist: "Keyshia Cole", picture: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }], Zi = "media_player.youtube_music", _0 = ["media_player.living_room_speaker", "media_player.kitchen_speaker", "media_player.bathroom_speaker"], An = 842303, y0 = 449471, Ao = (o, e = 0, t = 214) => {
+`, group_by: { func: "sum" }, name: "Export" }] }, year: { series: [{ entity: "sensor.total_energy_buy", unit: "kWh", type: "column", group_by: { func: "diff", start_with_last: !0 }, name: "Export" }], update_interval: "1h" }, height: 170 }], bar: !0 }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#security", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:cctv", margin_top_desktop: "-35px", name: "Security", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "Security", icon: "mdi:cctv", view_layout: { height: "auto" } }, { type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", layout: "header", modes: ["home", "away", "night"], align: "stretch" }] }, { type: "custom:glass-panel", bar: !0, layout: "column", justify: "start", gap: 10, padding: 12, view_layout: { height: "auto" }, cards: [{ type: "custom:glass-popup-header", close: !1, view_layout: { height: "auto" }, buttons: [{ name: "Entrance", icon: "mdi:door", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_2" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_1" }] } }, active: { entity: "input_boolean.switch_security_camera_1", state: "on" } }, { name: "Garden", icon: "mdi:tree-outline", tap_action: { action: "perform-action", perform_action: "script.multi_tap_action", data: { actions: [{ service: "input_boolean.turn_off", entity_id: "input_boolean.switch_security_camera_1" }, { service: "input_boolean.turn_on", entity_id: "input_boolean.switch_security_camera_2" }] } }, active: { entity: "input_boolean.switch_security_camera_2", state: "on" } }] }, { type: "custom:glass-camera", layout: "stacked", list_glass: "dark-liquid", player_glass: "liquid-gl", badge_glass: "liquid-gl", show_timeline: !0, cameras: [{ camera: "camera.front_door", name: "Entrance", icon: "mdi:door", frigate_camera: "frontdoor", active: { entity: "input_boolean.switch_security_camera_1", state: "on" }, items: [{ entity: "switch.front_door_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.front_door_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }, { camera: "camera.garden", name: "Garden", icon: "mdi:tree-outline", frigate_camera: "garden", active: { entity: "input_boolean.switch_security_camera_2", state: "on" }, items: [{ entity: "switch.garden_light", name: "Light", icon: "mdi:lightbulb-outline", text: "Off", rules: [{ state: "on", text: "On", icon_color: "orange" }] }, { entity: "select.garden_nightvision", name: "Night vision", icon: "mdi:weather-night", dropdown: !0, rules: [{ state_not: "Off", icon_color: "orange" }], option_names: { Off: "Off", "B&W Night Vision": "Black and white", "Color Night Vision": "Colour" } }] }] }] }] }], show_header: !1 }] }, { type: "grid", cards: [{ type: "custom:bubble-card", card_type: "pop-up", hash: "#more", width_desktop: "340px", margin_top_mobile: "-56px", bg_blur: 50, bg_opacity: 0, hide_backdrop: !0, icon: "mdi:dots-horizontal-circle-outline", margin_top_desktop: "-35px", name: "More", cards: [{ type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, cards: [{ type: "custom:glass-popup-header", name: "More", icon: "mdi:dots-horizontal-circle-outline", view_layout: { height: "auto" } }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Security", icon: "mdi:shield-home", description: "Arm and disarm the alarm – the keypad and what's open", cards: [{ type: "custom:glass-security", entity: "alarm_control_panel.hub_security", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarms", icon: "mdi:alarm", description: "Wake-up alarms – their times, days and sound", cards: [{ type: "custom:glass-alarms", view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Alarm ringing", icon: "mdi:alarm-bell", description: "An alarm over the whole dashboard – snooze it or slide to stop", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Ring an alarm", image: "glass:demo/alarm-morning.jpg", status: "info", info: [{ text: "Kids' room – snooze it or slide to stop" }], tap_action: { action: "perform-action", perform_action: "input_boolean.turn_on", target: { entity_id: "input_boolean.glass_alarm_1_ringing" } }, entities: [{ entity: "input_boolean.glass_alarm_1_ringing", icon: "mdi:alarm-bell", name: "Ring" }], view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Screensaver player", icon: "mdi:monitor-screenshot", description: "The media player as the whole screen – a kiosk's screensaver", cards: [{ type: "custom:glass-room-card", layout: "compact", name: "Open the screensaver", image: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj", status: "info", info: [{ text: "What plays, big – a touch for the buttons" }], tap_action: { action: "navigate", navigation_path: "#screensaver" }, view_layout: { height: "auto" } }] }, { type: "custom:glass-panel", glass: "none", layout: "column", gap: 14, padding: 0, collapsible: !0, title: "Calendar", icon: "mdi:calendar-month", description: "The family's month and week – tap a day to add an event", cards: [{ type: "custom:glass-calendar-view", height: "600px", close: !1, days_off: ["calendar.holidays"], calendars: [{ entity: "calendar.family", color: "blue" }, { entity: "calendar.utilities", color: "orange" }], view_layout: { height: "auto" } }] }] }], show_header: !1 }] }] }] }, es = "glass-demo-popups", Ao = { "home|": { title: "Home", media_class: "directory", media_content_type: "home", media_content_id: "", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Today's biggest hits", media_class: "playlist", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/JhukEr_gsgy7LuD0aFWmmTpcrAkB0Amk5zoFgAtPE3LBWwRXfbkZPP3epGFAp9HLcNkVZ-AyD0kX-a7e=w544-h544-l90-rj" }, { title: "All hits", media_class: "playlist", media_content_type: "home2", media_content_id: "All hits", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }, { title: "Trending songs for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Music videos for you", media_class: "playlist", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Covers and remixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Song mixes", media_class: "playlist", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/_cBCKUoFjuJsTPKvNViql9pqLTD_NfiNNn3y13rh1iXXIwpZ2dyQcyn9H2dneW9J9F9-I6zM13zFe4qV=w544-h544-l90-rj" }, { title: "New releases", media_class: "playlist", media_content_type: "home2", media_content_id: "New releases", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Live performances", media_class: "playlist", media_content_type: "home2", media_content_id: "Live performances", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, "home2|Song mixes": { title: "Song mixes", media_class: "directory", media_content_type: "home2", media_content_id: "Song mixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard) - Justice", media_class: "playlist", media_content_type: "track", media_content_id: "JWxoRY7AFSw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Stop The Wedding! - Ashe", media_class: "playlist", media_content_type: "track", media_content_id: "BVR3k32x9h0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me - Kelsy Karter & The Heroines", media_class: "playlist", media_content_type: "track", media_content_id: "VdlCbji1CAg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti - KATSEYE", media_class: "playlist", media_content_type: "track", media_content_id: "HY397w59MT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album) - Tove Lo", media_class: "playlist", media_content_type: "track", media_content_id: "0lI_KzhfIBk", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden - HUNTR/X", media_class: "playlist", media_content_type: "track", media_content_id: "9_bTl2vvYQg", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "BbY WOW - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "ljAH6jNaApU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/GdW-pwzDkHLGvvf0pe_dgTcBYkJ2UFgsW6Zldnxyz-kX3l8I-QrRMow8IooEm7njIEAJauyWfoSV1rM=w544-h544-l90-rj" }, { title: "You’re Under Arrest - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "qsqvJpOgrWw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EQNyUqxuYcONem8DYLwrXvMdc0rs-ryUcSgdgpxVkqtx53WRKr5YtBwEnaHBgnN5iWk90JBbdkrpSq4=w544-h544-l90-rj" }, { title: "COQUETA - Fuerza Regida", media_class: "playlist", media_content_type: "track", media_content_id: "fPczdTA1xU0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/llYLq4jy6rSfhDDnEwL5rsxS80eBMvPzcZoryVzEQhbZCCOJMgcrkhtWiXTMLnASubnA0Ga99l6lVdUg=w544-h544-l90-rj" }, { title: "Don't Stop The Music - Bisken", media_class: "playlist", media_content_type: "track", media_content_id: "7WIWltd6CiM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/qn1AKHBdT_xmKUxMmseOxhFlTVQ4zoDO60JyXcMRiy3DSvdT8HOCmty-wQyPD3F2BRN-1kKzrMWcZKjyjw=w544-h544-l90-rj" }, { title: "Love Options - BESTie", media_class: "playlist", media_content_type: "track", media_content_id: "jWwdHeJ8XeU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/e_KhStFaUpXtdfyncHtYOBGibpgdw3fVixG8H0_E8aIW6G0Op9wo4jQqWsfHCEMaI96DnhsqlHM9Yzck=w544-h544-l90-rj" }, { title: "Sakuranbo - YENA", media_class: "playlist", media_content_type: "track", media_content_id: "6POlUfjBIB4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/_RWfWayKDftrngXQ8sGahDtVVmqfhzji0cR1WTE2DWsW8VO7NJnDMStdjFYWj1lqoACBSxW8e5dnheHbIg=w544-h544-l90-rj" }, { title: "Hong Kong", media_class: "playlist", media_content_type: "track", media_content_id: "cUnEvW5aS80", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/X_xAPVJ2PYZCimHbT1dLd6JNQRNIzelWVSjUak_sBJXVUy2wajg7DHX__2B7O_fpi5iCKrOufTphwH3_=w544-h544-l90-rj" }, { title: "I Want You - ENHYPEN", media_class: "playlist", media_content_type: "track", media_content_id: "dBv5ju-TGZQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/p03tt4dCfQUZILU6EFkRanxOdpHXfKJi93xgjChLZkyUQS76s-ap-_QtjwHCtFy-QqdTdrdO4eNoaOMR=w544-h544-l90-rj" }, { title: "REDRED - CORTIS", media_class: "playlist", media_content_type: "track", media_content_id: "5sOgJQ3N03Q", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QwlA1MsRGQRVG6kIPLEB068OXqVk4QKHWXeAIX0C-QaZ7Mzgh4f9JbXLj03itMK14uRL5EsnVmslkzN2=w544-h544-l90-rj" }, { title: "like JENNIE - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "HMQlkbXjSTM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Z3gufPaLCcWuJNE4NH6KhlbUSrnx3hvUQgnhwQBrUDNzEgAp1aNMuCr0nv0gJxU8XcS2Rp9I-BHPZt_i=w544-h544-l90-rj" }] }, "home2|Covers and remixes": { title: "Covers and remixes", media_class: "directory", media_content_type: "home2", media_content_id: "Covers and remixes", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Save Your Tears ((Remix) Bonus Track) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "lS9Kgp6PsWY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Ds4HZUl-Cziy9wW0zGv5_rRw0fGc01a3rMZ6mB27HkSTtVLaPwUpPaXdoISHAH3XprkYyPfIEcSpmPy-=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight) - Syzz", media_class: "playlist", media_content_type: "track", media_content_id: "maY-KIK3EDI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Remember Our Summer CYNIX Remix - CYNIX", media_class: "playlist", media_content_type: "track", media_content_id: "1x0e5svjyoA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/1x0e5svjyoA/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3m6b1RsrcKkQCPkyDTNx2HXM7wmpA" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "DXO288FnB-A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Flo Rida feat. T-Pain - Low (FNZ Remix) - FNZ", media_class: "playlist", media_content_type: "track", media_content_id: "8s5o9JS9dsM", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/8s5o9JS9dsM/hqdefault.jpg?sqp=-oaymwEWCJADEOEBIAQqCggAEOADGC0guwJIWg&rs=AMzJL3lhK_a8liz1kba7el0JWShA6hq2Eg" }, { title: "Stand by Me - Seal", media_class: "playlist", media_content_type: "track", media_content_id: "zRafBMo9t_A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Die For You (Remix) - The Weeknd", media_class: "playlist", media_content_type: "track", media_content_id: "AySMGpXQ1Mo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/liKrw5t_WphMbkiYKDHQj1rf8S8GSwxgMRUmB7tkHhPF862BRcqIYxFEj9QwKr51ge2ma6u0C_wI4jNo=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE) - Tame Impala", media_class: "playlist", media_content_type: "track", media_content_id: "6KjVYeQ9SRw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/FQsPsZdaGUkT3_Q-9iilsYnS6xc0CAerb6pIhUou-skal6-jMQQ-xUigopbvfqVP_e-msHiabmCN2wCl=w544-h544-l90-rj" }, { title: "Cold Heart (PNAU Remix) - Elton John", media_class: "playlist", media_content_type: "track", media_content_id: "e-S1k9-soT4", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/VMVJXxPN4zR2XFumd_ha6Siv27k2zFwViSm9kcXdUQdoABVYZcKgi-0F15dXkLMbL9bsN3zwCBrlsPVC=w544-h544-l90-rj" }, { title: "Love Me Like You Do - Elena Gray", media_class: "playlist", media_content_type: "track", media_content_id: "Q9HxtBBqmHA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }] }, "home2|Trending songs for you": { title: "Trending songs for you", media_class: "directory", media_content_type: "home2", media_content_id: "Trending songs for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Go Easy (from GTAVI: The Album) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "eqQRPRcoIYo", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat - MOONLGHT", media_class: "playlist", media_content_type: "track", media_content_id: "LOvFNEryrOA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack) - Lena Vril", media_class: "playlist", media_content_type: "track", media_content_id: "zLilheGY7OY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man - FINNEAS", media_class: "playlist", media_content_type: "track", media_content_id: "pQ_3P-0WwvU", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Sexy Magic (from GTAVI: The Album) (feat. Grand Theft Auto VI) - CA7RIEL & Paco Amoroso", media_class: "playlist", media_content_type: "track", media_content_id: "VBKnzlBP95A", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/hbpSyosNXpw2uZ6_KOx0YjBLO-rMJx6gLxEE7Suz-sYnWYhoWu8FVk5FXJEDwJdncjWifi9UIbmDTJEU=w544-h544-l90-rj" }, { title: "Babydoll - Jamie Miller", media_class: "playlist", media_content_type: "track", media_content_id: "7MAs5b7EJyc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love - Keyshia Cole", media_class: "playlist", media_content_type: "track", media_content_id: "8M_-aaZUs4o", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }, { title: "Innerbloom XI - RÜFÜS DU SOL", media_class: "playlist", media_content_type: "track", media_content_id: "MyeUOTWUNsE", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Gk6GLgNgat-oez8Yl8tirJNj80jCNuN1HnnaoyhLPGazQP76XMGXzB67nL7KBJUz6wead6n8mH_jBFdk=w544-h544-l90-rj" }, { title: "Power Trip (from GTAVI: The Album) - JENNIE", media_class: "playlist", media_content_type: "track", media_content_id: "3uC4yshW6Yc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AwqUl_c3gIFWtvPf7h_tDz_gIlM8pLyTTxeVyIT14W1eoVCKfcmnrox73QDxI-YIntjKdKZGvh-c1twq=w544-h544-l90-rj" }, { title: "Leave With Me - LISA", media_class: "playlist", media_content_type: "track", media_content_id: "r58jywvd-Rw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/EAgD2-ySGHKQdBxH3kj9IGjyJiXYP8Lkoa2dMvXb3KZUw1N_6ghCLiB9hklwRqZHqt8cVpnVviQ3r-Zo=w544-h544-l90-rj" }, { title: 'Sun Showers (From "The Angry Birds Movie 3”) - JISOO', media_class: "playlist", media_content_type: "track", media_content_id: "nfvXvCwqChY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/M4Bx2xs5rppzER-NHQvimkZ29gyD9t99yKBBWvAk4PSTOcTKGyfUbKhdVeHuAQwbtrRAGGNNzCWwWGsv=w544-h544-l90-rj" }, { title: "ICONIC - CL", media_class: "playlist", media_content_type: "track", media_content_id: "6v-TZZKvADw", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/gDaFchnWU4AGuYCAPgHjkZ3oTkN_LU7IK9aYpkDED9zgZUUqxLgOjXE9W5338xoqLoIaTfunleAMnIxSQw=w544-h544-l90-rj" }, { title: "BABY ANGEL - NAYEON", media_class: "playlist", media_content_type: "track", media_content_id: "Z8ehh3ANZak", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/di75B_1bBuBn_TwuiQ_bMUNmHYLtVncpVY8KH5iVPvGRZ1jNMB20tIzhtuluWltcx4AF0YAaf1k3yZc=w544-h544-l90-rj" }, { title: "Tremendo Desastre - Myke Towers", media_class: "playlist", media_content_type: "track", media_content_id: "PWIQFC5YZPA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/Nm_lkqCGk6JtexgRCc-XQsiYx_aWPexSC7KDP66iCA2v0cV-CmhwUTBkdxQ6sLEt0aYM2jEibDFDCdOeCw=w544-h544-l90-rj" }, { title: "Angel Bite - TOMORROW X TOGETHER", media_class: "playlist", media_content_type: "track", media_content_id: "5JkTq9rOYI8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/JlSvnvfKfrsSqmYacyjKZUyGT5lDaON6lYGMobOoQSFMY6jZix3Uc6zCLUVdwt1oyDhXc3-4EGOeI6M=w544-h544-l90-rj" }, { title: "El Ojo Alegre - Lucero", media_class: "playlist", media_content_type: "track", media_content_id: "_ulXageeMis", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/sdnkjwUO2m4zxwGl3iG0ax205A0w6o584Rz125r7qxet41QMDdzK6LTuT6U9Oh943OGn1DIGhpzroed76A=w544-h544-l90-rj" }] }, "home2|New releases": { title: "New releases", media_class: "directory", media_content_type: "home2", media_content_id: "New releases", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "New Release Mix", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDTMAK5uy_lr0LWzGrq6FU9GIxWvFHTRPQD2LHMqlFA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://music.youtube.com/image/mixart?r=ENgEGNgEMiAIBxoNL2cvMTF0ZzJ2a3IxehoNL2cvMTF2azhtMV81c2IICgYKBAoCZW4" }, { title: "Grand Theft Auto VI: The Album (Deluxe Edition)", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_TINpB57piQG", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/wSeM_CFdxBOWkA26uiVcmIGhsfwRtoU3QFaXRZm7i3BQnjm_H6HkQXhSX7QmF3oUjiWNOftVM86dBMKT=w544-h544-l90-rj" }, { title: "Live in Mexico City", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_eMs4ZDFJwXq", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/d6-E1VvQ1BQoNpKG2L3OVLNai9V7tnwu87doTmUNKdg5FC3Bh_NejaWpsS4Fjgt9kUhQ1GbP6chKSEppmw=w544-h544-l90-rj" }, { title: "Oh My Little Baby Boy", media_class: "playlist", media_content_type: "album", media_content_id: "MPREb_1VNQRlCRafA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/0g39YYG1TCisyYWef7EzNyrPHHMQ5zHRpHT3jQvD0SP2Qzk9ireD0ynEi78_mGq9HWpu-BoeseOrE0hK=w544-h544-l90-rj" }] }, "home2|All hits": { title: "All hits", media_class: "directory", media_content_type: "home2", media_content_id: "All hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_n9PTezEY6LrODsz6rl2KDtFzC9e5Qzz9Y", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QrISu_Bk4sR6MN_TUD2bbWO4ZyfdSFJVE8JPpCD4P9uCRmyQtE1e3HjxtwsiomjiR0idTKD7Wl6w9A=w544-h544-l90-rj" }, { title: "Huge Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kWiJXUNLZM9EyS3GBGznl1ku8_cOos97U", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Lld802Wk-_qbAttIghD3-R2U9wjKT87qsY-9sUbxl1G4AQ4VKwA02HGg6QF56thp9HA-u6VCj76W=w544-h544-l90-rj" }, { title: "Pop Gold", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nHSqCJjDrW9HBhCNdF6tWPdnOMngOv0wA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/rAUuEbLF7CYEYBXU3yAY4npMCzTgPxMhlD-ygH9iv_SuDXGDuDvO0Z4MTh33xAI6o3UnpWFe26MS_hBZ=w544-h544-l90-rj" }, { title: "Hip-Hop Classics", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kP2172rQNb3KFXz880xp6M98R_ME5CIKA", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/QbaOnF8DHmwx70wCX4E3e8QcmkZNaO91jkIqz1U-UcW_PFYzA2419D7icVlUZRrWwsDqxAal_RzCOg=w544-h544-l90-rj" }, { title: "Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_k6PkYWus1Mt-aKrbb0Ne8SkA2BgAk1Yy4", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BJEqYDBiNwOS5x7siLvlpqISZOjTNTNmWBk5QzBF70y8RotdBrkHg24o5VFLxfrfheO8SFYyhUqAUJY=w544-h544-l90-rj" }, { title: "Hip-Hop Gaming Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nMRqcKbbYRujfKKitokBwvLQSFHnsomls", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/fhbtBeL6Pglzk0DfmwOTxX2cO7hkhFulB-uqDgKyEdoPQs6zcQFtm_eWFqltKv2W17LRNEkpZJBNpw=w544-h544-l90-rj" }, { title: "Pop's Biggest Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nmS3YoxSwVVQk9lEQJ0UX4ZCjXsW_psU8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/ih5QdpqpkVNRXtD-joBWj3jo1woxAXJFyAoA3hWYNWAKX0M9B825HH2VOh7aDX-unf67oyCyJGN9TljR=w544-h544-l90-rj" }, { title: "Drum & Bass Room", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lwP-V7kSIhX3CJEV7zRd9P8Nj0F1l5RbY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/Qcd9QnCfMmsjdl8mXNlxHf9N0csfuOr3Gb_2aH7WCcr1RbIRXRvpnoiyTeKlL54d3PT9s0YbQznsAxU=w544-h544-l90-rj" }, { title: "Heavy Hitters", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_nVT2-bFfxplES7OQSLcnwlJqpsQ9gn0yY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/p2FmWBFqHEbEc8S-T-19oIt0saD5sc2r7lwtgxxaKNulklqdmWUVtOShVLA6X-0-bVCjOlNr3jzixQ=w544-h544-l90-rj" }] }, "home2|Today's biggest hits": { title: "Today's biggest hits", media_class: "directory", media_content_type: "home2", media_content_id: "Today's biggest hits", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Pop Certified", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_lBNUteBRencHzKelu5iDHwLF6mYqjL-JU", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/BchO1e_VlImwqaOcFKhjEmQj9x_gfumqInfztMvIlbSoxfpFeyu3uJoMkIDtx22Hng_PCtg2XmWm_g=w544-h544-l90-rj" }, { title: "Chroma: Today's Dance Hits", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_kLWIr9gv1XLlPbaDS965-Db4TrBoUTxQ8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/bgyYaDg4vQmS4TB1A5vZbnTO0X3Dp2K466u7ZJcEKB7fY4o8Mg3BAObHle4ZMGhEVBWGJ17YMoYqgQ=w544-h544-l90-rj" }, { title: "Hits Remixed", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_l2zLaMIWOqWSePvTSmt49GcuR8460ZR10", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/8QAvBU7EabmeoXp8wtBoFPROpZy0LVDU5CqrMmKy6ubrwixctxAJdWs7u9ZkZIx1dbB37hAnx6tHXRgh=w544-h544-l90-rj" }, { title: "EDM 2026", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mOGSCVBsZurORfvybL5lEwxKsNFlZ8cPY", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/DJhVFzpwJJBcnOQpHEjnZgqon_9TFlQNiss38auB9zqNItAv9ivXZmbaWNiXErYhEE1MVvq51c-3zw=w544-h544-l90-rj" }, { title: "Hits Unplugged ", media_class: "playlist", media_content_type: "playlist", media_content_id: "RDCLAK5uy_mdwsZFtQhJyGQPuQA612VoRPXp-OJfzx8", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/t4ITg7S7zqTh93EXNlRoPSaAXIR7nQrdpo3BlGtJ3lkaqsRz5Pu-nWHXjcd7hMlzCirM6-HZ00PvrCKc=w544-h544-l90-rj" }] }, "home2|Music videos for you": { title: "Music videos for you", media_class: "directory", media_content_type: "home2", media_content_id: "Music videos for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "I Don't Want To Talk About It (Live) - Rod Stewart", media_class: "playlist", media_content_type: "track", media_content_id: "w46bWxS9IjY", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/w46bWxS9IjY/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kPxizLkdJBFIu9K4f7uo7NjTP2KQ" }, { title: "I Knew It, I Knew You/ Our Song (Live) - Taylor Swift", media_class: "playlist", media_content_type: "track", media_content_id: "LJC7mgjp5FQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/LJC7mgjp5FQ/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mM4YESRNfhv97MCbjSE09Hpz_s2A" }, { title: "Training Season (Live) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "3DcoC8p9az8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/3DcoC8p9az8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nXjjpO-FKPYZlsQJctsBsCEeZFSA" }, { title: "Dusk Till Dawn (feat. Sia) - ZAYN", media_class: "playlist", media_content_type: "track", media_content_id: "tt2k8PGm-TI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/tt2k8PGm-TI/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mwQETV3eMp1l7fpqqCQirCg9x7PA" }, { title: "ADDICTED - JISOO", media_class: "playlist", media_content_type: "track", media_content_id: "Pksr9T8m_aA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/Pksr9T8m_aA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3nthnoizeIpaXcWtt98-BPcJ6ZSXg" }, { title: "TQG - KAROL G", media_class: "playlist", media_content_type: "track", media_content_id: "jZGpkLElSu8", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/jZGpkLElSu8/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mcWVQ9jm77acjGdDNvQ8VeKgaDRw" }, { title: "It's Me - ILLIT", media_class: "playlist", media_content_type: "track", media_content_id: "bMhDJ0S0OBA", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/bMhDJ0S0OBA/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3lRd-ngPHNZ1KbFt6pba5wdAVIEwQ" }, { title: "HOLLYWOOD - Peso Pluma", media_class: "playlist", media_content_type: "track", media_content_id: "rCL8-CiGSmc", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/rCL8-CiGSmc/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3mOpJu1dMkOEnAVOczmJsUo7D2lpg" }] }, "home2|Featured playlists for you": { title: "Featured playlists for you", media_class: "directory", media_content_type: "home2", media_content_id: "Featured playlists for you", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Top 100 Music Videos Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn5kI81J1fYWK5eZRl1zJ5kM", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/9FVtwu1BWibyR39Mv1wIGDkpQXTuhAcHMM1D3RQLEDOeMDz9jtRFG_GnliUGMXXP8HoJJ1w0og=s544" }, { title: "Daily Top Music Videos - Global", media_class: "playlist", media_content_type: "playlist", media_content_id: "PL4fGSI1pDJn6t3TXLGiiJdD-sZbrG3tG0", children_media_class: null, can_play: !0, can_expand: !0, thumbnail: "https://yt3.googleusercontent.com/zXfgdEQFwlHIbhe_h5F7LQly0XtWbbk-k3hoffmDNOyfNiZx6XAOEzYW7ojOG-LlGi9w9qyfJ8cw=s544" }] }, "home2|Live performances": { title: "Live performances", media_class: "directory", media_content_type: "home2", media_content_id: "Live performances", children_media_class: "playlist", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Let Me Love You - Mario", media_class: "playlist", media_content_type: "track", media_content_id: "D6vCMxmkMKI", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/ld8MgzxD57OHR1UWFbqPHQ1tFMu7KeiWz89gMxhqlH3Vmk6pGsKTR1T8JKtur1P8jj6oq1aa-knevkY=w544-h544-l90-rj" }, { title: "Training Season (Live from the Royal Albert Hall) - Dua Lipa", media_class: "playlist", media_content_type: "track", media_content_id: "2tw2QDSeBQQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/mRy_-GXuXaHpjkGh4pyMTDh9nw5Yzr-5EcvOgmfUA8xVCVQ0Ewdx_Xt1kzc1GvXNxHrUxmbHXh1xH1HC=w544-h544-l90-rj" }, { title: "Lost On You (Live) - LP", media_class: "playlist", media_content_type: "track", media_content_id: "wDjeBNv6ip0", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://i.ytimg.com/vi/wDjeBNv6ip0/hq720.jpg?sqp=-oaymwEKCKAGEMIDIABIWg&rs=AMzJL3kHFkLOnqkOC1EQ9Y-WFg63tYlYGQ" }, { title: "El Perdedor - Aventura", media_class: "playlist", media_content_type: "track", media_content_id: "EJuxDbSkwmQ", children_media_class: null, can_play: !0, can_expand: !1, thumbnail: "https://yt3.googleusercontent.com/AKOi8e955qeoo82rZTlkDwCYgNZP6e02k5Cr1BRvzcAHMOYbQ7w1f1GrK2eVqjivtwhuvJ9jx1XOEaA=w544-h544-l90-rj" }] }, root: { title: "Media Library", media_class: "directory", media_content_type: "library", media_content_id: "library", children_media_class: "directory", can_play: !1, can_expand: !0, thumbnail: null, children: [{ title: "Home", media_class: "playlist", media_content_type: "home", media_content_id: "", children_media_class: null, can_play: !1, can_expand: !0, thumbnail: null }] } }, $a = [{ title: "Flower In A Hurricane [From GTAVI: Original Score] (feat. King Gizzard & the Lizard Wizard)", artist: "Justice", picture: "https://yt3.googleusercontent.com/9U8oOKXg5Q9nsqScuWMyqITQc5VxtHkG8ZbVRWZgpjFuBEcmkn2AvohK-SQWRGuLr3Fa2esEIU79RgOK=w544-h544-l90-rj" }, { title: "Gimme Gimme Gimme (a man after midnight)", artist: "Syzz", picture: "https://yt3.googleusercontent.com/dtBtgxv93fKsQPWiPJwgTiKu2bx3O0Zw8UFXt-PGE_xTSTblppXdovjJt6KigjLGhRC-E3C97t0CjDDvig=w544-h544-l90-rj" }, { title: "Dracula (feat. JENNIE)", artist: "Tame Impala", picture: "https://yt3.googleusercontent.com/Oice7VFz5NBqKgPpD8LA0oIGkfNTc5N_2pRMifH_W4-aVjMDDBZ2-BafN55NEyXMqhD3ScUrrOxz7WgJ=w544-h544-l90-rj" }, { title: "Stop The Wedding!", artist: "Ashe", picture: "https://yt3.googleusercontent.com/nA4rWHxnTBsANyHz94MeM-hvRV8WytkPCoQcbG7UhaI5c6pk01dfiOj9_54XWmIGj58mE9EiaSoKl1pT=w544-h544-l90-rj" }, { title: "Call Me", artist: "Kelsy Karter & The Heroines", picture: "https://yt3.googleusercontent.com/J_TmXqoLb14jIX5jbOTfmgYl-qMWc8BbVrEoDE9AWDCI5zvjEX6lcV1IgUflTcerzD9SdG8D1budSOjv=w544-h544-l90-rj" }, { title: "Hootie Frutti", artist: "KATSEYE", picture: "https://yt3.googleusercontent.com/LM6RBLp2-wM0ZMMyBwGu1HwXiPj3OuH87g-Ksmw_avEfoG3-sEn9oYUVfn89MDuQ7vROhAXBkFiBla4A=w544-h544-l90-rj" }, { title: "Blood In Your Eyes (from GTAVI: The Album)", artist: "Tove Lo", picture: "https://yt3.googleusercontent.com/dzVmIJQ9w5YJl0XT7KFMWFJI0II8at9axikiH6YacBJnJHNxRFi5IO5xBgJSq7bRDmIAFORK9HI0tMG7kw=w544-h544-l90-rj" }, { title: "Golden", artist: "HUNTR/X", picture: "https://yt3.googleusercontent.com/1U-1pXbvkpvGXGUIFs5m6RXz4Fmdvqo1zzQw8eY7b4G9iwpE6vaRclt8Ov5CS8ldROIQGu2InpGuSJSW=w544-h544-l90-rj" }, { title: "Stand by Me", artist: "Seal", picture: "https://yt3.googleusercontent.com/V5xDQnI4LMH8syDXFHl4o8pRuzRdWYSHkSiTfW0FHJZwsHi_euzVRiGYQu_NASLFCyR1Lp9GmSVYYLbf=w544-h544-l90-rj" }, { title: "Love Me Like You Do", artist: "Elena Gray", picture: "https://yt3.googleusercontent.com/Gl66E9Fq8mtYJ7AsrjpcuqSUD0xbUEktOJTqraY29-zDjn0ulyJoY8ymnYjvDRoZfN5LABtUAUzSPS-0=w544-h544-l90-rj" }, { title: "Go Easy (from GTAVI: The Album)", artist: "Dua Lipa", picture: "https://yt3.googleusercontent.com/93wEzW_3yAmPTCz4Ifov5EMT27W1_u1VRL0BpPtx14nAaDn1Cc_0xOZF6S0tJlXVymXLUy_mQZXPfLme5g=w544-h544-l90-rj" }, { title: "Beauty And A Beat", artist: "MOONLGHT", picture: "https://yt3.googleusercontent.com/h3Bvv0VBQYxwPP2N4WG1Vwdn6-aIP4npIZnnB6K8OScpBQWorlasYRM0IK8-G5lgwpGKmExjgfrLNNzz=w544-h544-l90-rj" }, { title: "Devil Woman (GTA 6 Soundtrack)", artist: "Lena Vril", picture: "https://yt3.googleusercontent.com/KBhipyj9OUiFeulVBpV0jru8hSF15i36TFn78bg4HmuaECNjM7DeM2ihM-_jxMNQUZz7BeBNRjQcYhA=w544-h544-l90-rj" }, { title: "My Moon My Man", artist: "FINNEAS", picture: "https://yt3.googleusercontent.com/bBZfYsRKPIu5esakP9qq5qVLu_unNsAn8zPYOwurEem14CLpHsKbUOme2Wnv6B9KYraeHW7GFMW9Zlg=w544-h544-l90-rj" }, { title: "Babydoll", artist: "Jamie Miller", picture: "https://yt3.googleusercontent.com/kJfU1ReE3SNAMamgEMmhwoLThQehu3c5wbRKP6X9koetAZEY-CoXFzfZPxMkdxkyGeKLrRi_z76KOruQ9g=w544-h544-l90-rj" }, { title: "Love", artist: "Keyshia Cole", picture: "https://yt3.googleusercontent.com/QiLklghd8Qj4HAVUHxpYDZ6MqLJ5rMP9SdH6LEZdSA-a38bepAhSBg3FVCAxIhFSNPs02xtmbE8Cn8aFfw=w544-h544-s-l90-rj" }], Zi = "media_player.youtube_music", y0 = ["media_player.kitchen_speaker", "media_player.office_speaker", "media_player.living_room_speaker", "media_player.bathroom_speaker"], js = 842303, v0 = 449471, Mo = (o, e = 0, t = 214) => {
   const a = $a[o % $a.length];
   return {
     media_title: a.title,
@@ -12954,27 +12954,53 @@ const ru = { title: "Glass demo", views: [{ title: "Home", path: "home", type: "
     media_position_updated_at: (/* @__PURE__ */ new Date()).toISOString(),
     track: o % $a.length
   };
-}, $d = ["media_player.living_room_speaker", "media_player.kitchen_speaker"], ao = {
+}, $d = ["media_player.kitchen_speaker", "media_player.office_speaker"], Sd = {
+  media_title: "synthwave radio 🌌 beats to chill/game to",
+  media_content_type: "video",
+  media_duration: 3600,
+  media_position: 1312,
+  media_position_updated_at: (/* @__PURE__ */ new Date()).toISOString()
+}, io = {
   "media_player.living_room_speaker": [
     "playing",
-    { friendly_name: "Living room", device_class: "speaker", supported_features: An, volume_level: 0.34, is_volume_muted: !1, shuffle: !1, repeat: "all", group_members: $d, ...Ao(0, 74) }
+    {
+      friendly_name: "Living room",
+      device_class: "speaker",
+      supported_features: js,
+      volume_level: 0.34,
+      is_volume_muted: !1,
+      group_members: ["media_player.living_room_speaker"],
+      source: "TV",
+      media_title: "TV Audio",
+      media_content_type: "music"
+    }
+  ],
+  "media_player.living_room_tv": ["on", { friendly_name: "Living room TV", device_class: "tv", source: "Apple TV", source_list: ["Apple TV", "PS5", "Netflix", "YouTube"] }],
+  "media_player.living_room_apple_tv": ["playing", { friendly_name: "Apple TV", supported_features: 21437, app_id: "com.google.ios.youtube", app_name: "YouTube", ...Sd }],
+  "media_player.living_room_youtube": [
+    "playing",
+    { friendly_name: "YouTube on TV", supported_features: 21437, media_artist: "Lofi Girl", entity_picture: "https://i.ytimg.com/vi/4xDzrJKXOOY/hqdefault.jpg", ...Sd }
   ],
   "media_player.kitchen_speaker": [
     "playing",
-    { friendly_name: "Kitchen", device_class: "speaker", supported_features: An, volume_level: 0.22, is_volume_muted: !1, shuffle: !1, repeat: "all", group_members: $d, ...Ao(0, 74) }
+    { friendly_name: "Kitchen", device_class: "speaker", supported_features: js, volume_level: 0.22, is_volume_muted: !1, shuffle: !1, repeat: "all", group_members: $d, ...Mo(0, 74) }
+  ],
+  "media_player.office_speaker": [
+    "playing",
+    { friendly_name: "Office", device_class: "speaker", supported_features: js, volume_level: 0.26, is_volume_muted: !1, shuffle: !1, repeat: "all", group_members: $d, ...Mo(0, 74) }
   ],
   "media_player.bathroom_speaker": [
     "idle",
-    { friendly_name: "Bathroom", device_class: "speaker", supported_features: An, volume_level: 0.18, is_volume_muted: !1, shuffle: !1, repeat: "off", group_members: ["media_player.bathroom_speaker"] }
+    { friendly_name: "Bathroom", device_class: "speaker", supported_features: js, volume_level: 0.18, is_volume_muted: !1, shuffle: !1, repeat: "off", group_members: ["media_player.bathroom_speaker"] }
   ],
-  "media_player.youtube_music": ["idle", { friendly_name: "YouTube Music", supported_features: y0, shuffle: !0, repeat: "all", remote_player_id: "media_player.living_room_speaker" }]
+  "media_player.youtube_music": ["idle", { friendly_name: "YouTube Music", supported_features: v0, shuffle: !0, repeat: "all", remote_player_id: "media_player.kitchen_speaker" }]
 };
-function v0(o) {
+function w0(o) {
   if (o.entity_id !== Zi) return;
-  const e = o.media_content_type === void 0 ? "root" : `${o.media_content_type}|${o.media_content_id ?? ""}`, t = zo[e];
+  const e = o.media_content_type === void 0 ? "root" : `${o.media_content_type}|${o.media_content_id ?? ""}`, t = Ao[e];
   if (t) return structuredClone(t);
   if (o.media_content_type !== void 0 && /playlist|album/i.test(String(o.media_content_type))) {
-    const a = Object.values(zo).flatMap((n) => n.children ?? []).filter((n) => !n.can_expand && / - /.test(String(n.title))), i = [...String(o.media_content_id ?? "")].reduce((n, r) => (n * 31 + r.charCodeAt(0)) % 997, 7), s = a.length ? Array.from({ length: Math.min(14, a.length) }, (n, r) => a[(i + r * 7) % a.length]) : [];
+    const a = Object.values(Ao).flatMap((n) => n.children ?? []).filter((n) => !n.can_expand && / - /.test(String(n.title))), i = [...String(o.media_content_id ?? "")].reduce((n, r) => (n * 31 + r.charCodeAt(0)) % 997, 7), s = a.length ? Array.from({ length: Math.min(14, a.length) }, (n, r) => a[(i + r * 7) % a.length]) : [];
     return {
       title: String(o.media_content_id ?? ""),
       media_class: "playlist",
@@ -12987,14 +13013,14 @@ function v0(o) {
   }
   return { title: String(o.media_content_id ?? "YouTube Music"), media_class: "directory", media_content_type: o.media_content_type, media_content_id: o.media_content_id ?? "", can_play: !1, can_expand: !0, children: [] };
 }
-function w0(o) {
-  for (const e of Object.values(zo)) for (const t of e.children ?? []) if (t.media_content_id === o) return t;
-}
 function x0(o) {
+  for (const e of Object.values(Ao)) for (const t of e.children ?? []) if (t.media_content_id === o) return t;
+}
+function k0(o) {
   return Object.fromEntries(["media_title", "media_artist", "entity_picture", "media_duration", "media_position", "media_position_updated_at", "track", "shuffle", "repeat"].filter((t) => t in o).map((t) => [t, o[t]]));
 }
-function k0(o, e, t, a, i) {
-  const s = e.filter((c) => c in ao);
+function $0(o, e, t, a, i) {
+  const s = e.filter((c) => c in io);
   if (!s.length) return !1;
   const n = (c) => {
     const d = a(c)?.attributes.group_members ?? [c];
@@ -13016,7 +13042,7 @@ function k0(o, e, t, a, i) {
       case "media_next_track":
       case "media_previous_track": {
         const u = Number(h.track ?? 0) + (o === "media_next_track" ? 1 : $a.length - 1);
-        for (const m of r(c, h)) i(m, ["playing", Ao(u)]);
+        for (const m of r(c, h)) i(m, ["playing", Mo(u)]);
         break;
       }
       case "media_seek":
@@ -13041,11 +13067,11 @@ function k0(o, e, t, a, i) {
         i(c, ["off", {}]);
         break;
       case "select_source":
-        c === Zi && typeof t.source == "string" && t.source in ao && i(c, [d.state, { remote_player_id: t.source }]);
+        c === Zi && typeof t.source == "string" && t.source in io && i(c, [d.state, { remote_player_id: t.source }]);
         break;
       case "join": {
-        const u = (Array.isArray(t.group_members) ? t.group_members : [t.group_members]).filter((f) => f in ao), m = [.../* @__PURE__ */ new Set([...n(c), ...u])];
-        for (const f of m) i(f, [d.state, { group_members: m, ...f === c ? {} : x0(h) }]);
+        const u = (Array.isArray(t.group_members) ? t.group_members : [t.group_members]).filter((f) => f in io), m = [.../* @__PURE__ */ new Set([...n(c), ...u])];
+        for (const f of m) i(f, [d.state, { group_members: m, ...f === c ? {} : k0(h) }]);
         break;
       }
       case "unjoin": {
@@ -13055,8 +13081,8 @@ function k0(o, e, t, a, i) {
         break;
       }
       case "play_media": {
-        const u = w0(String(t.media_content_id ?? "")), m = c === Zi ? String(h.remote_player_id ?? _0[0]) : c, f = String(u?.title ?? "Music"), b = f.lastIndexOf(" - "), y = {
-          ...Ao(Number(h.track ?? 0) + 1),
+        const u = x0(String(t.media_content_id ?? "")), m = c === Zi ? String(h.remote_player_id ?? y0[0]) : c, f = String(u?.title ?? "Music"), b = f.lastIndexOf(" - "), y = {
+          ...Mo(Number(h.track ?? 0) + 1),
           media_title: b > 0 ? f.slice(0, b) : f,
           media_artist: b > 0 ? f.slice(b + 3) : "YouTube Music",
           ...u?.thumbnail ? { entity_picture: u.thumbnail } : {}
@@ -13071,20 +13097,20 @@ function k0(o, e, t, a, i) {
   }
   return !0;
 }
-const $0 = (o) => zo[`home2|${o}`]?.children ?? [], lu = (o) => o ? { path: o, type: "thumb", provider: "ytmusic", remotely_accessible: !0 } : void 0, Mn = (o, e) => ({
+const S0 = (o) => Ao[`home2|${o}`]?.children ?? [], cu = (o) => o ? { path: o, type: "thumb", provider: "ytmusic", remotely_accessible: !0 } : void 0, Mn = (o, e) => ({
   item_id: `t${e}`,
   provider: "ytmusic",
   media_type: "track",
   uri: `ytmusic://track/demo${e}`,
   name: o.title,
   artists: [{ name: o.artist }],
-  image: lu(o.picture)
-}), Tn = (o, e) => $0(o).filter((t) => t.thumbnail).map((t, a) => ({ item_id: `${o}-${a}`, provider: "ytmusic", media_type: e, uri: String(t.media_content_id), name: String(t.title), owner: "YouTube Music", image: lu(String(t.thumbnail)) })), Sd = ["Dua Lipa", "Tame Impala", "Seal", "FINNEAS", "Tove Lo", "Ashe"], S0 = () => [...$a].sort((o, e) => (Sd.indexOf(o.artist) + 99) % 99 - (Sd.indexOf(e.artist) + 99) % 99 || 0);
-function z0(o) {
+  image: cu(o.picture)
+}), Tn = (o, e) => S0(o).filter((t) => t.thumbnail).map((t, a) => ({ item_id: `${o}-${a}`, provider: "ytmusic", media_type: e, uri: String(t.media_content_id), name: String(t.title), owner: "YouTube Music", image: cu(String(t.thumbnail)) })), zd = ["Dua Lipa", "Tame Impala", "Seal", "FINNEAS", "Tove Lo", "Ashe"], z0 = () => [...$a].sort((o, e) => (zd.indexOf(o.artist) + 99) % 99 - (zd.indexOf(e.artist) + 99) % 99 || 0);
+function A0(o) {
   switch (o) {
     case "music/recommendations":
       return [
-        { item_id: "listen", provider: "ytmusic", name: "Listen again", items: S0().map(Mn) },
+        { item_id: "listen", provider: "ytmusic", name: "Listen again", items: z0().map(Mn) },
         { item_id: "mixed", provider: "ytmusic", name: "Mixed for you", items: [...Tn("Today's biggest hits", "playlist"), ...Tn("All hits", "playlist")].filter((e) => !/Gaming/.test(e.name)) },
         { item_id: "albums", provider: "ytmusic", name: "Albums for you", items: Tn("New releases", "album") },
         { item_id: "recent", provider: "library", name: "Recently played", items: [...$a].reverse().map(Mn) }
@@ -13096,19 +13122,19 @@ function z0(o) {
       return [];
   }
 }
-globalThis.__glassMaDemo = z0;
-const De = {}, Zr = /* @__PURE__ */ new Set(), Mo = (/* @__PURE__ */ new Date()).toISOString();
+globalThis.__glassMaDemo = A0;
+const De = {}, Zr = /* @__PURE__ */ new Set(), To = (/* @__PURE__ */ new Date()).toISOString();
 function me(o, e) {
   const t = De[o], [a, i = {}] = typeof e == "string" ? [e, {}] : e, s = !t || t.state !== a, n = (/* @__PURE__ */ new Date()).toISOString();
   De[o] = {
     entity_id: o,
     state: a,
     attributes: { ...t?.attributes ?? {}, ...i },
-    last_changed: s ? t ? n : Mo : t.last_changed,
-    last_updated: t ? n : Mo
+    last_changed: s ? t ? n : To : t.last_changed,
+    last_updated: t ? n : To
   };
 }
-for (const [o, e] of Object.entries({ ...Ur, ...ao })) me(o, e);
+for (const [o, e] of Object.entries({ ...Ur, ...io })) me(o, e);
 let Cn = 0;
 function Ht() {
   Cn || (Cn = requestAnimationFrame(() => {
@@ -13118,49 +13144,49 @@ function Ht() {
 function Pc(o) {
   return Zr.add(o), () => Zr.delete(o);
 }
-function A0(o, e, t = {}) {
+function M0(o, e, t = {}) {
   me(o, [e, t]), Ht();
 }
-const M0 = {
+const T0 = {
   media_player: ["playing", "paused"],
   cover: ["open", "closed"],
   lock: ["locked", "unlocked"],
   vacuum: ["cleaning", "docked"],
   lawn_mower: ["mowing", "docked"]
-}, T0 = (o) => !!o && !["off", "closed", "idle", "paused", "standby", "docked", "unlocked", "unavailable", "unknown"].includes(o.state);
-function C0(o, e) {
+}, C0 = (o) => !!o && !["off", "closed", "idle", "paused", "standby", "docked", "unlocked", "unavailable", "unknown"].includes(o.state);
+function D0(o, e) {
   const t = e?.entity_id ?? o?.entity_id;
   return (Array.isArray(t) ? t : t ? [t] : []).filter((a) => De[a]);
 }
 function Dn(o, e, t = {}) {
-  const a = o.split(".")[0], [i, s] = M0[a] ?? ["on", "off"];
+  const a = o.split(".")[0], [i, s] = T0[a] ?? ["on", "off"];
   a === "light" && e && !De[o].attributes.brightness && !t.brightness && (t = { brightness: 200, ...t }), a === "light" && !e && (t = { brightness: null, ...t }), a === "cover" && (t = { current_position: e ? 100 : 0, ...t }), me(o, [e ? i : s, t]);
 }
-const To = /* @__PURE__ */ new Map();
+const Co = /* @__PURE__ */ new Map();
 function Pn(o, e) {
-  clearInterval(To.get(o));
+  clearInterval(Co.get(o));
   const t = De[o].attributes.current_position !== void 0;
   let a = t ? Number(De[o].attributes.current_position) : De[o].state === "open" ? 100 : 0;
   if (Math.abs(a - e) < 1) return;
   const i = e > a;
-  me(o, [i ? "opening" : "closing", {}]), To.set(
+  me(o, [i ? "opening" : "closing", {}]), Co.set(
     o,
     window.setInterval(() => {
       a = i ? Math.min(e, a + 5) : Math.max(e, a - 5);
       const s = a === e;
-      s && cu(o), me(o, [s ? a > 0 ? "open" : "closed" : i ? "opening" : "closing", t ? { current_position: a } : {}]), Ht();
+      s && du(o), me(o, [s ? a > 0 ? "open" : "closed" : i ? "opening" : "closing", t ? { current_position: a } : {}]), Ht();
     }, 250)
   );
 }
-function cu(o) {
-  clearInterval(To.get(o)), To.delete(o);
+function du(o) {
+  clearInterval(Co.get(o)), Co.delete(o);
 }
-function D0(o) {
+function P0(o) {
   const e = {};
   return o.brightness_pct !== void 0 && (e.brightness = Math.round(Number(o.brightness_pct) / 100 * 255)), o.brightness !== void 0 && (e.brightness = Number(o.brightness)), o.color_temp_kelvin !== void 0 && (e.color_temp_kelvin = Number(o.color_temp_kelvin)), o.hs_color !== void 0 && (e.hs_color = o.hs_color), o.rgb_color !== void 0 && (e.rgb_color = o.rgb_color), e;
 }
-async function Co(o, e, t, a) {
-  const i = C0(t, a), s = t ?? {};
+async function Do(o, e, t, a) {
+  const i = D0(t, a), s = t ?? {};
   if ((o === "scene" || o === "script") && (e === "turn_on" || e === "toggle")) {
     for (const n of i) la[n]?.(s);
     o === "script" && !i.length && la[`${o}.${e}`]?.(s), Ht();
@@ -13169,11 +13195,11 @@ async function Co(o, e, t, a) {
   if (o === "script" && Array.isArray(s.actions)) {
     for (const n of s.actions) {
       const [r, l] = String(n.service ?? n.action ?? "").split(".");
-      r && l && Co(r, l, { ...n.data ?? {}, ...n.entity_id ? { entity_id: n.entity_id } : {} }, n.target);
+      r && l && Do(r, l, { ...n.data ?? {}, ...n.entity_id ? { entity_id: n.entity_id } : {} }, n.target);
     }
     return;
   }
-  if (o === "media_player" && k0(e, i, s, (n) => De[n], me)) {
+  if (o === "media_player" && $0(e, i, s, (n) => De[n], me)) {
     Ht();
     return;
   }
@@ -13185,10 +13211,10 @@ async function Co(o, e, t, a) {
     const r = De[n], l = n.split(".")[0];
     switch (e) {
       case "toggle":
-        Dn(n, !T0(r));
+        Dn(n, !C0(r));
         break;
       case "turn_on":
-        Dn(n, !0, l === "light" ? D0(s) : {});
+        Dn(n, !0, l === "light" ? P0(s) : {});
         break;
       case "turn_off":
         Dn(n, !1);
@@ -13210,7 +13236,7 @@ async function Co(o, e, t, a) {
         Pn(n, 0);
         break;
       case "stop_cover": {
-        cu(n);
+        du(n);
         const c = r.attributes.current_position;
         me(n, [c === void 0 ? ["opening", "closing"].includes(r.state) ? "open" : r.state : Number(c) > 0 ? "open" : "closed", {}]);
         break;
@@ -13294,7 +13320,7 @@ async function Co(o, e, t, a) {
   i.length || la[`${o}.${e}`]?.(s), Ht();
 }
 const la = Object.fromEntries(
-  Object.entries(d0).map(([o, e]) => [o, (t) => e({ set: me, get: (a) => De[a], data: t })])
+  Object.entries(h0).map(([o, e]) => [o, (t) => e({ set: me, get: (a) => De[a], data: t })])
 );
 function Jr(o) {
   if (typeof o == "string") {
@@ -13303,14 +13329,14 @@ function Jr(o) {
   }
   return Array.isArray(o) ? o.map(Jr) : o && typeof o == "object" ? Object.fromEntries(Object.entries(o).map(([e, t]) => [e, Jr(t)])) : o;
 }
-function P0(o, e) {
+function E0(o, e) {
   switch (o.action) {
     case "toggle":
-      return e && Co(e.split(".")[0], "toggle", { entity_id: e }), !0;
+      return e && Do(e.split(".")[0], "toggle", { entity_id: e }), !0;
     case "perform-action":
     case "call-service": {
       const t = String(o.perform_action ?? o.service ?? ""), [a, i] = t.split(".");
-      return a && i && Co(a, i, o.data ?? o.service_data, o.target), !0;
+      return a && i && Do(a, i, o.data ?? o.service_data, o.target), !0;
     }
     case "more-info":
       return !0;
@@ -13318,7 +13344,7 @@ function P0(o, e) {
       return !1;
   }
 }
-function E0(o, e) {
+function L0(o, e) {
   if (o) return o;
   const t = e === void 0 ? (/* @__PURE__ */ new Date()).getHours() : e ? 22 : 12, a = (s, n = 0) => {
     const r = /* @__PURE__ */ new Date();
@@ -13335,15 +13361,15 @@ function E0(o, e) {
       rising: t < 13,
       friendly_name: "Sun"
     },
-    last_changed: Mo,
-    last_updated: Mo
+    last_changed: To,
+    last_updated: To
   };
 }
-const L0 = (o, e) => {
+const R0 = (o, e) => {
   const t = Number(o);
   return Number.isFinite(t) ? t.toLocaleString(e, { maximumFractionDigits: 1 }) : o;
 };
-function R0(o, e) {
+function N0(o, e) {
   if (o?.formatEntityState) return o.formatEntityState.bind(o);
   const t = {
     on: "On",
@@ -13372,17 +13398,17 @@ function R0(o, e) {
     "windy-variant": "Windy"
   };
   return (a, i = a.state) => {
-    const s = a.attributes.unit_of_measurement, n = s ? L0(i, e) : t[i] ?? i.replace(/_/g, " ").replace(/^./, (r) => r.toUpperCase());
+    const s = a.attributes.unit_of_measurement, n = s ? R0(i, e) : t[i] ?? i.replace(/_/g, " ").replace(/^./, (r) => r.toUpperCase());
     return s ? `${n} ${s}` : n;
   };
 }
-const zd = /* @__PURE__ */ new Set();
+const Ad = /* @__PURE__ */ new Set();
 function Ec(o) {
-  const e = o?.locale?.language ?? o?.language ?? navigator.language?.slice(0, 2) ?? "en", t = { ...o?.states ?? {}, ...De, "sun.sun": E0(o?.states?.["sun.sun"], o?.states ? void 0 : o?.themes?.darkMode) }, a = o?.connection, i = {
+  const e = o?.locale?.language ?? o?.language ?? navigator.language?.slice(0, 2) ?? "en", t = { ...o?.states ?? {}, ...De, "sun.sun": L0(o?.states?.["sun.sun"], o?.states ? void 0 : o?.themes?.darkMode) }, a = o?.connection, i = {
     subscribeMessage: async (s, n) => {
       if (n.type === "weather/subscribe_forecast" && De[String(n.entity_id)]) {
-        const r = () => s({ type: n.forecast_type, forecast: p0(String(n.forecast_type)) });
-        return r(), zd.add(r), async () => void zd.delete(r);
+        const r = () => s({ type: n.forecast_type, forecast: u0(String(n.forecast_type)) });
+        return r(), Ad.add(r), async () => void Ad.delete(r);
       }
       return a?.subscribeMessage ? a.subscribeMessage(s, n) : async () => {
       };
@@ -13397,12 +13423,12 @@ function Ec(o) {
     config: { latitude: 50.08, longitude: 14.43, time_zone: Intl.DateTimeFormat().resolvedOptions().timeZone, unit_system: { temperature: "°C" }, ...o?.config ?? {} },
     user: o?.user ?? { id: "demo", name: "Demo", is_admin: !1 },
     connection: i,
-    formatEntityState: R0(o, e),
+    formatEntityState: N0(o, e),
     localize: o?.localize ?? ((s) => s),
     // a service for real entities only (not the demo's) goes to Home Assistant
     callService: async (s, n, r, l, c, d) => {
       const h = l?.entity_id ?? r?.entity_id, u = Array.isArray(h) ? h : h ? [h] : [];
-      return o?.callService && u.length && u.every((m) => !De[m]) ? o.callService(s, n, r, l, c, d) : Co(s, n, r, l);
+      return o?.callService && u.length && u.every((m) => !De[m]) ? o.callService(s, n, r, l, c, d) : Do(s, n, r, l);
     },
     callWS: async (s) => {
       if (s.type === "history/history_during_period") {
@@ -13413,20 +13439,20 @@ function Ec(o) {
       }
       if (s.type === "recorder/statistics_during_period") {
         const n = (s.statistic_ids ?? []).filter((r) => t[r]);
-        return Object.fromEntries(n.map((r) => [r, h0(r, t[r], Date.parse(String(s.start_time)), s.end_time ? Date.parse(String(s.end_time)) : Date.now(), String(s.period ?? "hour"))]));
+        return Object.fromEntries(n.map((r) => [r, p0(r, t[r], Date.parse(String(s.start_time)), s.end_time ? Date.parse(String(s.end_time)) : Date.now(), String(s.period ?? "hour"))]));
       }
       if (s.type === "media_player/browse_media") {
-        const n = v0(s);
+        const n = w0(s);
         if (n) return n;
       }
-      if (typeof s.type == "string" && s.type.startsWith("calendar/event/") && De[String(s.entity_id)]) return b0(s);
+      if (typeof s.type == "string" && s.type.startsWith("calendar/event/") && De[String(s.entity_id)]) return _0(s);
       if (s.type === "call_service" && s.domain === "mammotion") {
         const n = { type: "FeatureCollection", features: [] };
-        return { response: s.service === "get_geojson" ? structuredClone(s0) : n };
+        return { response: s.service === "get_geojson" ? structuredClone(o0) : n };
       }
       if (s.type === "lovelace/config" && typeof s.url_path == "string" && /^glass-demo(-[\w-]+)?-popups$/.test(s.url_path)) {
         const r = (o?.callWS ? await o.callWS(s).catch(() => {
-        }) : void 0) ?? (s.url_path === es ? structuredClone(gn) : void 0);
+        }) : void 0) ?? (s.url_path === es ? structuredClone(fn) : void 0);
         if (!r) throw Object.assign(new Error("No such dashboard"), { code: "config_not_found" });
         return Jr(r);
       }
@@ -13435,7 +13461,7 @@ function Ec(o) {
     },
     callApi: async (s, n, r) => {
       const l = /^calendars\/([^?]+)\?start=([^&]+)&end=(.+)$/.exec(n);
-      if (l && De[decodeURIComponent(l[1])]) return f0(decodeURIComponent(l[1]), Date.parse(decodeURIComponent(l[2])), Date.parse(decodeURIComponent(l[3])));
+      if (l && De[decodeURIComponent(l[1])]) return b0(decodeURIComponent(l[1]), Date.parse(decodeURIComponent(l[2])), Date.parse(decodeURIComponent(l[3])));
       const c = /^history\/period(?:\/([^?]+))?\?(.*)$/.exec(n);
       if (c) {
         const d = new URLSearchParams(c[2]), h = (d.get("filter_entity_id") ?? "").split(",").filter((f) => t[f]), u = c[1] ? Date.parse(decodeURIComponent(c[1])) : Date.now() - 864e5, m = d.get("end_time") ? Date.parse(d.get("end_time")) : Date.now();
@@ -13448,39 +13474,39 @@ function Ec(o) {
       }
       return o?.callApi ? o.callApi(s, n, r) : [];
     },
-    demo: { action: P0 }
+    demo: { action: E0 }
   };
 }
-const N0 = 2.4, mt = (o) => +o.toFixed(2);
-function Xr(o, e, t, a, i = N0) {
+const O0 = 2.4, mt = (o) => +o.toFixed(2);
+function Xr(o, e, t, a, i = O0) {
   const s = Math.hypot(t - o, a - e) || 1, n = i / 2, r = -(a - e) / s * n, l = (t - o) / s * n;
   return `M${mt(o + r)} ${mt(e + l)}L${mt(t + r)} ${mt(a + l)}A${n} ${n} 0 0 0 ${mt(t - r)} ${mt(a - l)}L${mt(o - r)} ${mt(e - l)}A${n} ${n} 0 0 0 ${mt(o + r)} ${mt(e + l)}Z`;
 }
-const Ad = [10, 15, 20];
-function io(o) {
-  const e = (100 - Math.min(100, Math.max(0, o))) / 100, t = o >= 99 ? [8.5] : Ad.slice(0, Math.max(1, Math.ceil(e * Ad.length - 1e-3)));
+const Md = [10, 15, 20];
+function so(o) {
+  const e = (100 - Math.min(100, Math.max(0, o))) / 100, t = o >= 99 ? [8.5] : Md.slice(0, Math.max(1, Math.ceil(e * Md.length - 1e-3)));
   return Xr(3, 4.5, 21, 4.5) + t.map((a) => Xr(5.5, a, 18.5, a)).join("");
 }
-function so(o) {
+function oo(o) {
   const e = o * Math.PI / 180, t = Math.max(3, 5.5 - Math.max(0, o - 40) / 20 * 2.5), a = Math.cos(e) * t, i = Math.abs(Math.sin(e) * t), s = Math.min(6 + 2 * Math.abs(Math.sin(e)), 10.6 - i);
   return [12 - s, 12, 12 + s].map((n) => Xr(12 - a, n - i, 12 + a, n + i)).join("");
 }
-const oo = (o) => {
+const no = (o) => {
   const e = Math.min(100, Math.max(0, o)) / 100;
   return e <= 0.5 ? 60 - 40 * e : 80 * (1 - e);
-}, Md = {
-  blind: { path: io(0), keywords: ["blind", "cover", "down", "closed", "shade"] },
-  "blind-half": { path: io(50), keywords: ["blind", "cover", "half"] },
-  "blind-open": { path: io(100), keywords: ["blind", "cover", "up", "open"] },
-  "slats-shut": { path: so(oo(0)), keywords: ["slats", "tilt", "shut", "closed", "blind"] },
-  "slats-half": { path: so(oo(50)), keywords: ["slats", "tilt", "half", "blind"] },
-  "slats-open": { path: so(oo(100)), keywords: ["slats", "tilt", "open", "blind"] }
+}, Td = {
+  blind: { path: so(0), keywords: ["blind", "cover", "down", "closed", "shade"] },
+  "blind-half": { path: so(50), keywords: ["blind", "cover", "half"] },
+  "blind-open": { path: so(100), keywords: ["blind", "cover", "up", "open"] },
+  "slats-shut": { path: oo(no(0)), keywords: ["slats", "tilt", "shut", "closed", "blind"] },
+  "slats-half": { path: oo(no(50)), keywords: ["slats", "tilt", "half", "blind"] },
+  "slats-open": { path: oo(no(100)), keywords: ["slats", "tilt", "open", "blind"] }
 };
-function O0() {
+function B0() {
   const o = window;
   o.customIcons ??= {}, !o.customIcons.glass && (o.customIcons.glass = {
-    getIcon: async (e) => ({ path: Md[e]?.path ?? "" }),
-    getIconList: async () => Object.entries(Md).map(([e, t]) => ({ name: e, keywords: t.keywords }))
+    getIcon: async (e) => ({ path: Td[e]?.path ?? "" }),
+    getIconList: async () => Object.entries(Td).map(([e, t]) => ({ name: e, keywords: t.keywords }))
   });
 }
 const qe = {
@@ -13502,31 +13528,31 @@ const qe = {
   },
   stacked: { label: "No side column", columns: () => "minmax(0, 1fr)", rows: "auto auto minmax(0, 1fr)", areas: ["header", "top", "main"], thumb: { cols: "1fr", rows: "1fr 1fr 3fr" } },
   single: { label: "Main area only", columns: () => "minmax(0, 1fr)", rows: "minmax(0, 1fr)", areas: ["main"], thumb: { cols: "1fr", rows: "1fr" } }
-}, fn = (o) => o.trim().replace(/[^A-Za-z0-9_-]/g, "_");
+}, bn = (o) => o.trim().replace(/[^A-Za-z0-9_-]/g, "_");
 function Yt(o) {
   return o ? (Array.isArray(o) ? o : o.match(/"[^"]*"/g) ?? o.split(`
-`)).map((t) => t.replace(/"/g, "").trim().split(/\s+/).filter(Boolean).map((a) => /^\.+$/.test(a) ? "." : fn(a))).filter((t) => t.length) : [];
+`)).map((t) => t.replace(/"/g, "").trim().split(/\s+/).filter(Boolean).map((a) => /^\.+$/.test(a) ? "." : bn(a))).filter((t) => t.length) : [];
 }
 function We(o) {
   const e = [];
   for (const t of o) for (const a of t) a !== "." && !e.includes(a) && e.push(a);
   return e;
 }
-function Do(o, e, t = 0) {
+function Po(o, e, t = 0) {
   if (!(!o || typeof o != "object" || t > 6)) {
     if (e(o)) return o;
     for (const a of [...Array.isArray(o.cards) ? o.cards : [], o.card].filter(Boolean)) {
-      const i = Do(a, e, t + 1);
+      const i = Po(a, e, t + 1);
       if (i) return i;
     }
   }
 }
 const Qr = /* @__PURE__ */ new Map();
 function ke(o) {
-  const e = Do(o, (t) => t.type === "custom:bubble-card" && t.card_type === "pop-up");
+  const e = Po(o, (t) => t.type === "custom:bubble-card" && t.card_type === "pop-up");
   return e?.hash ? { hash: String(e.hash), name: e.name, icon: e.icon, card: e } : void 0;
 }
-function du(o, e) {
+function hu(o, e) {
   let t = !1;
   for (const a of o ?? []) {
     const i = ke(a);
@@ -13535,16 +13561,16 @@ function du(o, e) {
   t && window.dispatchEvent(new Event("glass-popups"));
 }
 function xt(o) {
-  return Do(o, (e) => e.type === "custom:bubble-card" && e.card_type === "pop-up") ? "popup" : Do(o, (e) => e.type === "custom:bubble-card" && e.card_type === "horizontal-buttons-stack") ? "nav" : "other";
+  return Po(o, (e) => e.type === "custom:bubble-card" && e.card_type === "pop-up") ? "popup" : Po(o, (e) => e.type === "custom:bubble-card" && e.card_type === "horizontal-buttons-stack") ? "nav" : "other";
 }
 const En = /* @__PURE__ */ new Map();
-function B0(o, e) {
+function j0(o, e) {
   let t = En.get(e);
   return t || (t = o.callWS({ type: "lovelace/config", url_path: e }).catch((a) => {
     console.warn(`glass-cards: overlay_source ${e} could not be loaded`, a), En.delete(e);
   }), En.set(e, t)), t;
 }
-function j0(o) {
+function I0(o) {
   if (!o || !Object.keys(o).length) return;
   const e = [document];
   for (; e.length; ) {
@@ -13564,24 +13590,24 @@ function j0(o) {
     t.querySelectorAll("*").forEach((i) => i.shadowRoot && e.push(i.shadowRoot));
   }
 }
-function I0(o) {
+function q0(o) {
   const e = o?.cards ?? [], t = e.findIndex((a) => xt(a) === "popup");
   return t < 0 || Array.isArray(e[t]?.cards) && e[t].type === "custom:bubble-card" ? e : [...e.slice(0, t), { type: "vertical-stack", cards: e.slice(t) }];
 }
 async function Lc(o, e) {
-  const t = await B0(o, e.dashboard);
+  const t = await j0(o, e.dashboard);
   if (!t) return;
-  j0(t.button_card_templates);
+  I0(t.button_card_templates);
   const a = e.views ?? (e.view !== void 0 ? [e.view] : void 0), s = (t.views ?? []).filter(
     (r, l) => !a || a.some((c) => c === l || c === r.path || c === r.title || String(c) === String(l))
-  ).flatMap((r) => [...r.cards ?? [], ...(r.sections ?? []).flatMap(I0)]), n = e.filter === "all" ? s : s.filter((r) => xt(r) !== "other");
-  return du(n, e.dashboard), e.nav === !1 ? n.filter((r) => xt(r) !== "nav") : n;
+  ).flatMap((r) => [...r.cards ?? [], ...(r.sections ?? []).flatMap(q0)]), n = e.filter === "all" ? s : s.filter((r) => xt(r) !== "other");
+  return hu(n, e.dashboard), e.nav === !1 ? n.filter((r) => xt(r) !== "nav") : n;
 }
-function Po(o) {
+function Eo(o) {
   return o.replace(/(\d*\.?\d+)([dsl]?)(vw|vh)\b/g, (e, t, a, i) => `calc(${t} * var(--glass-${i}, 1${a}${i}))`);
 }
 function el(o) {
-  return /^\d*\.?\d+$/.test(o) ? `minmax(0,${o}fr)` : o.endsWith("fr") ? `minmax(0,${o})` : Po(o);
+  return /^\d*\.?\d+$/.test(o) ? `minmax(0,${o}fr)` : o.endsWith("fr") ? `minmax(0,${o})` : Eo(o);
 }
 function Ln(o) {
   const e = st(o);
@@ -13600,7 +13626,7 @@ function tl(o) {
 function st(o) {
   return o == null || o === "" ? [] : (Array.isArray(o) ? o.map(String) : String(o).split(/[\s,;]+/)).map((t) => t.trim()).filter(Boolean);
 }
-function hu(o, e, t, a) {
+function pu(o, e, t, a) {
   if (o.button !== 0) return;
   o.preventDefault(), o.stopPropagation();
   const i = o.currentTarget, s = i.parentElement, n = getComputedStyle(s), r = (e === "columns" ? n.gridTemplateColumns : n.gridTemplateRows).split(/\s+/).map(parseFloat);
@@ -13617,32 +13643,32 @@ function hu(o, e, t, a) {
   };
   i.addEventListener("pointermove", y), i.addEventListener("pointerup", _), i.addEventListener("pointercancel", _);
 }
-function pu(o) {
+function uu(o) {
   const e = o.indexOf(Math.max(...o));
   return o.map((t, a) => a === e ? "1" : `${Math.round(t)}px`);
 }
-const uu = "glass-cards-editor-lang";
-let Eo = (() => {
+const mu = "glass-cards-editor-lang";
+let Lo = (() => {
   try {
-    return localStorage.getItem(uu) || "auto";
+    return localStorage.getItem(mu) || "auto";
   } catch {
     return "auto";
   }
 })();
-const Lo = () => Eo, mu = () => Eo === "auto" ? Op() : Eo;
-function gu(o) {
-  Eo = o;
+const Ro = () => Lo, gu = () => Lo === "auto" ? Bp() : Lo;
+function fu(o) {
+  Lo = o;
   try {
-    localStorage.setItem(uu, o);
+    localStorage.setItem(mu, o);
   } catch {
   }
   window.dispatchEvent(new CustomEvent("glass-lang", { detail: o }));
 }
 function w(o, e) {
-  return o ? Bp(mu(), o, e) : "";
+  return o ? jp(gu(), o, e) : "";
 }
-function q0(o) {
-  if (mu() === "en") return o;
+function W0(o) {
+  if (gu() === "en") return o;
   const e = (t) => {
     if (Array.isArray(t)) return t.map(e);
     if (!t || typeof t != "object") return t;
@@ -13653,19 +13679,19 @@ function q0(o) {
   return e(o);
 }
 const Rn = (o) => o.localName.startsWith("glass-"), al = (o) => !!o && typeof o == "object" && !Array.isArray(o);
-function fu(o, e) {
+function bu(o, e) {
   const t = { ...o };
   for (const [a, i] of Object.entries(e))
-    i === null ? delete t[a] : al(i) && al(t[a]) ? t[a] = fu(t[a], i) : t[a] = i;
+    i === null ? delete t[a] : al(i) && al(t[a]) ? t[a] = bu(t[a], i) : t[a] = i;
   return t;
 }
 function Zt(o, e) {
   const { responsive: t, visible_on: a, ...i } = o, s = e === "desktop";
   if (Array.isArray(a) && !a.includes(e) && !(s && a.includes("tablet"))) return null;
   const n = t?.[e] ?? (s ? t?.tablet : void 0);
-  return al(n) ? fu(i, n) : i;
+  return al(n) ? bu(i, n) : i;
 }
-function W0(o, e) {
+function F0(o, e) {
   const t = new CSSStyleSheet();
   t.replaceSync(e);
   let a = 0;
@@ -13679,31 +13705,31 @@ function W0(o, e) {
   };
   i();
 }
-const il = /* @__PURE__ */ new Map(), F0 = (o) => (
+const il = /* @__PURE__ */ new Map(), H0 = (o) => (
   // third-party cards sit in a display:contents holder: the ring goes on the card itself
   (getComputedStyle(o).display === "contents" ? o.firstElementChild : o) ?? o
 );
-function Td(o, e) {
+function Cd(o, e) {
   for (const t of il.get(o) ?? []) {
     const a = t.dataset.glassSelect === e;
-    t.toggleAttribute("glass-selected", a), t.isConnected && F0(t).toggleAttribute("glass-selected", a);
+    t.toggleAttribute("glass-selected", a), t.isConnected && H0(t).toggleAttribute("glass-selected", a);
   }
 }
-function H0(o, e) {
+function G0(o, e) {
   const t = String(e.group);
   o.dataset.glassSelect = String(e.id), o.setAttribute("glass-selectable", ""), o.addEventListener("click", () => Cs(t, o.dataset.glassSelect));
   let a = il.get(t);
-  a || (a = /* @__PURE__ */ new Set(), il.set(t, a), mi(t, (i) => Td(t, i))), a.add(o), requestAnimationFrame(() => Td(t, Ta(t)));
-}
-function G0(o, e) {
-  return e ? { ...o ?? {}, ...e.width ? { width: e.width } : {}, ...e.height ? { height: e.height } : {}, ...e.fill ? { grow: 1 } : {} } : o;
+  a || (a = /* @__PURE__ */ new Set(), il.set(t, a), mi(t, (i) => Cd(t, i))), a.add(o), requestAnimationFrame(() => Cd(t, Ta(t)));
 }
 function U0(o, e) {
+  return e ? { ...o ?? {}, ...e.width ? { width: e.width } : {}, ...e.height ? { height: e.height } : {}, ...e.fill ? { grow: 1 } : {} } : o;
+}
+function K0(o, e) {
   const t = o.style;
   if (t.minWidth = "0", !e) return;
   e.grow !== void 0 && (t.flexGrow = String(e.grow), t.minHeight = "0"), e.shrink !== void 0 && (t.flexShrink = String(e.shrink)), e.basis && (t.flexBasis = e.basis), e.align && (t.alignSelf = e.align), e.span && (t.gridColumn = `span ${e.span}`), e.row_span && (t.gridRow = `span ${e.row_span}`), e.order !== void 0 && (t.order = String(e.order));
   const a = (i) => /^\d*\.?\d+$/.test(String(i).trim()) ? `${String(i).trim()}px` : String(i);
-  e.height && (t.height = a(e.height)), e.width && (t.width = a(e.width)), e.margin && (t.margin = typeof e.margin == "number" ? `${e.margin}px` : e.margin), e.select?.group && e.select.id !== void 0 && H0(o, e.select), e.z_index !== void 0 && (t.position = "relative", t.zIndex = String(e.z_index));
+  e.height && (t.height = a(e.height)), e.width && (t.width = a(e.width)), e.margin && (t.margin = typeof e.margin == "number" ? `${e.margin}px` : e.margin), e.select?.group && e.select.id !== void 0 && G0(o, e.select), e.z_index !== void 0 && (t.position = "relative", t.zIndex = String(e.z_index));
 }
 const Ve = /* @__PURE__ */ new WeakMap(), Na = /* @__PURE__ */ new WeakMap();
 function Ca(o, e, t) {
@@ -13724,25 +13750,25 @@ function Ca(o, e, t) {
         } catch (x) {
           console.warn("glass-cards: card config", x);
         }
-        Na.set(b, { json: u, opts: n, layout: m, type: f }), Rn(b) && Cd(b, h, t);
+        Na.set(b, { json: u, opts: n, layout: m, type: f }), Rn(b) && Dd(b, h, t);
       }
       Ve.set(b, d), s.push(b);
       continue;
     }
     const y = xs(h, e);
-    Ve.set(y, d), Na.set(y, { json: u, opts: n, layout: m, type: f }), Rn(y) && (t.nested && y.setAttribute("nested", ""), t.bare && y.setAttribute("on-bare", ""), Cd(y, h, t), y.setMode?.(i)), U0(y, G0(h.view_layout, h.card_size));
+    Ve.set(y, d), Na.set(y, { json: u, opts: n, layout: m, type: f }), Rn(y) && (t.nested && y.setAttribute("nested", ""), t.bare && y.setAttribute("on-bare", ""), Dd(y, h, t), y.setMode?.(i)), K0(y, U0(h.view_layout, h.card_size));
     const _ = h.view_layout?.shadow_css;
-    _ && W0(y, _), s.push(y);
+    _ && F0(y, _), s.push(y);
   }
   return s;
 }
-function Cd(o, e, t) {
+function Dd(o, e, t) {
   const a = t.glass && !e.glass;
   o.toggleAttribute("glass-inherited", !!a), a && o.setAttribute("glass", t.glass);
   const i = t.controlGlass && !e.control_glass;
   o.toggleAttribute("control-glass-inherited", !!i), i && o.setAttribute("control-glass", t.controlGlass);
 }
-function K0(o, e) {
+function V0(o, e) {
   return e ? o.filter((t) => {
     const a = Ve.get(t)?.visibility;
     return !a || ge(a, e);
@@ -13751,10 +13777,10 @@ function K0(o, e) {
 function Rt(o, e) {
   for (const t of o) t.hass = e;
 }
-const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "mint", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange", "brown", "grey", "blue-grey", "black", "white"], V0 = (o) => `#${o.map((e) => Math.max(0, Math.min(255, Math.round(e))).toString(16).padStart(2, "0")).join("")}`, Y0 = (o) => {
+const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo", "blue", "light-blue", "cyan", "teal", "mint", "green", "light-green", "lime", "yellow", "amber", "orange", "deep-orange", "brown", "grey", "blue-grey", "black", "white"], Y0 = (o) => `#${o.map((e) => Math.max(0, Math.min(255, Math.round(e))).toString(16).padStart(2, "0")).join("")}`, Z0 = (o) => {
   const e = o.replace("#", "");
   return e.length === 6 ? [0, 2, 4].map((t) => parseInt(e.slice(t, t + 2), 16)) : void 0;
-}, Vo = class Vo extends Ye {
+}, Yo = class Yo extends Ye {
   constructor() {
     super(), this._open = !1;
   }
@@ -13766,7 +13792,7 @@ const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo
     const e = this.value;
     if (e == null || e === "" || e === "none") return {};
     if (Array.isArray(e)) {
-      const t = V0(e), a = Nn.find((i) => na[i]?.toLowerCase() === t);
+      const t = Y0(e), a = Nn.find((i) => na[i]?.toLowerCase() === t);
       return { css: t, hex: t, name: a };
     }
     return e === "primary" || e === "accent" ? { css: `var(--${e}-color)`, name: e } : na[e] ? { css: na[e], hex: na[e], name: e } : { css: e, hex: /^#[0-9a-f]{6}$/i.test(e) ? e : void 0 };
@@ -13775,12 +13801,12 @@ const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo
     let t = e;
     if (e && this._rgb) {
       const a = e.startsWith("#") ? e : na[e];
-      t = a ? Y0(a) : void 0;
+      t = a ? Z0(a) : void 0;
     }
     this.value = t, this.dispatchEvent(new CustomEvent("value-changed", { detail: { value: t }, bubbles: !0, composed: !0 }));
   }
   render() {
-    const e = this._shown(), t = this._rgb ? Nn.filter((i) => na[i]) : Nn, a = e.name ? w(Dd(e.name)) : e.hex ? e.hex.toUpperCase() : w("Default");
+    const e = this._shown(), t = this._rgb ? Nn.filter((i) => na[i]) : Nn, a = e.name ? w(Pd(e.name)) : e.hex ? e.hex.toUpperCase() : w("Default");
     return p`<div class="field ${this.disabled ? "off" : ""}">
       <button class="trigger" ?disabled=${this.disabled} @click=${() => this._open = !this._open} aria-expanded=${this._open ? "true" : "false"}>
         <span class="lbl">${this.label ?? ""}</span>
@@ -13793,7 +13819,7 @@ const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo
               ${t.map(
       (i) => p`<button
                   class="sw ${e.name === i ? "on" : ""}"
-                  title=${w(Dd(i))}
+                  title=${w(Pd(i))}
                   style="background:${i === "primary" || i === "accent" ? `var(--${i}-color)` : na[i]}"
                   @click=${() => this._set(i)}
                 ></button>`
@@ -13819,7 +13845,7 @@ const Nn = ["primary", "accent", "red", "pink", "purple", "deep-purple", "indigo
     </div>`;
   }
 };
-Vo.properties = {
+Yo.properties = {
   hass: { attribute: !1 },
   selector: { attribute: !1 },
   value: { attribute: !1 },
@@ -13827,7 +13853,7 @@ Vo.properties = {
   helper: {},
   disabled: { type: Boolean },
   _open: { state: !0 }
-}, Vo.styles = ee`
+}, Yo.styles = ee`
     :host {
       display: block;
     }
@@ -13948,22 +13974,22 @@ Vo.properties = {
       color: var(--secondary-text-color);
     }
   `;
-let sl = Vo;
-function Dd(o) {
+let sl = Yo;
+function Pd(o) {
   return o.replace(/-/g, " ").replace(/^./, (e) => e.toUpperCase());
 }
 customElements.get("ha-selector-glass_color") || customElements.define("ha-selector-glass_color", sl);
-const Pd = /* @__PURE__ */ new Map();
-function Z0(o, e) {
-  let t = Pd.get(e);
+const Ed = /* @__PURE__ */ new Map();
+function J0(o, e) {
+  let t = Ed.get(e);
   return t || (t = o.callWS({ type: "lovelace/config", url_path: e }).then(
     (a) => (a.views ?? []).map((i, s) => {
       const r = [...i.cards ?? [], ...(i.sections ?? []).map((l) => ({ type: "vertical-stack", cards: l.cards ?? [] }))].filter((l) => xt(l) === "popup").length;
       return { value: String(i.path ?? s), label: `${i.title ?? i.path ?? w("View {n}", { n: s + 1 })} – ${r ? w("{n} pop-ups", { n: r }) : w("no pop-ups")}` };
     })
-  ).catch(() => []), Pd.set(e, t)), t;
+  ).catch(() => []), Ed.set(e, t)), t;
 }
-const J0 = {
+const X0 = {
   entities: ["Entities", "mdi:format-list-bulleted"],
   "vertical-stack": ["Vertical stack", "mdi:view-agenda-outline"],
   "horizontal-stack": ["Horizontal stack", "mdi:view-column-outline"],
@@ -13978,16 +14004,16 @@ const J0 = {
   "custom:layout-card": ["Card layout", "mdi:view-dashboard-outline"],
   "custom:button-card": ["Button (button-card)", "mdi:gesture-tap-button"]
 }, fa = { mobile: "Mobile", tablet: "Tablet / desktop", desktop: "Desktop" };
-function bu(o, e, t = 0) {
+function _u(o, e, t = 0) {
   if (!(!o || typeof o != "object" || t > 6)) {
     if (e(o)) return o;
     for (const a of [...Array.isArray(o.cards) ? o.cards : [], o.card].filter(Boolean)) {
-      const i = bu(a, e, t + 1);
+      const i = _u(a, e, t + 1);
       if (i) return i;
     }
   }
 }
-function Ed(o) {
+function Ld(o) {
   return (o ?? []).map((e) => {
     const t = e.entity ?? e.condition?.entity, a = e.state ?? e.state_not;
     return t === "sun.sun" ? a === "above_horizon" ? w("day") : a === "below_horizon" ? w("night") : `${w("sun")} ${a}` : e.condition === "screen" ? "by screen width" : e.condition === "select" ? `${e.group} = ${[e.id].flat().join(" / ")}` : t ? `${t.split(".")[1]} ${e.state_not !== void 0 ? "≠" : "="} ${a}` : e.condition ?? "";
@@ -13997,17 +14023,17 @@ const si = ["mobile", "tablet"];
 function ya(o, e) {
   return !Array.isArray(o.visible_on) || o.visible_on.includes(e) || e === "tablet" && o.visible_on.includes("desktop");
 }
-function _u(o, e, t) {
+function yu(o, e, t) {
   const a = si.filter((n) => n === e ? t : ya(o, n));
   if (!a.length) return o;
   const { visible_on: i, ...s } = o;
   return a.length === si.length ? s : { ...s, visible_on: a.includes("tablet") ? [...a, "desktop"] : a };
 }
-function no(o, e) {
+function ro(o, e) {
   const t = o.responsive?.[e]?.view_layout?.order ?? o.view_layout?.order;
   return t === void 0 ? "" : String(t);
 }
-function yu(o, e, t) {
+function vu(o, e, t) {
   const a = t.trim() === "" ? void 0 : Number(t);
   if (a !== void 0 && Number.isNaN(a)) return o;
   const i = { ...o.responsive ?? {} }, s = { ...i[e] ?? {} }, n = { ...s.view_layout ?? {} };
@@ -14015,34 +14041,34 @@ function yu(o, e, t) {
   const { responsive: r, ...l } = o;
   return Object.keys(i).length ? { ...l, responsive: i } : l;
 }
-function Ld(o, e, t) {
+function Rd(o, e, t) {
   const a = { ...o.view_layout ?? {} }, i = { ...a.select ?? {}, [e]: t.trim() };
   i[e] || delete i[e], i.group || i.id ? a.select = i : delete a.select;
   const { view_layout: s, ...n } = o;
   return Object.keys(a).length ? { ...n, view_layout: a } : n;
 }
-function X0(o, e) {
+function Q0(o, e) {
   const { visibility: t, ...a } = o;
   return e?.length ? { ...a, visibility: e } : a;
 }
-let Rd;
-function Q0() {
-  return customElements.get("ha-card-conditions-editor") ? Promise.resolve() : (Rd ??= (async () => {
+let Nd;
+function ef() {
+  return customElements.get("ha-card-conditions-editor") ? Promise.resolve() : (Nd ??= (async () => {
     (await window.loadCardHelpers?.())?.createCardElement({ type: "conditional", conditions: [], card: { type: "markdown", content: "" } }), await (await customElements.whenDefined("hui-conditional-card"))?.getConfigElement?.(), await customElements.whenDefined("ha-card-conditions-editor");
   })().catch(() => {
-  }), Rd);
+  }), Nd);
 }
 function Be(o) {
   const e = Array.isArray(o.visible_on) ? o.visible_on : void 0, t = e ? e.filter((r) => r !== "desktop" || !e.includes("tablet")).map((r) => w(fa[r] ?? r)) : [];
   if (Array.isArray(o.visibility) && o.visibility.length) {
-    const { visibility: r, ...l } = o, c = Be(l), d = Ed(o.visibility);
+    const { visibility: r, ...l } = o, c = Be(l), d = Ld(o.visibility);
     return { ...c, sub: [d && `${w("Only ")}${d}`, c.sub].filter(Boolean).join(" · ") };
   }
   if (o.type === "conditional") {
-    const r = Be(o.card ?? {}), l = Ed(o.conditions);
+    const r = Be(o.card ?? {}), l = Ld(o.conditions);
     return { ...r, sub: [l && `${w("Only ")}${l}`, r.sub].filter(Boolean).join(" · "), badges: [...t, ...r.badges] };
   }
-  const a = bu(o, (r) => r.type === "custom:bubble-card" && r.card_type === "pop-up");
+  const a = _u(o, (r) => r.type === "custom:bubble-card" && r.card_type === "pop-up");
   if (a)
     return {
       title: `${w("Pop-up")}: ${a.name ?? a.hash ?? w("untitled")}`,
@@ -14059,32 +14085,32 @@ function Be(o) {
     const l = (window.customCards?.find((c) => c.type === i.slice(7))?.name ?? i.slice(7)).replace(/^Glass – /, "");
     return n(w(l.charAt(0).toUpperCase() + l.slice(1)), o.icon ?? "mdi:card-outline");
   }
-  const s = J0[i];
+  const s = X0[i];
   return n(s?.[0] ? w(s[0]) : i.replace("custom:", ""), s?.[1] ?? "mdi:card-outline");
   function n(r, l) {
     const c = o.name ?? o.title, d = Array.isArray(o.cards) ? w("{n} cards", { n: o.cards.length }) : "", h = typeof o.entity == "string" ? o.entity : "";
     return c && typeof c == "string" ? { title: c, sub: [r, d].filter(Boolean).join(" · "), icon: l, badges: t } : { title: r, sub: d || h, icon: l, badges: t };
   }
 }
-const ef = [
+const tf = [
   ["wraps", "Wraps"],
   ["requires", "Requires"],
   ["inspired", "Inspired by"]
-], vu = "glass-editor-open";
+], wu = "glass-editor-open";
 let Ya;
 function ol(o, e) {
   if (!Ya)
     try {
-      Ya = JSON.parse(localStorage.getItem(vu) ?? "{}");
+      Ya = JSON.parse(localStorage.getItem(wu) ?? "{}");
     } catch {
       Ya = {};
     }
   return Ya[o] ?? e;
 }
-function Nd(o, e) {
+function Od(o, e) {
   ol(o, e), Ya[o] = e;
   try {
-    localStorage.setItem(vu, JSON.stringify(Ya));
+    localStorage.setItem(wu, JSON.stringify(Ya));
   } catch {
   }
 }
@@ -14095,7 +14121,7 @@ const Dt = {
   right: ["Second side column", ""],
   main: ["Main area", "Mostly room cards."]
 }, yt = ["header", "top", "left", "main"];
-function tf(o, e) {
+function af(o, e) {
   const t = [...yt.map((s) => o[s]), ...Object.values(o.areas ?? {})], a = (s) => s?.type === "custom:glass-panel" && !(Array.isArray(s.cards) && s.cards.length);
   if (t.some((s) => Array.isArray(s) && s.some((n) => !a(n)))) return o;
   const i = { ...o, areas: {} };
@@ -14107,12 +14133,12 @@ function tf(o, e) {
   }
   return Object.keys(i.areas).length || delete i.areas, i;
 }
-const Ro = {
+const No = {
   "custom:glass-dock": "bubble-card",
   "custom:glass-popup-header": "bubble-card",
   "custom:glass-chart": "apexcharts-card",
   "custom:glass-camera": "webrtc-camera"
-}, af = { "bubble-card": "Bubble Card", "apexcharts-card": "apexcharts-card", "webrtc-camera": "WebRTC Camera" }, wu = (o) => !Ro[o] || !!customElements.get(Ro[o]), xu = (o) => wu(o) ? void 0 : `${w("Requires")} ${af[Ro[o]] ?? Ro[o]} (HACS) – ${w("install it first")}`, nl = () => !!customElements.get("bubble-card"), ku = "https://buymeacoffee.com/argii", $u = "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png", Su = [
+}, sf = { "bubble-card": "Bubble Card", "apexcharts-card": "apexcharts-card", "webrtc-camera": "WebRTC Camera" }, xu = (o) => !No[o] || !!customElements.get(No[o]), ku = (o) => xu(o) ? void 0 : `${w("Requires")} ${sf[No[o]] ?? No[o]} (HACS) – ${w("install it first")}`, nl = () => !!customElements.get("bubble-card"), $u = "https://buymeacoffee.com/argii", Su = "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png", zu = [
   ["custom:glass-room-card", "Room", "mdi:sofa-outline", "Room icon or photo with device buttons"],
   ["custom:glass-panel", "Panel", "mdi:view-dashboard-outline", "Glass frame that holds other cards"],
   ["custom:glass-status-bar", "Status bar", "mdi:dots-horizontal-circle-outline", "Chips with values (temperature, power…)"],
@@ -14148,15 +14174,15 @@ const Ro = {
   // any other card (HA's own or from HACS): starts as a Markdown card, change it in the card's YAML
   ["markdown", "Other card (YAML)", "mdi:code-braces", "Any Home Assistant or HACS card – edit its YAML"]
 ];
-function sf(o) {
+function of(o) {
   return /^\s*(\d*\.?\d+(px|%|vh|vw|dvh|svh|lvh|rem|em)?)?\s*$/i.test(o);
 }
-const of = /* @__PURE__ */ new Set(["glass", "glass_tint", "tile_glass", "tile_tint", "control_glass", "control_tint", "bar_glass", "bar_tint", "fonts", "icons", "button_size"]);
-function nf(o, e) {
+const nf = /* @__PURE__ */ new Set(["glass", "glass_tint", "tile_glass", "tile_tint", "control_glass", "control_tint", "bar_glass", "bar_tint", "fonts", "icons", "button_size"]);
+function rf(o, e) {
   const t = [], a = [], i = (n) => n.flatMap((r) => {
     if (r.custom === "section" && r.key === "look" && Array.isArray(r.schema))
       return t.push(...r.schema), [];
-    if (r.name && (of.has(r.name) || r.name.endsWith("_glass") || r.selector?.ui_color))
+    if (r.name && (nf.has(r.name) || r.name.endsWith("_glass") || r.selector?.ui_color))
       return t.push(r), [];
     if (Array.isArray(r.schema) && (r.type === "grid" || r.type === "expandable" || r.custom === "section")) {
       const l = i(r.group ? r.schema.map((c) => ({ group: r.group, ...c })) : r.schema);
@@ -14167,32 +14193,32 @@ function nf(o, e) {
     const r = n.type === "expandable" && n.title === "Advanced" || n.custom === "section" && n.key === "advanced";
     return r && a.push(...n.schema), !r;
   });
-  return e?.length && t.push(...kf(e)), { content: s, look: t, adv: a };
+  return e?.length && t.push(...$f(e)), { content: s, look: t, adv: a };
 }
-const rf = /* @__PURE__ */ new Set(["glass", "glass_tint", "tile_glass", "tile_tint", "fonts"]), lf = /* @__PURE__ */ new Set(["control_glass", "control_tint", "button_size"]), cf = /* @__PURE__ */ new Set(["bar_glass", "bar_tint"]);
-function df(o) {
+const lf = /* @__PURE__ */ new Set(["glass", "glass_tint", "tile_glass", "tile_tint", "fonts"]), cf = /* @__PURE__ */ new Set(["control_glass", "control_tint", "button_size"]), df = /* @__PURE__ */ new Set(["bar_glass", "bar_tint"]);
+function hf(o) {
   if (o.group) return o.group;
   const e = o.type === "grid" && Array.isArray(o.schema) ? o.schema[0] : o;
   if (e?.group) return e.group;
   const t = e?.name ?? "";
-  return rf.has(t) ? "Card" : lf.has(t) ? "Buttons" : cf.has(t) ? "Bar" : "Colours";
+  return lf.has(t) ? "Card" : cf.has(t) ? "Buttons" : df.has(t) ? "Bar" : "Colours";
 }
-function hf(o) {
+function pf(o) {
   const e = /* @__PURE__ */ new Map([["Card", []]]);
   let t = "Card";
   for (const a of o) {
-    const i = a.custom === "hint" ? t : df(a);
+    const i = a.custom === "hint" ? t : hf(a);
     t = i, e.has(i) || e.set(i, []), e.get(i).push(a);
   }
   return [...e].filter(([, a]) => a.length);
 }
-const O = (o, ...e) => e.map((t) => ({ ...t, group: o })), zu = (o, e) => Array.isArray(o.schema) ? o.schema.some((t) => zu(t, o.name ? e?.[o.name] : e)) : !!o.name && e?.[o.name] !== void 0 && e?.[o.name] !== "";
+const O = (o, ...e) => e.map((t) => ({ ...t, group: o })), Au = (o, e) => Array.isArray(o.schema) ? o.schema.some((t) => Au(t, o.name ? e?.[o.name] : e)) : !!o.name && e?.[o.name] !== void 0 && e?.[o.name] !== "";
 function rl(o, e) {
   if (o === "markdown") return { type: o, content: "Change `type:` in this card's YAML to any card you like." };
   const t = o.replace("custom:", ""), a = customElements.get(t);
   return { type: o, ...a?.getStubConfig?.(e) ?? {} };
 }
-const Od = {
+const Bd = {
   device: "Device",
   min_column_width: "Min. column width (as many columns as fit)",
   wallpaper: "Wallpaper",
@@ -14431,7 +14457,7 @@ const Od = {
   styles: "Styles – CSS variables (YAML)",
   hide_unavailable: "Hide unavailable",
   zone_icons: "Zone icons (YAML)"
-}, Bd = {
+}, jd = {
   limits: "Upper bounds of the levels good, moderate, unhealthy for sensitive, unhealthy and very unhealthy – five numbers, e.g. 50, 100, 150, 200, 300 (US AQI, the default). For a sensor in µg/m³ use its own, e.g. PM2.5: 15, 25, 37.5, 50, 75.",
   preset: "",
   appearance: "When to use the dark (night) glass.",
@@ -14453,33 +14479,33 @@ try {
 } catch {
   Jt = void 0;
 }
-const jd = () => Jt, pf = ["vertical-stack", "horizontal-stack", "grid", "conditional", "custom:layout-card", "custom:stack-in-card"];
+const Id = () => Jt, uf = ["vertical-stack", "horizontal-stack", "grid", "conditional", "custom:layout-card", "custom:stack-in-card"];
 function Rc(o) {
   const e = o?.type;
-  return typeof e == "string" && !e.startsWith("custom:glass-") && !pf.includes(e) && xt(o) === "other";
+  return typeof e == "string" && !e.startsWith("custom:glass-") && !uf.includes(e) && xt(o) === "other";
 }
-const No = "__auto";
-function Au(o) {
+const Oo = "__auto";
+function Mu(o) {
   return o.map((e) => {
-    if (e.type === "grid" && Array.isArray(e.schema)) return { ...e, schema: Au(e.schema) };
+    if (e.type === "grid" && Array.isArray(e.schema)) return { ...e, schema: Mu(e.schema) };
     const t = e.selector?.select?.options;
     if (!Array.isArray(t) || !t.some((i) => (typeof i == "string" ? i : i?.value) === "")) return e;
-    const a = t.map((i) => typeof i == "string" ? i === "" ? { value: No, label: "" } : i : i?.value === "" ? { ...i, value: No } : i);
+    const a = t.map((i) => typeof i == "string" ? i === "" ? { value: Oo, label: "" } : i : i?.value === "" ? { ...i, value: Oo } : i);
     return { ...e, selector: { ...e.selector, select: { ...e.selector.select, options: a } } };
   });
 }
-function Mu(o, e = /* @__PURE__ */ new Set()) {
+function Tu(o, e = /* @__PURE__ */ new Set()) {
   for (const t of o)
-    t.type === "grid" && Array.isArray(t.schema) ? Mu(t.schema, e) : t.name && t.selector?.select?.options?.some((a) => (typeof a == "string" ? a : a?.value) === "") && e.add(t.name);
+    t.type === "grid" && Array.isArray(t.schema) ? Tu(t.schema, e) : t.name && t.selector?.select?.options?.some((a) => (typeof a == "string" ? a : a?.value) === "") && e.add(t.name);
   return e;
 }
-function Tu(o) {
+function Cu(o) {
   return o.map((e) => {
     const t = e.selector;
-    return t?.ui_color ? { ...e, selector: { glass_color: {} } } : t?.color_rgb ? { ...e, selector: { glass_color: { rgb: !0 } } } : Array.isArray(e.schema) ? { ...e, schema: Tu(e.schema) } : e;
+    return t?.ui_color ? { ...e, selector: { glass_color: {} } } : t?.color_rgb ? { ...e, selector: { glass_color: { rgb: !0 } } } : Array.isArray(e.schema) ? { ...e, schema: Cu(e.schema) } : e;
   });
 }
-const Cu = {
+const Du = {
   "room-card": "Room buttons",
   light: "Light bars and buttons",
   thermostat: "Thermostat buttons",
@@ -14490,7 +14516,7 @@ const Cu = {
   "status-bar": "Status chips",
   "period-bar": "Period buttons",
   "popup-header": "Header buttons"
-}, Id = new Set(Object.keys(Cu));
+}, qd = new Set(Object.keys(Du));
 function Ai(o) {
   const e = [], t = (a) => {
     !a || typeof a != "object" || (e.push(a), Array.isArray(a.cards) && a.cards.forEach(t), a.card && t(a.card));
@@ -14504,16 +14530,16 @@ function cl(o) {
 function dl(o, e) {
   const t = Zt(o, e) ?? {}, a = /* @__PURE__ */ new Set();
   for (const i of yt) Array.isArray(t[i]) && t[i].length && a.add(i);
-  for (const [i, s] of Object.entries(t.areas ?? {})) Array.isArray(s) && s.length && a.add(fn(i));
+  for (const [i, s] of Object.entries(t.areas ?? {})) Array.isArray(s) && s.length && a.add(bn(i));
   return a;
 }
-const uf = /* @__PURE__ */ new Set(["dashboard", "panel", "dock", "tabs"]), qd = (o) => !uf.has(o) && !!window.customCards?.some((e) => e.type === `glass-${o}`), mf = /* @__PURE__ */ new Set(["image-full", "compact"]);
-function Wd(o) {
+const mf = /* @__PURE__ */ new Set(["dashboard", "panel", "dock", "tabs"]), Wd = (o) => !mf.has(o) && !!window.customCards?.some((e) => e.type === `glass-${o}`), gf = /* @__PURE__ */ new Set(["image-full", "compact"]);
+function Fd(o) {
   const e = (window.customCards?.find((t) => t.type === `glass-${o}`)?.name ?? o).replace(/^Glass – /, "");
   return w(e.charAt(0).toUpperCase() + e.slice(1));
 }
-function gf(o, e) {
-  if (o === "apple-home") return ff(e);
+function ff(o, e) {
+  if (o === "apple-home") return bf(e);
   const t = dl(e, "tablet").has("left"), a = {
     liquid: "Liquid glass: panels of liquid glass that bends the wallpaper (WebGL) – the heaviest; cards and buttons inside in the Apple Home material.",
     frosted: "Frosted glass: panels of blurred glass, blurred live by the browser – medium; cards and buttons inside in the Apple Home material.",
@@ -14525,7 +14551,7 @@ function gf(o, e) {
     t ? w("The side column keeps the glass and takes the sidebar's colours: white text, accent icons.") : ""
   ].filter(Boolean).join(" ");
 }
-function ff(o) {
+function bf(o) {
   const e = dl(o, "tablet").has("left"), t = dl(o, "mobile"), a = t.has("header") || t.has("top");
   return [
     w("Apple Home: tiles straight on the wallpaper."),
@@ -14546,10 +14572,10 @@ function Nc(o) {
   for (const s of Object.values(o.responsive ?? {})) i(s);
   return e;
 }
-function bf(o) {
+function _f(o) {
   return Rc(o) ? p`<div class="bubble-notice"><ha-icon .icon=${"mdi:information-outline"}></ha-icon><span>${w("Not a glass card: the glass type, colours and the day / night look do not reach it – it keeps its own look (theme, card_mod).")}</span></div>` : g;
 }
-function ro() {
+function lo() {
   return customElements.get("bubble-card") ? g : p`<div class="bubble-notice">
     <ha-icon .icon=${"mdi:alert-circle-outline"}></ha-icon>
     <span>
@@ -14567,9 +14593,9 @@ function va(o) {
   window.dispatchEvent(new Event("glass-clipboard"));
 }
 let ca;
-const Yo = class Yo extends Ye {
+const Zo = class Zo extends Ye {
   constructor() {
-    super(), this.noCards = !1, this._label = (e) => e.label ?? w(Od[e.name] ?? e.name), this._helper = (e) => e.helper ?? (Bd[e.name] && (e.name !== "layout" || this.spec.previewSwitch) ? w(Bd[e.name]) : void 0), this._views = {}, this._popupCards = {}, this._paint = "main", this._painting = !1, this._newArea = "", this._panelEditors = /* @__PURE__ */ new Map(), this._onLang = () => this.requestUpdate(), this._autoOpened = !1, this._open = {};
+    super(), this.noCards = !1, this._label = (e) => e.label ?? w(Bd[e.name] ?? e.name), this._helper = (e) => e.helper ?? (jd[e.name] && (e.name !== "layout" || this.spec.previewSwitch) ? w(jd[e.name]) : void 0), this._views = {}, this._popupCards = {}, this._paint = "main", this._painting = !1, this._newArea = "", this._panelEditors = /* @__PURE__ */ new Map(), this._onLang = () => this.requestUpdate(), this._autoOpened = !1, this._open = {};
   }
   /** The config being edited: at night (the Appearance tab's day / night switch) the night look,
    *  `dark:` merged in – what is changed then goes to `dark:` (see _emit). */
@@ -14600,24 +14626,24 @@ const Yo = class Yo extends Ye {
   _emit(e) {
     let t = Object.fromEntries(Object.entries(e).filter(([, a]) => a !== void 0 && a !== "" && a !== null));
     if (this._open.night === 1) {
-      const { dark: a, ...i } = this._cfg ?? {}, s = Jp(i, t);
+      const { dark: a, ...i } = this._cfg ?? {}, s = Xp(i, t);
       t = { ...i, ...s ? { dark: s } : {} };
     }
     this._cfg = t, this.dispatchEvent(new CustomEvent("config-changed", { detail: { config: t }, bubbles: !0, composed: !0 }));
   }
   _form(e, t, a) {
-    const i = Mu(t), s = i.size ? { ...e } : e;
-    for (const n of i) (s[n] === void 0 || s[n] === "") && (s[n] = No);
+    const i = Tu(t), s = i.size ? { ...e } : e;
+    for (const n of i) (s[n] === void 0 || s[n] === "") && (s[n] = Oo);
     return p`<ha-form
       .hass=${this.hass}
       .data=${s}
-      .schema=${q0(Tu(i.size ? Au(t) : t))}
+      .schema=${W0(Cu(i.size ? Mu(t) : t))}
       .computeLabel=${this._label}
       .computeHelper=${this._helper}
       @value-changed=${(n) => {
       n.stopPropagation();
       const r = { ...n.detail.value };
-      for (const l of i) r[l] === No && (r[l] = void 0);
+      for (const l of i) r[l] === Oo && (r[l] = void 0);
       a(r);
     }}
     ></ha-form>`;
@@ -14642,7 +14668,7 @@ const Yo = class Yo extends Ye {
                 ${this._form(
         { ...e.defaults, ...r },
         e.item(r, t?.parent),
-        (c) => i(a.map((d, h) => h === l ? Fd(On(c), r, e.defaults) : d))
+        (c) => i(a.map((d, h) => h === l ? Hd(On(c), r, e.defaults) : d))
       )}
                 ${/"(tap|hold)_action"/.test(JSON.stringify(e.item(r, t?.parent))) || r.tap_action?.action === "menu" || r.hold_action?.action === "menu" ? ["tap_action", "hold_action"].map(
         (c) => this._menu(r, c, `${e.name}:${l}`, (d) => i(a.map((h, u) => u === l ? d : h)))
@@ -14757,7 +14783,7 @@ const Yo = class Yo extends Ye {
   /** "Visible when": the card's visibility conditions, edited as on HA's Visibility tab – ours ("Picked in a group") above it. */
   _visibility(e, t) {
     const a = Array.isArray(e.visibility) ? e.visibility : [], i = a.filter((h) => h?.condition === "select"), s = a.filter((h) => h?.condition !== "select"), n = (h, u) => t([...h, ...u].length ? [...h, ...u] : void 0), r = (h, u) => n(u ? i.map((m, f) => f === h ? u : m) : i.filter((m, f) => f !== h), s), l = this._pickChoices(), c = `pick-${Math.random().toString(36).slice(2, 8)}`, d = !!customElements.get("ha-card-conditions-editor");
-    return d || Q0().then(() => this.requestUpdate()), p`<div class="visibility">
+    return d || ef().then(() => this.requestUpdate()), p`<div class="visibility">
       <span class="devices-title">${w("Visible when")}</span>
       <span class="vis-hint">${w("Empty = always. A hidden card leaves the page (a camera stops), in the preview too.")}</span>
       <datalist id="${c}-g">${l.groups.map((h) => p`<option value=${h}></option>`)}</datalist>
@@ -14871,7 +14897,7 @@ const Yo = class Yo extends Ye {
                     <input
                       type="checkbox"
                       .checked=${ya(_, S)}
-                      @change=${(z) => s(i.map((M, k) => k === x ? _u(M, S, z.target.checked) : M))}
+                      @change=${(z) => s(i.map((M, k) => k === x ? yu(M, S, z.target.checked) : M))}
                     />${w(fa[S])}
                   </label>
                   <input
@@ -14881,8 +14907,8 @@ const Yo = class Yo extends Ye {
                     placeholder=${w("Order")}
                     title=${w("Order among the cards next to it (lower first, empty = as listed)")}
                     ?disabled=${!ya(_, S)}
-                    .value=${no(_, S)}
-                    @change=${(z) => s(i.map((M, k) => k === x ? yu(M, S, z.target.value) : M))}
+                    .value=${ro(_, S)}
+                    @change=${(z) => s(i.map((M, k) => k === x ? vu(M, S, z.target.value) : M))}
                   />
                 </div>`
     )}
@@ -14892,17 +14918,17 @@ const Yo = class Yo extends Ye {
                 placeholder=${w("Group")}
                 title=${w("The group in which this card picks its id")}
                 .value=${_.view_layout?.select?.group ?? ""}
-                @change=${(S) => s(i.map((z, M) => M === x ? Ld(z, "group", S.target.value) : z))}
+                @change=${(S) => s(i.map((z, M) => M === x ? Rd(z, "group", S.target.value) : z))}
               />
               <input
                 class="device-order"
                 placeholder=${w("View id")}
                 title=${w("Which of the switch's views a tap on this card shows")}
                 .value=${_.view_layout?.select?.id ?? ""}
-                @change=${(S) => s(i.map((z, M) => M === x ? Ld(z, "id", S.target.value) : z))}
+                @change=${(S) => s(i.map((z, M) => M === x ? Rd(z, "id", S.target.value) : z))}
               />
             </div>
-            ${r ? this._visibility(_, (S) => s(i.map((z, M) => M === x ? X0(z, S) : z))) : g}
+            ${r ? this._visibility(_, (S) => s(i.map((z, M) => M === x ? Q0(z, S) : z))) : g}
             <hui-card-element-editor
               .hass=${this.hass}
               .lovelace=${this.lovelace}
@@ -14931,16 +14957,16 @@ const Yo = class Yo extends Ye {
           ${x ? p`<div class="list-hint">${w(x)}</div>` : g} ${S.map(({ c: z, i: M }) => m(z, M))}`
     )}
       ${y ? p`<div class="picker">
-            ${Su.map(
+            ${zu.map(
       ([_, x, S, z]) => p`<button
                 class="pick"
-                ?disabled=${!wu(_)}
+                ?disabled=${!xu(_)}
                 @click=${() => {
         s([...i, rl(_, this.hass)]), this._open = { ...this._open, [n]: i.length, [`pick:${e.name}`]: 0 };
       }}
               >
                 <ha-icon .icon=${S}></ha-icon>
-                <span><b>${w(x)}</b><small>${xu(_) ?? w(z)}</small></span>
+                <span><b>${w(x)}</b><small>${ku(_) ?? w(z)}</small></span>
               </button>`
     )}
             <button class="pick other" @click=${() => this._open = { ...this._open, [`pick:${e.name}`]: 0 }}>${w("Cancel")}</button>
@@ -14967,7 +14993,7 @@ const Yo = class Yo extends Ye {
     }, n = p`<div class="list-hint">${w("Fine-tune the refraction and edge light. ✕ next to a slider returns the default.")}</div>`, r = p`${e.fields.map(([l, c, d, h]) => {
       const u = i[l] !== void 0 && i[l] !== a[l], m = i[l] ?? a[l] ?? c;
       return p`<div class="tune ${u ? "changed" : ""}">
-          <span class="tune-label">${w(Od[l] ?? l)}</span>
+          <span class="tune-label">${w(Bd[l] ?? l)}</span>
           <input type="range" min=${c} max=${d} step=${h} .value=${String(m)} @input=${(f) => s(l, Number(f.target.value))} />
           <span class="tune-value">${m}</span>
           ${u ? p`<button class="tune-reset" title="${w("Reset to default")} (${a[l]})" @click=${() => s(l, void 0)}>✕</button>` : p`<span class="tune-reset"></span>`}
@@ -15005,19 +15031,19 @@ const Yo = class Yo extends Ye {
       ["Room bars", "Rooms in this panel with a photo and a bar or a low strip. Empty = as set on the dashboard.", "bar_glass", "bar_tint", i]
     ], n = a ? this._dashCards(t) : Ai(t.cards), r = (k) => String(k?.type ?? "").replace("custom:glass-", ""), l = {
       glass: !0,
-      tile_glass: a ? n.some((k) => qd(r(k))) : (t.cards ?? []).some((k) => String(k?.type ?? "").startsWith("custom:glass-")),
-      control_glass: n.some((k) => Id.has(r(k))),
-      bar_glass: n.some((k) => r(k) === "room-card" && (!a || mf.has(k.layout ?? "stacked")))
+      tile_glass: a ? n.some((k) => Wd(r(k))) : (t.cards ?? []).some((k) => String(k?.type ?? "").startsWith("custom:glass-")),
+      control_glass: n.some((k) => qd.has(r(k))),
+      bar_glass: n.some((k) => r(k) === "room-card" && (!a || gf.has(k.layout ?? "stacked")))
     }, c = Ne(t.glass), d = {
       glass: Ne(void 0),
       tile_glass: pe.tile_glass ? Ne(pe.tile_glass) : t.glass ?? c,
       control_glass: pe.control_glass ? Ne(pe.control_glass) : void 0,
       bar_glass: pe.bar_glass ?? "liquid"
-    }, h = a ? 0 : n.filter((k) => Rc(k)).length, u = [...new Set(n.map(r).filter((k) => Id.has(k)))].map((k) => w(Cu[k]));
+    }, h = a ? 0 : n.filter((k) => Rc(k)).length, u = [...new Set(n.map(r).filter((k) => qd.has(k)))].map((k) => w(Du[k]));
     if (u.length)
       for (const k of s)
         k[2] === "control_glass" && (k[0] = u.length === 1 ? u[0] : "Buttons and controls", k[1] = `${u.join(", ")}.${a ? "" : ` ${w("Empty = as set on the dashboard.")}`}`);
-    const m = [...new Set(n.map(r).filter(qd))].map(Wd);
+    const m = [...new Set(n.map(r).filter(Wd))].map(Fd);
     if (a && m.length)
       for (const k of s) k[2] === "tile_glass" && (k[1] = `${w("Cards inside the panels and pop-ups:")} ${m.slice(0, 8).join(", ")}${m.length > 8 ? "…" : ""}.`);
     const f = (k, $ = !1) => [
@@ -15031,7 +15057,7 @@ const Yo = class Yo extends Ye {
       { value: "solid", label: w("Solid (fastest)") },
       { value: "none", label: w("None (no glass)") },
       { value: "home", label: w("Home (Apple Home look)") }
-    ], b = (k, $, C = !1) => f(k, C).filter((T) => !$ || !T.value || $.includes(T.value)), y = (k, $, C = !1) => w(f($, C).find((T) => T.value === (k ?? ($ ? "" : "liquid")))?.label ?? k ?? ""), _ = t.look ?? "liquid", x = eo(_), S = ["glass", "tile_glass", "control_glass"].some((k) => t[k] !== void 0 && t[k] !== x[k]) || fi(t).some(
+    ], b = (k, $, C = !1) => f(k, C).filter((T) => !$ || !T.value || $.includes(T.value)), y = (k, $, C = !1) => w(f($, C).find((T) => T.value === (k ?? ($ ? "" : "liquid")))?.label ?? k ?? ""), _ = t.look ?? "liquid", x = to(_), S = ["glass", "tile_glass", "control_glass"].some((k) => t[k] !== void 0 && t[k] !== x[k]) || fi(t).some(
       ([, k]) => k.some(($) => $ && ($.tile_glass !== void 0 || $.control_glass !== void 0 || $.glass !== void 0 && $.glass !== "none"))
     ), z = S ? "custom" : _, M = this._open.night === 1;
     if (e === "wallpaper")
@@ -15044,15 +15070,15 @@ const Yo = class Yo extends Ye {
     if (e === "looks") {
       const k = fi(t).flatMap(
         ([$, C]) => C.filter((T) => T?.glass === "none").map((T) => {
-          const P = (T.cards ?? []).map((L) => L?.name ?? L?.title ?? (String(L?.type ?? "").startsWith("custom:glass-") ? Wd(String(L.type).slice(13)) : "")).filter(Boolean), N = T.title ?? (P.length ? `${P.slice(0, 3).join(", ")}${P.length > 3 ? "…" : ""}` : w("empty panel")), E = $.includes(":") ? $.split(":")[0] : "";
+          const P = (T.cards ?? []).map((L) => L?.name ?? L?.title ?? (String(L?.type ?? "").startsWith("custom:glass-") ? Fd(String(L.type).slice(13)) : "")).filter(Boolean), N = T.title ?? (P.length ? `${P.slice(0, 3).join(", ")}${P.length > 3 ? "…" : ""}` : w("empty panel")), E = $.includes(":") ? $.split(":")[0] : "";
           return E ? `${w(E === "mobile" ? "Mobile" : E === "tablet" ? "Tablet" : "Desktop")}: ${N}` : N;
         })
       );
       return M ? p`<div class="list-hint">${w("The look is picked by day; at night change the levels below.")}</div>` : p`<div class="looks">
         <div class="list-hint">${w("Look – picks the glass for panels, cards and buttons at once, on the dashboard and in its pop-ups (the pop-up window itself is Bubble Card's). Fine-tune each of them below. Panels with their own glass setting are switched to the look; panels without glass stay without.")}</div>
         <div class="look-row">
-          ${_f.map(
-        ([$, C]) => p`<button class="look ${z === C ? "on" : ""}" @click=${() => z !== C && this._emit(vf(t, C, S))}>
+          ${yf.map(
+        ([$, C]) => p`<button class="look ${z === C ? "on" : ""}" @click=${() => z !== C && this._emit(wf(t, C, S))}>
                 ${w($)}
               </button>`
       )}
@@ -15060,12 +15086,12 @@ const Yo = class Yo extends Ye {
             class="look ${S ? "on" : ""}"
             ?disabled=${!S && !t.custom_look}
             title=${w("Change a level below to customise the look; pick a look to reset it.")}
-            @click=${() => !S && t.custom_look && this._emit(xf(t))}
+            @click=${() => !S && t.custom_look && this._emit(kf(t))}
           >
             ${w("Custom")}
           </button>
         </div>
-        ${a ? p`<div class="list-hint">${gf(_, t)}</div>` : g}
+        ${a ? p`<div class="list-hint">${ff(_, t)}</div>` : g}
         ${a && k.length && _ !== "apple-home" ? p`<div class="bubble-notice bare-notice">
               <ha-icon .icon=${"mdi:information-outline"}></ha-icon>
               <div>
@@ -15073,7 +15099,7 @@ const Yo = class Yo extends Ye {
                 <ul>
                   ${k.map(($) => p`<li>${$}</li>`)}
                 </ul>
-                <button class="look" @click=${() => this._emit(wf(t))}>${w(k.length === 1 ? "Give it the look's glass" : "Give them the look's glass")}</button>
+                <button class="look" @click=${() => this._emit(xf(t))}>${w(k.length === 1 ? "Give it the look's glass" : "Give them the look's glass")}</button>
               </div>
             </div>` : g}
       </div>`;
@@ -15114,7 +15140,7 @@ const Yo = class Yo extends Ye {
       .header=${w(e.title)}
       .secondary=${e.summary?.(t, this.hass) ?? ""}
       .expanded=${ol(s, !!e.open)}
-      @expanded-changed=${(n) => n.target === n.currentTarget && Nd(s, !!n.detail?.expanded)}
+      @expanded-changed=${(n) => n.target === n.currentTarget && Od(s, !!n.detail?.expanded)}
     >
       <div class="grp">${i}</div>
     </ha-expansion-panel>`;
@@ -15164,8 +15190,8 @@ const Yo = class Yo extends Ye {
   }
   /** A card's Appearance: one group per part (the card, its bar, its icon…), each with its material and colours. */
   _lookGroups(e, t = this._config, a) {
-    return hf(e).map(([i, s]) => {
-      const n = s.some((r) => zu(r, t));
+    return pf(e).map(([i, s]) => {
+      const n = s.some((r) => Au(r, t));
       return p`<ha-expansion-panel outlined class="group" .header=${w(i)} .secondary=${w(n ? "Set" : "Automatic – from the panel / dashboard")}>
         <div class="grp">${a ? a(s) : this._blocks(s)}</div>
       </ha-expansion-panel>`;
@@ -15173,7 +15199,7 @@ const Yo = class Yo extends Ye {
   }
   /** Pop-up source: the same two drop-downs for every device, mobile optionally different. */
   _popups() {
-    const e = this._config, t = this.hass, a = Object.values(t?.panels ?? {}).filter((l) => l.component_name === "lovelace").map((l) => ({ value: l.url_path, label: `${l.title ?? l.url_path} (${l.url_path})` })).sort((l, c) => l.label.localeCompare(c.label)), i = (l) => l ? (!this._views[l] && this.hass && Z0(this.hass, l).then((c) => (this._views = { ...this._views, [l]: c }, this.requestUpdate())), this._views[l] ?? []) : [], s = (l, c, d) => p`<div class="src-row">
+    const e = this._config, t = this.hass, a = Object.values(t?.panels ?? {}).filter((l) => l.component_name === "lovelace").map((l) => ({ value: l.url_path, label: `${l.title ?? l.url_path} (${l.url_path})` })).sort((l, c) => l.label.localeCompare(c.label)), i = (l) => l ? (!this._views[l] && this.hass && J0(this.hass, l).then((c) => (this._views = { ...this._views, [l]: c }, this.requestUpdate())), this._views[l] ?? []) : [], s = (l, c, d) => p`<div class="src-row">
         <div class="src-title">${w(l)}</div>
         ${this._form(
       { dashboard: c?.dashboard ?? "", view: c?.view !== void 0 ? String(c.view) : "" },
@@ -15201,7 +15227,7 @@ const Yo = class Yo extends Ye {
       const d = { ...e.responsive ?? {}, mobile: c };
       Object.keys(c).length || delete d.mobile, this._emit({ ...e, responsive: Object.keys(d).length ? d : void 0 });
     };
-    return p`${ro()}
+    return p`${lo()}
       <div class="list-hint">
         ${w("Pop-ups are Bubble Card pop-ups. New ones live in this dashboard (Pop-ups in the tree); they can also come from another dashboard and are saved back there. Pop-ups from YAML dashboards can only be shown.")}
       </div>
@@ -15279,7 +15305,7 @@ const Yo = class Yo extends Ye {
         a(c),
         !t && (e.preset ?? "classic") === c,
         qe[c].label,
-        () => this._emit(tf({ ...e, preset: c === "classic" ? void 0 : c, grid: void 0 }, a(c))),
+        () => this._emit(af({ ...e, preset: c === "classic" ? void 0 : c, grid: void 0 }, a(c))),
         qe[c].thumb
       )
     )}
@@ -15380,7 +15406,7 @@ const Yo = class Yo extends Ye {
             @input=${(T) => this._newArea = T.target.value}
             @keydown=${(T) => {
       if (T.key !== "Enter") return;
-      const P = fn(this._newArea);
+      const P = bn(this._newArea);
       P && (this._paint = P, this._newArea = "", this.requestUpdate());
     }}
           />
@@ -15475,9 +15501,9 @@ const Yo = class Yo extends Ye {
   _langSwitch() {
     return p`<div class="lang">
       <ha-icon icon="mdi:translate"></ha-icon>
-      <select aria-label=${w("Editor language")} @change=${(e) => gu(e.target.value)}>
-        <option value="auto" ?selected=${Lo() === "auto"}>${w("As Home Assistant")}</option>
-        ${Lp.map(([e, t]) => p`<option value=${e} ?selected=${Lo() === e}>${t}</option>`)}
+      <select aria-label=${w("Editor language")} @change=${(e) => fu(e.target.value)}>
+        <option value="auto" ?selected=${Ro() === "auto"}>${w("As Home Assistant")}</option>
+        ${Rp.map(([e, t]) => p`<option value=${e} ?selected=${Ro() === e}>${t}</option>`)}
       </select>
     </div>`;
   }
@@ -15512,7 +15538,7 @@ const Yo = class Yo extends Ye {
         s && typeof s == "object" && !Array.isArray(s) && !Object.keys(s).length && this._config?.[i] === void 0 && delete t[i];
       const a = { ...this.spec.defaults, ...this._config };
       [.../* @__PURE__ */ new Set([...Object.keys(t), ...Object.keys(a)])].every((i) => JSON.stringify(t[i]) === JSON.stringify(a[i])) || this._emit(
-        Fd(
+        Hd(
           this.spec.adjust ? this.spec.adjust({ ...this._config, ...t }, this._config, this.hass) : { ...this._config, ...t },
           this._config,
           this.spec.defaults
@@ -15548,7 +15574,7 @@ const Yo = class Yo extends Ye {
           .secondary=${s.secondary ? w(s.secondary) : ""}
           .expanded=${l}
           @expanded-changed=${(c) => {
-          c.stopPropagation(), !!c.detail.expanded !== l && (this._open = { ...this._open, [n]: c.detail.expanded ? 1 : 0 }, Nd(r, !!c.detail.expanded));
+          c.stopPropagation(), !!c.detail.expanded !== l && (this._open = { ...this._open, [n]: c.detail.expanded ? 1 : 0 }, Od(r, !!c.detail.expanded));
         }}
           ><div class="sec">${this._blocks(s.schema)}</div></ha-expansion-panel
         >`);
@@ -15597,7 +15623,7 @@ const Yo = class Yo extends Ye {
         const h = { width: String(d.width ?? ""), height: String(d.height ?? "") }, u = this._sizeDraft ?? { width: String(i.width), height: String(i.height) };
         this._sizeDraft = h;
         const m = {};
-        for (const f of ["width", "height"]) h[f] !== u[f] && sf(h[f]) && (m[f] = n(h[f]));
+        for (const f of ["width", "height"]) h[f] !== u[f] && of(h[f]) && (m[f] = n(h[f]));
         Object.keys(m).length && r(m);
       }
     )}
@@ -15633,7 +15659,7 @@ const Yo = class Yo extends Ye {
     const s = typeof this.spec.form == "function" ? [] : (this.spec.lists ?? []).filter((d) => !a.has(d.name));
     let n = this.noCards ? this.spec.tabs?.filter((d) => !d.cards?.length || d.form?.length) : this.spec.tabs;
     if (!n?.length) {
-      const { content: d, look: h, adv: u } = nf(t, this._shownParts()), m = (x) => x.some((S) => S.name === "glass" || Array.isArray(S.schema) && m(S.schema)), f = this.spec.noGlass || m(h) ? h : [{ ...ve, group: "Card" }, ...h], b = p`
+      const { content: d, look: h, adv: u } = rf(t, this._shownParts()), m = (x) => x.some((S) => S.name === "glass" || Array.isArray(S.schema) && m(S.schema)), f = this.spec.noGlass || m(h) ? h : [{ ...ve, group: "Card" }, ...h], b = p`
         ${s.map((x) => this._list(x))} ${(this.spec.cards ?? []).map((x) => this._cardList(x))}
         ${s.length || this.spec.cards?.length ? p`<div class="list-title settings-title">${w("Settings")}</div>` : g}
         ${e(d)} ${this._sizeForm()}
@@ -15702,7 +15728,7 @@ const Yo = class Yo extends Ye {
   /** The "Credits" tab: what the card wraps, needs and took its idea from, each with its author. */
   _credits() {
     const e = (t, a) => p`<a href=${t} target="_blank" rel="noreferrer">${a}</a>`;
-    return p`${ef.map(([t, a]) => {
+    return p`${tf.map(([t, a]) => {
       const i = (this.spec.credits ?? []).filter((s) => s.kind === t);
       return i.length ? p`<div class="list-title credits-title">${w(a)}</div>
             ${i.map(
@@ -15715,11 +15741,11 @@ const Yo = class Yo extends Ye {
       ${(this.spec.credits ?? []).length ? g : p`<div class="credit-note">${w("This card is built on nothing but Home Assistant.")}</div>`}
       <div class="support">
         <span><b>${w("Like glass cards?")}</b><small>${w("A coffee keeps them growing.")}</small></span>
-        <a href=${ku} target="_blank" rel="noreferrer"><img src=${$u} alt="Buy Me a Coffee" /></a>
+        <a href=${$u} target="_blank" rel="noreferrer"><img src=${Su} alt="Buy Me a Coffee" /></a>
       </div>`;
   }
 };
-Yo.properties = { hass: { attribute: !1 }, lovelace: { attribute: !1 }, _cfg: { state: !0 }, _open: { state: !0 } }, Yo.styles = ee`
+Zo.properties = { hass: { attribute: !1 }, lovelace: { attribute: !1 }, _cfg: { state: !0 }, _open: { state: !0 } }, Zo.styles = ee`
     :host {
       display: block;
     }
@@ -16525,12 +16551,12 @@ Yo.properties = { hass: { attribute: !1 }, lovelace: { attribute: !1 }, _cfg: { 
       font-weight: 500;
     }
   `;
-let hl = Yo;
+let hl = Zo;
 function Wt(o, e, t) {
   const a = [...o], [i] = a.splice(e, 1);
   return a.splice(t, 0, i), a;
 }
-function Fd(o, e, t) {
+function Hd(o, e, t) {
   if (!t) return o;
   const a = { ...o }, i = (s, n) => s === n || typeof s == "object" && JSON.stringify(s) === JSON.stringify(n);
   for (const [s, n] of Object.entries(t)) i(a[s], n) && e[s] === void 0 && delete a[s];
@@ -16544,13 +16570,13 @@ function de(o) {
   const e = document.createElement("glass-card-editor");
   return e.spec = o, e;
 }
-const fe = (o, e) => ({ value: o, label: e }), _f = [
+const fe = (o, e) => ({ value: o, label: e }), yf = [
   ["Liquid glass", "liquid"],
   ["Apple Home", "apple-home"],
   ["Frosted glass", "frosted"],
   ["Light glass", "light"],
   ["Solid", "solid"]
-], Oc = ["glass", "tile_glass", "control_glass"], Du = ["glass", "tile_glass", "control_glass"];
+], Oc = ["glass", "tile_glass", "control_glass"], Pu = ["glass", "tile_glass", "control_glass"];
 function fi(o) {
   const e = [], t = (a, i) => {
     if (a) {
@@ -16562,7 +16588,7 @@ function fi(o) {
   for (const [a, i] of Object.entries(o.responsive ?? {})) t(i, `${a}:`);
   return e;
 }
-function yf(o) {
+function vf(o) {
   const e = {};
   for (const a of Oc) o[a] !== void 0 && (e[a] = o[a]);
   const t = {};
@@ -16570,26 +16596,26 @@ function yf(o) {
     i.forEach((s, n) => {
       if (!s || typeof s != "object") return;
       const r = {};
-      for (const l of Du) s[l] !== void 0 && (r[l] = s[l]);
+      for (const l of Pu) s[l] !== void 0 && (r[l] = s[l]);
       Object.keys(r).length && (t[`${a}[${n}]`] = r);
     });
   return { look: o.look, ...e, panels: t };
 }
-function vf(o, e, t) {
+function wf(o, e, t) {
   const a = structuredClone(o);
-  t && (a.custom_look = yf(o)), e === "liquid" ? delete a.look : a.look = e;
+  t && (a.custom_look = vf(o)), e === "liquid" ? delete a.look : a.look = e;
   for (const i of Oc) delete a[i];
   for (const [, i] of fi(a))
     for (const s of i)
       !s || typeof s != "object" || (s.glass !== "none" && delete s.glass, delete s.tile_glass, delete s.control_glass);
   return a;
 }
-function wf(o) {
+function xf(o) {
   const e = structuredClone(o);
   for (const [, t] of fi(e)) for (const a of t) a?.glass === "none" && delete a.glass;
   return e;
 }
-function xf(o) {
+function kf(o) {
   const e = o.custom_look;
   if (!e) return o;
   const t = structuredClone(o);
@@ -16600,7 +16626,7 @@ function xf(o) {
     i.forEach((s, n) => {
       if (!s || typeof s != "object") return;
       const r = e.panels?.[`${a}[${n}]`];
-      for (const l of Du)
+      for (const l of Pu)
         r?.[l] !== void 0 ? s[l] = r[l] : l === "glass" && s.glass === "none" || delete s[l];
     });
   return t;
@@ -16635,12 +16661,12 @@ function tt(o, e, t = !1, a = !0) {
     schema: [
       { ...B("color"), label: n ? "Active colour" : "Colour" },
       ...a ? [{ name: "size", label: n ? "Active size" : "Size", selector: { number: { min: 6, max: 120, mode: "box", unit_of_measurement: "px" } } }] : [],
-      { name: "weight", label: n ? "Active weight" : "Weight", selector: { select: { mode: "dropdown", options: $f.map(([r, l]) => fe(r, l)) } } }
+      { name: "weight", label: n ? "Active weight" : "Weight", selector: { select: { mode: "dropdown", options: Sf.map(([r, l]) => fe(r, l)) } } }
     ]
   });
   return { type: "expandable", name: "fonts", title: e, schema: [i(o, !1), ...t ? [i(`${o}_on`, !0)] : []] };
 }
-function kf(o) {
+function $f(o) {
   return o.map((e) => ({ ...e.kind === "icon" ? ct(e.key, e.title, !!e.on) : tt(e.key, e.title, !!e.on, e.size !== !1), group: e.group }));
 }
 function ct(o, e, t = !1) {
@@ -16654,7 +16680,7 @@ function ct(o, e, t = !1) {
   });
   return { type: "expandable", name: "icons", title: e, schema: [a(o, !1), ...t ? [a(`${o}_on`, !0)] : []] };
 }
-const $f = [
+const Sf = [
   ["100", "100 – Thin"],
   ["200", "200 – Extra light"],
   ["300", "300 – Light"],
@@ -16678,7 +16704,7 @@ const $f = [
       ]
     }
   ]
-}), B = (o = "color") => ({ name: o, selector: { ui_color: { include_none: !0 } } }), Pu = {
+}), B = (o = "color") => ({ name: o, selector: { ui_color: { include_none: !0 } } }), Eu = {
   name: "animation",
   selector: {
     select: {
@@ -16819,17 +16845,17 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
     background: var(--mat-sheen, linear-gradient(transparent, transparent)), linear-gradient(var(--mat-tint, transparent), var(--mat-tint, transparent));
     box-shadow: none;
   }
-`, Bc = ".btn ha-icon, .btn ha-state-icon", Eu = (o) => `${o} .btn ha-icon, ${o} .btn ha-state-icon`, Lu = [
+`, Bc = ".btn ha-icon, .btn ha-state-icon", Lu = (o) => `${o} .btn ha-icon, ${o} .btn ha-state-icon`, Ru = [
   R("name", ".name", "Room name", "Room"),
   Q("room_icon", ".ricon", "Room icon", "Room"),
   R("light", ".lname", "Light name", "Bars", ".lbar.on .lname"),
   R("state", ".lstate", "Light state", "Bars", ".lbar.on .lstate"),
   R("label", ".slabel", "Button label", "Bars", ".bitem:has(.btn[aria-pressed='true']) .slabel"),
-  Q("icon", Bc, "Icon", "Icon", `${Eu(".lbar.on")}, .btn[aria-pressed='true'] ha-icon, .btn[aria-pressed='true'] ha-state-icon`),
+  Q("icon", Bc, "Icon", "Icon", `${Lu(".lbar.on")}, .btn[aria-pressed='true'] ha-icon, .btn[aria-pressed='true'] ha-state-icon`),
   Q("modes", ".mode ha-icon", "Mode icons", "Modes", ".mode.cur ha-icon"),
   Q("presets", ".segb ha-icon", "Preset icons", "Presets", ".segb.cur ha-icon"),
   Q("scenes", ".sbtn ha-icon", "Scene icons", "Scenes", ".sbtn.cur ha-icon")
-], Ru = [
+], Nu = [
   R("name", ".name", "Room name", "Room"),
   R("sub", ".sub", "Room subtitle", "Room"),
   Q("room_icon", ".ricon", "Room icon", "Room"),
@@ -16840,7 +16866,7 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   Q("positions", ".mode ha-icon", "Position button icons", "Quick choices"),
   bd("tilts", ".round.side svg.glyph", "Tilt button icons", "Quick choices", ".round.side.cur svg.glyph"),
   Q("pause", ".round.pause ha-icon", "Pause icon", "Pause button")
-], Nu = [
+], Ou = [
   R("title", ".title", "Title", "Text"),
   R("time", ".time, .ap", "Time", "Text", ".alarm.on .time"),
   R("soon", ".soon-head", "Soonest alarm", "Text"),
@@ -16850,22 +16876,22 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   R("where", ".where", "Speakers", "Text"),
   Q("add", ".add ha-icon", "+ icon", "Icons"),
   Q("where", ".where ha-icon", "Speaker icon", "Icons")
-], Ou = [
+], Bu = [
   R("name", ".aname", "Alarm name", "Text"),
   R("now", ".now", "Time", "Text"),
   R("date", ".date", "Date", "Text"),
   R("snooze", ".snooze span", "Snooze", "Text"),
   R("hint", ".hint", "Slide to stop", "Text"),
   Q("alarm", ".label ha-icon", "Alarm icon", "Icons")
-], Bu = [
+], ju = [
   R("name", ".name", "Name", "Text"),
   R("value", ".val, .val small", "Temperature", "Text"),
   R("hilo", ".hilo", "Min / max", "Text"),
   R("inline", ".ival, .ival small", "Value on the name's line", "Text"),
   R("setpoint", ".sp", "Setpoint", "− / + buttons"),
-  Q("icon", Bc, "Icon", "Icon", Eu(".frame.on")),
+  Q("icon", Bc, "Icon", "Icon", Lu(".frame.on")),
   Q("steps", ".set ha-icon", "− / + icons", "− / + buttons")
-], ju = [
+], Iu = [
   R("name", ".name", "Name", "Text"),
   R("info", ".info", "Info line", "Text"),
   R("badge", ".badge", "Badges", "Text"),
@@ -16877,7 +16903,7 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   Q("info", ".info ha-icon", "Info icons", "Icons"),
   Q("badge", ".badge ha-icon", "Badge icons", "Icons"),
   Q("buttons", Bc, "Button icons", "Icons", ".btn.active ha-icon, .btn.active ha-state-icon, .btn.mat.on ha-icon, .btn.mat.on ha-state-icon")
-], Iu = [
+], qu = [
   R("chip", ".chip", "Chip text", "Text", ".chip.active"),
   R("name", ".primary", "Pill name", "Text"),
   R("value", ".secondary", "Pill value", "Text"),
@@ -16890,7 +16916,7 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   Q("chip", ".chip ha-icon", "Chip icons", "Icons", ".chip.active ha-icon"),
   Q("icon", ".ico ha-icon", "Pill icons", "Icons", ".ico.on ha-icon, .ico.active ha-icon"),
   Q("row", ".row ha-icon", "Row icons", "Icons", ".row.lit ha-icon")
-], qu = [
+], Wu = [
   R("title", ".title", "Title", "Text"),
   R("node", ".nval", "Node values", "Text"),
   R("chip", ".chip", "Chips", "Text"),
@@ -16917,27 +16943,27 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   Q("label", ".lbl ha-icon, .head ha-icon", "Label icons", "Icons"),
   Q("steps", ".set ha-icon", "− / + icons", "Icons"),
   Q("pause", ".pbtn ha-icon, .pmenu ha-icon", "Pause icons", "Icons")
-], Wu = [Q("icon", ".btn ha-icon", "Icons", "Icons", ".btn.on ha-icon")], Fu = [
+], Fu = [Q("icon", ".btn ha-icon", "Icons", "Icons", ".btn.on ha-icon")], Hu = [
   R("title", ".title", "Title", "Text"),
   R("what", ".a", "What runs", "Text"),
   R("detail", ".b", "Detail", "Text"),
   Fe(R("empty", ".empty", "Nothing running", "Text")),
   Q("icon", ".ic", "Icons", "Icons"),
   Q("button", ".end ha-icon, .end", "Button icons", "Icons")
-], Hu = [
+], Gu = [
   R("title", ".title", "Title", "Text"),
   R("message", ".msg", "Message", "Text"),
   R("more", ".more", "More", "Text"),
   R("ago", ".ago", "Time", "Text"),
   Q("level", ".lvl", "Level icons", "Icons"),
   Q("close", ".x ha-icon", "Close icon", "Icons")
-].map(Fe), Gu = [
+].map(Fe), Uu = [
   R("name", ".name", "Name", "Text"),
   R("info", ".info, .loc", "Place", "Text"),
   R("initials", ".initials", "Initials", "Text"),
   Q("battery", ".battery ha-icon", "Battery icon", "Icons"),
   Q("badge", ".badge ha-icon", "Badge icon", "Icons")
-], Uu = [
+], Ku = [
   R("label", ".label", "Period", "Text"),
   R("now", ".now", "Now button", "Text", ".now.on"),
   R("drop", ".drop span", "Period picker", "Text", ".drop.open span"),
@@ -16945,14 +16971,14 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   Q("arrows", "ha-icon", "Icons", "Icons"),
   Q("now", ".now-icon", "Now icon", "Icons"),
   Fe(Q("menu", ".menu ha-icon", "Menu icons", "Icons"))
-], Ku = [
+], Vu = [
   R("title", ".title", "Title", "Text"),
   R("day", ".label", "Day", "Text"),
   R("event", ".ev", "Event", "Text"),
   R("time", ".ev .time", "Event time", "Text"),
   R("place", ".loc", "Place", "Text"),
   R("more", ".more, .empty", "Notes", "Text")
-], Vu = [
+], Yu = [
   R("title", ".title", "Title", "Header"),
   R("switches", ".seg .item span", "Switch labels", "Header", ".seg .item.on span"),
   Q("switches", ".seg .item ha-icon", "Switch icons", "Header", ".seg .item.on ha-icon"),
@@ -16966,7 +16992,7 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   Fe(R("detail_title", ".sheet h3", "Detail title", "Detail")),
   Fe(R("detail", ".sheet .line", "Detail lines", "Detail")),
   Fe(Q("detail", ".sheet .line ha-icon", "Detail icons", "Detail"))
-], Yu = [
+], Zu = [
   R("time", ".time, .ampm", "Time", "Clock"),
   R("date", ".date", "Date under the time", "Clock"),
   R("temperature", ".temp, .c-temp", "Temperature", "Text"),
@@ -16979,30 +17005,30 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   Q("weather", ".big-icon ha-icon.mdi, .c-icon ha-icon.mdi, .line-icon ha-icon", "Weather icon (MDI)", "Icons"),
   Q("forecast", ".mini-icon ha-icon.mdi", "Forecast icons (MDI)", "Icons"),
   Q("details", ".details ha-icon:not(.arrow)", "Details icons", "Details")
-], Zu = [
+], Ju = [
   R("title", ".title", "Date", "Text"),
   R("lines", ".line, .line span", "Lines (name day…)", "Text"),
   Q("lines", "ha-icon", "Line icons", "Icons")
-], Ju = [
+], Xu = [
   R("title", ".title", "Title", "Text"),
   R("name", ".name", "Name", "Text"),
   R("index", ".big", "Index", "Text"),
   R("label", ".label", "Pollutant name", "Text"),
   R("value", ".val", "Pollutant value", "Text"),
   R("level", ".lvl", "Level", "Text")
-], Xu = [
+], Qu = [
   R("title", ".title", "Title", "Text"),
   Fe(R("time", ".time", "Time", "Text")),
   Fe(R("tab", ".styles button", "Tab text", "Text", ".styles button.on")),
   Fe(Q("zoom", ".zoom button", "Zoom icons", "Icons")),
   Fe(Q("play", ".play", "Play icon", "Icons"))
-], Qu = [R("title", ".title", "Title", "Text"), Q("title", ".title ha-icon", "Title icon", "Icons")], em = [R("head", ".head", "Heading", "Text"), Q("head", ".head ha-icon", "Heading icon", "Icons")], tm = [
+], em = [R("title", ".title", "Title", "Text"), Q("title", ".title ha-icon", "Title icon", "Icons")], tm = [R("head", ".head", "Heading", "Text"), Q("head", ".head ha-icon", "Heading icon", "Icons")], am = [
   R("day", ".day", "Day", "Recordings"),
   R("when", ".foot", "Time and length", "Recordings"),
   R("tag", ".tag", "What was seen", "Recordings"),
   Q("tag", ".tag ha-icon", "What was seen – icons", "Recordings"),
   R("tab", ".tab", "Camera names", "Cameras")
-], am = [
+], im = [
   R("name", ".name", "Name", "State"),
   R("state", ".state", "State", "State"),
   R("detail", ".detail", "What's going on", "State"),
@@ -17011,7 +17037,7 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   R("keys", ".key", "Keypad", "Keypad"),
   R("sensors", ".sname", "Sensors' bar", "Sensors"),
   R("summary", ".ssum", "What's open", "Sensors")
-], im = [
+], sm = [
   R("name", ".name", "Name", "Bar"),
   Q("icon", ".ico ha-icon", "Icon", "Icon"),
   R("buttons", ".act", "Button text", "Buttons", ".act:not(.off)"),
@@ -17021,7 +17047,7 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   R("axis", ".apexcharts-yaxis-label", "Value labels", "Text"),
   R("time", ".apexcharts-xaxis-label", "Time labels", "Text"),
   R("tooltip", ".apexcharts-tooltip, .apexcharts-tooltip-title", "Tooltip", "Text")
-].map(Fe), sm = [
+].map(Fe), om = [
   R("title", ".title", "Title", "Text"),
   R("sub", ".sub", "Artist", "Text"),
   R("times", ".times", "Times", "Text"),
@@ -17032,7 +17058,7 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
   ["start", "Left / top"],
   ["center", "Center"],
   ["end", "Right / bottom"]
-], Pe = (o) => o ? o.split(".")[1] : "", Sf = (o) => ({
+], Pe = (o) => o ? o.split(".")[1] : "", zf = (o) => ({
   name: o,
   selector: {
     select: {
@@ -17041,21 +17067,21 @@ const A = (...o) => ({ type: "grid", name: "", schema: o }), _e = (o, e) => ({ t
       options: [...Qr].map(([e, t]) => ({ value: e, label: `${t.name ?? e} (${e})` }))
     }
   }
-}), Hd = [
+}), Gd = [
   ["auto", "Automatic by width"],
   ["tablet", "Always tablet"],
   ["mobile", "Always mobile"]
-], Gd = [
+], Ud = [
   ["sun", "By the sun (dark at night)"],
   ["auto", "Follow the HA theme"],
   ["light", "Always light"],
   ["dark", "Always dark"]
-], zf = { liquid: "Liquid glass", "apple-home": "Apple Home", frosted: "Frosted glass", light: "Light glass", solid: "Solid" };
-function Ud(o, e, t = {}, a = 0) {
+], Af = { liquid: "Liquid glass", "apple-home": "Apple Home", frosted: "Frosted glass", light: "Light glass", solid: "Solid" };
+function Kd(o, e, t = {}, a = 0) {
   const i = e.filter((s) => o[s] !== void 0 && o[s] !== "").length + Object.entries(t).filter(([s, n]) => o[s] !== void 0 && o[s] !== n).length + a;
   return i ? `${i} ${w(i === 1 ? "setting" : "settings")}` : w("Default");
 }
-const Af = {
+const Mf = {
   kind: "wraps",
   name: "apexcharts-card",
   url: "https://github.com/RomRider/apexcharts-card",
@@ -17069,43 +17095,43 @@ const Af = {
   author: "Clooos",
   author_url: "https://github.com/Clooos",
   note: "The pop-ups are Bubble Card's; the glass cards place and open them."
-}, Mf = {
+}, Tf = {
   kind: "inspired",
   name: "liquid-glass-js",
   url: "https://github.com/dashersw/liquid-glass-js",
   author: "dashersw",
   author_url: "https://github.com/dashersw",
   note: "The liquid glass refraction model and its defaults."
-}, Tf = {
+}, Cf = {
   kind: "inspired",
   name: "clock-weather-card",
   url: "https://github.com/pkissling/clock-weather-card",
   author: "pkissling",
   author_url: "https://github.com/pkissling",
   note: "The clock above the forecast with temperature bars."
-}, Cf = {
+}, Df = {
   kind: "inspired",
   name: "honeycomb-menu",
   url: "https://github.com/Sian-Lee-SA/honeycomb-menu",
   author: "Sian-Lee-SA",
   author_url: "https://github.com/Sian-Lee-SA",
   note: "The menu that opens from a button (action: menu): related choices around it."
-}, Df = {
+}, Pf = {
   kind: "inspired",
   name: "atomic-calendar-revive",
   url: "https://github.com/totaldebug/atomic-calendar-revive",
   author: "totaldebug",
   author_url: "https://github.com/totaldebug",
   note: "Upcoming events of several calendars in one list, each calendar in its colour."
-}, Pf = {
+}, Ef = {
   kind: "inspired",
   name: "custom_card_person_info (UI Lovelace Minimalist)",
   url: "https://ui-lovelace-minimalist.github.io/UI/usage/custom_cards/custom_card_person_info/",
   author: "Jordan Janzen",
   author_url: "https://github.com/jordandrako",
   note: "A person's round picture with where they are and their phone's battery."
-}, Ef = {
-  parts: Zu,
+}, Lf = {
+  parts: Ju,
   defaults: { align: "center" },
   form: [
     D("align", ks),
@@ -17138,8 +17164,8 @@ const Af = {
       ]
     }
   ]
-}, Lf = {
-  parts: Iu,
+}, Rf = {
+  parts: qu,
   defaults: { size: 36, gap: 8, wrap: !0, align: "start", pack: !1, pack_animation: !0, layout: "chips" },
   form: (o) => {
     const e = o.layout ?? "chips";
@@ -17251,7 +17277,7 @@ const Af = {
           { name: "precision", selector: { number: { min: 0, max: 4, mode: "box" } } },
           { name: "unit", selector: { text: {} } }
         ),
-        A(B("color"), Pu),
+        A(B("color"), Eu),
         A({ name: "abs", selector: { boolean: {} } }, { name: "hide_unavailable", selector: { boolean: {} } }),
         _e("Several entities at once", [
           { name: "entities", selector: { entity: { multiple: !0 } } },
@@ -17281,9 +17307,9 @@ const Af = {
       ]
     }
   ]
-}, Rf = {
-  credits: [Pf],
-  parts: Gu,
+}, Nf = {
+  credits: [Ef],
+  parts: Uu,
   defaults: { size: 44, gap: 12, show_location: "away", align: "end", show_battery: !0, show_name: !1, battery_style: "ring" },
   form: [
     A(
@@ -17324,10 +17350,10 @@ const Af = {
       ]
     }
   ]
-}, Nf = ["image-full", "compact"], Of = ["image-left", "image-right"], Kd = (o) => [
+}, Of = ["image-full", "compact"], Bf = ["image-left", "image-right"], Vd = (o) => [
   { name: "entity", selector: { entity: {} } },
   A({ name: "icon", selector: { icon: {} } }, { name: "icon_active", selector: { icon: {} } }),
-  A(B("active_color"), Pu),
+  A(B("active_color"), Eu),
   { name: "active_states", selector: { text: { multiple: !0 } } },
   { name: "label", selector: { text: {} } },
   A({ name: "badge", selector: { text: {} } }, B("badge_color")),
@@ -17338,20 +17364,20 @@ const Af = {
   V("visible"),
   V("rules"),
   _e("Actions", pt(o))
-], Mi = "Icon or photo with buttons", Vd = "With a glass bar (name, status, buttons)", Yd = [
+], Mi = "Icon or photo with buttons", Yd = "With a glass bar (name, status, buttons)", Zd = [
   { group: Mi, value: "stacked", label: "Icon on top", rows: [["p"], ["b"]] },
   { group: Mi, value: "image-bottom", label: "Icon below", rows: [["b"], ["p"]] },
   { group: Mi, value: "image-right", label: "Icon right", rows: [["b", "p"]] },
   { group: Mi, value: "image-left", label: "Icon left", rows: [["p", "b"]] },
   { group: Mi, value: "image-background", label: "Photo, buttons below", rows: [["p"], ["p"], ["b"]] },
-  { group: Vd, value: "image-full", label: "Photo with a bar", rows: [["p", "p"], ["p", "p"], ["n", "b"]] },
-  { group: Vd, value: "compact", label: "Low strip", rows: [["p", "n", "n", "b"]] }
-], Bf = {
-  credits: [Cf],
-  parts: ju,
+  { group: Yd, value: "image-full", label: "Photo with a bar", rows: [["p", "p"], ["p", "p"], ["n", "b"]] },
+  { group: Yd, value: "compact", label: "Low strip", rows: [["p", "n", "n", "b"]] }
+], jf = {
+  credits: [Df],
+  parts: Iu,
   defaults: { layout: "stacked", show_icon: !0, image_opacity: 1, image_fade: 50, image_position: "center", status: "auto" },
   form: (o) => {
-    const e = o.layout ?? "stacked", t = Nf.includes(e), a = Of.includes(e), i = e === "image-background", s = (h, u, m, f, b) => ({
+    const e = o.layout ?? "stacked", t = Of.includes(e), a = Bf.includes(e), i = e === "image-background", s = (h, u, m, f, b) => ({
       name: h,
       label: f,
       selector: { number: { min: u, max: m, mode: "box", ...b ? { unit_of_measurement: b } : {} } }
@@ -17378,10 +17404,10 @@ const Af = {
         custom: "section",
         key: "layout",
         title: "Layout",
-        secondary: Yd.find((h) => h.value === e)?.label,
+        secondary: Zd.find((h) => h.value === e)?.label,
         open: !0,
         schema: [
-          { custom: "tiles", name: "layout", default: "stacked", options: Yd },
+          { custom: "tiles", name: "layout", default: "stacked", options: Zd },
           ...e === "image-full" ? [
             A(
               { ...D("bar", [
@@ -17521,7 +17547,7 @@ const Af = {
   },
   adjust: (o, e, t) => {
     const a = { ...o }, i = a.fill_area;
-    return delete a.fill_area, i && i !== e.fill_area && t ? { ...a, ...jf(t, i) } : a;
+    return delete a.fill_area, i && i !== e.fill_area && t ? { ...a, ...If(t, i) } : a;
   },
   lists: [
     {
@@ -17529,14 +17555,14 @@ const Af = {
       title: "Entity buttons",
       label: (o) => o.name ?? Pe(o.entity) ?? "Entity",
       create: () => ({ entity: "" }),
-      item: Kd
+      item: Vd
     },
     {
       name: "contextual",
       title: "Contextual buttons",
       label: (o) => o.name ?? Pe(o.entity) ?? "Entity",
       create: () => ({ entity: "" }),
-      item: Kd
+      item: Vd
     },
     {
       name: "info",
@@ -17553,15 +17579,15 @@ const Af = {
     }
   ]
 };
-function jf(o, e) {
+function If(o, e) {
   const t = o.areas?.[e], a = {};
   t?.name && (a.name = t.name), t?.icon && (a.icon = t.icon);
   const i = ["light", "media_player", "cover", "fan", "climate"], s = Object.values(o.entities ?? {}).filter((n) => !n.hidden && !n.entity_category && (n.area_id ?? o.devices?.[n.device_id]?.area_id) === e).map((n) => n.entity_id).filter((n) => i.includes(n.split(".")[0]) && o.states[n]).sort((n, r) => i.indexOf(n.split(".")[0]) - i.indexOf(r.split(".")[0]));
   return s.length && (a.entities = s.slice(0, 6).map((n) => ({ entity: n }))), a;
 }
-const If = {
-  credits: [Tf],
-  parts: Yu,
+const qf = {
+  credits: [Cf],
+  parts: Zu,
   defaults: {
     variant: "full",
     show_clock: !0,
@@ -17714,7 +17740,7 @@ const If = {
     { custom: "section", key: "actions", title: "Actions", schema: pt(o, ["tap_action"]) },
     { custom: "section", key: "advanced", title: "Advanced", schema: [V("styles")] }
   ]
-}, Zd = (o) => {
+}, Jd = (o) => {
   const e = o.layout ?? "column";
   return [
     A({ name: "title", label: "Title", selector: { text: {} } }, { name: "icon", label: "Icon", selector: { icon: {} } }),
@@ -17786,8 +17812,8 @@ const If = {
       V("styles")
     ])
   ];
-}, qf = {
-  parts: Qu,
+}, Wf = {
+  parts: em,
   // columns: 3 – what a grid without the setting uses, shown in the field
   defaults: { layout: "column", gap: 16, align: "stretch", justify: "start", wrap: !1, columns: 3 },
   // own column widths / row heights: the count follows them
@@ -17795,11 +17821,11 @@ const If = {
     const t = { ...o }, a = st(t.column_widths), i = st(t.row_heights);
     return t.column_widths !== e.column_widths && a.length && (t.columns = a.length), t.row_heights !== e.row_heights && i.length && (t.rows = i.length), t;
   },
-  form: Zd,
+  form: Jd,
   cards: [{ name: "cards", title: "Cards in the panel", hint: "Arranged by the panel layout (column, row or grid)." }],
   tabs: [
     { id: "cards", label: "Cards", icon: "mdi:card-multiple-outline", cards: ["cards"] },
-    { id: "layout", label: "Layout", icon: "mdi:view-grid-outline", form: (o) => [...Zd(o), { custom: "size" }] },
+    { id: "layout", label: "Layout", icon: "mdi:view-grid-outline", form: (o) => [...Jd(o), { custom: "size" }] },
     {
       id: "look",
       label: "Appearance",
@@ -17819,8 +17845,8 @@ const If = {
       ]
     }
   ]
-}, om = {
-  credits: [jc, Mf],
+}, nm = {
+  credits: [jc, Tf],
   previewSwitch: !0,
   looks: !0,
   defaults: {
@@ -17859,8 +17885,8 @@ const If = {
           key: "device",
           title: "Devices",
           open: !0,
-          form: [A(D("layout", Hd), { name: "breakpoint", selector: { number: { min: 300, max: 2e3, mode: "box", unit_of_measurement: "px" } } })],
-          summary: (o) => `${w(Hd.find(([e]) => e === (o.layout ?? "auto"))[1])} · ${w("mobile below")} ${o.breakpoint ?? 700} px`
+          form: [A(D("layout", Gd), { name: "breakpoint", selector: { number: { min: 300, max: 2e3, mode: "box", unit_of_measurement: "px" } } })],
+          summary: (o) => `${w(Gd.find(([e]) => e === (o.layout ?? "auto"))[1])} · ${w("mobile below")} ${o.breakpoint ?? 700} px`
         },
         {
           key: "screen",
@@ -17881,7 +17907,7 @@ const If = {
             A({ name: "padding", selector: { text: {} } }, { name: "offset", selector: { text: {} } }),
             { name: "dock_space", selector: { number: { min: 0, max: 200, mode: "box", unit_of_measurement: "px" } } }
           ],
-          summary: (o) => Ud(o, ["left_width", "column_widths", "row_heights", "padding", "offset", "dock_space"], { gap: 22 })
+          summary: (o) => Kd(o, ["left_width", "column_widths", "row_heights", "padding", "offset", "dock_space"], { gap: 22 })
         },
         {
           key: "demo",
@@ -17912,11 +17938,11 @@ const If = {
           title: "Day and night",
           open: !0,
           day: !0,
-          form: [A(D("appearance", Gd), { name: "time_tint", selector: { boolean: {} } })],
-          summary: (o) => w(Gd.find(([e]) => e === (o.appearance ?? "auto"))[1])
+          form: [A(D("appearance", Ud), { name: "time_tint", selector: { boolean: {} } })],
+          summary: (o) => w(Ud.find(([e]) => e === (o.appearance ?? "auto"))[1])
         },
         { key: "background", title: "Background", open: !0, blocks: ["wallpaper"], summary: (o) => o.wallpaper ? String(o.wallpaper).split("/").pop() : w("HA theme") },
-        { key: "glass", title: "Glass", open: !0, blocks: ["looks", "levels"], summary: (o) => w(zf[o.look ?? "liquid"] ?? o.look) },
+        { key: "glass", title: "Glass", open: !0, blocks: ["looks", "levels"], summary: (o) => w(Af[o.look ?? "liquid"] ?? o.look) },
         {
           key: "foreign",
           title: "Cards that are not glass",
@@ -17931,7 +17957,7 @@ const If = {
           title: "For advanced users",
           blocks: ["tuning"],
           form: [V("styles")],
-          summary: (o) => Ud(o, ["styles"], {}, Object.keys(o.liquid ?? {}).length)
+          summary: (o) => Kd(o, ["styles"], {}, Object.keys(o.liquid ?? {}).length)
         }
       ]
     }
@@ -17968,8 +17994,8 @@ const If = {
       hint: "Not part of the layout: the bottom navigation bar and pop-ups opened by a button linking to #name. The Tablet / Mobile badge says where an item is used."
     }
   ]
-}, Wf = {
-  parts: em,
+}, Ff = {
+  parts: tm,
   defaults: { width: "92%", thickness: 4, opacity: 0.55, margin: 8, line: !0 },
   form: [
     A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
@@ -17980,9 +18006,9 @@ const If = {
       { name: "margin", selector: { number: { min: 0, max: 40, mode: "box", unit_of_measurement: "px" } } }
     )
   ]
-}, Ff = {
-  credits: [Df],
-  parts: Ku,
+}, Hf = {
+  credits: [Pf],
+  parts: Vu,
   defaults: { days: 5, max_events: 6, show_location: !1, show_title: !1, hide_empty: !1, tap_opens: "glass" },
   form: [
     A(
@@ -18010,13 +18036,13 @@ const If = {
       item: () => [{ name: "entity", selector: { entity: { domain: "calendar" } } }, B()]
     }
   ]
-}, Jd = [
+}, Xd = [
   ["month", "Month"],
   ["week", "Week"],
   ["day", "Day"],
   ["agenda", "Agenda"]
-].map(([o, e]) => ({ value: o, label: e })), Hf = {
-  parts: Vu,
+].map(([o, e]) => ({ value: o, label: e })), Gf = {
+  parts: Yu,
   defaults: { image: "months", hemisphere: "auto", agenda_days: 30, close: !0, weekends: "tint", views: ["month", "week", "day", "agenda"], phone_views: ["day", "agenda"] },
   form: (o) => [
     {
@@ -18040,13 +18066,13 @@ const If = {
           name: "views",
           label: "Views on a tablet / computer",
           helper: "Default all four",
-          selector: { select: { multiple: !0, mode: "list", options: Jd } }
+          selector: { select: { multiple: !0, mode: "list", options: Xd } }
         },
         {
           name: "phone_views",
           label: "Views on a phone",
           helper: "Default Day and Agenda – a month doesn't fit a phone",
-          selector: { select: { multiple: !0, mode: "list", options: Jd } }
+          selector: { select: { multiple: !0, mode: "list", options: Xd } }
         },
         {
           ...D("weekends", [
@@ -18133,8 +18159,8 @@ const If = {
       item: () => [{ name: "entity", selector: { entity: { domain: "calendar" } } }, { name: "name", selector: { text: {} } }, B()]
     }
   ]
-}, Gf = {
-  parts: Xu,
+}, Uf = {
+  parts: Qu,
   defaults: {
     zoom: 7,
     frames: 7,
@@ -18228,8 +18254,8 @@ const If = {
     },
     { custom: "section", key: "advanced", title: "Advanced", schema: [V("styles")] }
   ]
-}, Uf = {
-  parts: Ju,
+}, Kf = {
+  parts: Xu,
   defaults: { image_color: "active", image_fade: !0, edge_fade: !0, name_backdrop: !0, level_style: "dot" },
   form: (o) => [
     {
@@ -18323,22 +18349,22 @@ const If = {
       ]
     }
   ]
-}, nm = {
+}, rm = {
   name: "group",
   label: "Period group (without helpers)",
   helper: "Only for two independent period bars on one screen; the bar and its charts share it. Not used with helpers.",
   selector: { text: {} }
-}, Kf = A(
+}, Vf = A(
   {
     name: "periods",
     selector: { select: { multiple: !0, options: [{ value: "day", label: "Day" }, { value: "week", label: "Week" }, { value: "month", label: "Month" }, { value: "year", label: "Year" }] } }
   },
-  nm
-), Vf = {
-  parts: Uu,
+  rm
+), Yf = {
+  parts: Ku,
   form: [
     { custom: "hint", text: "Charts follow the period in a glass-chart (period on). Without helpers the bar keeps the period itself; with them automations and templates can follow it." },
-    Kf,
+    Vf,
     _e("Home Assistant helpers", [
       { name: "offset_entity", selector: { entity: { domain: "input_number" } } },
       { name: "select_entity", selector: { entity: { domain: "input_select" } } },
@@ -18367,8 +18393,8 @@ const If = {
     },
     _e("Advanced", [V("styles")])
   ]
-}, Yf = {
-  credits: [Af],
+}, Zf = {
+  credits: [Mf],
   parts: pl,
   defaults: { values: !0, gradient: !0, glow: !0, zero_line: !0, column_width: 62, radius: 5 },
   form: [
@@ -18390,15 +18416,15 @@ const If = {
     },
     _e("Period", [
       { name: "period", selector: { boolean: {} } },
-      nm,
+      rm,
       { name: "offset_entity", selector: { entity: { domain: "input_number" } } },
       { name: "select_entity", selector: { entity: { domain: "input_select" } } },
       V("kinds")
     ])
   ]
-}, Zf = {
+}, Jf = {
   credits: [jc],
-  parts: im,
+  parts: sm,
   defaults: { close: !0 },
   form: (o) => [
     {
@@ -18466,7 +18492,7 @@ const If = {
     }
   ],
   cards: [{ name: "cards", title: "Cards in the header", hint: "Between the name and the close button, e.g. a period bar." }]
-}, Jf = {
+}, Xf = {
   defaults: { active_color: "orange", fill_style: "fade", fill_strength: 34 },
   form: (o) => {
     const e = String(o.entity ?? ""), t = o.kind ?? (e.startsWith("lawn_mower.") ? "mower" : e.startsWith("vacuum.") ? "vacuum" : "washer"), a = (s, n, r = "sensor") => ({ name: s, label: n, selector: { entity: { domain: r } } }), i = (s, n, r) => ({ name: s, label: n, helper: r, selector: { ui_action: {} } });
@@ -18600,7 +18626,7 @@ const If = {
       }
     ];
   }
-}, Xf = {
+}, Qf = {
   noGlass: !0,
   form: [
     {
@@ -18634,7 +18660,7 @@ const If = {
       item: () => [{ name: "id", selector: { text: {} } }, A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } })]
     }
   ]
-}, Qf = {
+}, eb = {
   defaults: { satellite: !0 },
   form: (o) => {
     const e = String(o.entity ?? "").startsWith("lawn_mower.");
@@ -18703,8 +18729,8 @@ const If = {
       { custom: "section", key: "advanced", title: "Advanced", schema: [{ name: "service", selector: { text: {} } }, { ...ve, group: "Card" }] }
     ];
   }
-}, eb = {
-  parts: Bu,
+}, tb = {
+  parts: ju,
   defaults: { hours: 24, graph: !0, active_color: "orange", controls: "bottom", show_name: !0 },
   form: (o) => [
     {
@@ -18785,8 +18811,8 @@ const If = {
     { custom: "section", key: "actions", title: "Actions", schema: pt(o, ["tap_action", "hold_action", "double_tap_action"]) },
     { custom: "section", key: "advanced", title: "Advanced", schema: [ia, V("styles")] }
   ]
-}, tb = {
-  parts: sm,
+}, ab = {
+  parts: om,
   lists: [
     {
       name: "tv_sources",
@@ -19025,8 +19051,8 @@ const If = {
       }
     ];
   }
-}, ab = {
-  parts: Lu,
+}, ib = {
+  parts: Ru,
   defaults: { active_color: "yellow", show_name: !0, layout: "bars", fill_style: "fade", fill_strength: 34, fill_source: "light" },
   form: (o) => [
     {
@@ -19157,8 +19183,8 @@ const If = {
 function Bn(o) {
   return (o.scenes ?? []).length + (o.lights ?? []).reduce((e, t) => e + (t.scenes ?? []).length, 0);
 }
-const ib = {
-  parts: qu,
+const sb = {
+  parts: Wu,
   defaults: { show_animation: !0, show_modes: !0, show_dhw_setpoint: !0, show_settings: !0 },
   form: [
     {
@@ -19248,8 +19274,8 @@ const ib = {
     },
     _e("Advanced", [V("styles")])
   ]
-}, sb = {
-  parts: Ru,
+}, ob = {
+  parts: Nu,
   defaults: { kind: "auto", pause_glass: "dark", positions_glass: "none", tilts_glass: "dark", fill_style: "fade", fill_strength: 34, show_icon: !0, show_bar_text: !0, show_title: !0, show_positions: !0, percent_only: !1 },
   form: (o) => [
     {
@@ -19363,32 +19389,32 @@ const ib = {
     { custom: "section", key: "advanced", title: "Advanced", schema: [{ ...ve, group: "Card" }, V("styles")] }
   ],
   lists: [
-    { name: "positions", title: "Positions", label: (o) => o.name ?? o.icon ?? "Position", create: () => ({ name: "", value: 50 }), item: () => rm },
-    { name: "tilts", title: "Slats", label: (o) => o.name ?? "Tilt", create: () => ({ name: "", value: 50 }), item: () => ob, initial: () => lm() }
+    { name: "positions", title: "Positions", label: (o) => o.name ?? o.icon ?? "Position", create: () => ({ name: "", value: 50 }), item: () => lm },
+    { name: "tilts", title: "Slats", label: (o) => o.name ?? "Tilt", create: () => ({ name: "", value: 50 }), item: () => nb, initial: () => cm() }
   ]
-}, rm = [
+}, lm = [
   A({ name: "name", selector: { text: {} } }, { name: "icon", selector: { icon: {} } }),
   { name: "script", label: "Script", helper: "Run instead of setting a value", selector: { entity: { domain: "script" } } },
   { name: "value", label: "Value", selector: { number: { min: 0, max: 100, mode: "slider", unit_of_measurement: "%" } } }
-], ob = [
+], nb = [
   A({ name: "name", selector: { text: {} } }, { name: "icon", helper: "Empty = the slats drawn as this tilt sets them", selector: { icon: {} } }),
-  ...rm.slice(1)
-], lm = () => [
+  ...lm.slice(1)
+], cm = () => [
   { name: v("Close"), value: 0 },
   { name: v("Half"), value: 50 },
   { name: v("Open"), value: 100 }
-], za = U, nb = (o) => ({
+], za = U, rb = (o) => ({
   custom: "section",
   key: "titles",
   title: "Title",
   schema: [
     A({ name: "title", label: "Title", helper: o, selector: { text: {} } }, { name: "show_title", label: "Show the title", selector: { boolean: {} } })
   ]
-}), rb = {
+}), lb = {
   name: "sheet_glass",
   selector: { select: { mode: "dropdown", options: [{ value: "", label: "Its own glass" }, ...ve.selector.select.options.filter((o) => o.value)] } }
-}, lb = "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays… An alarm on weekdays doesn't ring on them, an alarm with a weekend day rings on them as on a weekend (each alarm can turn that off in its settings). Events with a time – a meeting at 6:00 – don't count.", cb = {
-  parts: Ou,
+}, cb = "Calendars whose all-day events are days off: the Holiday integration's public holidays, a calendar of your holidays… An alarm on weekdays doesn't ring on them, an alarm with a weekend day rings on them as on a weekend (each alarm can turn that off in its settings). Events with a time – a meeting at 6:00 – don't count.", db = {
+  parts: Bu,
   defaults: { display: "modal", style: "photo", snooze: 10 },
   form: (o) => [
     {
@@ -19444,8 +19470,8 @@ const ib = {
       ]
     }
   ]
-}, db = {
-  parts: Nu,
+}, hb = {
+  parts: Ou,
   defaults: { show_next: !0, layout: "list" },
   form: (o) => [
     {
@@ -19483,7 +19509,7 @@ const ib = {
       title: "Days off",
       secondary: (o.skip_calendars ?? []).length ? "" : "Optional",
       schema: [
-        { custom: "hint", text: lb },
+        { custom: "hint", text: cb },
         { name: "skip_calendars", label: "Calendars with days off", selector: { entity: { domain: "calendar", multiple: !0 } } }
       ]
     },
@@ -19506,27 +19532,27 @@ const ib = {
         ...O("Alarms", { ...B("days_color"), label: "Days it rings on" }),
         ...O("Switches", A({ ...D("switch_glass", [["", "Plain track"], ...U]), label: "Switch material when off" }, { ...B("switch_color"), label: "Switch colour when on" })),
         ...O("+ button", A({ ...D("add_glass", [["", "Default"], ...U]), label: "+ button material" }, { ...B("add_color"), label: "+ button colour" })),
-        ...O("Settings window", A({ ...rb, label: "Window material" }, { ...B("sheet_color"), label: "Window colour" })),
+        ...O("Settings window", A({ ...lb, label: "Window material" }, { ...B("sheet_color"), label: "Window colour" })),
         ...O("Settings window", A({ ...D("controls_glass", [["", "Default"], ...U]), label: "Controls' material" }, { ...B("controls_color"), label: "Controls' colour" }))
       ]
     },
     { custom: "section", key: "advanced", title: "Advanced", schema: [{ ...ve, group: "Card" }, V("styles")] }
   ]
-}, hb = {
+}, pb = {
   kind: "requires",
   name: "WebRTC Camera",
   url: "https://github.com/AlexxIT/WebRTC",
   author: "AlexxIT",
   author_url: "https://github.com/AlexxIT",
   note: "Plays the live picture (RTSP through go2rtc); its settings go through this card."
-}, pb = {
+}, ub = {
   kind: "inspired",
   name: "Advanced Camera Card (Frigate card)",
   url: "https://github.com/dermotduffy/advanced-camera-card",
   author: "dermotduffy",
   author_url: "https://github.com/dermotduffy",
   note: "Frigate's recordings next to the live picture, played in its place."
-}, Xd = (o) => [
+}, Qd = (o) => [
   ...o ? [] : [{ name: "url", label: "Live picture: RTSP or go2rtc stream", helper: "Played by WebRTC Camera (HACS). Empty: the camera entity's own stream", selector: { text: {} } }],
   {
     name: "poster",
@@ -19551,8 +19577,8 @@ const ib = {
   V("digital_ptz"),
   V("streams"),
   V("style")
-], ub = {
-  parts: am,
+], mb = {
+  parts: im,
   defaults: { layout: "card", keypad: "ask", keyboard: !0, close_popup: !0, show_sensors: !0, drawer: !0, drawer_style: "pill", sensor_items: "list" },
   form: [
     { custom: "hint", text: "Any alarm (alarm_control_panel). With Alarmo it also shows which modes can be armed now, the exact countdown and a wrong code, and offers skip delay and arm anyway." },
@@ -19632,9 +19658,9 @@ const ib = {
     },
     _e("Advanced", [V("styles")])
   ]
-}, mb = {
-  parts: tm,
-  credits: [hb, pb],
+}, gb = {
+  parts: am,
+  credits: [pb, ub],
   defaults: {
     layout: "auto",
     aspect_ratio: "16/9",
@@ -19751,7 +19777,7 @@ const ib = {
       custom: "section",
       key: "webrtc",
       title: "Live picture (WebRTC Camera)",
-      schema: [{ custom: "hint", text: "WebRTC Camera's settings for every camera – a camera's own (in its list item) win." }, ...Xd(!0)]
+      schema: [{ custom: "hint", text: "WebRTC Camera's settings for every camera – a camera's own (in its list item) win." }, ...Qd(!0)]
     }
   ],
   lists: [
@@ -19767,14 +19793,14 @@ const ib = {
         V("items"),
         { custom: "hint", text: "Optional: shown while a condition holds (switched elsewhere, e.g. a pop-up header's buttons) – { entity: input_boolean.camera_1, state: on }." },
         V("active"),
-        ...Xd(!1),
+        ...Qd(!1),
         { custom: "hint", text: "Optional: any other card as the live picture; Frigate's camera name when it differs." },
         V("live_card"),
         { name: "frigate_camera", label: "Frigate camera name", selector: { text: {} } }
       ]
     }
   ]
-}, gb = {
+}, fb = {
   parts: xi,
   defaults: { show_title: !0, show_state: !0 },
   form: (o) => [
@@ -19812,10 +19838,10 @@ const ib = {
         )
       ]
     },
-    nb("Empty = the automation's name"),
+    rb("Empty = the automation's name"),
     { custom: "section", key: "advanced", title: "Advanced", schema: [V("styles")] }
   ]
-}, fb = {
+}, bb = {
   parts: xi,
   defaults: { show_title: !0, show_compass: !0, show_details: !0, layout: "side", compass_glass: "watch", sun_style: "icon", show_letters: !0, show_ticks: !0, size: 124, ring_width: 9 },
   form: (o) => [
@@ -19890,7 +19916,7 @@ const ib = {
       ]
     }
   ]
-}, bb = {
+}, _b = {
   parts: xi,
   defaults: { show_title: !0, show_months: !0, current_glass: "dark", field_glass: "flat" },
   form: (o) => [
@@ -19976,10 +20002,10 @@ const ib = {
       ]
     }
   ]
-}, _b = {
+}, yb = {
   noGlass: !0,
   credits: [jc],
-  parts: Wu,
+  parts: Fu,
   defaults: { indicator: "pill", inline: !1, bare: !1, scroll: !1, fade: !1 },
   form: [
     A(
@@ -20001,14 +20027,14 @@ const ib = {
       create: () => ({ icon: "mdi:circle-outline", link: "#" }),
       item: (o) => [
         A({ name: "icon", selector: { icon: {} } }, { name: "name", selector: { text: {} } }),
-        A(Sf("link"), { name: "home", selector: { boolean: {} } }),
+        A(zf("link"), { name: "home", selector: { boolean: {} } }),
         { name: "id", label: "Page id (with the dock's page group)", selector: { text: {} } },
         _e("Actions", pt(o, ["tap_action"]))
       ]
     }
   ]
-}, yb = {
-  parts: Fu,
+}, vb = {
+  parts: Hu,
   // the card hides itself while nothing is on unless told otherwise
   defaults: { hide_empty: !0, density: "normal", dividers: !0 },
   form: (o) => {
@@ -20108,8 +20134,8 @@ const ib = {
       }
     }
   ]
-}, vb = {
-  parts: Hu,
+}, wb = {
+  parts: Gu,
   defaults: { entity: "sensor.glass_notifications", place: "between", size: 36, snooze: 3600 },
   form: [
     { name: "entity", selector: { entity: { filter: { domain: "sensor" } } } },
@@ -20150,7 +20176,7 @@ const ib = {
     super(...arguments), this._short = !1;
   }
   static getConfigElement() {
-    return de(Ef);
+    return de(Lf);
   }
   static getStubConfig(e) {
     const t = Object.keys(e?.states ?? {}).find((a) => a.startsWith("calendar.") && /holiday|svatk|feiertag|ferie|festiv/i.test(a));
@@ -20224,7 +20250,7 @@ const ib = {
     `;
   }
 };
-os.wrapTile = !0, os.parts = Zu, os.styles = [
+os.wrapTile = !0, os.parts = Ju, os.styles = [
   F.styles,
   ee`
       :host {
@@ -20285,8 +20311,8 @@ ce("glass-date-header", ul, {
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const wb = { CHILD: 2 }, cm = (o) => (...e) => ({ _$litDirective$: o, values: e });
-let dm = class {
+const xb = { CHILD: 2 }, dm = (o) => (...e) => ({ _$litDirective$: o, values: e });
+let hm = class {
   constructor(e) {
   }
   get _$AU() {
@@ -20307,11 +20333,11 @@ let dm = class {
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { I: xb } = xg, Qd = (o) => o, eh = () => document.createComment(""), Ti = (o, e, t) => {
+const { I: kb } = kg, eh = (o) => o, th = () => document.createComment(""), Ti = (o, e, t) => {
   const a = o._$AA.parentNode, i = e === void 0 ? o._$AB : e._$AA;
   if (t === void 0) {
-    const s = a.insertBefore(eh(), i), n = a.insertBefore(eh(), i);
-    t = new xb(s, n, o, o.options);
+    const s = a.insertBefore(th(), i), n = a.insertBefore(th(), i);
+    t = new kb(s, n, o, o.options);
   } else {
     const s = t._$AB.nextSibling, n = t._$AM, r = n !== o;
     if (r) {
@@ -20321,13 +20347,13 @@ const { I: xb } = xg, Qd = (o) => o, eh = () => document.createComment(""), Ti =
     if (s !== i || r) {
       let l = t._$AA;
       for (; l !== s; ) {
-        const c = Qd(l).nextSibling;
-        Qd(a).insertBefore(l, i), l = c;
+        const c = eh(l).nextSibling;
+        eh(a).insertBefore(l, i), l = c;
       }
     }
   }
   return t;
-}, da = (o, e, t = o) => (o._$AI(e, t), o), kb = {}, hm = (o, e = kb) => o._$AH = e, $b = (o) => o._$AH, jn = (o) => {
+}, da = (o, e, t = o) => (o._$AI(e, t), o), $b = {}, pm = (o, e = $b) => o._$AH = e, Sb = (o) => o._$AH, jn = (o) => {
   o._$AR(), o._$AA.remove();
 };
 /**
@@ -20335,13 +20361,13 @@ const { I: xb } = xg, Qd = (o) => o, eh = () => document.createComment(""), Ti =
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const th = (o, e, t) => {
+const ah = (o, e, t) => {
   const a = /* @__PURE__ */ new Map();
   for (let i = e; i <= t; i++) a.set(o[i], i);
   return a;
-}, ts = cm(class extends dm {
+}, ts = dm(class extends hm {
   constructor(o) {
-    if (super(o), o.type !== wb.CHILD) throw Error("repeat() can only be used in text expressions");
+    if (super(o), o.type !== xb.CHILD) throw Error("repeat() can only be used in text expressions");
   }
   dt(o, e, t) {
     let a;
@@ -20355,7 +20381,7 @@ const th = (o, e, t) => {
     return this.dt(o, e, t).values;
   }
   update(o, [e, t, a]) {
-    const i = $b(o), { values: s, keys: n } = this.dt(e, t, a);
+    const i = Sb(o), { values: s, keys: n } = this.dt(e, t, a);
     if (!Array.isArray(i)) return this.ut = n, s;
     const r = this.ut ??= [], l = [];
     let c, d, h = 0, u = i.length - 1, m = 0, f = s.length - 1;
@@ -20365,7 +20391,7 @@ const th = (o, e, t) => {
     else if (r[u] === n[f]) l[f] = da(i[u], s[f]), u--, f--;
     else if (r[h] === n[f]) l[f] = da(i[h], s[f]), Ti(o, l[f + 1], i[h]), h++, f--;
     else if (r[u] === n[m]) l[m] = da(i[u], s[m]), Ti(o, i[h], i[u]), u--, m++;
-    else if (c === void 0 && (c = th(n, m, f), d = th(r, h, u)), c.has(r[h])) if (c.has(r[u])) {
+    else if (c === void 0 && (c = ah(n, m, f), d = ah(r, h, u)), c.has(r[h])) if (c.has(r[u])) {
       const b = d.get(n[m]), y = b !== void 0 ? i[b] : null;
       if (y === null) {
         const _ = Ti(o, i[h]);
@@ -20382,19 +20408,19 @@ const th = (o, e, t) => {
       const b = i[h++];
       b !== null && jn(b);
     }
-    return this.ut = n, hm(o, l), Ma;
+    return this.ut = n, pm(o, l), Ma;
   }
-}), Sb = /* @__PURE__ */ new Set(["on", "heat", "heating", "open", "true", "home"]), zb = /* @__PURE__ */ new Set(["off", "idle", "closed", "false", "not_home"]);
-function Oo(o) {
+}), zb = /* @__PURE__ */ new Set(["on", "heat", "heating", "open", "true", "home"]), Ab = /* @__PURE__ */ new Set(["off", "idle", "closed", "false", "not_home"]);
+function Bo(o) {
   if (o === void 0) return NaN;
   const e = parseFloat(o);
-  return Number.isNaN(e) ? Sb.has(o) ? 1 : zb.has(o) ? 0 : NaN : e;
+  return Number.isNaN(e) ? zb.has(o) ? 1 : Ab.has(o) ? 0 : NaN : e;
 }
-const In = /* @__PURE__ */ new Map(), Ab = 300 * 1e3;
-async function pm(o, e, t) {
+const In = /* @__PURE__ */ new Map(), Mb = 300 * 1e3;
+async function um(o, e, t) {
   const a = Date.now(), i = e.filter((n) => {
     const r = In.get(`${n}|${t}`);
-    return !r || a - r.at > Ab;
+    return !r || a - r.at > Mb;
   });
   if (i.length) {
     const n = o.callWS({
@@ -20409,7 +20435,7 @@ async function pm(o, e, t) {
       In.set(`${r}|${t}`, {
         at: a,
         data: n.then(
-          (l) => (l[r] ?? []).map((c) => ({ t: (c.lu ?? c.lc ?? 0) * 1e3, v: Oo(c.s) })).filter((c) => c.t && !Number.isNaN(c.v))
+          (l) => (l[r] ?? []).map((c) => ({ t: (c.lu ?? c.lc ?? 0) * 1e3, v: Bo(c.s) })).filter((c) => c.t && !Number.isNaN(c.v))
         )
       });
   }
@@ -20452,7 +20478,7 @@ function gl(o, e, t) {
   };
   return o.forEach((c, d) => c === void 0 ? l() : r.push([i(d), s(c)])), l(), n;
 }
-function Mb(o, e, t) {
+function Tb(o, e, t) {
   const a = [], i = (r) => (Math.min(t, Math.max(e, r)) - e) / (t - e) * 100;
   let s, n = 0;
   for (const r of o) {
@@ -20464,7 +20490,7 @@ function Mb(o, e, t) {
   }
   return n > 0 && a.push([i(s ?? e), 100]), a.filter(([r, l]) => l - r > 0.2);
 }
-function Tb(o, e) {
+function Cb(o, e) {
   const t = o.length;
   if (t < 2) return o[0];
   const a = Math.min(t - 1, Math.max(0, e * (t - 1))), i = Math.min(t - 2, Math.floor(a)), s = a - i, n = o[i], r = o[i + 1];
@@ -20472,7 +20498,7 @@ function Tb(o, e) {
   const l = o[i - 1] ?? n, c = o[i + 2] ?? r, d = n + (r - l) / 6, h = r - (c - n) / 6, u = 1 - s;
   return u * u * u * n + 3 * u * u * s * d + 3 * u * s * s * h + s * s * s * r;
 }
-function ah(o, e, t) {
+function ih(o, e, t) {
   const a = o ? Date.parse(o) : NaN;
   if (Number.isNaN(a)) return "";
   const i = /* @__PURE__ */ new Date(), s = Math.round((i.getTime() - a) / 6e4);
@@ -20555,7 +20581,7 @@ const ns = class ns extends F {
     this._hass?.callService(a, "select_option", { entity_id: e, option: t }), this._openMenu(void 0);
   }
   static getConfigElement() {
-    return de(Lf);
+    return de(Rf);
   }
   static getStubConfig(e) {
     return { items: [{ entity: Object.keys(e.states).find((a) => a.startsWith("sensor.")) ?? "sensor.example" }] };
@@ -20572,14 +20598,14 @@ const ns = class ns extends F {
   }
   _ensureHistory() {
     const e = this._config?.graph;
-    !e?.entity || !this._hass || this._loading || Date.now() - this._fetchedAt < 600 * 1e3 || (this._loading = !0, pm(this._hass, [e.entity], e.hours ?? 24).then((t) => {
+    !e?.entity || !this._hass || this._loading || Date.now() - this._fetchedAt < 600 * 1e3 || (this._loading = !0, um(this._hass, [e.entity], e.hours ?? 24).then((t) => {
       this._points = t[e.entity] ?? [], this._fetchedAt = Date.now(), this.requestUpdate();
     }).finally(() => this._loading = !1));
   }
   hassChanged(e) {
     const t = this._config.graph?.entity, a = t ? e.states[t] : void 0;
     if (a && this._fetchedAt) {
-      const i = Oo(a.state), s = Date.parse(a.last_updated), n = this._points[this._points.length - 1];
+      const i = Bo(a.state), s = Date.parse(a.last_updated), n = this._points[this._points.length - 1];
       !Number.isNaN(i) && (!n || n.t < s) && this._points.push({ t: s, v: i });
     }
     this._ensureHistory();
@@ -20607,11 +20633,11 @@ const ns = class ns extends F {
   _chip(e, t) {
     const a = this._hass;
     if (!ge(e.visible, a, e.entity)) return g;
-    const i = xo(e, e.rules, a, e.entity);
+    const i = ko(e, e.rules, a, e.entity);
     if (i.hidden) return g;
     const s = i.entity ? a.states[i.entity] : void 0;
     if ((i.hide_unavailable ?? !0) && i.entity && !i.entities && gi(s)) return g;
-    const n = i.text?.includes("{changed}") ? ah(s?.last_changed, a, be(a)) || "–" : "", r = xa(a, n ? { ...i, text: i.text.replace("{changed}", n) } : i), l = i.icon === "dot", c = l ? void 0 : i.icon ?? s?.attributes.icon, d = Pr(i.animation), h = Y(i.icon_color ?? i.color), u = Ot(i), f = Ze(() => u, (_, x) => $e(this, a, Ot(i), _, x)), b = !r.text;
+    const n = i.text?.includes("{changed}") ? ih(s?.last_changed, a, be(a)) || "–" : "", r = xa(a, n ? { ...i, text: i.text.replace("{changed}", n) } : i), l = i.icon === "dot", c = l ? void 0 : i.icon ?? s?.attributes.icon, d = Pr(i.animation), h = Y(i.icon_color ?? i.color), u = Ot(i), f = Ze(() => u, (_, x) => $e(this, a, Ot(i), _, x)), b = !r.text;
     if (this._config.layout === "pills") {
       const _ = h ? je(i.icon_color ?? i.color) : void 0, { icon_background: x, pill_color: S } = this._config, z = this._config.icons?.icon_on?.color, M = this._config.icons?.icon?.color, k = this._config.pill_glass ?? (S && S !== "none" ? "frosted" : void 0), $ = _ ? this._config.icon_on_glass ?? this._config.icon_glass : this._config.icon_glass, C = !!x, T = x === "none", P = _ && !C, N = _ ? z && z !== "none" ? Y(z) : C ? h : void 0 : M && M !== "none" ? Y(M) : void 0, E = $ ? `${C ? T ? "" : `${re(x)};` : P ? `${re(i.icon_color ?? i.color, 70)};` : ""}${N ? `color:${N};` : ""}` : `${C ? T ? "--bg:transparent;" : `--bg:${je(x)};--sheen:${wi};` : P ? `--bg:${_};--accent:${h};` : ""}${N ? `--fg:${N};` : ""}`, L = i.dropdown ? s?.attributes.options ?? [] : [], G = (I) => i.option_names?.[I] ?? I, H = i.dropdown && L.length && i.entity, te = H && this._menu === t;
       return p`<div class="pill-wrap">
@@ -20716,7 +20742,7 @@ const ns = class ns extends F {
     if (!t || !e) return g;
     const a = e.attributes[t];
     if (a == null || a === "") return g;
-    const i = be(this._hass), s = typeof a == "string" && /^\d{4}-\d\d-\d\dT/.test(a) ? ah(a, this._hass, i) : String(a);
+    const i = be(this._hass), s = typeof a == "string" && /^\d{4}-\d\d-\d\dT/.test(a) ? ih(a, this._hass, i) : String(a);
     return s ? p`<span class="detail">${s}</span>` : g;
   }
   connectedCallback() {
@@ -20747,7 +20773,7 @@ const ns = class ns extends F {
     </div>`);
   }
 };
-ns.parts = Iu, ns.properties = { ...F.properties, _menu: { state: !0 } }, ns.styles = [
+ns.parts = qu, ns.properties = { ...F.properties, _menu: { state: !0 } }, ns.styles = [
   F.styles,
   we,
   Oe,
@@ -21139,11 +21165,11 @@ ce("glass-status-bar", fl, {
   name: "Glass – status bar",
   description: "Chips with entity values, conditional icons, colors and animations."
 });
-function Cb(o, e) {
+function Db(o, e) {
   const t = Math.max(10, Math.min(100, Math.ceil(o / 10) * 10));
   return t === 100 ? e ? "mdi:battery-charging-100" : "mdi:battery" : `${e ? "mdi:battery-charging" : "mdi:battery"}-${t}`;
 }
-const Zo = class Zo extends F {
+const Jo = class Jo extends F {
   constructor() {
     super(), new le(this, ".person");
   }
@@ -21151,7 +21177,7 @@ const Zo = class Zo extends F {
     super.setConfig(e), e.liquid && !this._liquid && (this._liquid = new le(this, ".person", void 0, void 0, () => kt()));
   }
   static getConfigElement() {
-    return de(Rf);
+    return de(Nf);
   }
   static getStubConfig(e) {
     return { people: Object.keys(e.states).filter((t) => t.startsWith("person.")).slice(0, 2).map((t) => ({ entity: t })) };
@@ -21195,7 +21221,7 @@ const Zo = class Zo extends F {
       ${i.show_name || f || P ? p`<div class="info">
             ${i.show_name ? p`<span class="name">${M}</span>` : g}
             ${P ? p`<span class="battery"
-                  ><ha-icon .icon=${Cb(y, x)} style="color:${Y(S)}"></ha-icon>${Math.round(y)}%</span
+                  ><ha-icon .icon=${Db(y, x)} style="color:${Y(S)}"></ha-icon>${Math.round(y)}%</span
                 >` : g}
             ${f ? p`<span class="loc">${h}</span>` : g}
           </div>` : g}
@@ -21238,7 +21264,7 @@ const Zo = class Zo extends F {
     </div>`;
   }
 };
-Zo.parts = Gu, Zo.styles = [
+Jo.parts = Uu, Jo.styles = [
   F.styles,
   we,
   Oe,
@@ -21458,7 +21484,7 @@ Zo.parts = Gu, Zo.styles = [
       }
     `
 ];
-let bl = Zo;
+let bl = Jo;
 ce("glass-people", bl, {
   name: "Glass – people",
   description: "Avatar, location and phone battery for each person."
@@ -21473,7 +21499,7 @@ const rs = class rs extends F {
     }, this._hash = location.hash, new le(this, ".dock:not(.bare)", void 0, void 0, () => kt());
   }
   static getConfigElement() {
-    return de(_b);
+    return de(yb);
   }
   static getStubConfig() {
     return { items: [{ icon: "mdi:lightbulb-group", link: "#lights" }] };
@@ -21520,7 +21546,7 @@ const rs = class rs extends F {
     );
   }
   connectedCallback() {
-    super.connectedCallback(), window.addEventListener("location-changed", this._onNav), window.addEventListener("popstate", this._onNav), window.addEventListener("hashchange", this._onNav), this._unsel = tu(this._onPick), this._onPick();
+    super.connectedCallback(), window.addEventListener("location-changed", this._onNav), window.addEventListener("popstate", this._onNav), window.addEventListener("hashchange", this._onNav), this._unsel = au(this._onPick), this._onPick();
   }
   /**
    * fade: a copy of the wallpaper laid over the page, shown only in a band above the
@@ -21577,7 +21603,7 @@ const rs = class rs extends F {
     </nav>`;
   }
 };
-rs.parts = Wu, rs.properties = { ...F.properties, _hash: { state: !0 }, _picked: { state: !0 } }, rs.styles = [
+rs.parts = Fu, rs.properties = { ...F.properties, _hash: { state: !0 }, _picked: { state: !0 } }, rs.styles = [
   F.styles,
   ee`
       :host {
@@ -21770,7 +21796,7 @@ ce("glass-dock", _l, {
   name: "Glass – dock",
   description: "Navigation buttons on one liquid glass capsule at the bottom."
 });
-const Db = [
+const Pb = [
   "run",
   "running",
   "in_use",
@@ -21808,22 +21834,22 @@ const Db = [
   "cool_down",
   "anti_crease",
   "wrinkle_prevent"
-], Pb = ["pause", "paused", "rinse_hold", "action_required", "actionrequired", "interrupted"], Eb = ["finish", "finished", "end", "ended", "program_ended", "complete", "completed", "done", "end_of_cycle"], oi = (o) => (o ?? "").toLowerCase().replace(/[\s-]+/g, "_"), um = (o, e, t) => {
+], Eb = ["pause", "paused", "rinse_hold", "action_required", "actionrequired", "interrupted"], Lb = ["finish", "finished", "end", "ended", "program_ended", "complete", "completed", "done", "end_of_cycle"], oi = (o) => (o ?? "").toLowerCase().replace(/[\s-]+/g, "_"), mm = (o, e, t) => {
   const a = (e ?? o).match(/^sensor\.(.+?)_washer_(?:machine|job)_state$/)?.[1];
   return {
     machine: e ?? (a ? `sensor.${a}_washer_machine_state` : void 0),
     power: t ?? (a ? `binary_sensor.${a}_power` : void 0)
   };
-}, Lb = (o) => /^sensor\..+_washer_job_state$/.test(o);
+}, Rb = (o) => /^sensor\..+_washer_job_state$/.test(o);
 function Ic(o, e) {
-  const t = um(e.entity, e.machine, e.power), a = o?.states[e.entity];
+  const t = mm(e.entity, e.machine, e.power), a = o?.states[e.entity];
   if (!a) return "off";
   const i = oi(a.state), s = (l, c) => (l ? l.map(oi) : c).includes(i);
   if (e.entity.startsWith("binary_sensor.")) return i === "on" ? "run" : "off";
   const n = parseFloat(a.state);
   if (Number.isFinite(n) && /^(W|kW)$/.test(a.attributes.unit_of_measurement ?? ""))
     return n * (a.attributes.unit_of_measurement === "kW" ? 1e3 : 1) > (e.run_above ?? 5) ? "run" : "off";
-  if (s(e.done_states, Eb)) {
+  if (s(e.done_states, Lb)) {
     const l = o?.states[t.power ?? ""]?.state, c = Date.now() - new Date(a.last_changed).getTime();
     return c < 3 * 36e5 && (l === "on" || l === void 0 && c < 30 * 6e4) ? "done" : "off";
   }
@@ -21833,12 +21859,12 @@ function Ic(o, e) {
     const l = oi(r.state);
     return l === "run" ? "run" : l === "pause" ? "pause" : "off";
   }
-  return s(e.pause_states, Pb) ? "pause" : s(e.run_states, Db) ? "run" : "off";
+  return s(e.pause_states, Eb) ? "pause" : s(e.run_states, Pb) ? "run" : "off";
 }
 const qc = (o) => {
-  const e = um(o.entity, o.machine, o.power);
+  const e = mm(o.entity, o.machine, o.power);
   return [o.entity, e.machine, e.power].filter((t) => !!t);
-}, mm = [
+}, gm = [
   {
     state: ["weight_sensing", "detecting", "sensing", "pre_wash", "prewash", "main_wash", "wash", "washing", "soak", "soaking", "ai_wash", "air_wash", "delay_wash"],
     name: "Washing",
@@ -21851,7 +21877,7 @@ const qc = (o) => {
     name: "Done",
     icon: "mdi:check"
   }
-], gm = (o) => v(o.name), Rb = ["playing", "paused", "on", "buffering"], Nb = ["on", "open", "unlocked"], Ob = [
+], fm = (o) => v(o.name), Nb = ["playing", "paused", "on", "buffering"], Ob = ["on", "open", "unlocked"], Bb = [
   "off",
   "unavailable",
   "unknown",
@@ -21859,22 +21885,22 @@ const qc = (o) => {
   "idle",
   "docked",
   ""
-], Bb = ["mowing", "returning", "paused", "error"], jb = {
+], jb = ["mowing", "returning", "paused", "error"], Ib = {
   mowing: ["mdi:robot-mower", "mowing"],
   returning: ["mdi:home-import-outline", "returning"],
   paused: ["mdi:pause", "paused"],
   error: ["mdi:alert-circle-outline", "error"]
-}, Ib = ["cleaning", "returning", "paused", "error"], qb = {
+}, qb = ["cleaning", "returning", "paused", "error"], Wb = {
   cleaning: ["mdi:play", "cleaning"],
   returning: ["mdi:home-import-outline", "returning"],
   paused: ["mdi:pause", "paused"],
   error: ["mdi:alert-circle-outline", "error"]
-}, Ci = (o) => o && !["unavailable", "unknown", ""].includes(o.state) ? o.state : void 0, Jo = class Jo extends F {
+}, Ci = (o) => o && !["unavailable", "unknown", ""].includes(o.state) ? o.state : void 0, Xo = class Xo extends F {
   constructor() {
     super(), new le(this);
   }
   static getConfigElement() {
-    return de(yb);
+    return de(vb);
   }
   static getStubConfig(e) {
     return { lights: [{ name: "Domov", entities: Object.keys(e.states).filter((a) => a.startsWith("light.")).slice(0, 3) }] };
@@ -21985,11 +22011,11 @@ const qc = (o) => {
       if (h === "washer") {
         const M = Ic(e, { entity: c.entity });
         if (M === "off") continue;
-        const k = oi(d.state), $ = mm.find(
+        const k = oi(d.state), $ = gm.find(
           (N) => (Array.isArray(N.state) ? N.state : [N.state]).includes(k)
         ), C = Date.parse(
           e.states[c.completion ?? this._completionId(c) ?? ""]?.state ?? ""
-        ), T = M === "pause" ? v("Paused") : M === "done" ? v("Washing done") : $ ? gm($) : v("Washing"), P = M === "run" && Number.isFinite(C) && C > Date.now() ? `${v("done at")} ${l.format(new Date(C))}` : "";
+        ), T = M === "pause" ? v("Paused") : M === "done" ? v("Washing done") : $ ? fm($) : v("Washing"), P = M === "run" && Number.isFinite(C) && C > Date.now() ? `${v("done at")} ${l.format(new Date(C))}` : "";
         a.push({
           key: c.entity,
           icon: c.icon ?? "mdi:washing-machine",
@@ -22003,10 +22029,10 @@ const qc = (o) => {
         continue;
       }
       if (h === "mower" || h === "vacuum") {
-        const M = h === "mower" ? Bb : Ib;
+        const M = h === "mower" ? jb : qb;
         if (!(c.active ? ge(c.active, e, c.entity) : M.includes(d.state)))
           continue;
-        const [k, $] = (h === "mower" ? jb : qb)[d.state] ?? ["mdi:dots-horizontal", ""], C = $ ? v($) : d.state, T = parseFloat(Ci(e.states[c.progress ?? ""]) ?? ""), P = parseFloat(Ci(e.states[c.time_left ?? ""]) ?? ""), N = Ci(e.states[c.area ?? ""]), E = u ?? (N && !/not working/i.test(N) ? N : void 0);
+        const [k, $] = (h === "mower" ? Ib : Wb)[d.state] ?? ["mdi:dots-horizontal", ""], C = $ ? v($) : d.state, T = parseFloat(Ci(e.states[c.progress ?? ""]) ?? ""), P = parseFloat(Ci(e.states[c.time_left ?? ""]) ?? ""), N = Ci(e.states[c.area ?? ""]), E = u ?? (N && !/not working/i.test(N) ? N : void 0);
         a.push({
           key: c.entity,
           icon: c.icon ?? (h === "mower" ? "mdi:robot-mower" : "mdi:robot-vacuum"),
@@ -22043,7 +22069,7 @@ const qc = (o) => {
         continue;
       }
       const b = c.entity.split(".")[0];
-      if (!(c.active ? ge(c.active, e, c.entity) : b === "media_player" ? Rb.includes(d.state) : b === "sensor" ? !Ob.includes(d.state) : Nb.includes(d.state))) continue;
+      if (!(c.active ? ge(c.active, e, c.entity) : b === "media_player" ? Nb.includes(d.state) : b === "sensor" ? !Bb.includes(d.state) : Ob.includes(d.state))) continue;
       const _ = c.detail ? e.states[c.detail] : void 0, x = Ci(_), S = b === "media_player" ? [d.attributes.media_title, d.attributes.app_name].find(
         (M) => typeof M == "string" && M
       ) : void 0, z = c.off_action;
@@ -22110,7 +22136,7 @@ const qc = (o) => {
     return this.tile ? p`<div class=${this.tile}>${s}</div>` : s;
   }
 };
-Jo.parts = Fu, Jo.styles = [
+Xo.parts = Hu, Xo.styles = [
   F.styles,
   we,
   Oe,
@@ -22250,12 +22276,12 @@ Jo.parts = Fu, Jo.styles = [
       }
     `
 ];
-let yl = Jo;
+let yl = Xo;
 ce("glass-now", yl, {
   name: "Glass – running now",
   description: "What is on in the whole home, each with a button to switch it off or the state it is in."
 });
-const zt = ["on"], Wb = {
+const zt = ["on"], Fb = {
   light: zt,
   switch: zt,
   input_boolean: zt,
@@ -22273,9 +22299,9 @@ const zt = ["on"], Wb = {
   person: ["home"],
   device_tracker: ["home"],
   alarm_control_panel: ["armed_home", "armed_away", "armed_night", "triggered"]
-}, Fb = { light: "yellow", binary_sensor: "red", lock: "red", alarm_control_panel: "red" };
+}, Hb = { light: "yellow", binary_sensor: "red", lock: "red", alarm_control_panel: "red" };
 function vl(o) {
-  if (!(o.washer === !1 || !o.washer && !Lb(o.entity)))
+  if (!(o.washer === !1 || !o.washer && !Rb(o.entity)))
     return { ...typeof o.washer == "object" ? o.washer : {}, entity: o.entity };
 }
 function jt(o, e, t) {
@@ -22284,13 +22310,13 @@ function jt(o, e, t) {
   const a = vl(o);
   if (a) return Ic(t, a) === "run";
   const i = o.entity.split(".")[0];
-  return o.active_states ? o.active_states.includes(e.state) : i === "climate" ? e.state !== "off" : (Wb[i] ?? []).includes(e.state);
+  return o.active_states ? o.active_states.includes(e.state) : i === "climate" ? e.state !== "off" : (Fb[i] ?? []).includes(e.state);
 }
-function Hb(o) {
+function Gb(o) {
   if (o && (o.state === "opening" || o.state === "closing"))
     return "blink";
 }
-const ih = /* @__PURE__ */ new Map(), Gb = (() => {
+const sh = /* @__PURE__ */ new Map(), Ub = (() => {
   try {
     const o = document.createElement("canvas").getContext("2d");
     return !!o && "filter" in o;
@@ -22298,9 +22324,9 @@ const ih = /* @__PURE__ */ new Map(), Gb = (() => {
     return !1;
   }
 })();
-function fm(o, e, t, a) {
-  if (!Gb || !o || !e) return;
-  const i = `${o}x${e}r${t}f${a}`, s = ih.get(i);
+function bm(o, e, t, a) {
+  if (!Ub || !o || !e) return;
+  const i = `${o}x${e}r${t}f${a}`, s = sh.get(i);
   if (s) return s;
   const n = 0.5, r = document.createElement("canvas");
   r.width = Math.max(1, Math.round(o * n)), r.height = Math.max(1, Math.round(e * n));
@@ -22309,9 +22335,9 @@ function fm(o, e, t, a) {
   const c = a / 2;
   l.filter = `blur(${a / 3 * n}px)`, l.fillStyle = "#000", l.beginPath(), l.roundRect(c, c, o - 2 * c, e - 2 * c, Math.max(0, t - c)), l.fill();
   const d = r.toDataURL("image/png");
-  return ih.set(i, d), d;
+  return sh.set(i, d), d;
 }
-const Xo = class Xo extends F {
+const Qo = class Qo extends F {
   constructor() {
     super(), this._fitRows = 0, this._bgCols = 3, this._page = 0, this._widths = /* @__PURE__ */ new Map(), this._ctxCount = /* @__PURE__ */ new Map(), new le(this), new le(this, ".full .strip.liq", void 0, void 0, (e) => e.closest(".tile")?.querySelector(".pic")), new le(this, ".tile.cmp.liq", void 0, void 0, () => kt()), this._btnsGlass = new le(this, ".full .btns.liq", void 0, void 0, (e) => e.closest(".tile")?.querySelector(".pic"));
   }
@@ -22410,13 +22436,13 @@ const Xo = class Xo extends F {
   _applyPhotoMask() {
     const e = this.shadowRoot?.querySelector(".photo-wrap");
     if (!e) return;
-    const t = parseFloat(getComputedStyle(e).borderTopLeftRadius) || 26, a = Math.min(100, Math.max(0, this._config?.image_fade ?? 50)) / 50, i = fm(Math.round(e.offsetWidth), Math.round(e.offsetHeight), t, Math.max(2, t * 2 * a));
+    const t = parseFloat(getComputedStyle(e).borderTopLeftRadius) || 26, a = Math.min(100, Math.max(0, this._config?.image_fade ?? 50)) / 50, i = bm(Math.round(e.offsetWidth), Math.round(e.offsetHeight), t, Math.max(2, t * 2 * a));
     if (!i) return;
     const s = `url(${i}) 0 0 / 100% 100% no-repeat`;
     e.style.setProperty("-webkit-mask", s), e.style.setProperty("mask", s);
   }
   static getConfigElement() {
-    return de(Bf);
+    return de(jf);
   }
   /** A setting of the nearest panel / dashboard above that has it (their per-device config). */
   _inherited(e) {
@@ -22456,10 +22482,10 @@ const Xo = class Xo extends F {
     if (!ge(e.visible, i, e.entity)) return g;
     const s = i.states[e.entity], n = e.entity.split(".")[0], r = jt(e, s, i), l = {
       ...e,
-      color: e.color ?? (r ? e.active_color ?? this._config?.active_color ?? Fb[n] ?? "blue" : void 0),
+      color: e.color ?? (r ? e.active_color ?? this._config?.active_color ?? Hb[n] ?? "blue" : void 0),
       icon: r && e.icon_active || s && e.state_icons?.[s.state] || e.icon,
-      animation: e.animation ?? Hb(s)
-    }, c = xo(l, e.rules, i, e.entity), d = Pr(c.animation), h = je(c.color), u = Y(c.color), m = Ot(c), f = Ze(
+      animation: e.animation ?? Gb(s)
+    }, c = ko(l, e.rules, i, e.entity), d = Pr(c.animation), h = je(c.color), u = Y(c.color), m = Ot(c), f = Ze(
       () => m,
       (x, S) => $e(this, i, m, x, S)
     ), b = c.name ?? s?.attributes.friendly_name ?? c.entity, y = c.label ? xa(i, { entity: c.entity, text: c.label }).text : "", _ = (c.artwork ?? !1) && r && n === "media_player" ? s?.attributes.entity_picture : void 0;
@@ -22491,7 +22517,7 @@ const Xo = class Xo extends F {
   /** `image:` is a URL, or an image./camera. entity whose picture is used. */
   _imageUrl(e) {
     if (e)
-      return /^(image|camera)\./.test(e) ? this._hass?.states[e]?.attributes.entity_picture : Gp(e);
+      return /^(image|camera)\./.test(e) ? this._hass?.states[e]?.attributes.entity_picture : Up(e);
   }
   /** image-full / compact: "22,1 °C · 2 světla · TV" – the info values, then what is on. */
   _status(e, t, a = []) {
@@ -22511,7 +22537,7 @@ const Xo = class Xo extends F {
   }
   /** image-full and compact: photo, then a strip with name, status and up to three (two) buttons. */
   _renderTile(e, t, a, i) {
-    const s = this._hass, n = e.layout === "compact", r = e.entities ?? [], l = r.filter((z) => ge(z.visible, s, z.entity)).slice(0, e.max_entities ?? (n ? 2 : 3)), c = this._imageUrl(e.image), d = Mg(this) ?? s.states["sun.sun"]?.state === "below_horizon", h = this._status(e, r, [...l, ...e.contextual ?? []]), u = e.bar === "split", m = e.bar_glass ?? this._inherited("bar_glass") ?? pe.bar_glass ?? "liquid", f = !!(e.bar_tint ?? this._inherited("bar_tint")), b = `${m === "liquid" || m === "dark-liquid" ? "liq" : ""} mat-${m} ${f ? "bar-tinted" : ""}`, y = e.buttons === "top-center" || e.buttons === "top-end", _ = (e.contextual ?? []).filter((z) => z.visible ? ge(z.visible, s, z.entity) : jt(z, s.states[z.entity], s)).slice(0, 2).map((z) => ({ ...z, visible: void 0, artwork: z.artwork ?? z.entity.startsWith("media_player.") })), x = l.length || _.length ? p`<div class="entities">${_.map((z, M) => this._button(z, 100 + M, "ctx"))}${l.map((z, M) => this._button(z, M))}</div>` : void 0, S = c ? p`<div class="pic ${t ? "" : "off"}" style="background-image:url('${c}');background-position:${e.image_position ?? "center"}"></div>` : p`<div class="pic none"><ha-icon .icon=${e.icon ?? "mdi:home"}></ha-icon></div>`;
+    const s = this._hass, n = e.layout === "compact", r = e.entities ?? [], l = r.filter((z) => ge(z.visible, s, z.entity)).slice(0, e.max_entities ?? (n ? 2 : 3)), c = this._imageUrl(e.image), d = Tg(this) ?? s.states["sun.sun"]?.state === "below_horizon", h = this._status(e, r, [...l, ...e.contextual ?? []]), u = e.bar === "split", m = e.bar_glass ?? this._inherited("bar_glass") ?? pe.bar_glass ?? "liquid", f = !!(e.bar_tint ?? this._inherited("bar_tint")), b = `${m === "liquid" || m === "dark-liquid" ? "liq" : ""} mat-${m} ${f ? "bar-tinted" : ""}`, y = e.buttons === "top-center" || e.buttons === "top-end", _ = (e.contextual ?? []).filter((z) => z.visible ? ge(z.visible, s, z.entity) : jt(z, s.states[z.entity], s)).slice(0, 2).map((z) => ({ ...z, visible: void 0, artwork: z.artwork ?? z.entity.startsWith("media_player.") })), x = l.length || _.length ? p`<div class="entities">${_.map((z, M) => this._button(z, 100 + M, "ctx"))}${l.map((z, M) => this._button(z, M))}</div>` : void 0, S = c ? p`<div class="pic ${t ? "" : "off"}" style="background-image:url('${c}');background-position:${e.image_position ?? "center"}"></div>` : p`<div class="pic none"><ha-icon .icon=${e.icon ?? "mdi:home"}></ha-icon></div>`;
     return n ? p`<div
         class="surface tile cmp ${b} ${t ? "lit" : ""} ${d ? "night" : ""} ${e.tap_action ? "clickable" : ""}"
         style="${e.button_size ? `--btn-fixed:${e.button_size}px;` : ""}"
@@ -22552,7 +22578,7 @@ const Xo = class Xo extends F {
   }
   render() {
     if (!this._config || !this._hass) return g;
-    const e = this._hass, t = xo(this._config, this._config.rules, e);
+    const e = this._hass, t = ko(this._config, this._config.rules, e);
     if (t.layout === "image-full" || t.layout === "compact") {
       const E = { tap_action: t.tap_action, hold_action: t.hold_action, double_tap_action: t.double_tap_action }, L = Ze(
         () => E,
@@ -22623,7 +22649,7 @@ const Xo = class Xo extends F {
     </div>`;
   }
 };
-Xo.parts = ju, Xo.styles = [
+Qo.parts = Iu, Qo.styles = [
   F.styles,
   we,
   Oe,
@@ -23413,12 +23439,12 @@ Xo.parts = ju, Xo.styles = [
       }
     `
 ];
-let wl = Xo;
+let wl = Qo;
 ce("glass-room-card", wl, {
   name: "Glass – room",
   description: "Room icon or photo with entity buttons, custom colors, icons and animations."
 });
-const sh = j`<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+const oh = j`<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <radialGradient id="wi-sun" cx="40%" cy="35%" r="70%">
       <stop offset="0" stop-color="#fff3b0"/><stop offset=".45" stop-color="#ffd60a"/><stop offset="1" stop-color="#ff9f0a"/>
@@ -23434,30 +23460,30 @@ const sh = j`<svg width="0" height="0" style="position:absolute" aria-hidden="tr
       <feDropShadow dx="0" dy="2.5" stdDeviation="2.2" flood-color="#1b2a4a" flood-opacity=".22"/>
     </filter>
   </defs>
-</svg>`, Ub = "M19 47h27a10 10 0 0 0 1.3-19.9A14 14 0 0 0 20.6 24.4 11.4 11.4 0 0 0 19 47z", oh = (o = "") => j`<g transform=${o}>
+</svg>`, Kb = "M19 47h27a10 10 0 0 0 1.3-19.9A14 14 0 0 0 20.6 24.4 11.4 11.4 0 0 0 19 47z", nh = (o = "") => j`<g transform=${o}>
   <g class="rays">${[0, 45, 90, 135, 180, 225, 270, 315].map(
   (e) => j`<rect x="30.6" y="6" width="2.8" height="8" rx="1.4" fill="url(#wi-ray)" transform="rotate(${e} 32 32)"/>`
 )}</g>
   <circle cx="32" cy="32" r="12.5" fill="url(#wi-sun)" filter="url(#wi-soft)"/>
 </g>`, qn = (o = "") => j`<g transform=${o}><g class="moon">
   <path d="M38.5 14.5a17 17 0 1 0 11 27.8A14 14 0 0 1 38.5 14.5z" fill="url(#wi-moon)" filter="url(#wi-soft)"/>
-</g></g>`, Je = (o = "wi-cloud", e = "", t = "cloud") => j`<g transform=${e}><g class=${t}><path d=${Ub} fill="url(#${o})" filter="url(#wi-soft)"/></g></g>`, js = (o) => j`<g class="drops">${Array.from({ length: o }, (e, t) => {
+</g></g>`, Je = (o = "wi-cloud", e = "", t = "cloud") => j`<g transform=${e}><g class=${t}><path d=${Kb} fill="url(#${o})" filter="url(#wi-soft)"/></g></g>`, Is = (o) => j`<g class="drops">${Array.from({ length: o }, (e, t) => {
   const a = 22 + t * (20 / Math.max(1, o - 1));
   return j`<path class="drop" style="animation-delay:${t * 0.23}s" d="M${a} 50.5l-2 5.5a2.1 2.1 0 1 0 4 0z" fill="url(#wi-drop)"/>`;
 })}</g>`, Wn = (o) => j`<g class="flakes">${Array.from({ length: o }, (e, t) => {
   const a = 23 + t * (18 / Math.max(1, o - 1));
   return j`<circle class="flake" style="animation-delay:${t * 0.4}s" cx=${a} cy="54" r="2.1" fill="#fff" stroke="#c7d6ea" stroke-width=".6"/>`;
-})}</g>`, nh = j`<path class="bolt" d="M33 44l-6 10h5l-3 8 9-12h-5l3-6z" fill="url(#wi-bolt)" filter="url(#wi-soft)"/>`, Kb = j`<g class="fog" stroke="#e8eef6" stroke-width="3" stroke-linecap="round">
+})}</g>`, rh = j`<path class="bolt" d="M33 44l-6 10h5l-3 8 9-12h-5l3-6z" fill="url(#wi-bolt)" filter="url(#wi-soft)"/>`, Vb = j`<g class="fog" stroke="#e8eef6" stroke-width="3" stroke-linecap="round">
   <line x1="14" y1="51" x2="50" y2="51"/><line x1="18" y1="57" x2="46" y2="57"/>
-</g>`, rh = j`<g class="wind" fill="none" stroke="#eef4fb" stroke-width="3" stroke-linecap="round">
+</g>`, lh = j`<g class="wind" fill="none" stroke="#eef4fb" stroke-width="3" stroke-linecap="round">
   <path d="M10 26h28a6 6 0 1 0-6-6"/><path d="M10 34h38a6 6 0 1 1-6 6"/><path d="M10 42h18"/>
 </g>`;
 function Fn(o, e = !1) {
   let t;
-  const a = (i) => e ? qn(i) : oh(i);
+  const a = (i) => e ? qn(i) : nh(i);
   switch (o) {
     case "sunny":
-      t = e ? qn() : oh();
+      t = e ? qn() : nh();
       break;
     case "clear-night":
       t = qn();
@@ -23469,41 +23495,41 @@ function Fn(o, e = !1) {
       t = j`${Je("wi-cloud-back", "translate(9 -7) scale(.8)", "cloud back")}${Je("wi-cloud", "translate(-2 2)")}`;
       break;
     case "fog":
-      t = j`${Je("wi-cloud", "translate(0 -6)")}${Kb}`;
+      t = j`${Je("wi-cloud", "translate(0 -6)")}${Vb}`;
       break;
     case "rainy":
-      t = j`${Je("wi-cloud", "translate(0 -6)")}${js(3)}`;
+      t = j`${Je("wi-cloud", "translate(0 -6)")}${Is(3)}`;
       break;
     case "pouring":
-      t = j`${Je("wi-cloud-dark", "translate(0 -6)")}${js(5)}`;
+      t = j`${Je("wi-cloud-dark", "translate(0 -6)")}${Is(5)}`;
       break;
     case "snowy":
       t = j`${Je("wi-cloud", "translate(0 -6)")}${Wn(3)}`;
       break;
     case "snowy-rainy":
-      t = j`${Je("wi-cloud", "translate(0 -6)")}${js(2)}${Wn(2)}`;
+      t = j`${Je("wi-cloud", "translate(0 -6)")}${Is(2)}${Wn(2)}`;
       break;
     case "hail":
       t = j`${Je("wi-cloud-dark", "translate(0 -6)")}${Wn(4)}`;
       break;
     case "lightning":
-      t = j`${Je("wi-cloud-dark", "translate(0 -8)")}${nh}`;
+      t = j`${Je("wi-cloud-dark", "translate(0 -8)")}${rh}`;
       break;
     case "lightning-rainy":
-      t = j`${Je("wi-cloud-dark", "translate(0 -8)")}${js(2)}${nh}`;
+      t = j`${Je("wi-cloud-dark", "translate(0 -8)")}${Is(2)}${rh}`;
       break;
     case "windy":
-      t = rh;
+      t = lh;
       break;
     case "windy-variant":
-      t = j`${Je("wi-cloud", "translate(4 -8) scale(.85)")}${rh}`;
+      t = j`${Je("wi-cloud", "translate(4 -8) scale(.85)")}${lh}`;
       break;
     default:
       t = j`<circle cx="32" cy="32" r="14" fill="none" stroke="#fff" stroke-width="3"/><path d="M32 24v10M32 38v2" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`;
   }
   return j`<svg class="wi" viewBox="0 0 64 64" role="img" aria-label=${o ?? ""}>${t}</svg>`;
 }
-const Vb = ee`
+const Yb = ee`
   .wi {
     display: block;
     width: 100%;
@@ -23762,7 +23788,7 @@ const Vb = ee`
       <stop offset="0" stop-color="#f6d8ff"/><stop offset="1" stop-color="#b44dff"/>
     </linearGradient>
   </defs>
-</svg>`, lh = (o = "") => j`<g transform=${o}>
+</svg>`, ch = (o = "") => j`<g transform=${o}>
   <g class="halo"><circle cx="50" cy="50" r="40" fill="url(#gs-fire)" filter="url(#gs-flame)"/></g>
   <circle cx="50" cy="50" r="24" fill="url(#gs-ball)"/>
   <circle cx="50" cy="50" r="17" fill="none" stroke="#fff3b0" stroke-opacity=".28" stroke-width="1.2"/>
@@ -23774,13 +23800,13 @@ const Vb = ee`
     <ellipse cx="50" cy="37" rx="16" ry="9" fill="url(#gs-gloss)" opacity=".7"/>
     <circle cx="40" cy="60" r="4" fill="#bfe9ff" opacity=".18"/>
   </g>
-</g>`, ch = "M22 70c-8 0-12-6-10-12 2-5 7-7 12-6 0-9 8-15 16-13 3-9 12-14 21-11 8 2 13 10 12 18 7-1 13 4 13 11 0 7-6 13-13 13z", Xe = (o = "", e = !1, t = "cloud") => j`<g transform=${o}><g class=${t}>
-  <path d=${ch} fill=${e ? "#3c4252" : "#7d8698"} opacity=".4" filter="url(#gc-mist)" transform="translate(0 4)"/>
-  <path d=${ch} fill=${e ? "url(#gc-shade-dark)" : "url(#gc-shade)"} filter="url(#gc-soft)"/>
+</g>`, dh = "M22 70c-8 0-12-6-10-12 2-5 7-7 12-6 0-9 8-15 16-13 3-9 12-14 21-11 8 2 13 10 12 18 7-1 13 4 13 11 0 7-6 13-13 13z", Xe = (o = "", e = !1, t = "cloud") => j`<g transform=${o}><g class=${t}>
+  <path d=${dh} fill=${e ? "#3c4252" : "#7d8698"} opacity=".4" filter="url(#gc-mist)" transform="translate(0 4)"/>
+  <path d=${dh} fill=${e ? "url(#gc-shade-dark)" : "url(#gc-shade)"} filter="url(#gc-soft)"/>
   <g fill="#fff" opacity=${e ? 0.35 : 0.9} filter="url(#gc-hl)">
     <ellipse cx="57" cy="40" rx="11" ry="7"/><ellipse cx="40" cy="47" rx="9" ry="5.5"/><ellipse cx="72" cy="53" rx="7" ry="4.5"/>
   </g>
-</g></g>`, Is = (o, e = !1) => j`<g class="drops">${Array.from({ length: o }, (t, a) => {
+</g></g>`, qs = (o, e = !1) => j`<g class="drops">${Array.from({ length: o }, (t, a) => {
   const i = 34 + a * (32 / Math.max(1, o - 1)), s = 72 + a % 2 * 6;
   return j`<g class="drop" style="animation-delay:${a * 0.21}s">
       <path d="M${i} ${s}c-3.9 6-6 9.6-6 12.6a6 6 0 0 0 12 0c0-3-2.1-6.6-6-12.6z" fill="url(#wr-drop)" opacity=${e ? 0.97 : 0.93} filter="url(#wr-shadow)"/>
@@ -23791,19 +23817,19 @@ const Vb = ee`
   return e ? j`<circle class="flake" style="animation-delay:${a * 0.3}s" cx=${i} cy=${s} r="3.2" fill="#f4f9ff" stroke="#b8c9e0" stroke-width=".8"/>` : j`<g class="flake" style="animation-delay:${a * 0.4}s" stroke="#fff" stroke-width="1.1" stroke-linecap="round" filter="url(#wr-glow)">
           ${[0, 60, 120].map((n) => j`<line x1=${i - 3.4} y1=${s} x2=${i + 3.4} y2=${s} transform="rotate(${n} ${i} ${s})"/>`)}
         </g>`;
-})}</g>`, dh = j`<g class="bolt" fill="none" stroke="url(#gb-bolt)" stroke-linecap="round" stroke-linejoin="round" filter="url(#wr-glow)">
+})}</g>`, hh = j`<g class="bolt" fill="none" stroke="url(#gb-bolt)" stroke-linecap="round" stroke-linejoin="round" filter="url(#wr-glow)">
   <path d="M52 58l-7 13 8 3-10 18" stroke-width="3"/><path d="M45 71l-8 7" stroke-width="1.8"/><path d="M53 74l8 8" stroke-width="1.6"/><path d="M47 83l-5 3" stroke-width="1.2"/>
-</g>`, Yb = j`<g class="fog" filter="url(#wr-blur)" stroke="#f2f6fb" stroke-linecap="round" stroke-width="4.5" opacity=".9">
+</g>`, Zb = j`<g class="fog" filter="url(#wr-blur)" stroke="#f2f6fb" stroke-linecap="round" stroke-width="4.5" opacity=".9">
   <line x1="20" y1="78" x2="80" y2="78"/><line x1="28" y1="88" x2="72" y2="88"/>
-</g>`, hh = j`<g class="wind" fill="none" stroke="#f2f6fb" stroke-width="4.5" stroke-linecap="round" opacity=".92" filter="url(#wr-shadow)">
+</g>`, ph = j`<g class="wind" fill="none" stroke="#f2f6fb" stroke-width="4.5" stroke-linecap="round" opacity=".92" filter="url(#wr-shadow)">
   <path d="M14 42h44a9 9 0 1 0-9-9"/><path d="M14 56h58a9 9 0 1 1-9 9"/><path d="M14 70h28"/>
 </g>`;
-function bm(o, e = !1) {
+function _m(o, e = !1) {
   let t;
-  const a = (i) => e ? Hn(i) : lh(i);
+  const a = (i) => e ? Hn(i) : ch(i);
   switch (o) {
     case "sunny":
-      t = e ? Hn() : lh();
+      t = e ? Hn() : ch();
       break;
     case "clear-night":
       t = Hn();
@@ -23815,34 +23841,34 @@ function bm(o, e = !1) {
       t = j`${Xe("translate(24 -4) scale(.72)", !1, "cloud back")}${Xe("translate(0 12)")}`;
       break;
     case "fog":
-      t = j`${Xe("translate(0 -4)")}${Yb}`;
+      t = j`${Xe("translate(0 -4)")}${Zb}`;
       break;
     case "rainy":
-      t = j`${Xe("translate(0 -6)")}${Is(3)}`;
+      t = j`${Xe("translate(0 -6)")}${qs(3)}`;
       break;
     case "pouring":
-      t = j`${Xe("translate(0 -8)", !0)}${Is(5, !0)}`;
+      t = j`${Xe("translate(0 -8)", !0)}${qs(5, !0)}`;
       break;
     case "snowy":
       t = j`${Xe("translate(0 -6)")}${Gn(3)}`;
       break;
     case "snowy-rainy":
-      t = j`${Xe("translate(0 -6)")}${Is(2)}${Gn(2)}`;
+      t = j`${Xe("translate(0 -6)")}${qs(2)}${Gn(2)}`;
       break;
     case "hail":
       t = j`${Xe("translate(0 -8)", !0)}${Gn(4, !0)}`;
       break;
     case "lightning":
-      t = j`${Xe("translate(0 -10)", !0)}${dh}`;
+      t = j`${Xe("translate(0 -10)", !0)}${hh}`;
       break;
     case "lightning-rainy":
-      t = j`${Xe("translate(0 -10)", !0)}${Is(2, !0)}${dh}`;
+      t = j`${Xe("translate(0 -10)", !0)}${qs(2, !0)}${hh}`;
       break;
     case "windy":
-      t = hh;
+      t = ph;
       break;
     case "windy-variant":
-      t = j`${Xe("translate(10 -12) scale(.8)")}${hh}`;
+      t = j`${Xe("translate(10 -12) scale(.8)")}${ph}`;
       break;
     default:
       t = j`<circle cx="50" cy="50" r="22" fill="none" stroke="#fff" stroke-width="4"/><path d="M50 38v15M50 59v3" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`;
@@ -23868,7 +23894,7 @@ function Un(o, e = !1) {
     "windy-variant": "mdi:weather-windy-variant"
   }[o ?? ""] ?? "mdi:weather-cloudy";
 }
-const _m = ee`
+const ym = ee`
   .wi3d {
     width: 100%;
     height: 100%;
@@ -23965,8 +23991,8 @@ const _m = ee`
       animation: none !important;
     }
   }
-`, Oa = (o) => o.mm >= 0.1, ph = (o) => o.charAt(0).toUpperCase() + o.slice(1), Kn = { daily: 1, hourly: 2, twice_daily: 4 };
-function uh(o) {
+`, Oa = (o) => o.mm >= 0.1, uh = (o) => o.charAt(0).toUpperCase() + o.slice(1), Kn = { daily: 1, hourly: 2, twice_daily: 4 };
+function mh(o) {
   const e = /* @__PURE__ */ new Map();
   for (const t of o) {
     const a = new Date(t.datetime), i = `${a.getFullYear()}-${a.getMonth()}-${a.getDate()}`;
@@ -23997,7 +24023,7 @@ function Vn(o) {
   }
   return `rgb(${ha[ha.length - 1][1].join(",")})`;
 }
-const mh = {
+const gh = {
   humidity: "mdi:water-percent",
   wind_speed: "mdi:weather-windy",
   pressure: "mdi:gauge",
@@ -24011,12 +24037,12 @@ const mh = {
   wind_gust_speed: "mdi:weather-windy-variant",
   sunrise: "mdi:weather-sunset-up",
   sunset: "mdi:weather-sunset-down"
-}, Zb = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"], ls = class ls extends F {
+}, Jb = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"], ls = class ls extends F {
   constructor() {
     super(), this._unsubs = [], this._monoRo = new ResizeObserver(() => this.hasUpdated && this._mono !== this._wasMono && this.requestUpdate()), new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(If);
+    return de(qf);
   }
   static getStubConfig(e) {
     return { weather: Object.keys(e.states).find((t) => t.startsWith("weather.")) ?? "weather.home" };
@@ -24154,7 +24180,7 @@ const mh = {
       const i = Y(this._config.icons?.weather?.color);
       return p`<ha-icon class="mdi" .icon=${Un(e, t)} style=${i ? `color:${i}` : ""}></ha-icon>`;
     }
-    return a === "flat" ? Fn(e, t) : bm(e, t);
+    return a === "flat" ? Fn(e, t) : _m(e, t);
   }
   _clock(e) {
     const t = this._config, a = /* @__PURE__ */ new Date(), i = Ce(this._hass) ?? !1, s = new Intl.DateTimeFormat(e, {
@@ -24171,7 +24197,7 @@ const mh = {
   _now(e, t, a) {
     const i = this._config, s = i.temperature_entity ? e.states[i.temperature_entity] : void 0, n = s && !gi(s) ? Number(s.state) : Number(t.attributes.temperature), r = t.attributes.temperature_unit ?? s?.attributes.unit_of_measurement ?? "°C", l = Number.isNaN(n) ? "–" : new Intl.NumberFormat(a, { maximumFractionDigits: i.temperature_decimals ?? 0 }).format(n);
     let c = this._condText(e, t);
-    const d = this._forecasts, h = d?.daily?.[0] ?? (d?.twice_daily ?? d?.hourly ? uh(d.twice_daily ?? d.hourly)[0] : void 0), u = i.show_icon !== !1, m = i.show_temperature !== !1, f = i.show_condition !== !1;
+    const d = this._forecasts, h = d?.daily?.[0] ?? (d?.twice_daily ?? d?.hourly ? mh(d.twice_daily ?? d.hourly)[0] : void 0), u = i.show_icon !== !1, m = i.show_temperature !== !1, f = i.show_condition !== !1;
     if (!u && !m && !f) return g;
     if (i.now_style === "line") {
       const b = i.rain_nowcast ? this._rainInfo(e, a) : void 0, y = b?.text;
@@ -24204,13 +24230,13 @@ const mh = {
       cloud_coverage: "%",
       dew_point: t.attributes.temperature_unit,
       apparent_temperature: t.attributes.temperature_unit
-    }, r = this._config.details_columns, l = (c) => p`<ha-icon .icon=${mh[c] ?? "mdi:information-outline"}></ha-icon>`;
+    }, r = this._config.details_columns, l = (c) => p`<ha-icon .icon=${gh[c] ?? "mdi:information-outline"}></ha-icon>`;
     return p`<div class="details ${r ? "cols" : ""}" style=${r ? `--cols:${r}` : ""}>
       ${i.map((c) => {
       if (c === "wind") {
         const u = t.attributes.wind_speed;
         if (u == null) return g;
-        const m = t.attributes.wind_bearing, f = typeof m == "number" ? v(`compass.${Zb[Math.round(m / 45) % 8]}`) : "";
+        const m = t.attributes.wind_bearing, f = typeof m == "number" ? v(`compass.${Jb[Math.round(m / 45) % 8]}`) : "";
         return p`<span>${l(c)}${f ? p`<ha-icon class="arrow" icon="mdi:navigation" style="transform:rotate(${m + 180}deg)"></ha-icon>${f}&nbsp;` : g}${s.format(u)}<small>${n[c] ?? ""}</small></span>`;
       }
       if (c === "sunrise" || c === "sunset") {
@@ -24222,18 +24248,18 @@ const mh = {
       let d = t.attributes[c];
       if (c === "precipitation" && d === void 0 && (d = (this._forecasts?.hourly ?? this._forecasts?.daily)?.[0]?.precipitation), d == null) return g;
       const h = typeof d == "number" ? s.format(d) : d;
-      return p`<span><ha-icon .icon=${mh[c] ?? "mdi:information-outline"}></ha-icon>${h}${n[c] ? p`<small>${n[c]}</small>` : g}</span>`;
+      return p`<span><ha-icon .icon=${gh[c] ?? "mdi:information-outline"}></ha-icon>${h}${n[c] ? p`<small>${n[c]}</small>` : g}</span>`;
     })}
     </div>`;
   }
   _forecastRows(e, t, a, i) {
-    const s = this._config, n = Date.now(), r = this._forecasts, c = (r?.[a] ?? (a === "daily" && (r?.twice_daily ?? r?.hourly) ? uh(r.twice_daily ?? r.hourly) : [])).filter((z) => new Date(z.datetime).getTime() > (a === "hourly" ? n : n - 864e5)).slice(0, i);
+    const s = this._config, n = Date.now(), r = this._forecasts, c = (r?.[a] ?? (a === "daily" && (r?.twice_daily ?? r?.hourly) ? mh(r.twice_daily ?? r.hourly) : [])).filter((z) => new Date(z.datetime).getTime() > (a === "hourly" ? n : n - 864e5)).slice(0, i);
     if (!c.length) return g;
     const d = c.flatMap((z) => [z.temperature, z.templow ?? z.temperature]), h = Math.min(...d), u = Math.max(...d), m = Math.max(1, u - h), f = (z) => (z - h) / m * 100, b = a === "hourly" ? new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: Ce(e) }) : new Intl.DateTimeFormat(t, { weekday: "short" });
     if (s.forecast_style === "text")
       return p`<div class="forecast-text">
         ${c.map(
-        (z) => p`<div class="row"><span>${ph(b.format(new Date(z.datetime)))}</span><span class="t">${z.templow !== void 0 ? p`${Math.round(z.templow)}° / ` : g}${Math.round(z.temperature)}°</span></div>`
+        (z) => p`<div class="row"><span>${uh(b.format(new Date(z.datetime)))}</span><span class="t">${z.templow !== void 0 ? p`${Math.round(z.templow)}° / ` : g}${Math.round(z.temperature)}°</span></div>`
       )}
       </div>`;
     const y = this._mono, _ = y || this._config.bar_style === "single";
@@ -24242,7 +24268,7 @@ const mh = {
         ${c.map((z) => {
         const M = new Date(z.datetime), k = z.is_daytime === void 0 ? a === "hourly" && this._isNight(e, M) : !z.is_daytime, $ = Y(s.icons?.forecast?.color ?? s.icons?.weather?.color);
         return p`<div class="col">
-            <span class="when">${ph(b.format(M))}</span>
+            <span class="when">${uh(b.format(M))}</span>
             <span class="mini-icon"
               >${y || s.icon_style === "mdi" ? p`<ha-icon class="mdi" .icon=${Un(z.condition, k)} style=${$ ? `color:${$}` : ""}></ha-icon>` : Fn(z.condition, k)}</span
             >
@@ -24280,7 +24306,7 @@ const mh = {
   _compact(e, t, a, i) {
     if (!t) return p`<div class="missing">${this._config.weather}?</div>`;
     const s = this._config, n = s.temperature_entity ? e.states[s.temperature_entity] : void 0, r = n && !gi(n) ? Number(n.state) : Number(t.attributes.temperature), l = t.attributes.temperature_unit ?? "°C", c = Number.isNaN(r) ? "–" : new Intl.NumberFormat(a, { maximumFractionDigits: s.temperature_decimals ?? 0 }).format(r);
-    return p`${sh}${xl}
+    return p`${oh}${xl}
       <div class="compact" role="button" tabindex="0" @pointerdown=${i.down} @pointerup=${i.up} @pointercancel=${i.cancel} @keydown=${i.key}>
         <div class="c-icon ${s.animated_icons === !1 ? "" : "animated"}">${this._bigIcon(t.state, this._isNight(e))}</div>
         <div class="c-text">
@@ -24298,7 +24324,7 @@ const mh = {
     if (t.variant === "compact") return this._compact(e, a, i, n);
     const r = (c, d) => c && c !== "none" ? `${d}:${Y(c)};` : "", l = r(t.bar_color, "--glass-bar-mono") + r(t.track_color, "--glass-bar-track") + r(t.precip_color, "--cw-precip") + r(t.rain_color, "--cw-rain") + r(t.divider_color, "--glass-divider-color") + (t.divider_size ? `--glass-divider-size:${t.divider_size}px;` : "");
     return p`<div class="frame ${t.glass === "none" ? "flat" : "surface"}" style=${l}>
-      ${sh}${xl} ${t.show_clock === !1 ? g : this._clock(i)}
+      ${oh}${xl} ${t.show_clock === !1 ? g : this._clock(i)}
       ${t.show_weather === !1 ? g : a ? p`<div class="weather" role="button" tabindex="0" @pointerdown=${n.down} @pointerup=${n.up} @pointercancel=${n.cancel} @keydown=${n.key}>
             ${t.show_clock !== !1 && t.divider ? p`<hr />` : g} ${this._now(e, a, i)}
             ${t.rain_nowcast ? this._rain(e, i, t.now_style !== "line") : g}
@@ -24308,11 +24334,11 @@ const mh = {
     </div>`;
   }
 };
-ls.parts = Yu, ls.properties = { ...F.properties, _forecasts: { state: !0 }, _nowcast: { state: !0 } }, ls.styles = [
+ls.parts = Zu, ls.properties = { ...F.properties, _forecasts: { state: !0 }, _nowcast: { state: !0 } }, ls.styles = [
   F.styles,
   we,
-  Vb,
-  _m,
+  Yb,
+  ym,
   ee`
       .big-icon ha-icon.mdi,
       .c-icon ha-icon.mdi {
@@ -24729,7 +24755,7 @@ ce("glass-clock-weather", kl, {
 });
 const cs = class cs extends F {
   static getConfigElement() {
-    return de(Wf);
+    return de(Ff);
   }
   static getStubConfig() {
     return {};
@@ -24755,7 +24781,7 @@ const cs = class cs extends F {
     ></div>`;
   }
 };
-cs.wrapTile = !0, cs.parts = em, cs.styles = [
+cs.wrapTile = !0, cs.parts = tm, cs.styles = [
   F.styles,
   ee`
       :host {
@@ -25216,7 +25242,7 @@ actions:
         target:
           entity_id: "{{ ringing_entity }}"
 `, Te = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], $s = ["mon", "tue", "wed", "thu", "fri"], Da = ["sat", "sun"];
-function ym(o) {
+function vm(o) {
   const e = (o ?? "").toLowerCase().trim();
   if (!e || e === "once" || e === "unknown" || e === "unavailable") return;
   if (e === "daily" || e === "every day" || e === "all") return new Set(Te);
@@ -25229,10 +25255,10 @@ function ym(o) {
   }
   return t.size ? t : void 0;
 }
-const lo = (o) => o?.size ? Te.filter((e) => o.has(e)).join(",") : "once", ni = (o, e) => !!o && o.size === e.length && e.every((t) => o.has(t)), gh = (o) => Te[(o.getDay() + 6) % 7], vm = (o) => `${o.getFullYear()}-${String(o.getMonth() + 1).padStart(2, "0")}-${String(o.getDate()).padStart(2, "0")}`, Jb = new Set(
+const co = (o) => o?.size ? Te.filter((e) => o.has(e)).join(",") : "once", ni = (o, e) => !!o && o.size === e.length && e.every((t) => o.has(t)), fh = (o) => Te[(o.getDay() + 6) % 7], wm = (o) => `${o.getFullYear()}-${String(o.getMonth() + 1).padStart(2, "0")}-${String(o.getDate()).padStart(2, "0")}`, Xb = new Set(
   "AD AL AM AT AZ BA BE BG BY CH CY CZ DE DK EE ES FI FO FR GB GE GG GI GR HR HU IE IM IS IT JE LI LT LU LV MC MD ME MK MT NL NO PL PT RO RS RU SE SI SK SM TR UA VA XK".split(" ")
 );
-function Xb(o) {
+function Qb(o) {
   const e = o?.locale?.first_weekday;
   if (e && e !== "language") {
     const i = Te.find((s) => e.startsWith(s));
@@ -25240,7 +25266,7 @@ function Xb(o) {
   }
   if (o?.config?.time_zone?.startsWith("Europe/")) return "mon";
   const t = o?.config?.country?.toUpperCase();
-  if (t && Jb.has(t)) return "mon";
+  if (t && Xb.has(t)) return "mon";
   const a = be(o);
   try {
     const i = new Intl.Locale(a), s = i.getWeekInfo?.().firstDay ?? i.weekInfo?.firstDay;
@@ -25250,45 +25276,45 @@ function Xb(o) {
   return a === "en" || a === "en-US" ? "sun" : "mon";
 }
 function ri(o) {
-  const e = Te.indexOf(Xb(o));
+  const e = Te.indexOf(Qb(o));
   return [...Te.slice(e), ...Te.slice(0, e)];
 }
 function Ss(o, e, t = "short") {
   const a = new Intl.DateTimeFormat(be(o), { weekday: t }).format(new Date(2024, 0, 1 + Te.indexOf(e)));
   return a.charAt(0).toUpperCase() + a.slice(1);
 }
-function Qb(o, e) {
+function e_(o, e) {
   return e ? ni(e, Te) ? v("Every day") : ni(e, $s) ? v("Weekdays") : ni(e, Da) ? v("Weekends") : ri(o).filter((t) => e.has(t)).map((t) => Ss(o, t)).join(", ") : v("Once");
 }
 function Wc(o) {
   return Ce(o) ?? new Intl.DateTimeFormat(be(o), { hour: "numeric" }).resolvedOptions().hour12 ?? !1;
 }
-function wm(o, e, t) {
+function xm(o, e, t) {
   const a = String(t).padStart(2, "0");
   return Wc(o) ? { time: `${e % 12 === 0 ? 12 : e % 12}:${a}`, ap: v(e < 12 ? "AM" : "PM") } : { time: `${String(e).padStart(2, "0")}:${a}` };
 }
-function xm(o, e) {
+function km(o, e) {
   const t = o?.states[e], a = /^(\d{1,2}):(\d{2})/.exec(t?.state ?? "");
   if (a) return [Number(a[1]), Number(a[2])];
   const i = t?.attributes;
   return typeof i?.hour == "number" ? [i.hour, i.minute ?? 0] : void 0;
 }
-const km = (o) => !!o && o.size < 7 && Da.some((e) => o.has(e));
-function e_(o, e, t, a) {
+const $m = (o) => !!o && o.size < 7 && Da.some((e) => o.has(e));
+function t_(o, e, t, a) {
   if (!o) return;
-  const i = /* @__PURE__ */ new Date(), s = km(t);
+  const i = /* @__PURE__ */ new Date(), s = $m(t);
   let n;
   for (let r = 0; r < 15; r++) {
     const l = new Date(i.getFullYear(), i.getMonth(), i.getDate() + r, o[0], o[1]);
     if (l <= i) continue;
     if (!t) return { at: l };
-    const c = a?.get(vm(l));
+    const c = a?.get(wm(l));
     if (s) {
-      if (t.has(gh(l))) return { at: l };
+      if (t.has(fh(l))) return { at: l };
       if (c) return { at: l, dayOff: c };
       continue;
     }
-    if (t.has(gh(l))) {
+    if (t.has(fh(l))) {
       if (c) {
         n ??= { date: l, name: c };
         continue;
@@ -25297,10 +25323,10 @@ function e_(o, e, t, a) {
     }
   }
 }
-const fh = /* @__PURE__ */ new Map();
-function t_(o, e, t) {
+const bh = /* @__PURE__ */ new Map();
+function a_(o, e, t) {
   if (!e || !o?.callApi) return;
-  const a = fh.get(e);
+  const a = bh.get(e);
   if (a && (a.pending || Date.now() - a.at < 36e5))
     return a.pending?.then(t), a.days;
   const i = /* @__PURE__ */ new Date();
@@ -25312,29 +25338,29 @@ function t_(o, e, t) {
       const h = d.start.date, u = d.end.date;
       if (!h) continue;
       const m = /* @__PURE__ */ new Date(`${h}T00:00:00`), f = u && u > h ? /* @__PURE__ */ new Date(`${u}T00:00:00`) : new Date(m.getTime() + 864e5);
-      for (; m < f; m.setDate(m.getDate() + 1)) c.set(vm(m), d.summary);
+      for (; m < f; m.setDate(m.getDate() + 1)) c.set(wm(m), d.summary);
     }
     return r.days = c, r.pending = void 0, c;
-  }).catch(() => (r.at = 0, r.pending = void 0, r.days)), fh.set(e, r), r.pending.then(t), r.days;
+  }).catch(() => (r.at = 0, r.pending = void 0, r.days)), bh.set(e, r), r.pending.then(t), r.days;
 }
-function a_(o, e, t) {
-  const a = co(e);
+function i_(o, e, t) {
+  const a = ho(e);
   if (!a.length) return;
   const i = /* @__PURE__ */ new Map();
-  for (const s of a) for (const [n, r] of t_(o, s, t) ?? []) i.has(n) || i.set(n, r);
+  for (const s of a) for (const [n, r] of a_(o, s, t) ?? []) i.has(n) || i.set(n, r);
   return i;
 }
-const co = (o) => (Array.isArray(o) ? o : o ? [o] : []).filter((e) => typeof e == "string" && e.startsWith("calendar."));
+const ho = (o) => (Array.isArray(o) ? o : o ? [o] : []).filter((e) => typeof e == "string" && e.startsWith("calendar."));
 function Qt() {
   const o = import.meta.url;
   return new URL("./sound-birds.mp3", o).pathname;
 }
-function $m(o) {
+function Sm(o) {
   return !o || o === Qt() || /sound-birds\.mp3$/.test(o) ? v("Birds") : decodeURIComponent(o.split(/[/?#]/).filter(Boolean).pop() ?? o).replace(/\.(mp3|ogg|wav|m4a|flac|aac)$/i, "");
 }
-const bn = "glass_alarm_", Fc = "glass-cards/glass_alarm.yaml";
+const _n = "glass_alarm_", Fc = "glass-cards/glass_alarm.yaml";
 function ea(o) {
-  const e = `${bn}${o}`;
+  const e = `${_n}${o}`;
   return {
     entity: `input_datetime.${e}_time`,
     switch: `input_boolean.${e}`,
@@ -25347,7 +25373,7 @@ function ea(o) {
     snooze: `input_datetime.${e}_snooze`
   };
 }
-async function Sm(o, e) {
+async function zm(o, e) {
   const t = `Glass alarm ${e}`, a = ea(e);
   o.states[a.ringing] || await o.callWS({ type: "input_boolean/create", name: `${t} ringing`, icon: "mdi:alarm-bell" }), o.states[a.snooze] || await o.callWS({ type: "input_datetime/create", name: `${t} snooze`, has_date: !0, has_time: !0, icon: "mdi:alarm-snooze" });
 }
@@ -25356,18 +25382,18 @@ function bi(o) {
   const e = /^input_datetime\.glass_alarm_(\d+)_time$/;
   return Object.keys(o.states).map((t) => e.exec(t)?.[1]).filter((t) => !!t).map(Number).sort((t, a) => t - a);
 }
-const i_ = (o) => {
+const s_ = (o) => {
   const e = /^input_datetime\.glass_alarm_(\d+)_time$/.exec(o.entity);
   return e ? Number(e[1]) : void 0;
 };
-async function s_(o, e) {
+async function o_(o, e) {
   const t = new Set(bi(o));
   let a = 1;
   for (; t.has(a); ) a++;
   const i = `Glass alarm ${a}`, s = (r) => o.callWS(r);
-  await s({ type: "input_boolean/create", name: i, icon: "mdi:alarm" }), await s({ type: "input_datetime/create", name: `${i} time`, has_date: !1, has_time: !0, icon: "mdi:clock-outline" }), await s({ type: "input_text/create", name: `${i} days`, max: 100, icon: "mdi:calendar-week" }), await s({ type: "input_text/create", name: `${i} name`, max: 100, icon: "mdi:label-outline" }), await s({ type: "input_text/create", name: `${i} player`, max: 255, icon: "mdi:speaker" }), await s({ type: "input_text/create", name: `${i} sound`, max: 255, icon: "mdi:music-note" }), await s({ type: "input_boolean/create", name: `${i} holidays`, icon: "mdi:calendar-star" }), await Sm(o, a);
+  await s({ type: "input_boolean/create", name: i, icon: "mdi:alarm" }), await s({ type: "input_datetime/create", name: `${i} time`, has_date: !1, has_time: !0, icon: "mdi:clock-outline" }), await s({ type: "input_text/create", name: `${i} days`, max: 100, icon: "mdi:calendar-week" }), await s({ type: "input_text/create", name: `${i} name`, max: 100, icon: "mdi:label-outline" }), await s({ type: "input_text/create", name: `${i} player`, max: 255, icon: "mdi:speaker" }), await s({ type: "input_text/create", name: `${i} sound`, max: 255, icon: "mdi:music-note" }), await s({ type: "input_boolean/create", name: `${i} holidays`, icon: "mdi:calendar-star" }), await zm(o, a);
   const n = ea(a);
-  return await c_(o, [n.entity, n.days, n.name, n.player, n.sound]), await o.callService("input_datetime", "set_datetime", { entity_id: n.entity, time: e.time }), await o.callService("input_text", "set_value", { entity_id: n.days, value: e.days }), e.name && await o.callService("input_text", "set_value", { entity_id: n.name, value: e.name }), e.player && await o.callService("input_text", "set_value", { entity_id: n.player, value: e.player }), await o.callService("input_text", "set_value", { entity_id: n.sound, value: e.sound || Qt() }), await o.callService("input_boolean", "turn_on", { entity_id: e.skip === !1 ? n.switch : [n.switch, n.skip_holidays] }), await Mm(o), await o.callApi("POST", `config/automation/config/${bn}${a}`, {
+  return await d_(o, [n.entity, n.days, n.name, n.player, n.sound]), await o.callService("input_datetime", "set_datetime", { entity_id: n.entity, time: e.time }), await o.callService("input_text", "set_value", { entity_id: n.days, value: e.days }), e.name && await o.callService("input_text", "set_value", { entity_id: n.name, value: e.name }), e.player && await o.callService("input_text", "set_value", { entity_id: n.player, value: e.player }), await o.callService("input_text", "set_value", { entity_id: n.sound, value: e.sound || Qt() }), await o.callService("input_boolean", "turn_on", { entity_id: e.skip === !1 ? n.switch : [n.switch, n.skip_holidays] }), await Tm(o), await o.callApi("POST", `config/automation/config/${_n}${a}`, {
     alias: i,
     description: "Rings the alarm set in the Glass alarm cards. Created by the cards: change it there.",
     use_blueprint: {
@@ -25386,57 +25412,57 @@ async function s_(o, e) {
     }
   }), a;
 }
-async function o_(o) {
+async function n_(o) {
   for (const e of bi(o)) {
     const t = ea(e);
     if (o.states[t.ringing] && o.states[t.snooze]) continue;
-    await Sm(o, e);
-    const a = `${bn}${e}`, i = await o.callApi("GET", `config/automation/config/${a}`).catch(() => {
+    await zm(o, e);
+    const a = `${_n}${e}`, i = await o.callApi("GET", `config/automation/config/${a}`).catch(() => {
     });
     i?.use_blueprint && (i.use_blueprint.input = { ...i.use_blueprint.input, ringing_entity: t.ringing, snooze_entity: t.snooze }, await o.callApi("POST", `config/automation/config/${a}`, i));
   }
 }
-async function zm(o, e) {
+async function Am(o, e) {
   e.ringing && await o.callService("input_boolean", "turn_off", { entity_id: e.ringing });
   const t = (e.player ? o.states[e.player]?.state ?? "" : "").split(/[,;]/).map((a) => a.trim()).filter((a) => a.startsWith("media_player."));
   t.length && await o.callService("media_player", "media_stop", { entity_id: t }).catch(() => {
   });
 }
-async function n_(o, e, t = 10) {
+async function r_(o, e, t = 10) {
   if (e.snooze) {
     const a = new Date(Date.now() + t * 6e4), i = (n) => String(n).padStart(2, "0"), s = `${a.getFullYear()}-${i(a.getMonth() + 1)}-${i(a.getDate())} ${i(a.getHours())}:${i(a.getMinutes())}:${i(a.getSeconds())}`;
     await o.callService("input_datetime", "set_datetime", { entity_id: e.snooze, datetime: s });
   }
-  await zm(o, e);
+  await Am(o, e);
 }
-const r_ = (() => {
+const l_ = (() => {
   let o = 5381;
   for (let e = 0; e < Sl.length; e++) o = (o * 33 ^ Sl.charCodeAt(e)) >>> 0;
   return o.toString(36);
-})(), Am = `https://github.com/martinargalas/glass-cards/blob/main/blueprints/automation/glass_alarm.yaml?v=${r_}`;
-async function Mm(o) {
+})(), Mm = `https://github.com/martinargalas/glass-cards/blob/main/blueprints/automation/glass_alarm.yaml?v=${l_}`;
+async function Tm(o) {
   await o.callWS({
     type: "blueprint/save",
     domain: "automation",
     path: Fc.replace(/\.yaml$/, ""),
     yaml: Sl,
-    source_url: Am,
+    source_url: Mm,
     allow_override: !0
   });
 }
-let bh = !1;
-async function Tm(o) {
-  if (!(bh || !o.user?.is_admin || !bi(o).length)) {
-    bh = !0;
+let _h = !1;
+async function Cm(o) {
+  if (!(_h || !o.user?.is_admin || !bi(o).length)) {
+    _h = !0;
     try {
       const t = (await o.callWS({ type: "blueprint/list", domain: "automation" }))[Fc];
-      t && t.metadata?.source_url !== Am && (await Mm(o), await o.callService("automation", "reload")), t && await o_(o);
+      t && t.metadata?.source_url !== Mm && (await Tm(o), await o.callService("automation", "reload")), t && await n_(o);
     } catch {
     }
   }
 }
-async function l_(o, e) {
-  await o.callApi("DELETE", `config/automation/config/${bn}${e}`).catch(() => {
+async function c_(o, e) {
+  await o.callApi("DELETE", `config/automation/config/${_n}${e}`).catch(() => {
   });
   const t = ea(e);
   for (const a of Object.values(t)) {
@@ -25445,7 +25471,7 @@ async function l_(o, e) {
     });
   }
 }
-function c_(o, e) {
+function d_(o, e) {
   return new Promise((t) => {
     const a = Date.now(), i = () => {
       const s = document.querySelector("home-assistant")?.hass?.states ?? o.states;
@@ -25454,7 +25480,7 @@ function c_(o, e) {
     i();
   });
 }
-const d_ = [
+const h_ = [
   // the dashboard's liquid glass settings (the shader reads them from the element it draws)
   ...Object.keys(Er).map((o) => `--glass-liquid-${o.replace(/[A-Z]/g, (e) => "-" + e.toLowerCase())}`),
   "--glass-corner-shape",
@@ -25466,7 +25492,7 @@ const d_ = [
   "--mat-home-bg",
   "--glass-blur-scale",
   "--glass-font"
-], h_ = 600, Qo = class Qo extends Ye {
+], p_ = 600, en = class en extends Ye {
   constructor() {
     super(), this._liquid = new le(this, ".sheet.surface"), this._parts = new le(this, Cc, void 0, void 0, () => kt()), this._onResize = () => this.requestUpdate(), this._onKey = (e) => {
       e.key === "Enter" && this.opts.onEnter && !(e.composedPath()[0] instanceof HTMLInputElement) && this.opts.onEnter();
@@ -25495,7 +25521,7 @@ const d_ = [
     const e = this.opts.host;
     if (!e) return "";
     const t = getComputedStyle(e);
-    return d_.map((a) => [a, t.getPropertyValue(a).trim()]).filter(([, a]) => a).map(([a, i]) => `${a}:${i}`).join(";");
+    return h_.map((a) => [a, t.getPropertyValue(a).trim()]).filter(([, a]) => a).map(([a, i]) => `${a}:${i}`).join(";");
   }
   firstUpdated() {
     this.renderRoot.querySelector(".sheet")?.addEventListener("transitionend", () => (this._liquid.refresh(), this._parts.refresh()));
@@ -25510,7 +25536,7 @@ const d_ = [
     this.isConnected && (this._open = !1, this.opts.onClose?.(), setTimeout(() => this.remove(), 240));
   }
   render() {
-    const e = this.opts, t = window.innerWidth < h_, a = e.glass || "", i = e.dark === !1, s = a === "flat" || a === "none", n = e.tint ? this._rgb(e.tint) : void 0, r = n ? `--glass-panel-tint:${n};--glass-panel-tint-a:0.35;--sheet-tint:rgba(${n}, 0.3);` : "";
+    const e = this.opts, t = window.innerWidth < p_, a = e.glass || "", i = e.dark === !1, s = a === "flat" || a === "none", n = e.tint ? this._rgb(e.tint) : void 0, r = n ? `--glass-panel-tint:${n};--glass-panel-tint-a:0.35;--sheet-tint:rgba(${n}, 0.3);` : "";
     return p`<dialog class="top" aria-label=${e.title ?? ""} @cancel=${(l) => (l.preventDefault(), this.close())}>
       <div class="scrim ${this._open ? "open" : ""} ${s ? "deep" : ""} ${a === "none" ? "none" : ""}" @click=${() => this.close()}></div>
       <div
@@ -25527,7 +25553,7 @@ const d_ = [
     </dialog>`;
   }
 };
-Qo.properties = { _open: { state: !0 } }, Qo.styles = [
+en.properties = { _open: { state: !0 } }, en.styles = [
   Sc,
   we,
   ee`
@@ -26014,9 +26040,9 @@ Qo.properties = { _open: { state: !0 } }, Qo.styles = [
   // last: an element's material wins over its rules above
   xe
 ];
-let zl = Qo;
+let zl = en;
 customElements.get("glass-sheet") || customElements.define("glass-sheet", zl);
-function p_(o) {
+function u_(o) {
   document.querySelectorAll("glass-sheet").forEach((t) => t.close());
   const e = document.createElement("glass-sheet");
   return e.opts = o, document.body.appendChild(e), {
@@ -26027,7 +26053,7 @@ function p_(o) {
     }
   };
 }
-const qs = 40, u_ = 5, en = class en extends Ye {
+const Ws = 40, m_ = 5, tn = class tn extends Ye {
   constructor() {
     super(), this._timers = /* @__PURE__ */ new Map(), this.hours = 7, this.minutes = 0, this.hour12 = !1, this.step = 1;
   }
@@ -26057,7 +26083,7 @@ const qs = 40, u_ = 5, en = class en extends Ye {
   firstUpdated(e) {
     for (const t of this._wheels()) {
       const a = this.renderRoot.querySelector(`.wheel[data-k="${t.key}"]`);
-      a && (a.scrollTop = t.index * qs);
+      a && (a.scrollTop = t.index * Ws);
     }
   }
   focus() {
@@ -26070,12 +26096,12 @@ const qs = 40, u_ = 5, en = class en extends Ye {
       e,
       window.setTimeout(() => {
         const i = a.querySelectorAll(".item").length;
-        this._pick(e, Math.max(0, Math.min(i - 1, Math.round(a.scrollTop / qs))));
+        this._pick(e, Math.max(0, Math.min(i - 1, Math.round(a.scrollTop / Ws))));
       }, 90)
     );
   }
   _scrollTo(e, t) {
-    this.renderRoot.querySelector(`.wheel[data-k="${e}"]`)?.scrollTo({ top: t * qs, behavior: "smooth" });
+    this.renderRoot.querySelector(`.wheel[data-k="${e}"]`)?.scrollTo({ top: t * Ws, behavior: "smooth" });
   }
   _wheelKey(e, t, a, i) {
     const s = i.key === "ArrowDown" ? 1 : i.key === "ArrowUp" ? -1 : 0;
@@ -26086,7 +26112,7 @@ const qs = 40, u_ = 5, en = class en extends Ye {
   }
   render() {
     const e = this._wheels();
-    return p`<div class="wheels" style="--row:${qs}px;--rows:${u_}">
+    return p`<div class="wheels" style="--row:${Ws}px;--rows:${m_}">
       <div class="band"></div>
       ${e.map(
       (t, a) => p`${a === 1 ? p`<span class="colon">:</span>` : g}
@@ -26105,7 +26131,7 @@ const qs = 40, u_ = 5, en = class en extends Ye {
     </div>`;
   }
 };
-en.properties = { hours: { type: Number }, minutes: { type: Number }, hour12: { type: Boolean }, step: { type: Number } }, en.styles = ee`
+tn.properties = { hours: { type: Number }, minutes: { type: Number }, hour12: { type: Boolean }, step: { type: Number } }, tn.styles = ee`
     :host {
       display: block;
     }
@@ -26180,29 +26206,29 @@ en.properties = { hours: { type: Number }, minutes: { type: Number }, hour12: { 
       margin-top: -3px;
     }
   `;
-let Al = en;
+let Al = tn;
 customElements.get("glass-time-wheels") || customElements.define("glass-time-wheels", Al);
-const m_ = (o) => (o ?? "").split(/[\s,;]+/).map((e) => e.trim()).filter((e) => e.includes("."));
-function Cm(o, e) {
-  const t = (s) => s ? o.states[s]?.state : void 0, a = xm(o, e.entity) ?? [7, 0], i = e.name?.startsWith("input_text.") ? t(e.name) : e.name;
+const g_ = (o) => (o ?? "").split(/[\s,;]+/).map((e) => e.trim()).filter((e) => e.includes("."));
+function Dm(o, e) {
+  const t = (s) => s ? o.states[s]?.state : void 0, a = km(o, e.entity) ?? [7, 0], i = e.name?.startsWith("input_text.") ? t(e.name) : e.name;
   return {
     name: i && i !== "unknown" ? i : "",
     hours: a[0],
     minutes: a[1],
-    days: e.days ? ym(t(e.days)) : new Set(Te),
+    days: e.days ? vm(t(e.days)) : new Set(Te),
     skip: e.skip_holidays ? t(e.skip_holidays) === "on" : !0,
-    players: m_(t(e.player)),
+    players: g_(t(e.player)),
     sound: t(e.sound) && t(e.sound) !== "unknown" ? t(e.sound) : ""
   };
 }
-async function g_(o, e, t, a) {
+async function f_(o, e, t, a) {
   const i = [], s = `${String(t.hours).padStart(2, "0")}:${String(t.minutes).padStart(2, "0")}:00`;
-  (t.hours !== a.hours || t.minutes !== a.minutes) && i.push(o.callService("input_datetime", "set_datetime", { entity_id: e.entity, time: s })), e.days && lo(t.days) !== lo(a.days) && i.push(o.callService("input_text", "set_value", { entity_id: e.days, value: lo(t.days) })), e.skip_holidays && t.skip !== a.skip && i.push(o.callService(f_(e.skip_holidays), t.skip ? "turn_on" : "turn_off", { entity_id: e.skip_holidays })), e.name?.startsWith("input_text.") && t.name !== a.name && i.push(o.callService("input_text", "set_value", { entity_id: e.name, value: t.name.slice(0, 100) })), e.player && t.players.join(",") !== a.players.join(",") && i.push(o.callService("input_text", "set_value", { entity_id: e.player, value: t.players.join(",").slice(0, 255) })), e.sound && t.sound !== a.sound && i.push(o.callService("input_text", "set_value", { entity_id: e.sound, value: t.sound.slice(0, 255) })), await Promise.all(i);
+  (t.hours !== a.hours || t.minutes !== a.minutes) && i.push(o.callService("input_datetime", "set_datetime", { entity_id: e.entity, time: s })), e.days && co(t.days) !== co(a.days) && i.push(o.callService("input_text", "set_value", { entity_id: e.days, value: co(t.days) })), e.skip_holidays && t.skip !== a.skip && i.push(o.callService(b_(e.skip_holidays), t.skip ? "turn_on" : "turn_off", { entity_id: e.skip_holidays })), e.name?.startsWith("input_text.") && t.name !== a.name && i.push(o.callService("input_text", "set_value", { entity_id: e.name, value: t.name.slice(0, 100) })), e.player && t.players.join(",") !== a.players.join(",") && i.push(o.callService("input_text", "set_value", { entity_id: e.player, value: t.players.join(",").slice(0, 255) })), e.sound && t.sound !== a.sound && i.push(o.callService("input_text", "set_value", { entity_id: e.sound, value: t.sound.slice(0, 255) })), await Promise.all(i);
 }
-const f_ = (o) => o.split(".")[0] === "switch" ? "switch" : "input_boolean";
-function _h(o) {
-  const e = o.hass, t = o.helpers, a = o.draft ? { ...b_(), ...o.draft } : Cm(e, t), i = { ...a, days: a.days ? new Set(a.days) : void 0, players: [...a.players] };
-  let s = !1, n = "", r = !1, l = !1, c = !!i.sound && !yh(i.sound, o.sounds);
+const b_ = (o) => o.split(".")[0] === "switch" ? "switch" : "input_boolean";
+function yh(o) {
+  const e = o.hass, t = o.helpers, a = o.draft ? { ...__(), ...o.draft } : Dm(e, t), i = { ...a, days: a.days ? new Set(a.days) : void 0, players: [...a.players] };
+  let s = !1, n = "", r = !1, l = !1, c = !!i.sound && !vh(i.sound, o.sounds);
   const d = (k) => {
     k(), z.update();
   }, h = (k) => d(() => {
@@ -26212,14 +26238,14 @@ function _h(o) {
     if (!s) {
       s = !0, n = "", z.update();
       try {
-        o.onSave ? await o.onSave(i) : await g_(e, t, i, a), z.close();
+        o.onSave ? await o.onSave(i) : await f_(e, t, i, a), z.close();
       } catch (k) {
         n = k?.message ?? String(k), s = !1, z.update();
       }
     }
-  }, m = o.players ?? Object.keys(e.states).filter((k) => k.startsWith("media_player.") && e.states[k].state !== "unavailable").sort((k, $) => Di(e, k).localeCompare(Di(e, $))), f = [{ name: $m(Qt()), url: Qt() }, ...o.sounds ?? []], b = o.controlsMat, y = b?.cls ?? "", _ = b?.style ?? "", x = (k, $, C) => p`<button class="chip ${y} ${$ ? "cur" : ""}" style=${_} aria-pressed=${$} @click=${C}>${k}</button>`, S = (k, $, C, T, P) => p`<button class="opt ${C ? "cur" : ""}" role="checkbox" aria-checked=${C} @click=${T}>
+  }, m = o.players ?? Object.keys(e.states).filter((k) => k.startsWith("media_player.") && e.states[k].state !== "unavailable").sort((k, $) => Di(e, k).localeCompare(Di(e, $))), f = [{ name: Sm(Qt()), url: Qt() }, ...o.sounds ?? []], b = o.controlsMat, y = b?.cls ?? "", _ = b?.style ?? "", x = (k, $, C) => p`<button class="chip ${y} ${$ ? "cur" : ""}" style=${_} aria-pressed=${$} @click=${C}>${k}</button>`, S = (k, $, C, T, P) => p`<button class="opt ${C ? "cur" : ""}" role="checkbox" aria-checked=${C} @click=${T}>
       <ha-icon .icon=${k}></ha-icon><span>${$}${P ? p`<small>${P}</small>` : g}</span><ha-icon class="tick" .icon=${"mdi:check"}></ha-icon>
-    </button>`, z = p_({
+    </button>`, z = u_({
     title: o.title,
     dark: o.dark,
     accent: o.accent,
@@ -26253,7 +26279,7 @@ function _h(o) {
       ${o.calendars?.length && t.skip_holidays && (i.days || !t.days) ? p`<button class="row ${y}" style=${_} role="switch" aria-checked=${i.skip} @click=${() => d(() => i.skip = !i.skip)}>
             <ha-icon .icon=${"mdi:calendar-star"}></ha-icon
             ><span
-              >${km(i.days) ? v("On days off, ring as on a weekend") : v("Not on days off")}<small>${o.calendars.map((k) => Di(e, k)).join(", ")}</small></span
+              >${$m(i.days) ? v("On days off, ring as on a weekend") : v("Not on days off")}<small>${o.calendars.map((k) => Di(e, k)).join(", ")}</small></span
             ><i class="sw ${i.skip ? "on" : ""}"></i>
           </button>` : g}
       ${t.player ? p`<div class="label">${v("Rings on")}</div>
@@ -26282,7 +26308,7 @@ function _h(o) {
             ${c ? p`<input
                   class="field ${y}"
                   style=${_}
-                  .value=${yh(i.sound, o.sounds) ? "" : i.sound}
+                  .value=${vh(i.sound, o.sounds) ? "" : i.sound}
                   placeholder="https://… /local/… media-source://…"
                   maxlength="255"
                   @input=${(k) => i.sound = k.target.value.trim()}
@@ -26308,28 +26334,28 @@ function _h(o) {
   };
   return z;
 }
-const b_ = () => ({ name: "", hours: 7, minutes: 0, days: new Set($s), skip: !0, players: [], sound: "" }), Di = (o, e) => o.states[e]?.attributes.friendly_name ?? e, yh = (o, e) => !o || o === Qt() || /sound-birds\.mp3$/.test(o) || !!e?.some((t) => t.url === o), Bo = (o) => !!o && o !== "none";
+const __ = () => ({ name: "", hours: 7, minutes: 0, days: new Set($s), skip: !0, players: [], sound: "" }), Di = (o, e) => o.states[e]?.attributes.friendly_name ?? e, vh = (o, e) => !o || o === Qt() || /sound-birds\.mp3$/.test(o) || !!e?.some((t) => t.url === o), jo = (o) => !!o && o !== "none";
 function ot(o, e, t) {
-  const a = o ?? (Bo(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: re(Bo(e) ? e : void 0) } : void 0;
+  const a = o ?? (jo(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: re(jo(e) ? e : void 0) } : void 0;
 }
-const tn = class tn extends F {
+const an = class an extends F {
   constructor() {
     super(), this._busy = !1, this._sent = /* @__PURE__ */ new Map(), this._key = "", this._slide = 0, new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(db);
+    return de(hb);
   }
   static getStubConfig() {
     return { title: v("Alarms") };
   }
   watchedEntities(e) {
-    return co(e.skip_calendars);
+    return ho(e.skip_calendars);
   }
   /** The created alarms come and go: any glass_alarm_ helper changing redraws the list (every hass, before the base's check). */
   forwardHass(e) {
     const t = Object.keys(e.states).filter((a) => a.includes(".glass_alarm_")).map((a) => `${a}=${e.states[a].state}`).join("|");
-    t !== this._key && (this._key = t, this.requestUpdate()), this._sheet?.update(), Tm(e);
+    t !== this._key && (this._key = t, this.requestUpdate()), this._sheet?.update(), Cm(e);
   }
   connectedCallback() {
     super.connectedCallback(), this._tick = window.setInterval(() => this.requestUpdate(), 6e4);
@@ -26361,7 +26387,7 @@ const tn = class tn extends F {
     return {
       dark: Lt(this._hass, this),
       accent: Y(e.active_color ?? "blue"),
-      calendars: co(e.skip_calendars),
+      calendars: ho(e.skip_calendars),
       players: e.players,
       sounds: e.sounds,
       minuteStep: Number(e.minute_step) || 1,
@@ -26375,14 +26401,14 @@ const tn = class tn extends F {
     const t = this._hass;
     if (!t) return;
     W("light");
-    const a = e.created ?? i_(e);
-    this._sheet = _h({
+    const a = e.created ?? s_(e);
+    this._sheet = yh({
       ...this._opts(),
       hass: t,
       helpers: e,
       title: this._name(e) || v("Alarm"),
       full: !0,
-      onDelete: a !== void 0 && t.user?.is_admin ? () => l_(t, a) : void 0
+      onDelete: a !== void 0 && t.user?.is_admin ? () => c_(t, a) : void 0
     });
   }
   /** + : a new alarm in the editor; Done creates its helpers and automation. */
@@ -26391,7 +26417,7 @@ const tn = class tn extends F {
     if (!e || this._busy) return;
     W("light");
     const t = bi(e).length + 1;
-    this._sheet = _h({
+    this._sheet = yh({
       ...this._opts(),
       hass: e,
       helpers: { ...ea(0) },
@@ -26401,14 +26427,14 @@ const tn = class tn extends F {
       onSave: async (a) => {
         this._busy = !0;
         try {
-          await s_(e, {
+          await o_(e, {
             name: a.name,
             time: `${String(a.hours).padStart(2, "0")}:${String(a.minutes).padStart(2, "0")}:00`,
-            days: lo(a.days),
+            days: co(a.days),
             player: a.players.join(","),
             sound: a.sound || Qt(),
             skip: a.skip,
-            calendars: co(this._config.skip_calendars)
+            calendars: ho(this._config.skip_calendars)
           });
         } finally {
           this._busy = !1;
@@ -26429,10 +26455,10 @@ const tn = class tn extends F {
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = !!t.user?.is_admin, i = a_(t, e.skip_calendars, () => this.requestUpdate()), s = this._alarms().map((m) => {
-      const f = this._on(m), b = xm(t, m.entity), y = m.days ? ym(t.states[m.days]?.state) : new Set(Te), _ = !!i && (!m.skip_holidays || t.states[m.skip_holidays]?.state === "on"), x = e_(b, !0, y, _ ? i : void 0);
+    const a = !!t.user?.is_admin, i = i_(t, e.skip_calendars, () => this.requestUpdate()), s = this._alarms().map((m) => {
+      const f = this._on(m), b = km(t, m.entity), y = m.days ? vm(t.states[m.days]?.state) : new Set(Te), _ = !!i && (!m.skip_holidays || t.states[m.skip_holidays]?.state === "on"), x = t_(b, !0, y, _ ? i : void 0);
       return { a: m, on: f, t: b, days: y, next: f ? x : void 0, date: x?.at, skipped: f ? x?.skipped?.name : void 0, dayOff: f ? x?.dayOff : void 0 };
-    }), n = this._soonest(s), r = e.layout === "carousel" && s.length > 1, l = ot(e.add_glass, e.add_color, "flat"), c = ot(e.list_glass, e.list_color, "flat"), d = a ? p`<button class="add ${l?.cls ?? ""}" style=${l?.style ?? ""} title=${v("New alarm")} aria-label=${v("New alarm")} @click=${() => this._add()}><ha-icon .icon=${"mdi:plus"}></ha-icon></button>` : g, h = Y(e.active_color ?? "blue") ?? "transparent", u = `--c-on:${h};--c-sw:${Bo(e.switch_color) && Y(e.switch_color) || h};--c-days:${Bo(e.days_color) && Y(e.days_color) || h}`;
+    }), n = this._soonest(s), r = e.layout === "carousel" && s.length > 1, l = ot(e.add_glass, e.add_color, "flat"), c = ot(e.list_glass, e.list_color, "flat"), d = a ? p`<button class="add ${l?.cls ?? ""}" style=${l?.style ?? ""} title=${v("New alarm")} aria-label=${v("New alarm")} @click=${() => this._add()}><ha-icon .icon=${"mdi:plus"}></ha-icon></button>` : g, h = Y(e.active_color ?? "blue") ?? "transparent", u = `--c-on:${h};--c-sw:${jo(e.switch_color) && Y(e.switch_color) || h};--c-days:${jo(e.days_color) && Y(e.days_color) || h}`;
     return p`<div class="frame surface ${r ? "carousel" : ""}" style=${u}>
       <div class="head">
         ${e.title ? p`<span class="title">${e.title}</span>` : p`<span class="title"></span>`}
@@ -26452,18 +26478,18 @@ const tn = class tn extends F {
   }
   /** An alarm: its time big, under it the days (the picked ones lit) or its date, where it rings; the switch on the right. */
   _row(e) {
-    const t = this._hass, { a, on: i, t: s, days: n } = e, r = s ? wm(t, s[0], s[1]) : { time: "--:--" }, l = this._name(a), c = a.player || a.sound ? Cm(t, a) : void 0, d = a.player ? c.players.length ? c.players.map((u) => t.states[u]?.attributes.friendly_name ?? u).join(", ") : v("No speaker") : "", h = be(t);
+    const t = this._hass, { a, on: i, t: s, days: n } = e, r = s ? xm(t, s[0], s[1]) : { time: "--:--" }, l = this._name(a), c = a.player || a.sound ? Dm(t, a) : void 0, d = a.player ? c.players.length ? c.players.map((u) => t.states[u]?.attributes.friendly_name ?? u).join(", ") : v("No speaker") : "", h = be(t);
     return p`<div class="alarm ${i ? "on" : ""} ${l ? "" : "noname"}" role="button" tabindex="0" @click=${() => this._edit(a)} @keydown=${(u) => u.key === "Enter" && this._edit(a)}>
       <div class="txt">
         ${l ? p`<div class="aname">${l}</div>` : g}
         <div class="clock"><span class="time">${r.time}</span>${r.ap ? p`<span class="ap">${r.ap}</span>` : g}</div>
         <div class="when">
-          ${n ? p`<span class="week" aria-label=${Qb(t, n)}
+          ${n ? p`<span class="week" aria-label=${e_(t, n)}
                 >${ri(t).map((u) => p`<b class=${n.has(u) ? "lit" : ""} title=${Ss(t, u, "long")}>${Ss(t, u, "narrow")}</b>`)}</span
               >` : p`<span class="date">${e.date ? new Intl.DateTimeFormat(h, { weekday: "short", day: "numeric", month: "numeric" }).format(e.date) : v("Once")}</span>`}
           ${e.skipped || e.dayOff ? p`<span class="skip" title=${e.skipped ? v("{name} skipped", { name: e.skipped }) : v("{name}: rings as on a weekend", { name: e.dayOff })}><ha-icon .icon=${"mdi:calendar-star"}></ha-icon></span>` : g}
         </div>
-        ${d ? p`<div class="where"><ha-icon .icon=${"mdi:speaker"}></ha-icon><span>${d}${a.sound ? ` · ${$m(c.sound)}` : ""}</span></div>` : g}
+        ${d ? p`<div class="where"><ha-icon .icon=${"mdi:speaker"}></ha-icon><span>${d}${a.sound ? ` · ${Sm(c.sound)}` : ""}</span></div>` : g}
       </div>
       ${a.switch ? p`<button class="sw ${i ? "on" : ""} ${this._swMat?.cls ?? ""}" style=${this._swMat?.style ?? ""} role="switch" aria-checked=${i} aria-label=${v(i ? "Turn off" : "Turn on")} @click=${(u) => this._toggle(a, u)}></button>` : g}
     </div>`;
@@ -26480,7 +26506,7 @@ const tn = class tn extends F {
     t?.scrollTo({ left: e * t.clientWidth, behavior: "smooth" });
   }
 };
-tn.parts = Nu, tn.styles = [
+an.parts = Ou, an.styles = [
   F.styles,
   we,
   ee`
@@ -26821,7 +26847,7 @@ tn.parts = Nu, tn.styles = [
   // last: an element's material wins over its rules above
   xe
 ];
-let Ml = tn;
+let Ml = an;
 ce("glass-alarms", Ml, {
   name: "Glass – alarms",
   description: "Several alarms in one list: a switch on each, their time, days, speakers and sound in a modal; + creates an alarm (its helpers and automation)."
@@ -26834,7 +26860,7 @@ function Tl(o) {
   }
   return document.body;
 }
-function __(o) {
+function y_(o) {
   let e = o;
   for (let t = 0; e && t < 60; t++) {
     const a = e.localName;
@@ -26843,19 +26869,19 @@ function __(o) {
   }
   return !1;
 }
-const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], wh = { month: "mdi:calendar-month-outline", week: "mdi:calendar-week-outline", day: "mdi:calendar-today-outline", agenda: "mdi:format-list-bulleted" }, xh = { month: "Month", week: "Week", day: "Day", agenda: "Agenda" }, Ge = 44, Yn = 1, y_ = 2, kh = 4, Zn = [
+const wh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], xh = { month: "mdi:calendar-month-outline", week: "mdi:calendar-week-outline", day: "mdi:calendar-today-outline", agenda: "mdi:format-list-bulleted" }, kh = { month: "Month", week: "Week", day: "Day", agenda: "Agenda" }, Ge = 44, Yn = 1, v_ = 2, $h = 4, Zn = [
   ["", "Doesn't repeat"],
   ["FREQ=DAILY", "Every day"],
   ["FREQ=WEEKLY", "Every week"],
   ["FREQ=MONTHLY", "Every month"],
   ["FREQ=YEARLY", "Every year"]
-], v_ = 900 * 1e3, Qe = (o) => {
+], w_ = 900 * 1e3, Qe = (o) => {
   const [e, t, a] = o.split("-").map(Number);
   return new Date(e, t - 1, a);
-}, gt = (o) => new Date(o.getFullYear(), o.getMonth(), o.getDate()), ze = (o, e) => new Date(o.getFullYear(), o.getMonth(), o.getDate() + e), Re = (o, e) => o.getFullYear() === e.getFullYear() && o.getMonth() === e.getMonth() && o.getDate() === e.getDate(), Pi = (o) => Da.includes(Te[(o.getDay() + 6) % 7]), Ba = (o) => o.charAt(0).toUpperCase() + o.slice(1), ta = (o) => String(o).padStart(2, "0"), Ee = (o) => `${o.getFullYear()}-${ta(o.getMonth() + 1)}-${ta(o.getDate())}`, Ka = (o) => `${ta(o.getHours())}:${ta(o.getMinutes())}`, Ws = (o) => {
+}, gt = (o) => new Date(o.getFullYear(), o.getMonth(), o.getDate()), Ae = (o, e) => new Date(o.getFullYear(), o.getMonth(), o.getDate() + e), Re = (o, e) => o.getFullYear() === e.getFullYear() && o.getMonth() === e.getMonth() && o.getDate() === e.getDate(), Pi = (o) => Da.includes(Te[(o.getDay() + 6) % 7]), Ba = (o) => o.charAt(0).toUpperCase() + o.slice(1), ta = (o) => String(o).padStart(2, "0"), Ee = (o) => `${o.getFullYear()}-${ta(o.getMonth() + 1)}-${ta(o.getDate())}`, Ka = (o) => `${ta(o.getHours())}:${ta(o.getMinutes())}`, Fs = (o) => {
   const e = -o.getTimezoneOffset();
   return `${Ee(o)}T${Ka(o)}:00${e < 0 ? "-" : "+"}${ta(Math.floor(Math.abs(e) / 60))}:${ta(Math.abs(e) % 60)}`;
-}, w_ = (o) => `glass:calendar/${String(o + 1).padStart(2, "0")}.webp`, Ut = class Ut extends F {
+}, x_ = (o) => `glass:calendar/${String(o + 1).padStart(2, "0")}.webp`, Ut = class Ut extends F {
   constructor() {
     super(), this._popup = !1, this._cals = [], this._range = "", this._scrolled = "", this._ro = new ResizeObserver(([e]) => {
       const t = Math.round(e.contentRect.width);
@@ -26922,7 +26948,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
       } else if (Math.abs(a) > 50 && Math.abs(a) > Math.abs(e.clientY - t.y) * 1.5) {
         W("selection");
         const i = this._cursor, s = a < 0 ? 1 : -1;
-        this._cursor = this._mOpen ? new Date(i.getFullYear(), i.getMonth() + s, Math.min(i.getDate(), new Date(i.getFullYear(), i.getMonth() + s + 1, 0).getDate())) : ze(i, s * 7), this._mDragged = !0;
+        this._cursor = this._mOpen ? new Date(i.getFullYear(), i.getMonth() + s, Math.min(i.getDate(), new Date(i.getFullYear(), i.getMonth() + s + 1, 0).getDate())) : Ae(i, s * 7), this._mDragged = !0;
       } else if (Math.abs(a) < 10 && Math.abs(e.clientY - t.y) < 10) {
         const i = this.renderRoot.elementFromPoint(e.clientX, e.clientY)?.closest(".mc, .grab");
         i?.classList.contains("grab") ? this._mToggle() : i?.dataset.day && this._mPick(Qe(i.dataset.day)), this._mDragged = !!i;
@@ -26954,7 +26980,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     location.hash && (history.replaceState(history.state, "", location.href.split("#")[0]), window.dispatchEvent(new CustomEvent("location-changed", { detail: { replace: !0 } })));
   }
   static getConfigElement() {
-    return de(Hf);
+    return de(Gf);
   }
   static getStubConfig() {
     return {};
@@ -26973,7 +26999,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     super.connectedCallback(), this._ro.observe(this), requestAnimationFrame(() => {
       const e = this._findPopup();
       e !== this._popup && (this._popup = e, this.requestUpdate());
-    }), this._timer = window.setInterval(() => (this._range = "", void this._fetch()), v_), this._config?.overlay && window.addEventListener("keydown", this._onKey);
+    }), this._timer = window.setInterval(() => (this._range = "", void this._fetch()), w_), this._config?.overlay && window.addEventListener("keydown", this._onKey);
   }
   disconnectedCallback() {
     super.disconnectedCallback(), this._ro.disconnect(), clearInterval(this._timer), window.removeEventListener("keydown", this._onKey), this._dragCancel();
@@ -26986,22 +27012,22 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     return s.map((n, r) => ({
       entity: n.entity,
       name: n.name ?? e.states[n.entity]?.attributes.friendly_name ?? n.entity,
-      color: Y(n.color ?? vh[r % vh.length]) ?? "#888",
+      color: Y(n.color ?? wh[r % wh.length]) ?? "#888",
       off: a.has(n.entity)
     }));
   }
   /** the days the view shows */
   _span(e, t, a) {
-    const i = Te.indexOf(ri(a)[0]), s = (n) => ze(n, -((n.getDay() + 6 - i) % 7));
+    const i = Te.indexOf(ri(a)[0]), s = (n) => Ae(n, -((n.getDay() + 6 - i) % 7));
     if (e === "month") {
       const n = s(new Date(t.getFullYear(), t.getMonth(), 1));
-      return [n, ze(n, 42)];
+      return [n, Ae(n, 42)];
     }
     if (e === "week") {
       const n = s(t);
-      return [n, ze(n, 7)];
+      return [n, Ae(n, 7)];
     }
-    return e === "day" ? [t, ze(t, 1)] : [t, ze(t, Math.max(1, this._config.agenda_days ?? 30))];
+    return e === "day" ? [t, Ae(t, 1)] : [t, Ae(t, Math.max(1, this._config.agenda_days ?? 30))];
   }
   async _fetch() {
     const e = this._hass;
@@ -27033,12 +27059,12 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   /** events shown (calendars switched on, not days off) on a day */
   _on(e) {
-    const t = e.getTime(), a = ze(e, 1).getTime(), i = this._drag;
+    const t = e.getTime(), a = Ae(e, 1).getTime(), i = this._drag;
     return (i ? (this._evs ?? []).map((n) => n.id === i.id ? { ...n, start: i.start, end: i.end } : n) : this._evs ?? []).filter((n) => !this._cals[n.cal]?.off && !this._hidden.has(this._cals[n.cal]?.entity) && n.start.getTime() < a && n.end.getTime() > t);
   }
   /** a day off (a holiday calendar's all-day event): its name */
   _dayOff(e) {
-    const t = e.getTime(), a = ze(e, 1).getTime();
+    const t = e.getTime(), a = Ae(e, 1).getTime();
     return (this._evs ?? []).find((i) => this._cals[i.cal]?.off && !this._hidden.has(this._cals[i.cal].entity) && i.start.getTime() < a && i.end.getTime() > t)?.title;
   }
   /* ---------- adding, changing, deleting ---------- */
@@ -27075,7 +27101,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   _pending() {
     const e = this._form;
     if (!e || e.ev) return;
-    const t = e.allDay ? Qe(e.sd) : /* @__PURE__ */ new Date(`${e.sd}T${e.st}`), a = e.allDay ? ze(Qe(e.ed), 1) : /* @__PURE__ */ new Date(`${e.ed}T${e.et}`);
+    const t = e.allDay ? Qe(e.sd) : /* @__PURE__ */ new Date(`${e.sd}T${e.st}`), a = e.allDay ? Ae(Qe(e.ed), 1) : /* @__PURE__ */ new Date(`${e.ed}T${e.et}`);
     if (isNaN(t.getTime()) || isNaN(a.getTime())) return;
     const i = this._cals.find((s) => s.entity === e.cal)?.color ?? "#888";
     return { start: t, end: a, allDay: e.allDay, color: i, title: e.title.trim() || v("New event") };
@@ -27089,7 +27115,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   _edit(e) {
     W("selection");
-    const t = e.allDay ? ze(e.end, -1) : e.end;
+    const t = e.allDay ? Ae(e.end, -1) : e.end;
     this._form = {
       ev: e,
       cal: this._cals[e.cal].entity,
@@ -27115,13 +27141,13 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     const e = this._form, t = this._hass;
     if (!e || !t || e.busy) return;
     if (!e.title.trim()) return void (this._form = { ...e, error: v("Give it a name") });
-    const a = e.allDay ? Qe(e.sd) : /* @__PURE__ */ new Date(`${e.sd}T${e.st}`), i = e.allDay ? ze(Qe(e.ed), 1) : /* @__PURE__ */ new Date(`${e.ed}T${e.et}`);
+    const a = e.allDay ? Qe(e.sd) : /* @__PURE__ */ new Date(`${e.sd}T${e.st}`), i = e.allDay ? Ae(Qe(e.ed), 1) : /* @__PURE__ */ new Date(`${e.ed}T${e.et}`);
     if (isNaN(a.getTime()) || isNaN(i.getTime())) return void (this._form = { ...e, error: v("Pick when it is") });
     if (i <= a) return void (this._form = { ...e, error: v("It ends before it starts") });
     const s = {
       summary: e.title.trim(),
-      dtstart: e.allDay ? Ee(a) : Ws(a),
-      dtend: e.allDay ? Ee(i) : Ws(i)
+      dtstart: e.allDay ? Ee(a) : Fs(a),
+      dtend: e.allDay ? Ee(i) : Fs(i)
     };
     e.location.trim() && (s.location = e.location.trim()), e.description.trim() && (s.description = e.description.trim());
     const n = !!e.ev?.recurrenceId && e.scope === "one";
@@ -27197,7 +27223,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   /* ---------- dragging: move an event, or stretch it from its corner ---------- */
   _canEdit(e) {
-    return !!e.uid && this._can(this._cals[e.cal]?.entity, kh);
+    return !!e.uid && this._can(this._cals[e.cal]?.entity, $h);
   }
   _dragDown(e, t, a) {
     if (a.pointerType === "mouse" && a.button !== 0 || !this._canEdit(e)) return;
@@ -27234,8 +27260,8 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     if (!i) return;
     const s = {
       summary: e.title,
-      dtstart: e.allDay ? Ee(t) : Ws(t),
-      dtend: e.allDay ? Ee(a) : Ws(a)
+      dtstart: e.allDay ? Ee(t) : Fs(t),
+      dtend: e.allDay ? Ee(a) : Fs(a)
     };
     e.location && (s.location = e.location), e.description && (s.description = e.description), e.rrule && !e.recurrenceId && (s.rrule = e.rrule), this._evs = (this._evs ?? []).map((n) => n.id === e.id ? { ...n, start: t, end: a } : n), this._detail?.id === e.id && (this._detail = this._evs.find((n) => n.id === e.id)), W("selection");
     try {
@@ -27259,14 +27285,14 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
       if (e.image_url) return _a(e.image_url);
     } else if (e.image && e.image !== "months") return _a(e.image);
     const i = e.hemisphere === "south" || e.hemisphere !== "north" && (this._hass?.config?.latitude ?? 0) < 0;
-    return _a(w_(i ? (t + 6) % 12 : t));
+    return _a(x_(i ? (t + 6) % 12 : t));
   }
   glassUnder(e) {
     return e.closest(".frame")?.querySelector(".photo") ?? void 0;
   }
   /* ---------- moving around ---------- */
   _views() {
-    const e = this._config, a = (this._w < 720 ? e.phone_views ?? ["day", "agenda"] : e.views ?? ["month", "week", "day", "agenda"]).filter((i) => i in wh);
+    const e = this._config, a = (this._w < 720 ? e.phone_views ?? ["day", "agenda"] : e.views ?? ["month", "week", "day", "agenda"]).filter((i) => i in xh);
     return a.length ? a : ["agenda"];
   }
   _go(e) {
@@ -27275,7 +27301,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
       return;
     }
     const t = this._cursor, a = this._view;
-    this._cursor = a === "month" ? new Date(t.getFullYear(), t.getMonth() + e, 1) : ze(t, e * (a === "week" ? 7 : a === "day" ? 1 : Math.max(1, this._config.agenda_days ?? 30)));
+    this._cursor = a === "month" ? new Date(t.getFullYear(), t.getMonth() + e, 1) : Ae(t, e * (a === "week" ? 7 : a === "day" ? 1 : Math.max(1, this._config.agenda_days ?? 30)));
   }
   _pick(e) {
     W("selection"), this._view = e;
@@ -27296,7 +27322,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   /** the strip: the weekdays, then the month's weeks in a window one week tall (pulled: all) */
   _mStrip(e) {
-    const t = this._hass, a = gt(/* @__PURE__ */ new Date()), i = this._cursor, [s] = this._span("month", i, t), n = new Date(i.getFullYear(), i.getMonth() + 1, 0), r = Math.ceil((Math.round((n.getTime() - s.getTime()) / 864e5) + 1) / 7), l = Math.floor(Math.round((gt(i).getTime() - s.getTime()) / 864e5) / 7), c = Ut.ROW, d = this._mp ?? (this._mOpen ? 1 : 0), h = (this._config.weekends ?? "tint") === "tint", u = Array.from({ length: r * 7 }, (f, b) => ze(s, b)), m = (f) => this._mDragged ? this._mDragged = !1 : this._mPick(f);
+    const t = this._hass, a = gt(/* @__PURE__ */ new Date()), i = this._cursor, [s] = this._span("month", i, t), n = new Date(i.getFullYear(), i.getMonth() + 1, 0), r = Math.ceil((Math.round((n.getTime() - s.getTime()) / 864e5) + 1) / 7), l = Math.floor(Math.round((gt(i).getTime() - s.getTime()) / 864e5) / 7), c = Ut.ROW, d = this._mp ?? (this._mOpen ? 1 : 0), h = (this._config.weekends ?? "tint") === "tint", u = Array.from({ length: r * 7 }, (f, b) => Ae(s, b)), m = (f) => this._mDragged ? this._mDragged = !1 : this._mPick(f);
     return p`<div
       class="mstrip ${this._mp !== void 0 ? "pulling" : ""} ${d > 0.5 ? "open" : ""}"
       data-rows=${r}
@@ -27368,7 +27394,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     if (n === "month") l = new Intl.DateTimeFormat(e, { month: "long", year: "numeric" }).format(s);
     else if (n === "week") {
       const [u, m] = this._span("week", s, this._hass);
-      l = new Intl.DateTimeFormat(e, { day: "numeric", month: r ? "short" : "long", year: "numeric" }).formatRange(u, ze(m, -1));
+      l = new Intl.DateTimeFormat(e, { day: "numeric", month: r ? "short" : "long", year: "numeric" }).formatRange(u, Ae(m, -1));
     } else n === "day" ? l = new Intl.DateTimeFormat(e, this._w < 720 ? { day: "numeric", month: r ? "short" : "long" } : { weekday: "long", day: "numeric", month: "long" }).format(s) : l = new Intl.DateTimeFormat(e, { month: r ? "short" : "long", year: "numeric" }).format(s);
     const c = (u, m) => p`<div class="seg ${u} ${i?.cls ?? ""}" style=${i?.style ?? ""}>${m}</div>`, d = this._views(), h = p`<div class="scroll">
       ${c(
@@ -27397,8 +27423,8 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
         ${d.length > 1 ? c(
       "views",
       d.map(
-        (u) => p`<button class="item ${u === n ? "on" : ""}" title=${v(xh[u])} @click=${() => this._pick(u)}>
-                  <ha-icon .icon=${wh[u]}></ha-icon>${!r || u === n ? p`<span>${v(xh[u])}</span>` : g}
+        (u) => p`<button class="item ${u === n ? "on" : ""}" title=${v(kh[u])} @click=${() => this._pick(u)}>
+                  <ha-icon .icon=${xh[u]}></ha-icon>${!r || u === n ? p`<span>${v(kh[u])}</span>` : g}
                 </button>`
       )
     ) : g}
@@ -27423,7 +27449,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     </button>`;
   }
   _month(e) {
-    const t = this._hass, a = Ce(t), [i] = this._span("month", this._cursor, t), s = gt(/* @__PURE__ */ new Date()), n = this._config.weekends ?? "tint", r = ri(t).filter((h) => n !== "hide" || !Da.includes(h)), l = r.map((h) => new Intl.DateTimeFormat(e, { weekday: this._w < 900 ? "narrow" : "short" }).format(new Date(2024, 0, 1 + Te.indexOf(h)))), c = this._w < 900 ? 2 : 3, d = Array.from({ length: 42 }, (h, u) => ze(i, u)).filter((h) => n !== "hide" || !Pi(h));
+    const t = this._hass, a = Ce(t), [i] = this._span("month", this._cursor, t), s = gt(/* @__PURE__ */ new Date()), n = this._config.weekends ?? "tint", r = ri(t).filter((h) => n !== "hide" || !Da.includes(h)), l = r.map((h) => new Intl.DateTimeFormat(e, { weekday: this._w < 900 ? "narrow" : "short" }).format(new Date(2024, 0, 1 + Te.indexOf(h)))), c = this._w < 900 ? 2 : 3, d = Array.from({ length: 42 }, (h, u) => Ae(i, u)).filter((h) => n !== "hide" || !Pi(h));
     return p`<div class="month" style="grid-template-columns:repeat(${r.length}, minmax(0, 1fr))">
       ${l.map((h) => p`<div class="wd">${h}</div>`)}
       ${d.map((h, u) => {
@@ -27442,7 +27468,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   _agenda(e) {
     const t = this._hass, a = Ce(t), [i, s] = this._span("agenda", this._cursor, t), n = gt(/* @__PURE__ */ new Date()), r = [];
-    for (let l = i; l < s; l = ze(l, 1)) {
+    for (let l = i; l < s; l = Ae(l, 1)) {
       const c = this._on(l), d = this._dayOff(l);
       if (!c.length && !d) continue;
       const h = Re(l, n) ? Ba(new Intl.RelativeTimeFormat(e, { numeric: "auto" }).format(0, "day")) : Ba(new Intl.DateTimeFormat(e, { weekday: "long", day: "numeric", month: "long" }).format(l));
@@ -27461,7 +27487,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   /** a week (or one day): the all-day events above, the others on a time line */
   _timeline(e, t) {
-    const a = this._hass, i = Ce(a), [s] = this._span(t === 7 ? "week" : "day", this._cursor, a), n = this._config.weekends ?? "tint", r = Array.from({ length: t }, (y, _) => ze(s, _)).filter((y) => t === 1 || n !== "hide" || !Pi(y));
+    const a = this._hass, i = Ce(a), [s] = this._span(t === 7 ? "week" : "day", this._cursor, a), n = this._config.weekends ?? "tint", r = Array.from({ length: t }, (y, _) => Ae(s, _)).filter((y) => t === 1 || n !== "hide" || !Pi(y));
     t = r.length;
     const l = (y) => n === "tint" && Pi(y) ? "we" : "", c = gt(/* @__PURE__ */ new Date()), d = /* @__PURE__ */ new Date(), h = Array.from({ length: 24 }, (y, _) => new Intl.DateTimeFormat(e, { hour: "numeric", hour12: i }).format(new Date(2024, 0, 1, _))), u = this._pending(), m = (y) => new Intl.DateTimeFormat(e, { hour: "numeric", minute: "2-digit", hour12: i }).format(y), f = `grid-template-columns: 52px repeat(${t}, minmax(0, 1fr))`, b = t === 1 && this._w < 720 ? this._mStrip(e) : g;
     return p`${b}${t > 1 ? p`<div class="days" style=${f}>
@@ -27524,7 +27550,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   /** an event: when, which calendar, where, what */
   _sheet(e, t) {
-    const a = Ce(this._hass), i = this._cals[e.cal], s = (h) => Ba(new Intl.DateTimeFormat(t, { weekday: "long", day: "numeric", month: "long", year: h.getFullYear() === (/* @__PURE__ */ new Date()).getFullYear() ? void 0 : "numeric" }).format(h)), n = (h) => new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: a }).format(h), r = ze(e.end, -1), l = e.allDay ? Re(e.start, r) || e.end <= e.start ? `${s(e.start)} · ${v("all day")}` : `${s(e.start)} – ${s(r)}` : Re(e.start, e.end) ? `${s(e.start)} · ${n(e.start)} – ${n(e.end)}` : `${s(e.start)} ${n(e.start)} – ${s(e.end)} ${n(e.end)}`, c = ot(this._config.sheet_glass ?? this._config.panel_glass, this._config.sheet_color ?? this._config.panel_color, "frosted"), d = this._w < 720;
+    const a = Ce(this._hass), i = this._cals[e.cal], s = (h) => Ba(new Intl.DateTimeFormat(t, { weekday: "long", day: "numeric", month: "long", year: h.getFullYear() === (/* @__PURE__ */ new Date()).getFullYear() ? void 0 : "numeric" }).format(h)), n = (h) => new Intl.DateTimeFormat(t, { hour: "numeric", minute: "2-digit", hour12: a }).format(h), r = Ae(e.end, -1), l = e.allDay ? Re(e.start, r) || e.end <= e.start ? `${s(e.start)} · ${v("all day")}` : `${s(e.start)} – ${s(r)}` : Re(e.start, e.end) ? `${s(e.start)} · ${n(e.start)} – ${n(e.end)}` : `${s(e.start)} ${n(e.start)} – ${s(e.end)} ${n(e.end)}`, c = ot(this._config.sheet_glass ?? this._config.panel_glass, this._config.sheet_color ?? this._config.panel_color, "frosted"), d = this._w < 720;
     return p`<div class="detail ${d ? "dock" : "popwrap"}">
       <div class="sheet ${d ? "" : "pop"} ${c?.cls ?? ""}" style="--c:${i.color};${c?.style ?? ""}${d ? "" : ";visibility:hidden"}" @click=${(h) => h.stopPropagation()}>
         <button class="x" title=${v("Close")} @click=${() => this._dismiss()}><ha-icon .icon=${"mdi:close"}></ha-icon></button>
@@ -27538,7 +27564,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
   }
   /** the detail's Edit and Delete – where the calendar allows them; a delete asked again */
   _actions(e) {
-    const t = this._cals[e.cal].entity, a = !!e.uid && this._can(t, kh), i = !!e.uid && this._can(t, y_);
+    const t = this._cals[e.cal].entity, a = !!e.uid && this._can(t, $h), i = !!e.uid && this._can(t, v_);
     if (!a && !i) return g;
     const s = this._confirm;
     return s && i ? p`<div class="ask">
@@ -27567,7 +27593,7 @@ const vh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
       </div>
       <div class="mgrid">
         ${h.map((f) => p`<span class="mwd">${f}</span>`)}
-        ${Array.from({ length: c }, (f, b) => ze(r, b)).map(
+        ${Array.from({ length: c }, (f, b) => Ae(r, b)).map(
       (f) => p`<button class="mday ${f.getMonth() !== n.getMonth() ? "other" : ""} ${Re(f, s) ? "on" : ""} ${Re(f, d) ? "today" : ""}" @click=${() => m(f)}>
               ${f.getDate()}
             </button>`
@@ -27665,7 +27691,7 @@ Ut.properties = {
   _w: { state: !0 },
   _mOpen: { state: !0 },
   _mp: { state: !0 }
-}, Ut.parts = Vu, Ut.ROW = 46, Ut.styles = [
+}, Ut.parts = Yu, Ut.ROW = 46, Ut.styles = [
   F.styles,
   ee`
       :host {
@@ -29125,7 +29151,7 @@ Ut.properties = {
   xe
 ];
 let Cl = Ut;
-function x_(o, e, t) {
+function k_(o, e, t) {
   document.querySelectorAll("glass-calendar-view[overlay]").forEach((s) => s.remove());
   const a = document.createElement("glass-calendar-view");
   a.opener = o, a.setConfig({ type: "custom:glass-calendar-view", ...t, overlay: !0 }), e && (a.hass = e), Tl(o).append(a);
@@ -29138,10 +29164,10 @@ ce("glass-calendar-view", Cl, {
   name: "Glass – full calendar",
   description: "A full-size calendar – month, week, day or agenda: add, edit and drag events. Opens from the Calendar card."
 });
-const $h = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], k_ = 900 * 1e3, Sh = (o) => {
+const Sh = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"], $_ = 900 * 1e3, zh = (o) => {
   const [e, t, a] = o.split("-").map(Number);
   return new Date(e, t - 1, a);
-}, $_ = (o) => `${o.getFullYear()}-${o.getMonth()}-${o.getDate()}`, Fs = (o) => new Date(o.getFullYear(), o.getMonth(), o.getDate()), ds = class ds extends F {
+}, S_ = (o) => `${o.getFullYear()}-${o.getMonth()}-${o.getDate()}`, Hs = (o) => new Date(o.getFullYear(), o.getMonth(), o.getDate()), ds = class ds extends F {
   constructor() {
     super(), this._sources = [], this._loading = !1, new le(this, ".cal");
   }
@@ -29149,7 +29175,7 @@ const $h = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     this._full?.isConnected ? this._full.hass = e : this._full = void 0;
   }
   static getConfigElement() {
-    return de(Ff);
+    return de(Hf);
   }
   static getStubConfig(e) {
     const t = Object.keys(e.states).find((a) => a.startsWith("calendar."));
@@ -29160,7 +29186,7 @@ const $h = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     if (!t.length) throw new Error("`calendars` must list at least one calendar entity");
     return this._sources = t.map((a, i) => {
       const s = typeof a == "string" ? { entity: a } : a;
-      return { entity: s.entity, color: Y(s.color ?? $h[i % $h.length]) ?? "#fff" };
+      return { entity: s.entity, color: Y(s.color ?? Sh[i % Sh.length]) ?? "#fff" };
     }), this._events = void 0, this.isConnected && this._fetch(), e;
   }
   watchedEntities() {
@@ -29171,7 +29197,7 @@ const $h = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     this._fetch();
   }
   connectedCallback() {
-    super.connectedCallback(), this._timer = window.setInterval(() => this._fetch(), k_), this._scheduleMidnight(), this._hass && this._config && this._fetch();
+    super.connectedCallback(), this._timer = window.setInterval(() => this._fetch(), $_), this._scheduleMidnight(), this._hass && this._config && this._fetch();
   }
   disconnectedCallback() {
     super.disconnectedCallback(), clearInterval(this._timer), clearTimeout(this._midnight);
@@ -29187,15 +29213,15 @@ const $h = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     const e = this._hass;
     if (!e?.callApi || !this._config || this._loading) return;
     this._loading = !0;
-    const t = Fs(/* @__PURE__ */ new Date()), a = new Date(t.getFullYear(), t.getMonth(), t.getDate() + Math.max(1, this._config.days ?? 5)), i = `start=${encodeURIComponent(t.toISOString())}&end=${encodeURIComponent(a.toISOString())}`;
+    const t = Hs(/* @__PURE__ */ new Date()), a = new Date(t.getFullYear(), t.getMonth(), t.getDate() + Math.max(1, this._config.days ?? 5)), i = `start=${encodeURIComponent(t.toISOString())}&end=${encodeURIComponent(a.toISOString())}`;
     try {
       const s = await Promise.all(
         this._sources.map(async (r) => (await e.callApi("GET", `calendars/${r.entity}?${i}`).catch(() => [])).map((c) => {
           const d = !c.start.dateTime;
           return {
             title: c.summary || "—",
-            start: d ? Sh(c.start.date) : new Date(c.start.dateTime),
-            end: d ? Sh(c.end.date) : new Date(c.end.dateTime),
+            start: d ? zh(c.start.date) : new Date(c.start.dateTime),
+            end: d ? zh(c.end.date) : new Date(c.end.dateTime),
             allDay: d,
             location: c.location || void 0,
             color: r.color
@@ -29210,7 +29236,7 @@ const $h = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     }
   }
   _dayLabel(e, t) {
-    const a = Fs(/* @__PURE__ */ new Date()), i = Math.round((Fs(e).getTime() - a.getTime()) / 864e5);
+    const a = Hs(/* @__PURE__ */ new Date()), i = Math.round((Hs(e).getTime() - a.getTime()) / 864e5);
     if (i <= 0 || i === 1) {
       const r = new Intl.RelativeTimeFormat(t, { numeric: "auto" }).format(Math.max(0, i), "day");
       return r.charAt(0).toUpperCase() + r.slice(1);
@@ -29231,9 +29257,9 @@ const $h = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     if (!this._config || !this._hass) return g;
     const e = this._config, t = this._hass, a = be(t), i = Ce(t), s = (this._events ?? []).slice(0, e.max_events ?? 6);
     if (this._events && !s.length && e.hide_empty) return g;
-    const n = (this._events?.length ?? 0) - s.length, r = Fs(/* @__PURE__ */ new Date()), l = /* @__PURE__ */ new Map();
+    const n = (this._events?.length ?? 0) - s.length, r = Hs(/* @__PURE__ */ new Date()), l = /* @__PURE__ */ new Map();
     for (const h of s) {
-      const u = h.start < r ? r : h.start, m = $_(u);
+      const u = h.start < r ? r : h.start, m = S_(u);
       l.has(m) || l.set(m, { label: this._dayLabel(u, a), events: [] }), l.get(m).events.push(h);
     }
     const c = { entity: this._sources[0]?.entity, tap_action: e.tap_action ?? (e.tap_opens === "ha" ? { action: "navigate", navigation_path: "/calendar" } : { action: "none" }) }, d = Ze(
@@ -29241,7 +29267,7 @@ const $h = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
       (h) => {
         if (h === "tap" && !e.tap_action && e.tap_opens !== "ha") {
           const u = e.calendars ?? e.entities;
-          this._full = x_(this, t, { ...u ? { calendars: u } : {}, ...e.calendar_view ?? {} });
+          this._full = k_(this, t, { ...u ? { calendars: u } : {}, ...e.calendar_view ?? {} });
         } else $e(this, t, c, h);
       }
     );
@@ -29265,7 +29291,7 @@ const $h = ["blue", "orange", "green", "purple", "pink", "teal", "yellow", "red"
     </div>`;
   }
 };
-ds.parts = Ku, ds.properties = { ...F.properties, _events: { state: !0 }, _error: { state: !0 } }, ds.styles = [
+ds.parts = Vu, ds.properties = { ...F.properties, _events: { state: !0 }, _error: { state: !0 } }, ds.styles = [
   F.styles,
   we,
   ee`
@@ -29382,16 +29408,16 @@ ce("glass-calendar", Dl, {
   name: "Glass – calendar",
   description: "Upcoming events from HA calendars, grouped by day."
 });
-const jo = (o) => !!o && o !== "none";
+const Io = (o) => !!o && o !== "none";
 function Jn(o, e, t) {
-  const a = o ?? (jo(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: jo(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
+  const a = o ?? (Io(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: Io(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
 }
-const zh = {
+const Ah = {
   satellite: "Clouds",
   clouds: "Cloud cover",
   rain: "Rain"
-}, S_ = [
+}, z_ = [
   [150, 196, 255, 0.55],
   // light (grey in DWD's scheme)
   [70, 140, 255, 0.72],
@@ -29401,7 +29427,7 @@ const zh = {
   [150, 70, 220, 0.9]
   // extreme (violet / blue)
 ], Ei = /* @__PURE__ */ new Map();
-function z_(o) {
+function A_(o) {
   let e = Ei.get(o);
   if (e) return e;
   if (e = new Promise((t, a) => {
@@ -29415,7 +29441,7 @@ function z_(o) {
       for (let c = 0; c < l.length; c += 4) {
         const d = l[c + 3];
         if (d < 8) continue;
-        const h = l[c], u = l[c + 1], m = l[c + 2], b = Math.max(h, u, m) - Math.min(h, u, m) < 24 ? 0 : h > 180 && u > 150 && m < 140 ? 1 : h > 170 && u < 150 ? 2 : 3, y = S_[b];
+        const h = l[c], u = l[c + 1], m = l[c + 2], b = Math.max(h, u, m) - Math.min(h, u, m) < 24 ? 0 : h > 180 && u > 150 && m < 140 ? 1 : h > 170 && u < 150 ? 2 : 3, y = z_[b];
         l[c] = y[0], l[c + 1] = y[1], l[c + 2] = y[2], l[c + 3] = Math.round(y[3] * d);
       }
       n.putImageData(r, 0, 0), s.toBlob((c) => c ? t(URL.createObjectURL(c)) : a(new Error("blob")), "image/png");
@@ -29427,12 +29453,12 @@ function z_(o) {
   }
   return e;
 }
-const ja = 600, A_ = (o) => Array.from({ length: o }, () => !0), M_ = 600 * 1e3, T_ = 6378137, Li = 2 * Math.PI * T_;
+const ja = 600, M_ = (o) => Array.from({ length: o }, () => !0), T_ = 600 * 1e3, C_ = 6378137, Li = 2 * Math.PI * C_;
 let Ri, Xn;
-function C_() {
+function D_() {
   return Ri && Date.now() - Ri.at < 300 * 1e3 ? Promise.resolve(Ri) : (Xn ??= fetch("https://api.rainviewer.com/public/weather-maps.json").then((o) => o.json()).then((o) => Ri = { at: Date.now(), host: o.host, frames: (o.radar?.past ?? []).map((e) => ({ time: e.time, path: e.path })) }).catch(() => Ri).finally(() => Xn = void 0), Xn);
 }
-function D_(o, e, t) {
+function P_(o, e, t) {
   const a = 256 * 2 ** t, i = Math.sin(Math.max(-85, Math.min(85, o)) * Math.PI / 180);
   return { x: (e + 180) / 360 * a, y: (0.5 - Math.log((1 + i) / (1 - i)) / (4 * Math.PI)) * a, size: a };
 }
@@ -29444,7 +29470,7 @@ function Qn(o, e, t, a, i, s, n) {
         h.push({ url: n((m % l + l) % l, u, a), left: (m * 256 - c) * r, top: (u * 256 - d) * r, size: 256 * r });
   return h;
 }
-const P_ = [
+const E_ = [
   [0, [110, 130, 160, 0]],
   [0.12, [118, 138, 168, 0.18]],
   [0.35, [160, 176, 200, 0.5]],
@@ -29452,7 +29478,7 @@ const P_ = [
   [0.82, [248, 249, 252, 0.9]],
   [0.94, [232, 220, 255, 0.93]],
   [1, [206, 166, 255, 0.95]]
-], E_ = [
+], L_ = [
   [0, [96, 112, 140, 0]],
   [0.12, [96, 112, 140, 0.16]],
   [0.35, [88, 104, 134, 0.38]],
@@ -29460,9 +29486,9 @@ const P_ = [
   [0.82, [58, 72, 104, 0.68]],
   [0.94, [92, 70, 150, 0.72]],
   [1, [110, 60, 170, 0.78]]
-], Ni = /* @__PURE__ */ new Map(), Ah = /* @__PURE__ */ new Map();
-function L_(o, e) {
-  const t = e ? E_ : P_, a = `${e ? "l" : "d"}|${o}`;
+], Ni = /* @__PURE__ */ new Map(), Mh = /* @__PURE__ */ new Map();
+function R_(o, e) {
+  const t = e ? L_ : E_, a = `${e ? "l" : "d"}|${o}`;
   let i = Ni.get(a);
   if (i) return i;
   if (i = new Promise((s, n) => {
@@ -29479,10 +29505,10 @@ function L_(o, e) {
         for (let k = 0; k < 256; k++) if ((M += u[k]) >= m * z) return k;
         return 255;
       }, b = o.replace(/&time=[^&]*/, "");
-      let y = Ah.get(b);
+      let y = Mh.get(b);
       if (!y) {
         const z = Math.min(f(0.1) + 10, 150);
-        y = { lo: z, hi: Math.max(z + 45, f(0.995)) }, Ah.set(b, y);
+        y = { lo: z, hi: Math.max(z + 45, f(0.995)) }, Mh.set(b, y);
       }
       const { lo: _, hi: x } = y, S = new Uint8ClampedArray(256 * 4);
       for (let z = 0; z < 256; z++) {
@@ -29554,7 +29580,7 @@ const hs = class hs extends F {
     }, this._fc = /* @__PURE__ */ new Map(), this._shaded = /* @__PURE__ */ new Map(), this._frames = [], this._idx = 0, this._playing = !0, this._w = 0, this._h = 0, this._visible = !1, new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(Gf);
+    return de(Uf);
   }
   static getStubConfig() {
     return { zoom: 7, frames: 7 };
@@ -29588,7 +29614,7 @@ const hs = class hs extends F {
     } catch {
       return;
     }
-    Dg(a), this.partsGl.refresh();
+    Pg(a), this.partsGl.refresh();
   }
   validateConfig(e) {
     return this._playing = e.autoplay === !0, this._style = e.style ?? e.styles?.[0] ?? "satellite", this._zoom = Math.max(4, Math.min(10, e.zoom ?? 7)), e;
@@ -29603,7 +29629,7 @@ const hs = class hs extends F {
     super.disconnectedCallback(), this._io?.disconnect(), this._ro?.disconnect(), this._ro = void 0, document.removeEventListener("visibilitychange", this._onDoc), this._stop(), clearInterval(this._refresh), this._refresh = void 0;
   }
   _setVisible(e) {
-    this._visible = e, e && document.visibilityState === "visible" ? (this._refresh || (this._load(), this._refresh = window.setInterval(() => this._load(), M_)), this._playing && this._start()) : (this._stop(), clearInterval(this._refresh), this._refresh = void 0);
+    this._visible = e, e && document.visibilityState === "visible" ? (this._refresh || (this._load(), this._refresh = window.setInterval(() => this._load(), T_)), this._playing && this._start()) : (this._stop(), clearInterval(this._refresh), this._refresh = void 0);
   }
   firstUpdated() {
     this._ro = new ResizeObserver(() => {
@@ -29622,7 +29648,7 @@ const hs = class hs extends F {
     let a = [];
     const i = e.radar_provider === "dwd";
     if (e.radar !== !1 && !i) {
-      const l = await C_();
+      const l = await D_();
       l && (this._host = l.host, a = l.frames.slice(-t));
     }
     if (!a.length) {
@@ -29668,7 +29694,7 @@ const hs = class hs extends F {
   }
   /** Home position in world units (0–1). */
   _homeWorld(e) {
-    const { lat: t, lon: a } = this._center(e), i = D_(t, a, 0);
+    const { lat: t, lon: a } = this._center(e), i = P_(t, a, 0);
     return { x: i.x / i.size, y: i.y / i.size };
   }
   _recenter() {
@@ -29688,7 +29714,7 @@ const hs = class hs extends F {
   _forecastSrc(e) {
     const t = this._fc.get(e);
     if (t) return t;
-    this._fc.has(e) || (this._fc.set(e, ""), z_(e).then((a) => {
+    this._fc.has(e) || (this._fc.set(e, ""), A_(e).then((a) => {
       this._fc.set(e, a), this.requestUpdate();
     }).catch(() => {
     }));
@@ -29697,7 +29723,7 @@ const hs = class hs extends F {
   _cloudsSrc(e, t) {
     const a = `${t ? "l" : "d"}|${e}`, i = this._shaded.get(a);
     if (i) return i;
-    this._shaded.has(a) || (this._shaded.set(a, ""), L_(e, t).then((s) => {
+    this._shaded.has(a) || (this._shaded.set(a, ""), R_(e, t).then((s) => {
       this._shaded.set(a, s), this.requestUpdate();
     }).catch(() => {
     }));
@@ -29730,7 +29756,7 @@ const hs = class hs extends F {
   }
   _layers(e, t) {
     const a = this._config, i = this._zoom, s = this._homeWorld(e), n = this._view ?? s, r = 256 * 2 ** i, l = { x: n.x * r, y: n.y * r, size: r }, c = this._w, d = this._h, h = a.satellite !== !1 && this._style !== "rain", u = this._style === "clouds", m = a.styles ?? (a.satellite === !1 ? [] : ["satellite", "clouds"]);
-    this._ready = A_(this._frames.length);
+    this._ready = M_(this._frames.length);
     const f = Lt(e, this);
     this.toggleAttribute("light", !f && this._style !== "satellite");
     const b = Math.min(i, 7), y = a.radar_color ?? 2, _ = (I) => (ae, q, Z) => `https://server.arcgisonline.com/ArcGIS/rest/services/${I}/MapServer/tile/${Z}/${q}/${ae}`, x = (I) => (ae, q, Z) => `https://basemaps.cartocdn.com/${I}/${Z}/${ae}/${q}.png`, S = a.map_provider ?? "esri", z = S === "carto" ? x(f ? "dark_nolabels" : "light_nolabels") : S === "osm" ? (I, ae, q) => `https://tile.openstreetmap.org/${q}/${I}/${ae}.png` : _(f ? "Canvas/World_Dark_Gray_Base" : "Canvas/World_Light_Gray_Base"), M = h ? _("Reference/World_Boundaries_and_Places") : S === "carto" ? x(f ? "dark_only_labels" : "light_only_labels") : S === "osm" ? void 0 : _(f ? "Canvas/World_Dark_Gray_Reference" : "Canvas/World_Light_Gray_Reference"), k = Jn(a.controls_glass, a.controls_color, "liquid"), $ = Jn(a.play_glass, a.play_color, "liquid"), C = Jn(a.tab_glass, a.tab_color, "liquid"), T = (I, ae) => I.map(
@@ -29769,14 +29795,14 @@ const hs = class hs extends F {
       return p`<div class="borders" style="-webkit-mask-image:${I};mask-image:${I}"></div>`;
     })()}
       ${a.labels === !1 || !M ? g : p`<div class="labels">${T(Qn(l.x, l.y, i, Math.min(i, 13), c, d, M), "t")}</div>`}
-      ${a.marker === !1 ? g : p`<i class="marker" style="${jo(a.marker_color) ? `--mk:${Y(a.marker_color)};` : ""}left:${c / 2 + (s.x - n.x) * r}px;top:${d / 2 + (s.y - n.y) * r}px"></i>`}
+      ${a.marker === !1 ? g : p`<i class="marker" style="${Io(a.marker_color) ? `--mk:${Y(a.marker_color)};` : ""}left:${c / 2 + (s.x - n.x) * r}px;top:${d / 2 + (s.y - n.y) * r}px"></i>`}
       </div>
       <div class="zoom ${k.cls}" style=${k.style} @click=${(I) => I.stopPropagation()}>
         <button @click=${() => this._setZoom(1)} ?disabled=${i >= 10} aria-label="zoom in"><ha-icon icon="mdi:plus"></ha-icon></button>
         <button @click=${() => this._setZoom(-1)} ?disabled=${i <= 4} aria-label="zoom out"><ha-icon icon="mdi:minus"></ha-icon></button>
         ${this._view ? p`<button @click=${() => this._recenter()} aria-label="home"><ha-icon icon="mdi:crosshairs-gps"></ha-icon></button>` : g}
       </div>
-      ${P.length ? p`<div class="bar ${k.cls}" style="${k.style};${jo(a.timeline_color) ? `--tl:${Y(a.timeline_color)}` : ""}" @click=${(I) => I.stopPropagation()}>
+      ${P.length ? p`<div class="bar ${k.cls}" style="${k.style};${Io(a.timeline_color) ? `--tl:${Y(a.timeline_color)}` : ""}" @click=${(I) => I.stopPropagation()}>
             <button class="play ${$.cls}" style=${$.style} @click=${this._toggle} aria-label=${this._playing ? "pause" : "play"}>
               <ha-icon icon=${this._playing ? "mdi:pause" : "mdi:play"}></ha-icon>
             </button>
@@ -29788,7 +29814,7 @@ const hs = class hs extends F {
           ${m.length > 1 && a.style_switch !== !1 ? p`<div class="styles ${k.cls}" style=${k.style} @click=${(I) => I.stopPropagation()}>
                 ${m.map(
       (I) => p`<button class=${this._style === I ? `on ${C.cls}` : ""} style=${this._style === I ? C.style : ""} @click=${() => this._setStyle(I)}>
-                      ${zh[I] ? v(zh[I]) : I}
+                      ${Ah[I] ? v(Ah[I]) : I}
                     </button>`
     )}
               </div>` : g}` : g}
@@ -29798,7 +29824,7 @@ const hs = class hs extends F {
     `;
   }
 };
-hs.parts = Xu, hs.properties = {
+hs.parts = Qu, hs.properties = {
   ...F.properties,
   _frames: { state: !0 },
   _idx: { state: !0 },
@@ -30189,25 +30215,25 @@ ce("glass-radar", Pl, {
   name: "Glass – radar",
   description: "Satellite clouds and precipitation radar, animated over the last hour."
 });
-const R_ = [
+const N_ = [
   ["#7fb8f2", "#dcecfb"],
   ["#93bde6", "#e6edf0"],
   ["#a7bccd", "#e7e3d6"],
   ["#a4a69f", "#d8cfbd"],
   ["#8f857a", "#cbb89e"],
   ["#6f6056", "#a88f77"]
-], N_ = [
+], O_ = [
   ["#14213d", "#3a5584"],
   ["#18243c", "#435673"],
   ["#1d2638", "#4d5566"],
   ["#22252c", "#55534d"],
   ["#262220", "#5c4f42"],
   ["#241c18", "#57463a"]
-], O_ = [1, 0.9, 0.7, 0.45, 0.3, 0.18], B_ = [0, 0.18, 0.36, 0.55, 0.72, 0.85], er = ["#fff4c2", "#fff0bd", "#ffe3a8", "#ffcf8f", "#ffb877", "#ff9f66"], j_ = [
+], B_ = [1, 0.9, 0.7, 0.45, 0.3, 0.18], j_ = [0, 0.18, 0.36, 0.55, 0.72, 0.85], er = ["#fff4c2", "#fff0bd", "#ffe3a8", "#ffcf8f", "#ffb877", "#ff9f66"], I_ = [
   ["M0 92 C30 78 55 80 80 88 C105 96 130 74 160 76 C180 78 192 84 200 86 V140 H0Z", "#a9c1df", "#2f4268"],
   ["M0 104 C25 94 50 92 78 100 C104 108 128 92 152 94 C172 96 188 102 200 100 V140 H0Z", "#86a6cf", "#27375a"],
   ["M0 118 C30 108 60 110 92 116 C122 122 150 108 176 110 C188 111 196 114 200 115 V140 H0Z", "#6489ba", "#1e2c4a"]
-], Hs = (o, e, t, a) => j`<g class="cloud" style="--dur:${t}s;--delay:${-a * t}s">
+], Gs = (o, e, t, a) => j`<g class="cloud" style="--dur:${t}s;--delay:${-a * t}s">
     <g transform="translate(0 ${o}) scale(${e})">
       <ellipse cx="0" cy="0" rx="14" ry="6"></ellipse>
       <ellipse cx="9" cy="-4" rx="9" ry="7"></ellipse>
@@ -30215,39 +30241,39 @@ const R_ = [
     </g>
   </g>`, tr = (o, e, t) => j`<g class="bird" style="--d:${t}s" transform="translate(${o} ${e})">
     <path class="wing" d="M-3 0 Q-1.5 -1.6 0 0 Q1.5 -1.6 3 0"></path>
-  </g>`, I_ = [
+  </g>`, q_ = [
   { houses: 0, day: "#ffffff", night: "#9aa3b5", op: 0, k: 1 },
   { houses: 2, day: "#bcc2ca", night: "#9aa3b5", op: 0.8, k: 2.4 },
   { houses: 3, day: "#a9a49c", night: "#8f939c", op: 0.8, k: 2.8 },
   { houses: 5, day: "#9a9389", night: "#7f7f82", op: 0.8, k: 3.2 },
   { houses: 5, day: "#7a7369", night: "#6c6866", op: 0.85, k: 3.6 },
   { houses: 5, day: "#5a534c", night: "#5a5552", op: 0.9, k: 4 }
-], Dm = (o, e, t, a, i, s = 22) => j`${Array.from({ length: t }, (n, r) => j`<circle class="puff" cx=${o} cy=${e} r=${a} style="--delay:${-(i + r * 4.8 / t)}s;--rise:${-s}px;--drift:${s * 0.5}px"></circle>`)}`, q_ = [
+], Pm = (o, e, t, a, i, s = 22) => j`${Array.from({ length: t }, (n, r) => j`<circle class="puff" cx=${o} cy=${e} r=${a} style="--delay:${-(i + r * 4.8 / t)}s;--rise:${-s}px;--drift:${s * 0.5}px"></circle>`)}`, W_ = [
   [81, 101.4, 0.95],
   [89, 102.5, 1.15],
   [97, 102.6, 1],
   [105, 101.7, 1.1],
   [113, 100.3, 0.9]
-], W_ = [1, 3, 0, 2, 4], F_ = (o, e, t, a, i, s) => {
+], F_ = [1, 3, 0, 2, 4], H_ = (o, e, t, a, i, s) => {
   const n = t * 1.25, r = 3.6 * n, l = 3.4 * n, c = 2.8 * n, d = o + r * 0.45, h = e - l - c * 0.75;
   return j`<g>
     <rect class="chim" x=${d} y=${h} width=${0.9 * n} height=${c}></rect>
     <rect class="wall" x=${o - r} y=${e - l} width=${r * 2} height=${l + 1}></rect>
     <path class="roof" d="M${o - r - 0.6} ${e - l + 0.2} L${o} ${e - l - c} L${o + r + 0.6} ${e - l + 0.2}Z"></path>
     ${s ? j`<rect class="win" x=${o - 0.6 * n} y=${e - l * 0.6} width=${1.2 * n} height=${1.1 * n}></rect>` : null}
-    ${a ? Dm(d + 0.45 * n, h - 0.6, 4, 1.5 + i * 0.2, o * 0.07, 16 + i * 3) : null}
+    ${a ? Pm(d + 0.45 * n, h - 0.6, 4, 1.5 + i * 0.2, o * 0.07, 16 + i * 3) : null}
   </g>`;
-}, H_ = (o) => {
+}, G_ = (o) => {
   const e = o >= 5 ? [[113, 22], [121, 17]] : [[115, 18]];
   return j`<g class="factory" transform="translate(56 -2)">
     ${e.map(([t, a]) => j`<rect class="stack" x=${t - 1.3} y=${81 - a} width="2.6" height=${a}></rect>
       <rect class="band" x=${t - 1.3} y=${81 - a + 2} width="2.6" height="1.4"></rect>`)}
     <path class="hall" d="M104 82 V75.5 L108 73 V75.5 L112 73 V75.5 L116 73 V75.5 L120 73 V75.5 L124 73 V82Z"></path>
-    ${e.map(([t, a], i) => Dm(t, 79 - a, 9, o >= 5 ? 2.6 : 2.1, i * 0.9, 30))}
+    ${e.map(([t, a], i) => Pm(t, 79 - a, 9, o >= 5 ? 2.6 : 2.1, i * 0.9, 30))}
   </g>`;
 };
-function G_(o, e) {
-  const t = Math.min(5, Math.max(0, o)), [a, i] = (e ? N_ : R_)[t], s = B_[t], n = e ? "#6b6a66" : t >= 3 ? "#b9ab92" : "#e8eef2", r = I_[t];
+function U_(o, e) {
+  const t = Math.min(5, Math.max(0, o)), [a, i] = (e ? O_ : N_)[t], s = j_[t], n = e ? "#6b6a66" : t >= 3 ? "#b9ab92" : "#e8eef2", r = q_[t];
   return j`<svg class="air-scene" viewBox="0 0 200 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs>
       <linearGradient id="as-sky" x1="0" y1="0" x2="0" y2="1">
@@ -30286,7 +30312,7 @@ function G_(o, e) {
     [96, 34]
   ].map(([l, c], d) => j`<circle class="star" cx=${l} cy=${c} r="0.8" style="--delay:${d * 0.7}s"></circle>`)}
         </g>` : null}
-    <g class="sun" style="opacity:${O_[t]}">
+    <g class="sun" style="opacity:${B_[t]}">
       <circle cx="150" cy="36" r="26" fill="url(#as-glow)"></circle>
       ${e ? j`<mask id="as-crescent">
               <circle cx="150" cy="36" r="8" fill="#fff"></circle>
@@ -30295,17 +30321,17 @@ function G_(o, e) {
             <circle cx="150" cy="36" r="8" fill="#f2eedd" mask="url(#as-crescent)"></circle>` : j`<circle cx="150" cy="36" r="10" fill=${er[t]}></circle>`}
     </g>
     <g class="clouds" fill=${e ? "#55627d" : t >= 3 ? "#cfc6b4" : "#ffffff"} style="opacity:${e ? 0.45 : 0.85 - t * 0.08}">
-      ${Hs(30, 1, 90, 0.25)}${Hs(22, 0.8, 110, 0.75)}${Hs(48, 0.7, 70, 0.55)}${Hs(40, 0.6, 80, 0.05)}
+      ${Gs(30, 1, 90, 0.25)}${Gs(22, 0.8, 110, 0.75)}${Gs(48, 0.7, 70, 0.55)}${Gs(40, 0.6, 80, 0.05)}
     </g>
     ${t <= 1 && !e ? j`<g class="birds">${tr(30, 54, 0)}${tr(38, 50, 0.3)}${tr(25, 47, 0.6)}</g>` : null}
-    ${j_.map(
+    ${I_.map(
     ([l, c, d], h) => j`
         <path d=${l} fill=${e ? d : c}></path>
-        ${h === 0 && t >= 4 ? H_(t) : null}
+        ${h === 0 && t >= 4 ? G_(t) : null}
 
         <rect class="haze h${h}" x="-40" y=${70 + h * 14} width="280" height="70" fill="url(#as-haze)" style="opacity:${s * (0.55 + h * 0.2)}"></rect>
         ${h === 1 ? j`<g class="village ${e ? "night" : t >= 3 ? "dull" : ""}" style="--op:${r.op};--k:${r.k}">
-              ${q_.map(([u, m, f], b) => F_(u, m, f, W_.indexOf(b) < r.houses, t, e))}
+              ${W_.map(([u, m, f], b) => H_(u, m, f, F_.indexOf(b) < r.houses, t, e))}
             </g>` : null}`
   )}
     <g class="trees" fill=${e ? "#14203a" : t >= 3 ? "#6f7a82" : "#3f6a8f"}>
@@ -30321,7 +30347,7 @@ function G_(o, e) {
     </g>
   </svg>`;
 }
-const U_ = ee`
+const K_ = ee`
   .air-scene {
     position: absolute;
     inset: 0;
@@ -30500,7 +30526,7 @@ const U_ = ee`
   { max: 200, color: "#ff3b30", en: "Unhealthy" },
   { max: 300, color: "#af52de", en: "Very unhealthy" },
   { max: 1 / 0, color: "#a2324a", en: "Hazardous" }
-], Ia = (o) => `https://images.unsplash.com/photo-${o}?w=640&q=70&auto=format&fit=crop`, K_ = [
+], Ia = (o) => `https://images.unsplash.com/photo-${o}?w=640&q=70&auto=format&fit=crop`, V_ = [
   Ia("1623390003553-4fa3f9fceb89"),
   Ia("1750089440008-fedc3d2760f3"),
   Ia("1760112570747-8684a0b3e609"),
@@ -30508,12 +30534,12 @@ const U_ = ee`
   Ia("1755577540905-f62e5b55022a"),
   Ia("1761509418231-15bf0145b2a6")
 ];
-function V_(o) {
+function Y_(o) {
   const e = (Array.isArray(o) ? o : String(o ?? "").split(/[,;\s]+/)).map((t) => parseFloat(String(t).replace(",", "."))).filter((t) => !Number.isNaN(t));
   return e.length === 5 ? e : zs.slice(0, 5).map((t) => t.max);
 }
-const Mh = (o, e) => {
-  const t = V_(e).findIndex((a) => o <= a);
+const Th = (o, e) => {
+  const t = Y_(e).findIndex((a) => o <= a);
   return zs[t < 0 ? zs.length - 1 : t];
 }, ar = [
   [/pm_?2[._]?5|pm25/i, "PM2.5"],
@@ -30524,12 +30550,12 @@ const Mh = (o, e) => {
   [/sulph?ur_?dioxide|\bso2\b/i, "SO₂"],
   [/carbon_?monoxide|\bco\b/i, "CO"],
   [/ozone|\bo3\b/i, "O₃"]
-], an = class an extends F {
+], sn = class sn extends F {
   constructor() {
     super(), this._list = [], this._lastWatched = "", new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(Uf);
+    return de(Kf);
   }
   static getStubConfig(e) {
     return { entity: Object.values(e.states).find((a) => a.entity_id.startsWith("sensor.") && a.attributes.device_class === "aqi")?.entity_id ?? "" };
@@ -30542,7 +30568,7 @@ const Mh = (o, e) => {
       e.style.removeProperty("-webkit-mask"), e.style.removeProperty("mask");
       return;
     }
-    const t = parseFloat(getComputedStyle(e).borderTopLeftRadius) || 26, a = fm(Math.round(e.offsetWidth), Math.round(e.offsetHeight), t, Math.max(2, t * 1.2));
+    const t = parseFloat(getComputedStyle(e).borderTopLeftRadius) || 26, a = bm(Math.round(e.offsetWidth), Math.round(e.offsetHeight), t, Math.max(2, t * 1.2));
     if (!a) return;
     const i = `url(${a}) 0 0 / 100% 100% no-repeat`;
     e.style.setProperty("-webkit-mask", i), e.style.setProperty("mask", i);
@@ -30587,7 +30613,7 @@ const Mh = (o, e) => {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
     if (!t.states[e.entity]) return p`<div class="frame surface"><div class="missing">${e.entity}?</div></div>`;
-    const i = (y) => parseFloat(t.states[y]?.state ?? ""), s = (y) => (Math.round(y * 10) / 10).toLocaleString(yi()), n = i(e.entity), r = !Number.isNaN(n), l = Mh(r ? n : 0, e.limits), c = r ? zs.indexOf(l) : 0, d = e.image ?? e.images?.[c] ?? K_[c], h = (y) => Y(e.level_colors?.[zs.indexOf(y)]) ?? y.color, u = (y, _, x) => {
+    const i = (y) => parseFloat(t.states[y]?.state ?? ""), s = (y) => (Math.round(y * 10) / 10).toLocaleString(yi()), n = i(e.entity), r = !Number.isNaN(n), l = Th(r ? n : 0, e.limits), c = r ? zs.indexOf(l) : 0, d = e.image ?? e.images?.[c] ?? V_[c], h = (y) => Y(e.level_colors?.[zs.indexOf(y)]) ?? y.color, u = (y, _, x) => {
       const S = y ?? (_ && _ !== "none" ? x : void 0);
       return S ? { cls: `mat mat-${S}`, style: re(_ && _ !== "none" ? _ : void 0) } : { cls: "", style: "" };
     }, m = u(e.hero_glass, e.hero_color, "frosted"), f = u(e.tiles_glass, e.tiles_color, "liquid"), b = `lv-${e.level_style ?? "dot"}`;
@@ -30599,7 +30625,7 @@ const Mh = (o, e) => {
             ${e.image || e.images?.length ? p`<div
                   class="photo ${(e.image_color ?? "active") === "always" || (e.image_color ?? "active") === "active" && c >= 2 ? "" : "grey"}"
                   style="background-image:url('${d}')"
-                ></div>` : p`<div class="photo scene">${G_(c, Lt(t, this))}</div>`}
+                ></div>` : p`<div class="photo scene">${U_(c, Lt(t, this))}</div>`}
           </div>
           <span class="name">${e.name ?? v("Air quality")}</span>
           <div class="hero-text">
@@ -30609,7 +30635,7 @@ const Mh = (o, e) => {
         </div>
         <div class="small">
           ${this._pollutants().map((y) => {
-      const _ = i(y.entity), x = !Number.isNaN(_), S = Mh(x ? _ : 0, y.limits);
+      const _ = i(y.entity), x = !Number.isNaN(_), S = Th(x ? _ : 0, y.limits);
       return p`<div class="tile ${f.cls} ${x ? b : ""}" style="--c:${x ? h(S) : "#8e8e93"};${f.style}">
               <span class="label">${this._meta(y, t.states[y.entity]).name}</span>
               <span class="val">${x ? s(_) : "–"}</span>
@@ -30621,10 +30647,10 @@ const Mh = (o, e) => {
     </div>`;
   }
 };
-an.parts = Ju, an.styles = [
+sn.parts = Xu, sn.styles = [
   F.styles,
   we,
-  U_,
+  K_,
   ee`
       :host {
         display: block;
@@ -30894,7 +30920,7 @@ an.parts = Ju, an.styles = [
   // after the card's own rules: a picked material replaces the default glass
   xe
 ];
-let El = an;
+let El = sn;
 ce("glass-air-quality", El, {
   name: "Glass – air quality",
   description: "Air quality index with a gauge, its meaning and every pollutant on the same scale."
@@ -30904,7 +30930,7 @@ ce("glass-air-quality", El, {
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const li = cm(class extends dm {
+const li = dm(class extends hm {
   constructor() {
     super(...arguments), this.key = g;
   }
@@ -30912,16 +30938,16 @@ const li = cm(class extends dm {
     return this.key = o, e;
   }
   update(o, [e, t]) {
-    return e !== this.key && (hm(o), this.key = e), t;
+    return e !== this.key && (pm(o), this.key = e), t;
   }
-}), Th = 72, sn = class sn extends F {
+}), Ch = 72, on = class on extends F {
   constructor() {
     super(), this._series = {}, this._fetchedAt = 0, this._loading = !1, this._outside = (e) => {
       e.composedPath().includes(this) || this._untrack();
     }, new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(eb);
+    return de(tb);
   }
   static getStubConfig(e) {
     return { entity: Object.keys(e.states).find((a) => a.startsWith("climate.")) ?? "" };
@@ -30964,7 +30990,7 @@ const li = cm(class extends dm {
     const e = this._hass;
     if (!e || !this._config || this._config.graph === !1 || this._loading || Date.now() - this._fetchedAt < 600 * 1e3) return;
     const t = this._ids();
-    t.length && (this._loading = !0, pm(e, t, this._config.hours ?? 24).then((a) => {
+    t.length && (this._loading = !0, um(e, t, this._config.hours ?? 24).then((a) => {
       this._series = a, this._fetchedAt = Date.now(), this.requestUpdate();
     }).finally(() => this._loading = !1));
   }
@@ -30972,7 +30998,7 @@ const li = cm(class extends dm {
     for (const t of this._ids()) {
       const a = e.states[t], i = this._series[t];
       if (!a || !i) continue;
-      const s = Oo(a.state), n = Date.parse(a.last_updated);
+      const s = Bo(a.state), n = Date.parse(a.last_updated);
       !Number.isNaN(s) && (!i.length || i[i.length - 1].t < n) && i.push({ t: n, v: s });
     }
     this._pending !== void 0 && this._sendTimer === void 0 && e.states[this._config.entity]?.attributes.temperature === this._pending && (this._pending = void 0), this._ensureHistory();
@@ -31005,15 +31031,15 @@ const li = cm(class extends dm {
   _graph() {
     const e = this._config;
     if (e.graph === !1) return g;
-    const t = Date.now(), a = t - (e.hours ?? 24) * 3600 * 1e3, i = this._lineEntity, s = Math.max(0, Math.min(12, Math.round(e.smoothing ?? 1))), n = i ? ml(this._series[i] ?? [], a, t, Th, s) : [], r = e.graph_entities.map((M) => {
+    const t = Date.now(), a = t - (e.hours ?? 24) * 3600 * 1e3, i = this._lineEntity, s = Math.max(0, Math.min(12, Math.round(e.smoothing ?? 1))), n = i ? ml(this._series[i] ?? [], a, t, Ch, s) : [], r = e.graph_entities.map((M) => {
       const k = this._series[M] ?? [], $ = this._hass.states[M];
-      return M.startsWith("binary_sensor.") || ($ ? Number.isNaN(parseFloat($.state)) && !Number.isNaN(Oo($.state)) : !1) ? { spans: Mb(k, a, t) } : { values: ml(k, a, t, Th, s) };
+      return M.startsWith("binary_sensor.") || ($ ? Number.isNaN(parseFloat($.state)) && !Number.isNaN(Bo($.state)) : !1) ? { spans: Tb(k, a, t) } : { values: ml(k, a, t, Ch, s) };
     }), l = [...n, ...r.flatMap((M) => M.values ?? [])].filter((M) => M !== void 0);
     if (!l.length) return p`<div class="graph"></div>`;
     let c = Math.min(...l), d = Math.max(...l);
     const h = Math.max(e.min_range ?? 2, d - c), u = (c + d) / 2;
     c = u - h / 2, d = u + h / 2;
-    const m = c - h * 0.18, f = d + h * 0.12, b = gl(n, m, f), y = Y(e.graph_color), _ = 3600 * 1e3, x = this._hover !== void 0 ? Math.min(Math.floor(t / _) * _, Math.max(Math.ceil(a / _) * _, Math.round((a + this._hover * (t - a)) / _) * _)) : void 0, S = x !== void 0 ? (x - a) / (t - a) : void 0, z = S !== void 0 && b ? Tb(n, S) : void 0;
+    const m = c - h * 0.18, f = d + h * 0.12, b = gl(n, m, f), y = Y(e.graph_color), _ = 3600 * 1e3, x = this._hover !== void 0 ? Math.min(Math.floor(t / _) * _, Math.max(Math.ceil(a / _) * _, Math.round((a + this._hover * (t - a)) / _) * _)) : void 0, S = x !== void 0 ? (x - a) / (t - a) : void 0, z = S !== void 0 && b ? Cb(n, S) : void 0;
     return this._hoverInfo = z !== void 0 ? { v: z, t: x } : void 0, p`<div
       class="graph ${y ? "colored" : ""}"
       style=${y ? `--glass-graph-color:${y}` : ""}
@@ -31105,7 +31131,7 @@ const li = cm(class extends dm {
     return { columns: 6, rows: 3, min_rows: 2 };
   }
 };
-sn.parts = Bu, sn.styles = [
+on.parts = ju, on.styles = [
   F.styles,
   we,
   Oe,
@@ -31529,12 +31555,12 @@ sn.parts = Bu, sn.styles = [
   // after the card's own rules: a picked material replaces the default glass
   xe
 ];
-let Ll = sn;
+let Ll = on;
 ce("glass-thermostat", Ll, {
   name: "Glass – thermostat",
   description: "Room temperature with set point controls and a soft history graph, styled like the room cards."
 });
-const Y_ = [
+const Z_ = [
   ["climate", "climate", /heating|_hk1|circuit/],
   ["water_heater", "water_heater", /./],
   ["compressor", "binary_sensor", /compressor$/],
@@ -31554,23 +31580,23 @@ const Y_ = [
   ["rod_hours", "sensor", /heating_rod_hours$/],
   ["pressure", "sensor", /supply_pressure$|pressure$/],
   ["flow", "sensor", /volumetric_flow$/]
-], Z_ = "#0084FF", Ch = "#ff9500", J_ = "#ff3b30", X_ = "rgba(160, 160, 165, 0.78)", Oi = 300, dt = 96, at = 22, it = 34, Io = [26, it], bt = [110, it], Hc = [194, it], Za = [274, it], qa = {
-  out: `M${Io[0] + at + 2},${it} L${bt[0] - at - 2},${it}`,
+], J_ = "#0084FF", Dh = "#ff9500", X_ = "#ff3b30", Q_ = "rgba(160, 160, 165, 0.78)", Oi = 300, dt = 96, at = 22, it = 34, qo = [26, it], bt = [110, it], Hc = [194, it], Za = [274, it], qa = {
+  out: `M${qo[0] + at + 2},${it} L${bt[0] - at - 2},${it}`,
   heat: `M${bt[0] + at + 2},${it} L${Hc[0] - at - 2},${it}`,
   dhw: `M${bt[0]},${it + at + 2} L${bt[0]},${dt - 22} Q${bt[0]},${dt - 10} ${bt[0] + 12},${dt - 10} L${Za[0] - 12},${dt - 10} Q${Za[0]},${dt - 10} ${Za[0]},${dt - 22} L${Za[0]},${it + at + 2}`
-}, ir = { out: bt[0] - Io[0] - 2 * at - 4, heat: Hc[0] - bt[0] - 2 * at - 4, dhw: Za[0] - bt[0] + 2 * (dt - 10 - it - at) }, Q_ = 40, ey = 34, Gs = 20, ty = {
+}, ir = { out: bt[0] - qo[0] - 2 * at - 4, heat: Hc[0] - bt[0] - 2 * at - 4, dhw: Za[0] - bt[0] + 2 * (dt - 10 - it - at) }, ey = 40, ty = 34, Us = 20, ay = {
   comfort: "Comfort",
   home: "Home",
   sleep: "Sleep",
   eco: "Eco",
   away: "Away"
-}, ay = {
+}, iy = {
   efficient: "Efficient",
   efficientWithMinComfort: "Efficient+",
   efficient_with_min_comfort: "Efficient+",
   comfort: "Comfort",
   off: "Off"
-}, iy = {
+}, sy = {
   ready: "ready",
   off: "off",
   heating: "heating",
@@ -31579,14 +31605,14 @@ const Y_ = [
   defrost: "defrosting",
   preparing: "starting",
   pause: "pause"
-}, on = class on extends F {
+}, nn = class nn extends F {
   constructor() {
     super(), this._ids = {}, this._fromDevice = !1, this._pending = /* @__PURE__ */ new Map(), this._timers = /* @__PURE__ */ new Map(), this._open = !1, this._toggle = (e) => {
       e?.stopPropagation(), this._open = !this._open, this.toggleAttribute("glass-expanded", this._open), this.requestUpdate();
     }, new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(ib);
+    return de(sb);
   }
   static getStubConfig(e) {
     const t = e.entities ?? {}, a = Object.keys(t).find((i) => /^binary_sensor\..*compressor$/.test(i));
@@ -31601,7 +31627,7 @@ const Y_ = [
     const e = this._config, t = {}, a = this._hass?.entities;
     if (this._fromDevice = !!(e?.device && a), e?.device && a) {
       const i = Object.keys(a).filter((s) => a[s].device_id === e.device);
-      for (const [s, n, r] of Y_) {
+      for (const [s, n, r] of Z_) {
         if (t[s]) continue;
         const l = i.find((c) => c.startsWith(`${n}.`) && r.test(c.slice(n.length + 1)));
         l && (t[s] = l);
@@ -31643,11 +31669,11 @@ const Y_ = [
   }
   /** One beam (head, white core, fading tail) along a pipe, like the energy card's laser. */
   _beam(e, t, a, i) {
-    const s = t / Q_, n = Math.min(ey * s / t, s * 0.6), r = n / Gs, l = `offset-path:path('${e}');animation-duration:${s.toFixed(2)}s;`, c = (d) => `animation-delay:${(-n + d * r).toFixed(3)}s;`;
+    const s = t / ey, n = Math.min(ty * s / t, s * 0.6), r = n / Us, l = `offset-path:path('${e}');animation-duration:${s.toFixed(2)}s;`, c = (d) => `animation-delay:${(-n + d * r).toFixed(3)}s;`;
     return j`
       <g filter="url(#${i}-t)">
-        ${Array.from({ length: Gs }, (d, h) => {
-      const u = (2.4 - h * 2 / (Gs - 1)).toFixed(2), m = (0.85 * Math.pow(1 - h / Gs, 0.55)).toFixed(3);
+        ${Array.from({ length: Us }, (d, h) => {
+      const u = (2.4 - h * 2 / (Us - 1)).toFixed(2), m = (0.85 * Math.pow(1 - h / Us, 0.55)).toFixed(3);
       return j`<ellipse class="beam" rx=${u} ry=${u} fill=${a} fill-opacity=${m} style="${l}${c(h + 1)}"></ellipse>`;
     })}
       </g>
@@ -31657,7 +31683,7 @@ const Y_ = [
   _node(e, t, a, i, s, n = "") {
     return p`<div
       class="node ${!!t ? "lit" : ""} ${n}"
-      style="left:${e[0] / Oi * 100}%;top:${e[1] / dt * 100}%;--c:${t ?? `var(--hp-idle, ${X_})`}"
+      style="left:${e[0] / Oi * 100}%;top:${e[1] / dt * 100}%;--c:${t ?? `var(--hp-idle, ${Q_})`}"
       title=${s}
     >
       <ha-icon .icon=${a}></ha-icon>
@@ -31667,7 +31693,7 @@ const Y_ = [
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = (J, ye) => J ? v(J) : ye, i = (J, ye = 1) => J === void 0 ? "–" : J.toLocaleString(yi(), { maximumFractionDigits: ye }), s = this._ids, n = this._st("climate"), r = this._st("water_heater"), l = this._st("compressor")?.state === "on", c = (J) => ["on", "true", "heating"].includes(String(this._st(J)?.state).toLowerCase()), d = this._st("pump")?.state === "on", h = s.dhw_active ? c("dhw_active") : !1, u = s.heating_active ? c("heating_active") : s.pump ? d && !h : l && n?.attributes.hvac_action === "heating", m = this._st("frost")?.state === "on", f = c("rod"), b = "hp", y = (J, ye) => J && J !== "none" ? Y(J) ?? ye : ye, _ = y(e.outside_color, Z_), x = y(e.heating_color, Ch), S = y(e.dhw_color, Ch), z = y(e.rod_color, J_), M = e.show_animation !== !1, k = p`<div class="scheme">
+    const a = (J, ye) => J ? v(J) : ye, i = (J, ye = 1) => J === void 0 ? "–" : J.toLocaleString(yi(), { maximumFractionDigits: ye }), s = this._ids, n = this._st("climate"), r = this._st("water_heater"), l = this._st("compressor")?.state === "on", c = (J) => ["on", "true", "heating"].includes(String(this._st(J)?.state).toLowerCase()), d = this._st("pump")?.state === "on", h = s.dhw_active ? c("dhw_active") : !1, u = s.heating_active ? c("heating_active") : s.pump ? d && !h : l && n?.attributes.hvac_action === "heating", m = this._st("frost")?.state === "on", f = c("rod"), b = "hp", y = (J, ye) => J && J !== "none" ? Y(J) ?? ye : ye, _ = y(e.outside_color, J_), x = y(e.heating_color, Dh), S = y(e.dhw_color, Dh), z = y(e.rod_color, X_), M = e.show_animation !== !1, k = p`<div class="scheme">
       <svg viewBox="0 0 ${Oi} ${dt}" aria-hidden="true">
         <defs>
           <filter id="${b}-h" x="-300%" y="-300%" width="700%" height="700%">
@@ -31695,16 +31721,16 @@ const Y_ = [
         ${M && u ? this._beam(qa.heat, ir.heat, x, b) : g}
         ${M && h && (s.dhw || r) ? this._beam(qa.dhw, ir.dhw, S, b) : g}
       </svg>
-      ${this._node(Io, l ? _ : void 0, "mdi:weather-windy", this._st("outside") ? `${i(this._num("outside"))}°` : "", v("Outside"))}
+      ${this._node(qo, l ? _ : void 0, "mdi:weather-windy", this._st("outside") ? `${i(this._num("outside"))}°` : "", v("Outside"))}
       ${m ? p`<span
             class="badge on frost"
-            style="left:${(Io[0] + at * 0.72) / Oi * 100}%;top:${(it - at * 0.72) / dt * 100}%"
+            style="left:${(qo[0] + at * 0.72) / Oi * 100}%;top:${(it - at * 0.72) / dt * 100}%"
             title=${v("Frost protection on")}
             ><ha-icon icon="mdi:snowflake"></ha-icon
           ></span>` : g}
 
       ${this._node(Hc, u ? x : void 0, "mdi:radiator", this._st("supply") ? `${i(this._num("supply"))}°` : "", v("Heating supply"), u ? "pulse" : "")}
-      ${this._node(bt, f ? z : l ? x : void 0, "mdi:pump", "", `${v("Heat pump")}: ${a(iy[this._st("phase")?.state ?? ""], this._st("phase")?.state ?? "")}${f ? v(" · heating rod") : ""}`, d && M ? "pump spin" : "pump")}
+      ${this._node(bt, f ? z : l ? x : void 0, "mdi:pump", "", `${v("Heat pump")}: ${a(sy[this._st("phase")?.state ?? ""], this._st("phase")?.state ?? "")}${f ? v(" · heating rod") : ""}`, d && M ? "pump spin" : "pump")}
       ${s.dhw || r ? this._node(Za, h ? S : void 0, "mdi:water-boiler", this._st("dhw") || r?.attributes.current_temperature !== void 0 ? `${i(this._num("dhw") ?? Number(r?.attributes.current_temperature))}°` : "", v("Hot water"), h ? "pulse" : "") : g}
 
     </div>`, $ = [];
@@ -31742,15 +31768,15 @@ const Y_ = [
         this._call("climate", "set_preset_mode", { entity_id: s.climate, preset_mode: J });
       }}
               >
-                ${a(ty[J], J)}
+                ${a(ay[J], J)}
               </button>`
     )}
           </div>
-        </div>` : g, q = (J, ye, Le, ut, St, Es, Yc, ig = 1) => {
-      const sg = this._pending.get(J) ?? Le;
+        </div>` : g, q = (J, ye, Le, ut, St, Es, Yc, sg = 1) => {
+      const og = this._pending.get(J) ?? Le;
       return p`<div class=${`set ${N.cls}`} style=${N.style}>
         <button aria-label="−" @click=${() => this._nudge(J, ye, Le, -ut, St, Es, Yc)}><ha-icon icon="mdi:minus"></ha-icon></button>
-        <span class="sp ${this._pending.has(J) ? "pending" : ""}">${i(sg, ig)}</span>
+        <span class="sp ${this._pending.has(J) ? "pending" : ""}">${i(og, sg)}</span>
         <button aria-label="+" @click=${() => this._nudge(J, ye, Le, ut, St, Es, Yc)}><ha-icon icon="mdi:plus"></ha-icon></button>
       </div>`;
     }, Z = this._st("dhw_mode"), he = r && e.show_dhw_setpoint !== !1 ? p`<div class="row">
@@ -31783,7 +31809,7 @@ const Y_ = [
             ${Z ? p`<div class=${`seg wide ${T.cls}`} style=${T.style}>
                   ${Z.attributes.options.map(
       (J) => p`<button class="segb ${Z.state === J ? `cur ${P.cls}` : ""}" style=${Z.state === J ? P.style : ""} @click=${() => this._call("select", "select_option", { entity_id: s.dhw_mode, option: J })}>
-                      ${a(ay[J], J)}
+                      ${a(iy[J], J)}
                     </button>`
     )}
                 </div>` : g}
@@ -31839,7 +31865,7 @@ const Y_ = [
     for (const e of this._timers.values()) clearTimeout(e);
   }
 };
-on.parts = qu, on.styles = [
+nn.parts = Wu, nn.styles = [
   F.styles,
   we,
   ee`
@@ -32290,12 +32316,12 @@ on.parts = qu, on.styles = [
       }
     `
 ];
-let Rl = on;
+let Rl = nn;
 ce("glass-heat-pump", Rl, {
   name: "Glass – heat pump",
   description: "Heat pump: the heat flow like the energy card, heating mode, hot water and the heating curve."
 });
-const Dh = 4, Ph = 8, sy = 176, oy = ["gate", "garage", "door", "window", "damper"], ny = {
+const Ph = 4, Eh = 8, oy = 176, ny = ["gate", "garage", "door", "window", "damper"], ry = {
   gate: ["mdi:gate", "mdi:gate-open"],
   garage: ["mdi:garage", "mdi:garage-open"],
   door: ["mdi:door-closed", "mdi:door-open"],
@@ -32305,12 +32331,12 @@ function sr(o, e, t) {
   const a = o ?? (as(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: re(as(e) ? e : void 0) } : void 0;
 }
-const ry = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${io(o)}></path></svg>`, ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${so(o)}></path></svg>`, ps = class ps extends F {
+const ly = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${so(o)}></path></svg>`, cy = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d=${oo(o)}></path></svg>`, ps = class ps extends F {
   constructor() {
     super(), this._sent = /* @__PURE__ */ new Map(), new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(sb);
+    return de(ob);
   }
   static getStubConfig(e) {
     return { entity: Object.keys(e.states).find((t) => t.startsWith("cover.")) ?? "" };
@@ -32333,9 +32359,9 @@ const ry = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
     const e = this._config;
     if (e.kind && e.kind !== "auto") return e.kind;
     const t = this._hass?.states[e.entity]?.attributes ?? {};
-    if (oy.includes(t.device_class)) return "gate";
+    if (ny.includes(t.device_class)) return "gate";
     const a = t.supported_features;
-    return !!e.tilts?.length || e.slats === "full" || e.slats === "bar" || t.current_tilt_position !== void 0 || typeof a == "number" && (a & sy) !== 0 ? "blind" : "roller";
+    return !!e.tilts?.length || e.slats === "full" || e.slats === "bar" || t.current_tilt_position !== void 0 || typeof a == "number" && (a & oy) !== 0 ? "blind" : "roller";
   }
   /** A cover feature; an entity without supported_features is taken to have it. */
   _can(e, t) {
@@ -32359,7 +32385,7 @@ const ry = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
   /** A position: set, or – a cover that only opens and closes – opened or closed. */
   _move(e) {
     const t = this._config.entity;
-    this._sent.set("pos", { v: e, until: Date.now() + 9e4 }), this._can(Dh, "current_position") ? this._hass?.callService("cover", "set_cover_position", { entity_id: t, position: e }) : this._hass?.callService("cover", e >= 50 ? "open_cover" : "close_cover", { entity_id: t }), this.requestUpdate();
+    this._sent.set("pos", { v: e, until: Date.now() + 9e4 }), this._can(Ph, "current_position") ? this._hass?.callService("cover", "set_cover_position", { entity_id: t, position: e }) : this._hass?.callService("cover", e >= 50 ? "open_cover" : "close_cover", { entity_id: t }), this.requestUpdate();
   }
   /** Up or down (a gate: open or closed), the end the cover is not at; is it at the open end now? */
   _atOpenEnd() {
@@ -32368,7 +32394,7 @@ const ry = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
   }
   /** The button on the bar: stop while it moves, else all the way to the other end. */
   _iconTap() {
-    if (this._motion() && this._can(Ph)) return this._stop();
+    if (this._motion() && this._can(Eh)) return this._stop();
     W("light"), this._move(this._atOpenEnd() ? 0 : 100);
   }
   _stop() {
@@ -32435,17 +32461,17 @@ const ry = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
     ] : [
       { name: v("Up"), icon: "mdi:chevron-up", value: 100 },
       { name: v("Down"), icon: "mdi:chevron-down", value: 0 }
-    ]), m = this._can(Dh, "current_position"), f = this._can(Ph), b = (e.tilts ?? lm()).map((Z, he, Ie) => ({
+    ]), m = this._can(Ph, "current_position"), f = this._can(Eh), b = (e.tilts ?? cm()).map((Z, he, Ie) => ({
       ...Z,
-      deg: oo(typeof Z.value == "number" ? Z.value : he / Math.max(1, Ie.length - 1) * 100)
+      deg: no(typeof Z.value == "number" ? Z.value : he / Math.max(1, Ie.length - 1) * 100)
     })), y = e.percent_only === !0, _ = c === void 0 ? "–" : y && m ? `${c} %` : c >= 99 ? v("cover.is_open") : c <= 1 ? v("cover.is_closed") : `${v("Partially open")} · ${c} %`, x = n && !(y && m) ? v(s ? n === "closing" ? "cover.closing" : "cover.opening" : n === "closing" ? "Closing" : "Opening") : "", S = 15, z = 2 * Math.PI * S, M = (c ?? 100) < 99, k = s ? c ?? 0 : 100 - (c ?? 100), $ = k > 1, C = this._target(), T = C === void 0 ? void 0 : s ? C : 100 - C, P = i === "blind" && e.slats !== "none", N = d === void 0 || !M && this._drag?.bar !== "tilt" ? "–" : y ? `${d} %` : d >= 90 ? v("cover.is_open") : d <= 10 ? v("cover.is_closed") : `${v("Partially open")} · ${d} %`, E = (Z, he) => p`<button class="mode mat-${e.positions_glass ?? "none"}" style=${re(e.choices_color)} title=${he.name ?? ""} aria-label=${he.name ?? ""} @click=${() => this._choose(Z, he)}>
       <ha-icon .icon=${he.icon ?? "mdi:circle-small"}></ha-icon>
     </button>`, L = (Z, he) => {
       const Ie = this._value(Z), $t = he.value !== void 0 && Ie !== void 0 && Math.abs(Ie - he.value) <= 2;
       return p`<button class="round side mat-${e.tilts_glass ?? "dark"} ${e.tilts_glass ? "" : "auto"} ${$t ? "cur" : ""}" style=${re(e.choices_color)} title=${he.name ?? ""} aria-label=${he.name ?? ""} @click=${() => this._choose(Z, he)}>
-        ${he.deg !== void 0 && !he.icon ? ly(he.deg) : p`<ha-icon .icon=${he.icon ?? "mdi:circle-small"}></ha-icon>`}
+        ${he.deg !== void 0 && !he.icon ? cy(he.deg) : p`<ha-icon .icon=${he.icon ?? "mdi:circle-small"}></ha-icon>`}
       </button>`;
-    }, G = sr(e.bar_glass, e.bar_color, "frosted"), H = sr(e.slats_glass, e.slats_color, "flat"), te = sr(e.tray_glass, e.tray_color, "flat"), I = this._icon($, r), ae = ny[a.attributes.device_class] ?? ["glass:blind", "glass:blind-open"], q = (Z) => (he) => this._slide(Z, he);
+    }, G = sr(e.bar_glass, e.bar_color, "frosted"), H = sr(e.slats_glass, e.slats_color, "flat"), te = sr(e.tray_glass, e.tray_color, "flat"), I = this._icon($, r), ae = ry[a.attributes.device_class] ?? ["glass:blind", "glass:blind-open"], q = (Z) => (he) => this._slide(Z, he);
     return p`<div class="frame surface" style="--c-on:${Y(r) ?? "transparent"};--fill:${as(e.fill_color) ? Y(e.fill_color) : "var(--c-on)"};--c-pause:${Y(e.pause_color ?? r) ?? "transparent"}">
       ${e.show_title === !1 && !(e.pause && !e.hide_pause) ? g : p`<div class="title ${e.show_title === !1 ? "bare" : ""}">
         ${e.show_title === !1 ? g : p`${e.icon ? p`<ha-icon class="ricon" .icon=${e.icon}></ha-icon>` : g}
@@ -32492,7 +32518,7 @@ const ry = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
                 @click=${() => this._iconTap()}
                 @keydown=${(Z) => (Z.key === "Enter" || Z.key === " ") && (Z.preventDefault(), this._iconTap())}
               >
-                ${s ? p`<ha-icon class="gicon" .icon=${ae[(c ?? 0) > 1 || n ? 1 : 0]}></ha-icon>` : ry(c ?? 100)}
+                ${s ? p`<ha-icon class="gicon" .icon=${ae[(c ?? 0) > 1 || n ? 1 : 0]}></ha-icon>` : ly(c ?? 100)}
               </div>`}
           <span class="blabel"
             ><span class="wide-only">${n && x ? `${x}${m && c !== void 0 ? ` · ${c} %` : ""}` : _}</span
@@ -32537,7 +32563,7 @@ const ry = (o) => j`<svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><p
     };
   }
 };
-ps.parts = Ru, ps.properties = { ...F.properties, _drag: { state: !0 } }, ps.styles = [
+ps.parts = Nu, ps.properties = { ...F.properties, _drag: { state: !0 } }, ps.styles = [
   F.styles,
   we,
   Oe,
@@ -33100,15 +33126,15 @@ ce("glass-blind", Nl, {
   name: "Glass – blind",
   description: "A room's blind, roller or gate: position and tilt bars (tap or drag), stop while it moves, quick choices, the automation's pause."
 });
-function cy() {
+function dy() {
   const o = import.meta.url;
   return new URL("./demo-alarm-morning.jpg?v=2", o).href;
 }
-function dy() {
+function hy() {
   return new URL("./demo-alarm-night.jpg?v=1", import.meta.url).href;
 }
-const Us = /* @__PURE__ */ new Map(), or = /* @__PURE__ */ new Map();
-function hy(o) {
+const Ks = /* @__PURE__ */ new Map(), or = /* @__PURE__ */ new Map();
+function py(o) {
   try {
     const e = document.createElement("canvas");
     e.width = 32, e.height = 4;
@@ -33122,7 +33148,7 @@ function hy(o) {
     return;
   }
 }
-let Ks;
+let Vs;
 const us = class us extends F {
   constructor() {
     super(...arguments), this._key = "", this._open = !1, this._done = /* @__PURE__ */ new Set(), this._ro = new ResizeObserver(([e]) => this.toggleAttribute("wide", e.contentRect.width >= 700)), this._onLoc = () => {
@@ -33153,7 +33179,7 @@ const us = class us extends F {
     }, this._sample = !1;
   }
   static getConfigElement() {
-    return de(cb);
+    return de(db);
   }
   static getStubConfig() {
     return { display: "modal" };
@@ -33170,15 +33196,15 @@ const us = class us extends F {
   }
   /** the photo's shape for the tablet's layout, once the browser has it */
   _ratio(e) {
-    const t = Us.get(e);
-    if (t || Us.has(e)) return t;
-    Us.set(e, 0);
+    const t = Ks.get(e);
+    if (t || Ks.has(e)) return t;
+    Ks.set(e, 0);
     const a = new Image();
     a.crossOrigin = "anonymous", a.onerror = () => {
       a.crossOrigin && (a.removeAttribute("crossorigin"), a.src = e);
     }, a.onload = () => {
-      a.naturalWidth && a.naturalHeight && Us.set(e, a.naturalWidth / a.naturalHeight);
-      const i = hy(a);
+      a.naturalWidth && a.naturalHeight && Ks.set(e, a.naturalWidth / a.naturalHeight);
+      const i = py(a);
       i && or.set(e, i), this.requestUpdate();
     }, a.src = e;
   }
@@ -33194,7 +33220,7 @@ const us = class us extends F {
   forwardHass(e) {
     for (const a of [...this._done]) e.states[a]?.state !== "on" && this._done.delete(a);
     const t = this._ringing().map((a) => a.h.ringing).join("|");
-    t !== this._key && (this._key = t, this.requestUpdate(), this._config?.inline || this._show(!!t)), this._over && (this._over.hass = e), this._config?.overlay || Tm(e);
+    t !== this._key && (this._key = t, this.requestUpdate(), this._config?.inline || this._show(!!t)), this._over && (this._over.hass = e), this._config?.overlay || Cm(e);
   }
   /** Not inline: the alarm over the dashboard (a copy of this card in the page) or its pop-up. */
   _show(e) {
@@ -33206,9 +33232,9 @@ const us = class us extends F {
         return;
       }
       if (e) {
-        Ks?.remove();
+        Vs?.remove();
         const a = document.createElement("glass-alarm-ring");
-        a.setConfig({ ...this._rawConfig, inline: !0, overlay: !0 }), this._hass && (a.hass = this._hass), Tl(this).append(a), Ks = a, this._over = a;
+        a.setConfig({ ...this._rawConfig, inline: !0, overlay: !0 }), this._hass && (a.hass = this._hass), Tl(this).append(a), Vs = a, this._over = a;
       } else
         this._over?.remove(), this._over = void 0;
     }
@@ -33217,7 +33243,7 @@ const us = class us extends F {
     return !!this.preview || this._inEditor;
   }
   connectedCallback() {
-    super.connectedCallback(), this._ro.observe(this), this._inEditor = __(this);
+    super.connectedCallback(), this._ro.observe(this), this._inEditor = y_(this);
     for (const e of ["click", "pointerdown", "touchstart"]) this.addEventListener(e, this._stop);
     window.addEventListener("location-changed", this._onLoc), window.addEventListener("hashchange", this._onLoc), this._tick = window.setInterval(() => this.requestUpdate(), 15e3), this._key && !this._config?.inline && queueMicrotask(() => this._show(!0));
   }
@@ -33236,7 +33262,7 @@ const us = class us extends F {
       }
       this._done.add(e.h.ringing), this.requestUpdate(), this._config.overlay && this.remove();
       try {
-        t ? await n_(this._hass, e.h, this._config.snooze ?? 10) : await zm(this._hass, e.h);
+        t ? await r_(this._hass, e.h, this._config.snooze ?? 10) : await Am(this._hass, e.h);
       } catch (a) {
         console.warn("glass-alarm-ring:", a), this._done.delete(e.h.ringing), this.requestUpdate();
       }
@@ -33266,9 +33292,9 @@ const us = class us extends F {
       return;
     }
     if (!e) return;
-    Ks?.remove();
+    Vs?.remove();
     const a = document.createElement("glass-alarm-ring");
-    a.setConfig({ ...this._rawConfig, inline: !0, overlay: !0, preview: !0 }), this._hass && (a.hass = this._hass), Tl(this).append(a), Ks = a;
+    a.setConfig({ ...this._rawConfig, inline: !0, overlay: !0, preview: !0 }), this._hass && (a.hass = this._hass), Tl(this).append(a), Vs = a;
   }
   glassUnder(e) {
     return e.closest(".frame")?.querySelector(".photo") ?? void 0;
@@ -33279,7 +33305,7 @@ const us = class us extends F {
     if (!e.inline) return this._editing ? this._placeholder() : g;
     const t = this._ringing(), a = e.preview || this._sample || !e.overlay && document.documentElement.hasAttribute("glass-ring-sample"), i = t[0] ?? (a ? { h: ea(1), name: v("Alarm"), sample: !0 } : void 0);
     if (!i) return g;
-    const s = e.style !== "simple", n = /* @__PURE__ */ new Date(), r = wm(this._hass, n.getHours(), n.getMinutes()), l = new Intl.DateTimeFormat(be(this._hass), { weekday: "long", day: "numeric", month: "long" }).format(n), c = s && this._night(), d = s ? c ? ot(e.night_panel_glass ?? "dark-liquid-gl", e.night_panel_color, "dark-liquid-gl") : ot(e.panel_glass ?? "liquid-gl", e.panel_color, "liquid-gl") : void 0, h = c ? e.night_image || dy() : e.image || cy(), u = s ? this._ratio(h) : void 0, m = ot(e.controls_glass, e.controls_color, "dark"), f = e.snooze ?? 10, b = t.length > 1 ? p`<span class="more">+${t.length - 1}</span>` : g;
+    const s = e.style !== "simple", n = /* @__PURE__ */ new Date(), r = xm(this._hass, n.getHours(), n.getMinutes()), l = new Intl.DateTimeFormat(be(this._hass), { weekday: "long", day: "numeric", month: "long" }).format(n), c = s && this._night(), d = s ? c ? ot(e.night_panel_glass ?? "dark-liquid-gl", e.night_panel_color, "dark-liquid-gl") : ot(e.panel_glass ?? "liquid-gl", e.panel_color, "liquid-gl") : void 0, h = c ? e.night_image || hy() : e.image || dy(), u = s ? this._ratio(h) : void 0, m = ot(e.controls_glass, e.controls_color, "dark"), f = e.snooze ?? 10, b = t.length > 1 ? p`<span class="more">+${t.length - 1}</span>` : g;
     return p`<div
       class="frame ${this.tile} ${s ? "photo-style" : "simple"} ${c ? "night" : ""}"
       style=${[u ? `--ring-photo-ratio:${u}` : "", or.has(h) ? `--ring-under:${or.get(h)}` : ""].join(";")}
@@ -33313,7 +33339,7 @@ const us = class us extends F {
     </div>`;
   }
 };
-us.parts = Ou, us.properties = { ...F.properties, preview: { type: Boolean } }, us.styles = [
+us.parts = Bu, us.properties = { ...F.properties, preview: { type: Boolean } }, us.styles = [
   F.styles,
   we,
   ee`
@@ -33654,12 +33680,12 @@ ce("glass-alarm-ring", Ol, {
   name: "Glass – alarm ringing",
   description: "An alarm of the Glass alarms card ringing: Snooze and slide to stop, over the dashboard or in a pop-up; a morning photo under liquid glass, or simple."
 });
-function Pm(o = document, e = 0, t = []) {
+function Em(o = document, e = 0, t = []) {
   for (const a of o.querySelectorAll("*"))
-    (a.localName === "glass-dock" || a.classList.contains("horizontal-buttons-stack-card")) && a.getBoundingClientRect().height > 0 && t.push(a), a.shadowRoot && e < 12 && Pm(a.shadowRoot, e + 1, t);
+    (a.localName === "glass-dock" || a.classList.contains("horizontal-buttons-stack-card")) && a.getBoundingClientRect().height > 0 && t.push(a), a.shadowRoot && e < 12 && Em(a.shadowRoot, e + 1, t);
   return t;
 }
-function py(o) {
+function uy(o) {
   let e = o;
   for (; e; ) {
     const t = e.assignedSlot ?? e.parentNode ?? e.host ?? null;
@@ -33673,24 +33699,24 @@ function py(o) {
 function Bl(o, e = 320, t = 16) {
   const a = o.getBoundingClientRect(), i = o.offsetHeight, s = i > 0 && a.height > 0 ? a.height / i : 1, n = a.top;
   let r = window.innerHeight;
-  const l = py(o);
+  const l = uy(o);
   if (l) {
     const c = l.getBoundingClientRect(), d = parseFloat(getComputedStyle(l).paddingBottom) || 0;
     c.height && (r = Math.min(r, c.bottom - d * s));
   }
   r -= t * s;
-  for (const c of Pm()) {
+  for (const c of Em()) {
     const d = c.getBoundingClientRect();
     d.top > n + 100 && d.top < r + t * s && d.left < a.right && d.right > a.left && (r = Math.min(r, d.top - t * s));
   }
   return Math.max(e, Math.round((r - n) / s));
 }
-const uy = ["url", "entity", "streams", "poster", "poster_remote", "title", "mode", "media", "server", "ui", "muted", "background", "intersection", "style", "shortcuts", "ptz", "digital_ptz", "mse", "webrtc"], Eh = (o) => !!o && o !== "none";
+const my = ["url", "entity", "streams", "poster", "poster_remote", "title", "mode", "media", "server", "ui", "muted", "background", "intersection", "style", "shortcuts", "ptz", "digital_ptz", "mse", "webrtc"], Lh = (o) => !!o && o !== "none";
 function pa(o, e, t) {
-  const a = o ?? (Eh(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: re(Eh(e) ? e : void 0) } : { cls: "", style: "" };
+  const a = o ?? (Lh(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: re(Lh(e) ? e : void 0) } : { cls: "", style: "" };
 }
-const my = {
+const gy = {
   person: "mdi:account",
   face: "mdi:face-recognition",
   car: "mdi:car",
@@ -33713,7 +33739,7 @@ const my = {
   license_plate: "mdi:card-text-outline",
   speech: "mdi:account-voice",
   bark: "mdi:dog"
-}, Lh = {
+}, Rh = {
   person: "Person",
   car: "Car",
   motorcycle: "Motorcycle",
@@ -33730,19 +33756,19 @@ const my = {
   rabbit: "Rabbit",
   bus: "Bus",
   truck: "Truck"
-}, Rh = (o) => my[o] ?? "mdi:shape-outline", nr = (o) => Lh[o] ? v(Lh[o]) : o.replace(/_/g, " ").replace(/^./, (e) => e.toUpperCase()), Nh = 6 * 3600, Oh = /* @__PURE__ */ new Map();
+}, Nh = (o) => gy[o] ?? "mdi:shape-outline", nr = (o) => Rh[o] ? v(Rh[o]) : o.replace(/_/g, " ").replace(/^./, (e) => e.toUpperCase()), Oh = 6 * 3600, Bh = /* @__PURE__ */ new Map();
 async function rr(o, e) {
-  const t = Oh.get(e);
+  const t = Bh.get(e);
   if (t && t.until > Date.now()) return t.url;
-  const a = await o.callWS({ type: "auth/sign_path", path: e, expires: Nh });
-  return Oh.set(e, { url: a.path, until: Date.now() + (Nh - 600) * 1e3 }), a.path;
+  const a = await o.callWS({ type: "auth/sign_path", path: e, expires: Oh });
+  return Bh.set(e, { url: a.path, until: Date.now() + (Oh - 600) * 1e3 }), a.path;
 }
-const gy = (o) => !!o?.demo;
-function Em(o) {
+const fy = (o) => !!o?.demo;
+function Lm(o) {
   const e = import.meta.url;
   return new URL(`./demo-${o}`, e).href;
 }
-const Wa = (o, e) => gy(o) && !!e && !e.url && !e.streams && !e.live_card && !e.frigate_instance, lr = (o) => /garden|zahrad/i.test(`${o.frigate_camera ?? ""} ${o.camera ?? ""} ${o.name ?? ""}`) ? "garden" : "front", fy = {
+const Wa = (o, e) => fy(o) && !!e && !e.url && !e.streams && !e.live_card && !e.frigate_instance, lr = (o) => /garden|zahrad/i.test(`${o.frigate_camera ?? ""} ${o.camera ?? ""} ${o.name ?? ""}`) ? "garden" : "front", by = {
   front: [
     [4, 18, 24, ["dog"], !1],
     [3, 165, 41, ["person"], !0],
@@ -33759,13 +33785,13 @@ const Wa = (o, e) => gy(o) && !!e && !e.url && !e.streams && !e.live_card && !e.
     [6, 1061, 44, ["fox"], !1],
     [5, 1127, 39, ["fox"], !1]
   ]
-}, Bh = /* @__PURE__ */ new Map();
-function by(o) {
-  let e = Bh.get(o);
+}, jh = /* @__PURE__ */ new Map();
+function _y(o) {
+  let e = jh.get(o);
   if (e) return e;
   const t = document.createElement("canvas");
   if (!t.captureStream) return;
-  e = t.captureStream(4), Bh.set(o, e);
+  e = t.captureStream(4), jh.set(o, e);
   const a = new Image();
   return a.crossOrigin = "anonymous", a.onload = () => {
     t.width = a.naturalWidth, t.height = a.naturalHeight;
@@ -33773,12 +33799,12 @@ function by(o) {
     s(), setInterval(s, 250);
   }, a.src = o, e;
 }
-function _y(o) {
+function yy(o) {
   const e = Date.now() / 1e3, t = [];
   for (const { i: a, cam: i } of o)
-    for (const [s, n, r, l, c] of fy[i]) {
+    for (const [s, n, r, l, c] of by[i]) {
       const d = Math.floor(e - n * 60);
-      t.push({ id: `demo-${i}-${s}`, cam: a, fcam: i, start: d, end: d + r, labels: l, alert: c, thumb: Em(`event-${i}-${s}.jpg`), clip: "" });
+      t.push({ id: `demo-${i}-${s}`, cam: a, fcam: i, start: d, end: d + r, labels: l, alert: c, thumb: Lm(`event-${i}-${s}.jpg`), clip: "" });
     }
   return t.sort((a, i) => i.start - a.start);
 }
@@ -33871,7 +33897,7 @@ const ms = class ms extends F {
     }, this._wide = !1, this._paused = !1, this._pos = 0, this._span = 24, this._narrow = !1, this._glFail = !1, this._fs = !1;
   }
   static getConfigElement() {
-    return de(mb);
+    return de(gb);
   }
   static getStubConfig(e) {
     const t = Object.keys(e?.states ?? {}).filter((s) => s.startsWith("camera."));
@@ -33997,7 +34023,7 @@ const ms = class ms extends F {
     }
     const l = this._sevNow();
     if (s.length && s.every((c) => Wa(e, i[c]))) {
-      this._recs = _y(s.map((c) => ({ i: c, cam: lr(i[c]) }))).filter((c) => l === "all" || c.alert === (l === "alert"));
+      this._recs = yy(s.map((c) => ({ i: c, cam: lr(i[c]) }))).filter((c) => l === "all" || c.alert === (l === "alert"));
       return;
     }
     try {
@@ -34242,7 +34268,7 @@ const ms = class ms extends F {
     else {
       const i = {};
       for (const n of [this._config, t])
-        for (const r of uy) n[r] !== void 0 && !(n === this._config && (r === "url" || r === "entity")) && (i[r] = n[r]);
+        for (const r of my) n[r] !== void 0 && !(n === this._config && (r === "url" || r === "entity")) && (i[r] = n[r]);
       if (!i.url && !i.entity && !i.streams) {
         if (!t.camera) return;
         i.entity = t.camera;
@@ -34269,7 +34295,7 @@ const ms = class ms extends F {
   _labels(e, t = "") {
     const a = pa(this._config.label_glass, this._config.label_color, "dark");
     return e.slice(0, 3).map(
-      (i) => p`<span class="tag ${t} ${a.cls || "plain"}" style=${a.style}><ha-icon .icon=${Rh(i)}></ha-icon><span>${nr(i)}</span></span>`
+      (i) => p`<span class="tag ${t} ${a.cls || "plain"}" style=${a.style}><ha-icon .icon=${Nh(i)}></ha-icon><span>${nr(i)}</span></span>`
     );
   }
   _stage(e) {
@@ -34291,7 +34317,7 @@ const ms = class ms extends F {
       @click=${{ handleEvent: this._onClickCapture, capture: !0 }}
       @dblclick=${this._onDbl}
     >
-      ${Wa(this._hass, a) && (i?.rec || !i && c) ? p`<video class="live demo" muted autoplay playsinline .srcObject=${by(i?.rec ? i.rec.thumb : Em(`camera-${lr(a)}.jpg`))}></video>` : i ? p`<video
+      ${Wa(this._hass, a) && (i?.rec || !i && c) ? p`<video class="live demo" muted autoplay playsinline .srcObject=${_y(i?.rec ? i.rec.thumb : Lm(`camera-${lr(a)}.jpg`))}></video>` : i ? p`<video
             class="clip"
             .src=${i.url}
             autoplay
@@ -34315,7 +34341,7 @@ const ms = class ms extends F {
               ><i></i><span>${v("Live")}</span>${a?.name || s?.attributes.friendly_name ? p`<span class="cam">${a?.name ?? s?.attributes.friendly_name}</span>` : g}</span
             >`}
         <span class="grow"></span>
-        ${i ? g : r.map((f) => p`<span class="pill seen ${h.cls || "plain"}" style=${h.style}><ha-icon .icon=${Rh(f.label)}></ha-icon><span>${nr(f.label)}</span></span>`)}
+        ${i ? g : r.map((f) => p`<span class="pill seen ${h.cls || "plain"}" style=${h.style}><ha-icon .icon=${Nh(f.label)}></ha-icon><span>${nr(f.label)}</span></span>`)}
       </div>
       ${i && !this._narrow ? this._bar(i) : g} ${l && !i ? p`<div class="over-ctl">${l}</div>` : g}
       ${i ? g : this._fsButton(`pill fs at-${m} ${d.cls || "plain"}`, d.style)}
@@ -34553,7 +34579,7 @@ const ms = class ms extends F {
   render() {
     const e = this._config;
     if (!e || !this._hass) return g;
-    const t = this._cur(), a = e.show_controls !== !1 && e.controls !== "overlay" ? this._ctl[t] : void 0, i = this._stage(t), s = this._narrow && this._play ? this._bar(this._play, !0) : g, n = p`${i}${s}${this._timeline(t)}${this._switcher(t)}${a ? p`<div class="ctl">${a}</div>` : g}`, r = e.height === "fill" ? this._fillH ? `${this._fillH}px` : "" : e.height ? Po(e.height) : "", l = `${r ? `height:${r};` : ""}${e.alert_color ? `--cam-alert:${Y(e.alert_color)};` : ""}${e.selected_color ? `--cam-cur:${Y(e.selected_color)};` : ""}`, c = this._list(t), d = i === g;
+    const t = this._cur(), a = e.show_controls !== !1 && e.controls !== "overlay" ? this._ctl[t] : void 0, i = this._stage(t), s = this._narrow && this._play ? this._bar(this._play, !0) : g, n = p`${i}${s}${this._timeline(t)}${this._switcher(t)}${a ? p`<div class="ctl">${a}</div>` : g}`, r = e.height === "fill" ? this._fillH ? `${this._fillH}px` : "" : e.height ? Eo(e.height) : "", l = `${r ? `height:${r};` : ""}${e.alert_color ? `--cam-alert:${Y(e.alert_color)};` : ""}${e.selected_color ? `--cam-cur:${Y(e.selected_color)};` : ""}`, c = this._list(t), d = i === g;
     return this._wide && c !== g && !d ? p`<div class="frame surface side ${r ? "fixed" : ""}" style="grid-template-columns:${e.list_width ?? "minmax(320px, 0.36fr)"} minmax(0, 1fr);${l}">
         ${c}
         <div class="main">${n}</div>
@@ -34566,7 +34592,7 @@ const ms = class ms extends F {
     return 6;
   }
 };
-ms.parts = tm, ms.properties = {
+ms.parts = am, ms.properties = {
   ...F.properties,
   _pick: { state: !0 },
   _play: { state: !0 },
@@ -35447,7 +35473,7 @@ ce("glass-camera", jl, {
   name: "Glass – camera",
   description: "Live picture and Frigate's recordings in one card: a tap plays a recording in place of live; the camera's light, night vision… under it."
 });
-const yy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, cr = ["away", "home", "night", "vacation", "custom_bypass"], At = {
+const vy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, cr = ["away", "home", "night", "vacation", "custom_bypass"], At = {
   away: { label: "Away", icon: "mdi:shield-lock" },
   home: { label: "Home", icon: "mdi:shield-home" },
   night: { label: "Night", icon: "mdi:shield-moon" },
@@ -35464,7 +35490,7 @@ const yy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, cr =
   pending: { label: "Enter the code", icon: "mdi:shield-alert-outline", tone: "warn" },
   triggered: { label: "Alarm!", icon: "mdi:alarm-light", tone: "alarm" },
   disarming: { label: "Disarming", icon: "mdi:shield-sync-outline", tone: "wait" }
-}, vy = (o) => o === "disarmed" || !!o?.startsWith("armed_"), Lm = (o) => !!o && o !== "none", jh = {
+}, wy = (o) => o === "disarmed" || !!o?.startsWith("armed_"), Rm = (o) => !!o && o !== "none", Ih = {
   door: ["mdi:door-closed", "mdi:door-open"],
   garage_door: ["mdi:garage", "mdi:garage-open"],
   opening: ["mdi:door-closed", "mdi:door-open"],
@@ -35481,13 +35507,13 @@ const yy = { home: 1, away: 2, night: 4, custom_bypass: 16, vacation: 32 }, cr =
   carbon_monoxide: ["mdi:smoke-detector-variant", "mdi:smoke-detector-variant-alert"],
   moisture: ["mdi:water-off", "mdi:water-alert"],
   environmental: ["mdi:smoke-detector-variant", "mdi:smoke-detector-variant-alert"]
-}, Ih = ["door", "garage_door", "opening", "window"], qh = ["motion", "occupancy", "presence"];
+}, qh = ["door", "garage_door", "opening", "window"], Wh = ["motion", "occupancy", "presence"];
 function It(o, e) {
-  return o ? { cls: `mat mat-${o}`, style: Lm(e) ? re(e) : "" } : { cls: "", style: "" };
+  return o ? { cls: `mat mat-${o}`, style: Rm(e) ? re(e) : "" } : { cls: "", style: "" };
 }
-let dr, Wh;
-function wy(o) {
-  return (!dr || Wh?.connection !== o.connection) && (Wh = o, dr = o.callWS({ type: "alarmo/entities" }).then((e) => new Map(e.map((t) => [t.entity_id, String(t.area_id)]))).catch(() => {
+let dr, Fh;
+function xy(o) {
+  return (!dr || Fh?.connection !== o.connection) && (Fh = o, dr = o.callWS({ type: "alarmo/entities" }).then((e) => new Map(e.map((t) => [t.entity_id, String(t.area_id)]))).catch(() => {
   })), dr;
 }
 const Vc = class Vc extends Ye {
@@ -35540,7 +35566,7 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
     e !== this._mode && (this._mode = e, this._pillsKey = "", this.requestUpdate());
   }
   static getConfigElement() {
-    return de(ub);
+    return de(mb);
   }
   static getStubConfig(e) {
     const t = Object.keys(e?.states ?? {}).filter((a) => a.startsWith("alarm_control_panel."));
@@ -35571,7 +35597,7 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
   /* ---------- Alarmo ---------- */
   hassChanged(e) {
     const t = this._st?.state;
-    if (this._alarmo === void 0 && this._config && wy(e).then((i) => {
+    if (this._alarmo === void 0 && this._config && xy(e).then((i) => {
       const s = i?.get(this._config.entity);
       s !== void 0 && (this._alarmo = s, this._subscribe(), this._fetchReady(), this._fetchCountdown(), this._fetchSensors());
     }), Fa.size && this._takeRequest(), t === this._last) return;
@@ -35580,7 +35606,7 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
       const i = this._st, s = Number(i.attributes.delay), n = Date.parse(i.last_changed);
       s > 0 && n && (this._cd = { total: s, end: n + s * 1e3 }), this._now = Date.now(), this._fetchCountdown();
     } else this._cd = void 0;
-    this._alarmo !== void 0 && this._fetchReady(), a && vy(t) && this._alerted && (this._alerted = !1, this._config.close_popup !== !1 && this._config.layout !== "header" && this._closePopup());
+    this._alarmo !== void 0 && this._fetchReady(), a && wy(t) && this._alerted && (this._alerted = !1, this._config.close_popup !== !1 && this._config.layout !== "header" && this._closePopup());
   }
   async _fetchCountdown() {
     const e = this._hass;
@@ -35719,7 +35745,7 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
   }
   /* ---------- drawing ---------- */
   _modes(e) {
-    const t = Number(e.attributes.supported_features ?? 0), a = cr.filter((i) => t & yy[i]);
+    const t = Number(e.attributes.supported_features ?? 0), a = cr.filter((i) => t & vy[i]);
     return this._config.modes?.length ? this._config.modes.filter((i) => cr.includes(i) && (!t || a.includes(i))) : a;
   }
   /** a code is needed for what can be done now */
@@ -35770,7 +35796,7 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
           placeholder=${v("Code")}
         />
       </div>`;
-    const n = (c, d, h = "") => p`<button class="key ${s.cls || "control"} ${h}" style=${h.includes("ok") && s.cls && !Lm(this._config.keys_color) ? re("#30a46c", 70) : s.style} @click=${() => this._press(c)}>${d}</button>`, r = e.state, l = (this._pad || this._armAfter) && r !== "pending" && r !== "triggered" && this._config.layout !== "keypad" && !this._onDemand() ? p`<button
+    const n = (c, d, h = "") => p`<button class="key ${s.cls || "control"} ${h}" style=${h.includes("ok") && s.cls && !Rm(this._config.keys_color) ? re("#30a46c", 70) : s.style} @click=${() => this._press(c)}>${d}</button>`, r = e.state, l = (this._pad || this._armAfter) && r !== "pending" && r !== "triggered" && this._config.layout !== "keypad" && !this._onDemand() ? p`<button
             class="cancel"
             @click=${() => {
       this._pad = !1, this._armAfter = void 0, this._code = "";
@@ -35832,7 +35858,7 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
       return At[r] ? v(At[r].label) : n;
     };
     return e.map((n) => {
-      const r = i.states[n.id], l = this._isOpen(n.id), c = a(n), d = jh[c] ?? ["mdi:checkbox-blank-circle-outline", "mdi:alert-circle-outline"], h = !r || r.state === "unavailable" || r.state === "unknown", u = h ? v("Unavailable") : Ih.includes(c) ? v(l ? "Open" : "Closed") : qh.includes(c) ? v(l ? "Detected" : "Clear") : i.formatEntityState?.(r) ?? r.state;
+      const r = i.states[n.id], l = this._isOpen(n.id), c = a(n), d = Ih[c] ?? ["mdi:checkbox-blank-circle-outline", "mdi:alert-circle-outline"], h = !r || r.state === "unavailable" || r.state === "unknown", u = h ? v("Unavailable") : qh.includes(c) ? v(l ? "Open" : "Closed") : Wh.includes(c) ? v(l ? "Detected" : "Clear") : i.formatEntityState?.(r) ?? r.state;
       return p`<div class="sensor ${l ? "on" : ""} ${h ? "gone" : ""}">
         <ha-icon .icon=${n.icon ?? d[l ? 1 : 0]}></ha-icon>
         <span class="sn">${n.name ?? r?.attributes.friendly_name ?? n.id}</span>
@@ -35850,7 +35876,7 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
     if (n !== this._pillsKey || !this._pills) {
       this._pillsKey = n;
       const r = ["on", "open", "unlocked"], l = e.map((d) => {
-        const h = a(d), u = jh[h] ?? ["mdi:checkbox-blank-circle-outline", "mdi:alert-circle-outline"], m = Ih.includes(h) ? [v("Closed"), v("Open")] : qh.includes(h) ? [v("Clear"), v("Detected")] : void 0, f = t.includes(d.id) ? ` · ${v("Bypassed")}` : "";
+        const h = a(d), u = Ih[h] ?? ["mdi:checkbox-blank-circle-outline", "mdi:alert-circle-outline"], m = qh.includes(h) ? [v("Closed"), v("Open")] : Wh.includes(h) ? [v("Clear"), v("Detected")] : void 0, f = t.includes(d.id) ? ` · ${v("Bypassed")}` : "";
         return {
           entity: d.id,
           name: d.name ?? this._hass?.states[d.id]?.attributes.friendly_name ?? d.id,
@@ -36032,7 +36058,7 @@ const Bi = /* @__PURE__ */ new Set(), Fa = /* @__PURE__ */ new Map(), gs = class
     this._portalRender(s && this._onDemand() && !this._config.keypad_popup ? this._overlay(s) : g), this._cd && this._now > this._cd.end + 1500 && (this._cd = void 0);
   }
 };
-gs.parts = am, gs.properties = {
+gs.parts = im, gs.properties = {
   ...F.properties,
   _code: { state: !0 },
   _msg: { state: !0 },
@@ -36904,7 +36930,7 @@ ce("glass-security", ql, {
   name: "Glass – security",
   description: "An alarm panel for any alarm_control_panel: its state, arm modes, the countdown and a keypad; with Alarmo also readiness, a wrong code, skip delay and arm anyway."
 });
-class xy {
+class ky {
   constructor(e) {
     this.host = e, this.pending = /* @__PURE__ */ new Map(), this.timers = /* @__PURE__ */ new Map();
   }
@@ -37014,9 +37040,9 @@ const Gc = ee`
     font-size: 12px;
     color: var(--g-text-2);
   }
-`, qo = (o) => "frame", Qa = class Qa extends F {
+`, Wo = (o) => "frame", Qa = class Qa extends F {
   static getConfigElement() {
-    return de(gb);
+    return de(fb);
   }
   static getStubConfig(e) {
     return { entity: Object.keys(e?.states ?? {}).find((t) => t.startsWith("automation.")) ?? "" };
@@ -37074,9 +37100,9 @@ const Gc = ee`
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
     const a = e.entity ? t.states[e.entity] : void 0;
-    if (!a) return p`<div class=${qo()}><span class="hint">${e.entity || v("Choose an automation")}</span></div>`;
+    if (!a) return p`<div class=${Wo()}><span class="hint">${e.entity || v("Choose an automation")}</span></div>`;
     const i = a.state === "on", s = e.title ?? a.attributes.friendly_name ?? v("Automation");
-    return p`<div class=${qo()} style=${e.color ? `--on:${Y(e.color)}` : ""}>
+    return p`<div class=${Wo()} style=${e.color ? `--on:${Y(e.color)}` : ""}>
       ${e.show_title === !1 ? g : p`<span class="gtitle">${s}</span>`}
       <div class="row">
         <span class="lbl state">
@@ -37242,7 +37268,7 @@ ce("glass-automation", Wl, {
   name: "Glass – automation switch",
   description: "An automation on / off, and for how long a switch-off lasts."
 });
-const Fh = {
+const Hh = {
   open: "No shading",
   min: "Light shading",
   mid: "Medium shading",
@@ -37250,7 +37276,7 @@ const Fh = {
   max: "Strong shading"
 }, fs = class fs extends F {
   static getConfigElement() {
-    return de(fb);
+    return de(bb);
   }
   static getStubConfig() {
     return { sun: "sun.sun", azimuth_from: 135, azimuth_to: 225 };
@@ -37266,8 +37292,8 @@ const Fh = {
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = (M) => M ? t.states[M] : void 0, i = a(e.sun ?? "sun.sun"), s = a(e.light), n = a(e.shading)?.state, r = (M) => e.labels?.[M] ?? (Fh[M] ? v(Fh[M]) : M), l = a(e.target_tilt)?.state, c = n !== "open" && l && !Number.isNaN(parseFloat(l)) ? Math.round(parseFloat(l)) : void 0, d = Number(i?.attributes.elevation), h = Number(i?.attributes.azimuth), u = Number.isFinite(d) && Number.isFinite(h), m = u && d > (e.horizon ?? 0), f = u ? this._band(d) : void 0, b = !!f && m && (h - f[0] + 360) % 360 <= (f[1] - f[0] + 360) % 360, y = s ? parseFloat(s.state) : NaN, _ = a(e.shading)?.attributes[e.thresholds_attribute ?? "prahy_lux"], x = (M) => Math.round(M).toLocaleString(yi()), S = e.show_compass !== !1 && u, z = e.show_details !== !1;
-    return p`<div class=${qo()}>
+    const a = (M) => M ? t.states[M] : void 0, i = a(e.sun ?? "sun.sun"), s = a(e.light), n = a(e.shading)?.state, r = (M) => e.labels?.[M] ?? (Hh[M] ? v(Hh[M]) : M), l = a(e.target_tilt)?.state, c = n !== "open" && l && !Number.isNaN(parseFloat(l)) ? Math.round(parseFloat(l)) : void 0, d = Number(i?.attributes.elevation), h = Number(i?.attributes.azimuth), u = Number.isFinite(d) && Number.isFinite(h), m = u && d > (e.horizon ?? 0), f = u ? this._band(d) : void 0, b = !!f && m && (h - f[0] + 360) % 360 <= (f[1] - f[0] + 360) % 360, y = s ? parseFloat(s.state) : NaN, _ = a(e.shading)?.attributes[e.thresholds_attribute ?? "prahy_lux"], x = (M) => Math.round(M).toLocaleString(yi()), S = e.show_compass !== !1 && u, z = e.show_details !== !1;
+    return p`<div class=${Wo()}>
       ${e.show_title === !1 ? g : p`<span class="gtitle">${e.title ?? v("Current state")}</span>`}
       <div class="sky ${e.layout === "below" ? "below" : ""}" style="--size:${e.size ?? 124}px;--band:${Y(e.band_color ?? "orange") ?? "transparent"};--lux:${Y(e.light_color ?? "amber") ?? "transparent"}">
         ${S ? this._dial(d, h, m, f, b, Number.isFinite(y) ? y : void 0, _) : g}
@@ -37325,12 +37351,12 @@ const Fh = {
         ${x === "watch" ? j`<ellipse class="glare" cx=${44} cy=${50 - 40 * 0.5} rx=${40 * 0.78} ry=${40 * 0.48} clip-path="url(#bk-in)"></ellipse>` : g}
         ${a && z ? j`<circle class="sundot" cx=${u} cy=${m} r="5"></circle>` : g}
       </svg>
-      ${a && !z ? p`${xl}<span class="sun3d" style="left:${u}%;top:${m}%">${bm("sunny")}</span>` : g}
+      ${a && !z ? p`${xl}<span class="sun3d" style="left:${u}%;top:${m}%">${_m("sunny")}</span>` : g}
     </div>`;
   }
 };
 fs.wrapTile = !0, fs.parts = xi, fs.styles = [
-  _m,
+  ym,
   F.styles,
   Gc,
   ee`
@@ -37476,10 +37502,10 @@ ce("glass-sun-shading", Fl, {
 });
 const bs = class bs extends F {
   constructor() {
-    super(...arguments), this._n = new xy({ requestUpdate: () => this.requestUpdate(), hass: () => this._hass });
+    super(...arguments), this._n = new ky({ requestUpdate: () => this.requestUpdate(), hass: () => this._hass });
   }
   static getConfigElement() {
-    return de(bb);
+    return de(_b);
   }
   static getStubConfig() {
     return { title: "", columns: [{ name: "A" }], rows: [{ name: "1", entities: [] }] };
@@ -37523,7 +37549,7 @@ const bs = class bs extends F {
       <span class="sp ${this._n.pending.has(h) ? "pending" : ""}">${u(this._n.value(h))}</span>
       <button aria-label="+" @click=${() => this._n.nudge(h, 1)}><ha-icon icon="mdi:plus"></ha-icon></button>
     </div>`, l = e.show_months === !1 ? [] : a.filter((h) => h.months_from && h.months_to && t.states[h.months_from] && t.states[h.months_to]), c = e.unit ? ` ${e.unit}` : "", d = Y(e.active_color);
-    return p`<div class=${qo()} style=${d ? `--accent-c:${d}` : ""}>
+    return p`<div class=${Wo()} style=${d ? `--accent-c:${d}` : ""}>
       ${l.map(
       (h) => p`<span class="gtitle">${h.name ?? ""}</span>
           <div class="months">
@@ -37597,9 +37623,9 @@ ce("glass-value-grid", Hl, {
   name: "Glass – value grid",
   description: "Numbers in a table with − / +, a column per mode (season); the current one marked by months or a state."
 });
-const ho = (o) => !!o && o !== "none";
+const po = (o) => !!o && o !== "none";
 function ji(o, e, t) {
-  const a = o ?? (ho(e) ? t : void 0);
+  const a = o ?? (po(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: re(e) } : void 0;
 }
 function Gl(o) {
@@ -37610,22 +37636,22 @@ function Gl(o) {
   const a = o.attributes.brightness;
   return typeof a == "number" ? Math.max(1, Math.round(a / 255 * 100)) : 100;
 }
-const ky = ["hs", "xy", "rgb", "rgbw", "rgbww"];
-function $y(o) {
+const $y = ["hs", "xy", "rgb", "rgbw", "rgbww"];
+function Sy(o) {
   if (Gl(o) === void 0) return [];
   const e = o.attributes.supported_color_modes ?? [], t = ["b"];
-  return e.includes("color_temp") && t.push("t"), e.some((a) => ky.includes(a)) && t.push("c"), t;
+  return e.includes("color_temp") && t.push("t"), e.some((a) => $y.includes(a)) && t.push("c"), t;
 }
-const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.attributes.max_color_temp_kelvin) || 6500], Sy = [
+const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.attributes.max_color_temp_kelvin) || 6500], zy = [
   [2700, "Warm"],
   [4e3, "Neutral"],
   [6500, "Cool"]
-], zy = [0, 30, 330, 280, 220, 130], Ay = { b: "mdi:brightness-6", t: "mdi:thermometer", c: "mdi:palette" }, nn = class nn extends F {
+], Ay = [0, 30, 330, 280, 220, 130], My = { b: "mdi:brightness-6", t: "mdi:thermometer", c: "mdi:palette" }, rn = class rn extends F {
   constructor() {
     super(), this._lights = [], this._scenes = [], this._drag = /* @__PURE__ */ new Map(), this._sendTimer = /* @__PURE__ */ new Map(), this._pending = /* @__PURE__ */ new Map(), this._mode = /* @__PURE__ */ new Map(), this._modeTimer = /* @__PURE__ */ new Map(), new le(this, ".frame");
   }
   static getConfigElement() {
-    return de(ab);
+    return de(ib);
   }
   static getStubConfig(e) {
     const t = Object.keys(e.states).find((a) => a.startsWith("light."));
@@ -37709,7 +37735,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     } else this._sendTimer.has(l) || this._sendTimer.set(l, window.setTimeout(c, 300));
   }
   _bar(e, t, a) {
-    const i = t.states[e.entity], s = this._isOn(e, i), n = Gl(i), r = $y(i), l = r.includes(this._mode.get(e.entity)) ? this._mode.get(e.entity) : "b", c = this._drag.get(`${e.entity}|${l}`), d = this._config.active_color ?? "yellow", h = i?.attributes.rgb_color, u = this._config, m = ho(u.fill_color) ? Y(u.fill_color) : s && h && u.fill_source !== "accent" ? `rgb(${h.join(",")})` : Y(d), f = e.name ?? i?.attributes.friendly_name ?? e.entity;
+    const i = t.states[e.entity], s = this._isOn(e, i), n = Gl(i), r = Sy(i), l = r.includes(this._mode.get(e.entity)) ? this._mode.get(e.entity) : "b", c = this._drag.get(`${e.entity}|${l}`), d = this._config.active_color ?? "yellow", h = i?.attributes.rgb_color, u = this._config, m = po(u.fill_color) ? Y(u.fill_color) : s && h && u.fill_source !== "accent" ? `rgb(${h.join(",")})` : Y(d), f = e.name ?? i?.attributes.friendly_name ?? e.entity;
     let b = 0, y = v(i ? s ? "On" : "Off" : "Unavailable");
     if (i && l === "b" && n !== void 0) {
       const K = c !== void 0 ? Math.max(1, Math.round(c * 100)) : this._pending.get(e.entity) ?? n;
@@ -37744,7 +37770,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     if (l === "t" && i) {
       const [K, oe] = hr(i), Se = Number(i.attributes.color_temp_kelvin), J = s && i.attributes.color_mode === "color_temp";
       P = E(
-        Sy.map(([ye, Le], ut) => {
+        zy.map(([ye, Le], ut) => {
           const St = Math.min(oe, Math.max(K, ye));
           return { cur: J && Math.abs(Se - St) <= 250, dot: ["#ffb35c", "#fff4e0", "#cfe2ff"][ut], label: v(Le), act: () => $({ color_temp_kelvin: St }) };
         })
@@ -37752,7 +37778,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     } else if (l === "c") {
       const K = i?.attributes.hs_color, oe = s && !!K && i?.attributes.color_mode !== "color_temp";
       P = p`<div class="swatches">
-        ${zy.map((Se) => {
+        ${Ay.map((Se) => {
         const J = K ? Math.abs((K[0] - Se + 540) % 360 - 180) : 999;
         return p`<button
             class="swatch control ${oe && J <= 12 ? "cur" : ""}"
@@ -37779,7 +37805,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
                 @pointerdown=${(Se) => Se.stopPropagation()}
                 @click=${(Se) => (Se.stopPropagation(), this._setMode(e.entity, oe))}
               >
-                <ha-icon .icon=${Ay[oe]}></ha-icon>
+                <ha-icon .icon=${My[oe]}></ha-icon>
               </button>`
     )}
           </div>` : g, Z = this._config, he = this._icon(s), Ie = ji(Z.pill_glass, Z.pill_color, "frosted"), $t = ji(Z.tray_glass, Z.tray_color, "flat"), Bt = ji(Z.modes_glass, Z.modes_color, "dark");
@@ -37823,7 +37849,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
   }
   /** The bulb's button: own material / backing / symbol colours (icon_*), else the control glass lit by `active_color`. */
   _icon(e) {
-    const t = this._config, a = t.active_color ?? "yellow", i = e ? je(a) : void 0, s = Y(a), n = !!t.icon_background, r = !!i && !n, l = t.icons?.icon_on?.color, c = t.icons?.icon?.color, d = e ? ho(l) ? Y(l) : n ? s : void 0 : ho(c) ? Y(c) : void 0, h = t.icon_background === "none" ? "transparent" : n ? je(t.icon_background) : void 0, u = e ? t.icon_on_glass : t.icon_glass;
+    const t = this._config, a = t.active_color ?? "yellow", i = e ? je(a) : void 0, s = Y(a), n = !!t.icon_background, r = !!i && !n, l = t.icons?.icon_on?.color, c = t.icons?.icon?.color, d = e ? po(l) ? Y(l) : n ? s : void 0 : po(c) ? Y(c) : void 0, h = t.icon_background === "none" ? "transparent" : n ? je(t.icon_background) : void 0, u = e ? t.icon_on_glass : t.icon_glass;
     return u ? {
       cls: `mat mat-${u} ${r ? "on" : ""} ${e ? "glow" : ""}`,
       style: `${n ? h === "transparent" ? "" : `${re(t.icon_background)};` : r ? `${re(a, 70)};` : ""}${d ? `color:${d};` : ""}--glow:${s}`
@@ -37850,7 +37876,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
           aria-label=${h}
           @click=${() => this._hass?.callService("scene", "turn_on", { entity_id: d.entity })}
         >
-          ${d.image ? p`<i class="simg" style="background-image:url('${Gp(d.image)}')"></i>` : p`<ha-icon .icon=${d.icon ?? "mdi:palette"}></ha-icon>`}
+          ${d.image ? p`<i class="simg" style="background-image:url('${Up(d.image)}')"></i>` : p`<ha-icon .icon=${d.icon ?? "mdi:palette"}></ha-icon>`}
         </button>`;
     })}
     </div>`;
@@ -37897,7 +37923,7 @@ const hr = (o) => [Number(o.attributes.min_color_temp_kelvin) || 2e3, Number(o.a
     return { columns: 6, rows: 3, min_rows: 2 };
   }
 };
-nn.parts = Lu, nn.styles = [
+rn.parts = Ru, rn.styles = [
   F.styles,
   we,
   Oe,
@@ -38476,43 +38502,43 @@ nn.parts = Lu, nn.styles = [
   // after the card's own rules: a picked material replaces the default glass
   xe
 ];
-let Ul = nn;
+let Ul = rn;
 ce("glass-light", Ul, {
   name: "Glass – lights",
   description: "Room lights tile: scenes as round buttons and a liquid glass brightness bar per light."
 });
-const My = {}, Rm = /* @__PURE__ */ new WeakMap(), Kl = new EventTarget();
+const Ty = {}, Nm = /* @__PURE__ */ new WeakMap(), Kl = new EventTarget();
 function Uc(o) {
   let e = o;
   for (let t = 0; t < 40 && e; t++)
     if (e = e.parentElement ?? e.getRootNode().host ?? null, e && e.tagName === "BUBBLE-CARD") return e;
-  return My;
+  return Ty;
 }
-function Ty(o, e) {
+function Cy(o, e) {
   const t = Uc(o);
-  Rm.set(t, e), Kl.dispatchEvent(new CustomEvent("search", { detail: { scope: t, text: e } }));
+  Nm.set(t, e), Kl.dispatchEvent(new CustomEvent("search", { detail: { scope: t, text: e } }));
 }
-function Cy(o) {
-  return Rm.get(Uc(o)) ?? "";
+function Dy(o) {
+  return Nm.get(Uc(o)) ?? "";
 }
 const wa = ["ring", "bars", "orbit"], et = 48, ie = 32, rt = Math.PI * 2, Ue = (o) => {
   const e = Math.sin(o * 127.1 + 311.7) * 43758.5453;
   return e - Math.floor(e);
-}, Vs = (o, e) => {
+}, Ys = (o, e) => {
   const t = Math.floor(o), a = o - t, i = a * a * (3 - 2 * a);
   return Ue(t + e * 57.3) * (1 - i) + Ue(t + 1 + e * 57.3) * i;
-}, Dy = (o) => {
+}, Py = (o) => {
   let e = 2166136261;
   for (let t = 0; t < o.length; t++) e = Math.imul(e ^ o.charCodeAt(t), 16777619);
   return (e >>> 0) % 1e5 / 7.3;
 }, Ha = /* @__PURE__ */ new Map();
-function po(o) {
+function uo(o) {
   const e = document.createElement("canvas");
   e.width = e.height = ie;
   const t = e.getContext("2d"), a = o && !o.includes("var(") ? [o, "#ffffff", o] : ["#5b8def", "#b06ee6", "#ef7a6b"], i = t.createLinearGradient(0, 0, ie, ie);
-  return a.forEach((s, n) => i.addColorStop(n / (a.length - 1), s)), t.fillStyle = i, t.fillRect(0, 0, ie, ie), { px: e, glow: Nm(e) };
+  return a.forEach((s, n) => i.addColorStop(n / (a.length - 1), s)), t.fillStyle = i, t.fillRect(0, 0, ie, ie), { px: e, glow: Om(e) };
 }
-function Nm(o) {
+function Om(o) {
   const e = document.createElement("canvas");
   e.width = e.height = 96;
   const t = e.getContext("2d");
@@ -38520,7 +38546,7 @@ function Nm(o) {
   const a = t.createRadialGradient(48, 48, 6, 48, 48, 48);
   return a.addColorStop(0, "rgba(0,0,0,1)"), a.addColorStop(0.55, "rgba(0,0,0,0.55)"), a.addColorStop(1, "rgba(0,0,0,0)"), t.fillStyle = a, t.fillRect(0, 0, 96, 96), e;
 }
-function Py(o) {
+function Ey(o) {
   let e;
   try {
     e = o.getImageData(0, 0, ie, ie);
@@ -38546,7 +38572,7 @@ function Py(o) {
     o.putImageData(e, 0, 0);
   }
 }
-function Ey(o) {
+function Ly(o) {
   let e = Ha.get(o);
   return e || (e = new Promise((t) => {
     const a = (i) => {
@@ -38555,18 +38581,18 @@ function Ey(o) {
         const n = document.createElement("canvas");
         n.width = n.height = ie;
         const r = n.getContext("2d"), l = Math.min(s.naturalWidth, s.naturalHeight) || 1;
-        r.imageSmoothingEnabled = !0, r.imageSmoothingQuality = "high", r.drawImage(s, (s.naturalWidth - l) / 2, (s.naturalHeight - l) / 2, l, l, 0, 0, ie, ie), Py(r), t({ img: s, px: n, glow: Nm(n) });
+        r.imageSmoothingEnabled = !0, r.imageSmoothingQuality = "high", r.drawImage(s, (s.naturalWidth - l) / 2, (s.naturalHeight - l) / 2, l, l, 0, 0, ie, ie), Ey(r), t({ img: s, px: n, glow: Om(n) });
       }, s.onerror = () => {
         if (i) return a(!1);
-        Ha.delete(o), t(po());
+        Ha.delete(o), t(uo());
       }, s.src = o;
     };
     a(new URL(o, location.href).origin !== location.origin);
   }), Ha.set(o, e), Ha.size > 24 && Ha.delete(Ha.keys().next().value), e);
 }
-class Ly {
+class Ry {
   constructor(e) {
-    this.cv = e, this.art = po(), this.onLight = !1, this.track = { playing: !1, pos: 0, at: 0, dur: 0, seed: "" }, this.seed = 0, this.bpm = 112, this.four = !0, this.style = "ring", this.bands = new Float32Array(et), this.target = new Float32Array(et), this.peaks = new Float32Array(et), this.kick = 0, this.lastKick = 0, this.energy = 0, this.rot = 0, this.flying = [], this.raf = 0, this.last = 0, this.size = 0, this.dpr = 1, this.visible = !0, this.calm = matchMedia("(prefers-reduced-motion: reduce)"), this.wake = () => {
+    this.cv = e, this.art = uo(), this.onLight = !1, this.track = { playing: !1, pos: 0, at: 0, dur: 0, seed: "" }, this.seed = 0, this.bpm = 112, this.four = !0, this.style = "ring", this.bands = new Float32Array(et), this.target = new Float32Array(et), this.peaks = new Float32Array(et), this.kick = 0, this.lastKick = 0, this.energy = 0, this.rot = 0, this.flying = [], this.raf = 0, this.last = 0, this.size = 0, this.dpr = 1, this.visible = !0, this.calm = matchMedia("(prefers-reduced-motion: reduce)"), this.wake = () => {
       !this.raf && this.visible && !document.hidden && this.cv.isConnected && (this.last = performance.now(), this.raf = requestAnimationFrame(this.frame));
     }, this.frame = (t) => {
       if (this.raf = 0, !this.visible || document.hidden || !this.cv.isConnected) return;
@@ -38576,7 +38602,7 @@ class Ly {
       if (i) this.sim(n);
       else {
         const c = 0.5 + 0.5 * Math.sin(t / 1400);
-        for (let d = 0; d < et; d++) this.target[d] = 0.1 + 0.09 * c * Vs(d * 0.4 + t / 4e3, this.seed);
+        for (let d = 0; d < et; d++) this.target[d] = 0.1 + 0.09 * c * Ys(d * 0.4 + t / 4e3, this.seed);
         this.kick = 0;
       }
       this.energy += ((i ? 1 : 0) - this.energy) * (1 - Math.exp(-a * 2.5));
@@ -38599,11 +38625,11 @@ class Ly {
   setArt(e, t) {
     if (!(e === this.artUrl && t === this.accent)) {
       if (this.artUrl = e, this.accent = t, !e) {
-        this.art = po(t);
+        this.art = uo(t);
         return;
       }
-      Ey(e).then((a) => {
-        this.artUrl === e && (this.art = a.img ? a : po(t));
+      Ly(e).then((a) => {
+        this.artUrl === e && (this.art = a.img ? a : uo(t));
       });
     }
   }
@@ -38621,7 +38647,7 @@ class Ly {
     return a.globalCompositeOperation = "source-over", a.clearRect(0, 0, ie, ie), a.drawImage(e, 0, 0), a.globalCompositeOperation = this.onLight ? "multiply" : "screen", a.fillStyle = this.onLight ? "rgb(150,150,150)" : "rgba(255,255,255,0.26)", a.fillRect(0, 0, ie, ie), this.lit = t, this.litOf = e, t;
   }
   setTrack(e) {
-    e.seed !== this.track.seed && (this.seed = Dy(e.seed), this.bpm = 84 + Math.floor(Ue(this.seed) * 48), this.four = Ue(this.seed + 1) > 0.3), this.track = e, this.wake();
+    e.seed !== this.track.seed && (this.seed = Py(e.seed), this.bpm = 84 + Math.floor(Ue(this.seed) * 48), this.four = Ue(this.seed + 1) > 0.3), this.track = e, this.wake();
   }
   fit() {
     const e = this.cv.getBoundingClientRect();
@@ -38657,7 +38683,7 @@ class Ly {
       T[P] = E;
     }
     for (let P = 0; P < et; P++) {
-      const N = P / (et - 1), E = N * (C - 1), L = Math.floor(E), G = E - L, H = T[L] * (1 - G) + T[Math.min(C - 1, L + 1)] * G, te = 0.85 + 0.3 * Vs(e * 7 + P * 1.3, this.seed + P), I = Math.max(0, 1 - N / 0.22) * (0.08 + 1.15 * b), ae = Math.exp(-((N - 0.45) ** 2) / 0.03) * S * 0.85, q = N ** 1.2 * $ * 0.6;
+      const N = P / (et - 1), E = N * (C - 1), L = Math.floor(E), G = E - L, H = T[L] * (1 - G) + T[Math.min(C - 1, L + 1)] * G, te = 0.85 + 0.3 * Ys(e * 7 + P * 1.3, this.seed + P), I = Math.max(0, 1 - N / 0.22) * (0.08 + 1.15 * b), ae = Math.exp(-((N - 0.45) ** 2) / 0.03) * S * 0.85, q = N ** 1.2 * $ * 0.6;
       this.target[P] = Math.min(1, (I + ae + q + H * (0.85 - 0.3 * N)) * h * te);
     }
     this.kick = b * h;
@@ -38680,7 +38706,7 @@ class Ly {
       e.globalAlpha = k, e.setTransform(i * $, i * C, -i * C, i * $, i * T, i * P), e.drawImage(f, Math.max(0, Math.min(ie - 1, z)), Math.max(0, Math.min(ie - 1, M)), 1, 1, -x / 2, -S / 2, x, S);
     };
     for (let y = 0; y < d; y++) {
-      const _ = this.rot + y / d * rt, x = Math.min(1, this.bandAt(_ - this.rot) * (0.7 + 0.6 * Vs(y * 0.83 + a * 0.5, this.seed + 7))), S = 1 + x * 5, z = Math.floor(S), M = x * u * 1.3 + this.kick * u * 0.8;
+      const _ = this.rot + y / d * rt, x = Math.min(1, this.bandAt(_ - this.rot) * (0.7 + 0.6 * Ys(y * 0.83 + a * 0.5, this.seed + 7))), S = 1 + x * 5, z = Math.floor(S), M = x * u * 1.3 + this.kick * u * 0.8;
       for (let k = 0; k <= z && k < 7; k++) {
         const $ = k < z ? 1 : S - z;
         if ($ < 0.08) continue;
@@ -38761,12 +38787,12 @@ class Ly {
     ])
       for (let M = 0; M < _; M++) {
         const k = M / _ * rt + this.rot * S, $ = this.bandAt(k - this.rot * S), C = d * x + $ * d * 0.28 * this.energy, T = c * z * (0.55 + $ * 1.3), P = r + Math.sin(k) * C, N = l - Math.cos(k) * C, E = Math.max(0, Math.min(ie - 1, Math.floor((0.5 + Math.sin(k) * 0.42) * ie))), L = Math.max(0, Math.min(ie - 1, Math.floor((0.5 - Math.cos(k) * 0.42) * ie)));
-        e.globalAlpha = Math.min(1, (0.5 + 0.8 * $) * (0.55 + 0.45 * this.energy) * (0.8 + 0.2 * Vs(M + t, this.seed))), e.save(), e.beginPath(), e.arc(P, N, T / 2, 0, rt), e.clip(), e.drawImage(a, E, L, 1, 1, P - T / 2, N - T / 2, T, T), e.restore();
+        e.globalAlpha = Math.min(1, (0.5 + 0.8 * $) * (0.55 + 0.45 * this.energy) * (0.8 + 0.2 * Ys(M + t, this.seed))), e.save(), e.beginPath(), e.arc(P, N, T / 2, 0, rt), e.clip(), e.drawImage(a, E, L, 1, 1, P - T / 2, N - T / 2, T, T), e.restore();
       }
     e.globalAlpha = 1;
   }
 }
-class Ry {
+class Ny {
   constructor(e, t) {
     this.url = e, this.token = t, this.next = 1, this.waiting = /* @__PURE__ */ new Map();
   }
@@ -38815,13 +38841,13 @@ class Ry {
     });
   }
 }
-const Hh = /* @__PURE__ */ new Map();
+const Gh = /* @__PURE__ */ new Map();
 function Va(o, e, t, a) {
   const i = globalThis.__glassMaDemo;
   if (i && /^https?:\/\/[^/]*\.demo\.invalid(:\d+)?\/?$/.test(o)) return Promise.resolve(i(t, a));
   const s = `${o}|${e}`;
-  let n = Hh.get(s);
-  return n || Hh.set(s, n = new Ry(o, e)), n.command(t, a);
+  let n = Gh.get(s);
+  return n || Gh.set(s, n = new Ny(o, e)), n.command(t, a);
 }
 function pr(o, e) {
   const t = [e?.image, ...e?.metadata?.images ?? []].filter(Boolean), a = t.find((i) => i.type === "thumb") ?? t[0];
@@ -38829,7 +38855,7 @@ function pr(o, e) {
     return /^https?:\/\//.test(a.path) && a.remotely_accessible !== !1 ? a.path : a.proxy_id ? `${o.replace(/\/$/, "")}/imageproxy/${a.proxy_id}?size=256` : void 0;
 }
 const ur = /* @__PURE__ */ new Map();
-function Ny(o, e) {
+function Oy(o, e) {
   const t = `${o}|${e}`, a = ur.get(t);
   if (a && Date.now() - a.at < 3e5) return a.p;
   const i = Va(o, e, "players/all").then((s) => {
@@ -38846,10 +38872,10 @@ function Ny(o, e) {
   });
   return i.catch(() => ur.delete(t)), ur.set(t, { at: Date.now(), p: i }), i;
 }
-const Gh = (o, e) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${o}"><path d="${e}"/></svg>`)}")`, Oy = {
-  chromecast: Gh("0 0 21.97425 21.97425", "m0,17v3h3c0,-1.7-1.3,-3-3,-3zm0,-4v2c2.8,0 5,2.2 5,5h2c0,-3.9-3.1,-7-7,-7zM0,9V11c5,0 9,4 9,9h2C11,13.9 6.1,9 0,9ZM20,2H2c-1.1,0-2,0.9-2,2v3h2v-3H20V18h-7v2h7c1.1,0 2,-0.9 2,-2V4c0,-1.1-0.9,-2-2,-2z"),
-  sendspin: Gh("0 1 114.24 93.03", "M42.5 57.5C41.8 58.2 40.7 58.1 40.1 57.4C34.5 51.2 31.4 43.2 31.4 34.8C31.4 25.8 34.9 17.3 41.3 10.9C54.1-1.9 74.6-2.3 87.8 9.7C88.6 10.3 88.6 11.4 87.9 12.1L84.8 15.2C84.2 15.8 83.3 15.8 82.6 15.2C75.4 8.8 65.2 6.8 55.2 10.5C55.2 10.5 55.1 10.5 55 10.5C44.9 15.2 39 24.5 39 34.8C39 41.3 41.4 47.4 45.7 52.2C46.2 52.8 46.2 53.8 45.6 54.4L42.5 57.5V57.5ZM50.9 46.6C46.8 41.5 45.5 34.6 47.9 27.9C47.9 27.9 48 27.8 48 27.7C53.5 15.4 68 13 77 20.5C77.8 21.1 77.8 22.2 77.1 22.9L74 26C73.4 26.6 72.5 26.6 71.8 26.1C67.6 22.9 61.4 23.2 57.5 27.1C55.5 29.1 54.3 31.9 54.3 34.8C54.3 37.2 55.1 39.5 56.6 41.4C57.1 42.1 57 43 56.4 43.6L53.3 46.7C52.6 47.4 51.5 47.3 50.9 46.6H50.9ZM11.1 88.9C10.4 89.6 9.3 89.6 8.7 88.8C2.9 82.4 0 74.3 0 66.2C0 58.1 2.9 50 8.7 43.6C9.3 42.9 10.4 42.8 11.1 43.5L12.6 45L14.2 46.6C14.8 47.2 14.8 48.2 14.2 48.8C9.8 53.8 7.6 60 7.6 66.2C7.6 72.5 9.8 78.7 14.2 83.6C14.8 84.3 14.8 85.3 14.2 85.9L12.6 87.4L11.1 89V88.9ZM21.9 78.1C21.2 78.8 20.1 78.8 19.5 78C16.7 74.7 15.3 70.6 15.3 66.2C15.3 61.9 16.7 57.7 19.5 54.4C20.1 53.7 21.2 53.6 21.9 54.3L25 57.4C25.6 58 25.6 58.9 25.1 59.6C23.7 61.5 22.9 63.8 22.9 66.2C22.9 68.7 23.7 71 25.1 72.8C25.6 73.5 25.6 74.4 25 75L21.9 78.1V78.1ZM105.5 51.5C104.9 52.2 103.8 52.2 103.2 51.5L101.7 50L100.1 48.4C99.5 47.8 99.4 46.9 100 46.2C104.4 41.3 106.6 35 106.6 28.8C106.6 22.6 104.4 16.4 100 11.4C99.4 10.8 99.5 9.8 100.1 9.2L101.7 7.6L103.2 6.1C103.8 5.4 104.9 5.5 105.5 6.2C111.3 12.6 114.2 20.7 114.2 28.8C114.2 36.9 111.3 45 105.5 51.4V51.5ZM92.3 40.7L89.2 37.6C88.6 37 88.6 36.1 89.1 35.4C90.6 33.5 91.3 31.2 91.3 28.8C91.3 26.4 90.6 24.1 89.1 22.2C88.6 21.5 88.6 20.6 89.2 20L92.3 16.9C93 16.2 94.2 16.3 94.8 17C97.5 20.3 99 24.4 99 28.8C99 33.2 97.5 37.3 94.8 40.6C94.2 41.3 93 41.4 92.3 40.7V40.7ZM49 94C40.9 94 32.8 91.1 26.4 85.3C25.7 84.7 25.6 83.6 26.3 83L29.4 79.9C30 79.3 31 79.2 31.6 79.8C41.9 88.9 57.7 88.6 67.5 78.7C77.4 68.9 77.7 53.1 68.6 42.8C68 42.2 68.1 41.2 68.7 40.6L71.8 37.5C72.4 36.9 73.5 36.9 74.1 37.6C86.1 50.9 85.7 71.4 72.9 84.1C66.3 90.7 57.7 94 49 94H49ZM49 78.8C44.8 78.8 40.6 77.4 37.2 74.5C36.5 73.9 36.5 72.8 37.1 72.1L40.2 69C40.8 68.5 41.7 68.4 42.4 68.9C46.7 72.2 52.8 71.9 56.7 68C60.6 64 61 57.9 57.7 53.6C57.2 53 57.2 52 57.8 51.5L60.9 48.4C61.6 47.7 62.7 47.7 63.3 48.5C69.3 55.7 68.9 66.5 62.1 73.3C58.5 77 53.8 78.8 49 78.8V78.8Z")
-}, By = {
+const Uh = (o, e) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${o}"><path d="${e}"/></svg>`)}")`, By = {
+  chromecast: Uh("0 0 21.97425 21.97425", "m0,17v3h3c0,-1.7-1.3,-3-3,-3zm0,-4v2c2.8,0 5,2.2 5,5h2c0,-3.9-3.1,-7-7,-7zM0,9V11c5,0 9,4 9,9h2C11,13.9 6.1,9 0,9ZM20,2H2c-1.1,0-2,0.9-2,2v3h2v-3H20V18h-7v2h7c1.1,0 2,-0.9 2,-2V4c0,-1.1-0.9,-2-2,-2z"),
+  sendspin: Uh("0 1 114.24 93.03", "M42.5 57.5C41.8 58.2 40.7 58.1 40.1 57.4C34.5 51.2 31.4 43.2 31.4 34.8C31.4 25.8 34.9 17.3 41.3 10.9C54.1-1.9 74.6-2.3 87.8 9.7C88.6 10.3 88.6 11.4 87.9 12.1L84.8 15.2C84.2 15.8 83.3 15.8 82.6 15.2C75.4 8.8 65.2 6.8 55.2 10.5C55.2 10.5 55.1 10.5 55 10.5C44.9 15.2 39 24.5 39 34.8C39 41.3 41.4 47.4 45.7 52.2C46.2 52.8 46.2 53.8 45.6 54.4L42.5 57.5V57.5ZM50.9 46.6C46.8 41.5 45.5 34.6 47.9 27.9C47.9 27.9 48 27.8 48 27.7C53.5 15.4 68 13 77 20.5C77.8 21.1 77.8 22.2 77.1 22.9L74 26C73.4 26.6 72.5 26.6 71.8 26.1C67.6 22.9 61.4 23.2 57.5 27.1C55.5 29.1 54.3 31.9 54.3 34.8C54.3 37.2 55.1 39.5 56.6 41.4C57.1 42.1 57 43 56.4 43.6L53.3 46.7C52.6 47.4 51.5 47.3 50.9 46.6H50.9ZM11.1 88.9C10.4 89.6 9.3 89.6 8.7 88.8C2.9 82.4 0 74.3 0 66.2C0 58.1 2.9 50 8.7 43.6C9.3 42.9 10.4 42.8 11.1 43.5L12.6 45L14.2 46.6C14.8 47.2 14.8 48.2 14.2 48.8C9.8 53.8 7.6 60 7.6 66.2C7.6 72.5 9.8 78.7 14.2 83.6C14.8 84.3 14.8 85.3 14.2 85.9L12.6 87.4L11.1 89V88.9ZM21.9 78.1C21.2 78.8 20.1 78.8 19.5 78C16.7 74.7 15.3 70.6 15.3 66.2C15.3 61.9 16.7 57.7 19.5 54.4C20.1 53.7 21.2 53.6 21.9 54.3L25 57.4C25.6 58 25.6 58.9 25.1 59.6C23.7 61.5 22.9 63.8 22.9 66.2C22.9 68.7 23.7 71 25.1 72.8C25.6 73.5 25.6 74.4 25 75L21.9 78.1V78.1ZM105.5 51.5C104.9 52.2 103.8 52.2 103.2 51.5L101.7 50L100.1 48.4C99.5 47.8 99.4 46.9 100 46.2C104.4 41.3 106.6 35 106.6 28.8C106.6 22.6 104.4 16.4 100 11.4C99.4 10.8 99.5 9.8 100.1 9.2L101.7 7.6L103.2 6.1C103.8 5.4 104.9 5.5 105.5 6.2C111.3 12.6 114.2 20.7 114.2 28.8C114.2 36.9 111.3 45 105.5 51.4V51.5ZM92.3 40.7L89.2 37.6C88.6 37 88.6 36.1 89.1 35.4C90.6 33.5 91.3 31.2 91.3 28.8C91.3 26.4 90.6 24.1 89.1 22.2C88.6 21.5 88.6 20.6 89.2 20L92.3 16.9C93 16.2 94.2 16.3 94.8 17C97.5 20.3 99 24.4 99 28.8C99 33.2 97.5 37.3 94.8 40.6C94.2 41.3 93 41.4 92.3 40.7V40.7ZM49 94C40.9 94 32.8 91.1 26.4 85.3C25.7 84.7 25.6 83.6 26.3 83L29.4 79.9C30 79.3 31 79.2 31.6 79.8C41.9 88.9 57.7 88.6 67.5 78.7C77.4 68.9 77.7 53.1 68.6 42.8C68 42.2 68.1 41.2 68.7 40.6L71.8 37.5C72.4 36.9 73.5 36.9 74.1 37.6C86.1 50.9 85.7 71.4 72.9 84.1C66.3 90.7 57.7 94 49 94H49ZM49 78.8C44.8 78.8 40.6 77.4 37.2 74.5C36.5 73.9 36.5 72.8 37.1 72.1L40.2 69C40.8 68.5 41.7 68.4 42.4 68.9C46.7 72.2 52.8 71.9 56.7 68C60.6 64 61 57.9 57.7 53.6C57.2 53 57.2 52 57.8 51.5L60.9 48.4C61.6 47.7 62.7 47.7 63.3 48.5C69.3 55.7 68.9 66.5 62.1 73.3C58.5 77 53.8 78.8 49 78.8V78.8Z")
+}, jy = {
   sonos: "mdi:speaker",
   chromecast: "mdi:cast",
   sendspin: "mdi:speaker-wireless",
@@ -38860,7 +38886,7 @@ const Gh = (o, e) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="
   bluesound: "mdi:speaker",
   hass: "mdi:home-assistant",
   ma: "mdi:music-circle-outline"
-}, uo = {
+}, mo = {
   sonos: "Sonos",
   chromecast: "Chromecast",
   sendspin: "Sendspin",
@@ -38872,20 +38898,20 @@ const Gh = (o, e) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="
   hass: "Home Assistant",
   ma: "Music Assistant"
 };
-function jy(o) {
-  return { mask: Oy[o], mdi: By[o], word: o === "sonos" ? "SONOS" : void 0 };
-}
 function Iy(o) {
-  if (o)
-    return o === "hass" || o === "hass_players" ? "hass" : o === "cast" || o === "google_cast" ? "chromecast" : o === "slimproto" ? "squeezelite" : uo[o] ? o : "ma";
+  return { mask: By[o], mdi: jy[o], word: o === "sonos" ? "SONOS" : void 0 };
 }
-function qy(o, e) {
+function qy(o) {
+  if (o)
+    return o === "hass" || o === "hass_players" ? "hass" : o === "cast" || o === "google_cast" ? "chromecast" : o === "slimproto" ? "squeezelite" : mo[o] ? o : "ma";
+}
+function Wy(o, e) {
   const t = `${o ?? ""} ${e ?? ""}`;
   return /sonos/i.test(t) ? "sonos" : /web player|sendspin/i.test(t) ? "sendspin" : /google|nvidia|chromecast|nest/i.test(t) ? "chromecast" : /apple|airplay/i.test(t) ? "airplay" : /bluesound|bluos/i.test(t) ? "bluesound" : /squeeze|slim/i.test(t) ? "squeezelite" : "ma";
 }
 const Nt = /* @__PURE__ */ new Set();
-let Xt, ci, Uh = "";
-function Wy() {
+let Xt, ci, Kh = "";
+function Fy() {
   const e = new Uint8Array(8044), t = new DataView(e.buffer), a = (s, n) => [...n].forEach((r, l) => e[s + l] = r.charCodeAt(0));
   a(0, "RIFF"), t.setUint32(4, 8036, !0), a(8, "WAVEfmt "), t.setUint32(16, 16, !0), t.setUint16(20, 1, !0), t.setUint16(22, 1, !0), t.setUint32(24, 8e3, !0), t.setUint32(28, 8e3, !0), t.setUint16(32, 1, !0), t.setUint16(34, 8, !0), a(36, "data"), t.setUint32(40, 8e3, !0), e.fill(128, 44);
   let i = "";
@@ -38893,16 +38919,16 @@ function Wy() {
   return `data:audio/wav;base64,${btoa(i)}`;
 }
 function Vl() {
-  !("mediaSession" in navigator) || !Nt.size || (ci ??= Object.assign(new Audio(Wy()), { loop: !0 }), ci.paused && ci.play().catch(() => {
+  !("mediaSession" in navigator) || !Nt.size || (ci ??= Object.assign(new Audio(Fy()), { loop: !0 }), ci.paused && ci.play().catch(() => {
   }));
 }
-function Fy() {
+function Hy() {
   ci?.pause(), "mediaSession" in navigator && (navigator.mediaSession.metadata = null, navigator.mediaSession.playbackState = "none");
 }
-let Kh = !1;
-function Hy() {
-  if (Kh) return;
-  Kh = !0;
+let Vh = !1;
+function Gy() {
+  if (Vh) return;
+  Vh = !0;
   const o = () => {
     Vl(), ci && !ci.paused && (window.removeEventListener("pointerdown", o, !0), window.removeEventListener("keydown", o, !0));
   };
@@ -38924,19 +38950,19 @@ function Hy() {
 function Yl() {
   return Xt && Nt.has(Xt) ? Xt : Xt = [...Nt].find((o) => o.isConnected) ?? [...Nt][0];
 }
-function Gy(o) {
-  "mediaSession" in navigator && (Nt.add(o), Xt ??= o, Hy(), Vl());
-}
 function Uy(o) {
-  Nt.delete(o), Xt === o && (Xt = [...Nt][0]), Nt.size || Fy();
+  "mediaSession" in navigator && (Nt.add(o), Xt ??= o, Gy(), Vl());
 }
 function Ky(o) {
-  Nt.has(o) && (Xt = o);
+  Nt.delete(o), Xt === o && (Xt = [...Nt][0]), Nt.size || Hy();
 }
 function Vy(o) {
+  Nt.has(o) && (Xt = o);
+}
+function Yy(o) {
   if (!("mediaSession" in navigator) || Yl() !== o) return;
   const e = o.mediaKeyInfo(), t = navigator.mediaSession, a = JSON.stringify([e?.title, e?.artist, e?.album, e?.art]);
-  a !== Uh && (Uh = a, t.metadata = e?.title ? new MediaMetadata({
+  a !== Kh && (Kh = a, t.metadata = e?.title ? new MediaMetadata({
     title: e.title,
     artist: e.artist ?? "",
     album: e.album ?? "",
@@ -38963,12 +38989,12 @@ const ne = {
   SHUFFLE: 32768,
   REPEAT: 262144,
   GROUPING: 524288
-}, Vh = /* @__PURE__ */ new Set(["movie", "tv_show", "season", "episode", "video", "image", "game", "url", "app"]), Yh = /^(tracks|audiobooks|speakers?)$|video|watching|on deck|playback device|moods?\b|genres?\b/i, Ys = /* @__PURE__ */ new Set(["cur_playlists", "PLAYLIST_GOTO_TRACK"]);
-function Zs(o) {
+}, Yh = /* @__PURE__ */ new Set(["movie", "tv_show", "season", "episode", "video", "image", "game", "url", "app"]), Zh = /^(tracks|audiobooks|speakers?)$|video|watching|on deck|playback device|moods?\b|genres?\b/i, Zs = /* @__PURE__ */ new Set(["cur_playlists", "PLAYLIST_GOTO_TRACK"]);
+function Js(o) {
   const e = o.toLowerCase();
   return /played/.test(e) ? 0 : /recent|new|added/.test(e) ? 1 : /playlist/.test(e) ? 2 : /favou?rit/.test(e) ? 3 : /radio|station/.test(e) ? 4 : /album/.test(e) ? 5 : /artist|hudba|music/.test(e) ? 6 : 7;
 }
-const Zh = {
+const Jh = {
   artist: "mdi:account-music",
   album: "mdi:album",
   playlist: "mdi:playlist-music",
@@ -38985,9 +39011,9 @@ const Zh = {
   radio: "Radio",
   podcast: "Podcast",
   audiobook: "Audiobook"
-}, Yy = /^(line[- ]?in|tv|hdmi|optical|spdif|s\/pdif|aux|bluetooth|airplay|music assistant queue|analog|coaxial|phono|usb)\b/i, Om = "glass-media-viz", Ft = (() => {
+}, Zy = /^(line[- ]?in|tv|hdmi|optical|spdif|s\/pdif|aux|bluetooth|airplay|music assistant queue|analog|coaxial|phono|usb)\b/i, Bm = "glass-media-viz", Ft = (() => {
   try {
-    const o = JSON.parse(localStorage.getItem(Om) ?? "{}");
+    const o = JSON.parse(localStorage.getItem(Bm) ?? "{}");
     return {
       on: !!o.on,
       style: wa.includes(o.style) ? o.style : wa[0]
@@ -38996,15 +39022,15 @@ const Zh = {
     return { on: !1, style: wa[0] };
   }
 })(), Zl = new EventTarget();
-function Jh() {
+function Xh() {
   try {
-    localStorage.setItem(Om, JSON.stringify(Ft));
+    localStorage.setItem(Bm, JSON.stringify(Ft));
   } catch {
   }
   Zl.dispatchEvent(new Event("change"));
 }
-const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, qi = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), Me = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), Zy = 32, mr = /* @__PURE__ */ new WeakMap(), ft = (o) => !!o?.attributes.mass_player_type;
-function Jy(o) {
+const ue = (o, e) => !!o && ((Number(o.attributes.supported_features) || 0) & e) === e, qi = /* @__PURE__ */ new Set(["playing", "paused", "buffering", "on"]), ze = /* @__PURE__ */ new Set(["playing", "paused", "buffering"]), Jy = 32, mr = /* @__PURE__ */ new WeakMap(), ft = (o) => !!o?.attributes.mass_player_type;
+function Xy(o) {
   const e = o.media_content_id;
   if (!e) return;
   const t = o.media_content_type ?? o.kind;
@@ -39013,48 +39039,48 @@ function Jy(o) {
   if (t === "album") return `ytmusic://album/${e}`;
   if (t === "artist") return `ytmusic://artist/${e}`;
 }
-const Ke = /* @__PURE__ */ new Map(), Xy = 5 * 6e4, Bm = "glass-media-players", Wo = /* @__PURE__ */ new Map();
+const Ke = /* @__PURE__ */ new Map(), Qy = 5 * 6e4, jm = "glass-media-players", Fo = /* @__PURE__ */ new Map();
 try {
-  const o = JSON.parse(localStorage.getItem(Bm) ?? "{}");
+  const o = JSON.parse(localStorage.getItem(jm) ?? "{}");
   for (const [e, t] of Object.entries(o))
-    t?.pick && typeof t.pick.id == "string" && Ke.set(e, { id: t.pick.id, at: Number(t.pick.at) || 0 }), typeof t?.shown == "string" && Wo.set(e, t.shown);
+    t?.pick && typeof t.pick.id == "string" && Ke.set(e, { id: t.pick.id, at: Number(t.pick.at) || 0 }), typeof t?.shown == "string" && Fo.set(e, t.shown);
 } catch {
 }
 function Wi() {
   const o = {};
   for (const [e, t] of Ke) o[e] = { pick: { id: t.id, at: t.at } };
-  for (const [e, t] of Wo) (o[e] ??= {}).shown = t;
+  for (const [e, t] of Fo) (o[e] ??= {}).shown = t;
   try {
-    localStorage.setItem(Bm, JSON.stringify(o));
+    localStorage.setItem(jm, JSON.stringify(o));
   } catch {
   }
 }
-const Qy = /* @__PURE__ */ new Set(["media_next_track", "media_previous_track", "shuffle_set", "repeat_set", "media_play", "media_pause", "media_seek"]), Fi = new EventTarget(), Mt = /* @__PURE__ */ new Map(), nt = /* @__PURE__ */ new Map(), jm = 36e5, Jl = new EventTarget(), Xh = /* @__PURE__ */ new Map(), As = /* @__PURE__ */ new Map(), Im = 4e3, Fo = 2e4;
-function Qh(o, ...e) {
-  return o && e.some((t) => Date.now() - (As.get(t) ?? 0) < Fo) ? Fo : 8e3;
+const ev = /* @__PURE__ */ new Set(["media_next_track", "media_previous_track", "shuffle_set", "repeat_set", "media_play", "media_pause", "media_seek"]), Fi = new EventTarget(), Mt = /* @__PURE__ */ new Map(), nt = /* @__PURE__ */ new Map(), Im = 36e5, Jl = new EventTarget(), Qh = /* @__PURE__ */ new Map(), As = /* @__PURE__ */ new Map(), qm = 4e3, Ho = 2e4;
+function ep(o, ...e) {
+  return o && e.some((t) => Date.now() - (As.get(t) ?? 0) < Ho) ? Ho : 8e3;
 }
-const ev = 8e3, ep = 1500;
+const tv = 8e3, tp = 1500;
 function gr(o, e = !1) {
   if (!o) return o;
   const t = o.entity_id;
-  let a = Xh.get(t);
-  a || Xh.set(t, a = { lastAt: 0, replacedAt: 0 });
+  let a = Qh.get(t);
+  a || Qh.set(t, a = { lastAt: 0, replacedAt: 0 });
   const i = Date.now(), s = o.attributes.media_title, n = nt.get(t), r = Date.parse(o.last_changed) > n?.at;
-  if (n && ((o.state === "playing" || o.state === "buffering") && r || o.state === "off" || o.state === "unavailable" || s && s !== n.title || i - n.at > jm) && nt.delete(t), Me.has(o.state)) {
+  if (n && ((o.state === "playing" || o.state === "buffering") && r || o.state === "off" || o.state === "unavailable" || s && s !== n.title || i - n.at > Im) && nt.delete(t), ze.has(o.state)) {
     a.idle = void 0;
     const c = a.last?.attributes.media_title;
-    if (a.last && s && c && s !== c && !((As.get(t) ?? 0) > a.replacedAt) && i - a.replacedAt < ev) {
+    if (a.last && s && c && s !== c && !((As.get(t) ?? 0) > a.replacedAt) && i - a.replacedAt < tv) {
       let h = a.pending;
-      if ((!h || h.title !== s) && (h = a.pending = { title: s, since: i }), i - h.since < ep)
-        return window.setTimeout(() => Jl.dispatchEvent(new Event("check")), ep + 50), a.last;
+      if ((!h || h.title !== s) && (h = a.pending = { title: s, since: i }), i - h.since < tp)
+        return window.setTimeout(() => Jl.dispatchEvent(new Event("check")), tp + 50), a.last;
     }
     return a.pending = void 0, c && s && c !== s && (a.prevTitle = c, a.replacedAt = i), a.last = o, a.lastAt = i, o;
   }
   const l = Date.parse(o.last_changed) || i;
   if (e) {
-    const c = tv(o, a, t, s, l, i);
+    const c = av(o, a, t, s, l, i);
     if (c) return c;
-  } else if (o.state === "idle" && a.last && i - a.lastAt < Im) {
+  } else if (o.state === "idle" && a.last && i - a.lastAt < qm) {
     if (!a.idle) {
       const c = a.last.attributes, d = Number(c.media_position), h = Date.parse(c.media_position_updated_at ?? ""), u = Number(c.media_duration) || 1 / 0;
       a.idle = { at: i, pos: Number.isFinite(d) ? Math.min(u, d + (a.last.state === "playing" && Number.isFinite(h) ? (i - h) / 1e3 : 0)) : void 0 };
@@ -39063,11 +39089,11 @@ function gr(o, e = !1) {
     }
     return { ...a.last, attributes: { ...a.last.attributes, media_position: a.idle.pos, media_position_frozen: !0 } };
   }
-  return av(o, a, t, s, l, i, e);
+  return iv(o, a, t, s, l, i, e);
 }
-function tv(o, e, t, a, i, s) {
-  const n = (As.get(t) ?? 0) > i - 5e3 && s - (As.get(t) ?? 0) < Fo;
-  if (o.state === "idle" && e.last && s - i < (n ? Fo : Im)) {
+function av(o, e, t, a, i, s) {
+  const n = (As.get(t) ?? 0) > i - 5e3 && s - (As.get(t) ?? 0) < Ho;
+  if (o.state === "idle" && e.last && s - i < (n ? Ho : qm)) {
     const r = e.last.attributes.media_title;
     if (a && r && a !== r)
       return nt.delete(t), { ...o, state: e.last.state, attributes: { ...o.attributes, media_position: 0, media_position_updated_at: new Date(s).toISOString(), media_position_frozen: !0 } };
@@ -39082,11 +39108,11 @@ function tv(o, e, t, a, i, s) {
     return { ...e.last, attributes: { ...e.last.attributes, media_position: e.idle.pos, media_position_frozen: !0 } };
   }
 }
-function av(o, e, t, a, i, s, n) {
+function iv(o, e, t, a, i, s, n) {
   let r = nt.get(t);
   if (!r && o.state === "idle" && a) {
     const l = o.attributes, c = Number(l.media_duration), d = Number(l.media_position), h = Date.parse(l.media_position_updated_at ?? "");
-    if (c > 0 && Number.isFinite(d) && s - i < jm) {
+    if (c > 0 && Number.isFinite(d) && s - i < Im) {
       const u = Math.max(0, d + (Number.isFinite(h) && i > h ? (i - h) / 1e3 : 0));
       u < c - 5 && nt.set(t, r = { title: a, at: i, pos: u, snap: o });
     }
@@ -39103,10 +39129,10 @@ function av(o, e, t, a, i, s, n) {
       media_position_updated_at: new Date(r.at).toISOString(),
       media_position_frozen: !0
     }
-  } : (n && !Me.has(o.state) && (e.last = void 0), o);
+  } : (n && !ze.has(o.state) && (e.last = void 0), o);
 }
-const fr = /* @__PURE__ */ new Map(), br = /* @__PURE__ */ new Map(), Js = /* @__PURE__ */ new Map(), qm = /* @__PURE__ */ new Map(), Xl = /* @__PURE__ */ new Set();
-function tp(o) {
+const fr = /* @__PURE__ */ new Map(), br = /* @__PURE__ */ new Map(), Xs = /* @__PURE__ */ new Map(), Wm = /* @__PURE__ */ new Map(), Xl = /* @__PURE__ */ new Set();
+function ap(o) {
   const e = fr.get(o);
   if (e === "ok" || e === "fail") return e;
   if (!e) {
@@ -39117,7 +39143,7 @@ function tp(o) {
     fr.set(
       o,
       new Promise((i) => {
-        t.onload = () => (qm.set(o, t.naturalWidth / (t.naturalHeight || 1)), a("ok"), i()), t.onerror = () => (a("fail"), i());
+        t.onload = () => (Wm.set(o, t.naturalWidth / (t.naturalHeight || 1)), a("ok"), i()), t.onerror = () => (a("fail"), i());
       })
     ), t.src = o;
   }
@@ -39126,9 +39152,9 @@ function tp(o) {
 function ma(o) {
   return `url("${String(o).replace(/["\\\n\r\f]/g, (e) => encodeURIComponent(e))}")`;
 }
-const _r = /* @__PURE__ */ new Map(), ap = /* @__PURE__ */ new Map();
-function iv(o) {
-  let e = ap.get(o);
+const _r = /* @__PURE__ */ new Map(), ip = /* @__PURE__ */ new Map();
+function sv(o) {
+  let e = ip.get(o);
   return e || (e = new Promise((t) => {
     const a = new Image();
     a.crossOrigin = "anonymous", a.onload = () => {
@@ -39151,16 +39177,16 @@ function iv(o) {
         t(void 0);
       }
     }, a.onerror = () => t(void 0), a.src = o;
-  }), ap.set(o, e), e);
+  }), ip.set(o, e), e);
 }
 const Tt = (o) => ({
   handleEvent: o,
   passive: !0
-}), ip = (o) => {
+}), sp = (o) => {
   o = Math.max(0, Math.floor(o));
   const e = Math.floor(o / 3600), t = Math.floor(o % 3600 / 60), a = String(o % 60).padStart(2, "0");
   return e ? `${e}:${String(t).padStart(2, "0")}:${a}` : `${t}:${a}`;
-}, rn = class rn extends F {
+}, ln = class ln extends F {
   constructor() {
     super(), this._ids = [], this._moved = /* @__PURE__ */ new Set(), this._drag = /* @__PURE__ */ new Map(), this._sendTimer = /* @__PURE__ */ new Map(), this._pending = /* @__PURE__ */ new Map(), this._open = !1, this._twins = /* @__PURE__ */ new Map(), this._twinLast = /* @__PURE__ */ new Map(), this._pickOpen = !1, this._onPick = (e) => {
       e.detail === this._linkKey && (this._chosen = Ke.get(this._linkKey), this._stack = [], this._pickOpen = !1, this.requestUpdate());
@@ -39196,10 +39222,10 @@ const Tt = (o) => ({
       menu: (e, t) => (a) => {
         this._canOpen(t) && (a.preventDefault(), !(this._held || this._stack[this._stack.length - 1]?.detail === t) && (this._hold.end(), this._openDetail(e, t)));
       }
-    }, this._handleTpl = g, this._qInfo = /* @__PURE__ */ new Map(), this._groupWant = /* @__PURE__ */ new Map(), this._fullH = 0, new le(this, ".frame"), this.addEventListener("pointerdown", () => Ky(this));
+    }, this._handleTpl = g, this._qInfo = /* @__PURE__ */ new Map(), this._groupWant = /* @__PURE__ */ new Map(), this._fullH = 0, new le(this, ".frame"), this.addEventListener("pointerdown", () => Vy(this));
   }
   static getConfigElement() {
-    return de(tb);
+    return de(ab);
   }
   static getStubConfig(e) {
     const t = Object.keys(e.states).filter((i) => i.startsWith("media_player."));
@@ -39299,7 +39325,7 @@ const Tt = (o) => ({
       if (b) {
         c = !0;
         const y = gr(this.stateOf(b), t);
-        r && y && y.attributes.media_title === r.title ? s = y : y && Me.has(y.state) ? (this._twinLast.set(b, y), s = y) : y && Date.now() - Date.parse(y.last_changed) < Qh(this._kind(e) === "sonos", e, b) && (s = this._twinLast.get(b));
+        r && y && y.attributes.media_title === r.title ? s = y : y && ze.has(y.state) ? (this._twinLast.set(b, y), s = y) : y && Date.now() - Date.parse(y.last_changed) < ep(this._kind(e) === "sonos", e, b) && (s = this._twinLast.get(b));
       }
     }
     if (a && !s && c && a.state === "playing") {
@@ -39320,14 +39346,14 @@ const Tt = (o) => ({
       const y = [b?.name, d.media_artist, d.media_title && d.media_series_title, d.app_name, d.source, s.attributes.friendly_name];
       h.media_artist = y.find((S) => S && S !== h.media_title), h.glass_tv = !0;
       const _ = this._tvSet(e), x = [s, ...(_?.sources ?? []).map((S) => this._hass?.states[typeof S == "string" ? S : S.entity])].find(
-        (S) => S && Me.has(S.state) && typeof S.attributes.app_id == "string"
+        (S) => S && ze.has(S.state) && typeof S.attributes.app_id == "string"
       )?.attributes.app_id;
       x && (h.glass_app = x);
     }
     for (const b of n) b in d && !(u && (b === "media_title" || b === "media_artist")) && (h[b] = d[b]);
     const m = ne.NEXT | ne.PREVIOUS | ne.SHUFFLE | ne.REPEAT | ne.SEEK | (u ? ne.PAUSE | ne.PLAY : 0);
     h.supported_features = (Number(a.attributes.supported_features) || 0) & ~m | (Number(d.supported_features) || 0) & m;
-    let f = Me.has(s.state) ? s.state : a.state;
+    let f = ze.has(s.state) ? s.state : a.state;
     return c && r && s.attributes.media_title === r.title ? (f = r.resume ? "playing" : "paused", h.media_position = r.pos, h.media_position_updated_at = new Date(r.at).toISOString()) : c && f === "playing" && a.state !== "playing" && Date.parse(a.last_changed) > Date.parse(s.last_changed) && Date.now() - Date.parse(a.last_changed) > 12e3 && (f = "paused"), { ...a, state: f, attributes: h };
   }
   /** Whose library shows: the shown player's – or library_from's for the other players. */
@@ -39351,7 +39377,7 @@ const Tt = (o) => ({
     const t = this._config.tv_sources, a = this._hass?.states;
     if (!t?.length || !a) return;
     const i = a[e], s = i?.attributes ?? {};
-    if (!Me.has(i?.state ?? "") || !(s.app_id === "tv" || /^(tv|hdmi)/i.test(String(s.source ?? "")))) return;
+    if (!ze.has(i?.state ?? "") || !(s.app_id === "tv" || /^(tv|hdmi)/i.test(String(s.source ?? "")))) return;
     const n = this._twins.get(e);
     return t.find((r) => {
       const l = r.speaker ?? this._ids[0];
@@ -39368,7 +39394,7 @@ const Tt = (o) => ({
       if (!f.length) return a.tv;
       i = f;
     }
-    const r = (f, b) => !!f.input && i.slice(b + 1).some((y) => y.input === f.input), l = i.filter(r).map((f) => f.entity).filter((f) => Me.has(t[f]?.state ?? "")), c = i.filter((f, b) => !r(f, b)).map((f) => f.entity).filter((f) => Me.has(t[f]?.state ?? ""));
+    const r = (f, b) => !!f.input && i.slice(b + 1).some((y) => y.input === f.input), l = i.filter(r).map((f) => f.entity).filter((f) => ze.has(t[f]?.state ?? "")), c = i.filter((f, b) => !r(f, b)).map((f) => f.entity).filter((f) => ze.has(t[f]?.state ?? ""));
     if (!c.length) return;
     const d = (f) => Date.parse(t[f].last_changed) || 0, h = c.reduce((f, b) => d(b) > d(f) ? b : f);
     if (!t[h].attributes.media_title && !t[h].attributes.media_series_title) return;
@@ -39443,21 +39469,21 @@ const Tt = (o) => ({
   _twinPlays(e) {
     const t = this._twins.get(e), a = this._hass?.states, i = t ? a?.[t] : void 0, s = a?.[e];
     if (!i || !s || !i.attributes.media_title || i.attributes.app_id !== "music_assistant" && i.attributes.source !== "Music Assistant Queue") return;
-    const n = /^https?:/.test(String(s.attributes.media_content_id ?? "")), r = this._twinLast.has(t) && Date.now() - Date.parse(i.last_changed) < Qh(this._kind(e) === "sonos", e, t), l = Mt.get(e);
-    return !!l && l.title === i.attributes.media_title && s.state !== "playing" || (n ? Me.has(i.state) || Me.has(s.state) || r : i.state === "playing" || Me.has(i.state) && s.state !== "playing") ? t ?? void 0 : void 0;
+    const n = /^https?:/.test(String(s.attributes.media_content_id ?? "")), r = this._twinLast.has(t) && Date.now() - Date.parse(i.last_changed) < ep(this._kind(e) === "sonos", e, t), l = Mt.get(e);
+    return !!l && l.title === i.attributes.media_title && s.state !== "playing" || (n ? ze.has(i.state) || ze.has(s.state) || r : i.state === "playing" || ze.has(i.state) && s.state !== "playing") ? t ?? void 0 : void 0;
   }
   /** The player shown: the one playing (a group's leader), else the first. */
   _main() {
     const e = this._hass?.states;
     if (!e || this._ids.length === 1) return this._ids[0];
-    this._shown ??= Wo.get(this._linkKey);
+    this._shown ??= Fo.get(this._linkKey);
     const t = this._shown, a = this._pickMain(e);
-    return a !== t && (Wo.set(this._linkKey, a), Wi()), a;
+    return a !== t && (Fo.set(this._linkKey, a), Wi()), a;
   }
   _pickMain(e) {
-    const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (l) => Date.parse(e[l]?.last_changed ?? "") || 0, i = (l) => Me.has(e[l]?.state ?? "") || Mt.has(l) || nt.has(l), s = new Set(this._ids.map((l) => e[l]?.attributes.remote_player_id).filter(Boolean)), n = Ke.get(this._linkKey) ?? this._chosen;
+    const t = this._shown && this._ids.includes(this._shown) ? e[this._shown] : void 0, a = (l) => Date.parse(e[l]?.last_changed ?? "") || 0, i = (l) => ze.has(e[l]?.state ?? "") || Mt.has(l) || nt.has(l), s = new Set(this._ids.map((l) => e[l]?.attributes.remote_player_id).filter(Boolean)), n = Ke.get(this._linkKey) ?? this._chosen;
     if (this._config.follow_playing === !1) {
-      const l = n && n.id !== this._ids[0] && this._ids.includes(n.id) && (this._busy(n) || i(n.id) || Date.now() - n.at < Xy);
+      const l = n && n.id !== this._ids[0] && this._ids.includes(n.id) && (this._busy(n) || i(n.id) || Date.now() - n.at < Qy);
       return this._shown = l ? n.id : this._ids[0];
     }
     if (n && this._ids.includes(n.id)) {
@@ -39467,7 +39493,7 @@ const Tt = (o) => ({
     }
     const r = t?.attributes.remote_player_id;
     if (t && r && e[r]?.state === "playing") return t.entity_id;
-    if (t && (qi.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && Me.has(gr(t, !0)?.state ?? ""))) {
+    if (t && (qi.has(t.state) || Mt.has(t.entity_id) || this._kind(t.entity_id) === "sonos" && ze.has(gr(t, !0)?.state ?? ""))) {
       const l = this._ids.find(
         (c) => c !== t.entity_id && !s.has(c) && e[c]?.state === "playing" && a(c) > a(t.entity_id) && !i(t.entity_id)
       );
@@ -39583,7 +39609,7 @@ const Tt = (o) => ({
       try {
         const s = await e.callWS({ type: "config/entity_registry/get_entries", entity_ids: t }), n = Array.isArray(s) ? s : Object.entries(s).map(([r, l]) => ({ entity_id: r, unique_id: l?.unique_id }));
         for (const r of n) r.unique_id && this._maUids.set(r.entity_id, r.unique_id);
-        this._maProv = await Ny(a, i);
+        this._maProv = await Oy(a, i);
       } catch {
       }
     this._kinds.clear(), this.requestUpdate();
@@ -39595,29 +39621,29 @@ const Tt = (o) => ({
     let s = "hass";
     if (i) {
       const n = this._maUids.get(i);
-      if (s = Iy(n ? this._maProv?.get(n) : void 0) ?? "ma", s === "ma") {
+      if (s = qy(n ? this._maProv?.get(n) : void 0) ?? "ma", s === "ma") {
         const r = a, l = r.devices?.[r.entities?.[i]?.device_id ?? ""];
-        s = qy(l?.manufacturer, l?.model);
+        s = Wy(l?.manufacturer, l?.model);
       }
     }
     return (!i || this._twins.has(e) || ft(a.states[e])) && this._kinds.set(e, s), s;
   }
   _kindBadge(e) {
-    const t = this._kind(e), a = jy(t);
-    return a.word ? p`<i class="pkind word" title=${uo[t]}>${a.word}</i>` : p`<i class="pkind" title=${uo[t]} aria-label=${uo[t]}
+    const t = this._kind(e), a = Iy(t);
+    return a.word ? p`<i class="pkind word" title=${mo[t]}>${a.word}</i>` : p`<i class="pkind" title=${mo[t]} aria-label=${mo[t]}
       >${a.mask ? p`<b style=${`-webkit-mask-image:${a.mask};mask-image:${a.mask}`}></b>` : p`<ha-icon .icon=${a.mdi}></ha-icon>`}</i
     >`;
   }
   /** An app's icon by its bundle id (com.google.ios.youtube), from the App Store – once looked up. */
   _appIcon(e) {
     if (typeof e != "string" || !/^[\w-]+(\.[\w-]+){2,}$/.test(e)) return;
-    const t = Js.get(e);
+    const t = Xs.get(e);
     if (typeof t == "string") return t;
     if (t !== void 0) return;
     const a = String(this._hass?.config?.country ?? "us").toLowerCase(), i = (s) => fetch(`https://itunes.apple.com/lookup?bundleId=${encodeURIComponent(e)}&country=${s}`).then((n) => n.json()).then((n) => n?.results?.[0]?.artworkUrl100 ?? n?.results?.[0]?.artworkUrl60);
-    Js.set(
+    Xs.set(
       e,
-      i(a).then((s) => s ?? (a === "us" ? void 0 : i("us"))).then((s) => void Js.set(e, s ?? null)).catch(() => void Js.set(e, null)).then(() => this.requestUpdate())
+      i(a).then((s) => s ?? (a === "us" ? void 0 : i("us"))).then((s) => void Xs.set(e, s ?? null)).catch(() => void Xs.set(e, null)).then(() => this.requestUpdate())
     );
   }
   /** The card's players to pick from: each with its art (or icon), name and what it does. */
@@ -39626,7 +39652,7 @@ const Tt = (o) => ({
     return this._loadKinds(), p`<div class="scrim" @click=${() => (this._pickOpen = !1, this.requestUpdate())}></div>
       <div class="spks plist" role="listbox">
         ${this._ids.map((a) => {
-      const i = this._tvSet(a) ? this._shownState(a) : t.states[a], s = i?.attributes ?? {}, n = this._artUrl(i), r = s.device_class === "tv" ? "mdi:television" : s.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker", l = !i || i.state === "unavailable" ? v("Unavailable") : i.state === "off" ? v("Off") : Me.has(i.state) && s.media_title ? [s.media_title, s.media_artist].filter(Boolean).join(" · ") : v("Nothing playing");
+      const i = this._tvSet(a) ? this._shownState(a) : t.states[a], s = i?.attributes ?? {}, n = i && ze.has(i.state) && s.media_title ? this._artUrl(i) : void 0, r = s.device_class === "tv" ? "mdi:television" : s.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker", l = !i || i.state === "unavailable" ? v("Unavailable") : i.state === "off" ? v("Off") : ze.has(i.state) && s.media_title ? [s.media_title, s.media_artist].filter(Boolean).join(" · ") : v("Nothing playing");
       return p`<button class="prow ${a === e ? "in" : ""}" role="option" aria-selected=${a === e ? "true" : "false"} @click=${() => this._choose(a)}>
             <i class="pic" style=${n ? `background-image:${ma(n)}` : ""}
               >${n ? g : p`<ha-icon .icon=${r}></ha-icon>`}${(() => {
@@ -39665,7 +39691,7 @@ const Tt = (o) => ({
       const t = this.clientWidth > 0 && this.clientWidth < 600;
       t !== this._narrow && (this._narrow = t, this.requestUpdate());
     }), this._ro.observe(this), window.addEventListener("resize", this._onFill), window.addEventListener("location-changed", this._onOpen), window.addEventListener("hashchange", this._onOpen), this._config?.layout === "screen" && (this._clockT ??= window.setInterval(() => this.requestUpdate(), 1e4), this._wake()), this._onOpen();
-    const e = Cy(this);
+    const e = Dy(this);
     e !== this._q && this._setQuery(e);
   }
   disconnectedCallback() {
@@ -39679,7 +39705,7 @@ const Tt = (o) => ({
   }
   _artUrl(e) {
     const t = this._artRaw(e);
-    return t && tp(t) === "ok" ? t : void 0;
+    return t && ap(t) === "ok" ? t : void 0;
   }
   _artRaw(e) {
     return (e?.attributes.entity_picture_local ?? e?.attributes.entity_picture) || void 0;
@@ -39687,7 +39713,7 @@ const Tt = (o) => ({
   /** A picture on its way: a spinner where it will be. */
   _artWaits(e) {
     const t = this._artRaw(e);
-    return !!t && tp(t) === "wait";
+    return !!t && ap(t) === "wait";
   }
   _syncArt() {
     const e = this._artUrl(this._shownState());
@@ -39696,7 +39722,7 @@ const Tt = (o) => ({
         this._color = void 0, this._light = void 0;
         return;
       }
-      iv(e).then((t) => {
+      sv(e).then((t) => {
         this._art === e && (this._color = t?.color, this._light = t?.light, this.requestUpdate());
       });
     }
@@ -39707,11 +39733,11 @@ const Tt = (o) => ({
    */
   _tone(e) {
     if (this._light === void 0 || this._config.art_background === !1 || !this._artUrl(e)) return "";
-    const t = this._artDark(), a = !Me.has(e?.state ?? ""), i = t ? a ? 0.18 : 0.4 : a ? 0.25 : 0.55;
+    const t = this._artDark(), a = !ze.has(e?.state ?? ""), i = t ? a ? 0.18 : 0.4 : a ? 0.25 : 0.55;
     return (t ? i * this._light * 0.7 + (1 - i) * 0.15 : i * this._light + (1 - i) * 0.92) > 0.58 ? "ink-dark" : "ink-light";
   }
   _call(e, t = {}, a = this._main()) {
-    if (a === this._main() && Qy.has(e) && (a = this._queueVia(a) ?? a), e === "media_previous_track" || e === "media_next_track") for (const i of [this._main(), a]) As.set(i, Date.now());
+    if (a === this._main() && ev.has(e) && (a = this._queueVia(a) ?? a), e === "media_previous_track" || e === "media_next_track") for (const i of [this._main(), a]) As.set(i, Date.now());
     this._hass?.callService("media_player", e, {
       entity_id: a,
       ...t
@@ -39869,7 +39895,7 @@ const Tt = (o) => ({
     const a = this._artUrl(e), i = !a && this._artWaits(e), s = e?.attributes.glass_tv || e?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note", n = t === "square" ? e?.attributes.glass_logo : void 0;
     if (n && !a && !i)
       return p`<div class="art ${t} logoplate"><img class="chlogo big" src=${n} alt="" /></div>`;
-    const r = a ? qm.get(a) ?? 1 : 1, c = (a && /\/\/i\.ytimg\.com\/vi\/[^/]+\/(hq|sd)default\./.test(a) ? "yt" : "") || (a && e?.attributes.glass_tv && !e?.attributes.glass_logo && (r > 1.15 || r < 0.87) ? "fit" : "");
+    const r = a ? Wm.get(a) ?? 1 : 1, c = (a && /\/\/i\.ytimg\.com\/vi\/[^/]+\/(hq|sd)default\./.test(a) ? "yt" : "") || (a && e?.attributes.glass_tv && !e?.attributes.glass_logo && (r > 1.15 || r < 0.87) ? "fit" : "");
     return p`<div class="art ${t} ${c} ${a ? "" : "none"}" style=${a ? c === "fit" ? `--art:${ma(a)}` : `background-image:${ma(a)}` : ""}>
       ${a ? g : i ? p`<i class="spin" aria-hidden="true"></i>` : p`<ha-icon .icon=${s}></ha-icon>`}
       ${a && n ? p`<img class="chlogo" src=${n} alt="" />` : g}
@@ -39901,7 +39927,7 @@ const Tt = (o) => ({
     const a = this._config.visualizer !== !1, i = this._vizOn(), s = this._press(
       e,
       a ? () => {
-        Ft.on = !Ft.on, Ft.on && this._showDots(), W("light"), Jh();
+        Ft.on = !Ft.on, Ft.on && this._showDots(), W("light"), Xh();
       } : void 0
     ), n = wa.indexOf(Ft.style);
     return p`<div
@@ -39917,7 +39943,7 @@ const Tt = (o) => ({
       const c = r.clientX - l.x;
       if (Math.abs(c) < 28 || Math.abs(c) < Math.abs(r.clientY - l.y) * 1.5) return;
       const d = wa.length;
-      Ft.style = wa[(n + (c < 0 ? 1 : d - 1)) % d], this._showDots(), W("light"), Jh();
+      Ft.style = wa[(n + (c < 0 ? 1 : d - 1)) % d], this._showDots(), W("light"), Xh();
     }}
       @pointercancel=${s.cancel}
       @contextmenu=${s.context}
@@ -39932,7 +39958,7 @@ const Tt = (o) => ({
   /** The visualizer told what plays, its cover and look (after each render). */
   _syncViz() {
     const e = this.renderRoot.querySelector("canvas.viz") ?? void 0;
-    if (e !== this._vizCv && (this._viz?.destroy(), this._viz = e ? new Ly(e) : void 0, this._vizCv = e), !this._viz) return;
+    if (e !== this._vizCv && (this._viz?.destroy(), this._viz = e ? new Ry(e) : void 0, this._vizCv = e), !this._viz) return;
     const t = this._shownState(), a = t?.attributes ?? {};
     this._viz.setStyle(Ft.style), this._viz.setInk(this._tone(t) === "ink-dark"), this._viz.setArt(this._artUrl(t), this._color), this._viz.setTrack({
       playing: this._isPlaying(t),
@@ -39993,12 +40019,12 @@ const Tt = (o) => ({
     if (ue(a, ne.BROWSE))
       try {
         const c = ((await this._browse(e)).children ?? []).filter(
-          (b) => b.can_expand && b.media_class !== "app" && !String(b.media_content_id).startsWith("media-source://") && !Vh.has(b.children_media_class) && !Yh.test(b.title) && !Ys.has(b.media_content_type)
+          (b) => b.can_expand && b.media_class !== "app" && !String(b.media_content_id).startsWith("media-source://") && !Yh.has(b.children_media_class) && !Zh.test(b.title) && !Zs.has(b.media_content_type)
         ), d = [], h = [];
         await Promise.all(
           c.slice(0, 10).map(async (b) => {
             const _ = ((await this._browse(e, b.media_content_id, b.media_content_type).catch(() => {
-            }))?.children ?? []).filter((M) => !Ys.has(M.media_content_type)), x = _.filter((M) => M.can_expand && !M.can_play), S = x.length === _.length ? x : x.filter((M) => M.media_class === "directory" && /recommend|doporu/i.test(M.title));
+            }))?.children ?? []).filter((M) => !Zs.has(M.media_content_type)), x = _.filter((M) => M.can_expand && !M.can_play), S = x.length === _.length ? x : x.filter((M) => M.media_class === "directory" && /recommend|doporu/i.test(M.title));
             for (const M of S)
               d.push({
                 title: M.title,
@@ -40027,10 +40053,10 @@ const Tt = (o) => ({
               ctype: _.media_content_type
             });
         }
-        const m = d.filter((b) => !Yh.test(b.title) && !Ys.has(b.ctype)).sort((b, y) => Zs(b.title) - Zs(y.title)).slice(0, 10), f = await Promise.all(
+        const m = d.filter((b) => !Zh.test(b.title) && !Zs.has(b.ctype)).sort((b, y) => Js(b.title) - Js(y.title)).slice(0, 10), f = await Promise.all(
           m.map(async (b) => {
             const _ = ((await this._browse(e, b.cid, b.ctype).catch(() => {
-            }))?.children ?? []).filter((x) => !Ys.has(x.media_content_type));
+            }))?.children ?? []).filter((x) => !Zs.has(x.media_content_type));
             return {
               title: b.title,
               items: await this._picks(_.slice(0, 30)),
@@ -40041,17 +40067,17 @@ const Tt = (o) => ({
           })
         );
         for (const b of [...f, ...h])
-          b.items = b.items.filter((y) => !Vh.has(y.kind ?? "")), b.items.length && !i.some((y) => y.title === b.title) && i.push(b);
+          b.items = b.items.filter((y) => !Yh.has(y.kind ?? "")), b.items.length && !i.some((y) => y.title === b.title) && i.push(b);
       } catch {
       }
     if (i.length <= s && ue(a, ne.SELECT_SOURCE)) {
-      const l = (a?.attributes.source_list ?? []).filter((c) => !Yy.test(c));
+      const l = (a?.attributes.source_list ?? []).filter((c) => !Zy.test(c));
       l.length && i.push({
         title: v("Favorites"),
         items: l.map((c) => ({ name: c, source: c, play: !0 }))
       });
     }
-    const n = this._config.library_sections, r = n?.length ? n.map((l) => i.find((c) => c.title.toLowerCase() === l.toLowerCase())).filter((l) => !!l) : [...i.slice(0, s), ...i.slice(s).sort((l, c) => Zs(l.title) - Zs(c.title))];
+    const n = this._config.library_sections, r = n?.length ? n.map((l) => i.find((c) => c.title.toLowerCase() === l.toLowerCase())).filter((l) => !!l) : [...i.slice(0, s), ...i.slice(s).sort((l, c) => Js(l.title) - Js(c.title))];
     this._lib.set(e, r.length ? { sections: r.slice(0, 12) } : "none"), this.requestUpdate();
   }
   /** The rows of Music Assistant's home (its recommendations: your mixes, top picks, played lately…),
@@ -40283,7 +40309,7 @@ const Tt = (o) => ({
         <div class="det-hero">
           ${i.image ? p`<i class="det-bg" style=${`background-image:${ma(i.image)}`}></i>` : g}
           <i class="det-cov cov ${i.image ? "" : "tile"}" style="--h:${[...i.name].reduce((h, u) => (h * 31 + u.charCodeAt(0)) % 360, 7)}">
-            <ha-icon .icon=${Zh[i.kind ?? ""] ?? "mdi:playlist-music"}></ha-icon>
+            <ha-icon .icon=${Jh[i.kind ?? ""] ?? "mdi:playlist-music"}></ha-icon>
             ${i.image ? p`<img src=${i.image} alt="" draggable="false" @error=${(h) => h.currentTarget.hidden = !0} />` : g}
           </i>
           <div class="det-info">
@@ -40359,7 +40385,7 @@ const Tt = (o) => ({
     }}
     >
       <i class="cov ${t.image ? "" : "tile"}" style="--h:${i}">
-        <ha-icon .icon=${t.icon ?? Zh[t.kind ?? ""] ?? "mdi:playlist-music"}></ha-icon>
+        <ha-icon .icon=${t.icon ?? Jh[t.kind ?? ""] ?? "mdi:playlist-music"}></ha-icon>
         ${t.image ? p`<img src=${t.image} alt="" loading="lazy" draggable="false" @error=${(r) => r.currentTarget.hidden = !0} />` : g}
         ${t.src === "youtube" ? p`<i class="src-yt" aria-hidden="true"></i>` : g} ${n ? p`<i class="spin"></i>` : g}
       </i>
@@ -40413,7 +40439,7 @@ const Tt = (o) => ({
         return;
       }
     }
-    const r = this._libId(), l = r !== t && this._platform(r) === "ytube_music_player" ? Jy(e) : void 0, c = l ? ft(a) ? t : await this._twin(t) : void 0;
+    const r = this._libId(), l = r !== t && this._platform(r) === "ytube_music_player" ? Xy(e) : void 0, c = l ? ft(a) ? t : await this._twin(t) : void 0;
     if (l && c) {
       this._hass?.callService("media_player", "play_media", {
         entity_id: c,
@@ -40606,7 +40632,7 @@ const Tt = (o) => ({
   }
   /** layout: screen – the whole screen: the cover big over itself blurred, the song, the time. */
   _screen(e) {
-    const t = this._config, a = this._main(), i = e?.attributes ?? {}, s = this._isPlaying(e), n = !s && !Me.has(e?.state ?? ""), r = n ? void 0 : this._artUrl(e), l = t.name ?? i.friendly_name ?? a, c = i.media_title ?? i.media_series_title ?? "", d = i.media_artist ?? i.media_album_artist ?? i.app_name ?? i.source ?? "", h = i.media_album_name && i.media_album_name !== c ? i.media_album_name : "", u = /* @__PURE__ */ new Date(), m = be(this._hass), f = u.toLocaleTimeString(m, { hour: "numeric", minute: "2-digit", hour12: Ce(this._hass) }), b = u.toLocaleDateString(m, { weekday: "long", day: "numeric", month: "long" }), y = t.clock !== !1;
+    const t = this._config, a = this._main(), i = e?.attributes ?? {}, s = this._isPlaying(e), n = !s && !ze.has(e?.state ?? ""), r = n ? void 0 : this._artUrl(e), l = t.name ?? i.friendly_name ?? a, c = i.media_title ?? i.media_series_title ?? "", d = i.media_artist ?? i.media_album_artist ?? i.app_name ?? i.source ?? "", h = i.media_album_name && i.media_album_name !== c ? i.media_album_name : "", u = /* @__PURE__ */ new Date(), m = be(this._hass), f = u.toLocaleTimeString(m, { hour: "numeric", minute: "2-digit", hour12: Ce(this._hass) }), b = u.toLocaleDateString(m, { weekday: "long", day: "numeric", month: "long" }), y = t.clock !== !1;
     return p`<div
       class="screen ink-light ${s ? "playing" : ""} ${n ? "rest" : ""} ${this._calm ? "calm" : ""}"
       style=${this._color ? `--sc:${this._color}` : ""}
@@ -40646,7 +40672,7 @@ const Tt = (o) => ({
     return p`<div class="frame surface tilef ${l ? "playing" : ""} ${this._tone(e)}">
       ${this._bg(e)}
       <div
-        class="lbar tile ${a !== void 0 ? "slides" : ""} ${Me.has(e?.state ?? "") || this._drag.has(`vol|${t}`) ? "lit" : ""}"
+        class="lbar tile ${a !== void 0 ? "slides" : ""} ${ze.has(e?.state ?? "") || this._drag.has(`vol|${t}`) ? "lit" : ""}"
         style="--pct:${Math.round((a ?? 0) * 100)}"
         @pointerdown=${n?.down}
         @pointermove=${n?.move}
@@ -40698,7 +40724,7 @@ const Tt = (o) => ({
                         >
                           <i></i>
                         </div>
-                        <div class="times"><span>${ip(l)}</span><span>-${ip(i - l)}</span></div>
+                        <div class="times"><span>${sp(l)}</span><span>-${sp(i - l)}</span></div>
                       </div>`;
   }
   /** Shuffle, previous, play / pause, next, repeat – those the player has. */
@@ -40719,7 +40745,7 @@ const Tt = (o) => ({
     ) : g}`;
   }
   _card(e) {
-    const t = this._main(), [a, i, s] = this._what(e), n = this._config.name ?? e?.attributes.friendly_name ?? t, r = this._volume(t), l = r !== void 0 ? this._volEvents(t) : void 0, c = this._isMuted(e) && !this._drag.has(`vol|${t}`) && !this._pending.has(t), d = this._config.speakers === !1 ? [] : this._speakerIds().filter((x) => x !== t), h = e?.attributes.group_members ?? [], u = d.filter((x) => this._inGroup(t, x, h)).length, m = this._isPlaying(e), f = this._ctl(), b = !m && !Me.has(e?.state ?? "");
+    const t = this._main(), [a, i, s] = this._what(e), n = this._config.name ?? e?.attributes.friendly_name ?? t, r = this._volume(t), l = r !== void 0 ? this._volEvents(t) : void 0, c = this._isMuted(e) && !this._drag.has(`vol|${t}`) && !this._pending.has(t), d = this._config.speakers === !1 ? [] : this._speakerIds().filter((x) => x !== t), h = e?.attributes.group_members ?? [], u = d.filter((x) => this._inGroup(t, x, h)).length, m = this._isPlaying(e), f = this._ctl(), b = !m && !ze.has(e?.state ?? "");
     this._handleTpl = g;
     const y = this._below, _ = y ? g : this._sheet(t, b, r !== void 0 || d.length ? 54 : 12);
     return p`<div class="frame surface cardf ${m ? "playing" : ""} ${b ? "rest" : ""} ${y ? "stacked" : ""} ${this._fillH ? "filled" : ""} ${this._tone(e)}">
@@ -40827,7 +40853,7 @@ const Tt = (o) => ({
   updated(e) {
     super.updated(e);
     const t = this.renderRoot.querySelector(".frame.cardf");
-    t && (t.classList.contains("rest") ? t.style.minHeight = this._fullH ? `${this._fullH}px` : "" : (t.style.minHeight = "", this._fullH = t.offsetHeight)), this._libOn && this._hass && this._loadLib(this._libId()), this._config?.library_from && this._hass && !this._twins.has(this._main()) && this._twin(this._main()), this._fitPanel(), this._syncViz(), this._marquee(), this._config?.media_keys ? (Gy(this), Vy(this)) : Uy(this);
+    t && (t.classList.contains("rest") ? t.style.minHeight = this._fullH ? `${this._fullH}px` : "" : (t.style.minHeight = "", this._fullH = t.offsetHeight)), this._libOn && this._hass && this._loadLib(this._libId()), this._config?.library_from && this._hass && !this._twins.has(this._main()) && this._twin(this._main()), this._fitPanel(), this._syncViz(), this._marquee(), this._config?.media_keys ? (Uy(this), Yy(this)) : Ky(this);
   }
   /**
    * A line too long for its place drifts slowly to its end, glides quickly back, waits a moment and
@@ -40847,7 +40873,7 @@ const Tt = (o) => ({
           continue;
         }
         t.classList.add("mq");
-        const r = 2e3, l = 1e3, c = 600, d = n / Zy * 1e3, h = r + d + l + c, u = (f) => f / h, m = e.animate(
+        const r = 2e3, l = 1e3, c = 600, d = n / Jy * 1e3, h = r + d + l + c, u = (f) => f / h, m = e.animate(
           [
             { transform: "translateX(0)", offset: 0 },
             { transform: "translateX(0)", offset: u(r), easing: "linear" },
@@ -40863,7 +40889,7 @@ const Tt = (o) => ({
   /** The media keys: what plays on the shown player, for the system's controls (macOS, Windows). */
   mediaKeyInfo() {
     const e = this._shownState();
-    if (!e || !Me.has(e.state)) return;
+    if (!e || !ze.has(e.state)) return;
     const t = e.attributes;
     return {
       title: t.media_title ?? t.media_series_title,
@@ -40915,7 +40941,7 @@ const Tt = (o) => ({
     return this._config?.layout === "tile" ? { columns: 6, rows: 1, min_rows: 1 } : { columns: 6, rows: 3, min_rows: 2 };
   }
 };
-rn.parts = sm, rn.styles = [
+ln.parts = om, ln.styles = [
   F.styles,
   we,
   Oe,
@@ -43550,12 +43576,12 @@ rn.parts = sm, rn.styles = [
     `,
   xe
 ];
-let Ql = rn;
+let Ql = ln;
 ce("glass-media", Ql, {
   name: "Glass – media player",
   description: "What plays with its album art, the controls, a liquid glass volume bar and the speakers to group."
 });
-const sv = ["day", "week", "month", "year"], ov = "period", Ms = (o) => o.group || ov, Gt = (o) => !!o.offset_entity, nv = [
+const ov = ["day", "week", "month", "year"], nv = "period", Ms = (o) => o.group || nv, Gt = (o) => !!o.offset_entity, rv = [
   ["day", ["day", "den", "dny", "dni", "tag", "jour", "día", "dia", "dzie"]],
   // i18n-ok
   ["week", ["week", "týd", "tyd", "woche", "sem", "tydz", "týž"]],
@@ -43565,18 +43591,18 @@ const sv = ["day", "week", "month", "year"], ov = "period", Ms = (o) => o.group 
   ["year", ["year", "rok", "jahr", "an", "año", "ano"]]
   // i18n-ok
 ];
-function rv(o, e) {
+function lv(o, e) {
   if (!o) return;
   if (e?.[o]) return e[o];
   const t = o.trim().toLowerCase();
-  return nv.find(([, a]) => a.some((i) => t.startsWith(i)))?.[0];
+  return rv.find(([, a]) => a.some((i) => t.startsWith(i)))?.[0];
 }
-function mo(o, e, t = ["day", "month", "year"]) {
+function go(o, e, t = ["day", "month", "year"]) {
   if (Gt(e)) {
     const r = Number(o?.states[e.offset_entity]?.state), l = e.select_entity ? o?.states[e.select_entity]?.state : void 0;
-    return { kind: rv(l, e.kinds) ?? "day", offset: Number.isFinite(r) ? Math.min(0, r) : 0 };
+    return { kind: lv(l, e.kinds) ?? "day", offset: Number.isFinite(r) ? Math.min(0, r) : 0 };
   }
-  const [a, i] = (Ta(Ms(e)) ?? "").split(":"), s = sv.includes(a) ? a : t[0] ?? "day", n = Number(i);
+  const [a, i] = (Ta(Ms(e)) ?? "").split(":"), s = ov.includes(a) ? a : t[0] ?? "day", n = Number(i);
   return { kind: s, offset: Number.isFinite(n) ? Math.min(0, Math.round(n)) : 0 };
 }
 function yr(o, e) {
@@ -43586,35 +43612,35 @@ function Ts(o, e = /* @__PURE__ */ new Date()) {
   const t = new Date(e.getFullYear(), e.getMonth(), e.getDate());
   return o.kind === "day" ? t.setDate(t.getDate() + o.offset) : o.kind === "week" ? t.setDate(t.getDate() - (t.getDay() + 6) % 7 + 7 * o.offset) : o.kind === "month" ? (t.setDate(1), t.setMonth(t.getMonth() + o.offset)) : t.setFullYear(t.getFullYear() + o.offset, 0, 1), t;
 }
-function lv(o, e = /* @__PURE__ */ new Date()) {
+function cv(o, e = /* @__PURE__ */ new Date()) {
   const t = Ts(o, e);
   return o.kind === "day" ? t.setDate(t.getDate() + 1) : o.kind === "week" ? t.setDate(t.getDate() + 7) : o.kind === "month" ? t.setMonth(t.getMonth() + 1) : t.setFullYear(t.getFullYear() + 1), t;
 }
-function cv(o) {
+function dv(o) {
   const e = new Date(Date.UTC(o.getFullYear(), o.getMonth(), o.getDate()));
   return e.setUTCDate(e.getUTCDate() + 4 - (e.getUTCDay() || 7)), Math.ceil(((e.getTime() - Date.UTC(e.getUTCFullYear(), 0, 1)) / 864e5 + 1) / 7);
 }
-const sp = (o) => o.charAt(0).toLocaleUpperCase() + o.slice(1);
-function op(o, e, t = !1, a = /* @__PURE__ */ new Date()) {
+const op = (o) => o.charAt(0).toLocaleUpperCase() + o.slice(1);
+function np(o, e, t = !1, a = /* @__PURE__ */ new Date()) {
   const i = Ts(o, a);
   if (o.kind === "day") {
     const s = i.toLocaleDateString(e, { day: "numeric", month: "numeric" });
-    return `${sp(i.toLocaleDateString(e, { weekday: t ? "short" : "long" }))} ${s}`;
+    return `${op(i.toLocaleDateString(e, { weekday: t ? "short" : "long" }))} ${s}`;
   }
-  if (o.kind === "week") return v(t ? "W{n}" : "Week {n}", { n: cv(i) });
+  if (o.kind === "week") return v(t ? "W{n}" : "Week {n}", { n: dv(i) });
   if (o.kind === "month") {
-    const s = sp(i.toLocaleDateString(e, { month: t && i.getFullYear() !== a.getFullYear() ? "short" : "long" })).replace(/\.$/, "");
+    const s = op(i.toLocaleDateString(e, { month: t && i.getFullYear() !== a.getFullYear() ? "short" : "long" })).replace(/\.$/, "");
     return i.getFullYear() === a.getFullYear() ? s : `${s} ${i.getFullYear()}`;
   }
   return String(i.getFullYear());
 }
-function dv(o, e) {
+function hv(o, e) {
   return v({ day: "Day", week: "Week", month: "Month", year: "Year" }[o]);
 }
-const np = (o) => !!o && o !== "none";
+const rp = (o) => !!o && o !== "none";
 function vr(o, e, t) {
-  const a = o ?? (np(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: np(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
+  const a = o ?? (rp(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: rp(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
 }
 const ei = class ei extends F {
   constructor() {
@@ -43623,7 +43649,7 @@ const ei = class ei extends F {
     }, this._open = !1;
   }
   static getConfigElement() {
-    return de(Vf);
+    return de(Yf);
   }
   static getStubConfig() {
     return { periods: ["day", "month", "year"] };
@@ -43652,14 +43678,14 @@ const ei = class ei extends F {
   _step(e) {
     const t = this._config;
     if (W(), this._hit = e, clearTimeout(this._hitTimer), this._hitTimer = window.setTimeout(() => this._hit = void 0, 260), !Gt(t)) {
-      const a = mo(this._hass, t, this._periods);
+      const a = go(this._hass, t, this._periods);
       return yr(t, { ...a, offset: a.offset + e });
     }
     this._call("input_number", e > 0 ? "increment" : "decrement", { entity_id: t.offset_entity }), t.current_entity && this._call("input_boolean", "turn_off", { entity_id: t.current_entity });
   }
   _now() {
     const e = this._config;
-    if (W(), !Gt(e)) return yr(e, { ...mo(this._hass, e, this._periods), offset: 0 });
+    if (W(), !Gt(e)) return yr(e, { ...go(this._hass, e, this._periods), offset: 0 });
     const t = this._hass.states[e.offset_entity];
     this._call("input_number", "set_value", { entity_id: e.offset_entity, value: Number(t?.attributes.max ?? 0) }), e.current_entity && this._call("input_boolean", "turn_on", { entity_id: e.current_entity });
   }
@@ -43674,7 +43700,7 @@ const ei = class ei extends F {
   render() {
     const e = this._config, t = this._hass;
     if (!e || !t) return g;
-    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = mo(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, dv($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${op(n, a)}</span><span class="short">${op(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), S = p`<span class="gap"></span>`, z = vr(e.bar_glass, e.bar_color, "frosted"), M = vr(e.buttons_glass, e.buttons_color, "dark"), k = h ? M : vr(e.now_glass, e.now_color, "home");
+    const a = be(t), i = a.startsWith("cs"), s = Gt(e), n = go(t, e, this._periods), r = s ? t.states[e.offset_entity] : void 0, l = s ? Number(r?.state) : n.offset, c = Number(r?.attributes.min ?? -1 / 0), d = Number(r?.attributes.max ?? 0), h = l >= d, u = e.select_entity ? t.states[e.select_entity] : void 0, m = s ? (u?.attributes.options ?? []).map(($) => [$, $]) : this._periods.map(($) => [$, hv($)]), f = s ? u?.state : n.kind, y = (e.label_entity ? t.states[e.label_entity]?.state : void 0) ?? p`<span class="long">${np(n, a)}</span><span class="short">${np(n, a, !0)}</span>`, _ = e.parts?.length ? e.parts : ["now", "nav", "kind"], x = ($) => _.includes($), S = p`<span class="gap"></span>`, z = vr(e.bar_glass, e.bar_color, "frosted"), M = vr(e.buttons_glass, e.buttons_color, "dark"), k = h ? M : vr(e.now_glass, e.now_color, "home");
     return this._btn = M, p`<div class="bar lbar ${z.cls || "control"} ${e.spread ? "spread" : ""}" style=${z.style}>
         ${e.spread ? g : S}
         ${x("now") ? p`<button class="now ${h ? "on" : ""} ${k.cls}" style=${k.style} aria-label=${e.now_label ?? v("Now")} @click=${() => this._now()}>
@@ -43720,7 +43746,7 @@ const ei = class ei extends F {
     return 1;
   }
 };
-ei.wrapTile = !0, ei.parts = Uu, ei.properties = { ...F.properties, _open: { state: !0 }, _hit: { state: !0 } }, ei.styles = [
+ei.wrapTile = !0, ei.parts = Ku, ei.properties = { ...F.properties, _open: { state: !0 }, _hit: { state: !0 } }, ei.styles = [
   F.styles,
   Oe,
   aa,
@@ -43990,22 +44016,22 @@ function Pa(o, e) {
   for (const [a, i] of Object.entries(e)) t[a] = wt(i) && wt(t[a]) ? Pa(t[a], i) : i;
   return t;
 }
-function hv(o, e = /* @__PURE__ */ new Date()) {
-  const t = Ts(o, e), a = lv(o, e), i = Math.round((a.getTime() - t.getTime()) / 864e5), s = { day: "day", week: "isoWeek", month: "month", year: "year" }, n = { graph_span: `${i}d`, span: { start: s[o.kind] } };
+function pv(o, e = /* @__PURE__ */ new Date()) {
+  const t = Ts(o, e), a = cv(o, e), i = Math.round((a.getTime() - t.getTime()) / 864e5), s = { day: "day", week: "isoWeek", month: "month", year: "year" }, n = { graph_span: `${i}d`, span: { start: s[o.kind] } };
   if (o.offset < 0) {
     const r = Ts({ ...o, offset: 0 }, e).getTime() - t.getTime();
     n.span.offset = `-${Math.round(r / 36e5)}h`;
   }
   return n;
 }
-const pv = {
+const uv = {
   day: ["1h", "hour", "d. M. HH:mm"],
   week: ["1d", "day", "d. M. yyyy"],
   month: ["1d", "day", "d. M. yyyy"],
   year: ["1month", "month", "M / yyyy"]
 };
-function uv(o, e) {
-  const [t, a, i] = pv[e], s = Array.isArray(o.series) ? o.series.map((n) => wt(n) ? wt(n.statistics) ? { ...n, statistics: { period: a, ...n.statistics } } : wt(n.group_by) ? { ...n, group_by: { duration: t, ...n.group_by } } : n : n) : o.series;
+function mv(o, e) {
+  const [t, a, i] = uv[e], s = Array.isArray(o.series) ? o.series.map((n) => wt(n) ? wt(n.statistics) ? { ...n, statistics: { period: a, ...n.statistics } } : wt(n.group_by) ? { ...n, group_by: { duration: t, ...n.group_by } } : n : n) : o.series;
   return Pa({ ...o, series: s }, { apex_config: Pa({ tooltip: { x: { format: i } } }, wt(o.apex_config) ? o.apex_config : {}) });
 }
 function wr(o, e) {
@@ -44014,8 +44040,8 @@ function wr(o, e) {
   const a = getComputedStyle(t).color.match(/[\d.]+/g);
   return t.remove(), a && a.length >= 3 ? [Number(a[0]), Number(a[1]), Number(a[2])] : void 0;
 }
-const tc = (o) => `#${o.map((e) => Math.round(e).toString(16).padStart(2, "0")).join("")}`, mv = (o) => tc(o.map((e) => e + (255 - e) * 0.25));
-function gv(o, e, t) {
+const tc = (o) => `#${o.map((e) => Math.round(e).toString(16).padStart(2, "0")).join("")}`, gv = (o) => tc(o.map((e) => e + (255 - e) * 0.25));
+function fv(o, e, t) {
   const a = wr(Y(e.color) ?? "var(--glass-chart-color, #ff9f0a)", t) ?? [255, 159, 10], i = (Array.isArray(o.series) ? o.series : []).map((c) => {
     if (!wt(c)) return c;
     const d = typeof c.color == "string" ? Y(c.color) : void 0;
@@ -44028,11 +44054,11 @@ function gv(o, e, t) {
       dropShadow: { enabled: e.glow !== !1, top: 0, left: 0, blur: 4, color: tc(s[0] ?? a), opacity: 0.2 },
       // the line at zero reaches the outer columns' edges (apex ends it where the plot ends)
       // (apexcharts-card copies its config as JSON: functions only as EVAL: strings)
-      ...r ? { events: { mounted: rp, updated: rp } } : {}
+      ...r ? { events: { mounted: lp, updated: lp } } : {}
     },
     fill: {
       type: e.gradient === !1 ? "solid" : "gradient",
-      gradient: { type: "vertical", shade: "light", shadeIntensity: 0, gradientToColors: s.map(mv), inverseColors: !1, opacityFrom: 1, opacityTo: 0.85, stops: [0, 100] }
+      gradient: { type: "vertical", shade: "light", shadeIntensity: 0, gradientToColors: s.map(gv), inverseColors: !1, opacityFrom: 1, opacityTo: 0.85, stops: [0, 100] }
     },
     xaxis: { labels: { show: !!e.time, datetimeUTC: !1 }, axisBorder: { show: !1 }, axisTicks: { show: !1 }, tooltip: { enabled: !1 }, crosshairs: { show: !1 } },
     ...e.values === !1 ? { yaxis: { labels: { show: !1 } } } : {},
@@ -44046,7 +44072,7 @@ function gv(o, e, t) {
   };
   return Pa({ header: { show: !1 }, series: i }, { ...o, series: i, apex_config: Pa(l, wt(o.apex_config) ? o.apex_config : {}) });
 }
-function fv(o) {
+function bv(o) {
   const e = o?.el, t = e?.querySelector(".apexcharts-yaxis-annotations line"), a = e ? [...e.querySelectorAll(".apexcharts-bar-area")] : [];
   if (!t || !a.length) return;
   let i = 1 / 0, s = -1 / 0;
@@ -44056,8 +44082,8 @@ function fv(o) {
   }
   Number.isFinite(i) && (t.setAttribute("x1", String(Math.min(i, Number(t.getAttribute("x1"))))), t.setAttribute("x2", String(Math.max(s, Number(t.getAttribute("x2"))))));
 }
-window.glassChartZeroLine = fv;
-const rp = "EVAL:(chart) => window.glassChartZeroLine && window.glassChartZeroLine(chart)", bv = `
+window.glassChartZeroLine = bv;
+const lp = "EVAL:(chart) => window.glassChartZeroLine && window.glassChartZeroLine(chart)", _v = `
 ha-card { background: none !important; border: 0 !important; box-shadow: none !important; color: inherit !important;
   -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
 .apexcharts-text, .apexcharts-tooltip, .apexcharts-tooltip-title { font-family: var(--g-font) !important; }
@@ -44070,12 +44096,12 @@ ha-card { background: none !important; border: 0 !important; box-shadow: none !i
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16) !important;
   -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%); }
 .apexcharts-tooltip-title { background: none !important; border-bottom: 0 !important; color: inherit !important; opacity: 0.7; }
-`, lp = (o) => !!(o.period || o.group || o.offset_entity), ti = class ti extends F {
+`, cp = (o) => !!(o.period || o.group || o.offset_entity), ti = class ti extends F {
   constructor() {
     super(...arguments), this._waiting = !1;
   }
   static getConfigElement() {
-    return de(Yf);
+    return de(Zf);
   }
   static getStubConfig() {
     return { card: { type: "custom:apexcharts-card", series: [] } };
@@ -44085,7 +44111,7 @@ ha-card { background: none !important; border: 0 !important; box-shadow: none !i
     return this._key = void 0, this._listen(e), e;
   }
   _listen(e) {
-    this._unsub?.(), this._unsub = !lp(e) || Gt(e) ? void 0 : mi(Ms(e), () => this.requestUpdate());
+    this._unsub?.(), this._unsub = !cp(e) || Gt(e) ? void 0 : mi(Ms(e), () => this.requestUpdate());
   }
   connectedCallback() {
     super.connectedCallback(), this._config && !this._unsub && this._listen(this._config);
@@ -44108,19 +44134,19 @@ ha-card { background: none !important; border: 0 !important; box-shadow: none !i
   }
   /** The chart for the current period; the same one until the period (or the day) changes. */
   _chart() {
-    const e = this._config, t = lp(e) ? mo(this._hass, e) : void 0, a = t ? `${t.kind}:${Ts(t).getTime()}` : "fixed";
+    const e = this._config, t = cp(e) ? go(this._hass, e) : void 0, a = t ? `${t.kind}:${Ts(t).getTime()}` : "fixed";
     if (a !== this._key || !this._card) {
       this._key = a;
       const i = t ? e[t.kind] : void 0;
-      let s = t ? uv(Pa(Pa(e.card, hv(t)), wt(i) ? i : {}), t.kind) : { ...e.card };
-      e.look !== "apex" && (s = gv(s, e, this)), this._card = xs(s, this._hass), this._style(this._card);
+      let s = t ? mv(Pa(Pa(e.card, pv(t)), wt(i) ? i : {}), t.kind) : { ...e.card };
+      e.look !== "apex" && (s = fv(s, e, this)), this._card = xs(s, this._hass), this._style(this._card);
     }
     return this._card;
   }
   /** The glass CSS and the `fonts` of its parts into the chart card's shadow root (once it has one). */
   _style(e) {
     if (this._config.look === "apex") return;
-    this._sheet ??= new CSSStyleSheet(), this._sheet.replaceSync(bv + Yp(pl, this._config.fonts));
+    this._sheet ??= new CSSStyleSheet(), this._sheet.replaceSync(_v + Zp(pl, this._config.fonts));
     const t = this._sheet;
     let a = 0;
     const i = () => {
@@ -44174,7 +44200,7 @@ const ai = class ai extends F {
     }, this._children = [], this._mode = pe.mode, this._ask = -1, this._q = "";
   }
   _search(e) {
-    this._q = e, Ty(this, e);
+    this._q = e, Cy(this, e);
   }
   connectedCallback() {
     super.connectedCallback(), window.addEventListener("location-changed", this._onLoc), window.addEventListener("popstate", this._onLoc);
@@ -44204,7 +44230,7 @@ const ai = class ai extends F {
     </label>`;
   }
   static getConfigElement() {
-    return de(Zf);
+    return de(Jf);
   }
   static getStubConfig() {
     return { name: "Pop-up", icon: "mdi:home", cards: [] };
@@ -44299,7 +44325,7 @@ const ai = class ai extends F {
     return 1;
   }
 };
-ai.wrapTile = !0, ai.parts = im, ai.properties = { ...F.properties, _ask: { state: !0 }, _q: { state: !0 } }, ai.styles = [
+ai.wrapTile = !0, ai.parts = sm, ai.properties = { ...F.properties, _ask: { state: !0 }, _q: { state: !0 } }, ai.styles = [
   F.styles,
   Oe,
   aa,
@@ -44665,7 +44691,7 @@ function Gi(o, e, t) {
   const a = o ?? (is(e) ? t : void 0);
   return a ? { cls: `mat mat-${a}`, style: is(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : void 0;
 }
-const cp = {
+const dp = {
   docked: "Docked",
   cleaning: "Cleaning",
   paused: "Paused",
@@ -44675,12 +44701,12 @@ const cp = {
   mowing: "Mowing",
   unavailable: "Unavailable",
   unknown: "Unknown"
-}, _v = (o) => Array.isArray(o) ? o : [o], yv = { vacuum: ["cleaning", "paused", "returning"], mower: ["mowing", "paused", "returning"] }, vv = ["on", "charging", "recharging", "charging_mid_mission"], wv = (o) => o >= 95 ? "mdi:battery" : o < 5 ? "mdi:battery-outline" : `mdi:battery-${Math.round(o / 10) * 10}`, ln = class ln extends F {
+}, yv = (o) => Array.isArray(o) ? o : [o], vv = { vacuum: ["cleaning", "paused", "returning"], mower: ["mowing", "paused", "returning"] }, wv = ["on", "charging", "recharging", "charging_mid_mission"], xv = (o) => o >= 95 ? "mdi:battery" : o < 5 ? "mdi:battery-outline" : `mdi:battery-${Math.round(o / 10) * 10}`, cn = class cn extends F {
   constructor() {
     super(), new le(this, ".list");
   }
   static getConfigElement() {
-    return de(Jf);
+    return de(Xf);
   }
   static getStubConfig(e) {
     return { entity: Object.keys(e.states).find((a) => a.startsWith("vacuum.")) ?? "" };
@@ -44754,7 +44780,7 @@ const cp = {
     return Ic(this._hass, e);
   }
   _charging(e) {
-    return vv.includes(this._hass?.states[e.charging ?? ""]?.state ?? "");
+    return wv.includes(this._hass?.states[e.charging ?? ""]?.state ?? "");
   }
   _call(e, t, a) {
     W(), this._hass?.callService(e, t, { entity_id: a });
@@ -44772,8 +44798,8 @@ const cp = {
     !t || !e.select || this._sel === e.select || (W("selection"), Cs(t, e.select));
   }
   _item(e, t) {
-    const a = t.states[e.entity], i = this._type(e), s = e.name ?? a?.attributes.friendly_name ?? e.entity, n = this._config.active_color ?? "orange", r = a?.state ?? "unavailable", l = i === "vacuum" ? ["cleaning", "returning"].includes(r) : i === "mower" ? ["mowing", "returning"].includes(r) : this._washer(e) === "run", c = !!(this._config.select_group && e.select), d = c && this._sel === e.select, h = this._num(e.battery), u = this._num(e.progress), m = this._charging(e) && !(h >= 100), f = !m && (yv[i] ?? []).includes(r), b = m ? h : f ? u : i === "washer" ? this._cycle(e) : NaN;
-    let y = cp[r] ? v(cp[r]) : r;
+    const a = t.states[e.entity], i = this._type(e), s = e.name ?? a?.attributes.friendly_name ?? e.entity, n = this._config.active_color ?? "orange", r = a?.state ?? "unavailable", l = i === "vacuum" ? ["cleaning", "returning"].includes(r) : i === "mower" ? ["mowing", "returning"].includes(r) : this._washer(e) === "run", c = !!(this._config.select_group && e.select), d = c && this._sel === e.select, h = this._num(e.battery), u = this._num(e.progress), m = this._charging(e) && !(h >= 100), f = !m && (vv[i] ?? []).includes(r), b = m ? h : f ? u : i === "washer" ? this._cycle(e) : NaN;
+    let y = dp[r] ? v(dp[r]) : r;
     if (m) y = `${v("Charging")}${Number.isFinite(h) ? ` · ${Math.round(h)} %` : ""}`;
     else if (i === "mower" && r === "paused" && Number.isFinite(u)) y = `${v("Resume")} · ${Math.round(u)} %`;
     else if (f) {
@@ -44814,7 +44840,7 @@ const cp = {
           <span class="lstate">${y}</span>
         </div>
         ${f && Number.isFinite(h) ? p`<span class="batt" title=${`${v("Battery")} ${Math.round(h)} %`}>
-              <ha-icon .icon=${wv(h)}></ha-icon>${Math.round(h)} %
+              <ha-icon .icon=${xv(h)}></ha-icon>${Math.round(h)} %
             </span>` : g}
       </div>
       <div class="tray ${M?.cls ?? ""}" style=${M?.style ?? ""}>${this._tray(e, a, i)}</div>
@@ -44890,10 +44916,10 @@ const cp = {
               ${this._holdBtn("mdi:chevron-down", v("Back"), d.down)}
             </div>` : g}`;
     }
-    const s = e.stages ?? mm, n = oi(i), r = this._washer(e), l = r === "run" || r === "pause", c = r === "off" ? -1 : s.findIndex((d) => _v(d.state).map(oi).includes(n));
+    const s = e.stages ?? gm, n = oi(i), r = this._washer(e), l = r === "run" || r === "pause", c = r === "off" ? -1 : s.findIndex((d) => yv(d.state).map(oi).includes(n));
     return p`<div class="stages">
       ${s.map((d, h) => {
-      const u = c < 0 ? "" : h < c ? "done" : h === c && (l || r === "done") ? "cur" : "", m = gm(d), f = this._seg(u === "cur");
+      const u = c < 0 ? "" : h < c ? "done" : h === c && (l || r === "done") ? "cur" : "", m = fm(d), f = this._seg(u === "cur");
       return p`<div class="stage ${u}" title=${m} aria-label=${m}>
           <span class="sdot ${f?.cls ?? ""}" style=${f?.style ?? ""}><ha-icon .icon=${d.icon ?? "mdi:circle-small"}></ha-icon></span>
         </div>`;
@@ -44908,7 +44934,7 @@ const cp = {
     return 2;
   }
 };
-ln.properties = { ...F.properties, _sel: { state: !0 } }, ln.styles = [
+cn.properties = { ...F.properties, _sel: { state: !0 } }, cn.styles = [
   F.styles,
   we,
   Oe,
@@ -45322,19 +45348,19 @@ ln.properties = { ...F.properties, _sel: { state: !0 } }, ln.styles = [
     `,
   xe
 ];
-let oc = ln;
+let oc = cn;
 ce("glass-appliance", oc, {
   name: "Glass – appliances",
   description: "Vacuums, mowers and washers as liquid glass bars with a drawer of controls or the washing cycle's stages."
 });
-const dp = (o) => !!o && o !== "none";
-function hp(o, e, t) {
-  const a = o ?? (dp(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: dp(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
+const hp = (o) => !!o && o !== "none";
+function pp(o, e, t) {
+  const a = o ?? (hp(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: hp(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
 }
 const _s = class _s extends F {
   static getConfigElement() {
-    return de(Xf);
+    return de(Qf);
   }
   static getStubConfig() {
     return { group: "main", tabs: [{ id: "one", name: "One" }, { id: "two", name: "Two" }] };
@@ -45358,7 +45384,7 @@ const _s = class _s extends F {
   render() {
     const e = this._config;
     if (!e) return g;
-    const t = this._cur ?? e.default ?? e.tabs[0]?.id, a = hp(e.tabs_glass, e.tabs_color, "home"), i = hp(e.tab_glass, e.tab_color, "dark");
+    const t = this._cur ?? e.default ?? e.tabs[0]?.id, a = pp(e.tabs_glass, e.tabs_color, "home"), i = pp(e.tab_glass, e.tab_color, "dark");
     return p`<div class="tabs ${a.cls}" style=${a.style}>
       ${e.tabs.map(
       (s) => p`<button
@@ -45441,12 +45467,12 @@ ce("glass-tabs", nc, {
   name: "Glass – tabs",
   description: "A segmented switch: cards in a panel show for the picked tab (visibility: picked in a group)."
 });
-const Ho = (o) => !!o && o !== "none";
+const Go = (o) => !!o && o !== "none";
 function Ga(o, e, t) {
-  const a = o ?? (Ho(e) ? t : void 0);
-  return a ? { cls: `mat mat-${a}`, style: Ho(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
+  const a = o ?? (Go(e) ? t : void 0);
+  return a ? { cls: `mat mat-${a}`, style: Go(e) ? re(e) : "--mat-tint:initial;--mat-tinted:initial;--mat-sheen:initial" } : { cls: "", style: "" };
 }
-function xv(o) {
+function kv(o) {
   if (!o || o.length < 3) return;
   const [e, t, a] = o, i = e.vacuum.x * (t.vacuum.y - a.vacuum.y) - e.vacuum.y * (t.vacuum.x - a.vacuum.x) + (t.vacuum.x * a.vacuum.y - a.vacuum.x * t.vacuum.y);
   if (!i) return;
@@ -45459,11 +45485,11 @@ function xv(o) {
 const rc = 22, lc = 256 * 2 ** rc, Ji = ([o, e]) => {
   const t = Math.sin(e * Math.PI / 180);
   return [(o + 180) / 360 * lc, (0.5 - Math.log((1 + t) / (1 - t)) / (4 * Math.PI)) * lc];
-}, kv = {
+}, $v = {
   esri: { url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", max: 18 },
   cuzk: { url: "https://ags.cuzk.gov.cz/arcgis1/rest/services/ORTOFOTO_WM/MapServer/tile/{z}/{y}/{x}", max: 20 }
 };
-function pp(o) {
+function up(o) {
   const e = [];
   for (const t of o?.features ?? []) {
     const { type: a, coordinates: i } = t.geometry ?? {};
@@ -45474,7 +45500,7 @@ function pp(o) {
   return e.map((t) => t.map(Ji));
 }
 const Ui = ["mowing", "paused", "returning"], cc = (o) => `glass-mow-zones:${o}`;
-function up(o) {
+function mp(o) {
   try {
     return JSON.parse(localStorage.getItem(cc(o)) ?? "null") ?? void 0;
   } catch {
@@ -45488,7 +45514,7 @@ function xr(o, e) {
   }
 }
 const kr = /* @__PURE__ */ new Map();
-function $v(o, e) {
+function Sv(o, e) {
   let t = kr.get(e);
   return t || (t = o.callWS({
     type: "call_service",
@@ -45500,7 +45526,7 @@ function $v(o, e) {
     kr.delete(e);
   }), kr.set(e, t)), t;
 }
-function Sv(o) {
+function zv(o) {
   let [e, t, a, i] = [1 / 0, 1 / 0, -1 / 0, -1 / 0];
   for (const [c, d] of o) [e, t, a, i] = [Math.min(e, c), Math.min(t, d), Math.max(a, c), Math.max(i, d)];
   const s = (c, d) => {
@@ -45529,14 +45555,14 @@ function Sv(o) {
     }
   return r;
 }
-const cn = class cn extends F {
+const dn = class dn extends F {
   constructor() {
     super(), this._pointers = /* @__PURE__ */ new Map(), this._moved = 0, this._dragEnd = 0, this._streamAt = 0, this._spots = /* @__PURE__ */ new Map(), this._pending = /* @__PURE__ */ new Map(), this._taskSeen = /* @__PURE__ */ new Map(), this._outside = (e) => {
       e.composedPath().includes(this) || this._open(void 0);
     }, new le(this, ".wrap"), this._picked = [], this._drag = {}, this._zoom = 1, this._pan = [0, 0];
   }
   static getConfigElement() {
-    return de(Qf);
+    return de(eb);
   }
   static getStubConfig(e) {
     const t = Object.keys(e.states).find((i) => i.startsWith("image.") && i.endsWith("_rooms_map"));
@@ -45625,7 +45651,7 @@ const cn = class cn extends F {
     });
     Date.now() - this._streamAt > 4 * 6e4 && (this._streamAt = Date.now(), t("get_geojson").then((s) => s?.features?.length && (this._geo = s)));
     const [a, i] = await Promise.all([t("get_mow_path_geojson"), t("get_mow_progress_geojson")]);
-    this._job = { route: pp(a), done: pp(i) };
+    this._job = { route: up(a), done: up(i) };
   }
   firstUpdated() {
     const e = (t) => {
@@ -45634,11 +45660,11 @@ const cn = class cn extends F {
     for (const t of ["pointerdown", "pointermove", "touchstart", "touchmove", "mousedown", "mousemove"]) this.renderRoot.addEventListener(t, e);
   }
   updated(e) {
-    super.updated(e), this._busy && this._picked.length && (this._picked = []), this._lawn && !this._geo && this._hass && $v(this._hass, this._config.entity).then((i) => i && (this._geo = i));
+    super.updated(e), this._busy && this._picked.length && (this._picked = []), this._lawn && !this._geo && this._hass && Sv(this._hass, this._config.entity).then((i) => i && (this._geo = i));
     const t = this._lawn && Ui.includes(this._hass?.states[this._config.entity]?.state ?? "");
     if (t && !this._poll && (this._hass.callService("mammotion", "fetch_mow_path", {}, { entity_id: this._config.entity }).catch(() => {
     }), this._loadJob(), this._poll = window.setInterval(() => this._loadJob(), 3e4)), this._lawn) {
-      const i = up(this._config.entity);
+      const i = mp(this._config.entity);
       i && t && !i.seen ? xr(this._config.entity, { ...i, seen: !0 }) : i && !t && (i.seen || Date.now() - i.at > 10 * 6e4) && xr(this._config.entity);
     }
     !t && this._poll && (clearInterval(this._poll), this._poll = void 0, this._job = void 0);
@@ -45680,7 +45706,7 @@ const cn = class cn extends F {
   }
   /** Rooms from the Roomba+ map picture, in its pixels. */
   _rooms() {
-    const e = this._hass.states[this._config.map], t = e?.attributes.rooms ?? {}, a = xv(e?.attributes.calibration_points), [i, s] = this._size ?? [0, 0];
+    const e = this._hass.states[this._config.map], t = e?.attributes.rooms ?? {}, a = kv(e?.attributes.calibration_points), [i, s] = this._size ?? [0, 0];
     return { shapes: Object.keys(t).map((r) => ({ key: r, name: this._name(r), pts: a && t[r].outline ? t[r].outline.map(a) : [] })), view: a && i ? [0, 0, i, s] : void 0, url: e?.attributes.entity_picture };
   }
   /** Zones of the lawn: each one picked through its area switch (matched by the zone's hash). */
@@ -45711,7 +45737,7 @@ const cn = class cn extends F {
   }
   /** Esri satellite tiles under the view, at the zoom closest to the screen's own sharpness (drawn from the view's corner). */
   _tiles([e, t, a, i]) {
-    const s = window.devicePixelRatio || 1, n = Math.round(rc - Math.log2(a / (this._box[0] * s))), r = kv[this._config.tiles ?? "esri"] ?? { url: this._config.tiles, max: 19 }, l = this._config.max_zoom ?? r.max;
+    const s = window.devicePixelRatio || 1, n = Math.round(rc - Math.log2(a / (this._box[0] * s))), r = $v[this._config.tiles ?? "esri"] ?? { url: this._config.tiles, max: 19 }, l = this._config.max_zoom ?? r.max;
     if (n > l + 1) return;
     const c = Math.max(12, Math.min(l, n)), d = 256 * 2 ** (rc - c), h = [];
     for (let u = Math.floor(t / d); u * d < t + i; u++)
@@ -45840,7 +45866,7 @@ const cn = class cn extends F {
   }
   /** The zones of the running job (from when it was started here); empty = all. */
   _jobKeys() {
-    const e = this._hass.states[this._config.entity]?.state ?? "", t = up(this._config.entity);
+    const e = this._hass.states[this._config.entity]?.state ?? "", t = mp(this._config.entity);
     return Ui.includes(e) || t && !t.seen ? t?.keys ?? [] : void 0;
   }
   /** The base view zoomed in and moved. */
@@ -45914,7 +45940,7 @@ const cn = class cn extends F {
       const [i, s] = a.pts[0], n = `${a.key}|${a.pts.length}|${(a.pts[1][0] - i).toFixed(2)}|${(a.pts[1][1] - s).toFixed(2)}`;
       let r = this._spots.get(n);
       if (!r) {
-        const [u, m, f] = Sv(a.pts);
+        const [u, m, f] = zv(a.pts);
         r = [u - i, m - s, f], this._spots.set(n, r);
       }
       const [l, c, d] = [r[0] + i, r[1] + s, r[2]], h = d / t;
@@ -45985,7 +46011,7 @@ const cn = class cn extends F {
             ${this._labels(r, this._box ? Math.max(k.view[2] / this._box[0], k.view[3] / this._box[1]) : 1)}
           </svg>` : g}`;
     }
-    const c = this._picked.length, d = this._recharging(), h = d ? v("Continue") : s ? v("End and dock") : i ? c ? v("Mow selected ({n})", { n: c }) : v("Mow all") : c ? v("Clean selected ({n})", { n: c }) : v("Clean all"), u = e.settings, m = this._liveIds(e), f = s ? this._routeAngle() : void 0, b = this._num(u?.angle), y = f !== void 0 && b !== void 0 && Math.abs((f - b + 270) % 180 - 90) <= 5, _ = s ? y ? b : f ?? b : void 0, x = Ga(e.rooms_glass, e.rooms_color, "home"), S = Ga(e.picked_glass, e.picked_color, "frosted"), z = Ga(e.button_glass, e.button_color, "dark"), M = `${Ho(e.accent_color) ? `--rm-accent:${Y(e.accent_color)};` : ""}${Ho(e.settings_fill_color) ? `--rm-fill:${Y(e.settings_fill_color)};` : ""}`;
+    const c = this._picked.length, d = this._recharging(), h = d ? v("Continue") : s ? v("End and dock") : i ? c ? v("Mow selected ({n})", { n: c }) : v("Mow all") : c ? v("Clean selected ({n})", { n: c }) : v("Clean all"), u = e.settings, m = this._liveIds(e), f = s ? this._routeAngle() : void 0, b = this._num(u?.angle), y = f !== void 0 && b !== void 0 && Math.abs((f - b + 270) % 180 - 90) <= 5, _ = s ? y ? b : f ?? b : void 0, x = Ga(e.rooms_glass, e.rooms_color, "home"), S = Ga(e.picked_glass, e.picked_color, "frosted"), z = Ga(e.button_glass, e.button_color, "dark"), M = `${Go(e.accent_color) ? `--rm-accent:${Y(e.accent_color)};` : ""}${Go(e.settings_fill_color) ? `--rm-fill:${Y(e.settings_fill_color)};` : ""}`;
     return p`<div class="wrap ${this.tile}" style=${M}>
       <div class="map ${i ? "lawn" : e.picture ? "" : "rooms-drawn"} ${this._busy ? "busy" : ""}">${l}</div>
       ${e.options?.length ? p`<div class="tune">${e.options.map((k) => this._option(k))}</div>` : g}
@@ -46019,7 +46045,7 @@ const cn = class cn extends F {
     return 6;
   }
 };
-cn.properties = {
+dn.properties = {
   ...F.properties,
   _picked: { state: !0 },
   _size: { state: !0 },
@@ -46030,7 +46056,7 @@ cn.properties = {
   _zoom: { state: !0 },
   _pan: { state: !0 },
   _menu: { state: !0 }
-}, cn.styles = [
+}, dn.styles = [
   F.styles,
   we,
   Oe,
@@ -46637,12 +46663,12 @@ cn.properties = {
     `,
   xe
 ];
-let dc = cn;
+let dc = dn;
 ce("glass-room-map", dc, {
   name: "Glass – room map",
   description: "A robot's map (vacuum rooms or Mammotion lawn zones): pick them on the map or in the list and clean / mow just those."
 });
-const dn = class dn extends F {
+const hn = class hn extends F {
   constructor() {
     super(), this._children = [], this._mode = pe.mode, this._onResize = () => {
       (this._config?.cards ?? []).some((e) => Wr(e.visibility)) && this.requestUpdate();
@@ -46663,7 +46689,7 @@ const dn = class dn extends F {
     }, new le(this, ".panel:not(.transparent)", void 0, ".panel.transparent:not(.tiles)");
   }
   static getConfigElement() {
-    return de(qf);
+    return de(Wf);
   }
   static getStubConfig() {
     return { layout: "column", cards: [] };
@@ -46770,7 +46796,7 @@ const dn = class dn extends F {
     super.disconnectedCallback(), window.removeEventListener("resize", this._onResize), this._unsel?.(), this._flexRo?.disconnect(), this._flexRo = void 0, this._masonryRo?.disconnect();
   }
   connectedCallback() {
-    super.connectedCallback(), window.addEventListener("resize", this._onResize), this._unsel = tu(this._onSelect), this._studio = this._inStudio(), this.hasUpdated && this._masonry();
+    super.connectedCallback(), window.addEventListener("resize", this._onResize), this._unsel = au(this._onSelect), this._studio = this._inStudio(), this.hasUpdated && this._masonry();
   }
   updated(e) {
     super.updated(e), this._masonryDone || (this._masonryDone = !0, this._masonry());
@@ -46843,13 +46869,13 @@ const dn = class dn extends F {
   }
   _grips() {
     if (!this._gripsOn()) return g;
-    const { cols: e, rows: t } = this._tracks, a = (i, s) => (n) => hu(
+    const { cols: e, rows: t } = this._tracks, a = (i, s) => (n) => pu(
       n,
       i,
       s,
       (r) => this.dispatchEvent(
         new CustomEvent("glass-panel-resize", {
-          detail: { panel: this, key: i === "columns" ? "column_widths" : "row_heights", value: pu(r).join(" "), mode: this._mode },
+          detail: { panel: this, key: i === "columns" ? "column_widths" : "row_heights", value: uu(r).join(" "), mode: this._mode },
           bubbles: !0,
           composed: !0
         })
@@ -46865,7 +46891,7 @@ const dn = class dn extends F {
     const e = this._config, t = e.layout ?? "column", a = this._bare ? "0" : typeof e.padding == "number" ? `${e.padding}px` : e.padding ?? "20px", i = e.equal_rows, s = t === "grid" && !!e.masonry, n = s ? !1 : i === void 0 || i === "" ? this._mode !== "mobile" : i === !0 || i === "true";
     this.toggleAttribute("grid", t === "grid" && n && !st(e.row_heights).length);
     const r = t === "grid" ? `display:grid;grid-template-columns:${Ln(e.column_widths) ?? (e.min_column_width ? `repeat(auto-fill,minmax(min(100%,${e.min_column_width}px),1fr))` : `repeat(${e.columns ?? 3},minmax(0,1fr))`)};${s ? `grid-auto-rows:1px;row-gap:0;--masonry-gap:${e.gap ?? 16}px;` : Ln(e.row_heights) ? `grid-template-rows:${Ln(e.row_heights)};` : e.rows ? `grid-template-rows:repeat(${e.rows},${n ? "minmax(0,1fr)" : "auto"});${n ? "" : "align-content:start;"}` : n ? "grid-auto-rows:1fr;" : "grid-auto-rows:auto;"}--room-grow:${n ? 0 : 1};${this._mode === "mobile" ? "" : "--room-min:0px;--room-max:100%;"}` : `display:flex;flex-direction:${t};${e.wrap ? "flex-wrap:wrap;" : ""}`, l = this._bare, c = Ne(e.tile_glass ?? pe.tile_glass ?? e.glass) === "home";
-    return p`<div class="panel surface ${l ? "transparent" : ""} ${e.bar && !e.glass ? "barglass" : ""} ${l && c ? "tiles" : ""}" style="padding:${a};${e.height ? `height:${Po(e.height)};` : ""}">
+    return p`<div class="panel surface ${l ? "transparent" : ""} ${e.bar && !e.glass ? "barglass" : ""} ${l && c ? "tiles" : ""}" style="padding:${a};${e.height ? `height:${Eo(e.height)};` : ""}">
       ${e.collapsible ? p`<button class="fold ${this._isOpen ? "open" : ""}" aria-expanded=${this._isOpen ? "true" : "false"} @click=${this._toggle}>
             ${e.icon ? p`<ha-icon .icon=${e.icon}></ha-icon>` : g}
             <span class="ftxt"><b>${e.title ?? ""}</b>${e.description ? p`<small>${e.description}</small>` : g}</span>
@@ -46875,9 +46901,9 @@ const dn = class dn extends F {
             </div>` : g}
       ${e.collapsible && !this._isOpen ? g : p`<div
         class="body ${e.scroll && t === "row" ? "scroll" : ""} ${t !== "grid" && !e.scroll && e.height && this._children.length === 1 ? "lone" : ""}"
-        style="${r}${s ? "column-gap" : "gap"}:${e.gap ?? 16}px;--grip-gap:${e.gap ?? 16}px;${this._gripsOn() || this._flexGripsOn() ? "position:relative;" : ""}align-items:${e.align ?? "stretch"};justify-content:${e.justify ?? "start"};${e.item_width !== void 0 ? `--item-width:${typeof e.item_width == "number" ? `${e.item_width}px` : Po(e.item_width)};` : ""}"
+        style="${r}${s ? "column-gap" : "gap"}:${e.gap ?? 16}px;--grip-gap:${e.gap ?? 16}px;${this._gripsOn() || this._flexGripsOn() ? "position:relative;" : ""}align-items:${e.align ?? "stretch"};justify-content:${e.justify ?? "start"};${e.item_width !== void 0 ? `--item-width:${typeof e.item_width == "number" ? `${e.item_width}px` : Eo(e.item_width)};` : ""}"
       >
-        ${this._children.length || !this._inEditor() ? K0(this._children, this._hass) : p`<div class="empty">${v("Empty panel – add a card")}</div>`}${this._grips()}${this._flexGrips()}
+        ${this._children.length || !this._inEditor() ? V0(this._children, this._hass) : p`<div class="empty">${v("Empty panel – add a card")}</div>`}${this._grips()}${this._flexGrips()}
       </div>`}
     </div>`;
   }
@@ -46895,11 +46921,11 @@ const dn = class dn extends F {
     return !1;
   }
 };
-dn.parts = Qu, dn.styles = [
+hn.parts = em, hn.styles = [
   F.styles,
   zc,
   we,
-  Hp,
+  Gp,
   ee`
       :host {
         display: block;
@@ -46967,16 +46993,16 @@ dn.parts = Qu, dn.styles = [
       }
       /* same as the dashboard's side column (.area.side) */
       :host([side]) {
-        ${Wp}
-        ${yo}
+        ${Fp}
+        ${vo}
       }
       :host([side][glass="frosted"]:not([dark])),
       :host([side][glass="light"]:not([dark])) {
-        ${Fp}
+        ${Hp}
       }
       :host([side][dark]) {
-        ${_o}
         ${yo}
+        ${vo}
       }
       .panel {
         height: 100%;
@@ -47144,12 +47170,12 @@ dn.parts = Qu, dn.styles = [
       }
     `
 ];
-let hc = dn;
+let hc = hn;
 ce("glass-panel", hc, {
   name: "Glass – panel",
   description: "Glass container that arranges other cards in a row, column or grid."
 });
-const mp = { alert: 3, warning: 2, info: 1 }, gp = { info: "mdi:information-outline", warning: "mdi:alert-outline", alert: "mdi:alert-octagon-outline" }, ii = class ii extends F {
+const gp = { alert: 3, warning: 2, info: 1 }, fp = { info: "mdi:information-outline", warning: "mdi:alert-outline", alert: "mdi:alert-octagon-outline" }, ii = class ii extends F {
   constructor() {
     super(), this._gone = /* @__PURE__ */ new Set(), this._fromAbove = !1, this._known = /* @__PURE__ */ new Set(), this._shut = (e) => {
       const t = e.composedPath();
@@ -47177,7 +47203,7 @@ const mp = { alert: 3, warning: 2, info: 1 }, gp = { info: "mdi:information-outl
     }, this._open = !1, this._leaving = [];
   }
   static getConfigElement() {
-    return de(vb);
+    return de(wb);
   }
   static getStubConfig() {
     return { entity: "sensor.glass_notifications" };
@@ -47199,7 +47225,7 @@ const mp = { alert: 3, warning: 2, info: 1 }, gp = { info: "mdi:information-outl
       const r = n.condition?.entity, l = (c) => c?.replace("{state}", r ? e.states[r]?.state ?? "" : "");
       return { id: n.id, level: n.level ?? "warning", title: l(n.title), message: l(n.message), icon: n.icon, local: !0 };
     }), ...a.filter((n) => n.level !== "snooze")].sort(
-      (n, r) => (mp[r.level] ?? 0) - (mp[n.level] ?? 0) || (r.time ?? 1 / 0) - (n.time ?? 1 / 0)
+      (n, r) => (gp[r.level] ?? 0) - (gp[n.level] ?? 0) || (r.time ?? 1 / 0) - (n.time ?? 1 / 0)
     );
   }
   _dismiss(e, t) {
@@ -47255,7 +47281,7 @@ const mp = { alert: 3, warning: 2, info: 1 }, gp = { info: "mdi:information-outl
   updated(e) {
     if (super.updated(e), this._floatTpl || this._floatHost) {
       const t = this._floatRoot();
-      this._floatHost.toggleAttribute("dark", this.hasAttribute("dark")), Ep(this._floatTpl ?? g, t);
+      this._floatHost.toggleAttribute("dark", this.hasAttribute("dark")), Lp(this._floatTpl ?? g, t);
     }
     if (this._float(), this._open && this._place(), this._config?.place !== "block" && this._config?.place !== "overlay") {
       if (!this._ro) {
@@ -47271,7 +47297,7 @@ const mp = { alert: 3, warning: 2, info: 1 }, gp = { info: "mdi:information-outl
   _row(e, t) {
     const a = e.level;
     return p`<span class="note ${a}">
-      <ha-icon class="lvl" .icon=${e.icon || gp[a] || gp.info}></ha-icon>
+      <ha-icon class="lvl" .icon=${e.icon || fp[a] || fp.info}></ha-icon>
       <span class="txt">
         <span class="title">${e.title || e.message}</span>
         ${e.title && e.message ? p`<span class="msg">${e.message}</span>` : g}
@@ -47323,7 +47349,7 @@ const mp = { alert: 3, warning: 2, info: 1 }, gp = { info: "mdi:information-outl
     </div>`);
   }
 };
-ii.wrapTile = !0, ii.parts = Hu, ii.properties = { ...F.properties, _open: { state: !0 }, _shift: { state: !0 }, _maxw: { state: !0 }, _leaving: { state: !0 } }, ii.styles = [
+ii.wrapTile = !0, ii.parts = Gu, ii.properties = { ...F.properties, _open: { state: !0 }, _shift: { state: !0 }, _maxw: { state: !0 }, _leaving: { state: !0 } }, ii.styles = [
   F.styles,
   Oe,
   ee`
@@ -47738,7 +47764,7 @@ ce("glass-notifications", pc, {
   name: "Glass – notifications",
   description: "Messages from automations and alerts from conditions, in one pill that drops in from the top."
 });
-const Wm = [
+const Fm = [
   "Camera – the live picture and Frigate's recordings, zoom and swipe: in the Security pop-up",
   "Alarms – your alarm clocks with their days, speakers and sound: in the new More pop-up",
   "Alarm ringing – Snooze and slide to stop over the whole dashboard, by day and at night: ring one from the More pop-up",
@@ -47772,24 +47798,24 @@ const Et = "glass-demo", vt = "glass-demo-latest", Vt = (o) => `${o}-popups`;
 function uc(o) {
   return JSON.stringify(o, (e, t) => t && typeof t == "object" && !Array.isArray(t) ? Object.fromEntries(Object.entries(t).sort(([a], [i]) => a < i ? -1 : 1)) : t);
 }
-function Fm(o) {
+function Hm(o) {
   let e = 5381;
   for (let t = 0; t < o.length; t++) e = (e * 33 ^ o.charCodeAt(t)) >>> 0;
   return e.toString(36);
 }
 const mc = (o) => {
   const { glass_demo: e, ...t } = o;
-  return Fm(uc(t));
-}, Go = Fm(uc(ru) + uc(gn));
-function Uo(o, e, t) {
-  return o === e ? t : Array.isArray(o) ? o.map((a) => Uo(a, e, t)) : o && typeof o == "object" ? Object.fromEntries(Object.entries(o).map(([a, i]) => [a, Uo(i, e, t)])) : o;
+  return Hm(uc(t));
+}, Uo = Hm(uc(lu) + uc(fn));
+function Ko(o, e, t) {
+  return o === e ? t : Array.isArray(o) ? o.map((a) => Ko(a, e, t)) : o && typeof o == "object" ? Object.fromEntries(Object.entries(o).map(([a, i]) => [a, Ko(i, e, t)])) : o;
 }
-const Hm = (o) => ({ ...o, glass_demo: { v: Go, sum: mc(o), news: Wm.length } }), zv = { [Et]: "Glass demo", [vt]: "Glass demo – newest" };
+const Gm = (o) => ({ ...o, glass_demo: { v: Uo, sum: mc(o), news: Fm.length } }), Av = { [Et]: "Glass demo", [vt]: "Glass demo – newest" };
 async function Ds(o) {
   return o.callWS({ type: "lovelace/dashboards/list" });
 }
-async function Ps(o, e, t = zv[e] ?? "Glass demo") {
-  const a = await Ds(o), i = Vt(e), s = { ...Uo(structuredClone(ru), es, i), title: t }, n = { ...structuredClone(gn), title: `${t} – pop-ups` };
+async function Ps(o, e, t = Av[e] ?? "Glass demo") {
+  const a = await Ds(o), i = Vt(e), s = { ...Ko(structuredClone(lu), es, i), title: t }, n = { ...structuredClone(fn), title: `${t} – pop-ups` };
   for (const [r, l, c] of [
     [i, n, !1],
     [e, s, !0]
@@ -47797,46 +47823,46 @@ async function Ps(o, e, t = zv[e] ?? "Glass demo") {
     if (a.some((d) => d.url_path === r)) {
       const d = await Pt(o, r).catch(() => {
       });
-      d?.views?.length && await Vm(r, d);
+      d?.views?.length && await Ym(r, d);
     } else
       await o.callWS({ type: "lovelace/dashboards/create", url_path: r, title: c ? t : `${t} – pop-ups`, icon: c ? "mdi:creation-outline" : "mdi:window-restore", show_in_sidebar: c, require_admin: !1, mode: "storage" });
-    await Ea(o, r, Hm(l));
+    await Ea(o, r, Gm(l));
   }
 }
-async function Gm(o) {
+async function Um(o) {
   const e = await Ds(o);
-  return e.some((t) => t.url_path === Et) ? (e.some((t) => t.url_path === es) || (await o.callWS({ type: "lovelace/dashboards/create", url_path: es, title: "Glass demo – pop-ups", icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, es, Hm(structuredClone(gn)))), Et) : (await Ps(o, Et), Et);
+  return e.some((t) => t.url_path === Et) ? (e.some((t) => t.url_path === es) || (await o.callWS({ type: "lovelace/dashboards/create", url_path: es, title: "Glass demo – pop-ups", icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, es, Gm(structuredClone(fn)))), Et) : (await Ps(o, Et), Et);
 }
-async function Av(o, e) {
+async function Mv(o, e) {
   const [t, a] = await Promise.all([Pt(o, e).catch(() => {
   }), Pt(o, Vt(e)).catch(() => {
   })]);
   if (!t?.views?.length) return;
-  const i = t.glass_demo, s = a?.glass_demo, n = i?.v !== Go, r = !i || i.sum !== mc(t) || !!a?.views?.length && (!s || s.sum !== mc(a));
-  return { url: e, outdated: n, changed: r, news: Wm.slice(i?.news ?? 0) };
+  const i = t.glass_demo, s = a?.glass_demo, n = i?.v !== Uo, r = !i || i.sum !== mc(t) || !!a?.views?.length && (!s || s.sum !== mc(a));
+  return { url: e, outdated: n, changed: r, news: Fm.slice(i?.news ?? 0) };
 }
-async function Um(o, e) {
+async function Km(o, e) {
   const t = await Ds(o).catch(() => []), a = { updated: [], outdated: [] }, i = t.some((s) => s.url_path === vt);
   for (const s of [Et, vt]) {
     if (!t.some((r) => r.url_path === s)) continue;
-    const n = await Av(o, s).catch(() => {
+    const n = await Mv(o, s).catch(() => {
     });
     n?.outdated && (n.changed ? (s !== Et || !i) && a.outdated.push(n) : s !== e && (await Ps(o, s), a.updated.push(s)));
   }
   return a;
 }
-let Mv;
-function Tv(o) {
-  return Mv ??= Um(o).catch(() => {
+let Tv;
+function Cv(o) {
+  return Tv ??= Km(o).catch(() => {
   });
 }
-async function Cv(o) {
+async function Dv(o) {
   return await Ps(o, vt), vt;
 }
-async function Dv(o, e) {
+async function Pv(o, e) {
   return await Ps(o, e), e;
 }
-async function Pv(o, e) {
+async function Ev(o, e) {
   const t = await Ds(o);
   let a = 1;
   for (; t.some((c) => c.url_path === `glass-demo-mine-${a}`); ) a++;
@@ -47845,16 +47871,16 @@ async function Pv(o, e) {
     const { glass_demo: d, ...h } = c;
     return h;
   };
-  return r?.views?.length && (await o.callWS({ type: "lovelace/dashboards/create", url_path: Vt(i), title: `${s} – pop-ups`, icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, Vt(i), { ...l(r), title: `${s} – pop-ups` })), await o.callWS({ type: "lovelace/dashboards/create", url_path: i, title: s, icon: "mdi:creation-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Ea(o, i, { ...Uo(l(n), Vt(e), Vt(i)), title: s }), await Ps(o, e), i;
+  return r?.views?.length && (await o.callWS({ type: "lovelace/dashboards/create", url_path: Vt(i), title: `${s} – pop-ups`, icon: "mdi:window-restore", show_in_sidebar: !1, require_admin: !1, mode: "storage" }), await Ea(o, Vt(i), { ...l(r), title: `${s} – pop-ups` })), await o.callWS({ type: "lovelace/dashboards/create", url_path: i, title: s, icon: "mdi:creation-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Ea(o, i, { ...Ko(l(n), Vt(e), Vt(i)), title: s }), await Ps(o, e), i;
 }
-async function Ev(o, e) {
+async function Lv(o, e) {
   const t = await Ds(o);
   for (const a of [e, Vt(e)]) {
     const i = t.find((s) => s.url_path === a);
     i && await o.callWS({ type: "lovelace/dashboards/delete", dashboard_id: i.id });
   }
 }
-function fp(o) {
+function bp(o) {
   const e = [], t = (a, i, s) => {
     if (!(!a || typeof a != "object")) {
       if (a.type === "custom:glass-dashboard") {
@@ -47869,43 +47895,43 @@ function fp(o) {
     (a.cards ?? []).forEach((n, r) => t(n, ["views", i, "cards", r], s)), (a.sections ?? []).forEach((n, r) => (n.cards ?? []).forEach((l, c) => t(l, ["views", i, "sections", r, "cards", c], s)));
   }), e;
 }
-function Lv(o, e, t) {
+function Rv(o, e, t) {
   const a = structuredClone(o);
   let i = a;
   for (const s of e.slice(0, -1)) i = i[s] ??= {};
   return i[e[e.length - 1]] = t, a;
 }
-const Rv = 5;
+const Nv = 5;
 function Kc() {
   return new Promise((o, e) => {
     const t = indexedDB.open("glass-studio", 1);
     t.onupgradeneeded = () => t.result.createObjectStore("backups", { keyPath: "id", autoIncrement: !0 }).createIndex("url", "url"), t.onsuccess = () => o(t.result), t.onerror = () => e(t.error);
   });
 }
-async function Km(o) {
+async function Vm(o) {
   const e = await Kc();
   return new Promise((t, a) => {
     const i = e.transaction("backups").objectStore("backups").index("url").getAll(o ?? "");
     i.onsuccess = () => t(i.result.sort((s, n) => n.time - s.time)), i.onerror = () => a(i.error);
   });
 }
-async function Vm(o, e) {
+async function Ym(o, e) {
   try {
-    const t = await Km(o), i = (await Kc()).transaction("backups", "readwrite").objectStore("backups");
+    const t = await Vm(o), i = (await Kc()).transaction("backups", "readwrite").objectStore("backups");
     i.add({ url: o ?? "", time: Date.now(), config: e });
-    for (const s of t.slice(Rv - 1)) i.delete(s.id);
+    for (const s of t.slice(Nv - 1)) i.delete(s.id);
   } catch (t) {
     console.warn("glass-studio: backup", t);
   }
 }
-async function Nv(o) {
+async function Ov(o) {
   try {
-    return (await Km(o))[0];
+    return (await Vm(o))[0];
   } catch {
     return;
   }
 }
-async function Ov(o) {
+async function Bv(o) {
   (await Kc()).transaction("backups", "readwrite").objectStore("backups").delete(o);
 }
 const gc = "glass-wallpaper";
@@ -47918,19 +47944,19 @@ const gc = "glass-wallpaper";
   }
   if (!o) return;
   const e = Date.now() + 1e4, t = () => {
-    !Up(o) && Date.now() < e && requestAnimationFrame(t);
+    !Kp(o) && Date.now() < e && requestAnimationFrame(t);
   };
   t();
 })();
-const Bv = ["header", "top", "left", "main"];
-let bp = !1;
-class jv extends HTMLElement {
+const jv = ["header", "top", "left", "main"];
+let _p = !1;
+class Iv extends HTMLElement {
   connectedCallback() {
     this.style.display = "contents";
   }
 }
-customElements.get("glass-overlay-view") || customElements.define("glass-overlay-view", jv);
-const hn = class hn extends F {
+customElements.get("glass-overlay-view") || customElements.define("glass-overlay-view", Iv);
+const pn = class pn extends F {
   constructor() {
     super(), this._areas = {}, this._pvBar = [], this._grid = {
       columns: "",
@@ -47950,7 +47976,7 @@ const hn = class hn extends F {
     }, this._stale = !1, this._onPvScroll = () => _t(), this._fitWidth = 0, this._themeProps = [], this._wallpaperTries = 0, this._mode = pe.mode;
   }
   set hass(e) {
-    this._realHass = e, super.hass = this._rawConfig?.demo ? Ec(e) : e, this._rawConfig?.demo && e?.user?.is_admin && typeof e.callWS == "function" && !this._inEditor() && Tv(e);
+    this._realHass = e, super.hass = this._rawConfig?.demo ? Ec(e) : e, this._rawConfig?.demo && e?.user?.is_admin && typeof e.callWS == "function" && !this._inEditor() && Cv(e);
   }
   get hass() {
     return super.hass;
@@ -47961,7 +47987,7 @@ const hn = class hn extends F {
     e && !this._demoUnsub && this.isConnected && (this._demoUnsub = Pc(() => this._realHass && (this.hass = this._realHass))), !e && this._demoUnsub && (this._demoUnsub(), this._demoUnsub = void 0), this._realHass && !!this._hass?.demo !== e && (this.hass = this._realHass);
   }
   static getConfigElement() {
-    return de(om);
+    return de(nm);
   }
   _hiddenPreview() {
     if (!this.offsetWidth) return !0;
@@ -48013,9 +48039,9 @@ const hn = class hn extends F {
    * mobile ↔ tablet swaps in the other mode's cards instead of rebuilding them all.
    */
   _areasFor(e) {
-    const t = Zt(this._config, e), a = eo(t.look), i = Ne(t.glass ?? a?.glass), s = {};
-    for (const c of Bv) t[c] && (s[c] = t[c]);
-    for (const [c, d] of Object.entries(t.areas ?? {})) s[fn(c)] = d;
+    const t = Zt(this._config, e), a = to(t.look), i = Ne(t.glass ?? a?.glass), s = {};
+    for (const c of jv) t[c] && (s[c] = t[c]);
+    for (const [c, d] of Object.entries(t.areas ?? {})) s[bn(c)] = d;
     const n = i, r = (c, d) => {
       const h = a?.sidebar && (a.sidebar_areas?.[e] ?? ["left"]).includes(c) ? a.sidebar : n, u = `${h}|${JSON.stringify(d ?? null)}`, m = this._cache.get(`${e}|${c}`);
       if (m && m.key === u) return m.els;
@@ -48041,7 +48067,7 @@ const hn = class hn extends F {
     if (this._eff = a, this._areas = n, t && this._hass) for (const L of Object.values(n)) Rt(L, this._hass);
     this._prewarm();
     const l = a.overlay_source ? Array.isArray(a.overlay_source) ? a.overlay_source : [a.overlay_source] : [], c = `${e}|${i}|${JSON.stringify(a.overlay ?? null)}|${JSON.stringify(l)}`, d = this._cache.get("overlay");
-    du(a.overlay, "overlay"), !customElements.get("bubble-card") && (l.length || (a.overlay ?? []).some((L) => xt(L) === "popup")) && !bp && (bp = !0, console.warn("glass-cards: pop-ups need Bubble Card (HACS) – it is not installed, so they stay empty"));
+    hu(a.overlay, "overlay"), !customElements.get("bubble-card") && (l.length || (a.overlay ?? []).some((L) => xt(L) === "popup")) && !_p && (_p = !0, console.warn("glass-cards: pop-ups need Bubble Card (HACS) – it is not installed, so they stay empty"));
     const h = this._preview && !this.studioOverlay;
     this._pvBar = h ? r("preview-bar", (a.overlay ?? []).filter((L) => xt(L) !== "popup")) : [], this._areas.overlay = h ? [] : d?.key === c ? d.els : [], this._overlayJob = void 0, !h && this._areas.overlay.length === 0 && (a.overlay?.length || l.length) && (this._overlayJob = { c: a, key: c, srcs: l, glass: i, mode: e, tries: 0 }, this._scheduleOverlay());
     const u = a.left_width ?? "minmax(320px, 0.36fr)", m = qe[a.preset ?? "classic"] ?? qe.classic, f = Yt(a.grid?.areas);
@@ -48078,11 +48104,11 @@ const hn = class hn extends F {
     )}`;
   }
   _gripDown(e, t, a) {
-    hu(a, e, t, (i) => this._emitGrid(e, i));
+    pu(a, e, t, (i) => this._emitGrid(e, i));
   }
   /** The dragged sizes to the editor (column_widths / row_heights). */
   _emitGrid(e, t) {
-    let a = pu(t);
+    let a = uu(t);
     if (e === "rows") {
       const i = st(this._eff?.row_heights), s = Array.from({ length: this._grid.rowCount }, (n, r) => i[r] ?? "auto");
       this._grid.rowIdx.forEach((n, r) => s[n] = a[r]), a = s;
@@ -48197,7 +48223,7 @@ const hn = class hn extends F {
     if (this._preview) return;
     const t = Qi(this._rawConfig ?? {}, e).wallpaper;
     if (t !== this._wallpaper)
-      if (Up(t)) {
+      if (Kp(t)) {
         this._wallpaper = t;
         try {
           t ? localStorage.setItem(gc, t) : localStorage.removeItem(gc);
@@ -48209,7 +48235,7 @@ const hn = class hn extends F {
   willUpdate(e) {
     if (super.willUpdate(e), !this._config) return;
     const t = this._night(this._hass);
-    pe.dark = t, this._preview && this.previewDark !== this._pvDarkShown && (this._pvDarkShown = this.previewDark, Ym(this.renderRoot), requestAnimationFrame(() => requestAnimationFrame(() => _t()))), this._applyWallpaper(t), t !== this.hasAttribute("dark") && (this.toggleAttribute("dark", t), this._hass && this.forwardHass(this._hass), requestAnimationFrame(() => _t())), this.style.setProperty("--glass-tint", this._tint(this._hass));
+    pe.dark = t, this._preview && this.previewDark !== this._pvDarkShown && (this._pvDarkShown = this.previewDark, Zm(this.renderRoot), requestAnimationFrame(() => requestAnimationFrame(() => _t()))), this._applyWallpaper(t), t !== this.hasAttribute("dark") && (this.toggleAttribute("dark", t), this._hass && this.forwardHass(this._hass), requestAnimationFrame(() => _t())), this.style.setProperty("--glass-tint", this._tint(this._hass));
     for (const [a, i] of Object.entries(this._config.liquid ?? {}))
       this.style.setProperty(`--glass-liquid-${a.replace(/_/g, "-")}`, String(i));
   }
@@ -48218,7 +48244,7 @@ const hn = class hn extends F {
   }
   setConfig(e) {
     this._rawConfig = e;
-    const t = Qi(e, this.nightNow()), a = eo(t.look);
+    const t = Qi(e, this.nightNow()), a = to(t.look);
     if (pe.glass = t.glass ?? a?.glass ?? "auto", pe.tile_glass = t.tile_glass ?? a?.tile_glass, pe.control_glass = t.control_glass ?? a?.control_glass, pe.sidebar = a?.sidebar, pe.bar_glass = a?.bar_glass, super.setConfig(e), this._syncDemo(), this._preview || this.isConnected && this._inEditor()) {
       if (this._preview = !0, clearTimeout(this._pending), this.isConnected && this._hiddenPreview()) {
         this._stale = !0;
@@ -48280,7 +48306,7 @@ const hn = class hn extends F {
   }
   render() {
     if (!this._config) return g;
-    const e = this._eff ?? this._config, t = this._mode === "mobile", a = !t && this._dockTop != null, i = eo(e.look), s = i.sidebar ? [] : i.sidebar_areas?.[this._mode] ?? ["left"], n = ["frosted", "light"].includes(Ne(e.glass ?? i.glass)), r = [
+    const e = this._eff ?? this._config, t = this._mode === "mobile", a = !t && this._dockTop != null, i = to(e.look), s = i.sidebar ? [] : i.sidebar_areas?.[this._mode] ?? ["left"], n = ["frosted", "light"].includes(Ne(e.glass ?? i.glass)), r = [
       `--left:${e.left_width ?? "minmax(320px, 0.36fr)"}`,
       `--gap:${e.gap ?? 22}px`,
       `--pad:${e.padding ?? (t ? "12px 14px 16px" : a ? "30px 24px 14px" : "14px 24px 24px")}`,
@@ -48312,20 +48338,20 @@ const hn = class hn extends F {
       ${f}`;
   }
 };
-hn.properties = { ...F.properties, _mode: { state: !0 } }, hn.styles = [
+pn.properties = { ...F.properties, _mode: { state: !0 } }, pn.styles = [
   F.styles,
   zc,
-  Hp,
+  Gp,
   ee`
       :host {
         display: block;
         /* the room-card tile as it looks on the wallpaper – also inside the dark
            sidebar, which re-tints the --glass-home-* tokens for its own content */
-        ${Ip}
+        ${qp}
       }
       /* Dark appearance: same tokens, darker glass (core/styles nightVars). Inherited by every card inside. */
       :host([dark]) {
-        ${qp}
+        ${Wp}
       }
       .dash {
         box-sizing: border-box;
@@ -48368,17 +48394,17 @@ hn.properties = { ...F.properties, _mode: { state: !0 } }, hn.styles = [
         font-size: 14px;
       }
       .area.side {
-        ${Wp}
-        ${yo}
+        ${Fp}
+        ${vo}
       }
       /* graphite by day only: at night the side column's white comes back (the night set doesn't
          name the clock's or the temperature's colour, so the day's would stay) */
       :host(:not([dark])) .area.side.frosted {
-        ${Fp}
+        ${Hp}
       }
       :host([dark]) .area.side {
-        ${_o}
         ${yo}
+        ${vo}
       }
       .header {
         justify-content: center;
@@ -48482,14 +48508,14 @@ hn.properties = { ...F.properties, _mode: { state: !0 } }, hn.styles = [
       }
     `
 ];
-let fc = hn;
+let fc = pn;
 ce("glass-dashboard", fc, {
   name: "Glass – dashboard",
   description: "Full-screen layout of named areas (presets or a custom grid). Use it in a Panel view."
 });
-function Ym(o) {
+function Zm(o) {
   for (const e of o.querySelectorAll("*"))
-    e.requestUpdate?.(), e.shadowRoot && Ym(e.shadowRoot);
+    e.requestUpdate?.(), e.shadowRoot && Zm(e.shadowRoot);
 }
 const Ki = "glass-home", di = [
   { name: "Living room", re: /living|lounge|obyv|wohn/i, icon: "mdi:sofa", image: "photo-1631679706909-1844bbd07221", position: "center 92%" },
@@ -48511,8 +48537,8 @@ const Ki = "glass-home", di = [
   { name: "Garage", re: /garage|gar[aá][zž]/i, icon: "mdi:garage" },
   // i18n-ok
   { name: "Garden", re: /garden|yard|terrace|zahrad|terasa|garten|terrasse/i, icon: "mdi:flower-outline" }
-], Iv = (o) => `https://images.unsplash.com/${o}?w=1100&q=80&auto=format&fit=crop`, Zm = ["unavailable", "unknown"];
-function qv(o) {
+], qv = (o) => `https://images.unsplash.com/${o}?w=1100&q=80&auto=format&fit=crop`, Jm = ["unavailable", "unknown"];
+function Wv(o) {
   const e = /* @__PURE__ */ new Map();
   for (const t of Object.values(o.entities ?? {})) {
     if (t.hidden || t.entity_category || !o.states[t.entity_id]) continue;
@@ -48522,8 +48548,8 @@ function qv(o) {
   return e;
 }
 const ht = (o) => o.split(".")[0], Ja = (o, e) => o.states[e]?.attributes.device_class;
-function Jm(o, e, t) {
-  const a = t.filter((h) => ht(h) === "light"), i = t.filter((h) => ht(h) === "cover" && Ja(o, h) !== "garage" && Ja(o, h) !== "gate"), s = t.filter((h) => ht(h) === "climate"), n = t.filter((h) => ht(h) === "media_player" && !o.states[h].attributes.entity_id), r = t.find((h) => ht(h) === "sensor" && Ja(o, h) === "temperature" && !Zm.includes(o.states[h].state)) ?? s.find((h) => o.states[h].attributes.current_temperature !== void 0);
+function Xm(o, e, t) {
+  const a = t.filter((h) => ht(h) === "light"), i = t.filter((h) => ht(h) === "cover" && Ja(o, h) !== "garage" && Ja(o, h) !== "gate"), s = t.filter((h) => ht(h) === "climate"), n = t.filter((h) => ht(h) === "media_player" && !o.states[h].attributes.entity_id), r = t.find((h) => ht(h) === "sensor" && Ja(o, h) === "temperature" && !Jm.includes(o.states[h].state)) ?? s.find((h) => o.states[h].attributes.current_temperature !== void 0);
   if (!a.length && !i.length && !s.length && !n.length && !r) return;
   const l = [
     // a light group first: the button then counts its members
@@ -48531,7 +48557,7 @@ function Jm(o, e, t) {
     ...i.slice(0, 1).map((h) => ({ entity: h, icon: "mdi:blinds-horizontal", active_states: ["closed"], state_icons: { closed: "mdi:blinds-horizontal-closed" } })),
     ...s.slice(0, 1).map((h) => ({ entity: h, icon: "mdi:radiator", active_states: ["heat", "cool", "heat_cool", "auto"] })),
     ...n.slice(0, 1).map((h) => ({ entity: h, icon: Ja(o, h) === "tv" ? "mdi:television" : "mdi:speaker", active: { state_not: ["off", "standby", "idle", "unavailable", "unknown"] } }))
-  ], c = di.find((h) => h.re.test(e.name) || v(h.name) === e.name), d = e.picture || (c?.image ? Iv(c.image) : void 0);
+  ], c = di.find((h) => h.re.test(e.name) || v(h.name) === e.name), d = e.picture || (c?.image ? qv(c.image) : void 0);
   return {
     type: "custom:glass-room-card",
     name: e.name,
@@ -48545,10 +48571,10 @@ function Jm(o, e, t) {
     ...a.length ? { image_entities: a.slice(0, 2) } : {}
   };
 }
-function Wv(o) {
+function Fv(o) {
   const e = Object.keys(o.states).filter((r) => {
     const l = o.entities?.[r];
-    if (l?.hidden || l?.entity_category || Zm.includes(o.states[r].state)) return !1;
+    if (l?.hidden || l?.entity_category || Jm.includes(o.states[r].state)) return !1;
     const c = ht(r);
     return c === "light" || c === "climate" || c === "media_player" || c === "cover" && !["garage", "gate"].includes(Ja(o, r) ?? "") || c === "sensor" && Ja(o, r) === "temperature";
   }), t = (r) => `${r.split(".")[1].replace(/_/g, " ")} ${o.states[r].attributes.friendly_name ?? ""}`, a = /* @__PURE__ */ new Map(), i = [];
@@ -48562,9 +48588,9 @@ function Wv(o) {
       const d = s[c % s.length];
       a.set(d, [...a.get(d) ?? [], l]);
     });
-  return di.filter((r) => a.has(r)).map((r) => Jm(o, { name: v(r.name) }, a.get(r))).filter((r) => !!r);
+  return di.filter((r) => a.has(r)).map((r) => Xm(o, { name: v(r.name) }, a.get(r))).filter((r) => !!r);
 }
-function Fv(o) {
+function Hv(o) {
   return {
     type: "custom:bubble-card",
     card_type: "pop-up",
@@ -48618,10 +48644,10 @@ function Fv(o) {
     ]
   };
 }
-function Hv(o, e) {
-  const t = Object.keys(o.states), a = t.find((y) => ht(y) === "weather"), i = t.filter((y) => ht(y) === "person").map((y) => ({ entity: y })), s = t.filter((y) => ht(y) === "calendar").slice(0, 4).map((y) => ({ entity: y })), n = qv(o);
-  let r = Object.values(o.areas ?? {}).map((y) => Jm(o, y, n.get(y.area_id) ?? [])).filter((y) => !!y);
-  r.length || (r = Wv(o));
+function Gv(o, e) {
+  const t = Object.keys(o.states), a = t.find((y) => ht(y) === "weather"), i = t.filter((y) => ht(y) === "person").map((y) => ({ entity: y })), s = t.filter((y) => ht(y) === "calendar").slice(0, 4).map((y) => ({ entity: y })), n = Wv(o);
+  let r = Object.values(o.areas ?? {}).map((y) => Xm(o, y, n.get(y.area_id) ?? [])).filter((y) => !!y);
+  r.length || (r = Fv(o));
   const l = r.findIndex((y) => di[0].re.test(y.name) || y.name === v(di[0].name)), c = l >= 0 ? l : r.reduce((y, _, x) => _.entities.length > (r[y]?.entities.length ?? -1) ? x : y, -1), d = r.map((y, _) => _ === c && r.length > 2 ? { ...y, view_layout: { span: 2 } } : y), h = [
     {
       type: "custom:glass-panel",
@@ -48668,7 +48694,7 @@ function Hv(o, e) {
       a ? { type: "custom:glass-clock-weather", variant: "compact", weather: a, glass: "none", view_layout: { grow: 1 }, ...e ? { tap_action: { action: "navigate", navigation_path: "#weather" } } : {} } : { type: "custom:glass-date-header", align: "start", view_layout: { grow: 1 } },
       ...i.length ? [{ type: "custom:glass-people", people: i, size: 34, gap: 6, view_layout: { shrink: 0 } }] : []
     ]
-  }, m = e && a ? [Fv(a)] : [], f = m.length ? [{ type: "custom:glass-dock", items: [{ icon: "mdi:weather-partly-cloudy", link: "#weather" }], indicator: "dot", bare: !0, fade: !0 }] : [], b = { type: "markdown", content: v("No lights, blinds or thermostats found yet. Add some to Home Assistant, then add this dashboard again in Dashboard Studio.") };
+  }, m = e && a ? [Hv(a)] : [], f = m.length ? [{ type: "custom:glass-dock", items: [{ icon: "mdi:weather-partly-cloudy", link: "#weather" }], indicator: "dot", bare: !0, fade: !0 }] : [], b = { type: "markdown", content: v("No lights, blinds or thermostats found yet. Add some to Home Assistant, then add this dashboard again in Dashboard Studio.") };
   return {
     title: "Glass",
     views: [
@@ -48740,43 +48766,43 @@ function Hv(o, e) {
     ]
   };
 }
-async function Gv(o) {
+async function Uv(o) {
   return customElements.get("bubble-card") ? !0 : (await o.callWS({ type: "lovelace/resources" }).catch(() => [])).some((t) => /bubble-card/i.test(t.url));
 }
-async function Uv(o) {
+async function Kv(o) {
   if ((await o.callWS({ type: "lovelace/dashboards/list" })).some((a) => a.url_path === Ki)) return Ki;
-  const t = Hv(o, await Gv(o));
+  const t = Gv(o, await Uv(o));
   return await o.callWS({ type: "lovelace/dashboards/create", url_path: Ki, title: "Glass", icon: "mdi:home-variant-outline", show_in_sidebar: !0, require_admin: !1, mode: "storage" }), await Ea(o, Ki, t), Ki;
 }
-const _p = "glass-cards-starter";
-function Kv() {
+const yp = "glass-cards-starter";
+function Vv() {
   return document.querySelector("home-assistant")?.hass;
 }
-function Vv(o) {
+function Yv(o) {
   history.pushState(null, "", o), window.dispatchEvent(new CustomEvent("location-changed", { detail: { replace: !1 } }));
 }
-async function Yv() {
+async function Zv() {
   const o = import.meta.url.split("?")[0];
   return fetch(o, { method: "HEAD", cache: "no-store" }).then((e) => e.headers.get("last-modified") ?? "").catch(() => "");
 }
-async function Zv() {
+async function Jv() {
   let o;
-  for (let a = 0; a < 40 && !(o = Kv())?.user; a++) await new Promise((i) => setTimeout(i, 500));
+  for (let a = 0; a < 40 && !(o = Vv())?.user; a++) await new Promise((i) => setTimeout(i, 500));
   if (!o?.user?.is_admin) return;
-  const e = await Yv(), t = () => o.callWS({ type: "frontend/set_user_data", key: _p, value: { at: (/* @__PURE__ */ new Date()).toISOString(), install: e } }).catch(() => {
+  const e = await Zv(), t = () => o.callWS({ type: "frontend/set_user_data", key: yp, value: { at: (/* @__PURE__ */ new Date()).toISOString(), install: e } }).catch(() => {
   });
   if (!new URLSearchParams(location.search).has("glass-setup")) {
     const [a, i] = await Promise.all([
-      o.callWS({ type: "frontend/get_user_data", key: _p }).catch(() => {
+      o.callWS({ type: "frontend/get_user_data", key: yp }).catch(() => {
       }),
       o.callWS({ type: "lovelace/dashboards/list" }).catch(() => {
       })
     ]);
     if (!a || !i || i.some((s) => /glass/i.test(`${s.url_path} ${s.title ?? ""}`)) || a.value && a.value.install === e) return;
   }
-  vi(o), Jv(o, t);
+  vi(o), Xv(o, t);
 }
-function Jv(o, e) {
+function Xv(o, e) {
   const t = document.createElement("glass-starter-offer"), a = t.attachShadow({ mode: "open" });
   a.innerHTML = `
     <style>
@@ -48814,8 +48840,8 @@ function Jv(o, e) {
     l.onclick = async () => {
       for (const c of [...r, n]) c.disabled = !0;
       try {
-        const c = await Gm(o);
-        await e(), t.remove(), Vv(`/${c}/0`);
+        const c = await Um(o);
+        await e(), t.remove(), Yv(`/${c}/0`);
       } catch (c) {
         for (const d of [...r, n]) d.disabled = !1;
         s.textContent = `${v("The dashboard could not be created:")} ${c?.message ?? c}`;
@@ -48823,11 +48849,11 @@ function Jv(o, e) {
     };
   document.body.appendChild(t);
 }
-const $r = ["header", "top", "left", "main", "right"], X = (o, e) => e.reduce((t, a) => t?.[a], o), Ae = (o, e) => o.length === e.length && o.every((t, a) => t === e[a]), Ct = (o, e) => o.length >= e.length && e.every((t, a) => o[a] === t);
+const $r = ["header", "top", "left", "main", "right"], X = (o, e) => e.reduce((t, a) => t?.[a], o), Me = (o, e) => o.length === e.length && o.every((t, a) => t === e[a]), Ct = (o, e) => o.length >= e.length && e.every((t, a) => o[a] === t);
 function lt(o) {
   if (Array.isArray(o?.cards)) return { key: "cards", list: o.cards };
 }
-const Xs = [
+const Qs = [
   { name: "Phone – small (iPhone SE)", w: 375, h: 667 },
   { name: "Phone (Galaxy S24)", w: 360, h: 780 },
   { name: "Phone (iPhone 16)", w: 393, h: 852 },
@@ -48840,22 +48866,22 @@ const Xs = [
   { name: 'iPad Pro 13"', w: 1376, h: 1032 },
   { name: "Laptop", w: 1440, h: 900 },
   { name: "Computer (Full HD)", w: 1920, h: 1080 }
-], Xm = "glass-studio-size", yp = "glass-studio-panes", Sr = "glass-studio-zoom", vp = "glass-studio-placement", Qm = "glass-studio-dashboard", wp = [0.25, 0.33, 0.5, 0.67, 0.75, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2], zr = { tree: 280, insp: 420, yaml: 640 }, xp = { tree: 180, insp: 280, yaml: 360 }, hi = "This window";
+], Qm = "glass-studio-size", vp = "glass-studio-panes", Sr = "glass-studio-zoom", wp = "glass-studio-placement", eg = "glass-studio-dashboard", xp = [0.25, 0.33, 0.5, 0.67, 0.75, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2], zr = { tree: 280, insp: 420, yaml: 640 }, kp = { tree: 180, insp: 280, yaml: 360 }, hi = "This window";
 function bc() {
   const o = parseFloat(getComputedStyle(document.querySelector("home-assistant") ?? document.documentElement).getPropertyValue("--header-height")) || 56;
   return { w: window.innerWidth, h: window.innerHeight - o };
 }
-function go() {
+function fo() {
   let o = {};
   try {
-    o = JSON.parse(localStorage.getItem(Xm) ?? "{}");
+    o = JSON.parse(localStorage.getItem(Qm) ?? "{}");
   } catch {
   }
   const e = bc();
   for (const t of ["mobile", "tablet"]) o[t]?.name === hi && (o[t] = { ...e, name: hi });
   return !o.tablet && e.w >= 700 && (o.tablet = { ...e, name: hi }), o;
 }
-const pn = class pn extends Ye {
+const un = class un extends Ye {
   constructor() {
     super(), this._yamlRev = 0, this.standalone = !1, this._demoChecked = !1, this._srcBase = {}, this._past = [], this._future = [], this._demoRev = 0, this._demoWas = !1, this._json = /* @__PURE__ */ new WeakMap(), this._dragged = !1, this._overStage = !1, this._space = !1, this._panned = !1, this._onSpace = (e) => {
       if (e.code !== "Space" && e.key !== " " || e.composedPath()[0]?.matches?.("input, textarea, select, [contenteditable], ha-code-editor, .cm-content") || !this.isConnected) return;
@@ -48934,7 +48960,7 @@ const pn = class pn extends Ye {
       this._gapEvent = { clientX: e.clientX, clientY: e.clientY, composedPath: () => i }, !this._addAt && !this._gapRaf && (this._gapRaf = requestAnimationFrame(() => {
         this._gapRaf = 0;
         const s = this._gapEvent && this._gapAt(this._gapEvent);
-        s ? (!this._plus || !Ae(s.list, this._plus.list) || s.i !== this._plus.i || Math.abs(s.x - this._plus.x) > 1 || Math.abs(s.y - this._plus.y) > 1) && (this._plus = s) : this._plus = void 0;
+        s ? (!this._plus || !Me(s.list, this._plus.list) || s.i !== this._plus.i || Math.abs(s.x - this._plus.x) > 1 || Math.abs(s.y - this._plus.y) > 1) && (this._plus = s) : this._plus = void 0;
       }));
     }, this._gapRaf = 0, this._tclick = !1, this._onWinMove = (e) => {
       const t = this._wpress;
@@ -48957,7 +48983,7 @@ const pn = class pn extends Ye {
         const s = this.renderRoot.querySelector(".chip");
         s && (s.style.left = `${e.clientX + 14}px`, s.style.top = `${e.clientY + 10}px`);
         const n = this._treeTarget(e), r = this._drop;
-        (!n != !r || n && r && (!Ae(n.list, r.list) || n.i !== r.i || !!n.into != !!r.into)) && (this._drop = n), this._autoScroll(e);
+        (!n != !r || n && r && (!Me(n.list, r.list) || n.i !== r.i || !!n.into != !!r.into)) && (this._drop = n), this._autoScroll(e);
         return;
       }
       const i = this._press;
@@ -48966,7 +48992,7 @@ const pn = class pn extends Ye {
       this._wdrag && (this._target && this._move(this._wdrag.path, this._target.list, this._target.i), this._target = void 0, setTimeout(() => this._dragged = !1)), this._wpress = void 0, this._wdrag = void 0, this._wclone?.remove(), this._wclone = void 0, this._tdrag && (this._drop && this._move(this._tdrag.path, this._drop.list, this._drop.i), this._tclick = !0, setTimeout(() => this._tclick = !1)), this._tpress = void 0, this._tdrag = void 0, this._drop = void 0, this._press && (this._press = void 0, this._pdrag = void 0, this._target = void 0), this._autoScroll(void 0);
     }, this._popEls = [], this._placeOpen = (() => {
       try {
-        return localStorage.getItem(vp) === "1";
+        return localStorage.getItem(wp) === "1";
       } catch {
         return !1;
       }
@@ -48989,7 +49015,7 @@ const pn = class pn extends Ye {
       this._gapEvent = { clientX: e.clientX, clientY: e.clientY, composedPath: () => t }, this._gapRaf || (this._gapRaf = requestAnimationFrame(() => {
         this._gapRaf = 0;
         const a = this._gapEvent && this._wireGapAt(this._gapEvent);
-        a ? (!this._plus || !Ae(a.list, this._plus.list) || a.i !== this._plus.i || Math.abs(a.x - this._plus.x) > 1 || Math.abs(a.y - this._plus.y) > 1) && (this._plus = a) : this._plus = void 0;
+        a ? (!this._plus || !Me(a.list, this._plus.list) || a.i !== this._plus.i || Math.abs(a.x - this._plus.x) > 1 || Math.abs(a.y - this._plus.y) > 1) && (this._plus = a) : this._plus = void 0;
       }));
     }, this._onWireLeave = (e) => {
       e.relatedTarget?.closest?.(".plus") || (this._plus = void 0);
@@ -49003,14 +49029,14 @@ const pn = class pn extends Ye {
     }
     this._fast = localStorage.getItem("glass-studio-fast") !== "0", this._pvBg = localStorage.getItem("glass-studio-bg") !== "0", this._hideTree = !1, this._hideInspector = !1;
     try {
-      this._panes = { ...zr, ...JSON.parse(localStorage.getItem(yp) ?? "{}") };
+      this._panes = { ...zr, ...JSON.parse(localStorage.getItem(vp) ?? "{}") };
     } catch {
       this._panes = { ...zr };
     }
     this._pvZoom = 1;
     try {
       const e = Number(localStorage.getItem(Sr));
-      this._zoomPick = wp.includes(e) ? e : void 0;
+      this._zoomPick = xp.includes(e) ? e : void 0;
     } catch {
     }
     this._yaml = !1, this._guiAvail = !0, this._confirmCancel = !1;
@@ -49139,7 +49165,7 @@ const pn = class pn extends Ye {
     if (i) return i;
     const s = a.byJson.get(this._jsonOf(e)) ?? [];
     if (s.length < 2 || !t) return s[0];
-    const n = this._sectionOf(t), r = (n?.getAttribute("style") ?? "").match(/grid-area:\s*([\w-]+)/)?.[1], l = this._areas().find((m) => m.name === r || m.name === `areas.${r}`), c = l ? s.filter((m) => Ae(m.slice(0, l.path.length), l.path)) : s;
+    const n = this._sectionOf(t), r = (n?.getAttribute("style") ?? "").match(/grid-area:\s*([\w-]+)/)?.[1], l = this._areas().find((m) => m.name === r || m.name === `areas.${r}`), c = l ? s.filter((m) => Me(m.slice(0, l.path.length), l.path)) : s;
     if (c.length < 2 || !n) return c[0] ?? s[0];
     const d = this._jsonOf(e), h = [], u = (m, f) => {
       for (const b of m.querySelectorAll("*"))
@@ -49166,7 +49192,7 @@ const pn = class pn extends Ye {
   }
   /** Wraps the card at `anchor` and the dragged one into a new row / column panel. */
   _group(e, t, a, i) {
-    if (Ct(t, e) || Ae(t, e)) return;
+    if (Ct(t, e) || Me(t, e)) return;
     const s = this._draft(e.slice(0, -1), t.slice(0, -1)), n = X(s, e), r = X(s, t), { view_layout: l, ...c } = r, d = {
       type: "custom:glass-panel",
       layout: a,
@@ -49225,12 +49251,12 @@ const pn = class pn extends Ye {
    */
   _reorder(e, t, a) {
     const i = se.mode, s = X(this._config, e), n = this._sel.length ? X(this._config, this._sel) : void 0;
-    if (!s || !n || !s.some((m) => no(m, i) !== "")) return;
-    const r = (m, f) => (no(m, i) === "" ? 0 : Number(no(m, i))) * 1e3 + f, c = s.map((m, f) => ({ c: m, k: r(m, f) })).sort((m, f) => m.k - f.k).map((m) => m.c).filter((m) => m !== n), d = c.findIndex((m) => this._jsonOf(m) === this._jsonOf(t));
+    if (!s || !n || !s.some((m) => ro(m, i) !== "")) return;
+    const r = (m, f) => (ro(m, i) === "" ? 0 : Number(ro(m, i))) * 1e3 + f, c = s.map((m, f) => ({ c: m, k: r(m, f) })).sort((m, f) => m.k - f.k).map((m) => m.c).filter((m) => m !== n), d = c.findIndex((m) => this._jsonOf(m) === this._jsonOf(t));
     if (d < 0) return;
     c.splice(a ? d + 1 : d, 0, n);
     const h = this._draft(e), u = X(h, e);
-    s.forEach((m, f) => u[f] = yu(u[f], i, String(c.indexOf(m) + 1))), this._set(h, !1);
+    s.forEach((m, f) => u[f] = vu(u[f], i, String(c.indexOf(m) + 1))), this._set(h, !1);
   }
   /** Moves the node at `from` into list `to` before index `i`. */
   _move(e, t, a) {
@@ -49243,7 +49269,7 @@ const pn = class pn extends Ye {
       s.splice(0, s.length, ...h), this._set(i), this._sel = [...t, a > r ? a - 1 : a];
       return;
     }
-    const [l] = s.splice(r, 1), c = Ae(t.slice(0, e.length - 1), e.slice(0, -1)) && typeof t[e.length - 1] == "number" && t[e.length - 1] > r;
+    const [l] = s.splice(r, 1), c = Me(t.slice(0, e.length - 1), e.slice(0, -1)) && typeof t[e.length - 1] == "number" && t[e.length - 1] > r;
     n.splice(a, 0, l), this._set(i);
     const d = c ? [...t.slice(0, e.length - 1), t[e.length - 1] - 1, ...t.slice(e.length)] : t;
     this._sel = [...d, a];
@@ -49359,7 +49385,7 @@ const pn = class pn extends Ye {
       for (const r of s.querySelectorAll("*")) {
         if (Ve.has(r)) {
           const l = this._find(Ve.get(r), r);
-          l && l.length === e.length + 1 && Ae(l.slice(0, -1), e) && a.set(l[l.length - 1], r);
+          l && l.length === e.length + 1 && Me(l.slice(0, -1), e) && a.set(l[l.length - 1], r);
           continue;
         }
         r.shadowRoot && n < 8 && i(r.shadowRoot, n + 1);
@@ -49497,7 +49523,7 @@ const pn = class pn extends Ye {
   _actions(e) {
     const t = X(this._config, e);
     if (!t || typeof e[e.length - 1] != "number") return [];
-    const a = e.slice(0, -1), i = e[e.length - 1], s = (X(this._config, a) ?? []).length, n = jd(), r = lt(t), l = () => {
+    const a = e.slice(0, -1), i = e[e.length - 1], s = (X(this._config, a) ?? []).length, n = Id(), r = lt(t), l = () => {
       this._set(this._with(e, void 0)), Ct(this._sel, e) && (this._sel = s > 1 ? [...a, Math.min(i, s - 2)] : a);
     }, c = (d, h) => {
       n && (this._insert(d, structuredClone(n.card), h), n.cut && va(void 0));
@@ -49529,7 +49555,7 @@ const pn = class pn extends Ye {
       @click=${(a) => {
       a.stopPropagation();
       const i = a.currentTarget.getBoundingClientRect();
-      this._menu = this._menu && Ae(this._menu.path, e) ? void 0 : { path: e, x: i.right, y: i.bottom + 4 };
+      this._menu = this._menu && Me(this._menu.path, e) ? void 0 : { path: e, x: i.right, y: i.bottom + 4 };
     }}
     >
       <ha-icon .icon=${"mdi:dots-vertical"}></ha-icon>
@@ -49562,7 +49588,7 @@ const pn = class pn extends Ye {
       for (const a of t.querySelectorAll("*")) {
         if (Ve.has(a)) {
           const i = this._find(Ve.get(a), a);
-          if (i && Ae(i, this._sel)) return a;
+          if (i && Me(i, this._sel)) return a;
         }
         if (a.shadowRoot) {
           const i = e(a.shadowRoot);
@@ -49597,7 +49623,7 @@ const pn = class pn extends Ye {
     const a = t.currentTarget, i = a.parentElement;
     a.setPointerCapture(t.pointerId), a.classList.add("on");
     const s = t.clientX, n = this._panes[e], r = (c) => {
-      const d = e === "tree" ? this._hideInspector ? 0 : this._panes[this._wide ? "yaml" : "insp"] : this._hideTree ? 0 : this._panes.tree, h = Math.max(xp[e], i.clientWidth - d - 360), u = c.clientX - s, m = Math.round(Math.min(h, Math.max(xp[e], n + (e === "tree" ? u : -u))));
+      const d = e === "tree" ? this._hideInspector ? 0 : this._panes[this._wide ? "yaml" : "insp"] : this._hideTree ? 0 : this._panes.tree, h = Math.max(kp[e], i.clientWidth - d - 360), u = c.clientX - s, m = Math.round(Math.min(h, Math.max(kp[e], n + (e === "tree" ? u : -u))));
       this._panes[e] = m, i.style.setProperty(e === "tree" ? "--tree-w" : "--insp-w", `${m}px`);
     }, l = () => {
       a.removeEventListener("pointermove", r), a.removeEventListener("pointerup", l), a.removeEventListener("pointercancel", l), a.classList.remove("on"), this._savePanes();
@@ -49634,36 +49660,36 @@ const pn = class pn extends Ye {
   }
   _savePanes() {
     try {
-      localStorage.setItem(yp, JSON.stringify(this._panes));
+      localStorage.setItem(vp, JSON.stringify(this._panes));
     } catch {
     }
   }
   _device(e) {
     const t = this._popOpen, a = t && this._popAt && Ct(this._sel, this._popAt);
-    Cr(e, go()[e]), t && this._reopen(t, !!a), this._sel.length && X(this._config, this._sel) === void 0 && (this._sel = []), this.requestUpdate();
+    Cr(e, fo()[e]), t && this._reopen(t, !!a), this._sel.length && X(this._config, this._sel) === void 0 && (this._sel = []), this.requestUpdate();
   }
   /** A screen size: mobile below the dashboard's mobile breakpoint, tablet / computer above. */
   _setSize(e, t, a) {
     e = Math.round(Math.min(3840, Math.max(240, e || 0))), t = Math.round(Math.min(2400, Math.max(240, t || 0)));
     const i = this._config, s = e < (i.breakpoints?.mobile ?? i.breakpoint ?? 700) ? "mobile" : "tablet";
     try {
-      localStorage.setItem(Xm, JSON.stringify({ ...go(), [s]: { w: e, h: t, name: a } }));
+      localStorage.setItem(Qm, JSON.stringify({ ...fo(), [s]: { w: e, h: t, name: a } }));
     } catch {
     }
     s !== se.mode ? this._device(s) : (Cr(s, { w: e, h: t }), this.requestUpdate());
   }
   _sizeBar() {
-    const { w: e, h: t } = Dr(se.mode), a = go()[se.mode]?.name, i = (d) => d.w === e && d.h === t, s = Xs.findIndex((d) => i(d) && d.name === a), n = bc(), r = a === hi && n.w === e && n.h === t, l = r ? -2 : s >= 0 ? s : Xs.findIndex(i), c = (d, h, u) => p`<input type="number" title=${w(u)} .value=${String(d)} min="240" max="3840" @change=${(m) => h(Number(m.target.value))} />`;
+    const { w: e, h: t } = Dr(se.mode), a = fo()[se.mode]?.name, i = (d) => d.w === e && d.h === t, s = Qs.findIndex((d) => i(d) && d.name === a), n = bc(), r = a === hi && n.w === e && n.h === t, l = r ? -2 : s >= 0 ? s : Qs.findIndex(i), c = (d, h, u) => p`<input type="number" title=${w(u)} .value=${String(d)} min="240" max="3840" @change=${(m) => h(Number(m.target.value))} />`;
     return p`<span class="size">
       <select
         title=${w("Device")}
         @change=${(d) => {
-      const h = Number(d.target.value), u = h === -2 ? { ...bc(), name: hi } : Xs[h];
+      const h = Number(d.target.value), u = h === -2 ? { ...bc(), name: hi } : Qs[h];
       u && this._setSize(u.w, u.h, u.name);
     }}
       >
         <option value="-2" ?selected=${r}>${w(hi)} (${n.w} × ${n.h})</option>
-        ${Xs.map((d, h) => p`<option value=${h} ?selected=${h === l}>${w(d.name)}</option>`)}
+        ${Qs.map((d, h) => p`<option value=${h} ?selected=${h === l}>${w(d.name)}</option>`)}
         <option value="-1" ?selected=${l === -1} disabled>${w("Custom size")}</option>
       </select>
       ${c(e, (d) => this._setSize(d, t), "Width (px)")}<span class="x">×</span>${c(t, (d) => this._setSize(e, d), "Height (px)")}
@@ -49674,7 +49700,7 @@ const pn = class pn extends Ye {
         @change=${(d) => this._setZoom(d.target.value)}
       >
         <option value="fit" ?selected=${this._zoomPick === void 0}>${w("Fit")} (${Math.round(this._pvZoom * 100)} %)</option>
-        ${wp.map((d) => p`<option value=${d} ?selected=${this._zoomPick === d}>${Math.round(d * 100)} %</option>`)}
+        ${xp.map((d) => p`<option value=${d} ?selected=${this._zoomPick === d}>${Math.round(d * 100)} %</option>`)}
       </select>
     </span>`;
   }
@@ -49714,9 +49740,9 @@ const pn = class pn extends Ye {
     </button>`;
   }
   _row(e, t, a, i, s, n) {
-    const r = Ae(i, this._sel), l = typeof i[i.length - 1] == "number", c = l ? i.slice(0, -1) : void 0, d = l ? i[i.length - 1] : 0, h = c ? X(this._config, c)?.length ?? 0 : 0, u = c && this._drop && Ae(this._drop.list, c) ? this._drop.i === d ? "before" : this._drop.i === d + 1 && d === h - 1 ? "after" : "" : "";
+    const r = Me(i, this._sel), l = typeof i[i.length - 1] == "number", c = l ? i.slice(0, -1) : void 0, d = l ? i[i.length - 1] : 0, h = c ? X(this._config, c)?.length ?? 0 : 0, u = c && this._drop && Me(this._drop.list, c) ? this._drop.i === d ? "before" : this._drop.i === d + 1 && d === h - 1 ? "after" : "" : "";
     return p`<div
-      class="node ${r ? "on" : ""} ${u} ${this._tdrag && Ae(this._tdrag.path, i) ? "dragging" : ""}"
+      class="node ${r ? "on" : ""} ${u} ${this._tdrag && Me(this._tdrag.path, i) ? "dragging" : ""}"
       style="--depth:${s}"
       data-path=${JSON.stringify(i)}
       @click=${() => {
@@ -49763,7 +49789,7 @@ const pn = class pn extends Ye {
   _tree() {
     const e = (t, a, i, s) => t.map((n, r) => {
       if (s && !s(n)) return g;
-      const l = [...a, r], c = Be(n), d = lt(n), h = this._drop?.into && d && Ae(this._drop.list, [...l, d.key]) ? "into" : "", u = d ? JSON.stringify(l) : void 0;
+      const l = [...a, r], c = Be(n), d = lt(n), h = this._drop?.into && d && Me(this._drop.list, [...l, d.key]) ? "into" : "", u = d ? JSON.stringify(l) : void 0;
       return p`<div class="branch ${h}">
           ${this._row(n.name ? String(n.name) : c.title, n.name ? c.title : c.sub, c.icon, l, i, { badges: c.badges, draggable: !0, fold: u })}
           ${d && this._isOpen(u) ? e(d.list, [...l, d.key], i + 1) : g}
@@ -49959,7 +49985,7 @@ const pn = class pn extends Ye {
           </div>` : g}
       ${!nl() && !s.length && !n.length ? g : p`<div class="area">
         ${this._row(w("Pop-ups"), `${s.length + n.reduce((d, h) => d + h.items.length, 0)} · ${w("opened by a #link")}`, "mdi:window-maximize", t.path, 0, { badges: c, fold: "pops" })}
-        ${nl() ? g : p`<div class="tree-notice">${ro()}</div>`}
+        ${nl() ? g : p`<div class="tree-notice">${lo()}</div>`}
         ${this._isOpen("pops") ? p`${e(a, t.path, 1, (d) => !!ke(d))}
         ${n.map(
       (d) => d.editable ? p`<div class="node static" style="--depth:1">
@@ -50050,7 +50076,7 @@ const pn = class pn extends Ye {
       if (d.target === d.currentTarget) {
         this._placeOpen = !!d.detail?.expanded;
         try {
-          localStorage.setItem(vp, this._placeOpen ? "1" : "0");
+          localStorage.setItem(wp, this._placeOpen ? "1" : "0");
         } catch {
         }
       }
@@ -50060,7 +50086,7 @@ const pn = class pn extends Ye {
         <span>${w("Shown on")}</span>
         <span class="chips">
           ${si.map(
-      (d) => p`<button class=${ya(t, d) ? "on" : ""} @click=${() => this._set(this._with(e, _u(t, d, !ya(t, d))))}>
+      (d) => p`<button class=${ya(t, d) ? "on" : ""} @click=${() => this._set(this._with(e, yu(t, d, !ya(t, d))))}>
               ${w(fa[d])}
             </button>`
     )}
@@ -50073,7 +50099,7 @@ const pn = class pn extends Ye {
   _wireBox(e, t, a) {
     const i = se.mode;
     if (!ya(e, i)) return g;
-    const s = this._resizing && Ae(this._resizing.path, t) ? this._resizing : this._spanOf(e), n = a === "grid" ? `grid-column:span ${s.span};grid-row:span ${s.rows}` : "", r = a === "grid" ? p`<span
+    const s = this._resizing && Me(this._resizing.path, t) ? this._resizing : this._spanOf(e), n = a === "grid" ? `grid-column:span ${s.span};grid-row:span ${s.rows}` : "", r = a === "grid" ? p`<span
             class="wresize"
             title=${w("Drag to span more columns or rows")}
             @click=${(_) => _.stopPropagation()}
@@ -50082,7 +50108,7 @@ const pn = class pn extends Ye {
       const x = _.currentTarget.parentElement.getBoundingClientRect(), S = this._spanOf(e);
       this._rz = { path: t, x: _.clientX, y: _.clientY, w: x.width, h: x.height, span: S.span, rows: S.rows, cols: this._gridCols(t) || 3 }, window.addEventListener("pointermove", this._onResizeMove), window.addEventListener("pointerup", this._onResizeUp);
     }}
-          ></span>${s.span > 1 || s.rows > 1 ? p`<span class="wspan">${s.span}×${s.rows}</span>` : g}` : g, l = Be(e), c = lt(e), d = Ae(t, this._sel), h = e.name ? String(e.name) : l.title, u = this._wdrag && Ae(this._wdrag.path, t), m = (_) => `wbox ${_} ${d ? "on" : ""} ${u ? "dragging" : ""}`, f = (_) => {
+          ></span>${s.span > 1 || s.rows > 1 ? p`<span class="wspan">${s.span}×${s.rows}</span>` : g}` : g, l = Be(e), c = lt(e), d = Me(t, this._sel), h = e.name ? String(e.name) : l.title, u = this._wdrag && Me(this._wdrag.path, t), m = (_) => `wbox ${_} ${d ? "on" : ""} ${u ? "dragging" : ""}`, f = (_) => {
       if (_.button !== 0) return;
       _.stopPropagation();
       const x = _.currentTarget, S = x.getBoundingClientRect();
@@ -50173,7 +50199,7 @@ const pn = class pn extends Ye {
         for (const f of u?.querySelectorAll("[data-path]") ?? []) {
           if (f.classList.contains("wclone")) continue;
           const b = JSON.parse(f.dataset.path);
-          b.length === h.length + 1 && Ae(b.slice(0, -1), h) && (m[b[b.length - 1]] = f.getBoundingClientRect());
+          b.length === h.length + 1 && Me(b.slice(0, -1), h) && (m[b[b.length - 1]] = f.getBoundingClientRect());
         }
         return m.length = (X(this._config, h) ?? []).length, m;
       };
@@ -50183,7 +50209,7 @@ const pn = class pn extends Ye {
     for (const d of t.querySelectorAll("[data-path]")) {
       if (d.classList.contains("wclone")) continue;
       const h = JSON.parse(d.dataset.path);
-      h.length === r.length + 1 && Ae(h.slice(0, -1), r) && (l[h[h.length - 1]] = d.getBoundingClientRect());
+      h.length === r.length + 1 && Me(h.slice(0, -1), r) && (l[h[h.length - 1]] = d.getBoundingClientRect());
     }
     const c = (X(this._config, r) ?? []).length;
     return l.length = c, this._gapPlus(e, r, l, i ? "column" : s.layout === "grid" && s.masonry ? "masonry" : s.layout ?? "column", () => t.getBoundingClientRect());
@@ -50254,7 +50280,7 @@ const pn = class pn extends Ye {
    * custom cards installed (HACS) – the ones the user already has elsewhere.
    */
   _choices(e) {
-    const t = (this._q ?? "").trim().toLowerCase(), a = (...u) => !t || u.some((m) => m?.toLowerCase().includes(t)), i = Su.filter(([u, m, , f]) => u !== "markdown" && a(u, w(m), w(f), m)), s = (u) => Object.keys(this._cardHass?.states ?? {}).find((m) => m.startsWith(`${u}.`)) ?? "", r = [
+    const t = (this._q ?? "").trim().toLowerCase(), a = (...u) => !t || u.some((m) => m?.toLowerCase().includes(t)), i = zu.filter(([u, m, , f]) => u !== "markdown" && a(u, w(m), w(f), m)), s = (u) => Object.keys(this._cardHass?.states ?? {}).find((m) => m.startsWith(`${u}.`)) ?? "", r = [
       ["tile", "Tile", "mdi:card-outline", () => ({ type: "tile", entity: s("light") || s("switch") })],
       ["entities", "Entities", "mdi:format-list-bulleted", () => ({ type: "entities", entities: [s("light") || s("sensor")].filter(Boolean) })],
       ["button", "Button", "mdi:gesture-tap-button", () => ({ type: "button", entity: s("light") || s("switch") })],
@@ -50289,7 +50315,7 @@ const pn = class pn extends Ye {
         .value=${this._q ?? ""}
         @input=${(u) => this._q = u.target.value}
       />
-      ${h("glass", w("Glass cards"), i.length, i.map(([u, m, f, b]) => d(f, w(m), w(b), () => rl(u, this._cardHass), xu(u))))}
+      ${h("glass", w("Glass cards"), i.length, i.map(([u, m, f, b]) => d(f, w(m), w(b), () => rl(u, this._cardHass), ku(u))))}
       ${h("ha", w("Home Assistant cards"), r.length, r.map(([, u, m, f]) => d(m, w(u), "", f)))}
       ${h("custom", w("Custom cards (HACS)"), l.length, l.map((u) => d("mdi:puzzle-outline", u.name ?? u.type, u.description ?? "", () => c(u.type))))}
       ${h("import", w("From another dashboard"), -1, this._importGroup(e, a))}
@@ -50347,7 +50373,7 @@ const pn = class pn extends Ye {
   _inspector() {
     const e = this._sel;
     if (!e.length)
-      return this._dashEditor || (this._dashEditor = de(om), this._dashEditor.addEventListener("config-changed", (n) => {
+      return this._dashEditor || (this._dashEditor = de(nm), this._dashEditor.addEventListener("config-changed", (n) => {
         n.stopPropagation();
         const r = n.detail?.config;
         r && this._set(this._config.__sources ? { ...r, __sources: this._config.__sources } : r);
@@ -50359,7 +50385,7 @@ const pn = class pn extends Ye {
       const n = e[e.length - 1] === "overlay";
       return p`${n ? p`<div class="pane-title">${w("New pop-up")}</div>
               <div class="hint">${w("A Bubble Card pop-up opened by a #link – from the dock, a room or a radial menu.")}</div>
-              ${ro()}
+              ${lo()}
               <div class="newpop">
                 <input
                   placeholder=${w("Name, e.g. Kitchen")}
@@ -50394,7 +50420,7 @@ const pn = class pn extends Ye {
           <ha-icon .icon=${"mdi:delete-outline"}></ha-icon>
         </button>
       </div>
-      ${ke(a) ? ro() : bf(a)}
+      ${ke(a) ? lo() : _f(a)}
       ${ke(a) ? p`<div class="popline">
             <ha-icon .icon=${"mdi:link-variant"}></ha-icon><code>${ke(a).hash}</code>
             <span class="grow"></span>
@@ -50403,7 +50429,7 @@ const pn = class pn extends Ye {
       ${this._placement(e, a)}
       ${s ? p`<div class="sub-add">
             ${this._paste([...e, s.key])}
-            ${this._picker && Ae(this._picker, [...e, s.key]) ? this._addPicker([...e, s.key]) : p`<button class="link" @click=${() => this._picker = [...e, s.key]}>${w("+ Add card into this panel")}</button>`}
+            ${this._picker && Me(this._picker, [...e, s.key]) ? this._addPicker([...e, s.key]) : p`<button class="link" @click=${() => this._picker = [...e, s.key]}>${w("+ Add card into this panel")}</button>`}
           </div>` : g}
       ${customElements.get("hui-card-element-editor") ? p`${li(
       // a fresh editor per card: one without a visual editor leaves HA's editor in YAML for the next
@@ -50425,7 +50451,7 @@ const pn = class pn extends Ye {
   }
   /** "Paste: …" for the card on the clipboard (shared with the small editor and other dashboards). */
   _paste(e, t) {
-    const a = jd();
+    const a = Id();
     return a ? p`<button
       class="link paste"
       title=${w(a.cut ? "Moves the cut card here" : "Adds a copy of the copied card here")}
@@ -50471,7 +50497,7 @@ const pn = class pn extends Ye {
       a.set(i, n);
     }
     for (const [i, s] of e)
-      await Vm(i, a.get(i)), await Ea(t, i, s.next), i !== null && this._srcBase[i] !== void 0 && (this._srcBase[i] = JSON.stringify(s.next));
+      await Ym(i, a.get(i)), await Ea(t, i, s.next), i !== null && this._srcBase[i] !== void 0 && (this._srcBase[i] = JSON.stringify(s.next));
     return !0;
   }
   /** Standalone Save: the pop-up dashboards changed here and the dashboard with the edited card. */
@@ -50488,8 +50514,8 @@ const pn = class pn extends Ye {
         if (i !== e.card || e.newView) {
           const s = t.get(e.url) ?? { base: e.base, next: e.full };
           let n, r = e.path;
-          if (e.newView ? (n = structuredClone(s.next), n.views = [...n.views ?? [], { title: "Glass", path: "glass", type: "panel", cards: [a] }], r = ["views", n.views.length - 1, "cards", 0]) : n = Lv(s.next, e.path, a), t.set(e.url, { base: s.base, next: n }), !await this._write(t)) return;
-          this._host = { ...e, full: n, base: JSON.stringify(n), path: r, card: i, newView: !1, hits: fp(n) }, e.url !== null && this._config.__sources?.[e.url] && this._attachSources({ [e.url]: n });
+          if (e.newView ? (n = structuredClone(s.next), n.views = [...n.views ?? [], { title: "Glass", path: "glass", type: "panel", cards: [a] }], r = ["views", n.views.length - 1, "cards", 0]) : n = Rv(s.next, e.path, a), t.set(e.url, { base: s.base, next: n }), !await this._write(t)) return;
+          this._host = { ...e, full: n, base: JSON.stringify(n), path: r, card: i, newView: !1, hits: bp(n) }, e.url !== null && this._config.__sources?.[e.url] && this._attachSources({ [e.url]: n });
         } else {
           if (!t.size) {
             this._notice = { kind: "ok", text: w("Nothing to save") };
@@ -50509,14 +50535,14 @@ const pn = class pn extends Ye {
   async _restore() {
     const e = this._host;
     if (!e || e.mode === "yaml") return;
-    const t = await Nv(e.url);
+    const t = await Ov(e.url);
     if (!t) {
       this._notice = { kind: "warn", text: w("No earlier version of this dashboard is kept in this browser.") };
       return;
     }
     if (confirm(`${w("Put back the version saved over at")} ${new Date(t.time).toLocaleString()}? ${w("Changes not saved here are lost.")}`))
       try {
-        await Ea(this.hass, e.url, t.config), await Ov(t.id), this._past = [], await this.openDashboard(e.url, e.which), this._notice = { kind: "ok", text: w("The earlier version is back") };
+        await Ea(this.hass, e.url, t.config), await Bv(t.id), this._past = [], await this.openDashboard(e.url, e.which), this._notice = { kind: "ok", text: w("The earlier version is back") };
       } catch (a) {
         this._notice = { kind: "error", text: `${w("Saving failed:")} ${a?.message ?? a}` };
       }
@@ -50530,10 +50556,10 @@ const pn = class pn extends Ye {
     this._busy = !0;
     try {
       this._dashList ??= await qt(this.hass);
-      const a = this._dashList.find((l) => l.url === e) ?? { url: e, title: e ?? "Overview", mode: "storage" }, i = await Pt(this.hass, e), s = fp(i), n = s[t] ?? s[0], r = n ? X(i, n.path) : { type: "custom:glass-dashboard" };
+      const a = this._dashList.find((l) => l.url === e) ?? { url: e, title: e ?? "Overview", mode: "storage" }, i = await Pt(this.hass, e), s = bp(i), n = s[t] ?? s[0], r = n ? X(i, n.path) : { type: "custom:glass-dashboard" };
       this._host = { url: e, mode: a.mode, full: i, base: JSON.stringify(i), path: n?.path ?? [], card: n ? JSON.stringify(r) : "", newView: !n, hits: s, which: n ? s.indexOf(n) : 0 }, this.lovelace = { config: i, urlPath: e, mode: a.mode, editMode: !0, locale: this.hass?.locale }, this._closePopup(), this._srcKey = void 0, this._srcBase = {}, this._srcPops = [], this._config = structuredClone(r), this._past = [], this._future = [], this._sel = [], this._notice = a.mode === "yaml" ? { kind: "warn", text: w("This dashboard is kept in YAML files – the editor shows it but cannot save it.") } : n ? void 0 : { kind: "warn", text: w("This dashboard has no glass dashboard yet – Save adds a view “Glass” with one.") };
       try {
-        localStorage.setItem(Qm, JSON.stringify(e));
+        localStorage.setItem(eg, JSON.stringify(e));
       } catch {
       }
     } catch (a) {
@@ -50572,7 +50598,7 @@ const pn = class pn extends Ye {
   async _addStarter() {
     this._busy = !0;
     try {
-      const e = await Uv(this.hass);
+      const e = await Kv(this.hass);
       this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(e), this._notice = { kind: "ok", text: w("The dashboard is in the sidebar as “Glass”. Rooms without lights, blinds or a temperature were left out.") };
     } catch (e) {
       this._busy = !1, this._notice = { kind: "error", text: `${w("The dashboard could not be created:")} ${e?.message ?? e}` };
@@ -50585,11 +50611,11 @@ const pn = class pn extends Ye {
   }
   /** Demos older than the cards': unchanged ones brought up to date, changed ones offered the newest. */
   async _checkDemo() {
-    const e = await Um(this.hass, this._editedUrl()).catch(() => {
+    const e = await Km(this.hass, this._editedUrl()).catch(() => {
     });
     e && (e.updated.length && (this._dashList = await qt(this.hass).catch(() => this._dashList), this.standalone && e.updated.includes(this._host?.url ?? "") && !this._dirty && await this.openDashboard(this._host.url), this._notice = { kind: "ok", text: w("The demo dashboard was brought up to the newest demo.") }), this._demoOffer = e.outdated.filter((t) => {
       try {
-        return localStorage.getItem(`glass-demo-skip:${t.url}`) !== Go;
+        return localStorage.getItem(`glass-demo-skip:${t.url}`) !== Uo;
       } catch {
         return !0;
       }
@@ -50602,20 +50628,20 @@ const pn = class pn extends Ye {
   async _demoAct(e, t) {
     if (t === "later")
       try {
-        localStorage.setItem(`glass-demo-skip:${e.url}`, Go);
+        localStorage.setItem(`glass-demo-skip:${e.url}`, Uo);
       } catch {
       }
     if (!(t === "replace" && !confirm(w("Replace it with the newest demo? What you changed is kept in this browser – Undo the last save puts it back."))) && (this._demoOffer = this._demoOffer?.filter((a) => a !== e), t !== "later")) {
       this._busy = !0;
       try {
         if (t === "newest") {
-          const a = await Cv(this.hass);
+          const a = await Dv(this.hass);
           this._busy = !1, await this._showDemo(a, w("The newest demo is in the sidebar as “Glass demo – newest”. Yours stays as it is."));
         } else if (t === "replace") {
-          const a = await Dv(this.hass, e.url);
+          const a = await Pv(this.hass, e.url);
           this._busy = !1, await this._showDemo(a, w("The demo is the newest one now."));
         } else {
-          const a = await Pv(this.hass, e.url);
+          const a = await Ev(this.hass, e.url);
           this._busy = !1, await this._showDemo(e.url, w("Yours is kept as “{name}” in the sidebar; this is the newest demo now.", { name: a === "glass-demo-mine-1" ? "Glass demo – mine" : `Glass demo – mine ${a.slice(15)}` }));
         }
       } catch (a) {
@@ -50628,7 +50654,7 @@ const pn = class pn extends Ye {
     if (confirm(w("Delete “Glass demo – newest” and its pop-ups from Home Assistant?"))) {
       this._busy = !0;
       try {
-        await Ev(this.hass, vt), this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(this._dashList?.some((e) => e.url === Et) ? Et : null), this._notice = { kind: "ok", text: w("“Glass demo – newest” was removed. Your own dashboards weren't touched.") };
+        await Lv(this.hass, vt), this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(this._dashList?.some((e) => e.url === Et) ? Et : null), this._notice = { kind: "ok", text: w("“Glass demo – newest” was removed. Your own dashboards weren't touched.") };
       } catch (e) {
         this._busy = !1, this._notice = { kind: "error", text: `${e?.message ?? e}` };
       }
@@ -50662,7 +50688,7 @@ const pn = class pn extends Ye {
   async _addDemo() {
     this._busy = !0;
     try {
-      const e = await Gm(this.hass);
+      const e = await Um(this.hass);
       this._dashList = await qt(this.hass).catch(() => this._dashList), this._busy = !1, await this.openDashboard(e), this._notice = { kind: "ok", text: w("The demo dashboard is in the sidebar as “Glass demo”. Change anything – it runs on a made-up home.") };
     } catch (e) {
       this._busy = !1, this._notice = { kind: "error", text: `${w("The demo dashboard could not be added:")} ${e?.message ?? e}` };
@@ -50758,13 +50784,13 @@ const pn = class pn extends Ye {
         <span class="grow"></span>
         <label class="lang" title=${w("Language of the studio – the cards follow your HA profile")}>
           <ha-icon .icon=${"mdi:translate"}></ha-icon>
-          <select @change=${(t) => gu(t.target.value)}>
-            <option value="auto" ?selected=${Lo() === "auto"}>${w("As Home Assistant")}</option>
-            ${Lp.map(([t, a]) => p`<option value=${t} ?selected=${Lo() === t}>${a}</option>`)}
+          <select @change=${(t) => fu(t.target.value)}>
+            <option value="auto" ?selected=${Ro() === "auto"}>${w("As Home Assistant")}</option>
+            ${Rp.map(([t, a]) => p`<option value=${t} ?selected=${Ro() === t}>${a}</option>`)}
           </select>
         </label>
-        ${this.hass?.demo ? g : p`<a class="coffee" href=${ku} target="_blank" rel="noreferrer" title=${w("Support glass cards")}>
-              <img src=${$u} alt="Buy Me a Coffee" />
+        ${this.hass?.demo ? g : p`<a class="coffee" href=${$u} target="_blank" rel="noreferrer" title=${w("Support glass cards")}>
+              <img src=${Su} alt="Buy Me a Coffee" />
             </a>`}
         <button class="icon ${this._hideTree ? "" : "on"}" title=${w("Structure panel")} @click=${() => this._hideTree = !this._hideTree}>
           <ha-icon .icon=${"mdi:file-tree-outline"}></ha-icon>
@@ -50933,7 +50959,7 @@ const pn = class pn extends Ye {
       ${this.haDialog || this.standalone || this.footer === "" ? g : p`<div class="foot">${this.footer ?? w("Changes go to the card editor behind this window – save them there with Save.")}</div>`}`;
   }
 };
-pn.properties = {
+un.properties = {
   _config: { state: !0 },
   _sel: { state: !0 },
   _hover: { state: !0 },
@@ -50974,7 +51000,7 @@ pn.properties = {
   _hideInspector: { state: !0 },
   _wide: { state: !0 },
   _yamlErr: { state: !0 }
-}, pn.styles = ee`
+}, un.styles = ee`
     :host {
       position: fixed;
       inset: 0;
@@ -52194,11 +52220,11 @@ pn.properties = {
       }
     }
   `;
-let _c = pn;
+let _c = un;
 customElements.get("glass-studio") || customElements.define("glass-studio", _c);
-function eg(o) {
+function tg(o) {
   o.mode && (se.mode = o.mode), se.mode === "desktop" && (se.mode = "tablet");
-  const e = go()[se.mode];
+  const e = fo()[se.mode];
   se.w = e?.w, se.h = e?.h;
   const t = document.createElement("dialog");
   t.className = "glass-studio-dialog", t.style.cssText = "position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:none;background:transparent;overflow:hidden";
@@ -52213,9 +52239,9 @@ function eg(o) {
 }
 window.addEventListener("glass-open-studio", (o) => {
   const e = o.detail;
-  e.studio = eg(e);
+  e.studio = tg(e);
 });
-async function tg(o) {
+async function ag(o) {
   const e = document.querySelector("home-assistant");
   if (!e?.hass || document.querySelector("home-assistant")?.shadowRoot?.querySelector("dialog.glass-studio-dialog")) return;
   (async () => {
@@ -52227,11 +52253,11 @@ async function tg(o) {
   })();
   let t;
   try {
-    t = JSON.parse(localStorage.getItem(Qm) ?? "undefined");
+    t = JSON.parse(localStorage.getItem(eg) ?? "undefined");
   } catch {
     t = void 0;
   }
-  const a = location.pathname.split("/")[1], i = o !== void 0 ? o : a && a !== "lovelace" && !a.startsWith("config") ? a : t ?? null, s = eg({ config: {}, hass: e.hass, onChange: () => {
+  const a = location.pathname.split("/")[1], i = o !== void 0 ? o : a && a !== "lovelace" && !a.startsWith("config") ? a : t ?? null, s = tg({ config: {}, hass: e.hass, onChange: () => {
   }, standalone: !0 });
   customElements.whenDefined("hui-card-element-editor").then(() => s.requestUpdate());
   const n = window.setInterval(() => {
@@ -52240,21 +52266,21 @@ async function tg(o) {
   }, 1e3);
   return await s.openDashboard(i), s;
 }
-window.glassStudio = tg;
-function ag() {
+window.glassStudio = ag;
+function ig() {
   const o = new URLSearchParams(location.search);
   if (!o.has("glass-studio")) return;
   const e = o.get("glass-studio");
   o.delete("glass-studio"), history.replaceState(history.state, "", `${location.pathname}${o.toString() ? `?${o}` : ""}${location.hash}`);
   let t = 0;
   const a = () => {
-    document.querySelector("home-assistant")?.hass ? tg(e || void 0) : ++t < 40 && setTimeout(a, 500);
+    document.querySelector("home-assistant")?.hass ? ag(e || void 0) : ++t < 40 && setTimeout(a, 500);
   };
   a();
 }
-ag();
-window.addEventListener("location-changed", () => setTimeout(ag, 0));
-const kp = "glass-cards-version", Xv = "https://glass.argalas.org/docs/cards/", Qv = [
+ig();
+window.addEventListener("location-changed", () => setTimeout(ig, 0));
+const $p = "glass-cards-version", Qv = "https://glass.argalas.org/docs/cards/", ew = [
   {
     version: "1.11.7",
     items: [
@@ -52278,26 +52304,26 @@ function Ar(o, e) {
   for (let i = 0; i < 3; i++) if ((t[i] ?? 0) !== (a[i] ?? 0)) return (t[i] ?? 0) > (a[i] ?? 0);
   return !1;
 }
-async function ew(o) {
+async function tw(o) {
   if (!/^\d+\.\d+\.\d+$/.test(o)) return;
   let e;
   for (let n = 0; n < 40 && !(e = document.querySelector("home-assistant")?.hass)?.user; n++) await new Promise((r) => setTimeout(r, 500));
   if (!e?.user?.is_admin) return;
-  const t = await e.callWS({ type: "frontend/get_user_data", key: kp }).catch(() => {
+  const t = await e.callWS({ type: "frontend/get_user_data", key: $p }).catch(() => {
   });
   if (!t) return;
-  const a = t.value?.version, i = () => e.callWS({ type: "frontend/set_user_data", key: kp, value: { version: o } }).catch(() => {
+  const a = t.value?.version, i = () => e.callWS({ type: "frontend/set_user_data", key: $p, value: { version: o } }).catch(() => {
   });
   if (!a) return void i();
   if (!Ar(o, a)) return;
-  const s = Qv.filter((n) => Ar(n.version, a) && !Ar(n.version, o)).flatMap((n) => n.items);
+  const s = ew.filter((n) => Ar(n.version, a) && !Ar(n.version, o)).flatMap((n) => n.items);
   if (!s.length) return void i();
-  vi(e), tw(o, s, i);
+  vi(e), aw(o, s, i);
 }
 function ga(o) {
   return o.replace(/[&<>"']/g, (e) => `&#${e.charCodeAt(0)};`);
 }
-function tw(o, e, t) {
+function aw(o, e, t) {
   if (document.querySelector("glass-whats-new")) return;
   const a = document.createElement("glass-whats-new"), i = a.attachShadow({ mode: "open" });
   i.innerHTML = `
@@ -52328,7 +52354,7 @@ function tw(o, e, t) {
       </div>
       <div class="items">
         ${e.map(
-    (n) => `<a class="item" href="${Xv}${n.doc}" target="_blank" rel="noopener"><ha-icon icon="${n.icon}"></ha-icon><span><strong>${ga(v(n.name))}</strong><small>${ga(v(n.text))}</small></span></a>`
+    (n) => `<a class="item" href="${Qv}${n.doc}" target="_blank" rel="noopener"><ha-icon icon="${n.icon}"></ha-icon><span><strong>${ga(v(n.name))}</strong><small>${ga(v(n.text))}</small></span></a>`
   ).join("")}
       </div>
       <button class="ok">${ga(v("Got it"))}</button>
@@ -52338,26 +52364,26 @@ function tw(o, e, t) {
   };
   i.querySelector(".close").addEventListener("click", s), i.querySelector(".ok").addEventListener("click", s), document.body.appendChild(a);
 }
-const yc = "1.11.8", $p = {
+const yc = "1.11.8", Sp = {
   version: yc,
   GlassElement: F,
   lit: { LitElement: Ye, html: p, css: ee, svg: j, nothing: g },
   registerCard: ce,
   createCard: xs,
-  conditions: { evalCondition: ge, applyRules: xo },
-  format: { displayText: xa, computeValue: ou },
+  conditions: { evalCondition: ge, applyRules: ko },
+  format: { displayText: xa, computeValue: nu },
   colors: { cssColor: Y, tint: je },
   actions: { pressHandlers: Ze, runAction: $e, withDefaults: Ot },
   styles: { tokens: Sc, surface: we, control: Oe, animations: Ac },
   LiquidController: le,
   settings: pe,
   /** The made-up demo home (src/demo): a hass for pages without HA, and its changes. */
-  demo: { hass: Ec, onChange: Pc, setState: A0 }
+  demo: { hass: Ec, onChange: Pc, setState: M0 }
 };
-function aw() {
+function iw() {
   const o = (e, t) => (e.querySelectorAll("hui-error-card").forEach((a) => t.push(a)), e.querySelectorAll("*").forEach((a) => a.shadowRoot && o(a.shadowRoot, t)), t);
   for (const e of o(document, []))
     JSON.stringify(e._config ?? e.config ?? {}).includes("custom:glass-") && e.dispatchEvent(new CustomEvent("ll-rebuild", { bubbles: !0, composed: !0 }));
 }
-O0();
-window.GlassCards || (window.GlassCards = $p, requestAnimationFrame(aw), window.dispatchEvent(new CustomEvent("glass-cards-ready", { detail: $p })), Zv(), ew(yc), console.info(`%c GLASS-CARDS %c ${yc} `, "background:#0a84ff;color:#fff;border-radius:4px 0 0 4px;padding:2px 4px", "background:#fff;color:#0a84ff;border-radius:0 4px 4px 0;padding:2px 4px"));
+B0();
+window.GlassCards || (window.GlassCards = Sp, requestAnimationFrame(iw), window.dispatchEvent(new CustomEvent("glass-cards-ready", { detail: Sp })), Jv(), tw(yc), console.info(`%c GLASS-CARDS %c ${yc} `, "background:#0a84ff;color:#fff;border-radius:4px 0 0 4px;padding:2px 4px", "background:#fff;color:#0a84ff;border-radius:0 4px 4px 0;padding:2px 4px"));

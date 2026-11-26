@@ -1422,7 +1422,8 @@ class GlassMedia extends GlassElement<MediaConfig> {
           // a soundbar on the TV: what plays there (its picture, title), not its "TV Audio"
           const st = this._tvSet(id) ? this._shownState(id) : hass.states[id];
           const a = st?.attributes ?? {};
-          const url = this._artUrl(st);
+          // a picture only with what plays (an idle or unavailable player keeps its last one)
+          const url = st && LOADED.has(st.state) && a.media_title ? this._artUrl(st) : undefined;
           const icon = a.device_class === "tv" ? "mdi:television" : a.device_class === "receiver" ? "mdi:audio-video" : "mdi:speaker";
           const what =
             !st || st.state === "unavailable"

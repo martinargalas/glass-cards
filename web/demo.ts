@@ -163,8 +163,8 @@ function screensaver(open: boolean) {
   const card = document.createElement("glass-media") as Dash;
   card.setConfig({
     type: "custom:glass-media",
-    entity: "media_player.living_room_speaker",
-    entities: ["media_player.kitchen_speaker", "media_player.bathroom_speaker"],
+    entity: "media_player.kitchen_speaker",
+    entities: ["media_player.office_speaker", "media_player.living_room_speaker", "media_player.bathroom_speaker"],
     layout: "screen",
   });
   const feed = () => (card.hass = demoHass(haBase() as any));
