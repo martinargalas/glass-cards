@@ -777,8 +777,9 @@ class GlassMedia extends GlassElement<MediaConfig> {
       // the TV's: none of the speaker's own "TV Audio" – what plays there, or which device it is
       for (const k of keys) delete attrs[k];
       attrs.media_title = a.media_title ?? a.media_series_title ?? a.app_name ?? v.attributes.friendly_name;
-      attrs.media_artist =
-        a.media_artist ?? (a.media_title && a.media_series_title ? a.media_series_title : undefined) ?? a.app_name ?? v.attributes.friendly_name;
+      // under it: the channel, the series, the app – never the title again (only an app: the device)
+      const under = [a.media_artist, a.media_title && a.media_series_title, a.app_name, v.attributes.friendly_name];
+      attrs.media_artist = under.find((x) => x && x !== attrs.media_title);
       attrs.glass_tv = true;
     }
     for (const k of keys) if (k in a && !(tv && (k === "media_title" || k === "media_artist"))) attrs[k] = a[k];
@@ -822,8 +823,9 @@ class GlassMedia extends GlassElement<MediaConfig> {
   }
 
   /**
-   * A soundbar playing the TV's sound (its input: TV, HDMI): the player that plays on the TV – the
-   * first of its tv_sources playing or paused (an Apple TV, Plex on it, a PlayStation). Its title,
+   * A soundbar playing the TV's sound (its input: TV, HDMI): the player that plays on the TV – of
+   * its tv_sources the one that changed last (an Apple TV, Plex on it, a PlayStation), or one listed
+   * before it playing the same (Plex: the poster). Its title,
    * picture and time show; play, pause and skips go to it; the volume stays the speaker's.
    */
   private _tvVia(id: string): string | undefined {
@@ -840,14 +842,25 @@ class GlassMedia extends GlassElement<MediaConfig> {
       return sp === id || sp === tw || this._twins.get(sp) === id;
     });
     const on = (set?.sources ?? []).filter((x) => LOADED.has(s[x]?.state ?? ""));
-    const started = (x: string) => Date.parse(s[x].last_changed) || 0;
-    const heard = (x: string) => Date.parse(s[x].last_updated) || 0;
-    // left behind: another one started playing after it last said anything (Plex keeps saying
-    // "playing" for a while after you moved on to another app or the PlayStation)
-    const fresh = on.filter((x) => !on.some((y) => y !== x && s[y].state === "playing" && started(y) > heard(x)));
-    const pool = fresh.length ? fresh : on;
-    // playing first, in the order given – a paused one only when none plays
-    return pool.find((x) => s[x].state === "playing") ?? pool[0];
+    if (!on.length) return undefined;
+    // what's on the TV: the one that changed last – started, paused, another app (Plex keeps saying
+    // "playing" long after you moved on to another app or the PlayStation, but it doesn't change)
+    const changed = (x: string) => Date.parse(s[x].last_changed) || 0;
+    const lead = on.reduce((a, b) => (changed(b) > changed(a) ? b : a));
+    // only an app open, nothing in it (the Apple TV "paused" in Infuse's menu): nothing plays – and
+    // nothing older shows instead (it was left behind)
+    if (!s[lead].attributes.media_title && !s[lead].attributes.media_series_title) return undefined;
+    // the same thing told better by one listed before it (Plex on the Apple TV: the poster)
+    const words = (x: string) =>
+      [s[x].attributes.media_title, s[x].attributes.media_series_title, s[x].attributes.media_artist]
+        .filter((w): w is string => typeof w === "string" && w.trim().length > 2)
+        .map((w) => w.toLowerCase().trim());
+    const same = (x: string) => {
+      const a = words(x);
+      const b = words(lead);
+      return a.some((w) => b.some((v) => v.includes(w) || w.includes(v)));
+    };
+    return on.slice(0, on.indexOf(lead)).find(same) ?? lead;
   }
 
   /**

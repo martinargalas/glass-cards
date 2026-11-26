@@ -39234,8 +39234,10 @@ const Tt = (o) => ({
     if (!a || !s) return a;
     const d = s.attributes, h = { ...a.attributes }, u = i !== void 0 && i === this._tvVia(e);
     if (u) {
-      for (const b of n) delete h[b];
-      h.media_title = d.media_title ?? d.media_series_title ?? d.app_name ?? s.attributes.friendly_name, h.media_artist = d.media_artist ?? (d.media_title && d.media_series_title ? d.media_series_title : void 0) ?? d.app_name ?? s.attributes.friendly_name, h.glass_tv = !0;
+      for (const y of n) delete h[y];
+      h.media_title = d.media_title ?? d.media_series_title ?? d.app_name ?? s.attributes.friendly_name;
+      const b = [d.media_artist, d.media_title && d.media_series_title, d.app_name, s.attributes.friendly_name];
+      h.media_artist = b.find((y) => y && y !== h.media_title), h.glass_tv = !0;
     }
     for (const b of n) b in d && !(u && (b === "media_title" || b === "media_artist")) && (h[b] = d[b]);
     const m = ne.NEXT | ne.PREVIOUS | ne.SHUFFLE | ne.REPEAT | ne.SEEK | (u ? ne.PAUSE | ne.PLAY : 0);
@@ -39254,8 +39256,9 @@ const Tt = (o) => ({
     return t ? [...this._ids, ...this._config.library_from ? [this._config.library_from] : []].find((i) => i !== e && t[i]?.attributes.remote_player_id === e && Zs.has(t[i]?.state ?? "")) ?? this._tvVia(e) : void 0;
   }
   /**
-   * A soundbar playing the TV's sound (its input: TV, HDMI): the player that plays on the TV – the
-   * first of its tv_sources playing or paused (an Apple TV, Plex on it, a PlayStation). Its title,
+   * A soundbar playing the TV's sound (its input: TV, HDMI): the player that plays on the TV – of
+   * its tv_sources the one that changed last (an Apple TV, Plex on it, a PlayStation), or one listed
+   * before it playing the same (Plex: the poster). Its title,
    * picture and time show; play, pause and skips go to it; the volume stays the speaker's.
    */
   _tvVia(e) {
@@ -39266,8 +39269,15 @@ const Tt = (o) => ({
     const n = this._twins.get(e), l = (t.find((m) => {
       const f = m.speaker ?? this._ids[0];
       return f === e || f === n || this._twins.get(f) === e;
-    })?.sources ?? []).filter((m) => Pe.has(a[m]?.state ?? "")), c = (m) => Date.parse(a[m].last_changed) || 0, d = (m) => Date.parse(a[m].last_updated) || 0, h = l.filter((m) => !l.some((f) => f !== m && a[f].state === "playing" && c(f) > d(m))), u = h.length ? h : l;
-    return u.find((m) => a[m].state === "playing") ?? u[0];
+    })?.sources ?? []).filter((m) => Pe.has(a[m]?.state ?? ""));
+    if (!l.length) return;
+    const c = (m) => Date.parse(a[m].last_changed) || 0, d = l.reduce((m, f) => c(f) > c(m) ? f : m);
+    if (!a[d].attributes.media_title && !a[d].attributes.media_series_title) return;
+    const h = (m) => [a[m].attributes.media_title, a[m].attributes.media_series_title, a[m].attributes.media_artist].filter((f) => typeof f == "string" && f.trim().length > 2).map((f) => f.toLowerCase().trim()), u = (m) => {
+      const f = h(m), b = h(d);
+      return f.some((y) => b.some((_) => _.includes(y) || y.includes(_)));
+    };
+    return l.slice(0, l.indexOf(d)).find(u) ?? d;
   }
   async _twin(e) {
     if (this._twins.has(e)) return this._twins.get(e) ?? void 0;
