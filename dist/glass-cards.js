@@ -39774,8 +39774,8 @@ const Tt = (o) => ({
     const a = this._artUrl(e), i = !a && this._artWaits(e), s = e?.attributes.glass_tv || e?.attributes.device_class === "tv" ? "mdi:television" : "mdi:music-note", n = t === "square" ? e?.attributes.glass_logo : void 0;
     if (n && !a && !i)
       return p`<div class="art ${t} logoplate"><img class="chlogo big" src=${n} alt="" /></div>`;
-    const r = a ? jm.get(a) ?? 1 : 1, l = a && /\/\/i\.ytimg\.com\/vi\/[^/]+\/(hq|sd)default\./.test(a) ? "yt" : "", c = a && e?.attributes.glass_tv && !e?.attributes.glass_logo && (l || r > 1.15 || r < 0.87) ? `fit ${l}` : "";
-    return p`<div class="art ${t} ${c} ${a ? "" : "none"}" style=${a ? c ? `--art:${ma(a)}` : `background-image:${ma(a)}` : ""}>
+    const r = a ? jm.get(a) ?? 1 : 1, c = (a && /\/\/i\.ytimg\.com\/vi\/[^/]+\/(hq|sd)default\./.test(a) ? "yt" : "") || (a && e?.attributes.glass_tv && !e?.attributes.glass_logo && (r > 1.15 || r < 0.87) ? "fit" : "");
+    return p`<div class="art ${t} ${c} ${a ? "" : "none"}" style=${a ? c === "fit" ? `--art:${ma(a)}` : `background-image:${ma(a)}` : ""}>
       ${a ? g : i ? p`<i class="spin" aria-hidden="true"></i>` : p`<ha-icon .icon=${s}></ha-icon>`}
       ${a && n ? p`<img class="chlogo" src=${n} alt="" />` : g}
     </div>`;
@@ -40975,13 +40975,11 @@ nn.parts = am, nn.styles = [
         inset: 0;
         background-size: contain;
       }
-      /* YouTube's 4:3 thumbnail: its 16:9 frame, the black bars cut off */
-      .art.fit.yt::after {
-        inset: auto 0;
-        top: 50%;
-        height: 56.25%;
-        transform: translateY(-50%);
-        background-size: cover;
+      /* YouTube's 4:3 thumbnail: its 16:9 frame (black bars above and below) cut to the square –
+         the frame as tall as the square */
+      .art.yt {
+        background-size: 177.78% auto;
+        background-position: center;
       }
       .art .chlogo {
         position: absolute;
