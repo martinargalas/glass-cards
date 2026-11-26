@@ -504,6 +504,8 @@ function heldOrAsTold(st: HassEntity, m: SteadyMem, id: string, title: string | 
 const artLoad = new Map<string, "ok" | "fail" | Promise<void>>();
 /** a programme's channel found by a TV guide's search (played from a recording), by its title */
 const channelFound = new Map<string, { name: string; picture?: string } | null>();
+/** what each TV device last played (its title): its pause is a real one only of that */
+const tvPlayed = new Map<string, string>();
 /** an app's icon by its bundle id (an Apple TV's app: YouTube, Plex), from the App Store */
 const appIcons = new Map<string, string | null | Promise<void>>();
 /** each loaded picture's width / height (a TV's 16:9 frame, a 2:3 poster) */
@@ -891,9 +893,27 @@ class GlassMedia extends GlassElement<MediaConfig> {
     // that device plays – never on its own (Plex may say "playing" for hours after you closed it)
     const detail = (x: { entity: string; input?: string }, i: number) => !!x.input && pool.slice(i + 1).some((y) => y.input === x.input);
     const details = pool.filter(detail).map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
+    const words = (x: string) =>
+      [s[x].attributes.media_title, s[x].attributes.media_series_title, s[x].attributes.media_artist]
+        .filter((w): w is string => typeof w === "string" && w.trim().length > 2)
+        .map((w) => w.toLowerCase().trim());
+    const alike = (x: string, y: string) => {
+      const a = words(x);
+      const b = words(y);
+      return a.some((w) => b.some((v) => v.includes(w) || w.includes(v)));
+    };
+    // what each device last played (a pause is a pause of that)
+    for (const x of pool) if (s[x.entity]?.state === "playing" && s[x.entity].attributes.media_title) tvPlayed.set(x.entity, String(s[x.entity].attributes.media_title));
     // what an app on screen plays or holds paused (YouTube paused: still YouTube) – the home screen
-    // or an app's own menu (idle, or nothing in it) is nothing playing
-    const on = pool.filter((x, i) => !detail(x, i)).map((x) => x.entity).filter((x) => LOADED.has(s[x]?.state ?? ""));
+    // or an app's own menu (idle, or nothing in it) is nothing playing. A pause only when it is one:
+    // of what the device played last, or told by a detail too – an Apple TV flips to the app left in
+    // the background ("paused", its old video) for a while as you move between Plex's episodes
+    const paused = (x: string) =>
+      LOADED.has(s[x]?.state ?? "") && (tvPlayed.get(x) === String(s[x].attributes.media_title ?? "") || details.some((d) => alike(d, x)));
+    const on = pool
+      .filter((x, i) => !detail(x, i))
+      .map((x) => x.entity)
+      .filter((x) => s[x]?.state === "playing" || paused(x));
     if (!on.length) return undefined;
     // what's on the TV: the one that changed last – started, paused, another app (Plex keeps saying
     // "playing" long after you moved on to another app or the PlayStation, but it doesn't change)
@@ -903,15 +923,7 @@ class GlassMedia extends GlassElement<MediaConfig> {
     // nothing older shows instead (it was left behind)
     if (!s[lead].attributes.media_title && !s[lead].attributes.media_series_title) return undefined;
     // the same thing told better by one listed before it (Plex on the Apple TV: the poster)
-    const words = (x: string) =>
-      [s[x].attributes.media_title, s[x].attributes.media_series_title, s[x].attributes.media_artist]
-        .filter((w): w is string => typeof w === "string" && w.trim().length > 2)
-        .map((w) => w.toLowerCase().trim());
-    const same = (x: string) => {
-      const a = words(x);
-      const b = words(lead);
-      return a.some((w) => b.some((v) => v.includes(w) || w.includes(v)));
-    };
+    const same = (x: string) => alike(x, lead);
     return [...details, ...on.slice(0, on.indexOf(lead))].find(same) ?? lead;
   }
 
