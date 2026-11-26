@@ -898,7 +898,10 @@ class GlassMedia extends GlassElement<MediaConfig> {
     for (const e of Object.values(s)) {
       const a = e.attributes;
       if (typeof a.channel_name !== "string" || typeof a.current_title !== "string") continue;
-      const now = norm(a.current_title);
+      // its programme on air now: the next one once the current one ended (a guide may refresh rarely)
+      const ended = Date.parse(String(a.current_stop ?? "").replace(" ", "T")) < Date.now();
+      const onAir = ended && typeof a.next_title === "string" ? a.next_title : a.current_title;
+      const now = norm(onAir);
       if (now.length < 3 || !(now === want || (Math.min(now.length, want.length) >= 6 && (now.startsWith(want) || want.startsWith(now))))) continue;
       const logo = [a.entity_picture, a.logo_url].find((u) => typeof u === "string" && /^(https?:|\/)/.test(u)) as string | undefined;
       return { name: a.channel_name, picture: logo };

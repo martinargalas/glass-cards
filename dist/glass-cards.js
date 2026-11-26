@@ -39302,10 +39302,10 @@ const Tt = (o) => ({
       for (const s of Object.values(t)) {
         const n = s.attributes;
         if (typeof n.channel_name != "string" || typeof n.current_title != "string") continue;
-        const r = a(n.current_title);
-        if (r.length < 3 || !(r === i || Math.min(r.length, i.length) >= 6 && (r.startsWith(i) || i.startsWith(r)))) continue;
-        const l = [n.entity_picture, n.logo_url].find((c) => typeof c == "string" && /^(https?:|\/)/.test(c));
-        return { name: n.channel_name, picture: l };
+        const l = Date.parse(String(n.current_stop ?? "").replace(" ", "T")) < Date.now() && typeof n.next_title == "string" ? n.next_title : n.current_title, c = a(l);
+        if (c.length < 3 || !(c === i || Math.min(c.length, i.length) >= 6 && (c.startsWith(i) || i.startsWith(c)))) continue;
+        const d = [n.entity_picture, n.logo_url].find((h) => typeof h == "string" && /^(https?:|\/)/.test(h));
+        return { name: n.channel_name, picture: d };
       }
   }
   async _twin(e) {
