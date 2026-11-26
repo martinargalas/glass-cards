@@ -1814,7 +1814,9 @@ class GlassMedia extends GlassElement<MediaConfig> {
     // the TV's picture not square (a 16:9 frame, a 2:3 poster): whole, over a blur of itself
     const r = url ? (artRatio.get(url) ?? 1) : 1;
     // live TV with its channel's logo: the programme cut to the square, the logo over it
-    const fit = url && st?.attributes.glass_tv && !st?.attributes.glass_logo && (r > 1.15 || r < 0.87) ? "fit" : "";
+    // YouTube's thumbnail: a 16:9 frame inside black bars (4:3) – the frame only
+    const yt = url && /\/\/i\.ytimg\.com\/vi\/[^/]+\/(hq|sd)default\./.test(url) ? "yt" : "";
+    const fit = url && st?.attributes.glass_tv && !st?.attributes.glass_logo && (yt || r > 1.15 || r < 0.87) ? `fit ${yt}` : "";
     return html`<div class="art ${cls} ${fit} ${url ? "" : "none"}" style=${url ? (fit ? `--art:${cssUrl(url)}` : `background-image:${cssUrl(url)}`) : ""}>
       ${url ? nothing : wait ? html`<i class="spin" aria-hidden="true"></i>` : html`<ha-icon .icon=${icon}></ha-icon>`}
       ${url && logo ? html`<img class="chlogo" src=${logo} alt="" />` : nothing}
@@ -3556,6 +3558,14 @@ class GlassMedia extends GlassElement<MediaConfig> {
       .art.fit::after {
         inset: 0;
         background-size: contain;
+      }
+      /* YouTube's 4:3 thumbnail: its 16:9 frame, the black bars cut off */
+      .art.fit.yt::after {
+        inset: auto 0;
+        top: 50%;
+        height: 56.25%;
+        transform: translateY(-50%);
+        background-size: cover;
       }
       .art .chlogo {
         position: absolute;
